@@ -247,7 +247,7 @@ if (isMain) {
   }
   const linked = linkedDownloads(data);
   for (const file of linked) {
-    if (!existsSync(path.join(ROOT, file)) && !file.endsWith(".pdf")) problems.push(file + " is linked from a view and does not exist");
+    if (!existsSync(path.join(ROOT, file))) problems.push(file + " is linked from a view and does not exist");
   }
   const downloads = path.join(ROOT, "data", "downloads");
   for (const file of existsSync(downloads) ? readdirSync(downloads) : []) {
