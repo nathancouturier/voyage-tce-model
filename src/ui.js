@@ -47,9 +47,16 @@ const viewRoot = document.querySelector("#view");
 let renderToken = 0;
 let rendering = false;
 
+/* index.html writes the links so the header keeps its height while the page
+ * loads; they must say what the route table says, or they are rebuilt from it
+ * and the difference is logged, which the browser checks treat as a failure. */
 function buildNav() {
   const list = document.querySelector("#site-nav-list");
   if (!list) return;
+  const written = [...list.querySelectorAll(".site-nav__link")].map((a) => [a.getAttribute("data-view"), a.getAttribute("href"), a.textContent]);
+  const wanted = ROUTES.map((route) => [route.name, router.href(route.name), route.label]);
+  if (JSON.stringify(written) === JSON.stringify(wanted)) return;
+  console.error("the views listed in index.html differ from the route table in src/ui.js; rebuilt from the table");
   clear(list);
   for (const route of ROUTES) {
     list.appendChild(el("li", {}, [

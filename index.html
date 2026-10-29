@@ -72,7 +72,7 @@
     "./src/sections.js": "./src/sections.js?v=a8e2c0424957",
     "./src/state.js": "./src/state.js?v=ffbd1316ca2c",
     "./src/theme.js": "./src/theme.js?v=56b0dd101ec1",
-    "./src/ui.js": "./src/ui.js?v=999cf7c5582b"
+    "./src/ui.js": "./src/ui.js?v=7448804ef5de"
   }
 }
 </script>
@@ -82,7 +82,7 @@
 <link rel="preload" href="vendor/fraunces/fraunces.v1.000.latin.woff2" as="font" type="font/woff2" crossorigin>
 
 <link rel="stylesheet" href="styles/tokens.css?v=4c369aecebf0">
-<link rel="stylesheet" href="styles/layout.css?v=47822d5b41eb">
+<link rel="stylesheet" href="styles/layout.css?v=4dfe9f2369e4">
 <link rel="stylesheet" href="styles/components.css?v=308b66003e59">
 </head>
 <body>
@@ -94,9 +94,19 @@
 <header class="site-header">
   <div class="site-header__inner">
     <a class="site-name" href="#/overview">Voyage economics and TCE</a>
-    <!-- One link per view: src/ui.js builds this list from its route table. -->
+    <!-- One link per view, written here so the header has its height before
+         any script runs; src/ui.js checks them against its route table, the
+         only list of views, and rebuilds them from it if they differ. -->
     <nav class="site-nav" aria-label="Views">
-      <ul class="site-nav__list" id="site-nav-list"></ul>
+      <ul class="site-nav__list" id="site-nav-list">
+        <li><a class="site-nav__link" href="#/overview" data-view="overview">Overview</a></li>
+        <li><a class="site-nav__link" href="#/calculator" data-view="calculator">Calculator</a></li>
+        <li><a class="site-nav__link" href="#/routes" data-view="routes">Routes</a></li>
+        <li><a class="site-nav__link" href="#/detours" data-view="detours">Detours</a></li>
+        <li><a class="site-nav__link" href="#/carbon" data-view="carbon">Carbon</a></li>
+        <li><a class="site-nav__link" href="#/paper" data-view="paper">Paper</a></li>
+        <li><a class="site-nav__link" href="#/method" data-view="method">Method and data</a></li>
+      </ul>
     </nav>
     <div class="site-header__tools">
       <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" title="Press T to toggle" aria-pressed="false"><span id="theme-icon" aria-hidden="true">&#x263E;&#xFE0E;</span></button>
@@ -140,7 +150,7 @@
   }, true);
 </script>
 
-<script type="module" src="src/ui.js?v=999cf7c5582b"></script>
+<script type="module" src="src/ui.js?v=7448804ef5de"></script>
 
 </body>
 </html>

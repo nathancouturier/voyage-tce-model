@@ -147,11 +147,14 @@ h1, h2, h3, h4 {
 
 /* ---------------------------------------------------- content column --- */
 
+/* The view holds at least the screen's height, so the footer starts below the
+ * fold and does not jump when the view's figures arrive. */
 .view {
   max-width: var(--container);
   margin-inline: auto;
   padding-inline: var(--gutter);
   padding-block: 28px 56px;
+  min-height: 100vh;
 }
 
 /* ------------------------------------------------------------- footer --- */
