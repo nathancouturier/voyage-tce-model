@@ -199,8 +199,11 @@ def common_market() -> Market:
 
 
 @cache
-def weekly_market(date: str, max_lag_days: int = 7) -> Market:
-    """The brokers' bunker table dated on, or at most max_lag_days before, a date."""
+def weekly_market(date: str, hub: str | None = None, max_lag_days: int = 7) -> Market:
+    """The latest brokers' bunker table dated on, or at most max_lag_days before, a date.
+
+    With a hub, only a table that prices that hub qualifies.
+    """
     from datetime import date as _date
 
     target = _date.fromisoformat(date)
@@ -208,13 +211,15 @@ def weekly_market(date: str, max_lag_days: int = 7) -> Market:
     for week in seed("market.json")["weekly_bunkers_usd_t"]["weeks"]:
         d = _date.fromisoformat(week["date"])
         lag = (target - d).days
+        if hub is not None and hub not in week["prices"]:
+            continue
         if 0 <= lag <= max_lag_days and (best is None or d > _date.fromisoformat(best["date"])):
             best = week
     if best is None:
         raise ValueError("no weekly bunker table within %d days before %s" % (max_lag_days, date))
     bunkers = {
-        hub: {grade: (float(values[i]), "%s, %s" % (best["source"], best["date"])) for i, grade in enumerate(GRADES)}
-        for hub, values in best["prices"].items()
+        h: {grade: (float(values[i]), "%s, %s" % (best["source"], best["date"])) for i, grade in enumerate(GRADES)}
+        for h, values in best["prices"].items()
     }
     month = date[:7]
     eua_value, eua_source = _eua(month)
@@ -230,6 +235,32 @@ def weekly_market(date: str, max_lag_days: int = 7) -> Market:
         fx_value,
         fx_source,
     )
+
+
+@cache
+def quarter_market(quarter: str, date: str) -> Market:
+    """Ship & Bunker's quarterly averages for a quarter (YYYY-Qn), for an anchor date without a weekly table."""
+    for q in seed("market.json")["quarterly_bunkers_usd_t"]["quarters"]:
+        if q["quarter"] == quarter:
+            bunkers = {
+                hub: {grade: (float(spec["values"][i]), "%s" % q["source"]) for i, grade in enumerate(GRADES)}
+                for hub, spec in q["prices"].items()
+            }
+            month = date[:7]
+            eua_value, eua_source = _eua(month)
+            fx_value, fx_source = _fx(month)
+            return Market(
+                "quarter_" + quarter,
+                "%s average" % quarter,
+                date,
+                bunkers,
+                month,
+                eua_value,
+                eua_source,
+                fx_value,
+                fx_source,
+            )
+    raise ValueError("no quarterly bunker table for %s" % quarter)
 
 
 def phase_in(year: int) -> float:
@@ -304,9 +335,14 @@ def build(
     ballast_routing: str | None = None,
     ballast_from: str | None = None,
     case_id: str | None = None,
+    route: baltic.Route | None = None,
 ) -> Case:
-    """The engine input for a Baltic route on a market, with every value's source."""
-    route = baltic.ROUTES[route_code]
+    """The engine input for a Baltic route on a market, with every value's source.
+
+    route replaces the Baltic definition of route_code, for a voyage the guide
+    does not define (the analyses' detour and transfer variants).
+    """
+    route = route or baltic.ROUTES[route_code]
     vessel = baltic.vessel_for(route, market.date)
     on_date = market.date
     year = int(on_date[:4])
@@ -366,7 +402,7 @@ def build(
                         route.load_turn_h or 0.0,
                     ),
                 )
-            else:
+            elif route.load_terms == "port scale":
                 load_days = (route.load_turn_h or 0.0) / HOURS_PER_DAY
                 src(
                     "port.load_days",
@@ -378,28 +414,37 @@ def build(
                     "loading time at %s (the Baltic's terms load at the port's scale, which is not "
                     "published)" % ports()[route.load]["name"]
                 )
-            if route.discharge_terms == "SHINC":
-                discharge_days = _days_shinc(
-                    route.cargo_t or 0.0, route.discharge_rate_tpd or 1.0, route.discharge_turn_h or 0.0
-                )
-                terms = "Sundays and holidays included"
             else:
-                discharge_days = _days_sshex(
-                    route.cargo_t or 0.0, route.discharge_rate_tpd or 1.0, route.discharge_turn_h or 0.0
+                load_days = (route.load_turn_h or 0.0) / HOURS_PER_DAY
+                src("port.load_days", "empty", "no loading terms for this voyage")
+                excluded.append("loading time at %s (no terms for this voyage)" % ports()[route.load]["name"])
+            if route.discharge_rate_tpd is None:
+                discharge_days = (route.discharge_turn_h or 0.0) / HOURS_PER_DAY
+                src("port.discharge_days", "empty", "no discharge terms for this voyage")
+                excluded.append("discharging time at %s (no terms for this voyage)" % ports()[route.discharge]["name"])
+            else:
+                if route.discharge_terms == "SHINC":
+                    discharge_days = _days_shinc(
+                        route.cargo_t or 0.0, route.discharge_rate_tpd, route.discharge_turn_h or 0.0
+                    )
+                    terms = "Sundays and holidays included"
+                else:
+                    discharge_days = _days_sshex(
+                        route.cargo_t or 0.0, route.discharge_rate_tpd, route.discharge_turn_h or 0.0
+                    )
+                    terms = "five working days a week"
+                src(
+                    "port.discharge_days",
+                    "derived",
+                    "%s: %s t at %s t a day, %s, plus %g hours turn time"
+                    % (
+                        gmb,
+                        f"{route.cargo_t:,.0f}",
+                        f"{route.discharge_rate_tpd:,.0f}",
+                        terms,
+                        route.discharge_turn_h or 0.0,
+                    ),
                 )
-                terms = "five working days a week"
-            src(
-                "port.discharge_days",
-                "derived",
-                "%s: %s t at %s t a day, %s, plus %g hours turn time"
-                % (
-                    gmb,
-                    f"{route.cargo_t:,.0f}",
-                    f"{route.discharge_rate_tpd:,.0f}",
-                    terms,
-                    route.discharge_turn_h or 0.0,
-                ),
-            )
         port.update(load_days=load_days, discharge_days=discharge_days, waiting_days=0.0, canal_days=0.0)
         src("port.waiting_days", "empty", "no waiting time in the Baltic's dry route terms")
         load_tpd = discharge_tpd = waiting_tpd = 0.0

@@ -32,7 +32,7 @@ from __future__ import annotations
 
 import itertools
 import math
-from collections.abc import Mapping, Sequence
+from collections.abc import Iterable, Mapping, Sequence
 from typing import Any
 
 HOURS_PER_DAY = 24.0
@@ -64,6 +64,15 @@ FUELEU_MJ_PER_T_VLSFO = 41000.0
 GRAMS_PER_TONNE = 1.0e6
 
 
+def _total(values: Iterable[float]) -> float:
+    """Left to right addition, as src/engine.js adds: the built-in sum compensates
+    rounding from Python 3.12, which would part the two by an ulp."""
+    total = 0.0
+    for value in values:
+        total += value
+    return total
+
+
 # --------------------------------------------------------------------------
 # Speed and consumption
 # --------------------------------------------------------------------------
@@ -83,14 +92,14 @@ def power_fit(curve: Sequence[Sequence[float]]) -> dict[str, float]:
     n = len(pairs)
     xs = [math.log(v) for v, _ in pairs]
     ys = [math.log(c) for _, c in pairs]
-    mean_x = sum(xs) / n
-    mean_y = sum(ys) / n
-    sxx = sum((x - mean_x) ** 2 for x in xs)
-    sxy = sum((x - mean_x) * (y - mean_y) for x, y in zip(xs, ys, strict=True))
+    mean_x = _total(xs) / n
+    mean_y = _total(ys) / n
+    sxx = _total((x - mean_x) ** 2 for x in xs)
+    sxy = _total((x - mean_x) * (y - mean_y) for x, y in zip(xs, ys, strict=True))
     b = sxy / sxx
     log_a = mean_y - b * mean_x
-    ss_tot = sum((y - mean_y) ** 2 for y in ys)
-    ss_res = sum((y - (log_a + b * x)) ** 2 for x, y in zip(xs, ys, strict=True))
+    ss_tot = _total((y - mean_y) ** 2 for y in ys)
+    ss_res = _total((y - (log_a + b * x)) ** 2 for x, y in zip(xs, ys, strict=True))
     r2 = 1.0 if ss_tot == 0 else 1.0 - ss_res / ss_tot
     return {"a": math.exp(log_a), "b": b, "r2": r2}
 
@@ -343,7 +352,7 @@ def evaluate(inputs: Mapping[str, Any]) -> dict[str, Any]:
     prices = inputs["prices"]
     trip = inputs["contract"] == "trip"
 
-    bunkers_by_activity = {name: sum(_lot_cost(lot, prices) for lot in lots) for name, lots in f["lots"].items()}
+    bunkers_by_activity = {name: _total(_lot_cost(lot, prices) for lot in lots) for name, lots in f["lots"].items()}
     bunkers_by_grade = {"vlsfo": 0.0, "hsfo": 0.0, "mgo": 0.0}
     for lots in f["lots"].values():
         for lot in lots:
@@ -369,7 +378,7 @@ def evaluate(inputs: Mapping[str, Any]) -> dict[str, Any]:
         owner_fueleu = fueleu(ballast_fuel, inputs)["penalty_usd"] if inputs["fueleu"]["include"] else 0.0
         owner_canal = costs["canal_ballast_usd"]
         charterer_costs = (
-            sum(bunkers_by_activity[a] for a in _TRIP_ACTIVITIES)
+            _total(bunkers_by_activity[a] for a in _TRIP_ACTIVITIES)
             + (ets_all - owner_ets)
             + port_usd
             + costs["canal_laden_usd"]
@@ -390,7 +399,7 @@ def evaluate(inputs: Mapping[str, Any]) -> dict[str, Any]:
     else:
         charterer_costs = 0.0
         lines = {
-            "bunkers": sum(bunkers_by_activity.values()),
+            "bunkers": _total(bunkers_by_activity.values()),
             "ports": port_usd,
             "canals": canal_usd,
             "ets": ets_all,
@@ -403,7 +412,7 @@ def evaluate(inputs: Mapping[str, Any]) -> dict[str, Any]:
     other_revenue = inputs["other_revenue_usd"]
     commission = (gross + other_revenue) * inputs["commission_pct"] / PERCENT
     net_revenue = gross + other_revenue - commission
-    voyage_costs = sum(lines.values())
+    voyage_costs = _total(lines.values())
     result = net_revenue - voyage_costs
     tce = result / d["total"]
     return {
@@ -482,45 +491,82 @@ def tce_by_speed(inputs: Mapping[str, Any], speeds: Sequence[float]) -> list[dic
     return out
 
 
-#: The search for the best speed: a grid at this step, then this many halvings
-#: around the best grid point.
-SPEED_STEP_KN = 0.05
-SPEED_REFINE = 20
+#: The speed search: every laden speed on this grid between the bounds.
+SPEED_STEP_KN = 0.01
 
 
 def optimal_speed(inputs: Mapping[str, Any], lo_kn: float, hi_kn: float) -> dict[str, float]:
-    """The laden speed in [lo, hi] that maximises the TCE, ballast speed keeping its gap.
+    """The laden speed on a 0.01 knot grid in [lo, hi] that maximises the TCE, ballast keeping its gap.
 
-    A grid at SPEED_STEP_KN, then a bisection on the slope around the best grid
-    point: deterministic, so the browser finds the same answer.
+    A plain grid, so that the browser, repeating the same arithmetic, picks the
+    same speed: a finer search would let rounding in the last digit choose
+    between two speeds whose TCEs differ by less than a cent a day.
     """
     gap = inputs["ballast"]["speed_kn"] - inputs["laden"]["speed_kn"]
-
-    def tce(v: float) -> float:
-        return evaluate(with_speed(inputs, v, v + gap))["tce_usd_day"]
-
     steps = round((hi_kn - lo_kn) / SPEED_STEP_KN)
     best_v = lo_kn
-    best_t = tce(lo_kn)
+    best_t = evaluate(with_speed(inputs, lo_kn, lo_kn + gap))["tce_usd_day"]
     for k in range(1, steps + 1):
         v = lo_kn + k * SPEED_STEP_KN
-        t = tce(v)
+        t = evaluate(with_speed(inputs, v, v + gap))["tce_usd_day"]
         if t > best_t:
             best_v, best_t = v, t
-    left = max(lo_kn, best_v - SPEED_STEP_KN)
-    right = min(hi_kn, best_v + SPEED_STEP_KN)
-    for _ in range(SPEED_REFINE):
-        m1 = left + (right - left) / 3.0
-        m2 = right - (right - left) / 3.0
-        if tce(m1) < tce(m2):
-            left = m1
-        else:
-            right = m2
-    v = (left + right) / 2.0
-    t = tce(v)
-    if t < best_t:
-        v, t = best_v, best_t
-    return {"laden_kn": v, "ballast_kn": v + gap, "tce_usd_day": t}
+    return {"laden_kn": best_v, "ballast_kn": best_v + gap, "tce_usd_day": best_t}
+
+
+#: The shocks of the sensitivity chart: (id, low factor or shift, high factor or shift).
+SHOCKS: tuple[tuple[str, float, float], ...] = (
+    ("freight", 0.9, 1.1),
+    ("bunkers", 0.9, 1.1),
+    ("speed", -1.0, 1.0),
+    ("port_days", -1.0, 1.0),
+    ("eua", 0.8, 1.2),
+)
+
+
+def shocked(inputs: Mapping[str, Any], shock: str, value: float) -> dict[str, Any]:
+    """A copy of the inputs with one shock applied.
+
+    freight, bunkers and eua scale the rate, every fuel price and the allowance
+    price by a factor; speed shifts both legs by knots; port_days shifts the
+    waiting days by days, never below zero.
+    """
+    out = dict(inputs)
+    if shock == "freight":
+        out["freight_value"] = inputs["freight_value"] * value
+    elif shock == "bunkers":
+        out["prices"] = {key: price * value for key, price in inputs["prices"].items()}
+    elif shock == "speed":
+        out = with_speed(inputs, inputs["laden"]["speed_kn"] + value, inputs["ballast"]["speed_kn"] + value)
+    elif shock == "port_days":
+        port = dict(inputs["port"])
+        port["waiting_days"] = max(0.0, port["waiting_days"] + value)
+        out["port"] = port
+    elif shock == "eua":
+        out["ets"] = dict(inputs["ets"], eua_eur_t=inputs["ets"]["eua_eur_t"] * value)
+    else:
+        raise ValueError("unknown shock %r" % shock)
+    return out
+
+
+def sensitivities(inputs: Mapping[str, Any]) -> list[dict[str, Any]]:
+    """The TCE under each shock, low and high, beside the base TCE."""
+    base_tce = evaluate(inputs)["tce_usd_day"]
+    out = []
+    for shock, low, high in SHOCKS:
+        low_tce = evaluate(shocked(inputs, shock, low))["tce_usd_day"]
+        high_tce = evaluate(shocked(inputs, shock, high))["tce_usd_day"]
+        out.append(
+            {
+                "id": shock,
+                "low": low,
+                "high": high,
+                "low_tce_usd_day": low_tce,
+                "high_tce_usd_day": high_tce,
+                "base_tce_usd_day": base_tce,
+            }
+        )
+    return out
 
 
 # --------------------------------------------------------------------------
@@ -551,4 +597,27 @@ def hedge(
         "route_ffa_tce_usd_day": route_tce,
         "basis_vs_tc_ffa_usd_day": None if tc_ffa_usd_day is None else physical_tce_usd_day - tc_ffa_usd_day,
         "basis_vs_route_ffa_usd_day": None if route_tce is None else physical_tce_usd_day - route_tce,
+    }
+
+
+def constants() -> dict[str, Any]:
+    """Every constant the engine computes with, for src/engine.js, which holds no number of its own."""
+    return {
+        "HOURS_PER_DAY": HOURS_PER_DAY,
+        "PERCENT": PERCENT,
+        "CO2_FACTOR": CO2_FACTOR,
+        "CH4_FACTOR": CH4_FACTOR,
+        "N2O_FACTOR": N2O_FACTOR,
+        "GWP_CH4": GWP_CH4,
+        "GWP_N2O": GWP_N2O,
+        "FUELEU_LCV_MJ_G": FUELEU_LCV_MJ_G,
+        "FUELEU_WTT_G_MJ": FUELEU_WTT_G_MJ,
+        "FUELEU_GWP_CH4": FUELEU_GWP_CH4,
+        "FUELEU_GWP_N2O": FUELEU_GWP_N2O,
+        "FUELEU_REFERENCE_G_MJ": FUELEU_REFERENCE_G_MJ,
+        "FUELEU_PENALTY_EUR_PER_T": FUELEU_PENALTY_EUR_PER_T,
+        "FUELEU_MJ_PER_T_VLSFO": FUELEU_MJ_PER_T_VLSFO,
+        "GRAMS_PER_TONNE": GRAMS_PER_TONNE,
+        "SPEED_STEP_KN": SPEED_STEP_KN,
+        "SHOCKS": [list(shock) for shock in SHOCKS],
     }

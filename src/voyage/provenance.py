@@ -23,18 +23,10 @@ from .sources import base
 _SPACE = re.compile(r"\s+")
 _BEFORE_PUNCT = re.compile(r" ([,.;:)%])")
 _AFTER_OPEN = re.compile(r"([($]) ")
-_PLAIN = {
-    "\u00a0": " ",
-    "\u2018": "'",
-    "\u2019": "'",
-    "\u201c": '"',
-    "\u201d": '"',
-    "\u2012": "-",
-    "\u2013": "-",
-    "\u2014": "-",
-    "\u2015": "-",
-    "\u2212": "-",
-}
+#: Typography mapped to plain ASCII, by code point: the no break space, curly
+#: quotes, and the figure, en, em and horizontal dashes and the minus sign.
+_PLAIN = {chr(0x00A0): " ", chr(0x2018): "'", chr(0x2019): "'", chr(0x201C): '"', chr(0x201D): '"'}
+_PLAIN.update({chr(code): "-" for code in (0x2012, 0x2013, 0x2014, 0x2015, 0x2212)})
 
 
 def normalise(text: str) -> str:
@@ -73,9 +65,14 @@ def document_text(raw_key: str) -> str:
     elif raw_key.endswith(("_csv", "_json", "_txt", "_js")) or content[:1] in (b"{", b"["):
         text = content.decode("utf-8", errors="replace")
     else:
-        from bs4 import BeautifulSoup
+        import warnings
 
-        soup = BeautifulSoup(content, "lxml")
+        from bs4 import BeautifulSoup, XMLParsedAsHTMLWarning
+
+        with warnings.catch_warnings():
+            # The EU's XHTML legal texts are XML; the HTML parser reads their text the same way.
+            warnings.simplefilter("ignore", XMLParsedAsHTMLWarning)
+            soup = BeautifulSoup(content, "lxml")
         for tag in soup(["script", "style", "noscript"]):
             tag.decompose()
         text = soup.get_text(" ")

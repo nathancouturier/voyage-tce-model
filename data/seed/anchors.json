@@ -11,6 +11,15 @@
         "raw_key": "tanker_hsn_baltic_tanker_report_pub2025_12_15_html",
         "entries": [
           {
+            "route": "TC20",
+            "rate_basis": "lump_sum_usd",
+            "rate_value": 4000000,
+            "tce_usd_day": null,
+            "tce_qualifier": "rate only",
+            "quote": "A voyage west on TC20 90kt MEG/UK-Continent also remained flat up again this week at just over $4.0 million",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2025_12_15_html"
+          },
+          {
             "route": "TD3C",
             "rate_basis": "ws",
             "rate_value": 125.78,
@@ -63,6 +72,15 @@
         "source": "Baltic Exchange weekly tanker report, republished by Hellenic Shipping News on 26 January 2026",
         "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_01_26_html",
         "entries": [
+          {
+            "route": "TC20",
+            "rate_basis": "lump_sum_usd",
+            "rate_value": 4550000,
+            "tce_usd_day": null,
+            "tce_qualifier": "rate only",
+            "quote": "A voyage west on TC20 90kt MEG/UK-Continent also dipped this week by $168,750 to $4.55 million.",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_01_26_html"
+          },
           {
             "route": "TD3C",
             "rate_basis": "ws",
@@ -117,6 +135,15 @@
         "source": "Baltic Exchange weekly tanker report, republished by Hellenic Shipping News on 23 February 2026",
         "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_02_23_html",
         "entries": [
+          {
+            "route": "TC20",
+            "rate_basis": "lump_sum_usd",
+            "rate_value": 4000000,
+            "tce_usd_day": null,
+            "tce_qualifier": "rate only",
+            "quote": "A voyage west on TC20 90kt MEG/UK-Continent also held stable this week at the $4.0 million mark.",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_02_23_html"
+          },
           {
             "route": "TD3C",
             "rate_basis": "ws",
@@ -179,6 +206,15 @@
         "source": "Baltic Exchange weekly tanker report, republished by Hellenic Shipping News on 2 March 2026",
         "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_02_html",
         "entries": [
+          {
+            "route": "TC20",
+            "rate_basis": "lump_sum_usd",
+            "rate_value": 4700000,
+            "tce_usd_day": null,
+            "tce_qualifier": "rate only",
+            "quote": "A voyage west on TC20 90kt MEG/UK-Continent also rose up this week to the $4.7 million mark (+$681,000).",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_02_html"
+          },
           {
             "route": "TD3C",
             "rate_basis": "ws",
@@ -243,6 +279,15 @@
         "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_09_html",
         "entries": [
           {
+            "route": "TC20",
+            "rate_basis": "lump_sum_usd",
+            "rate_value": 8510000,
+            "tce_usd_day": null,
+            "tce_qualifier": "rate only",
+            "quote": "A voyage west saw the TC20 90kt MEG/UK-Continent index also rise to $8.51 million (+$3.7 million).",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_09_html"
+          },
+          {
             "route": "TD3C",
             "rate_basis": "ws",
             "rate_value": 473.33,
@@ -304,6 +349,15 @@
         "source": "Baltic Exchange weekly tanker report, republished by Hellenic Shipping News on 16 March 2026",
         "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_16_html",
         "entries": [
+          {
+            "route": "TC20",
+            "rate_basis": "lump_sum_usd",
+            "rate_value": 7450000,
+            "tce_usd_day": null,
+            "tce_qualifier": "rate only",
+            "quote": "A voyage west saw the TC20 90kt MEG/UK-Continent index also come off to the $7.45 million mark (-$737,000).",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_16_html"
+          },
           {
             "route": "TD3C",
             "rate_basis": "ws",
@@ -367,6 +421,15 @@
         "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_23_html",
         "entries": [
           {
+            "route": "TC20",
+            "rate_basis": "lump_sum_usd",
+            "rate_value": 7290000,
+            "tce_usd_day": null,
+            "tce_qualifier": "rate only",
+            "quote": "a voyage west saw the TC20 90kt MEG/UK-Continent index came down to $7.29 million (-$143,000).",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_23_html"
+          },
+          {
             "route": "TD3C",
             "rate_basis": "ws",
             "rate_value": 413.89,
@@ -419,6 +482,15 @@
         "source": "Baltic Exchange weekly tanker report, republished by Hellenic Shipping News on 30 March 2026",
         "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_30_html",
         "entries": [
+          {
+            "route": "TC20",
+            "rate_basis": "lump_sum_usd",
+            "rate_value": 7320000,
+            "tce_usd_day": null,
+            "tce_qualifier": "rate only",
+            "quote": "A voyage west also saw the TC20 90kt MEG/UK-Continent index climb a little to $7.32 million (+$78,100).",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_30_html"
+          },
           {
             "route": "TD3C",
             "rate_basis": "ws",
@@ -473,6 +545,15 @@
         "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_04_20_html",
         "entries": [
           {
+            "route": "TC20",
+            "rate_basis": "lump_sum_usd",
+            "rate_value": 10200000,
+            "tce_usd_day": null,
+            "tce_qualifier": "rate only",
+            "quote": "A voyage west also saw the TC20 90kt MEG/UK-Continent index rise $362,000 to $10.2 million.",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_04_20_html"
+          },
+          {
             "route": "TD3C",
             "rate_basis": "ws",
             "rate_value": 467.22,
@@ -526,6 +607,15 @@
         "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_06_29_html",
         "entries": [
           {
+            "route": "TC20",
+            "rate_basis": "lump_sum_usd",
+            "rate_value": 9930000,
+            "tce_usd_day": null,
+            "tce_qualifier": "rate only",
+            "quote": "A voyage west also freighted up this week with the TC20 90kt MEG/UK-Continent index going from $9.38 million to $9.93 million.",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_06_29_html"
+          },
+          {
             "route": "TD3C",
             "rate_basis": "ws",
             "rate_value": 318.89,
@@ -578,6 +668,15 @@
         "source": "Baltic Exchange weekly tanker report, republished by Hellenic Shipping News on 14 September 2026",
         "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_09_14_html",
         "entries": [
+          {
+            "route": "TC20",
+            "rate_basis": "lump_sum_usd",
+            "rate_value": 16500000,
+            "tce_usd_day": null,
+            "tce_qualifier": "rate only",
+            "quote": "A voyage west also shot up 66% to $16.5 million on the TC20 90kt MEG/UK-Continent index.",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_09_14_html"
+          },
           {
             "route": "TD3C",
             "rate_basis": "ws",
@@ -915,6 +1014,7 @@
           "C3_usd_t": 30.11,
           "C5_usd_t": 12.25,
           "P5TC_usd_day": 19825,
+          "P4_82_usd_day": 11254,
           "S11TC_usd_day": 21153,
           "S4A_usd_day": 32550
         },
@@ -923,9 +1023,19 @@
           "C3 Tubarao - Qingdao usd/t 30.11 28.33",
           "C5 W. Aust. - Qingdao usd/t 12.25 10.24",
           "BPI 82 TC Average usd/day 19,825 18,990",
+          "P4_82 Far East - Skaw-Gib usd/day 11,254 10,806",
           "BSI 63 TC Avg. (S11TC) usd/day 21,153 21,115",
           "S4A USG-Skaw/Pass usd/day 32,550 31,475"
         ]
+      },
+      {
+        "date": "2026-09-04",
+        "source": "Signal Group, Capesize in focus, republished by Hellenic Shipping News",
+        "raw_key": "dry_hsn_capesize_in_focus_c3_multiyear_high_2026_html",
+        "values": {
+          "C3_usd_t": 41.55
+        },
+        "quote": "The strongest movement was recorded on the C3 Tubar\u00e3o-Qingdao route, where freight climbed by $3.19 week on week, or around 8%, to a multi-year high of $41.55/mt on 4 September."
       },
       {
         "date": "2026-09-11",
@@ -951,6 +1061,7 @@
           "C3_usd_t": 33.87,
           "C5_usd_t": 14.1,
           "P5TC_usd_day": 18981,
+          "P4_82_usd_day": 13556,
           "S11TC_usd_day": 23849,
           "S4A_usd_day": 30853
         },
@@ -959,6 +1070,7 @@
           "C3 Tubarao - Qingdao usd/t 33.87 30.08",
           "C5 W. Aust. - Qingdao usd/t 14.10 11.70",
           "BPI 82 TC Average usd/day 18,981 20,827",
+          "P4_82 Far East - Skaw-Gib usd/day 13,556 13,566",
           "BSI 63 TC Avg. (S11TC) usd/day 23,849 23,573",
           "S4A USG-Skaw/Pass usd/day 30,853 31,919"
         ]
