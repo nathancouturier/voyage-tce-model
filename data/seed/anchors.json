@@ -1,0 +1,1002 @@
+{
+  "schema": "voyage-tce-model seed: validation anchors",
+  "note": "Public reports of a route's rate and its TCE, the anchors the engine is tested against. Figures are the reports' own, with their qualifiers ('just over', 'about'); quote is the text each was read from, in the document named by raw_key. No figure here is tuned or adjusted.",
+  "tanker_weekly": {
+    "about": "The Baltic Exchange's weekly tanker roundup, republished in full by Hellenic Shipping News each Monday, gives each route's rate and the Baltic's round-trip TCE for the standard vessel. Rates are Worldscale points except TD22 and TC20, which the Baltic assesses as a lump sum in US dollars. The week ending date is the Friday before publication.",
+    "reports": [
+      {
+        "week_ending": "2025-12-12",
+        "published": "15 December 2025",
+        "source": "Baltic Exchange weekly tanker report, republished by Hellenic Shipping News on 15 December 2025",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2025_12_15_html",
+        "entries": [
+          {
+            "route": "TD3C",
+            "rate_basis": "ws",
+            "rate_value": 125.78,
+            "tce_usd_day": 122676,
+            "tce_qualifier": "exact",
+            "quote": "rose by about 1.5 points at WS125.78 which corresponds to a daily round-trip TCE of $122,676 for the standard Baltic VLCC",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2025_12_15_html"
+          },
+          {
+            "route": "TD22",
+            "rate_basis": "lump_sum_usd",
+            "rate_value": 13722222,
+            "tce_usd_day": 94300,
+            "tce_qualifier": "a little over",
+            "quote": "eased by about $26,000 to $13,722,222 which shows a daily round trip TCE of a little over $94,300",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2025_12_15_html"
+          },
+          {
+            "route": "TD20",
+            "rate_basis": "ws",
+            "rate_value": 126,
+            "tce_usd_day": 61400,
+            "tce_qualifier": "about",
+            "quote": "was flat at the WS126 level which translates into a daily round-trip TCE of about $61,400",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2025_12_15_html"
+          },
+          {
+            "route": "TD25",
+            "rate_basis": "ws",
+            "rate_value": 197.78,
+            "tce_usd_day": 55200,
+            "tce_qualifier": "around",
+            "quote": "to WS197.78 which gives a round trip TCE basis Houston/Rotterdam of around $55,200 per day",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2025_12_15_html"
+          },
+          {
+            "route": "TC14",
+            "rate_basis": "ws",
+            "rate_value": 166,
+            "tce_usd_day": 21600,
+            "tce_qualifier": "exact",
+            "quote": "dipped from WS179 to WS166 dropping the Baltic round trip TCE for the run from $24,100 to $21,600 /day",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2025_12_15_html"
+          }
+        ]
+      },
+      {
+        "week_ending": "2026-01-23",
+        "published": "26 January 2026",
+        "source": "Baltic Exchange weekly tanker report, republished by Hellenic Shipping News on 26 January 2026",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_01_26_html",
+        "entries": [
+          {
+            "route": "TD3C",
+            "rate_basis": "ws",
+            "rate_value": 126.5,
+            "tce_usd_day": 112394,
+            "tce_qualifier": "exact",
+            "quote": "is assessed at WS126.5, down 4 points since last Friday, which corresponds to a daily round-trip TCE of $112,394",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_01_26_html"
+          },
+          {
+            "route": "TD22",
+            "rate_basis": "lump_sum_usd",
+            "rate_value": 13675000,
+            "tce_usd_day": 93500,
+            "tce_qualifier": "just under",
+            "quote": "is rated at around $13,650,000-$13,700,000 (a softening of about $20,000 since last Friday) which means a daily round trip TCE of just under $93,500",
+            "rate_note": "reported as a range of $13,650,000 to $13,700,000; the midpoint is used",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_01_26_html"
+          },
+          {
+            "route": "TD20",
+            "rate_basis": "ws",
+            "rate_value": 149.72,
+            "tce_usd_day": 66725,
+            "tce_qualifier": "exact",
+            "quote": "lost 21 points to WS149.72 which translates into a daily round-trip TCE of $66,725",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_01_26_html"
+          },
+          {
+            "route": "TD25",
+            "rate_basis": "ws",
+            "rate_value": 280,
+            "tce_usd_day": 77200,
+            "tce_qualifier": "almost",
+            "quote": "assessed on Thursday 27 points firmer at the WS280 level which gives a round trip TCE basis Houston/Rotterdam of almost $77,200/day",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_01_26_html"
+          },
+          {
+            "route": "TC14",
+            "rate_basis": "ws",
+            "rate_value": 152,
+            "tce_usd_day": 14000,
+            "tce_qualifier": "exact",
+            "quote": "is currently at WS152 (-45 points) with the Baltic round trip TCE for the run now at $14,000/day",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_01_26_html"
+          }
+        ]
+      },
+      {
+        "week_ending": "2026-02-20",
+        "published": "23 February 2026",
+        "source": "Baltic Exchange weekly tanker report, republished by Hellenic Shipping News on 23 February 2026",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_02_23_html",
+        "entries": [
+          {
+            "route": "TD3C",
+            "rate_basis": "ws",
+            "rate_value": 163.28,
+            "tce_usd_day": 151208,
+            "tce_qualifier": "exact",
+            "quote": "is nearly 26 points firmer at WS163.28 which corresponds to a daily round-trip TCE of $151,208",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_02_23_html"
+          },
+          {
+            "route": "TD22",
+            "rate_basis": "lump_sum_usd",
+            "rate_value": 14680000,
+            "tce_usd_day": 100000,
+            "tce_qualifier": "just under",
+            "quote": "has risen by over $766,000 to about $14,680,000 which means a daily round trip TCE of just under $100,000",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_02_23_html"
+          },
+          {
+            "route": "TD20",
+            "rate_basis": "ws",
+            "rate_value": 163.61,
+            "tce_usd_day": 73400,
+            "tce_qualifier": "just over",
+            "quote": "gained 6 points to WS163.61 which translates into a daily round-trip TCE of just over $73,400",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_02_23_html"
+          },
+          {
+            "route": "TD25",
+            "rate_basis": "ws",
+            "rate_value": 285,
+            "tce_usd_day": 77200,
+            "tce_qualifier": "just over",
+            "quote": "slid back 10 points to WS285 which gives a round trip TCE basis Houston/Rotterdam of just over $77,200/day",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_02_23_html"
+          },
+          {
+            "route": "TC1",
+            "rate_basis": "ws",
+            "rate_value": 165,
+            "tce_usd_day": 36000,
+            "tce_qualifier": "just over",
+            "quote": "remained around WS165 with the corresponding TCE hovering just over $36,000/day on Baltic description round trip",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_02_23_html"
+          },
+          {
+            "route": "TC2_37",
+            "rate_basis": "ws",
+            "rate_value": 125,
+            "tce_usd_day": 6700,
+            "tce_qualifier": "exact",
+            "quote": "was assessed 15 points lower than last week at WS125 with the Baltic TCE for the round trip at $6,700/day",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_02_23_html"
+          }
+        ]
+      },
+      {
+        "week_ending": "2026-02-27",
+        "published": "2 March 2026",
+        "source": "Baltic Exchange weekly tanker report, republished by Hellenic Shipping News on 2 March 2026",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_02_html",
+        "entries": [
+          {
+            "route": "TD3C",
+            "rate_basis": "ws",
+            "rate_value": 216.89,
+            "tce_usd_day": 209550,
+            "tce_qualifier": "exact",
+            "quote": "ascended about 47.5 points over the week to WS216.89 which corresponds to a daily round-trip TCE of $209,550",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_02_html"
+          },
+          {
+            "route": "TD22",
+            "rate_basis": "lump_sum_usd",
+            "rate_value": 17300000,
+            "tce_usd_day": 121500,
+            "tce_qualifier": "just over",
+            "quote": "has risen by over $2,400,000 to just over 17,300,000 which means a daily round trip TCE of just over $121,500",
+            "rate_note": "reported as just over 17,300,000; 17,300,000 is used",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_02_html"
+          },
+          {
+            "route": "TD20",
+            "rate_basis": "ws",
+            "rate_value": 211.11,
+            "tce_usd_day": 101600,
+            "tce_qualifier": "over",
+            "quote": "is now 45 points firmer than a week ago at WS211.11 which translates into a daily round-trip TCE of over $101,600",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_02_html"
+          },
+          {
+            "route": "TD25",
+            "rate_basis": "ws",
+            "rate_value": 293.61,
+            "tce_usd_day": 79600,
+            "tce_qualifier": "just over",
+            "quote": "recovered 9 points to WS293.61 which gives a round trip TCE basis Houston/Rotterdam of just over $79,600/day",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_02_html"
+          },
+          {
+            "route": "TC1",
+            "rate_basis": "ws",
+            "rate_value": 197,
+            "tce_usd_day": 45800,
+            "tce_qualifier": "just under",
+            "quote": "went from WS168 to WS197 with the corresponding TCE jumping 24% to just under $45,800/day",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_02_html"
+          },
+          {
+            "route": "TC2_37",
+            "rate_basis": "ws",
+            "rate_value": 127,
+            "tce_usd_day": 6500,
+            "tce_qualifier": "exact",
+            "quote": "was assessed 10 points higher than last week at WS127 with the Baltic TCE for the round trip at $6,500/day",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_02_html"
+          }
+        ]
+      },
+      {
+        "week_ending": "2026-03-06",
+        "published": "9 March 2026",
+        "source": "Baltic Exchange weekly tanker report, republished by Hellenic Shipping News on 9 March 2026",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_09_html",
+        "entries": [
+          {
+            "route": "TD3C",
+            "rate_basis": "ws",
+            "rate_value": 473.33,
+            "tce_usd_day": 485959,
+            "tce_qualifier": "exact",
+            "quote": "is being assessed 248 points higher than a week ago at WS473.33, which corresponds to a daily round-trip TCE of $485,959",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_09_html"
+          },
+          {
+            "route": "TD22",
+            "rate_basis": "lump_sum_usd",
+            "rate_value": 28588889,
+            "tce_usd_day": 210613,
+            "tce_qualifier": "exact",
+            "quote": "has risen by more than $10,800,000 to $28,588,889, which gives a daily round trip TCE of $210,613",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_09_html"
+          },
+          {
+            "route": "TD20",
+            "rate_basis": "ws",
+            "rate_value": 329.44,
+            "tce_usd_day": 170000,
+            "tce_qualifier": "just shy of",
+            "quote": "is now 107.5 points firmer than a week ago at WS329.44, which translates into a daily round-trip TCE of just shy of $170,000",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_09_html"
+          },
+          {
+            "route": "TD25",
+            "rate_basis": "ws",
+            "rate_value": 393.06,
+            "tce_usd_day": 111600,
+            "tce_qualifier": "almost",
+            "quote": "has ascended 103 points to WS393.06, which gives a round trip TCE basis Houston/Rotterdam of almost $111,600/day",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_09_html"
+          },
+          {
+            "route": "TC1",
+            "rate_basis": "ws",
+            "rate_value": 446,
+            "tce_usd_day": 120000,
+            "tce_qualifier": "exact",
+            "quote": "ultimately went from WS222 to WS446, with the corresponding TCE climbing to $120,000/day",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_09_html"
+          },
+          {
+            "route": "TC2_37",
+            "rate_basis": "ws",
+            "rate_value": 236,
+            "tce_usd_day": 24800,
+            "tce_qualifier": "exact",
+            "quote": "was assessed 107 points higher than last week at WS236 with the Baltic TCE for the round trip at $24,800/day",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_09_html"
+          }
+        ]
+      },
+      {
+        "week_ending": "2026-03-13",
+        "published": "16 March 2026",
+        "source": "Baltic Exchange weekly tanker report, republished by Hellenic Shipping News on 16 March 2026",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_16_html",
+        "entries": [
+          {
+            "route": "TD3C",
+            "rate_basis": "ws",
+            "rate_value": 348.89,
+            "tce_usd_day": 326198,
+            "tce_qualifier": "exact",
+            "quote": "is now being rated at WS348.89 which corresponds to a daily round trip TCE of $326,198",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_16_html"
+          },
+          {
+            "route": "TD22",
+            "rate_basis": "lump_sum_usd",
+            "rate_value": 21244444,
+            "tce_usd_day": 126000,
+            "tce_qualifier": "just over",
+            "quote": "fell from $26,055,556 to $21,244,444 which gives a daily round trip TCE of just over $126,000",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_16_html"
+          },
+          {
+            "route": "TD20",
+            "rate_basis": "ws",
+            "rate_value": 249.33,
+            "tce_usd_day": 123500,
+            "tce_qualifier": "about",
+            "quote": "fell from WS311.94 to WS249.33 which translates into a daily round trip TCE of about $123,500",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_16_html"
+          },
+          {
+            "route": "TD25",
+            "rate_basis": "ws",
+            "rate_value": 289,
+            "tce_usd_day": 55900,
+            "tce_qualifier": "almost",
+            "quote": "tumbled from WS398 to WS289 which gives a round trip TCE basis Houston/Rotterdam of almost $55,900/day",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_16_html"
+          },
+          {
+            "route": "TC1",
+            "rate_basis": "ws",
+            "rate_value": 358,
+            "tce_usd_day": 80200,
+            "tce_qualifier": "exact",
+            "quote": "went from WS391 to WS358 with the corresponding TCE dropping to $80,200/day",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_16_html"
+          },
+          {
+            "route": "TC2_37",
+            "rate_basis": "ws",
+            "rate_value": 220,
+            "tce_usd_day": 19300,
+            "tce_qualifier": "exact",
+            "quote": "was assessed 16 points lower than last week at WS220, with the Baltic TCE for the round trip at $19,300/day",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_16_html"
+          }
+        ]
+      },
+      {
+        "week_ending": "2026-03-20",
+        "published": "23 March 2026",
+        "source": "Baltic Exchange weekly tanker report, republished by Hellenic Shipping News on 23 March 2026",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_23_html",
+        "entries": [
+          {
+            "route": "TD3C",
+            "rate_basis": "ws",
+            "rate_value": 413.89,
+            "tce_usd_day": 400928,
+            "tce_qualifier": "exact",
+            "quote": "is now being rated at WS413.89 which corresponds to a daily round-trip TCE of $400,928",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_23_html"
+          },
+          {
+            "route": "TD22",
+            "rate_basis": "lump_sum_usd",
+            "rate_value": 22217222,
+            "tce_usd_day": 137200,
+            "tce_qualifier": "about",
+            "quote": "rose from $20,322,222 to $22,217,222 which gives a daily round trip TCE of about $137,200",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_23_html"
+          },
+          {
+            "route": "TD20",
+            "rate_basis": "ws",
+            "rate_value": 256.67,
+            "tce_usd_day": 118650,
+            "tce_qualifier": "exact",
+            "quote": "dipped from WS258.61 to WS256.67 which translates into a daily round-trip TCE of $118,650",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_23_html"
+          },
+          {
+            "route": "TD25",
+            "rate_basis": "ws",
+            "rate_value": 433,
+            "tce_usd_day": 120100,
+            "tce_qualifier": "over",
+            "quote": "soared from WS254 to WS433 which gives a round trip TCE basis Houston/Rotterdam of over $120,100/day",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_23_html"
+          },
+          {
+            "route": "TC2_37",
+            "rate_basis": "ws",
+            "rate_value": 230,
+            "tce_usd_day": 19700,
+            "tce_qualifier": "exact",
+            "quote": "was assessed 11 points higher than last week at WS230 with the Baltic TCE for the round trip at $19,700/day",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_23_html"
+          }
+        ]
+      },
+      {
+        "week_ending": "2026-03-27",
+        "published": "30 March 2026",
+        "source": "Baltic Exchange weekly tanker report, republished by Hellenic Shipping News on 30 March 2026",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_30_html",
+        "entries": [
+          {
+            "route": "TD3C",
+            "rate_basis": "ws",
+            "rate_value": 366,
+            "tce_usd_day": 356483,
+            "tce_qualifier": "exact",
+            "quote": "are now being assessed at WS366, down from WS400 last Friday, which corresponds to a daily round-trip TCE of $356,483",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_30_html"
+          },
+          {
+            "route": "TD22",
+            "rate_basis": "lump_sum_usd",
+            "rate_value": 22760556,
+            "tce_usd_day": 150500,
+            "tce_qualifier": "nearly",
+            "quote": "softened $170,000 to $22,760,556 which gives a daily round trip TCE of nearly $150,500",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_30_html"
+          },
+          {
+            "route": "TD20",
+            "rate_basis": "ws",
+            "rate_value": 412.78,
+            "tce_usd_day": 215300,
+            "tce_qualifier": "about",
+            "quote": "increased just over 50% to WS412.78 which translates into a daily round-trip TCE of about $215,300",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_30_html"
+          },
+          {
+            "route": "TD25",
+            "rate_basis": "ws",
+            "rate_value": 760,
+            "tce_usd_day": 238500,
+            "tce_qualifier": "a little over",
+            "quote": "soared again, from WS461 to just over WS760 which gives a round trip TCE basis Houston/Rotterdam of a little over $238,500/day",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_30_html"
+          },
+          {
+            "route": "TC2_37",
+            "rate_basis": "ws",
+            "rate_value": 300,
+            "tce_usd_day": 33900,
+            "tce_qualifier": "exact",
+            "quote": "was assessed 67.5 points higher than last week at WS300 with the Baltic TCE for the round trip now at $33,900/day",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_30_html"
+          }
+        ]
+      },
+      {
+        "week_ending": "2026-04-17",
+        "published": "20 April 2026",
+        "source": "Baltic Exchange weekly tanker report, republished by Hellenic Shipping News on 20 April 2026",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_04_20_html",
+        "entries": [
+          {
+            "route": "TD3C",
+            "rate_basis": "ws",
+            "rate_value": 467.22,
+            "tce_usd_day": 474000,
+            "tce_qualifier": "almost",
+            "quote": "are now being assessed at WS467.22 (from WS448.22 last Friday), which corresponds to a daily round-trip TCE of almost $474,000",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_04_20_html"
+          },
+          {
+            "route": "TD22",
+            "rate_basis": "lump_sum_usd",
+            "rate_value": 16550000,
+            "tce_usd_day": 102250,
+            "tce_qualifier": "nearly",
+            "quote": "has fallen from $18,083,333 to $16,550,000 which gives a daily round trip TCE of nearly $102,250",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_04_20_html"
+          },
+          {
+            "route": "TD20",
+            "rate_basis": "ws",
+            "rate_value": 192.11,
+            "tce_usd_day": 82600,
+            "tce_qualifier": "over",
+            "quote": "fell 92 points to WS192.11 which translates into a daily round-trip TCE of over $82,600",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_04_20_html"
+          },
+          {
+            "route": "TD25",
+            "rate_basis": "ws",
+            "rate_value": 346.11,
+            "tce_usd_day": 91500,
+            "tce_qualifier": "about",
+            "quote": "has been reduced by 230 points to WS346.11 which gives a round trip TCE basis Houston/Rotterdam of about $91,500/day",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_04_20_html"
+          },
+          {
+            "route": "TC2_37",
+            "rate_basis": "ws",
+            "rate_value": 279,
+            "tce_usd_day": 30000,
+            "tce_qualifier": "exact",
+            "quote": "was assessed 33 points lower than last week at WS279 with the Baltic TCE for the round trip now at $30,000/day",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_04_20_html"
+          }
+        ]
+      },
+      {
+        "week_ending": "2026-06-26",
+        "published": "29 June 2026",
+        "source": "Baltic Exchange weekly tanker report, republished by Hellenic Shipping News on 29 June 2026",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_06_29_html",
+        "entries": [
+          {
+            "route": "TD3C",
+            "rate_basis": "ws",
+            "rate_value": 318.89,
+            "tce_usd_day": 313000,
+            "tce_qualifier": "close to",
+            "quote": "dropped dramatically this week with the index down 33% to WS318.89, which corresponds to a daily round-trip TCE at close to $313,000",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_06_29_html"
+          },
+          {
+            "route": "TD22",
+            "rate_basis": "lump_sum_usd",
+            "rate_value": 21361111,
+            "tce_usd_day": 146600,
+            "tce_qualifier": "just over",
+            "quote": "rose $238,889 to $21,361,111 which gives a daily round trip TCE of just over $146,600",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_06_29_html"
+          },
+          {
+            "route": "TD20",
+            "rate_basis": "ws",
+            "rate_value": 238.61,
+            "tce_usd_day": 115400,
+            "tce_qualifier": "exact",
+            "quote": "rose around 56 points to WS238.61 which translates into a daily round-trip TCE of $115,400",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_06_29_html"
+          },
+          {
+            "route": "TD25",
+            "rate_basis": "ws",
+            "rate_value": 191.94,
+            "tce_usd_day": 40513,
+            "tce_qualifier": "just over",
+            "quote": "taking the index up to WS191.94 which gives a round trip TCE basis Houston/Rotterdam of just over $40,513/day",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_06_29_html"
+          },
+          {
+            "route": "TC2_37",
+            "rate_basis": "ws",
+            "rate_value": 125.31,
+            "tce_usd_day": 4355,
+            "tce_qualifier": "exact",
+            "quote": "is currently pegged at WS125.31, with the Baltic TCE for the round trip now at $4,355/day",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_06_29_html"
+          }
+        ]
+      },
+      {
+        "week_ending": "2026-09-11",
+        "published": "14 September 2026",
+        "source": "Baltic Exchange weekly tanker report, republished by Hellenic Shipping News on 14 September 2026",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_09_14_html",
+        "entries": [
+          {
+            "route": "TD3C",
+            "rate_basis": "ws",
+            "rate_value": 821.11,
+            "tce_usd_day": 862150,
+            "tce_qualifier": "exact",
+            "quote": "rose 21% from WS677.78 last Friday to WS821.11 on Thursday. This gives a daily round-trip TCE of $862,150",
+            "assessed": "Thursday 10 September 2026",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_09_14_html"
+          },
+          {
+            "route": "TD34",
+            "rate_basis": "ws",
+            "rate_value": 450.71,
+            "tce_usd_day": 465764,
+            "tce_qualifier": "exact",
+            "quote": "rose from WS277.5 last Friday to WS450.71 (a 62% increase) on Thursday, meaning a round-trip TCE of $465,764/day",
+            "assessed": "Thursday 10 September 2026",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_09_14_html"
+          },
+          {
+            "route": "TD22",
+            "rate_basis": "lump_sum_usd",
+            "rate_value": 35110000,
+            "tce_usd_day": 257000,
+            "tce_qualifier": "just over",
+            "quote": "rising nearly $6,000,000 to just over $35,110,000, which gives a daily round trip TCE of just over $257,000",
+            "rate_note": "reported as just over $35,110,000; 35,110,000 is used",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_09_14_html"
+          },
+          {
+            "route": "TD20",
+            "rate_basis": "ws",
+            "rate_value": 326.67,
+            "tce_usd_day": 162200,
+            "tce_qualifier": "about",
+            "quote": "rose 77 points to WS326.67, which translates into a daily round-trip TCE of about $162,200",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_09_14_html"
+          },
+          {
+            "route": "TD25",
+            "rate_basis": "ws",
+            "rate_value": 375,
+            "tce_usd_day": 99400,
+            "tce_qualifier": "almost",
+            "quote": "strongly advanced 136 points to the WS375 mark, which gives a round trip TCE basis Houston/Rotterdam of almost $99,400",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_09_14_html"
+          },
+          {
+            "route": "TC1",
+            "rate_basis": "ws",
+            "rate_value": 785,
+            "tce_usd_day": 232000,
+            "tce_qualifier": "around",
+            "quote": "jumped 209 points this week to WS785 returning around $232,000/day on a Baltic round trip basis",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_09_14_html"
+          },
+          {
+            "route": "TC2_37",
+            "rate_basis": "ws",
+            "rate_value": 100,
+            "tce_usd_day": -6400,
+            "tce_qualifier": "exact",
+            "quote": "unmoved from its current WS100 bottom and the Baltic TCE for the round trip now at $-6,400/day",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_09_14_html"
+          }
+        ]
+      },
+      {
+        "week_ending": "2026-10-09",
+        "published": "12 October 2026",
+        "source": "Baltic Exchange weekly tanker report, republished by Hellenic Shipping News on 12 October 2026",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_12_html",
+        "entries": [
+          {
+            "route": "TD3C",
+            "rate_basis": "ws",
+            "rate_value": 1318.75,
+            "tce_usd_day": 1412594,
+            "tce_qualifier": "exact",
+            "quote": "climbed 115 points to WS1,318.75, which gives a daily round-trip TCE of $1,412,594",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_12_html"
+          },
+          {
+            "route": "TD34",
+            "rate_basis": "ws",
+            "rate_value": 841.07,
+            "tce_usd_day": 912660,
+            "tce_qualifier": "exact",
+            "quote": "rose 62.5 points to WS841.07, giving a round-trip TCE of $912,660/day",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_12_html"
+          },
+          {
+            "route": "TD22",
+            "rate_basis": "lump_sum_usd",
+            "rate_value": 79611111,
+            "tce_usd_day": 637675,
+            "tce_qualifier": "exact",
+            "quote": "surged by a further $24.8 million to $79,611,111, which gives a daily round-trip TCE of $637,675",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_12_html"
+          },
+          {
+            "route": "TD20",
+            "rate_basis": "ws",
+            "rate_value": 981.11,
+            "tce_usd_day": 561600,
+            "tce_qualifier": "about",
+            "quote": "rose another 103 points to WS981.11 (almost 12% up on last Friday), which translates into a daily round-trip TCE of about $561,600",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_12_html"
+          },
+          {
+            "route": "TD25",
+            "rate_basis": "ws",
+            "rate_value": 955,
+            "tce_usd_day": 308200,
+            "tce_qualifier": "almost",
+            "quote": "rose by more than 166 points to the WS955 mark, which gives a round-trip TCE basis Houston/Rotterdam of almost $308,200",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_12_html"
+          },
+          {
+            "route": "TC20",
+            "rate_basis": "lump_sum_usd",
+            "rate_value": 18400000,
+            "tce_usd_day": 281800,
+            "tce_qualifier": "exact",
+            "quote": "the index increased by $1.03 million to $18.40 million, corresponding to $281,800/day on Baltic round trip",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_12_html"
+          },
+          {
+            "route": "TC5",
+            "rate_basis": "ws",
+            "rate_value": 940,
+            "tce_usd_day": 192900,
+            "tce_qualifier": "exact",
+            "quote": "decreased by only 8 points this week to WS940, still translating to $192,900/day on Baltic round trip",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_12_html"
+          },
+          {
+            "route": "TC14",
+            "rate_basis": "ws",
+            "rate_value": 285,
+            "tce_usd_day": 32600,
+            "tce_qualifier": "exact",
+            "quote": "sank by 95 points to WS285 and the round-trip TCE fell by $19,400 to $32,600/day",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_12_html"
+          }
+        ]
+      },
+      {
+        "week_ending": "2026-10-23",
+        "published": "26 October 2026",
+        "source": "Baltic Exchange weekly tanker report, republished by Hellenic Shipping News on 26 October 2026",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_26_html",
+        "entries": [
+          {
+            "route": "TD3C",
+            "rate_basis": "ws",
+            "rate_value": 1208.13,
+            "tce_usd_day": 1287851,
+            "tce_qualifier": "exact",
+            "quote": "dropped 88 points to WS1,208.13, giving a daily round-trip TCE of $1,287,851 for the standard Baltic VLCC",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_26_html"
+          },
+          {
+            "route": "TD34",
+            "rate_basis": "ws",
+            "rate_value": 620,
+            "tce_usd_day": 656587,
+            "tce_qualifier": "exact",
+            "quote": "fell more sharply, down 146 points to WS620, giving a round-trip TCE of $656,587/day",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_26_html"
+          },
+          {
+            "route": "TD22",
+            "rate_basis": "lump_sum_usd",
+            "rate_value": 58220000,
+            "tce_usd_day": 451905,
+            "tce_qualifier": "exact",
+            "quote": "tumbled by $11.4 million to $58.22 million, giving a daily round-trip TCE of $451,905",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_26_html"
+          },
+          {
+            "route": "TD20",
+            "rate_basis": "ws",
+            "rate_value": 731.11,
+            "tce_usd_day": 406769,
+            "tce_qualifier": "about",
+            "quote": "fell 170 points to WS731.11, which gives a daily round-trip TCE of about $406,769",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_26_html"
+          },
+          {
+            "route": "TD25",
+            "rate_basis": "ws",
+            "rate_value": 651,
+            "tce_usd_day": 197000,
+            "tce_qualifier": "just under",
+            "quote": "eased 2 points to just over WS651, which gives a round-trip TCE basis Houston/Rotterdam of just under $197,000",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_26_html"
+          },
+          {
+            "route": "TC1",
+            "rate_basis": "ws",
+            "rate_value": 1075,
+            "tce_usd_day": 313200,
+            "tce_qualifier": "exact",
+            "quote": "climbed by 92 points this week to WS1075, with the corresponding Baltic round-trip TCE rising by $28,600 to $313,200/day",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_26_html"
+          },
+          {
+            "route": "TC20",
+            "rate_basis": "lump_sum_usd",
+            "rate_value": 21510000,
+            "tce_usd_day": 336400,
+            "tce_qualifier": "exact",
+            "quote": "the index edged up by $168,800 to $21.51 million, corresponding to $336,400/day on Baltic round trip",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_26_html"
+          },
+          {
+            "route": "TC5",
+            "rate_basis": "ws",
+            "rate_value": 1105,
+            "tce_usd_day": 229900,
+            "tce_qualifier": "exact",
+            "quote": "jumped by 121 points this week to WS1105, translating to $229,900/day on Baltic round trip",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_26_html"
+          },
+          {
+            "route": "TC2_37",
+            "rate_basis": "ws",
+            "rate_value": 207,
+            "tce_usd_day": 12900,
+            "tce_qualifier": "exact",
+            "quote": "climbed by 12 points to WS207, with the corresponding Baltic round-trip TCE gaining $1,800 to $12,900/day",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_26_html"
+          },
+          {
+            "route": "TC14",
+            "rate_basis": "ws",
+            "rate_value": 399,
+            "tce_usd_day": 53900,
+            "tce_qualifier": "exact",
+            "quote": "rose by 8 points to WS399 and the round-trip TCE increased by $1,100 to $53,900/day",
+            "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_26_html"
+          }
+        ]
+      }
+    ]
+  },
+  "early_march_2026": {
+    "about": "The early March 2026 VLCC rate after the closure of the Strait of Hormuz on 2 March.",
+    "items": [
+      {
+        "id": "platts_pg_china_2026_03_02",
+        "date": "2026-03-02",
+        "route": "Persian Gulf to China, 270,000 t",
+        "freight_usd_t": 62.07,
+        "raw_key": "tanker_hsn_platts_pg_tanker_rates_spike_pub2026_03_04_html",
+        "quote": "assessed the rate to carry a 270,000 metric ton cargo of crude from the Persian Gulf to China at $62.07/mt on March 2, up 35% from the previous assessment and up 461% from the start of the year",
+        "source": "Platts, part of S&P Global Energy, as reported by Hellenic Shipping News on 4 March 2026",
+        "primary": true
+      },
+      {
+        "id": "oilprice_gulf_china_2026_03_03",
+        "date": "2026-03-03",
+        "route": "Gulf to China, VLCC",
+        "freight_usd_t": 89.0,
+        "raw_key": "tanker_yahoo_24hour_energy_shock_2026_03_html",
+        "quote": "with a Gulf-to-China voyage now costing $89 per metric tonne, up 560% since early January",
+        "source": "Oilprice.com (Tom Kool), republished by Yahoo Finance on 3 March 2026",
+        "primary": false,
+        "primary_note": "The article names no source. No assessment of $89/t was found: Platts printed $62.07/t for 2 March (up 461 percent from the start of the year), and Platts' start of year level ($11.07/t on 2 January) would put a 560 percent rise near $73/t."
+      },
+      {
+        "id": "platts_pg_china_2026_01_02",
+        "date": "2026-01-02",
+        "route": "Persian Gulf to China, 270,000 t",
+        "freight_usd_t": 11.07,
+        "raw_key": "tanker_hsn_platts_vlcc_rates_rebound_h1_jan_pub2026_01_17_html",
+        "quote": "The Persian Gulf-China benchmark freight rate rose 73.8% to w93 or $19.24/mt by Jan. 13, up from w53.5 or $11.07/mt on Jan. 2, according to Platts data.",
+        "source": "Platts, as reported by Hellenic Shipping News on 17 January 2026",
+        "primary": true
+      },
+      {
+        "id": "platts_pg_china_2025_12_12",
+        "date": "2025-12-12",
+        "route": "Persian Gulf to China, 270,000 t",
+        "freight_usd_t": 27.84,
+        "raw_key": "tanker_hsn_platts_vlcc_rates_rebound_h1_jan_pub2026_01_17_html",
+        "quote": "This rebound followed a steep decline earlier, when the rate dropped from $27.84/mt on Dec. 12 to $10.03/mt by Jan. 3.",
+        "source": "Platts, as reported by Hellenic Shipping News on 17 January 2026",
+        "primary": true
+      },
+      {
+        "id": "platts_vlcc_index_2026_03_03",
+        "date": "2026-03-03",
+        "tce_usd_day": 519104,
+        "raw_key": "tanker_hsn_platts_vlcc_rates_downward_pressure_pub2026_03_19_html",
+        "quote": "The Platts VLCC index for non-scrubber-fitted, non-eco vessels stood at $294,645/day March 16, retreating from its record high of $519,104/day on March 3, after $208,000/day on Feb. 27",
+        "source": "Platts VLCC index, non-scrubber, non-eco vessels, as reported by Hellenic Shipping News on 19 March 2026",
+        "primary": true
+      },
+      {
+        "id": "argus_basrah_china_2026_03_03",
+        "date": "2026-03-03",
+        "freight_usd_bbl": 15.32,
+        "raw_key": "tanker_argus_2796228_vlcc_rates_surge_20pc_fob_html",
+        "quote": "The Argus -assessed crude-specific Basrah medium, Mideast Gulf to China VLCC rate surged to $15.32/bl on 3 March, just over 20pc of the fob price for the same grade. This rate stood at $6.82/bl",
+        "source": "Argus Media, 4 March 2026",
+        "primary": true,
+        "use": "context only: a per barrel rate for one grade; converting it to tonnes needs the grade's barrels per tonne, which the article does not give"
+      }
+    ]
+  },
+  "dry_weekly": {
+    "about": "Capesize, Panamax and Supramax rates and time charter averages from the brokers' weekly reports.",
+    "weeks": [
+      {
+        "date": "2026-07-03",
+        "source": "Signal Group, Weekly Dry Market Monitor, week 27, 2026, republished by Hellenic Shipping News (?p=1140060) on 8 July 2026",
+        "raw_key": "dry_hsn_p1140060_wk27_2026_html",
+        "values": {
+          "C3_usd_t": 30.11,
+          "C5_usd_t": 12.25,
+          "C5TC_usd_day": 33678
+        },
+        "quote": "Average C5TC earnings climbed to $33,678/day (+$1,618 day-on-day). Iron ore routes remained firm, with C3 at $30.11/mt and C5 at $12.25/mt",
+        "basis_note": "The report does not say whether this C5TC average is on the 180,000 t or the 182,000 t basis; both were published in 2026 (C5TC(180) = C5TC(182) - 3,503)."
+      },
+      {
+        "date": "2026-07-03",
+        "source": "Banchero Costa, weekly market report, week 27, 2026",
+        "raw_key": "dry_bancosta_weekly_2026_wk27_pdf",
+        "values": {
+          "C5TC_usd_day": 33678,
+          "C3_usd_t": 30.11,
+          "C5_usd_t": 12.25,
+          "P5TC_usd_day": 19825,
+          "S11TC_usd_day": 21153,
+          "S4A_usd_day": 32550
+        },
+        "quote": [
+          "BCI TC Average usd/day 33,678 29,511",
+          "C3 Tubarao - Qingdao usd/t 30.11 28.33",
+          "C5 W. Aust. - Qingdao usd/t 12.25 10.24",
+          "BPI 82 TC Average usd/day 19,825 18,990",
+          "BSI 63 TC Avg. (S11TC) usd/day 21,153 21,115",
+          "S4A USG-Skaw/Pass usd/day 32,550 31,475"
+        ]
+      },
+      {
+        "date": "2026-09-11",
+        "source": "Signal Group, Panamax in focus, republished by Hellenic Shipping News on 18 September 2026",
+        "raw_key": "dry_hsn_panamax_in_focus_2026_html",
+        "values": {
+          "P7_usd_t": 76.29,
+          "P5TC_usd_day": 21662,
+          "C5TC_180_usd_day": 51636
+        },
+        "quote": [
+          "The grain routes were little changed: P7 (US Gulf-Qingdao) at $76.29/mt and P8 (Santos-Qingdao) at $57.25/mt.",
+          "the P5TC average slipped $373 WoW to $21,662/day on the 11 September assessment",
+          "the C5TC average, on the 180,000 dwt basis, down to $51,636/day"
+        ]
+      },
+      {
+        "date": "2026-10-23",
+        "source": "Banchero Costa, weekly market report, week 43, 2026",
+        "raw_key": "dry_bancosta_weekly_2026_wk43_pdf",
+        "values": {
+          "C5TC_182_usd_day": 34380,
+          "C3_usd_t": 33.87,
+          "C5_usd_t": 14.1,
+          "P5TC_usd_day": 18981,
+          "S11TC_usd_day": 23849,
+          "S4A_usd_day": 30853
+        },
+        "quote": [
+          "BCI 182 TC Average usd/day 34,380 29,464",
+          "C3 Tubarao - Qingdao usd/t 33.87 30.08",
+          "C5 W. Aust. - Qingdao usd/t 14.10 11.70",
+          "BPI 82 TC Average usd/day 18,981 20,827",
+          "BSI 63 TC Avg. (S11TC) usd/day 23,849 23,573",
+          "S4A USG-Skaw/Pass usd/day 30,853 31,919"
+        ]
+      }
+    ]
+  },
+  "baltic_td3c_2017": {
+    "about": "The Baltic Exchange's own worked TD3C TCE calculation, July 2017: the only fully worked public voyage calculation found. It prints the inputs, days and tonnes of fuel but no prices, so it reproduces days and fuel, not dollars.",
+    "raw_key": "baltic_td3c_tce_process_2017",
+    "inputs": {
+      "dwt_t": 300000,
+      "laden_kn": 13.0,
+      "laden_tpd": 70.0,
+      "ballast_kn": 12.5,
+      "ballast_tpd": 53.0,
+      "distance_nm": 5897,
+      "sea_margin": 0.05,
+      "load_days": 2,
+      "load_tpd": 20,
+      "discharge_days": 3,
+      "discharge_tpd": 110,
+      "waiting_days": 1,
+      "waiting_tpd": 10
+    },
+    "published": {
+      "laden_days": 19.8457,
+      "ballast_days": 20.6395,
+      "total_days": 46.4852,
+      "laden_fuel_t": 1389.2,
+      "ballast_fuel_t": 1093.89,
+      "waiting_fuel_t": 10,
+      "load_fuel_t": 40,
+      "discharge_fuel_t": 330
+    },
+    "quote": [
+      "Laden 5,897 19.8457 IFO 70 Ballast 5,897 20.6395 IFO 53 Waiting 1 IFO 10 Loading 2 IFO 20 Discharging 3 LSMGO 110",
+      "Laden 19.8457 IFO 1,389.20 Ballast 20.6395 IFO 1,093.89 Waiting 1 IFO 10 Loading 2 IFO 40 Discharging 3 LSMGO 330",
+      "Dividing the nett income by the duration (46.4852)"
+    ]
+  }
+}

@@ -1,0 +1,168 @@
+{
+  "schema": "voyage-tce-model seed: market conventions and the rules the engine implements",
+  "items": [
+    {
+      "id": "tce",
+      "topic": "TCE",
+      "rule": "TCE = (gross freight + other revenue - commissions - voyage costs) / total voyage days, net of commissions; voyage costs are bunkers, port charges, canal tolls, ETS allowances, war risk premiums and other voyage specific costs, never operating or capital costs.",
+      "source": "Baltic Exchange, Guide to Market Benchmarks v8.8, Appendix 3, page 98",
+      "raw_key": "baltic_gmb",
+      "quote": [
+        "The Baltic publishes Time Charter Equivalent values for various voyage route assessments. These are published as a net value.",
+        "Additional expenses particular to the trade, such as but not limited to, additional insurance, cleaning costs, security guards and emission costs."
+      ]
+    },
+    {
+      "id": "days",
+      "topic": "Voyage days",
+      "rule": "Sea days = distance x (1 + 5 percent weather margin) / (speed x 24), laden and ballast; plus port, waiting and canal days from the TCE route description. The ballast leg runs from the TCE delivery port (the discharge port) back to the load port.",
+      "source": "GMB v8.8 Appendix 3, pages 98 and 99",
+      "raw_key": "baltic_gmb",
+      "quote": [
+        "5% weather allowance",
+        "Distance from the starting place named in the TCE description to the Load port."
+      ]
+    },
+    {
+      "id": "fuel_price",
+      "topic": "Bunker price",
+      "rule": "Fuel is priced at the main bunkering port closest to the load port, in the grade the activity burns.",
+      "source": "GMB v8.8 Appendix 3, page 98",
+      "raw_key": "baltic_gmb",
+      "quote": "The cost of the fuel at the main bunkering port closest to the load port."
+    },
+    {
+      "id": "port_costs",
+      "topic": "Port costs",
+      "rule": "The Baltic's tanker TCEs include port and canal costs supplied by Cory Brothers, which are not published; the study takes them as lump sum inputs.",
+      "source": "GMB v8.8 Appendix 3, page 98",
+      "raw_key": "baltic_gmb",
+      "quote": "Port costs supplied by Cory Brothers Shipping"
+    },
+    {
+      "id": "worldscale",
+      "topic": "Worldscale",
+      "rule": "USD/t = WS / 100 x flat rate (the route's flat rate for the year, set by the Worldscale Association and licensed); a lump sum is divided by the cargo.",
+      "source": "GMB v8.8 Appendix 3, page 98",
+      "raw_key": "baltic_gmb",
+      "quote": [
+        "Worldscale assessment would be converted to $/mt by applying the applicable flat rate.",
+        "A lumpsum assessment would be divided by the loaded cargo quantity."
+      ]
+    },
+    {
+      "id": "commission_tanker",
+      "topic": "Tanker commission",
+      "rule": "Baltic tanker routes are assessed on 3.75 percent total commission (address commission plus brokerage), since circular 27/21.",
+      "source": "GMB v8.8, document history, version 4.7",
+      "raw_key": "baltic_gmb",
+      "quote": "As per Circular 27/21 all tanker routes were changed to standard commission at 3.75% (from 2.5%)"
+    },
+    {
+      "id": "commission_dry",
+      "topic": "Dry commission",
+      "rule": "Baltic dry voyage routes and trips are assessed on 5 percent total commission.",
+      "source": "GMB v8.8 Appendix 2, route descriptions (C3, page 77)",
+      "raw_key": "baltic_gmb",
+      "quote": "6 hrs turn time at loading port, 24 hrs turn time at discharge port. Age max 18 yrs. 5% total commission."
+    },
+    {
+      "id": "sulphur",
+      "topic": "Sulphur",
+      "rule": "0.50 percent sulphur worldwide and 0.10 percent inside an emission control area.",
+      "source": "MARPOL Annex VI regulation 14.1 and 14.4, resolution MEPC.328(76)",
+      "raw_key": "law_imo_mepc_328_76_2021_revised_marpol_annexvi_pdf",
+      "quote": [
+        "The sulphur content of fuel oil used or carried for use on board a ship shall not exceed 0.50% m/m.",
+        "While a ship is operating within an emission control area, the sulphur content of fuel oil used on board that ship shall not exceed 0.10% m/m."
+      ]
+    },
+    {
+      "id": "med_eca",
+      "topic": "Mediterranean ECA",
+      "rule": "In force 1 May 2024; under regulation 14.7 ships are exempt for twelve months, so the 0.10 percent limit applies from 1 May 2025.",
+      "source": "Resolution MEPC.361(79)",
+      "raw_key": "law_imo_mepc_361_79_mediterranean_sox_eca_pdf",
+      "quote": "the said amendments shall enter into force on 1 May 2024 upon their acceptance"
+    },
+    {
+      "id": "berth",
+      "topic": "At berth in the EU",
+      "rule": "Ships at berth in EU ports burn fuel of at most 0.10 percent sulphur.",
+      "source": "Directive (EU) 2016/802, Article 7",
+      "raw_key": "law_eu_2016_802_sulphur_directive_oj_en_pdf",
+      "quote": "Member States shall take all necessary measures to ensure that ships at berth in Union ports do not use marine fuels with a sulphur content exceeding 0,10% by mass"
+    },
+    {
+      "id": "emission_factors",
+      "topic": "Emission factors",
+      "rule": "Tonnes of CO2 per tonne of fuel: HFO (ISO 8217 RME to RMK) 3.114, LFO (RMA to RMD) 3.151, MDO and MGO (DMX to DMB) 3.206; CH4 0.00005 and N2O 0.00018 g per g.",
+      "source": "Regulation (EU) 2015/757 Annex I as replaced by Delegated Regulation (EU) 2023/2776",
+      "raw_key": "law_eu_2023_2776_mrv_delegatedreg_oj_en_xhtml",
+      "quote": "HFO ISO 8217 Grades RME to RMK 3,114 0,00005 0,00018 - LFO ISO 8217 Grades RMA to RMD 3,151 0,00005 0,00018 - MDO MGO ISO 8217 Grades DMX to DMB 3,206 0,00005 0,00018"
+    },
+    {
+      "id": "gwp_ets",
+      "topic": "Global warming potentials (ETS, MRV)",
+      "rule": "CH4 28 and N2O 265.",
+      "source": "Delegated Regulation (EU) 2020/1044, Annex",
+      "raw_key": "law_eu_2020_1044_gwp_delegatedreg_oj_en_pdf",
+      "quote": "Methane (CH) 28 4 Nitrous oxide (N O) 265"
+    },
+    {
+      "id": "vlsfo_grade",
+      "topic": "VLSFO class",
+      "rule": "VLSFO is classed as HFO (ISO 8217 residual grades RME, RMG and RMK) for its emission factor.",
+      "source": "IMO resolution MEPC.391(81), 2024 LCA guidelines, Appendix 1",
+      "raw_key": "law_imo_mepc_391_81_2024_lca_guidelines_pdf",
+      "quote": "(ISO 8217 Grades RME, RMG and RMK, 0.10 < S"
+    },
+    {
+      "id": "ets_scope",
+      "topic": "EU ETS coverage",
+      "rule": "50 percent of emissions on voyages into or out of an EU port, 100 percent between EU ports and within a port of call.",
+      "source": "Directive 2003/87/EC Article 3ga, inserted by Directive (EU) 2023/959",
+      "raw_key": "law_eu_2023_959_ets_amending_directive_oj_en_pdf",
+      "quote": "fifty percent (50%) of the emissions from ships performing voyages departing from a port of call under the jurisdiction of a Member State and arriving at a port of call outside the jurisdiction of a Member State"
+    },
+    {
+      "id": "ets_phase_in",
+      "topic": "EU ETS phase-in",
+      "rule": "Allowances for 40 percent of 2024 emissions, 70 percent of 2025 and 100 percent from 2026; methane and nitrous oxide covered from 2026.",
+      "source": "Directive 2003/87/EC Article 3gb",
+      "raw_key": "law_eu_2023_959_ets_amending_directive_oj_en_pdf",
+      "quote": "(a) 40% of verified emissions reported for 2024 that would be subject to surrender requirements in accordance with Article 12; (b) 70% of verified emissions reported for 2025"
+    },
+    {
+      "id": "bimco_etsa",
+      "topic": "ETS on a time charter",
+      "rule": "The charterer provides and pays for the allowances for the ship's emissions during the charter: on a trip time charter the trip's allowances are the charterer's.",
+      "source": "BIMCO ETS Allowances Clause for Time Charter Parties 2022, clause (c)(i)",
+      "raw_key": "law_bimco_etsa_clause_timecharter_2022_page_html",
+      "quote": [
+        "Throughout the Charter Party period the Charterers shall provide and pay for the Emission Allowances corresponding to the Vessel's emissions under the scope of the applicable Emission Scheme",
+        "the party providing and paying for the fuel under the time charter is the party that is responsible for providing and paying for emissions trading allowances"
+      ]
+    },
+    {
+      "id": "fueleu",
+      "topic": "FuelEU Maritime",
+      "rule": "Limit 91.16 gCO2e/MJ less 2 percent from 2025; penalty = |compliance balance| / (GHG intensity x 41,000) x 2,400 EUR; assessed on the ship's yearly average, so the study shows one voyage's share and keeps it out of the TCE unless chosen.",
+      "source": "Regulation (EU) 2023/1805, Article 4(2) and Annex IV Part B; Annex II factors",
+      "raw_key": "law_eu_2023_1805_fueleu_maritime_reg_oj_en_xhtml",
+      "quote": [
+        "reducing the reference value of 91,16 grams of CO 2 equivalent per MJ by the following percentage: - 2% from 1 January 2025",
+        "Is 1 metric ton of VLSFO that is equivalent to 41 000 MJ 7. 2 400",
+        "HFO ISO 8217 Grades RME to RMK 0,0405 13,5 ALL ICEs 3,114 0,00005 0,00018"
+      ]
+    },
+    {
+      "id": "gwp_fueleu",
+      "topic": "Global warming potentials (FuelEU)",
+      "rule": "FuelEU takes CH4 25 and N2O 298, the values of the Renewable Energy Directive, not the ETS's 28 and 265.",
+      "source": "Directive (EU) 2018/2001 Annex V Part C point 4",
+      "raw_key": "law_eu_2018_2001_red_ii_directive_oj_en_pdf",
+      "quote": "those gases shall be valued as follows: 2 CO: 1 2 N O: 298 2 CH: 25"
+    }
+  ]
+}

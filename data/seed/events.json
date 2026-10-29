@@ -1,0 +1,96 @@
+{
+  "schema": "voyage-tce-model seed: dated events behind the detour and Hormuz scenarios",
+  "events": [
+    {
+      "date": "2023-11",
+      "area": "Red Sea",
+      "text": "Houthi attacks on merchant ships in the Red Sea begin; ships start to avoid Bab el Mandeb and route round the Cape of Good Hope.",
+      "raw_key": "risk_eia_tie_61363_2024_02_01_red_sea_attacks_shipping_times_html",
+      "quote": "After Yemen-based Houthi militia attacks on commercial ships transiting the Red Sea started in November 2023, some vessels began opting to avoid the Bab el-Mandeb chokepoint"
+    },
+    {
+      "date": "2024",
+      "area": "Red Sea",
+      "text": "War risk premiums for the Red Sea mostly between 0.4 and 0.7 percent of hull value through 2024.",
+      "raw_key": "risk_hsn_2026_04_01_war_risk_cost_off_highs_persian_gulf_html",
+      "quote": "Most of the time, it remained between 0.4% and 0.7%"
+    },
+    {
+      "date": "2026-02-28",
+      "area": "Strait of Hormuz",
+      "text": "War in the Middle East begins; 91 ships transit the Strait of Hormuz on 28 February and four on 8 March.",
+      "raw_key": "risk_hsn_2026_03_11_tankers_await_passage_cas_html",
+      "quote": "falling to just four ships on March 8 from 91 seen on Feb. 28, according to S&P Global Commodities at Sea"
+    },
+    {
+      "date": "2026-03-02",
+      "area": "Strait of Hormuz",
+      "text": "Iran closes the Strait of Hormuz; Middle East to Asia VLCC rates reach their highest since at least November 2005.",
+      "raw_key": "risk_eia_tie_67386_html",
+      "quote": "In March 2026, tanker rates for Very Large Crude Carriers (VLCCs) leaving the Middle East to Asia were the highest since at least November 2005, when data were first recorded. The price increase followed Iran's closure of the Strait of Hormuz on March 2."
+    },
+    {
+      "date": "2026-03-06",
+      "area": "Strait of Hormuz",
+      "text": "The Strait of Hormuz, the Gulf of Oman and the Persian Gulf are designated a Warlike Operations Area for seafarers.",
+      "raw_key": "risk_hsn_2026_03_06_joint_itf_jng_statement_hormuz_woa_html",
+      "quote": "agree to designate the Strait of Hormuz, Gulf of Oman and Persian Gulf as a Warlike Operations Area (WOA)"
+    },
+    {
+      "date": "2026-03-27",
+      "area": "Gulf of Oman",
+      "text": "The Baltic Exchange starts TD34, Gulf of Oman to China, as an emergency alternative to TD3C.",
+      "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_30_html",
+      "quote": "Baltic Exchange has started an alternative to the TD3C route, which is on public trial currently. This emergency route is titled TD34 and is basis 270,000mt Gulf of Oman to China."
+    },
+    {
+      "date": "2026-04-09",
+      "area": "Strait of Hormuz",
+      "text": "Iran shuts the strait again on the first day of a two week ceasefire.",
+      "raw_key": "risk_hsn_2026_04_09_iran_hormuz_closure_ceasefire_uncertainty_html",
+      "quote": "Iran has once again shut the Strait of Hormuz in response to Israeli strikes on Lebanon, casting serious doubt on the already fragile two-week Middle East ceasefire."
+    },
+    {
+      "date": "2026-06-18",
+      "area": "Strait of Hormuz",
+      "text": "Iran and the United States sign a preliminary peace agreement to restore flows through Hormuz after 30 days of demining.",
+      "raw_key": "risk_hsn_2026_06_25_war_cover_available_hormuz_insurers_html",
+      "quote": "On June 18, Iran and the US signed a preliminary peace agreement aiming to restore cargo flows via Hormuz"
+    },
+    {
+      "date": "2026-07-08",
+      "area": "Strait of Hormuz",
+      "text": "The ceasefire collapses after attacks on three merchant ships; transits fall to five in a night.",
+      "raw_key": "risk_hsn_2026_07_13_ceasefire_collapses_80_strikes_html",
+      "quote": "Overnight into July 8, U.S. Central Command struck more than 80 targets inside Iran in direct response to Iranian attacks on three commercial vessels transiting the Strait."
+    },
+    {
+      "date": "2026-07-20",
+      "area": "Red Sea",
+      "text": "Yemen based militants declare a maritime embargo on Saudi shipping; the Bab el Mandeb war risk premium rises from 0.3 to 0.5 percent.",
+      "raw_key": "risk_hsn_2026_07_24_marsh_middle_east_insurance_costs_rise_html",
+      "quote": "Reuters reported the premium level at 0.3% before the Yemen-based militants declared a maritime embargo on Saudi shipping July 20."
+    },
+    {
+      "date": "2026-10-09",
+      "area": "Strait of Hormuz",
+      "text": "TD3C reaches WS1,318.75, a Baltic round trip TCE of USD 1,412,594 a day.",
+      "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_12_html",
+      "quote": "climbed 115 points to WS1,318.75, which gives a daily round-trip TCE of $1,412,594"
+    },
+    {
+      "date": "2026-10-25",
+      "area": "Strait of Hormuz",
+      "text": "Hormuz traffic steady at 17 ships a day, with six VLCC transits on 25 October.",
+      "raw_key": "risk_hsn_2026_10_28_vlcc_transits_climb_hormuz_html",
+      "quote": "The Strait of Hormuz had six VLCC transits on Oct. 25, the most since Oct. 17"
+    },
+    {
+      "date": "2026-10-22",
+      "area": "Suez Canal",
+      "text": "Maersk expects all its services back through the Suez Canal by March 2027.",
+      "raw_key": "risk_hsn_2026_10_22_maersk_full_return_suez_march_2027_html",
+      "quote": "A.P. Moller-Maersk expects all its shipping services to return to the Suez Canal by March 2027, according to a statement from the Suez Canal Authority (SCA)."
+    }
+  ]
+}

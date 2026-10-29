@@ -1,0 +1,25 @@
+# Local working notes and assistant configuration (never committed)
+.work/
+.claude/
+CLAUDE.md
+
+# Local caches
+.cache/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+__pycache__/
+*.pyc
+.venv/
+venv/
+node_modules/
+*.egg-info/
+build/
+dist/
+.DS_Store
+
+# Raw downloads recorded in data/raw/manifest.json with their URL and sha256 but
+# never committed: licensed/ holds files whose terms do not allow redistribution,
+# bulk/ public files too large or too often reissued to keep in git
+data/raw/licensed/
+data/raw/bulk/

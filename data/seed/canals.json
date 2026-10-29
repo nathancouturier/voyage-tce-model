@@ -1,0 +1,72 @@
+{
+  "schema": "voyage-tce-model seed: canal facts",
+  "note": "The study builds no tariff engine. Each canal toll is a lump sum input; a default exists only where a dated public source states a toll for a ship like the study's. None does for the Baltic standard ships: the Suez Canal Authority charges on Suez Canal net tonnage, which is not published for them, and the Panama Canal Authority's tariff could not be reached from this environment.",
+  "suez": {
+    "default_toll_usd": null,
+    "why_empty": "Suez tolls are levied on the Suez Canal net tonnage of the individual ship, in SDR per tonne by tonnage band, plus surcharges and less rebates. No public source states the SCNT of the Baltic's standard ships or a toll for them, so the toll is an input. The detour analysis reports the largest toll at which Suez still beats the Cape instead.",
+    "facts": [
+      {
+        "id": "surcharge_crude_2026",
+        "date": "2026-07-15",
+        "text": "Surcharge on crude oil tankers raised to 37 percent of normal transit dues laden and 27 percent in ballast, from 25 and 15 percent, for transits from 15 July 2026",
+        "raw_key": "canals_sca_api_articles_pc16_2026_crude_tankers_xml",
+        "quote": [
+          "is amended to be 37% of the Suez Canal normal transit dues rather than 25%.",
+          "is amended to be 27% of the Suez Canal normal transit dues rather than 15%.",
+          "This periodical is applicable to tankers transiting the Suez Canal from the 15th of July 2026."
+        ]
+      },
+      {
+        "id": "surcharge_products_2026",
+        "date": "2026-07-15",
+        "text": "The same 37 and 27 percent surcharges on petroleum products tankers",
+        "raw_key": "canals_sca_api_articles_pc17_2026_product_tankers_xml",
+        "quote": "The surcharge levied on Laden \"Petroleum Products Tankers\" [Rate (2L) of the Transit Dues Schedule] transiting the Suez Canal in both directions, is amended to be 37% of the Suez Canal normal transit dues rather than 25%."
+      },
+      {
+        "id": "surcharge_dry_2026",
+        "date": "2026-07-15",
+        "text": "Surcharge on dry bulk carriers raised to 22 percent of normal transit dues, laden or ballast, from 10 percent",
+        "raw_key": "canals_sca_api_articles_pc18_2026_dry_bulk_xml",
+        "quote": "The surcharge levied on (Laden/Ballast) \"Dry Bulk Vessels\" [Rate (3) of the Transit Dues Schedule] transiting the Suez Canal in both directions, is amended to be 22% from Suez Canal normal transit dues rather than 10%."
+      },
+      {
+        "id": "toll_1m_bbl_2026",
+        "date": "2026-07-23",
+        "text": "A ship carrying one million barrels of crude (a Suezmax) pays roughly USD 500,000 to transit, according to the Suez Canal Authority",
+        "raw_key": "canals_hsn_korea_weighs_suez_route_tolls_html",
+        "quote": "Ships carrying 1 million barrels of crude currently pay roughly $500,000 in tolls to transit the Suez Canal, while the latest LNG carriers pay between $300,000 and $500,000, according to the Suez Canal Authority.",
+        "use": "a scale reference for the break-even toll, not a default for the study's ships"
+      },
+      {
+        "id": "transit_time",
+        "text": "Southbound convoy transit 11 hours; waiting at most three hours",
+        "raw_key": "canals_sca_new_suez_canal_html",
+        "quote": "Shortening the transit time from 18 hours to 11 hours for the southbound convoy Minimize the waiting time for vessels to become three hours at most",
+        "use": "the canal day the study adds to a Suez routing (one day, against the 2 canal days the Baltic's TC20 TCE basis allows)"
+      }
+    ]
+  },
+  "panama": {
+    "default_toll_usd": null,
+    "why_empty": "The Panama Canal Authority's tariff and calculator (pancanal.com) refuse this environment's connections. The only dated public toll found is the EIA's 2023 base toll for a product tanker in the Panamax locks, which is neither 2026 nor a bulk carrier, so P7's toll is an input and the TCE through Panama is reported before it.",
+    "facts": [
+      {
+        "id": "eia_2023_base_tolls",
+        "date": "2023-09-27",
+        "text": "Base toll about USD 300,000 for a VLGC in the Neopanamax locks and USD 60,000 for a product tanker in the Panamax locks",
+        "raw_key": "canals_eia_twip_2023_09_27_analysis_html",
+        "quote": "the base toll to transit the canal is about $300,000 for a VLGC to cross the newer, larger Neopanamax locks. A smaller gas carrier, petroleum product tanker, or chemical tanker transiting the older, smaller Panamax locks has a base toll of $60,000.",
+        "use": "context only"
+      },
+      {
+        "id": "waits_2026_04",
+        "date": "2026-04-16",
+        "text": "Unbooked first come, first served waits of 18 to 30 days were common in April 2026, according to a Panama based agent",
+        "raw_key": "canals_hsn_panama_congestion_lng_crowd_out_dry_bulk_html",
+        "quote": "unbooked First Come First Serve waiting times have lengthened materially and 18 - 30 days is common in many cases",
+        "use": "the waiting days scenario for an unbooked Panama transit"
+      }
+    ]
+  }
+}

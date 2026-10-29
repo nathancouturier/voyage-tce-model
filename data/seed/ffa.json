@@ -1,0 +1,354 @@
+{
+  "schema": "voyage-tce-model seed: forward freight agreement quotes and settlement rules",
+  "note": "FFA levels are licensed data. These are the dated public assessments printed in Banchero Costa's weekly report (Hellenic Shipping News republishes it), used as defaults for the physical against paper comparison; every other level is an input.",
+  "curves": [
+    {
+      "id": "wk27_2026",
+      "assessed": "2026-07-06",
+      "previous": "2026-06-29",
+      "source": "Banchero Costa, Dry bulk FFA assessments, weekly market report week 27, 2026",
+      "raw_key": "dry_bancosta_weekly_2026_wk27_pdf",
+      "segments": {
+        "capesize": {
+          "index": "C5TC",
+          "basis_note": "Capesize 5TC, the vessel basis is not printed in this issue",
+          "points": [
+            {
+              "period": "2026-07",
+              "usd_day": 38932,
+              "raw_key": "dry_bancosta_weekly_2026_wk27_pdf",
+              "quote": "Jul-26 usd/day 38,932 36,232"
+            },
+            {
+              "period": "2026-08",
+              "usd_day": 38614,
+              "raw_key": "dry_bancosta_weekly_2026_wk27_pdf",
+              "quote": "Aug-26 usd/day 38,614 36,828"
+            },
+            {
+              "period": "2026-09",
+              "usd_day": 39017,
+              "raw_key": "dry_bancosta_weekly_2026_wk27_pdf",
+              "quote": "Sep-26 usd/day 39,017 38,092"
+            },
+            {
+              "period": "2026-10",
+              "usd_day": 39307,
+              "raw_key": "dry_bancosta_weekly_2026_wk27_pdf",
+              "quote": "Oct-26 usd/day 39,307 38,485"
+            },
+            {
+              "period": "2026-12",
+              "usd_day": 37596,
+              "raw_key": "dry_bancosta_weekly_2026_wk27_pdf",
+              "quote": "Dec-26 usd/day 37,596 36,817"
+            },
+            {
+              "period": "2027-Q1",
+              "usd_day": 28424,
+              "raw_key": "dry_bancosta_weekly_2026_wk27_pdf",
+              "quote": "Q1 27 usd/day 28,424 28,032"
+            },
+            {
+              "period": "2027-Q2",
+              "usd_day": 34589,
+              "raw_key": "dry_bancosta_weekly_2026_wk27_pdf",
+              "quote": "Q2 27 usd/day 34,589 34,160"
+            },
+            {
+              "period": "2027-Q3",
+              "usd_day": 32717,
+              "raw_key": "dry_bancosta_weekly_2026_wk27_pdf",
+              "quote": "Q3 27 usd/day 32,717 32,385"
+            }
+          ]
+        },
+        "panamax": {
+          "index": "P5TC (82,000 t)",
+          "points": [
+            {
+              "period": "2026-07",
+              "usd_day": 19889,
+              "raw_key": "dry_bancosta_weekly_2026_wk27_pdf",
+              "quote": "Jul-26 usd/day 19,889 19,618"
+            },
+            {
+              "period": "2026-08",
+              "usd_day": 19539,
+              "raw_key": "dry_bancosta_weekly_2026_wk27_pdf",
+              "quote": "Aug-26 usd/day 19,539 19,125"
+            },
+            {
+              "period": "2026-09",
+              "usd_day": 19436,
+              "raw_key": "dry_bancosta_weekly_2026_wk27_pdf",
+              "quote": "Sep-26 usd/day 19,436 19,011"
+            },
+            {
+              "period": "2026-10",
+              "usd_day": 19146,
+              "raw_key": "dry_bancosta_weekly_2026_wk27_pdf",
+              "quote": "Oct-26 usd/day 19,146 18,786"
+            },
+            {
+              "period": "2026-12",
+              "usd_day": 18186,
+              "raw_key": "dry_bancosta_weekly_2026_wk27_pdf",
+              "quote": "Dec-26 usd/day 18,186 17,918"
+            },
+            {
+              "period": "2027-Q1",
+              "usd_day": 15389,
+              "raw_key": "dry_bancosta_weekly_2026_wk27_pdf",
+              "quote": "Q1 27 usd/day 15,389 15,268"
+            }
+          ]
+        },
+        "supramax": {
+          "index": "S11TC (63,000 t)",
+          "points": [
+            {
+              "period": "2026-07",
+              "usd_day": 21063,
+              "raw_key": "dry_bancosta_weekly_2026_wk27_pdf",
+              "quote": "Jul-26 usd/day 21,063 20,941"
+            },
+            {
+              "period": "2026-08",
+              "usd_day": 20963,
+              "raw_key": "dry_bancosta_weekly_2026_wk27_pdf",
+              "quote": "Aug-26 usd/day 20,963 20,763"
+            },
+            {
+              "period": "2026-09",
+              "usd_day": 20559,
+              "raw_key": "dry_bancosta_weekly_2026_wk27_pdf",
+              "quote": "Sep-26 usd/day 20,559 20,345"
+            },
+            {
+              "period": "2026-10",
+              "usd_day": 20148,
+              "raw_key": "dry_bancosta_weekly_2026_wk27_pdf",
+              "quote": "Oct-26 usd/day 20,148 19,834"
+            },
+            {
+              "period": "2026-12",
+              "usd_day": 19148,
+              "raw_key": "dry_bancosta_weekly_2026_wk27_pdf",
+              "quote": "Dec-26 usd/day 19,148 19,038"
+            },
+            {
+              "period": "2027-Q1",
+              "usd_day": 15673,
+              "raw_key": "dry_bancosta_weekly_2026_wk27_pdf",
+              "quote": "Q1 27 usd/day 15,673 15,459"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "wk43_2026",
+      "assessed": "2026-10-25",
+      "previous": "2026-10-18",
+      "source": "Banchero Costa, Dry bulk FFA assessments, weekly market report week 43, 2026",
+      "raw_key": "dry_bancosta_weekly_2026_wk43_pdf",
+      "segments": {
+        "capesize": {
+          "index": "C5TC (182,000 t)",
+          "points": [
+            {
+              "period": "2026-10",
+              "usd_day": 36757,
+              "raw_key": "dry_bancosta_weekly_2026_wk43_pdf",
+              "quote": "Oct-26 usd/day 36,757 36,717"
+            },
+            {
+              "period": "2026-11",
+              "usd_day": 39557,
+              "raw_key": "dry_bancosta_weekly_2026_wk43_pdf",
+              "quote": "Nov-26 usd/day 39,557 37,960"
+            },
+            {
+              "period": "2026-12",
+              "usd_day": 39878,
+              "raw_key": "dry_bancosta_weekly_2026_wk43_pdf",
+              "quote": "Dec-26 usd/day 39,878 38,282"
+            },
+            {
+              "period": "2027-01",
+              "usd_day": 33503,
+              "raw_key": "dry_bancosta_weekly_2026_wk43_pdf",
+              "quote": "Jan-27 usd/day 33,503 32,924"
+            },
+            {
+              "period": "2027-02",
+              "usd_day": 28542,
+              "raw_key": "dry_bancosta_weekly_2026_wk43_pdf",
+              "quote": "Feb-27 usd/day 28,542 28,107"
+            },
+            {
+              "period": "2027-03",
+              "usd_day": 33310,
+              "raw_key": "dry_bancosta_weekly_2026_wk43_pdf",
+              "quote": "Mar-27 usd/day 33,310 32,821"
+            },
+            {
+              "period": "2027-Q2",
+              "usd_day": 37092,
+              "raw_key": "dry_bancosta_weekly_2026_wk43_pdf",
+              "quote": "Q2 27 usd/day 37,092 36,764"
+            },
+            {
+              "period": "2027-Q3",
+              "usd_day": 35689,
+              "raw_key": "dry_bancosta_weekly_2026_wk43_pdf",
+              "quote": "Q3 27 usd/day 35,689 35,360"
+            },
+            {
+              "period": "2027-Q4",
+              "usd_day": 35753,
+              "raw_key": "dry_bancosta_weekly_2026_wk43_pdf",
+              "quote": "Q4 27 usd/day 35,753 35,421"
+            }
+          ]
+        },
+        "panamax": {
+          "index": "P5TC (82,000 t)",
+          "points": [
+            {
+              "period": "2026-10",
+              "usd_day": 20371,
+              "raw_key": "dry_bancosta_weekly_2026_wk43_pdf",
+              "quote": "Oct-26 usd/day 20,371 20,429"
+            },
+            {
+              "period": "2026-11",
+              "usd_day": 18189,
+              "raw_key": "dry_bancosta_weekly_2026_wk43_pdf",
+              "quote": "Nov-26 usd/day 18,189 18,393"
+            },
+            {
+              "period": "2026-12",
+              "usd_day": 17821,
+              "raw_key": "dry_bancosta_weekly_2026_wk43_pdf",
+              "quote": "Dec-26 usd/day 17,821 17,939"
+            },
+            {
+              "period": "2027-01",
+              "usd_day": 16136,
+              "raw_key": "dry_bancosta_weekly_2026_wk43_pdf",
+              "quote": "Jan-27 usd/day 16,136 16,293"
+            }
+          ]
+        },
+        "supramax": {
+          "index": "S11TC (63,000 t)",
+          "points": [
+            {
+              "period": "2026-10",
+              "usd_day": 23191,
+              "raw_key": "dry_bancosta_weekly_2026_wk43_pdf",
+              "quote": "Oct-26 usd/day 23,191 23,177"
+            },
+            {
+              "period": "2026-11",
+              "usd_day": 22141,
+              "raw_key": "dry_bancosta_weekly_2026_wk43_pdf",
+              "quote": "Nov-26 usd/day 22,141 22,027"
+            },
+            {
+              "period": "2026-12",
+              "usd_day": 21170,
+              "raw_key": "dry_bancosta_weekly_2026_wk43_pdf",
+              "quote": "Dec-26 usd/day 21,170 21,070"
+            },
+            {
+              "period": "2027-01",
+              "usd_day": 18388,
+              "raw_key": "dry_bancosta_weekly_2026_wk43_pdf",
+              "quote": "Jan-27 usd/day 18,388 18,359"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "physical_fixtures": [
+    {
+      "id": "c5_fixture_2026_10",
+      "route": "C5",
+      "date": "2026-10-22",
+      "laycan": "5 to 7 November 2026",
+      "freight_usd_t": 14.15,
+      "raw_key": "dry_bancosta_weekly_2026_wk43_pdf",
+      "quote": "at USD 14.15/wmt for 5-7",
+      "read_from": "Banchero Costa week 43 narrative: a Dampier to Qingdao Capesize fixture at USD 14.15/wmt for 5 to 7 November loading; the PDF's text layer interleaves two columns, so the words are quoted around the figure",
+      "index_same_week": {
+        "C5_usd_t": 14.1,
+        "date": "2026-10-23"
+      }
+    }
+  ],
+  "tanker_ffa_tce": [
+    {
+      "id": "drewry_td3c_2026_02",
+      "route": "TD3C",
+      "published": "February 2026",
+      "raw_key": "dry_hsn_us_india_pact_vlcc_ffa_2026_html",
+      "quote": "When converted to time charter equivalent rates, the earnings for 1Q26 are projected to stay above the $100,000pd mark, while in 2Q26, they are likely to be around $93,100pd.",
+      "values": {
+        "2026-Q1_tce_usd_day_min": 100000,
+        "2026-Q2_tce_usd_day": 93100
+      },
+      "source": "Drewry, TD3C FFA converted to TCE, republished by Hellenic Shipping News"
+    }
+  ],
+  "settlement": [
+    {
+      "contract": "EEX Baltic Capesize 5TC Freight Futures (CPTM) and Capesize 5TC (182) (C5TM)",
+      "unit": "USD/day, 1 day per lot",
+      "rule": "the arithmetic average of all the Baltic Exchange's daily assessments of the five route time charter basket in the contract month",
+      "raw_key": "dry_eex_contract_specs_trade_registration_047a_2026_07_23_pdf",
+      "quote": [
+        "The Index is the arithmetic average of all daily spot price assessments for \"Capesize Dry Bulk Time Charter Freight Basket Routes (Avg. 5 routes)\" of the respective month as published by Baltic Exchange.",
+        "Contract Volume 1 day Pricing In USD per day"
+      ]
+    },
+    {
+      "contract": "EEX Baltic Panamax 5TC Freight Futures (P5TC)",
+      "unit": "USD/day, 1 day per lot",
+      "rule": "the arithmetic average of the Baltic's daily Panamax 5TC assessments in the month",
+      "raw_key": "dry_eex_contract_specs_trade_registration_047a_2026_07_23_pdf",
+      "quote": "The Index is the arithmetic average of all daily spot price assessments for \"Panamax Dry Bulk Time Charter Freight Basket Routes (Avg. 5 routes)\" of the respective month as published by Baltic Exchange."
+    },
+    {
+      "contract": "EEX Baltic Capesize C3 and C5 Freight Futures",
+      "unit": "USD/t",
+      "rule": "voyage route futures listed on EEX for Tubarao to Qingdao and Western Australia to Qingdao, settled on the month's Baltic route assessments",
+      "raw_key": "dry_eex_contract_specs_trade_registration_047a_2026_07_23_pdf",
+      "quote": [
+        "1.4.1 EEX Baltic Capesize C3 Freight Futures (Tubarao - Qingdao)",
+        "1.4.2 EEX Baltic Capesize C5 Freight Futures (Western Australia - Qingdao)"
+      ]
+    },
+    {
+      "contract": "ICE Futures Europe tanker FFAs (TD3C, TD20, TD22, TD25, TC2, TC14 and others)",
+      "unit": "USD/t",
+      "rule": "the average of the Baltic's assessments for the route for each business day of the determination period, in US dollars and cents per tonne",
+      "raw_key": "dry_ice_futures_europe_section_ttt_partiie_freight_pdf",
+      "quote": [
+        "the Floating Price will be a price in USD and cents per metric tonne based on the average of the assessments as Final Settlement Price made public by the Baltic Exchange for the relevant route for each business day",
+        "18. TD3C FFA - Middle East Gulf to China (Baltic) Future",
+        "24. TD22 FFA - US Gulf to China (Baltic) Future"
+      ]
+    },
+    {
+      "contract": "ICE TD34 FFA",
+      "unit": "USD/t",
+      "rule": "launched on ICE on 5 October 2026; 3,837 trades in its first five days against 2,989 for TD3C",
+      "raw_key": "risk_hsn_2026_10_15_baltic_td34_ffa_trades_outpace_td3c_html",
+      "quote": "According to Baltic Exchange, 3,837 trades were made on ICE for the new TD34 FFA in its first five days of trading (5-9 October). By comparison, the TD3C FFA (Middle East Gulf to China) recorded 2,989 trades on ICE during the same period."
+    }
+  ]
+}

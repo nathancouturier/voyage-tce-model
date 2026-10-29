@@ -1,0 +1,1034 @@
+{
+  "source": {
+    "title": "Guide to Market Benchmarks",
+    "publisher": "Baltic Exchange Information Services Ltd",
+    "version": "8.8",
+    "date": "September 2026",
+    "url": "https://www.balticexchange.com/content/dam/balticexchange/consumer/documents/data-services/documentation/ocean-bulk-guides-policies/GMB.pdf",
+    "raw_key": "baltic_gmb",
+    "retrieved": "2026-10-29"
+  },
+  "tanker_sea_margin": 0.05,
+  "c5tc_180_differential_usd_day": 3503.0,
+  "bci182_standard_from": "2026-01-02",
+  "bci182_reported_from": "2025-01-02",
+  "vessels": {
+    "BCI182": {
+      "id": "BCI182",
+      "label": "Baltic Standard Capesize (BCI182)",
+      "segment": "dry",
+      "dwt_t": 182000,
+      "page": 78,
+      "laden": [
+        [
+          14,
+          52
+        ],
+        [
+          13,
+          44
+        ],
+        [
+          12,
+          36
+        ],
+        [
+          11,
+          29
+        ]
+      ],
+      "ballast": [
+        [
+          14,
+          44
+        ],
+        [
+          13,
+          36
+        ],
+        [
+          12,
+          29
+        ],
+        [
+          11,
+          23
+        ]
+      ],
+      "reference_laden_kn": 14,
+      "reference_ballast_kn": 14,
+      "fuel_at_sea": "MFO",
+      "mgo_at_sea_tpd": 0.0,
+      "port_load_tpd": null,
+      "port_discharge_tpd": null,
+      "port_waiting_tpd": null,
+      "port_heating_tpd": null,
+      "scrubber": false,
+      "draft_m": 18.2,
+      "loa_m": 292,
+      "beam_m": 45,
+      "valid": "reported from 2 January 2025, the Baltic standard Capesize from 2 January 2026",
+      "note": "182,000 t dwt on 18.2 m SSW draft, TPC 123, 199,500 cbm grain, non-scrubber, MFO, no diesel at sea"
+    },
+    "BCI180": {
+      "id": "BCI180",
+      "label": "Previous Baltic Capesize (BCI180)",
+      "segment": "dry",
+      "dwt_t": 180000,
+      "page": 0,
+      "laden": [
+        [
+          14,
+          62
+        ],
+        [
+          12,
+          43
+        ]
+      ],
+      "ballast": [
+        [
+          15,
+          62
+        ],
+        [
+          13,
+          43
+        ]
+      ],
+      "reference_laden_kn": 14,
+      "reference_ballast_kn": 15,
+      "fuel_at_sea": "MFO",
+      "mgo_at_sea_tpd": 0.0,
+      "port_load_tpd": null,
+      "port_discharge_tpd": null,
+      "port_waiting_tpd": null,
+      "port_heating_tpd": null,
+      "scrubber": false,
+      "draft_m": null,
+      "loa_m": null,
+      "beam_m": null,
+      "valid": "the Baltic standard Capesize until 24 December 2025",
+      "note": "speeds and consumptions as the study brief states them; GMB v8.8 no longer prints this vessel"
+    },
+    "BPI82": {
+      "id": "BPI82",
+      "label": "Baltic Standard Panamax (BPI82)",
+      "segment": "dry",
+      "dwt_t": 82500,
+      "page": 80,
+      "laden": [
+        [
+          13.5,
+          33
+        ],
+        [
+          11.5,
+          22
+        ]
+      ],
+      "ballast": [
+        [
+          14,
+          31
+        ],
+        [
+          12.5,
+          23
+        ]
+      ],
+      "reference_laden_kn": 13.5,
+      "reference_ballast_kn": 14,
+      "fuel_at_sea": "fuel oil (380 cst)",
+      "mgo_at_sea_tpd": 0.1,
+      "port_load_tpd": null,
+      "port_discharge_tpd": null,
+      "port_waiting_tpd": null,
+      "port_heating_tpd": null,
+      "scrubber": false,
+      "draft_m": 14.43,
+      "loa_m": 229,
+      "beam_m": 32.25,
+      "valid": "",
+      "note": "82,500 t dwt on 14.43 m SSW draft, TPC 70.5, 97,000 cbm grain, non-scrubber, plus 0.1 t MGO at sea"
+    },
+    "BSI63": {
+      "id": "BSI63",
+      "label": "Baltic Standard Supramax (BSI63)",
+      "segment": "dry",
+      "dwt_t": 63500,
+      "page": 82,
+      "laden": [
+        [
+          14,
+          29
+        ],
+        [
+          13,
+          24
+        ],
+        [
+          12,
+          20
+        ],
+        [
+          11,
+          16.5
+        ]
+      ],
+      "ballast": [
+        [
+          14,
+          25
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          12,
+          17
+        ],
+        [
+          11,
+          14
+        ]
+      ],
+      "reference_laden_kn": 14,
+      "reference_ballast_kn": 14,
+      "fuel_at_sea": "MFO",
+      "mgo_at_sea_tpd": 0.0,
+      "port_load_tpd": null,
+      "port_discharge_tpd": null,
+      "port_waiting_tpd": null,
+      "port_heating_tpd": null,
+      "scrubber": false,
+      "draft_m": 13.418,
+      "loa_m": 199.98,
+      "beam_m": 32.24,
+      "valid": "",
+      "note": "63,500 t dwt on 13.418 m SSW, TPC 61.4, 80,500 cbm grain, 4 x 30 t cranes, non-scrubber, MFO, no MGO at sea"
+    },
+    "VLCC300": {
+      "id": "VLCC300",
+      "label": "Baltic Standard VLCC (VLCC300)",
+      "segment": "dirty",
+      "dwt_t": 300000,
+      "page": 89,
+      "laden": [
+        [
+          13,
+          57.3
+        ],
+        [
+          11,
+          39.8
+        ]
+      ],
+      "ballast": [
+        [
+          12,
+          39.5
+        ],
+        [
+          11,
+          28.5
+        ]
+      ],
+      "reference_laden_kn": 13,
+      "reference_ballast_kn": 12,
+      "fuel_at_sea": "MFO",
+      "mgo_at_sea_tpd": 0.0,
+      "port_load_tpd": 20,
+      "port_discharge_tpd": 110,
+      "port_waiting_tpd": 10,
+      "port_heating_tpd": null,
+      "scrubber": false,
+      "draft_m": null,
+      "loa_m": null,
+      "beam_m": null,
+      "valid": "",
+      "note": "300,000 t dwt, non-scrubber; 11 knots is the guide's eco speed"
+    },
+    "SUEZ160": {
+      "id": "SUEZ160",
+      "label": "Baltic Standard Suezmax (SUEZ160)",
+      "segment": "dirty",
+      "dwt_t": 160000,
+      "page": 89,
+      "laden": [
+        [
+          13,
+          38.5
+        ],
+        [
+          11,
+          30
+        ]
+      ],
+      "ballast": [
+        [
+          12,
+          28.5
+        ],
+        [
+          11,
+          23.5
+        ]
+      ],
+      "reference_laden_kn": 13,
+      "reference_ballast_kn": 12,
+      "fuel_at_sea": "MFO",
+      "mgo_at_sea_tpd": 0.0,
+      "port_load_tpd": 12,
+      "port_discharge_tpd": 68,
+      "port_waiting_tpd": 10,
+      "port_heating_tpd": null,
+      "scrubber": false,
+      "draft_m": null,
+      "loa_m": null,
+      "beam_m": null,
+      "valid": "",
+      "note": "160,000 t dwt, non-scrubber; 11 knots is the guide's eco speed"
+    },
+    "AFRA115": {
+      "id": "AFRA115",
+      "label": "Baltic Standard Aframax (AFRA115)",
+      "segment": "dirty",
+      "dwt_t": 115000,
+      "page": 89,
+      "laden": [
+        [
+          13,
+          35.3
+        ],
+        [
+          11,
+          27.0
+        ]
+      ],
+      "ballast": [
+        [
+          12,
+          25.3
+        ],
+        [
+          11,
+          21.0
+        ]
+      ],
+      "reference_laden_kn": 13,
+      "reference_ballast_kn": 12,
+      "fuel_at_sea": "MFO",
+      "mgo_at_sea_tpd": 0.0,
+      "port_load_tpd": 10,
+      "port_discharge_tpd": 55,
+      "port_waiting_tpd": 5,
+      "port_heating_tpd": 8,
+      "scrubber": false,
+      "draft_m": null,
+      "loa_m": null,
+      "beam_m": null,
+      "valid": "",
+      "note": "115,000 t dwt, non-scrubber; the TD25-TCE description names an AFRA105 the guide never describes (page 88), so the study prices TD25 on the AFRA115, the only Aframax the guide specifies"
+    },
+    "LR2-115": {
+      "id": "LR2-115",
+      "label": "Baltic Standard LR2 (LR2-115)",
+      "segment": "clean",
+      "dwt_t": 115000,
+      "page": 94,
+      "laden": [
+        [
+          13,
+          35.3
+        ],
+        [
+          11,
+          27.0
+        ]
+      ],
+      "ballast": [
+        [
+          12,
+          25.3
+        ],
+        [
+          11,
+          21.0
+        ]
+      ],
+      "reference_laden_kn": 13,
+      "reference_ballast_kn": 12,
+      "fuel_at_sea": "MFO",
+      "mgo_at_sea_tpd": 0.0,
+      "port_load_tpd": 5,
+      "port_discharge_tpd": 44,
+      "port_waiting_tpd": 6,
+      "port_heating_tpd": null,
+      "scrubber": false,
+      "draft_m": null,
+      "loa_m": null,
+      "beam_m": null,
+      "valid": "",
+      "note": "115,000 t dwt, non-scrubber"
+    },
+    "LR1-75": {
+      "id": "LR1-75",
+      "label": "Baltic Standard LR1 (LR1-75)",
+      "segment": "clean",
+      "dwt_t": 75000,
+      "page": 95,
+      "laden": [
+        [
+          13,
+          30.5
+        ],
+        [
+          11,
+          22.5
+        ]
+      ],
+      "ballast": [
+        [
+          12,
+          24.5
+        ],
+        [
+          11,
+          20.5
+        ]
+      ],
+      "reference_laden_kn": 13,
+      "reference_ballast_kn": 12,
+      "fuel_at_sea": "MFO",
+      "mgo_at_sea_tpd": 0.0,
+      "port_load_tpd": 5,
+      "port_discharge_tpd": 32,
+      "port_waiting_tpd": 5,
+      "port_heating_tpd": null,
+      "scrubber": false,
+      "draft_m": null,
+      "loa_m": null,
+      "beam_m": null,
+      "valid": "",
+      "note": "75,000 t dwt, non-scrubber"
+    },
+    "MR50": {
+      "id": "MR50",
+      "label": "Baltic Standard MR (MR50)",
+      "segment": "clean",
+      "dwt_t": 50000,
+      "page": 95,
+      "laden": [
+        [
+          13,
+          23.3
+        ],
+        [
+          11,
+          18.0
+        ]
+      ],
+      "ballast": [
+        [
+          12,
+          17.0
+        ],
+        [
+          11,
+          16.5
+        ]
+      ],
+      "reference_laden_kn": 13,
+      "reference_ballast_kn": 12,
+      "fuel_at_sea": "MFO",
+      "mgo_at_sea_tpd": 0.0,
+      "port_load_tpd": 5,
+      "port_discharge_tpd": 25,
+      "port_waiting_tpd": 5,
+      "port_heating_tpd": null,
+      "scrubber": false,
+      "draft_m": null,
+      "loa_m": null,
+      "beam_m": null,
+      "valid": "",
+      "note": "50,000 t dwt, non-scrubber"
+    },
+    "HANDC37": {
+      "id": "HANDC37",
+      "label": "Baltic Standard Clean Handy (HANDC37)",
+      "segment": "clean",
+      "dwt_t": 37800,
+      "page": 95,
+      "laden": [
+        [
+          13,
+          21.3
+        ],
+        [
+          11,
+          14.5
+        ]
+      ],
+      "ballast": [
+        [
+          12,
+          16.8
+        ],
+        [
+          11,
+          12.8
+        ]
+      ],
+      "reference_laden_kn": 13,
+      "reference_ballast_kn": 12,
+      "fuel_at_sea": "MFO",
+      "mgo_at_sea_tpd": 0.0,
+      "port_load_tpd": 5,
+      "port_discharge_tpd": 20,
+      "port_waiting_tpd": 5,
+      "port_heating_tpd": null,
+      "scrubber": false,
+      "draft_m": null,
+      "loa_m": null,
+      "beam_m": null,
+      "valid": "",
+      "note": "37,800 t dwt, non-scrubber"
+    }
+  },
+  "routes": {
+    "C3": {
+      "code": "C3",
+      "name": "Tubarao to Qingdao",
+      "segment": "dry",
+      "family": "BCI",
+      "contract": "voyage",
+      "unit": "USD/t",
+      "vessel": "BCI182",
+      "load": "tubarao",
+      "discharge": "qingdao",
+      "page": 77,
+      "description": "170,000 t iron ore, 10 percent more or less in owner's option, free in and out; laydays 20/30 days from index date; scale load, 30,000 t a day Sundays and holidays included discharge; 6 hours turn time at load, 24 at discharge; age max 18 years; 5 percent total commission",
+      "cargo_t": 170000,
+      "commission_pct": 5.0,
+      "laydays": "20/30 days from index date",
+      "load_days": null,
+      "discharge_days": null,
+      "waiting_days": null,
+      "canal_days": null,
+      "tce_page": null,
+      "tce_basis": "",
+      "load_rate_tpd": null,
+      "load_terms": "port scale",
+      "discharge_rate_tpd": 30000,
+      "discharge_terms": "SHINC",
+      "load_turn_h": 6,
+      "discharge_turn_h": 24,
+      "also_usd_t": "",
+      "laden_routing": "direct",
+      "ballast_routing": "direct",
+      "trip_days": null,
+      "in_basket": "",
+      "notes": [
+        "The cargo moved to 170,000 t from 2 January 2025 (Baltic circular 44/24)."
+      ]
+    },
+    "C5": {
+      "code": "C5",
+      "name": "West Australia to Qingdao",
+      "segment": "dry",
+      "family": "BCI",
+      "contract": "voyage",
+      "unit": "USD/t",
+      "vessel": "BCI182",
+      "load": "port_hedland",
+      "discharge": "qingdao",
+      "page": 77,
+      "description": "160,000 t or 170,000 t iron ore, 10 percent more or less in owner's option, free in and out; laydays 12/17 days from index date; scale load, 30,000 t a day Sundays and holidays included discharge; 6 hours turn time at load, 24 at discharge; age max 15 years; 5 percent total commission",
+      "cargo_t": 170000,
+      "commission_pct": 5.0,
+      "laydays": "12/17 days from index date",
+      "load_days": null,
+      "discharge_days": null,
+      "waiting_days": null,
+      "canal_days": null,
+      "tce_page": null,
+      "tce_basis": "",
+      "load_rate_tpd": null,
+      "load_terms": "port scale",
+      "discharge_rate_tpd": 30000,
+      "discharge_terms": "SHINC",
+      "load_turn_h": 6,
+      "discharge_turn_h": 24,
+      "also_usd_t": "",
+      "laden_routing": "direct",
+      "ballast_routing": "direct",
+      "trip_days": null,
+      "in_basket": "",
+      "notes": [
+        "The guide allows 160,000 t or 170,000 t; the study prices 170,000 t, the C3 cargo, and the calculator takes either."
+      ]
+    },
+    "P7": {
+      "code": "P7",
+      "name": "US Gulf to Qingdao grain",
+      "segment": "dry",
+      "family": "BPI",
+      "contract": "voyage",
+      "unit": "USD/t",
+      "vessel": "BPI82",
+      "load": "new_orleans",
+      "discharge": "qingdao",
+      "page": 80,
+      "description": "Mississippi river to Qingdao (minimum 13 m arrival draft), 66,000 t heavy grain, sorghum and soya, 10 percent more or less in owner's option, free in and out trimmed; 10,000 t a day Saturdays, Sundays and holidays excluded loading, 8,000 t a day discharge on the same terms; 24 hours turn time at each end; loading 10/20 days from index date; age max 15 years; 5 percent total commission",
+      "cargo_t": 66000,
+      "commission_pct": 5.0,
+      "laydays": "loading 10/20 days from index date",
+      "load_days": null,
+      "discharge_days": null,
+      "waiting_days": null,
+      "canal_days": null,
+      "tce_page": null,
+      "tce_basis": "",
+      "load_rate_tpd": 10000,
+      "load_terms": "SSHEX",
+      "discharge_rate_tpd": 8000,
+      "discharge_terms": "SSHEX",
+      "load_turn_h": 24,
+      "discharge_turn_h": 24,
+      "also_usd_t": "",
+      "laden_routing": "direct",
+      "ballast_routing": "direct",
+      "trip_days": null,
+      "in_basket": "",
+      "notes": [
+        "The guide names no canal; the study prices P7 through Panama and shows the Cape as the alternative."
+      ]
+    },
+    "S4A_63": {
+      "code": "S4A_63",
+      "name": "US Gulf trip to Skaw-Passero",
+      "segment": "dry",
+      "family": "BSI",
+      "contract": "trip",
+      "unit": "USD/day",
+      "vessel": "BSI63",
+      "load": "new_orleans",
+      "discharge": "rotterdam",
+      "page": 81,
+      "description": "Delivery US Gulf, laydays 5/10 days from index date, redelivery Skaw-Passero range, duration 25 to 30 days, basis the Baltic Standard Supramax, 5 percent total commission",
+      "cargo_t": null,
+      "commission_pct": 5.0,
+      "laydays": "5/10 days from index date",
+      "load_days": null,
+      "discharge_days": null,
+      "waiting_days": null,
+      "canal_days": null,
+      "tce_page": null,
+      "tce_basis": "",
+      "load_rate_tpd": null,
+      "load_terms": "",
+      "discharge_rate_tpd": null,
+      "discharge_terms": "",
+      "load_turn_h": null,
+      "discharge_turn_h": null,
+      "also_usd_t": "",
+      "laden_routing": "direct",
+      "ballast_routing": "direct",
+      "trip_days": [
+        25,
+        30
+      ],
+      "in_basket": "S11TC 7.5%",
+      "notes": [
+        "A trip time charter: the charterer pays the bunkers, ports and canals of the trip, the owner earns hire. The study places delivery at New Orleans and redelivery at Rotterdam, inside the named ranges."
+      ]
+    },
+    "TD3C": {
+      "code": "TD3C",
+      "name": "Middle East Gulf to China",
+      "segment": "dirty",
+      "family": "BDTI",
+      "contract": "voyage",
+      "unit": "WS",
+      "vessel": "VLCC300",
+      "load": "ras_tanura",
+      "discharge": "ningbo",
+      "page": 84,
+      "description": "270,000 t crude, Ras Tanura to Ningbo; laydays 15/30 days from index date; age max 15 years; 3.75 percent total commission",
+      "cargo_t": 270000,
+      "commission_pct": 3.75,
+      "laydays": "15/30 days from index date",
+      "load_days": 2,
+      "discharge_days": 2,
+      "waiting_days": 2,
+      "canal_days": null,
+      "tce_page": 87,
+      "tce_basis": "Baltic VLCC (VLCC300), delivery Ningbo for a round voyage loading Ras Tanura: 2 days load, 2 days discharge, 2 days waiting",
+      "load_rate_tpd": null,
+      "load_terms": "",
+      "discharge_rate_tpd": null,
+      "discharge_terms": "",
+      "load_turn_h": null,
+      "discharge_turn_h": null,
+      "also_usd_t": "TD3C$, page 84",
+      "laden_routing": "direct",
+      "ballast_routing": "direct",
+      "trip_days": null,
+      "in_basket": "",
+      "notes": []
+    },
+    "TD34": {
+      "code": "TD34",
+      "name": "Gulf of Oman to China",
+      "segment": "dirty",
+      "family": "BDTI",
+      "contract": "voyage",
+      "unit": "WS",
+      "vessel": "VLCC300",
+      "load": "mina_al_fahal",
+      "discharge": "ningbo",
+      "page": 87,
+      "description": "270,000 t crude, Mina Al Fahal to Ningbo; laydays 15/30 days from index date; age max 15 years; 3.75 percent total commission",
+      "cargo_t": 270000,
+      "commission_pct": 3.75,
+      "laydays": "15/30 days from index date",
+      "load_days": 2,
+      "discharge_days": 2,
+      "waiting_days": 1,
+      "canal_days": null,
+      "tce_page": 89,
+      "tce_basis": "Baltic VLCC (VLCC300), delivery Ningbo for a round voyage loading Mina Al Fahal: 2 days load, 2 days discharge, 1 day waiting",
+      "load_rate_tpd": null,
+      "load_terms": "",
+      "discharge_rate_tpd": null,
+      "discharge_terms": "",
+      "load_turn_h": null,
+      "discharge_turn_h": null,
+      "also_usd_t": "TD34$, page 87",
+      "laden_routing": "direct",
+      "ballast_routing": "direct",
+      "trip_days": null,
+      "in_basket": "",
+      "notes": [
+        "Added to the guide in version 8.4 (May 2026), its TCE in 8.7 (August 2026) and TD34$ in 8.8 (September 2026), which also amended the TCE's waiting days."
+      ]
+    },
+    "TD22": {
+      "code": "TD22",
+      "name": "US Gulf to China",
+      "segment": "dirty",
+      "family": "BDTI",
+      "contract": "voyage",
+      "unit": "USD lump sum",
+      "vessel": "VLCC300",
+      "load": "galveston",
+      "discharge": "ningbo",
+      "page": 86,
+      "description": "270,000 t crude, Galveston offshore lightering area to Ningbo; laydays 25/35 days from index date; double hull, age max 15 years; 3.75 percent total commission; assessed as a lump sum",
+      "cargo_t": 270000,
+      "commission_pct": 3.75,
+      "laydays": "25/35 days from index date",
+      "load_days": 2,
+      "discharge_days": 2,
+      "waiting_days": 1,
+      "canal_days": null,
+      "tce_page": 88,
+      "tce_basis": "Baltic VLCC (VLCC300), delivery Ningbo for a round voyage loading Galveston Offshore TSA1: 2 days load, 2 days discharge, 1 day waiting",
+      "load_rate_tpd": null,
+      "load_terms": "",
+      "discharge_rate_tpd": null,
+      "discharge_terms": "",
+      "load_turn_h": null,
+      "discharge_turn_h": null,
+      "also_usd_t": "TD22$, page 86",
+      "laden_routing": "no_canals",
+      "ballast_routing": "no_canals",
+      "trip_days": null,
+      "in_basket": "",
+      "notes": [
+        "A laden VLCC fits neither canal, so the laden leg goes round the Cape of Good Hope; the ballast leg is priced round the Cape as well, with Suez in ballast as the alternative."
+      ]
+    },
+    "TD20": {
+      "code": "TD20",
+      "name": "West Africa to UK-Continent",
+      "segment": "dirty",
+      "family": "BDTI",
+      "contract": "voyage",
+      "unit": "WS",
+      "vessel": "SUEZ160",
+      "load": "bonny",
+      "discharge": "rotterdam",
+      "page": 86,
+      "description": "130,000 t crude, offshore terminal Bonny to Rotterdam; laydays 15 to 20 days from index date; age max 15 years; 82,000 grt; 3.75 percent total commission",
+      "cargo_t": 130000,
+      "commission_pct": 3.75,
+      "laydays": "15 to 20 days from index date",
+      "load_days": 2,
+      "discharge_days": 2,
+      "waiting_days": 1,
+      "canal_days": null,
+      "tce_page": 88,
+      "tce_basis": "Baltic Suezmax (SUEZ160), delivery Rotterdam for a round voyage loading Offshore Bonny: 2 days load, 2 days discharge, 1 day waiting",
+      "load_rate_tpd": null,
+      "load_terms": "",
+      "discharge_rate_tpd": null,
+      "discharge_terms": "",
+      "load_turn_h": null,
+      "discharge_turn_h": null,
+      "also_usd_t": "TD20$, page 86",
+      "laden_routing": "direct",
+      "ballast_routing": "direct",
+      "trip_days": null,
+      "in_basket": "",
+      "notes": []
+    },
+    "TD25": {
+      "code": "TD25",
+      "name": "US Gulf to UK-Continent",
+      "segment": "dirty",
+      "family": "BDTI",
+      "contract": "voyage",
+      "unit": "WS",
+      "vessel": "AFRA115",
+      "load": "houston",
+      "discharge": "rotterdam",
+      "page": 86,
+      "description": "70,000 t crude, Houston to Rotterdam; laydays 10/20 days from index date; double hull, age max 15 years; 3.75 percent total commission",
+      "cargo_t": 70000,
+      "commission_pct": 3.75,
+      "laydays": "10/20 days from index date",
+      "load_days": 2,
+      "discharge_days": 2,
+      "waiting_days": 0.5,
+      "canal_days": null,
+      "tce_page": 88,
+      "tce_basis": "Baltic Aframax (named AFRA105 in the guide), delivery Rotterdam for a round voyage loading Houston: 2 days load, 2 days discharge, 0.5 days waiting",
+      "load_rate_tpd": null,
+      "load_terms": "",
+      "discharge_rate_tpd": null,
+      "discharge_terms": "",
+      "load_turn_h": null,
+      "discharge_turn_h": null,
+      "also_usd_t": "TD25$, page 86",
+      "laden_routing": "direct",
+      "ballast_routing": "direct",
+      "trip_days": null,
+      "in_basket": "",
+      "notes": [
+        "The TCE description names an AFRA105 that the guide never specifies; the study uses the AFRA115."
+      ]
+    },
+    "TC2_37": {
+      "code": "TC2_37",
+      "name": "Continent to US Atlantic coast",
+      "segment": "clean",
+      "family": "BCTI",
+      "contract": "voyage",
+      "unit": "WS",
+      "vessel": "MR50",
+      "load": "rotterdam",
+      "discharge": "new_york",
+      "page": 90,
+      "description": "37,000 t clean products or unleaded gasoline, Rotterdam to New York; laydays 10/14 days from index date; age max 15 years; 3.75 percent total commission",
+      "cargo_t": 37000,
+      "commission_pct": 3.75,
+      "laydays": "10/14 days from index date",
+      "load_days": 2,
+      "discharge_days": 2,
+      "waiting_days": 1,
+      "canal_days": null,
+      "tce_page": 93,
+      "tce_basis": "MR (MR50), delivery New York for a round voyage loading Rotterdam: 2 days load, 2 days discharge, 1 day waiting",
+      "load_rate_tpd": null,
+      "load_terms": "",
+      "discharge_rate_tpd": null,
+      "discharge_terms": "",
+      "load_turn_h": null,
+      "discharge_turn_h": null,
+      "also_usd_t": "TC2_37$, page 90",
+      "laden_routing": "direct",
+      "ballast_routing": "direct",
+      "trip_days": null,
+      "in_basket": "",
+      "notes": []
+    },
+    "TC14": {
+      "code": "TC14",
+      "name": "US Gulf to Continent",
+      "segment": "clean",
+      "family": "BCTI",
+      "contract": "voyage",
+      "unit": "WS",
+      "vessel": "MR50",
+      "load": "houston",
+      "discharge": "amsterdam",
+      "page": 91,
+      "description": "38,000 t clean products, unleaded gasoline or diesel, Houston to Amsterdam; laydays 6/12 days from index date; age max 15 years; 3.75 percent total commission",
+      "cargo_t": 38000,
+      "commission_pct": 3.75,
+      "laydays": "6/12 days from index date",
+      "load_days": 2,
+      "discharge_days": 2,
+      "waiting_days": 1,
+      "canal_days": null,
+      "tce_page": 94,
+      "tce_basis": "MR (MR50), delivery Amsterdam for a round voyage loading Houston: 2 days load, 2 days discharge, 1 day waiting",
+      "load_rate_tpd": null,
+      "load_terms": "",
+      "discharge_rate_tpd": null,
+      "discharge_terms": "",
+      "load_turn_h": null,
+      "discharge_turn_h": null,
+      "also_usd_t": "TC14$, page 91",
+      "laden_routing": "direct",
+      "ballast_routing": "direct",
+      "trip_days": null,
+      "in_basket": "",
+      "notes": []
+    },
+    "TC1": {
+      "code": "TC1",
+      "name": "Middle East Gulf to Japan (LR2)",
+      "segment": "clean",
+      "family": "BCTI",
+      "contract": "voyage",
+      "unit": "WS",
+      "vessel": "LR2-115",
+      "load": "ras_tanura",
+      "discharge": "yokohama",
+      "page": 89,
+      "description": "75,000 t clean products, naphtha or condensate, Ras Tanura to Yokohama; laydays 30/35 days from index date; age max 15 years; 3.75 percent total commission",
+      "cargo_t": 75000,
+      "commission_pct": 3.75,
+      "laydays": "30/35 days from index date",
+      "load_days": 2,
+      "discharge_days": 2,
+      "waiting_days": 0.5,
+      "canal_days": null,
+      "tce_page": 93,
+      "tce_basis": "LR2 (LR2-115), delivery Yokohama for a round voyage loading Ras Tanura: 2 days load, 2 days discharge, 0.5 days waiting",
+      "load_rate_tpd": null,
+      "load_terms": "",
+      "discharge_rate_tpd": null,
+      "discharge_terms": "",
+      "load_turn_h": null,
+      "discharge_turn_h": null,
+      "also_usd_t": "TC1$, page 90",
+      "laden_routing": "direct",
+      "ballast_routing": "direct",
+      "trip_days": null,
+      "in_basket": "",
+      "notes": []
+    },
+    "TC5": {
+      "code": "TC5",
+      "name": "Middle East Gulf to Japan (LR1)",
+      "segment": "clean",
+      "family": "BCTI",
+      "contract": "voyage",
+      "unit": "WS",
+      "vessel": "LR1-75",
+      "load": "ras_tanura",
+      "discharge": "yokohama",
+      "page": 90,
+      "description": "55,000 t clean products, unleaded gasoline, naphtha or condensate, Ras Tanura to Yokohama; laydays 30/35 days from index date; age max 15 years; 3.75 percent total commission",
+      "cargo_t": 55000,
+      "commission_pct": 3.75,
+      "laydays": "30/35 days from index date",
+      "load_days": 2,
+      "discharge_days": 2,
+      "waiting_days": 1,
+      "canal_days": null,
+      "tce_page": 93,
+      "tce_basis": "LR1 (LR1-75), delivery Yokohama for a round voyage loading Ras Tanura: 2 days load, 2 days discharge, 1 day waiting",
+      "load_rate_tpd": null,
+      "load_terms": "",
+      "discharge_rate_tpd": null,
+      "discharge_terms": "",
+      "load_turn_h": null,
+      "discharge_turn_h": null,
+      "also_usd_t": "TC5$, page 90",
+      "laden_routing": "direct",
+      "ballast_routing": "direct",
+      "trip_days": null,
+      "in_basket": "",
+      "notes": []
+    },
+    "TC20": {
+      "code": "TC20",
+      "name": "Middle East Gulf to UK-Continent (LR2)",
+      "segment": "clean",
+      "family": "BCTI",
+      "contract": "voyage",
+      "unit": "USD lump sum",
+      "vessel": "LR2-115",
+      "load": "jubail",
+      "discharge": "rotterdam",
+      "page": 92,
+      "description": "90,000 t clean products, middle distillate, Jubail to Rotterdam; laydays 15/20 days from index date; double hull, age max 15 years; 3.75 percent total commission",
+      "cargo_t": 90000,
+      "commission_pct": 3.75,
+      "laydays": "15/20 days from index date",
+      "load_days": 2,
+      "discharge_days": 2,
+      "waiting_days": 1,
+      "canal_days": 2,
+      "tce_page": 94,
+      "tce_basis": "LR2 (LR2-115), delivery Rotterdam for a round voyage via the Suez Canal loading Jubail: 2 days load, 2 days discharge, 2 days canal, 1 day waiting",
+      "load_rate_tpd": null,
+      "load_terms": "",
+      "discharge_rate_tpd": null,
+      "discharge_terms": "",
+      "load_turn_h": null,
+      "discharge_turn_h": null,
+      "also_usd_t": "TC20$, page 92",
+      "laden_routing": "direct",
+      "ballast_routing": "direct",
+      "trip_days": null,
+      "in_basket": "",
+      "notes": [
+        "Used for the Suez against Cape detour; the Baltic's TCE basis is via Suez."
+      ]
+    },
+    "TC23": {
+      "code": "TC23",
+      "name": "ARA to UK-Continent (Handy)",
+      "segment": "clean",
+      "family": "BCTI",
+      "contract": "voyage",
+      "unit": "WS",
+      "vessel": "HANDC37",
+      "load": "amsterdam",
+      "discharge": "le_havre",
+      "page": 93,
+      "description": "30,000 t clean products, unleaded gasoline or ultra low sulphur diesel, Amsterdam-Rotterdam-Antwerp to UK-Continent; laydays 5/10 days from index date; age max 15 years; 3.75 percent total commission",
+      "cargo_t": 30000,
+      "commission_pct": 3.75,
+      "laydays": "5/10 days from index date",
+      "load_days": 2,
+      "discharge_days": 2,
+      "waiting_days": 1,
+      "canal_days": null,
+      "tce_page": 94,
+      "tce_basis": "Handy (HANDC37), delivery Le Havre for a round trip loading Amsterdam: 2 days loading, 2 days discharge, 1 day waiting",
+      "load_rate_tpd": null,
+      "load_terms": "",
+      "discharge_rate_tpd": null,
+      "discharge_terms": "",
+      "load_turn_h": null,
+      "discharge_turn_h": null,
+      "also_usd_t": "TC23$, page 93",
+      "laden_routing": "direct",
+      "ballast_routing": "direct",
+      "trip_days": null,
+      "in_basket": "",
+      "notes": [
+        "Used as the voyage between two EEA ports in the carbon analysis."
+      ]
+    }
+  },
+  "schema": "voyage-tce-model seed: Baltic Exchange routes and vessels"
+}
