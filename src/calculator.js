@@ -114,8 +114,10 @@ function freightFormat() {
 
 /** Whether the engine can price the inputs as they stand, or why not. */
 function readiness() {
-  if (inputs.freight_value === null || inputs.freight_value === undefined || Number.isNaN(inputs.freight_value)) return { ok: false, why: calc.words.no_freight };
+  // A Worldscale basis without a flat rate is said first: points typed
+  // without one could not be priced either.
   if (inputs.freight_basis === "ws" && !inputs.flat_rate_usd_t) return { ok: false, why: calc.words.ws_missing };
+  if (inputs.freight_value === null || inputs.freight_value === undefined || Number.isNaN(inputs.freight_value)) return { ok: false, why: calc.words.no_freight };
   return { ok: true };
 }
 

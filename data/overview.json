@@ -6,6 +6,7 @@
       "usd_day": 0,
       "usd": 0,
       "usd_m": 2,
+      "usd_m_0": 0,
       "usd_t": 2,
       "usd_bbl": 2,
       "ws": 2,
@@ -89,7 +90,7 @@
       ", as republished by Hellenic Shipping News."
     ],
     [
-      "Bunkers: Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026, priced at Houston, the hub with public prices nearest Galveston."
+      "Bunkers: Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026, priced at Houston, the hub with public prices nearest Galveston."
     ],
     [
       "Ship, speeds and port days: Baltic Exchange Guide to Market Benchmarks v8.8 (September 2026), VLCC300."
@@ -413,7 +414,7 @@
         "text": "23 October 2026",
         "field": "date"
       },
-      ". Freight: Baltic Exchange via Hellenic Shipping News. Bunkers: Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026. ",
+      ". Freight: Baltic Exchange via Hellenic Shipping News. Bunkers: Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026. ",
       "A cost with no public figure is left out and named in its row."
     ],
     "caption": "The bridge from gross freight to the voyage result, in US dollars, one row per step."
@@ -811,7 +812,7 @@
       "text": null,
       "status": "sourced",
       "status_words": "Sourced",
-      "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+      "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
     },
     {
       "path": "prices.hsfo_usd_t",
@@ -821,7 +822,7 @@
       "text": null,
       "status": "sourced",
       "status_words": "Sourced",
-      "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+      "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
     },
     {
       "path": "prices.mgo_usd_t",
@@ -831,7 +832,7 @@
       "text": null,
       "status": "sourced",
       "status_words": "Sourced",
-      "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+      "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
     },
     {
       "path": "ets.eua_eur_t",

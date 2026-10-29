@@ -6,6 +6,7 @@
       "usd_day": 0,
       "usd": 0,
       "usd_m": 2,
+      "usd_m_0": 0,
       "usd_t": 2,
       "usd_bbl": 2,
       "ws": 2,
@@ -282,7 +283,7 @@
       },
       {
         "id": "war_low",
-        "label": "War risk 7.5% of hull value, one transit period",
+        "label": "War risk 7.5 percent of hull value, one transit period",
         "days": 47.007212,
         "extra_days": 0.0,
         "laden_nm": 5848.8,
@@ -313,7 +314,7 @@
       },
       {
         "id": "war_high",
-        "label": "War risk 10.0% of hull value, one transit period",
+        "label": "War risk 10 percent of hull value, one transit period",
         "days": 47.007212,
         "extra_days": 0.0,
         "laden_nm": 5848.8,
@@ -344,7 +345,7 @@
       },
       {
         "id": "wait_5",
-        "label": "War risk 7.5% and 5 days waiting to transit",
+        "label": "War risk 7.5 percent and 5 days waiting to transit",
         "days": 52.007212,
         "extra_days": 5.0,
         "laden_nm": 5848.8,
@@ -375,7 +376,7 @@
       },
       {
         "id": "wait_10",
-        "label": "War risk 7.5% and 10 days waiting to transit",
+        "label": "War risk 7.5 percent and 10 days waiting to transit",
         "days": 57.007212,
         "extra_days": 10.0,
         "laden_nm": 5848.8,
@@ -406,7 +407,7 @@
       },
       {
         "id": "wait_20",
-        "label": "War risk 7.5% and 20 days waiting to transit",
+        "label": "War risk 7.5 percent and 20 days waiting to transit",
         "days": 67.007212,
         "extra_days": 20.0,
         "laden_nm": 5848.8,
@@ -839,7 +840,7 @@
         " of a ",
         {
           "value": 85.0,
-          "format": "usd_m",
+          "format": "usd_m_0",
           "field": "suez.hull_value_usd",
           "prefix": "USD ",
           "suffix": " million"
@@ -941,7 +942,7 @@
         " premium on a ",
         {
           "value": 157.0,
-          "format": "usd_m",
+          "format": "usd_m_0",
           "field": "hormuz.hull_value_usd",
           "prefix": "USD ",
           "suffix": " million"

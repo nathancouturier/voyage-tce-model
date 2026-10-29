@@ -16,7 +16,8 @@ the page shows the part of the world the voyage sails.
 THE LEGS. The laden leg is drawn as it sails; the ballast leg, which often
 follows the same water back, is drawn a few map units to its side so both are
 visible. The stretches inside an emission control area in force on the voyage
-date are cut out of each leg as their own paths. Port names are placed where no
+date are cut out of each leg as their own paths. The ports are given as points;
+the page places their names at the size it draws them (src/map.js), where no
 line runs through them and no other word lies under them.
 """
 
@@ -250,93 +251,7 @@ def leg_drawing(origin: str, destination: str, routing: str, on_date: str, side:
         "box": (min(xs), min(ys), max(xs), max(ys)),
         "start": drawn[0],
         "end": drawn[-1],
-        "points": drawn,
     }
-
-
-# ------------------------------------------------------------------ labels ---
-
-#: The size the stylesheet gives a port name (.map-port) in map units, a width per
-#: character that overstates Figtree's, clear space round a word, the dot's reach.
-PORT_FONT = 9.0
-CHAR_EM = 0.6
-LABEL_PAD = 2.0
-PORT_DOT = 4.0
-PORT_GAP = 6.0
-PORT_STEPS = tuple(float(step) for step in range(0, 40, 3))
-
-Box = tuple[float, float, float, float]
-
-
-def text_box(text: str, x: float, y: float, anchor: str, size: float) -> Box:
-    width = len(text) * size * CHAR_EM
-    left = {"start": x, "middle": x - width / 2.0, "end": x - width}[anchor]
-    return (left - LABEL_PAD, y - size * 0.8 - LABEL_PAD, left + width + LABEL_PAD, y + size * 0.25 + LABEL_PAD)
-
-
-def _overlaps(a: Box, b: Box) -> bool:
-    return a[0] < b[2] and b[0] < a[2] and a[1] < b[3] and b[1] < a[3]
-
-
-def _crosses(box: Box, p: Point, q: Point) -> bool:
-    """Whether the segment from p to q enters the box (Liang and Barsky's clip)."""
-    t0, t1 = 0.0, 1.0
-    dx, dy = q[0] - p[0], q[1] - p[1]
-    for edge_p, edge_q in ((-dx, p[0] - box[0]), (dx, box[2] - p[0]), (-dy, p[1] - box[1]), (dy, box[3] - p[1])):
-        if edge_p == 0.0:
-            if edge_q < 0.0:
-                return False
-            continue
-        t = edge_q / edge_p
-        if edge_p < 0.0:
-            t0 = max(t0, t)
-        else:
-            t1 = min(t1, t)
-        if t0 > t1:
-            return False
-    return True
-
-
-def place_ports(ports: Sequence[dict[str, Any]], lines: Sequence[Sequence[Point]], view: Box) -> list[dict[str, Any]]:
-    """Each port's name beside its dot, or above or below it, where no line runs and no word lies."""
-    taken: list[Box] = [(p["x"] - PORT_DOT, p["y"] - PORT_DOT, p["x"] + PORT_DOT, p["y"] + PORT_DOT) for p in ports]
-    out = []
-    middle = (view[0] + view[2]) / 2.0
-    for port in ports:
-        sides = ("end", "start") if port["x"] > middle else ("start", "end")
-        beside = port["y"] + PORT_FONT * 0.35
-        above = port["y"] - PORT_DOT - LABEL_PAD - PORT_FONT * 0.25
-        below = port["y"] + PORT_DOT + LABEL_PAD + PORT_FONT * 0.8
-        options = []
-        for step in PORT_STEPS:
-            for dy in (0.0,) if step == 0.0 else (-step, step):
-                for anchor in sides:
-                    options.append((anchor, port["x"] + (PORT_GAP if anchor == "start" else -PORT_GAP), beside + dy))
-            options += [("middle", port["x"], above - step), ("middle", port["x"], below + step)]
-
-        def clear(option: tuple[str, float, float], name: str = port["name"]) -> bool:
-            box = text_box(name, option[1], option[2], option[0], PORT_FONT)
-            if box[0] < view[0] or box[1] < view[1] or box[2] > view[2] or box[3] > view[3]:
-                return False
-            if any(_overlaps(box, other) for other in taken):
-                return False
-            return not any(_crosses(box, p, q) for line in lines for p, q in itertools.pairwise(line))
-
-        chosen = next((o for o in options if clear(o)), options[0])
-        taken.append(text_box(port["name"], chosen[1], chosen[2], chosen[0], PORT_FONT))
-        out.append(
-            {
-                "id": port["id"],
-                "name": port["name"],
-                "x": round(port["x"], PLACES),
-                "y": round(port["y"], PLACES),
-                "anchor": chosen[0],
-                "label_x": round(chosen[1], PLACES),
-                "label_y": round(chosen[2], PLACES),
-                "role": port["role"],
-            }
-        )
-    return out
 
 
 def voyage_map(
@@ -381,7 +296,7 @@ def voyage_map(
                 "role": "open",
             }
         )
-    placed = place_ports(ports, [laden["points"], ballast["points"]], view)
+    placed = [{**port, "x": round(port["x"], PLACES), "y": round(port["y"], PLACES)} for port in ports]
     return {
         "view_box": [
             round(view[0], PLACES),

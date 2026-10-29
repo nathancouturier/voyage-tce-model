@@ -6,6 +6,7 @@
       "usd_day": 0,
       "usd": 0,
       "usd_m": 2,
+      "usd_m_0": 0,
       "usd_t": 2,
       "usd_bbl": 2,
       "ws": 2,
@@ -238,7 +239,9 @@
         "error": null,
         "reason": "a rate only: the report gives no TCE for this route that week",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-steadied-last-week/"
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-steadied-last-week/",
+        "route_label": "TC20",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2025-12-12",
@@ -254,7 +257,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2025 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-steadied-last-week/"
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-steadied-last-week/",
+        "route_label": "TD3C",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2025-12-12",
@@ -270,7 +275,9 @@
         "error": null,
         "reason": "no public bunker table within a week before the assessment",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-steadied-last-week/"
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-steadied-last-week/",
+        "route_label": "TD22",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2025-12-12",
@@ -286,7 +293,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2025 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-steadied-last-week/"
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-steadied-last-week/",
+        "route_label": "TD20",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2025-12-12",
@@ -302,7 +311,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2025 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-steadied-last-week/"
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-steadied-last-week/",
+        "route_label": "TD25",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2025-12-12",
@@ -318,7 +329,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2025 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-steadied-last-week/"
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-steadied-last-week/",
+        "route_label": "TC14",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-01-23",
@@ -334,7 +347,9 @@
         "error": null,
         "reason": "a rate only: the report gives no TCE for this route that week",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tanker-report-vlcc-market-remained-firm/"
+        "url": "https://www.hellenicshippingnews.com/tanker-report-vlcc-market-remained-firm/",
+        "route_label": "TC20",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-01-23",
@@ -350,7 +365,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tanker-report-vlcc-market-remained-firm/"
+        "url": "https://www.hellenicshippingnews.com/tanker-report-vlcc-market-remained-firm/",
+        "route_label": "TD3C",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-01-23",
@@ -366,7 +383,9 @@
         "error": null,
         "reason": "no public bunker table within a week before the assessment",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tanker-report-vlcc-market-remained-firm/"
+        "url": "https://www.hellenicshippingnews.com/tanker-report-vlcc-market-remained-firm/",
+        "route_label": "TD22",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-01-23",
@@ -382,7 +401,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tanker-report-vlcc-market-remained-firm/"
+        "url": "https://www.hellenicshippingnews.com/tanker-report-vlcc-market-remained-firm/",
+        "route_label": "TD20",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-01-23",
@@ -398,7 +419,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tanker-report-vlcc-market-remained-firm/"
+        "url": "https://www.hellenicshippingnews.com/tanker-report-vlcc-market-remained-firm/",
+        "route_label": "TD25",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-01-23",
@@ -414,7 +437,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tanker-report-vlcc-market-remained-firm/"
+        "url": "https://www.hellenicshippingnews.com/tanker-report-vlcc-market-remained-firm/",
+        "route_label": "TC14",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-02-20",
@@ -430,7 +455,9 @@
         "error": null,
         "reason": "a rate only: the report gives no TCE for this route that week",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tankers-vlccs-recovered-last-week/"
+        "url": "https://www.hellenicshippingnews.com/tankers-vlccs-recovered-last-week/",
+        "route_label": "TC20",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-02-20",
@@ -446,7 +473,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tankers-vlccs-recovered-last-week/"
+        "url": "https://www.hellenicshippingnews.com/tankers-vlccs-recovered-last-week/",
+        "route_label": "TD3C",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-02-20",
@@ -462,7 +491,9 @@
         "error": null,
         "reason": "no public bunker table within a week before the assessment",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tankers-vlccs-recovered-last-week/"
+        "url": "https://www.hellenicshippingnews.com/tankers-vlccs-recovered-last-week/",
+        "route_label": "TD22",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-02-20",
@@ -478,7 +509,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tankers-vlccs-recovered-last-week/"
+        "url": "https://www.hellenicshippingnews.com/tankers-vlccs-recovered-last-week/",
+        "route_label": "TD20",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-02-20",
@@ -494,7 +527,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tankers-vlccs-recovered-last-week/"
+        "url": "https://www.hellenicshippingnews.com/tankers-vlccs-recovered-last-week/",
+        "route_label": "TD25",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-02-20",
@@ -510,7 +545,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tankers-vlccs-recovered-last-week/"
+        "url": "https://www.hellenicshippingnews.com/tankers-vlccs-recovered-last-week/",
+        "route_label": "TC1",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-02-20",
@@ -526,7 +563,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tankers-vlccs-recovered-last-week/"
+        "url": "https://www.hellenicshippingnews.com/tankers-vlccs-recovered-last-week/",
+        "route_label": "TC2",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-02-27",
@@ -542,7 +581,9 @@
         "error": null,
         "reason": "a rate only: the report gives no TCE for this route that week",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-skyrocketing/"
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-skyrocketing/",
+        "route_label": "TC20",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-02-27",
@@ -558,7 +599,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-skyrocketing/"
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-skyrocketing/",
+        "route_label": "TD3C",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-02-27",
@@ -577,7 +620,9 @@
         "excluded": [
           "port charges at Galveston and Ningbo (no public per call figure)"
         ],
-        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-skyrocketing/"
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-skyrocketing/",
+        "route_label": "TD22",
+        "bunkers_words": "week of 27 February 2026"
       },
       {
         "week_ending": "2026-02-27",
@@ -593,7 +638,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-skyrocketing/"
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-skyrocketing/",
+        "route_label": "TD20",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-02-27",
@@ -609,7 +656,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-skyrocketing/"
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-skyrocketing/",
+        "route_label": "TD25",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-02-27",
@@ -625,7 +674,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-skyrocketing/"
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-skyrocketing/",
+        "route_label": "TC1",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-02-27",
@@ -641,7 +692,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-skyrocketing/"
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-skyrocketing/",
+        "route_label": "TC2",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-03-06",
@@ -657,7 +710,9 @@
         "error": null,
         "reason": "a rate only: the report gives no TCE for this route that week",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tanker-shipping-rates-post-strong-gains-on-middle-east-worries/"
+        "url": "https://www.hellenicshippingnews.com/tanker-shipping-rates-post-strong-gains-on-middle-east-worries/",
+        "route_label": "TC20",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-03-06",
@@ -673,7 +728,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tanker-shipping-rates-post-strong-gains-on-middle-east-worries/"
+        "url": "https://www.hellenicshippingnews.com/tanker-shipping-rates-post-strong-gains-on-middle-east-worries/",
+        "route_label": "TD3C",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-03-06",
@@ -692,7 +749,9 @@
         "excluded": [
           "port charges at Galveston and Ningbo (no public per call figure)"
         ],
-        "url": "https://www.hellenicshippingnews.com/tanker-shipping-rates-post-strong-gains-on-middle-east-worries/"
+        "url": "https://www.hellenicshippingnews.com/tanker-shipping-rates-post-strong-gains-on-middle-east-worries/",
+        "route_label": "TD22",
+        "bunkers_words": "week of 6 March 2026"
       },
       {
         "week_ending": "2026-03-06",
@@ -708,7 +767,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tanker-shipping-rates-post-strong-gains-on-middle-east-worries/"
+        "url": "https://www.hellenicshippingnews.com/tanker-shipping-rates-post-strong-gains-on-middle-east-worries/",
+        "route_label": "TD20",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-03-06",
@@ -724,7 +785,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tanker-shipping-rates-post-strong-gains-on-middle-east-worries/"
+        "url": "https://www.hellenicshippingnews.com/tanker-shipping-rates-post-strong-gains-on-middle-east-worries/",
+        "route_label": "TD25",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-03-06",
@@ -740,7 +803,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tanker-shipping-rates-post-strong-gains-on-middle-east-worries/"
+        "url": "https://www.hellenicshippingnews.com/tanker-shipping-rates-post-strong-gains-on-middle-east-worries/",
+        "route_label": "TC1",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-03-06",
@@ -756,7 +821,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tanker-shipping-rates-post-strong-gains-on-middle-east-worries/"
+        "url": "https://www.hellenicshippingnews.com/tanker-shipping-rates-post-strong-gains-on-middle-east-worries/",
+        "route_label": "TC2",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-03-13",
@@ -772,7 +839,9 @@
         "error": null,
         "reason": "a rate only: the report gives no TCE for this route that week",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-becoming-harder-to-price-as-risks-grow/"
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-becoming-harder-to-price-as-risks-grow/",
+        "route_label": "TC20",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-03-13",
@@ -788,7 +857,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-becoming-harder-to-price-as-risks-grow/"
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-becoming-harder-to-price-as-risks-grow/",
+        "route_label": "TD3C",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-03-13",
@@ -807,7 +878,9 @@
         "excluded": [
           "port charges at Galveston and Ningbo (no public per call figure)"
         ],
-        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-becoming-harder-to-price-as-risks-grow/"
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-becoming-harder-to-price-as-risks-grow/",
+        "route_label": "TD22",
+        "bunkers_words": "week of 6 March 2026"
       },
       {
         "week_ending": "2026-03-13",
@@ -823,7 +896,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-becoming-harder-to-price-as-risks-grow/"
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-becoming-harder-to-price-as-risks-grow/",
+        "route_label": "TD20",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-03-13",
@@ -839,7 +914,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-becoming-harder-to-price-as-risks-grow/"
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-becoming-harder-to-price-as-risks-grow/",
+        "route_label": "TD25",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-03-13",
@@ -855,7 +932,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-becoming-harder-to-price-as-risks-grow/"
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-becoming-harder-to-price-as-risks-grow/",
+        "route_label": "TC1",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-03-13",
@@ -871,7 +950,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-becoming-harder-to-price-as-risks-grow/"
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-becoming-harder-to-price-as-risks-grow/",
+        "route_label": "TC2",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-03-20",
@@ -887,7 +968,9 @@
         "error": null,
         "reason": "a rate only: the report gives no TCE for this route that week",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-facing-new-questions-regarding-direction/"
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-facing-new-questions-regarding-direction/",
+        "route_label": "TC20",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-03-20",
@@ -903,7 +986,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-facing-new-questions-regarding-direction/"
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-facing-new-questions-regarding-direction/",
+        "route_label": "TD3C",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-03-20",
@@ -919,7 +1004,9 @@
         "error": null,
         "reason": "no public bunker table within a week before the assessment",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-facing-new-questions-regarding-direction/"
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-facing-new-questions-regarding-direction/",
+        "route_label": "TD22",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-03-20",
@@ -935,7 +1022,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-facing-new-questions-regarding-direction/"
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-facing-new-questions-regarding-direction/",
+        "route_label": "TD20",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-03-20",
@@ -951,7 +1040,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-facing-new-questions-regarding-direction/"
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-facing-new-questions-regarding-direction/",
+        "route_label": "TD25",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-03-20",
@@ -967,7 +1058,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-facing-new-questions-regarding-direction/"
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-facing-new-questions-regarding-direction/",
+        "route_label": "TC2",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-03-27",
@@ -983,7 +1076,9 @@
         "error": null,
         "reason": "a rate only: the report gives no TCE for this route that week",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-still-elevated/"
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-still-elevated/",
+        "route_label": "TC20",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-03-27",
@@ -999,7 +1094,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-still-elevated/"
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-still-elevated/",
+        "route_label": "TD3C",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-03-27",
@@ -1015,7 +1112,9 @@
         "error": null,
         "reason": "no public bunker table within a week before the assessment",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-still-elevated/"
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-still-elevated/",
+        "route_label": "TD22",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-03-27",
@@ -1031,7 +1130,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-still-elevated/"
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-still-elevated/",
+        "route_label": "TD20",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-03-27",
@@ -1047,7 +1148,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-still-elevated/"
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-still-elevated/",
+        "route_label": "TD25",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-03-27",
@@ -1063,7 +1166,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-still-elevated/"
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-still-elevated/",
+        "route_label": "TC2",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-04-17",
@@ -1079,7 +1184,9 @@
         "error": null,
         "reason": "a rate only: the report gives no TCE for this route that week",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-rates-in-mixed-mode/"
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-rates-in-mixed-mode/",
+        "route_label": "TC20",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-04-17",
@@ -1095,7 +1202,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-rates-in-mixed-mode/"
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-rates-in-mixed-mode/",
+        "route_label": "TD3C",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-04-17",
@@ -1111,7 +1220,9 @@
         "error": null,
         "reason": "no public bunker table within a week before the assessment",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-rates-in-mixed-mode/"
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-rates-in-mixed-mode/",
+        "route_label": "TD22",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-04-17",
@@ -1127,7 +1238,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-rates-in-mixed-mode/"
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-rates-in-mixed-mode/",
+        "route_label": "TD20",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-04-17",
@@ -1143,7 +1256,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-rates-in-mixed-mode/"
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-rates-in-mixed-mode/",
+        "route_label": "TD25",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-04-17",
@@ -1159,7 +1274,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-rates-in-mixed-mode/"
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-rates-in-mixed-mode/",
+        "route_label": "TC2",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-06-26",
@@ -1175,7 +1292,9 @@
         "error": null,
         "reason": "a rate only: the report gives no TCE for this route that week",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/vlccs-down-last-week/"
+        "url": "https://www.hellenicshippingnews.com/vlccs-down-last-week/",
+        "route_label": "TC20",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-06-26",
@@ -1191,7 +1310,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/vlccs-down-last-week/"
+        "url": "https://www.hellenicshippingnews.com/vlccs-down-last-week/",
+        "route_label": "TD3C",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-06-26",
@@ -1210,7 +1331,9 @@
         "excluded": [
           "port charges at Galveston and Ningbo (no public per call figure)"
         ],
-        "url": "https://www.hellenicshippingnews.com/vlccs-down-last-week/"
+        "url": "https://www.hellenicshippingnews.com/vlccs-down-last-week/",
+        "route_label": "TD22",
+        "bunkers_words": "week of 26 June 2026"
       },
       {
         "week_ending": "2026-06-26",
@@ -1226,7 +1349,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/vlccs-down-last-week/"
+        "url": "https://www.hellenicshippingnews.com/vlccs-down-last-week/",
+        "route_label": "TD20",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-06-26",
@@ -1242,7 +1367,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/vlccs-down-last-week/"
+        "url": "https://www.hellenicshippingnews.com/vlccs-down-last-week/",
+        "route_label": "TD25",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-06-26",
@@ -1258,7 +1385,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/vlccs-down-last-week/"
+        "url": "https://www.hellenicshippingnews.com/vlccs-down-last-week/",
+        "route_label": "TC2",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-09-11",
@@ -1274,7 +1403,9 @@
         "error": null,
         "reason": "a rate only: the report gives no TCE for this route that week",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-on-the-rise/"
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-on-the-rise/",
+        "route_label": "TC20",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-09-11",
@@ -1290,7 +1421,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-on-the-rise/"
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-on-the-rise/",
+        "route_label": "TD3C",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-09-11",
@@ -1306,7 +1439,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-on-the-rise/"
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-on-the-rise/",
+        "route_label": "TD34",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-09-11",
@@ -1325,7 +1460,9 @@
         "excluded": [
           "port charges at Galveston and Ningbo (no public per call figure)"
         ],
-        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-on-the-rise/"
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-on-the-rise/",
+        "route_label": "TD22",
+        "bunkers_words": "week of 4 September 2026"
       },
       {
         "week_ending": "2026-09-11",
@@ -1341,7 +1478,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-on-the-rise/"
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-on-the-rise/",
+        "route_label": "TD20",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-09-11",
@@ -1357,7 +1496,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-on-the-rise/"
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-on-the-rise/",
+        "route_label": "TD25",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-09-11",
@@ -1373,7 +1514,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-on-the-rise/"
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-on-the-rise/",
+        "route_label": "TC1",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-09-11",
@@ -1389,7 +1532,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-on-the-rise/"
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-on-the-rise/",
+        "route_label": "TC2",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-10-09",
@@ -1405,7 +1550,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/vlccs-climbing-the-record-charts/"
+        "url": "https://www.hellenicshippingnews.com/vlccs-climbing-the-record-charts/",
+        "route_label": "TD3C",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-10-09",
@@ -1421,7 +1568,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/vlccs-climbing-the-record-charts/"
+        "url": "https://www.hellenicshippingnews.com/vlccs-climbing-the-record-charts/",
+        "route_label": "TD34",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-10-09",
@@ -1440,7 +1589,9 @@
         "excluded": [
           "port charges at Galveston and Ningbo (no public per call figure)"
         ],
-        "url": "https://www.hellenicshippingnews.com/vlccs-climbing-the-record-charts/"
+        "url": "https://www.hellenicshippingnews.com/vlccs-climbing-the-record-charts/",
+        "route_label": "TD22",
+        "bunkers_words": "week of 2 October 2026"
       },
       {
         "week_ending": "2026-10-09",
@@ -1456,7 +1607,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/vlccs-climbing-the-record-charts/"
+        "url": "https://www.hellenicshippingnews.com/vlccs-climbing-the-record-charts/",
+        "route_label": "TD20",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-10-09",
@@ -1472,7 +1625,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/vlccs-climbing-the-record-charts/"
+        "url": "https://www.hellenicshippingnews.com/vlccs-climbing-the-record-charts/",
+        "route_label": "TD25",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-10-09",
@@ -1493,7 +1648,9 @@
           "the Suez Canal toll on the laden leg (no public toll for this ship)",
           "the Suez Canal toll on the ballast leg (no public toll for this ship)"
         ],
-        "url": "https://www.hellenicshippingnews.com/vlccs-climbing-the-record-charts/"
+        "url": "https://www.hellenicshippingnews.com/vlccs-climbing-the-record-charts/",
+        "route_label": "TC20",
+        "bunkers_words": "week of 2 October 2026"
       },
       {
         "week_ending": "2026-10-09",
@@ -1509,7 +1666,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/vlccs-climbing-the-record-charts/"
+        "url": "https://www.hellenicshippingnews.com/vlccs-climbing-the-record-charts/",
+        "route_label": "TC5",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-10-09",
@@ -1525,7 +1684,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/vlccs-climbing-the-record-charts/"
+        "url": "https://www.hellenicshippingnews.com/vlccs-climbing-the-record-charts/",
+        "route_label": "TC14",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-10-23",
@@ -1541,7 +1702,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-giving-up-past-gains/"
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-giving-up-past-gains/",
+        "route_label": "TD3C",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-10-23",
@@ -1557,7 +1720,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-giving-up-past-gains/"
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-giving-up-past-gains/",
+        "route_label": "TD34",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-10-23",
@@ -1576,7 +1741,9 @@
         "excluded": [
           "port charges at Galveston and Ningbo (no public per call figure)"
         ],
-        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-giving-up-past-gains/"
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-giving-up-past-gains/",
+        "route_label": "TD22",
+        "bunkers_words": "week of 23 October 2026"
       },
       {
         "week_ending": "2026-10-23",
@@ -1592,7 +1759,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-giving-up-past-gains/"
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-giving-up-past-gains/",
+        "route_label": "TD20",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-10-23",
@@ -1608,7 +1777,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-giving-up-past-gains/"
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-giving-up-past-gains/",
+        "route_label": "TD25",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-10-23",
@@ -1624,7 +1795,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-giving-up-past-gains/"
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-giving-up-past-gains/",
+        "route_label": "TC1",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-10-23",
@@ -1645,7 +1818,9 @@
           "the Suez Canal toll on the laden leg (no public toll for this ship)",
           "the Suez Canal toll on the ballast leg (no public toll for this ship)"
         ],
-        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-giving-up-past-gains/"
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-giving-up-past-gains/",
+        "route_label": "TC20",
+        "bunkers_words": "week of 23 October 2026"
       },
       {
         "week_ending": "2026-10-23",
@@ -1661,7 +1836,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-giving-up-past-gains/"
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-giving-up-past-gains/",
+        "route_label": "TC5",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-10-23",
@@ -1677,7 +1854,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-giving-up-past-gains/"
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-giving-up-past-gains/",
+        "route_label": "TC2",
+        "bunkers_words": ""
       },
       {
         "week_ending": "2026-10-23",
@@ -1693,7 +1872,9 @@
         "error": null,
         "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
         "bunkers": "",
-        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-giving-up-past-gains/"
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-giving-up-past-gains/",
+        "route_label": "TC14",
+        "bunkers_words": ""
       }
     ],
     "early_march": [
@@ -1752,7 +1933,7 @@
         ],
         "days": 76.522292,
         "ballast_days": 34.802813,
-        "source": "Banchero Costa, weekly market report, week 27, 2026"
+        "source": "Banchero Costa weekly market report, week 27 of 2026"
       },
       {
         "date": "2026-07-03",
@@ -1770,7 +1951,7 @@
         ],
         "days": 28.983542,
         "ballast_days": 11.033437,
-        "source": "Banchero Costa, weekly market report, week 27, 2026"
+        "source": "Banchero Costa weekly market report, week 27 of 2026"
       },
       {
         "date": "2026-10-23",
@@ -1788,7 +1969,7 @@
         ],
         "days": 76.522292,
         "ballast_days": 34.802813,
-        "source": "Banchero Costa, weekly market report, week 43, 2026"
+        "source": "Banchero Costa weekly market report, week 43 of 2026"
       },
       {
         "date": "2026-10-23",
@@ -1806,7 +1987,7 @@
         ],
         "days": 28.983542,
         "ballast_days": 11.033437,
-        "source": "Banchero Costa, weekly market report, week 43, 2026"
+        "source": "Banchero Costa weekly market report, week 43 of 2026"
       },
       {
         "date": "2026-09-11",
@@ -2524,7 +2705,7 @@
       "weeks": [
         {
           "date": "2026-02-27",
-          "source": "Star Asia Shipbroking, weekly market report, week 9, 2026",
+          "source": "Star Asia Shipbroking weekly market report, week 9 of 2026",
           "raw_key": "bunkers_starasia_market_report_week09_2026_pdf",
           "quote": "PORTS VLSFO (0.5%) HSFO (3.5%) MGO (0.1%) SINGAPORE 495 448 680 HONG KONG 509 493 709 FUJAIRAH 489 432 753 ROTTERDAM 461 404 679 HOUSTON 466 371 660",
           "prices": {
@@ -2552,7 +2733,7 @@
         },
         {
           "date": "2026-03-06",
-          "source": "Star Asia Shipbroking, weekly market report, week 10, 2026",
+          "source": "Star Asia Shipbroking weekly market report, week 10 of 2026",
           "raw_key": "bunkers_starasia_market_report_week10_2026_pdf",
           "quote": "PORTS VLSFO (0.5%) HSFO (3.5%) MGO (0.1%) SINGAPORE 656 586 1030 HONG KONG 649 620 1038 FUJAIRAH 666 579 1086 ROTTERDAM 609 543 965 HOUSTON 584 475 927",
           "prices": {
@@ -2580,7 +2761,7 @@
         },
         {
           "date": "2026-06-26",
-          "source": "Star Asia Shipbroking, weekly market report, week 26, 2026",
+          "source": "Star Asia Shipbroking weekly market report, week 26 of 2026",
           "raw_key": "bunkers_starasia_market_report_week26_2026_pdf",
           "quote": "PORT VLSFO (0.5%) HSFO (3.5%) MGO (0.1%) SINGAPORE $681 $473 $901 HONG KONG $674 $490 $875 FUJAIRAH $1,203 $603 $1,424 ROTTERDAM $584 $490 $884 HOUSTON $640 $503 $932",
           "prices": {
@@ -2608,7 +2789,7 @@
         },
         {
           "date": "2026-07-03",
-          "source": "Banchero Costa, weekly market report, week 27, 2026 (IFO380, VLSFO and LSMGO tables; no Houston row)",
+          "source": "Banchero Costa weekly market report, week 27 of 2026 (IFO380, VLSFO and LSMGO tables; no Houston row)",
           "raw_key": "dry_bancosta_weekly_2026_wk27_pdf",
           "quote": [
             "usd/t 435.3 455.8",
@@ -2642,7 +2823,7 @@
         },
         {
           "date": "2026-07-10",
-          "source": "Star Asia Shipbroking, weekly market report, week 28, 2026",
+          "source": "Star Asia Shipbroking weekly market report, week 28 of 2026",
           "raw_key": "bunkers_starasia_market_report_week28_2026_pdf",
           "quote": "PORT VLSFO (0.5%) HSFO (3.5%) MGO (0.1%) SINGAPORE $671 $476 $937 HONG KONG $696 $529 $1001 FUJAIRAH $701 $500 $1,226 ROTTERDAM $615 $476 $944 HOUSTON $612 $470 $988",
           "prices": {
@@ -2670,7 +2851,7 @@
         },
         {
           "date": "2026-08-01",
-          "source": "Star Asia Shipbroking, weekly market report, week 31, 2026",
+          "source": "Star Asia Shipbroking weekly market report, week 31 of 2026",
           "raw_key": "bunkers_starasia_market_report_week31_2026_pdf",
           "quote": "PORT VLSFO (0.5%) HSFO (3.5%) MGO (0.1%) SINGAPORE $797 $588 $1225 HONG KONG $780 $607 $1195 FUJAIRAH $789 $607 $1349 ROTTERDAM $680 $550 $1280 HOUSTON $725 $527 $1242",
           "prices": {
@@ -2698,7 +2879,7 @@
         },
         {
           "date": "2026-09-04",
-          "source": "Star Asia Shipbroking, weekly market report, week 36, 2026",
+          "source": "Star Asia Shipbroking weekly market report, week 36 of 2026",
           "raw_key": "bunkers_starasia_market_report_week36_2026_pdf",
           "quote": "PORT VLSFO (0.5%) HSFO (3.5%) MGO (0.1%) SINGAPORE $777 $634 $1134 HONG KONG $799 $669 $1156 FUJAIRAH $780 $621 $1388 ROTTERDAM $662 $530 $1299 HOUSTON $690 $472 $1253",
           "prices": {
@@ -2726,7 +2907,7 @@
         },
         {
           "date": "2026-10-02",
-          "source": "Star Asia Shipbroking, weekly market report, week 40, 2026",
+          "source": "Star Asia Shipbroking weekly market report, week 40 of 2026",
           "raw_key": "bunkers_starasia_market_report_week40_2026_pdf",
           "quote": "PORT VLSFO (0.5%) HSFO (3.5%) MGO (0.1%) SINGAPORE $906 $741 $1445 HONG KONG $921 $788 $1445 FUJAIRAH $1014 $749 $1707 ROTTERDAM $717 $622 $1500 HOUSTON $787 $530 $1481",
           "prices": {
@@ -2754,7 +2935,7 @@
         },
         {
           "date": "2026-10-23",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026",
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026",
           "raw_key": "bunkers_starasia_market_report_week43_2026_pdf",
           "quote": "PORT VLSFO (0.5%) HSFO (3.5%) MGO (0.1%) SINGAPORE $940 $879 $1334 HONG KONG $963 $952 $1349 FUJAIRAH $974 $748 $1750 ROTTERDAM $761 $677 $1437 HOUSTON $800 $593 $1430",
           "prices": {

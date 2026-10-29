@@ -15,7 +15,7 @@
  */
 
 import { el, scrollTable, figureCell } from "./dom.js";
-import { formatCell, formatNumber, formatDay, UNITS } from "./format.js";
+import { formatCell, formatNumber, formatDay, formatDayShort, UNITS } from "./format.js";
 import { dotChart } from "./charts.js";
 import { chartFigure, viewHead } from "./figure.js";
 import { buildSections, withBuilders } from "./sections.js";
@@ -121,13 +121,13 @@ function validationSection(inner, method, decimals, scale) {
   for (const row of v.tanker) {
     const rate = row.rate_basis === "ws" ? "WS " + formatNumber(row.rate_value, "ws", decimals) : formatNumber(row.rate_value, "usd", decimals) + " " + UNITS.usd;
     body.appendChild(el("tr", { attrs: { "data-reproducible": row.reproducible ? "yes" : "no" } }, [
-      el("th", { text: formatDay(row.week_ending), attrs: { scope: "row" } }),
-      el("td", { class: "nowrap" }, [row.url ? el("a", { class: "text-link", text: row.route, attrs: { href: row.url } }) : row.route]),
+      el("th", { class: "nowrap", text: formatDayShort(row.week_ending), attrs: { scope: "row" } }),
+      el("td", { class: "nowrap" }, [row.url ? el("a", { class: "text-link", text: row.route_label, attrs: { href: row.url } }) : row.route_label]),
       el("td", { class: "num", text: rate }),
       figureCell(formatCell(row.published_tce_usd_day, "usd_day", decimals), "published_tce_usd_day", { missing: "not given" }),
       figureCell(formatCell(row.engine_tce_usd_day, "usd_day", decimals), "engine_tce_usd_day", { missing: "not priced" }),
       figureCell(row.error === null ? null : formatCell(row.error * scale.percent, "error_percent", decimals, true), "error", { missing: "not compared" }),
-      el("td", { class: "words", text: row.reproducible ? "Bunkers of the " + row.bunkers : row.reason }),
+      el("td", { class: "words", text: row.reproducible ? "Bunkers of the " + row.bunkers_words : row.reason }),
     ]));
   }
   const table = el("table", { class: "table table--wide" }, [el("thead", {}, [head]), body]);

@@ -135,7 +135,7 @@ function hormuzSection(inner, detours, decimals) {
     el("th", { class: "col-num", text: "War risk, " + UNITS.usd, attrs: { scope: "col", "data-short": "war risk" } }),
     ...hz.levels.map((level) => el("th", {
       class: "col-num",
-      text: "Extra freight, " + UNITS.usd_t + ", at " + level.label + " (" + formatNumber(level.tce_usd_day, "usd_day", decimals) + " a day)",
+      text: "Extra freight, " + UNITS.usd_t + ": " + level.label + ", TCE " + formatNumber(level.tce_usd_day, "usd_day", decimals) + " a day",
       attrs: { scope: "col", "data-short": level.label },
     })),
   ]);

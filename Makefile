@@ -8,7 +8,7 @@ PYTHON ?= python
 PORT ?= 8150
 
 .DEFAULT_GOAL := help
-.PHONY: help setup data data-offline data-jobs routes seeds fixtures build serve test lint validate gate site note
+.PHONY: help setup data data-offline data-jobs routes seeds fixtures build serve test lint validate gate browser site note
 
 help:
 	@echo "targets"
@@ -38,6 +38,8 @@ help:
 	@echo "                     equivalent: node tools/<each>.mjs, for validate-data, validate-engine,"
 	@echo "                                 validate-artifacts, check-paths, check-literals, check-styles, check-dashes"
 	@echo "  make gate          everything that must pass before a change lands, as the build workflow runs it"
+	@echo "  make browser       every view and the calculator's form in headless Chromium, from a server already running on PORT"
+	@echo "                     equivalent: node tools/check-site.mjs"
 	@echo "  make site          the README's screenshots, from a server already running on PORT"
 	@echo "                     equivalent: node scripts/screenshots.mjs"
 	@echo "  make note          the research note, Voyage-Economics-TCE-Research-Note.pdf"
@@ -102,6 +104,9 @@ gate:
 	node tools/check-literals.mjs
 	node tools/check-styles.mjs
 	node tools/check-dashes.mjs
+
+browser:
+	node tools/check-site.mjs --base http://localhost:$(PORT)/voyage-tce-model/
 
 site:
 	node scripts/screenshots.mjs --base http://localhost:$(PORT)/voyage-tce-model/

@@ -134,7 +134,7 @@ function hormuzBlock(routes, decimals) {
   const body = el("tbody");
   for (const row of rows) {
     const w = row.with_hormuz_war_risk;
-    const cells = [el("th", { text: row.label + ", " + row.name, attrs: { scope: "row" } })];
+    const cells = [el("th", { attrs: { scope: "row" } }, [el("span", { class: "row-code", text: row.label }), el("span", { class: "row-name", text: row.name })])];
     if (w.hull_value_usd) {
       cells.push(
         figureCell(formatCell(w.hull_value_usd / scale.million, "usd_m", decimals), "hull_value_usd"),

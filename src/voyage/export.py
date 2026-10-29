@@ -716,7 +716,14 @@ def method_artifact() -> dict[str, Any]:
     def with_url(item: Mapping[str, Any]) -> dict[str, Any]:
         return {**item, "url": base.raw_entry(item["raw_key"])["url"]} if item.get("raw_key") else dict(item)
 
-    validation["tanker"] = [with_url(row) for row in validation["tanker"]]
+    validation["tanker"] = [
+        {
+            **with_url(row),
+            "route_label": row["route"].replace("_37", "").replace("_63", ""),
+            "bunkers_words": market_words(row["bunkers"]) if row["bunkers"] else "",
+        }
+        for row in validation["tanker"]
+    ]
     validation["early_march"] = [
         {**row, "bunkers_words": market_words(row["bunkers"])} for row in validation["early_march"]
     ]

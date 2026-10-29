@@ -858,10 +858,10 @@ p.block,
   border-radius: 2px;
   min-height: 44px;
   padding: 6px 10px;
-  width: 100%;
-  max-width: 12rem;
+  width: 9.5rem;
+  max-width: 100%;
 }
-.field__select { max-width: 100%; }
+.field__select { width: 100%; }
 .field__input::placeholder { color: var(--text-muted); opacity: 1; }
 .field__check { display: flex; align-items: center; gap: 10px; min-height: 44px; font-size: var(--fs-body-s); }
 .field__check input { width: 20px; height: 20px; accent-color: var(--accent); }
@@ -891,3 +891,11 @@ p.block,
 .view > figure.block,
 .view > .lead + .block { margin-top: 36px; }
 .view > .lead + .lead { margin-top: 10px; }
+
+/* On a phone the sticky first column of a wide table keeps to a third of the
+ * screen, its words wrapping, so the columns it pins stay readable. */
+@media (max-width: 600px) {
+  .table-scroll .table th:first-child,
+  .table-scroll .table td:first-child { max-width: 8.5rem; white-space: normal; }
+  .row-name { min-width: 0; }
+}

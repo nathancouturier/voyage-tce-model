@@ -389,7 +389,7 @@ def hormuz() -> dict[str, Any]:
         scenarios.append(
             (
                 "war_%s" % label,
-                "War risk %.1f%% of hull value, one transit period" % premium,
+                "War risk %g percent of hull value, one transit period" % premium,
                 base_case,
                 _with_war(base_case.inputs, premium, 1.0),
             )
@@ -400,7 +400,7 @@ def hormuz() -> dict[str, Any]:
         scenarios.append(
             (
                 "wait_%d" % wait,
-                "War risk %.1f%% and %d days waiting to transit" % (marsh["low"], wait),
+                "War risk %g percent and %d days waiting to transit" % (marsh["low"], wait),
                 base_case,
                 waiting,
             )

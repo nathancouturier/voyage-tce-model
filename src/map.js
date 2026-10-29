@@ -12,6 +12,15 @@
  * (vector-effect: non-scaling-stroke); the port dots and names are sized again
  * on every width change, so a name stays readable on a phone.
  *
+ * PORT NAMES are placed here, at the size they are drawn, because that size in
+ * map units changes with the width of the column: beside the dot, then above
+ * or below it, then a step further away, the first place where no line of the
+ * voyage runs through the name, no other name or dot lies under it and the
+ * name stays within the width of the box. The box then grows a band at its top
+ * or bottom where a name needs one, so a name next to a port at the edge of
+ * the voyage's box stays next to it. A name that finds no clear place takes
+ * the first one within the width, where its halo keeps it readable.
+ *
  * The laden leg is solid ink, the ballast leg a dashed muted line beside it,
  * and an ECA stretch is drawn over either in the sea green of the 0.10 percent
  * zone. The legend under the map says so in words, so no line depends on its
@@ -28,14 +37,114 @@ export const MAP_GEOMETRY = Object.freeze({
   PORT_GAP: 3,
   /* A port's name in px. */
   PORT_FONT: 12,
-  /* Where a name sits against its baseline, as a share of its size: above
-   * the dot, below it, and beside it. */
-  ABOVE: 0.25,
-  BELOW: 0.85,
+  /* A name's reach above and below its baseline, and its baseline beside the
+   * dot, as shares of its size. */
+  ASCENT: 0.85,
+  DESCENT: 0.25,
   BESIDE: 0.35,
   /* The width of a character of a name, as a share of its size. */
   CHAR_EM: 0.6,
+  /* A name with no clear place next to its dot moves away from it in steps
+   * of this share of its size, at most SHIFTS steps. */
+  SHIFT: 0.5,
+  SHIFTS: 6,
 });
+
+/** The lines of a path string as Python writes it: absolute M and L only. */
+function pathLines(d) {
+  const lines = [];
+  for (const match of d.matchAll(/(?<command>[ML])(?<x>-?[\d.]+) (?<y>-?[\d.]+)/g)) {
+    if (match.groups.command === "M" || !lines.length) lines.push([]);
+    lines[lines.length - 1].push({ x: Number(match.groups.x), y: Number(match.groups.y) });
+  }
+  return lines;
+}
+
+/** The box a name covers with `pad` round it, in map units. */
+function nameBox(name, place, font, pad) {
+  const g = MAP_GEOMETRY;
+  const width = name.length * font * g.CHAR_EM;
+  const left = place.anchor === "start" ? place.x : place.anchor === "end" ? place.x - width : place.x - width * GEOMETRY.HALF;
+  return { left: left - pad, top: place.y - font * g.ASCENT - pad, right: left + width + pad, bottom: place.y + font * g.DESCENT + pad };
+}
+
+function overlaps(a, b) {
+  return a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom;
+}
+
+/** Whether the segment from p to q enters the box (Liang and Barsky's clip). */
+function crosses(box, p, q) {
+  let enter = 0;
+  let leave = 1;
+  const dx = q.x - p.x;
+  const dy = q.y - p.y;
+  for (const [toward, room] of [[-dx, p.x - box.left], [dx, box.right - p.x], [-dy, p.y - box.top], [dy, box.bottom - p.y]]) {
+    if (toward === 0) {
+      if (room < 0) return false;
+      continue;
+    }
+    const t = room / toward;
+    if (toward < 0) enter = Math.max(enter, t);
+    else leave = Math.min(leave, t);
+    if (enter > leave) return false;
+  }
+  return true;
+}
+
+/** The places a port's name may take, nearest first: beside the dot (the
+ *  side facing the middle of the map first), centred above and below it,
+ *  above and below it starting at the dot, then each a step further away. */
+function namePlaces(port, font, radius, gap, inward) {
+  const g = MAP_GEOMETRY;
+  const right = { anchor: "start", x: port.x + radius + gap, from: port.x - radius };
+  const left = { anchor: "end", x: port.x - radius - gap, from: port.x + radius };
+  const sides = inward === "end" ? [left, right] : [right, left];
+  const beside = port.y + font * g.BESIDE;
+  const above = port.y - radius - gap - font * g.DESCENT;
+  const below = port.y + radius + gap + font * g.ASCENT;
+  const places = [];
+  for (let step = 0; step <= g.SHIFTS; step += 1) {
+    const shift = step * font * g.SHIFT;
+    for (const side of sides) {
+      places.push({ anchor: side.anchor, x: side.x, y: beside - shift });
+      if (step) places.push({ anchor: side.anchor, x: side.x, y: beside + shift });
+    }
+    places.push({ anchor: "middle", x: port.x, y: above - shift });
+    places.push({ anchor: "middle", x: port.x, y: below + shift });
+    for (const side of sides) {
+      places.push({ anchor: side.anchor, x: side.from, y: above - shift });
+      places.push({ anchor: side.anchor, x: side.from, y: below + shift });
+    }
+  }
+  return places;
+}
+
+/** Every port's name placed at this size, one place per port in order, and
+ *  the top and bottom of the box that holds the voyage and every name. */
+function placeNames(ports, lines, view, font, radius, gap) {
+  const middle = view.left + (view.right - view.left) * GEOMETRY.HALF;
+  const taken = ports.map((port) => ({ left: port.x - radius - gap, top: port.y - radius - gap, right: port.x + radius + gap, bottom: port.y + radius + gap }));
+  const segments = [];
+  for (const line of lines) {
+    for (let i = 1; i < line.length; i += 1) segments.push([line[i - 1], line[i]]);
+  }
+  const within = (box) => box.left >= view.left && box.right <= view.right;
+  let top = view.top;
+  let bottom = view.bottom;
+  const places = ports.map((port) => {
+    const options = namePlaces(port, font, radius, gap, port.x > middle ? "end" : "start");
+    const boxes = options.map((place) => nameBox(port.name, place, font, gap));
+    const free = (at) => within(boxes[at]) && !taken.some((box) => overlaps(boxes[at], box));
+    let chosen = options.findIndex((place, at) => free(at) && !segments.some(([p, q]) => crosses(boxes[at], p, q)));
+    if (chosen < 0) chosen = options.findIndex((place, at) => free(at));
+    if (chosen < 0) chosen = 0;
+    taken.push(boxes[chosen]);
+    top = Math.min(top, boxes[chosen].top);
+    bottom = Math.max(bottom, boxes[chosen].bottom);
+    return options[chosen];
+  });
+  return { places, top, bottom };
+}
 
 /** The map of one voyage as an image that fills `frame`.
  *
@@ -65,8 +174,8 @@ export function voyageMap(frame, land, voyage, words) {
   const ports = voyage.ports.map((port) => {
     const ring = svgEl("circle", { class: "mark-ring-fill", cx: px(port.x), cy: px(port.y) });
     const dot = svgEl("circle", { class: "map-port-dot", cx: px(port.x), cy: px(port.y) });
-    const halo = svgEl("text", { class: "map-port halo", "text-anchor": port.anchor }, port.name);
-    const name = svgEl("text", { class: "map-port", "text-anchor": port.anchor }, port.name);
+    const halo = svgEl("text", { class: "map-port halo" }, port.name);
+    const name = svgEl("text", { class: "map-port" }, port.name);
     svg.appendChild(ring);
     svg.appendChild(dot);
     return { port, ring, dot, halo, name };
@@ -78,43 +187,27 @@ export function voyageMap(frame, land, voyage, words) {
   frame.appendChild(svg);
 
   // Dots and names at a screen size: k map units per px at this width.
+  const lines = [...pathLines(voyage.laden.d), ...pathLines(voyage.ballast.d)];
+  const view = { left: x0, top: y0, right: x0 + width, bottom: y0 + height };
   onWidthChange(frame, (renderedWidth) => {
     const k = width / renderedWidth;
     const font = g.PORT_FONT * k;
     const radius = g.PORT_RADIUS * k;
     const gap = g.PORT_GAP * k;
-    for (const { port, ring, dot, halo, name } of ports) {
+    const placed = placeNames(ports.map((item) => item.port), lines, view, font, radius, gap);
+    svg.setAttribute("viewBox", [x0, placed.top, width, placed.bottom - placed.top].join(" "));
+    ports.forEach(({ ring, dot, halo, name }, at) => {
+      const place = placed.places[at];
       ring.setAttribute("r", px(radius + GEOMETRY.RING_WIDTH * k));
       dot.setAttribute("r", px(radius));
-      let x = port.x;
-      let y;
-      let anchor = port.anchor;
-      if (anchor === "middle") {
-        y = port.label_y < port.y ? port.y - radius - gap - font * g.ABOVE : port.y + radius + gap + font * g.BELOW;
-      } else {
-        x = anchor === "start" ? port.x + radius + gap : port.x - radius - gap;
-        y = port.y + font * g.BESIDE;
-      }
-      // A name that would run past the edge of the box is turned back inside.
-      const half = port.name.length * font * g.CHAR_EM * GEOMETRY.HALF;
-      if (anchor === "middle" && x + half > x0 + width) anchor = "end";
-      else if (anchor === "middle" && x - half < x0) anchor = "start";
-      if (anchor === "start" && x + half + half > x0 + width) {
-        anchor = "end";
-        x = port.x - radius - gap;
-      } else if (anchor === "end" && x - half - half < x0) {
-        anchor = "start";
-        x = port.x + radius + gap;
-      }
-      if (anchor !== port.anchor && port.anchor === "middle") x = anchor === "end" ? port.x + radius : port.x - radius;
       for (const text of [halo, name]) {
-        text.setAttribute("x", px(x));
-        text.setAttribute("y", px(y));
+        text.setAttribute("x", px(place.x));
+        text.setAttribute("y", px(place.y));
         text.setAttribute("font-size", px(font));
-        text.setAttribute("text-anchor", anchor);
+        text.setAttribute("text-anchor", place.anchor);
       }
       halo.setAttribute("stroke-width", px(GEOMETRY.RING_WIDTH * k + GEOMETRY.RING_WIDTH * k * GEOMETRY.HALF));
-    }
+    });
   });
   return svg;
 }

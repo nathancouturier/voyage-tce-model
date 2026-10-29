@@ -1,0 +1,276 @@
+#!/usr/bin/env node
+// The site in headless Chromium: every view drawn at a wide and a narrow
+// width, and the calculator's form, what a visitor types and what the page
+// must then show. tools/validate-engine.mjs holds src/engine.js to the Python
+// engine; this holds the pages that read it, which no other check reaches.
+//
+//     python scripts/serve.py --port 8150                 in another shell
+//     node tools/check-site.mjs [--base URL] [--browser PATH]
+//
+// Each check opens a view afresh, acts the way a visitor does (a value typed,
+// then the input event; a button clicked; a key pressed) and reads the page.
+// The figures the page must show are computed here by the same engine module
+// on the artifact's inputs, and written by the page's own format module, so a
+// check fails when the form layer loses, mislays or misformats a figure.
+// Exit status 1 on any failed check or any console error.
+
+import { readFileSync } from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { argValue, launch, openView } from "./browser.mjs";
+import * as engine from "../src/engine.js";
+import { formatNumber } from "../src/format.js";
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const BASE = argValue(process.argv, "--base") || "http://localhost:8150/voyage-tce-model/";
+const read = (name) => JSON.parse(readFileSync(path.join(ROOT, "data", name + ".json"), "utf8"));
+
+const calc = read("calculator");
+const overview = read("overview");
+engine.configure(read("engine").constants);
+const decimals = calc.conventions.decimals;
+const VIEWS = ["overview", "calculator", "routes", "detours", "carbon", "paper", "method"];
+const WIDTHS = [1440, 320];
+
+const clone = (value) => JSON.parse(JSON.stringify(value));
+const presetById = (id) => calc.presets.find((p) => p.id === id);
+const latestOf = (route) => calc.presets.filter((p) => p.route === route).reduce((a, b) => (b.date > a.date ? b : a));
+const fill = (template, values) => template.replace(/\{(\w+)\}/g, (all, name) => (name in values ? values[name] : all));
+const usd = (value, format) => "USD " + formatNumber(value, format, decimals, { context: "prose" });
+
+/** The sentence the calculator must show for these inputs, from the engine. */
+function verdictFor(inputs) {
+  const result = engine.evaluate(inputs);
+  const tce = result.tce_usd_day;
+  const template = tce < 0 ? calc.words.verdict_negative : calc.words.verdict;
+  return fill(template, { tce: usd(Math.abs(tce), "usd_day"), days: formatNumber(result.days.total, "days", decimals) });
+}
+
+/* Snippets run in the page. */
+const text = (selector) => "((document.querySelector(" + JSON.stringify(selector) + ") || {}).textContent || '')";
+const attr = (selector, name) => "((document.querySelector(" + JSON.stringify(selector) + ") || { getAttribute: () => null }).getAttribute(" + JSON.stringify(name) + "))";
+
+function typeInto(selector, value) {
+  return "(() => { const input = document.querySelector(" + JSON.stringify(selector) + ");" +
+    " input.value = " + JSON.stringify(value) + ";" +
+    " input.dispatchEvent(new Event('input', { bubbles: true }));" +
+    " input.dispatchEvent(new Event('change', { bubbles: true })); return true; })()";
+}
+
+function choose(selector, value) {
+  return "(() => { const select = document.querySelector(" + JSON.stringify(selector) + ");" +
+    " select.value = " + JSON.stringify(value) + ";" +
+    " select.dispatchEvent(new Event('change', { bubbles: true })); return true; })()";
+}
+
+function click(selector) {
+  return "(() => { document.querySelector(" + JSON.stringify(selector) + ").click(); return true; })()";
+}
+
+const VERDICT = ".calc-verdict";
+const featured = presetById(overview.featured);
+const defaultPreset = presetById(calc.default_preset);
+const c5 = latestOf("C5");
+const td3c = latestOf("TD3C");
+
+const CHECKS = [];
+
+for (const view of VIEWS) {
+  for (const width of WIDTHS) {
+    CHECKS.push({
+      name: "the " + view + " view draws its title and its figures at " + width + " px, with no sideways scroll",
+      hash: "#/" + view,
+      width,
+      async run(page) {
+        const title = await page.evaluate(text("#view-title"));
+        const figures = await page.evaluate("document.querySelectorAll('#view svg, #view table').length");
+        const overflow = await page.evaluate("document.documentElement.scrollWidth - document.documentElement.clientWidth");
+        return [
+          [title.trim().length > 0, "no view title"],
+          [figures > 0, "no chart, map or table drawn"],
+          [overflow <= 0, "the page scrolls sideways by " + overflow + " px"],
+        ];
+      },
+    });
+  }
+}
+
+CHECKS.push(
+  {
+    name: "the overview's TCE is the export's figure, and the browser engine gives the same for the featured voyage",
+    hash: "#/overview",
+    async run(page) {
+      const fact = overview.facts.find((f) => f.id === "tce");
+      const shown = await page.evaluate(text("[data-fact=\"tce\"] .fact__figure"));
+      const expected = formatNumber(fact.value.value, fact.value.format, decimals, { context: "prose" });
+      const browser = engine.evaluate(featured.inputs).tce_usd_day;
+      return [
+        [shown.trim() === expected, "the overview shows " + shown + ", the artifact holds " + expected],
+        [Math.abs(browser - fact.value.value) < 1e-6, "src/engine.js gives " + browser + " for " + featured.id + ", the export " + fact.value.value],
+      ];
+    },
+  },
+  {
+    name: "the calculator opens on the featured voyage with the engine's TCE",
+    hash: "#/calculator",
+    async run(page) {
+      const shown = await page.evaluate(text(VERDICT));
+      const expected = verdictFor(defaultPreset.inputs);
+      return [
+        [calc.default_preset === overview.featured, "the calculator opens on " + calc.default_preset + ", the overview features " + overview.featured],
+        [shown === expected, "the verdict reads \"" + shown + "\", the engine gives \"" + expected + "\""],
+      ];
+    },
+  },
+  {
+    name: "a freight typed under Market moves the TCE to the engine's figure, and Reset brings the preset back",
+    hash: "#/calculator?open=market",
+    async run(page) {
+      const before = await page.evaluate(text(VERDICT));
+      const typed = Math.round(defaultPreset.inputs.freight_value * 1.1);
+      await page.evaluate(typeInto("#field-freight_value", typed.toLocaleString("en-US")));
+      const after = await page.evaluate(text(VERDICT));
+      const status = await page.evaluate(attr(".field[data-path=\"freight_value\"]", "data-status"));
+      const inputs = clone(defaultPreset.inputs);
+      inputs.freight_value = typed;
+      const expected = verdictFor(inputs);
+      await page.evaluate(click(".field[data-path=\"freight_value\"] .field__reset"));
+      const reset = await page.evaluate(text(VERDICT));
+      return [
+        [after === expected, "after typing " + typed + " the verdict reads \"" + after + "\", the engine gives \"" + expected + "\""],
+        [status === "changed", "the field's status is " + status + ", not changed"],
+        [reset === before, "Reset left \"" + reset + "\", not \"" + before + "\""],
+      ];
+    },
+  },
+  {
+    name: "a Worldscale rate with no public flat rate gives no TCE and says why, until a flat rate is typed",
+    hash: "#/calculator?preset=" + td3c.id + "&open=market",
+    async run(page) {
+      const blocked = await page.evaluate(text(VERDICT));
+      const hidden = await page.evaluate("[...document.querySelectorAll('.calc__outputs figure')].every((f) => f.hidden)");
+      const status = await page.evaluate(attr(".field[data-path=\"flat_rate_usd_t\"]", "data-status"));
+      // A flat rate typed by a visitor; the page holds none.
+      const flat = 20;
+      await page.evaluate(typeInto("#field-flat_rate_usd_t", String(flat)));
+      const priced = await page.evaluate(text(VERDICT));
+      const inputs = clone(td3c.inputs);
+      inputs.flat_rate_usd_t = flat;
+      const expected = verdictFor(inputs);
+      return [
+        [td3c.inputs.freight_basis === "ws" && !td3c.inputs.flat_rate_usd_t, td3c.id + " is not a Worldscale preset without a flat rate"],
+        [blocked === calc.words.ws_missing, "the blocked verdict reads \"" + blocked + "\""],
+        [hidden, "a figure is drawn without a TCE to draw"],
+        [status === "empty", "the flat rate field's status is " + status + ", not empty"],
+        [priced === expected, "with a flat rate of " + flat + " the verdict reads \"" + priced + "\", the engine gives \"" + expected + "\""],
+      ];
+    },
+  },
+  {
+    name: "switching a priced voyage to Worldscale asks for the flat rate first",
+    hash: "#/calculator?open=market",
+    async run(page) {
+      await page.evaluate(choose("#field-freight-basis", "ws"));
+      const shown = await page.evaluate(text(VERDICT));
+      return [[shown === calc.words.ws_missing, "the verdict reads \"" + shown + "\""]];
+    },
+  },
+  {
+    name: "the freight for a target TCE is the engine's, in USD a tonne",
+    hash: "#/calculator",
+    async run(page) {
+      const target = 100000;
+      await page.evaluate(typeInto("#field-target-tce", target.toLocaleString("en-US")));
+      const shown = await page.evaluate(text(".breakeven__item:first-child .breakeven__value"));
+      const expected = formatNumber(engine.freight_for_tce(defaultPreset.inputs, target).usd_t, "usd_t", decimals);
+      return [[shown === expected, "for " + target + " a day the page asks " + shown + ", the engine " + expected]];
+    },
+  },
+  {
+    name: "a route button opens that route's latest preset and writes it to the address",
+    hash: "#/calculator",
+    async run(page) {
+      await page.evaluate(click("button[data-route=\"" + c5.route + "\"]"));
+      await page.waitFor("location.hash.includes(" + JSON.stringify("preset=" + c5.id) + ")");
+      const shown = await page.evaluate(text(VERDICT));
+      const pressed = await page.evaluate(attr("button[data-route=\"" + c5.route + "\"]", "aria-pressed"));
+      const expected = verdictFor(c5.inputs);
+      return [
+        [shown === expected, "the verdict reads \"" + shown + "\", the engine gives \"" + expected + "\""],
+        [pressed === "true", "the route button is not pressed"],
+      ];
+    },
+  },
+  {
+    name: "a section button opens its section, draws it and writes it to the address",
+    hash: "#/overview",
+    async run(page) {
+      await page.evaluate(click("button[data-section=\"method\"]"));
+      await page.waitFor("location.hash.includes('open=method')");
+      const expanded = await page.evaluate(attr("button[data-section=\"method\"]", "aria-expanded"));
+      const drawn = await page.evaluate("document.querySelector('#' + document.querySelector('button[data-section=\"method\"]').getAttribute('aria-controls') + ' .section__inner').children.length");
+      return [
+        [expanded === "true", "aria-expanded is " + expanded],
+        [drawn > 0, "the open section is empty"],
+      ];
+    },
+  },
+  {
+    name: "the T key switches the theme and remembers it",
+    hash: "#/overview",
+    async run(page) {
+      const before = await page.evaluate("document.documentElement.dataset.theme");
+      await page.evaluate("document.body.dispatchEvent(new KeyboardEvent('keydown', { key: 't', bubbles: true })), true");
+      const after = await page.evaluate("document.documentElement.dataset.theme");
+      const stored = await page.evaluate("localStorage.getItem('nc-theme')");
+      return [
+        [before === "light" && after === "dark", "the theme went from " + before + " to " + after],
+        [stored === after, "localStorage holds " + stored],
+      ];
+    },
+  },
+  {
+    name: "an address that names no view says so and links to the overview",
+    hash: "#/nowhere",
+    async run(page) {
+      const title = await page.evaluate(text("#view-title"));
+      const said = await page.evaluate(text("#view"));
+      const link = await page.evaluate("[...document.querySelectorAll('#view a')].some((a) => a.getAttribute('href') === '#/overview')");
+      return [
+        [title.length > 0 && said.includes("nowhere"), "the page does not name the address typed"],
+        [link, "no link to the overview"],
+      ];
+    },
+  },
+);
+
+console.log("check-site.mjs, " + BASE);
+const browser = await launch(process.argv);
+let failed = 0;
+try {
+  const page = await browser.page();
+  for (const check of CHECKS) {
+    page.errors.length = 0;
+    let results;
+    try {
+      await openView(page, BASE, { hash: check.hash, width: check.width || 1440, theme: "light" });
+      results = await check.run(page);
+    } catch (error) {
+      results = [[false, error.message]];
+    }
+    const errors = page.errors.filter((m) => !/chrome-extension:\/\//.test(m) && /^(exception|console error|log error)/.test(m));
+    for (const error of errors) results.push([false, error]);
+    const problems = results.filter(([ok]) => !ok).map(([, message]) => message);
+    console.log((problems.length ? "  FAIL  " : "  ok    ") + check.name);
+    for (const problem of problems) console.log("        " + problem);
+    if (problems.length) failed += 1;
+  }
+} finally {
+  await browser.close();
+}
+console.log("");
+if (failed) {
+  console.log("FAIL  " + failed + " of " + CHECKS.length + " checks");
+  process.exit(1);
+}
+console.log("PASS  " + CHECKS.length + " checks: every view draws at both widths, and the calculator shows the engine's figures for what is typed");

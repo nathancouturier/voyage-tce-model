@@ -6,6 +6,7 @@
       "usd_day": 0,
       "usd": 0,
       "usd_m": 2,
+      "usd_m_0": 0,
       "usd_t": 2,
       "usd_bbl": 2,
       "ws": 2,
@@ -639,7 +640,7 @@
         },
         "freight_value": {
           "status": "sourced",
-          "source": "Banchero Costa, weekly market report, week 43, 2026; rate of 23 October 2026"
+          "source": "Banchero Costa weekly market report, week 43 of 2026; rate of 23 October 2026"
         },
         "flat_rate_usd_t": {
           "status": "empty",
@@ -691,15 +692,15 @@
         },
         "prices.vlsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "prices.hsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "prices.mgo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "vlsfo_class": {
           "status": "sourced",
@@ -759,7 +760,7 @@
         "date": "2026-10-23",
         "basis": "usd_t",
         "value": 33.87,
-        "source": "Banchero Costa, weekly market report, week 43, 2026",
+        "source": "Banchero Costa weekly market report, week 43 of 2026",
         "raw_key": "dry_bancosta_weekly_2026_wk43_pdf",
         "published_tce_usd_day": null,
         "tce_qualifier": ""
@@ -959,7 +960,7 @@
         },
         "freight_value": {
           "status": "sourced",
-          "source": "Banchero Costa, weekly market report, week 43, 2026; rate of 23 October 2026"
+          "source": "Banchero Costa weekly market report, week 43 of 2026; rate of 23 October 2026"
         },
         "flat_rate_usd_t": {
           "status": "empty",
@@ -1011,15 +1012,15 @@
         },
         "prices.vlsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "prices.hsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "prices.mgo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "vlsfo_class": {
           "status": "sourced",
@@ -1077,7 +1078,7 @@
         "date": "2026-10-23",
         "basis": "usd_t",
         "value": 14.1,
-        "source": "Banchero Costa, weekly market report, week 43, 2026",
+        "source": "Banchero Costa weekly market report, week 43 of 2026",
         "raw_key": "dry_bancosta_weekly_2026_wk43_pdf",
         "published_tce_usd_day": null,
         "tce_qualifier": ""
@@ -1321,15 +1322,15 @@
         },
         "prices.vlsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 36, 2026, 4 September 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 36 of 2026, 4 September 2026"
         },
         "prices.hsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 36, 2026, 4 September 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 36 of 2026, 4 September 2026"
         },
         "prices.mgo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 36, 2026, 4 September 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 36 of 2026, 4 September 2026"
         },
         "vlsfo_class": {
           "status": "sourced",
@@ -1598,7 +1599,7 @@
         },
         "freight_value": {
           "status": "sourced",
-          "source": "Banchero Costa, weekly market report, week 43, 2026; rate of 23 October 2026"
+          "source": "Banchero Costa weekly market report, week 43 of 2026; rate of 23 October 2026"
         },
         "flat_rate_usd_t": {
           "status": "empty",
@@ -1650,15 +1651,15 @@
         },
         "prices.vlsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "prices.hsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "prices.mgo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "vlsfo_class": {
           "status": "sourced",
@@ -1722,7 +1723,7 @@
         "date": "2026-10-23",
         "basis": "hire_usd_day",
         "value": 30853,
-        "source": "Banchero Costa, weekly market report, week 43, 2026",
+        "source": "Banchero Costa weekly market report, week 43 of 2026",
         "raw_key": "dry_bancosta_weekly_2026_wk43_pdf",
         "published_tce_usd_day": null,
         "tce_qualifier": ""
@@ -1960,15 +1961,15 @@
         },
         "prices.vlsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "prices.hsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "prices.mgo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "vlsfo_class": {
           "status": "sourced",
@@ -2260,15 +2261,15 @@
         },
         "prices.vlsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "prices.hsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "prices.mgo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "vlsfo_class": {
           "status": "sourced",
@@ -2562,15 +2563,15 @@
         },
         "prices.vlsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "prices.hsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "prices.mgo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "vlsfo_class": {
           "status": "sourced",
@@ -2868,15 +2869,15 @@
         },
         "prices.vlsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "prices.hsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "prices.mgo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "vlsfo_class": {
           "status": "sourced",
@@ -3172,15 +3173,15 @@
         },
         "prices.vlsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "prices.hsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "prices.mgo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "vlsfo_class": {
           "status": "sourced",
@@ -3478,15 +3479,15 @@
         },
         "prices.vlsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "prices.hsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "prices.mgo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "vlsfo_class": {
           "status": "sourced",
@@ -3778,15 +3779,15 @@
         },
         "prices.vlsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "prices.hsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "prices.mgo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "vlsfo_class": {
           "status": "sourced",
@@ -4078,15 +4079,15 @@
         },
         "prices.vlsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "prices.hsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "prices.mgo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "vlsfo_class": {
           "status": "sourced",
@@ -4376,15 +4377,15 @@
         },
         "prices.vlsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 9, 2026, 27 February 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 9 of 2026, 27 February 2026"
         },
         "prices.hsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 9, 2026, 27 February 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 9 of 2026, 27 February 2026"
         },
         "prices.mgo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 9, 2026, 27 February 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 9 of 2026, 27 February 2026"
         },
         "vlsfo_class": {
           "status": "sourced",
@@ -4680,15 +4681,15 @@
         },
         "prices.vlsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 10, 2026, 6 March 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 10 of 2026, 6 March 2026"
         },
         "prices.hsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 10, 2026, 6 March 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 10 of 2026, 6 March 2026"
         },
         "prices.mgo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 10, 2026, 6 March 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 10 of 2026, 6 March 2026"
         },
         "vlsfo_class": {
           "status": "sourced",
@@ -4984,15 +4985,15 @@
         },
         "prices.vlsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 10, 2026, 6 March 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 10 of 2026, 6 March 2026"
         },
         "prices.hsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 10, 2026, 6 March 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 10 of 2026, 6 March 2026"
         },
         "prices.mgo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 10, 2026, 6 March 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 10 of 2026, 6 March 2026"
         },
         "vlsfo_class": {
           "status": "sourced",
@@ -5288,15 +5289,15 @@
         },
         "prices.vlsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 26, 2026, 26 June 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 26 of 2026, 26 June 2026"
         },
         "prices.hsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 26, 2026, 26 June 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 26 of 2026, 26 June 2026"
         },
         "prices.mgo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 26, 2026, 26 June 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 26 of 2026, 26 June 2026"
         },
         "vlsfo_class": {
           "status": "sourced",
@@ -5592,15 +5593,15 @@
         },
         "prices.vlsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 36, 2026, 4 September 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 36 of 2026, 4 September 2026"
         },
         "prices.hsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 36, 2026, 4 September 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 36 of 2026, 4 September 2026"
         },
         "prices.mgo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 36, 2026, 4 September 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 36 of 2026, 4 September 2026"
         },
         "vlsfo_class": {
           "status": "sourced",
@@ -5896,15 +5897,15 @@
         },
         "prices.vlsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 40, 2026, 2 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 40 of 2026, 2 October 2026"
         },
         "prices.hsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 40, 2026, 2 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 40 of 2026, 2 October 2026"
         },
         "prices.mgo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 40, 2026, 2 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 40 of 2026, 2 October 2026"
         },
         "vlsfo_class": {
           "status": "sourced",
@@ -6212,15 +6213,15 @@
         },
         "prices.vlsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 40, 2026, 2 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 40 of 2026, 2 October 2026"
         },
         "prices.hsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 40, 2026, 2 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 40 of 2026, 2 October 2026"
         },
         "prices.mgo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 40, 2026, 2 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 40 of 2026, 2 October 2026"
         },
         "vlsfo_class": {
           "status": "sourced",
@@ -6534,15 +6535,15 @@
         },
         "prices.vlsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "prices.hsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "prices.mgo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "vlsfo_class": {
           "status": "sourced",
@@ -6850,15 +6851,15 @@
         },
         "prices.vlsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "prices.hsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "prices.mgo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026"
         },
         "vlsfo_class": {
           "status": "sourced",
@@ -7464,15 +7465,15 @@
         },
         "prices.vlsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 9, 2026, 27 February 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 9 of 2026, 27 February 2026"
         },
         "prices.hsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 9, 2026, 27 February 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 9 of 2026, 27 February 2026"
         },
         "prices.mgo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 9, 2026, 27 February 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 9 of 2026, 27 February 2026"
         },
         "vlsfo_class": {
           "status": "sourced",
@@ -7756,15 +7757,15 @@
         },
         "prices.vlsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 9, 2026, 27 February 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 9 of 2026, 27 February 2026"
         },
         "prices.hsfo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 9, 2026, 27 February 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 9 of 2026, 27 February 2026"
         },
         "prices.mgo_usd_t": {
           "status": "sourced",
-          "source": "Star Asia Shipbroking, weekly market report, week 9, 2026, 27 February 2026"
+          "source": "Star Asia Shipbroking weekly market report, week 9 of 2026, 27 February 2026"
         },
         "vlsfo_class": {
           "status": "sourced",
@@ -8153,7 +8154,7 @@
     "war_use": "Use {value} percent",
     "reset": "Reset",
     "empty_placeholder": "No public figure",
-    "not_cited": "A scenario input, zero in the base case.",
+    "not_cited": "A scenario input: the base case uses the value shown.",
     "changed": "Your figure.",
     "invalid": "Enter a number.",
     "data_caption": "Every input of the voyage as it now stands, with its status and its source.",

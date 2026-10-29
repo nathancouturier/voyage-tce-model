@@ -6,6 +6,7 @@
       "usd_day": 0,
       "usd": 0,
       "usd_m": 2,
+      "usd_m_0": 0,
       "usd_t": 2,
       "usd_bbl": 2,
       "ws": 2,
@@ -76,9 +77,6 @@
           "name": "Tubarao",
           "x": 493.2,
           "y": 220.8,
-          "anchor": "middle",
-          "label_x": 493.2,
-          "label_y": 212.5,
           "role": "load"
         },
         {
@@ -86,9 +84,6 @@
           "name": "Qingdao",
           "x": 876.6,
           "y": 86.3,
-          "anchor": "end",
-          "label_x": 870.6,
-          "label_y": 89.5,
           "role": "discharge"
         }
       ]
@@ -116,9 +111,6 @@
           "name": "Port Hedland",
           "x": 8.6,
           "y": 219.8,
-          "anchor": "middle",
-          "label_x": 8.6,
-          "label_y": 233.0,
           "role": "load"
         },
         {
@@ -126,9 +118,6 @@
           "name": "Qingdao",
           "x": 12.6,
           "y": 86.3,
-          "anchor": "middle",
-          "label_x": 12.6,
-          "label_y": 78.1,
           "role": "discharge"
         }
       ]
@@ -162,9 +151,6 @@
           "name": "New Orleans",
           "x": 371.9,
           "y": 100.9,
-          "anchor": "middle",
-          "label_x": 371.9,
-          "label_y": 92.7,
           "role": "load"
         },
         {
@@ -172,9 +158,6 @@
           "name": "Qingdao",
           "x": 12.6,
           "y": 86.3,
-          "anchor": "middle",
-          "label_x": 12.6,
-          "label_y": 78.1,
           "role": "discharge"
         }
       ]
@@ -208,9 +191,6 @@
           "name": "New Orleans",
           "x": 371.9,
           "y": 100.9,
-          "anchor": "start",
-          "label_x": 377.9,
-          "label_y": 125.1,
           "role": "load"
         },
         {
@@ -218,9 +198,6 @@
           "name": "Rotterdam",
           "x": 598.7,
           "y": 48.2,
-          "anchor": "end",
-          "label_x": 592.7,
-          "label_y": 42.4,
           "role": "discharge"
         }
       ]
@@ -248,9 +225,6 @@
           "name": "Ras Tanura",
           "x": 708.5,
           "y": 109.1,
-          "anchor": "start",
-          "label_x": 714.5,
-          "label_y": 100.2,
           "role": "load"
         },
         {
@@ -258,9 +232,6 @@
           "name": "Ningbo",
           "x": 880.3,
           "y": 100.9,
-          "anchor": "middle",
-          "label_x": 880.3,
-          "label_y": 92.6,
           "role": "discharge"
         }
       ]
@@ -292,9 +263,6 @@
           "name": "Bonny",
           "x": 605.0,
           "y": 162.3,
-          "anchor": "middle",
-          "label_x": 605.0,
-          "label_y": 154.0,
           "role": "load"
         },
         {
@@ -302,9 +270,6 @@
           "name": "Rotterdam",
           "x": 598.7,
           "y": 48.2,
-          "anchor": "middle",
-          "label_x": 598.7,
-          "label_y": 40.0,
           "role": "discharge"
         }
       ]
@@ -340,9 +305,6 @@
           "name": "Houston",
           "x": 359.7,
           "y": 101.4,
-          "anchor": "middle",
-          "label_x": 359.7,
-          "label_y": 93.2,
           "role": "load"
         },
         {
@@ -350,9 +312,6 @@
           "name": "Rotterdam",
           "x": 598.7,
           "y": 48.2,
-          "anchor": "end",
-          "label_x": 592.7,
-          "label_y": 42.4,
           "role": "discharge"
         }
       ]
@@ -386,9 +345,6 @@
           "name": "Rotterdam",
           "x": 598.7,
           "y": 48.2,
-          "anchor": "end",
-          "label_x": 592.7,
-          "label_y": 45.4,
           "role": "load"
         },
         {
@@ -396,9 +352,6 @@
           "name": "New York",
           "x": 410.3,
           "y": 75.1,
-          "anchor": "middle",
-          "label_x": 410.3,
-          "label_y": 88.3,
           "role": "discharge"
         }
       ]
@@ -434,9 +387,6 @@
           "name": "Houston",
           "x": 359.7,
           "y": 101.4,
-          "anchor": "middle",
-          "label_x": 359.7,
-          "label_y": 93.2,
           "role": "load"
         },
         {
@@ -444,9 +394,6 @@
           "name": "Amsterdam",
           "x": 600.3,
           "y": 47.1,
-          "anchor": "middle",
-          "label_x": 600.3,
-          "label_y": 35.8,
           "role": "discharge"
         }
       ]
@@ -474,9 +421,6 @@
           "name": "Ras Tanura",
           "x": 708.5,
           "y": 109.1,
-          "anchor": "start",
-          "label_x": 714.5,
-          "label_y": 100.2,
           "role": "load"
         },
         {
@@ -484,9 +428,6 @@
           "name": "Yokohama",
           "x": 923.2,
           "y": 87.9,
-          "anchor": "middle",
-          "label_x": 923.2,
-          "label_y": 79.7,
           "role": "discharge"
         }
       ]
@@ -514,9 +455,6 @@
           "name": "Ras Tanura",
           "x": 708.5,
           "y": 109.1,
-          "anchor": "start",
-          "label_x": 714.5,
-          "label_y": 100.2,
           "role": "load"
         },
         {
@@ -524,9 +462,6 @@
           "name": "Yokohama",
           "x": 923.2,
           "y": 87.9,
-          "anchor": "middle",
-          "label_x": 923.2,
-          "label_y": 79.7,
           "role": "discharge"
         }
       ]
@@ -554,9 +489,6 @@
           "name": "Mina Al Fahal",
           "x": 728.6,
           "y": 116.1,
-          "anchor": "start",
-          "label_x": 734.6,
-          "label_y": 110.2,
           "role": "load"
         },
         {
@@ -564,9 +496,6 @@
           "name": "Ningbo",
           "x": 880.3,
           "y": 100.9,
-          "anchor": "middle",
-          "label_x": 880.3,
-          "label_y": 92.6,
           "role": "discharge"
         }
       ]
@@ -602,9 +531,6 @@
           "name": "Galveston",
           "x": 360.6,
           "y": 102.4,
-          "anchor": "start",
-          "label_x": 366.6,
-          "label_y": 93.5,
           "role": "load"
         },
         {
@@ -612,9 +538,6 @@
           "name": "Ningbo",
           "x": 880.3,
           "y": 100.9,
-          "anchor": "middle",
-          "label_x": 880.3,
-          "label_y": 92.6,
           "role": "discharge"
         }
       ]
@@ -648,9 +571,6 @@
           "name": "Jubail",
           "x": 707.7,
           "y": 107.7,
-          "anchor": "middle",
-          "label_x": 707.7,
-          "label_y": 99.4,
           "role": "load"
         },
         {
@@ -658,9 +578,6 @@
           "name": "Rotterdam",
           "x": 598.7,
           "y": 48.2,
-          "anchor": "start",
-          "label_x": 604.7,
-          "label_y": 51.4,
           "role": "discharge"
         }
       ]
@@ -694,9 +611,6 @@
           "name": "New Orleans",
           "x": 371.9,
           "y": 100.9,
-          "anchor": "start",
-          "label_x": 377.9,
-          "label_y": 95.1,
           "role": "load"
         },
         {
@@ -704,9 +618,6 @@
           "name": "Qingdao",
           "x": 876.6,
           "y": 86.3,
-          "anchor": "end",
-          "label_x": 870.6,
-          "label_y": 89.5,
           "role": "discharge"
         }
       ]
@@ -738,9 +649,6 @@
           "name": "Jubail",
           "x": 707.7,
           "y": 107.7,
-          "anchor": "end",
-          "label_x": 701.7,
-          "label_y": 110.8,
           "role": "load"
         },
         {
@@ -748,9 +656,6 @@
           "name": "Rotterdam",
           "x": 598.7,
           "y": 48.2,
-          "anchor": "start",
-          "label_x": 604.7,
-          "label_y": 51.4,
           "role": "discharge"
         }
       ]
@@ -786,9 +691,6 @@
           "name": "Galveston",
           "x": 360.6,
           "y": 102.4,
-          "anchor": "start",
-          "label_x": 366.6,
-          "label_y": 96.5,
           "role": "load"
         },
         {
@@ -796,9 +698,6 @@
           "name": "Ningbo",
           "x": 880.3,
           "y": 100.9,
-          "anchor": "end",
-          "label_x": 874.3,
-          "label_y": 104.0,
           "role": "discharge"
         }
       ]

@@ -86,8 +86,10 @@ def main() -> int:
             print("FAIL  " + problem)
         if problems:
             return 1
-        print("the committed caches hold %d months of EUA prices and %d days of the dollar rate, every one in bounds"
-              % (len(ec_eua.read_cache()), len(frb_h10.read_cache())))
+        print(
+            "the committed caches hold %d months of EUA prices and %d days of the dollar rate, every one in bounds"
+            % (len(ec_eua.read_cache()), len(frb_h10.read_cache()))
+        )
         return 0
     rows = ec_eua.refresh()
     print("eua: %d months, %s to %s" % (len(rows), rows[0]["month"], rows[-1]["month"]))

@@ -18,6 +18,7 @@ DECIMALS = {
     "usd_day": 0,
     "usd": 0,
     "usd_m": 2,
+    "usd_m_0": 0,
     "usd_t": 2,
     "usd_bbl": 2,
     "ws": 2,
@@ -76,9 +77,9 @@ def usd(value: float, field: str, fmt: str = "usd") -> dict[str, Any]:
     return fig(value, fmt, field, prefix="USD ")
 
 
-def usd_m(value: float, field: str) -> dict[str, Any]:
-    """Dollars written in millions, USD 58.22 million."""
-    return fig(value / 1e6, "usd_m", field, prefix="USD ", suffix=" million")
+def usd_m(value: float, field: str, fmt: str = "usd_m") -> dict[str, Any]:
+    """Dollars written in millions, USD 58.22 million; a round sum such as a hull value with fmt usd_m_0."""
+    return fig(value / 1e6, fmt, field, prefix="USD ", suffix=" million")
 
 
 def word(text: str, field: str) -> dict[str, Any]:
