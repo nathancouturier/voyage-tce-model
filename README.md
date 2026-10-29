@@ -173,7 +173,9 @@ seed from its module, the engine's test cases, the JSON and CSV files the site
 reads, the content hashes in `index.html` and the research note) and then runs
 the gate, which fails if any rebuilt byte differs from the commit. `make gate`
 runs the checks alone; `make help` prints each target as the single command it
-stands for, for a machine without `make`.
+stands for, for a machine without `make`. The note is set in the Liberation
+fonts, read from `/usr/share/fonts/truetype/liberation` (on Debian and Ubuntu,
+`apt install fonts-liberation`).
 
 | Command | What it does |
 |---|---|

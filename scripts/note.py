@@ -148,6 +148,13 @@ def escape(text: str) -> str:
 
 
 def register_fonts() -> None:
+    needed = ("LiberationSerif-Regular.ttf", "LiberationSans-Regular.ttf", "LiberationMono-Regular.ttf")
+    missing = [name for name in needed if not (FONTS / name).exists()]
+    if missing:
+        raise SystemExit(
+            "the note is set in the Liberation fonts, expected in %s (Debian and Ubuntu: apt install "
+            "fonts-liberation); missing: %s" % (FONTS, ", ".join(missing))
+        )
     pdfmetrics.registerFont(
         TTFont("LiberationSerif", "/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf")
     )
