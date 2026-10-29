@@ -113,10 +113,12 @@ Nothing is a card.
   (family colours, zero rows shown as a hairline with "none sourced" or "none on this route"), result (ink total),
   days, TCE (accent). Figures in mono at the right.
 - **The map:** ballast leg dashed in muted ink, laden leg solid in ink, ECA segments over them in sea green, the
-  ports as ink dots ringed in `--bg`, labels placed by the export so none collide. Land from Natural Earth 110m,
-  projected by Python into SVG paths; the page only renders.
-- **Buttons:** "What the TCE leaves out" (the empty inputs, each with its reason), "How it compares with the
-  Baltic" (the anchor table for TD22), "Data" (every input with its source).
+  ports as ink dots ringed in `--bg`, port names placed by the page at the size it draws them, beside, above or
+  below the dot where no line runs and no other name lies, the map box growing a band for a name at its edge.
+  Land from Natural Earth 110m and the route lines projected by Python into SVG paths.
+- **Buttons:** "Method" (the round voyage convention and the engine against the Baltic, week by week),
+  "Assumptions" (what the TCE leaves out, the ship's speeds and consumptions, the port days), "Data" (every input
+  with its value, its status and its source).
 - **Featured voyage choice** (Decision 18): TD22 is the only study route whose latest public rate converts to
   dollars without a licensed flat rate, so it is the one that can be shown end to end.
 
@@ -132,19 +134,23 @@ Nothing is a card.
   WS (when a flat rate is entered) and lump sum, or hire in USD/day for a trip; the "Leaves out" sentence; a
   tornado of the five shocks (freight and bunkers 10 percent, speed 1 knot, port days 1 day, EUA 20 percent);
   TCE against speed with the best speed marked by the accent dot.
-- **Presets:** each study route on the August 2026 market, and every reproduced anchor week, as `aria-pressed`
-  buttons; a preset fills every field with its sourced or derived default.
-- **State in the hash:** `#/calculator?route=TD22&preset=...` so a priced voyage can be linked.
+- **Presets:** each study route at its latest dated market, and every reproduced anchor week, as `aria-pressed`
+  buttons (a route row, then the dated markets of that route); a preset fills every field with its sourced or
+  derived default, or leaves it empty with the reason.
+- **State in the hash:** `#/calculator?preset=latest-c5&open=market` so a priced voyage can be linked.
 
 ### 3. Routes (`#/routes`)
 
 - **Sentence:** how many routes, and the share of each route's distance inside ECAs.
-- **Chart:** distance by routing for each route (direct, no Suez, no Panama, no canals) as horizontal bars in ink
-  with the ECA share as the sea green part of the bar, grouped by segment (dry, dirty, clean).
+- **Chart:** the voyage costs of every route at the August 2026 market, in dollars a day of the round voyage,
+  split into bunkers and EU allowances and grouped by segment (dry, dirty, clean); port charges and canal tolls
+  have no public figure and are named, not drawn.
 - **Table:** route code, Baltic name, vessel, cargo, commission, laden and ballast distance, ECA miles, port days,
   bunker hub, and what the TCE leaves out. A link to the Baltic routes map
   (https://nathancouturier.github.io/baltic-freight-routes/) beside the title.
-- **Buttons:** "Distances against Pub. 151" (the 21 checks), "Port days and laytime", "Data".
+- **Buttons:** "Method" (routings, miles inside ECAs, the bunker hub rule, the common market), "Assumptions"
+  (port charges, canal tolls, laytime), "Data" (the 21 distances against Pub. 151, and the downloads); the
+  Hormuz premiums by route as a table under the chart.
 
 ### 4. Detours (`#/detours`)
 
@@ -166,7 +172,8 @@ Nothing is a card.
 
 ### 6. Paper (`#/paper`)
 
-- **Sentence:** the week 43 C5 fixture against the November 5TC FFA, the hedge size and the basis.
+- **Sentence:** the week 27 C3 and C5 voyages against the July 5TC FFA and the hedge size; under the chart, the
+  C5 fixture of 22 October against the C5 index. Buttons: "Hedge and basis", "Tankers", "Method", "Data".
 - **Chart:** for each anchor week, a dot plot on one USD/day axis: the physical TCE (ink dot), the FFA for the
   voyage month (open dot), the spot 5TC (muted dot), with the basis and timing basis as labelled spans.
 - **Tables:** hedge sizes (5TC days, route FFA tonnes), the freight that would earn the FFA, the TD3C paper
@@ -208,7 +215,7 @@ wide table scrolls inside its own box with its first column sticky.
 
 `data/overview.json`, `data/calculator.json` (presets, vessels, routes, legs, markets, sources), `data/routes.json`,
 `data/detours.json`, `data/carbon.json`, `data/paper.json`, `data/method.json`, `data/map.json` (projected land,
-legs and labels), `data/engine.json` (the engine's constants), `data/manifest.json` (provenance with the as-of
+legs and ports), `data/engine.json` (the engine's constants), `data/manifest.json` (provenance with the as-of
 date of each source), `data/downloads/*.csv`. Written by `scripts/export.py` from the seeds, the caches and the
 engine, byte for byte the same on every run (`export --check` in the gate). No number in `src/` comes from
 anywhere else (`tools/check-literals.mjs`).

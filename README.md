@@ -123,6 +123,16 @@ from, the formulas, the validation table, the sources and the downloads.
 Screenshots of the views are in [`assets/`](assets/); the build checks every
 view at 1440, 768, 390 and 320 pixels in both themes.
 
+The calculator, on C5 at the week to 23 October 2026, with the Market step
+open: every field says where its figure comes from, or why it is empty.
+
+![The Calculator view at desktop width, light theme](assets/calculator-desktop-light.png)
+
+Detours, in the dark theme: the freight a tonne that keeps the TCE when a
+voyage goes round the Cape, pays a war risk premium or waits outside Hormuz.
+
+![The Detours view at desktop width, dark theme](assets/detours-desktop-dark.png)
+
 ---
 
 ## Running it locally
