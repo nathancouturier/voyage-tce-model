@@ -8136,7 +8136,7 @@
     "speed_trip_note": "On a trip the hire is paid by the day and the charterer buys the laden fuel, so a faster ship shortens the paid days and the owner's TCE falls with speed.",
     "speed_best": "Best, {best} kn",
     "speed_current": "Priced, {current} kn",
-    "source": "Engine output at the inputs above. Preset: {preset}; bunkers and carbon: {market}.",
+    "source": "Engine output at the inputs above. Preset: {preset}; bunkers and carbon: {market}. Sources retrieved 29 October 2026.",
     "result_line": "Over {days} days ({ballast} in ballast, {laden} laden and {port} in port and waiting), the result is a TCE of {tce} a day.",
     "million": "USD {value} million",
     "routing": "Routing",

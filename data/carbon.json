@@ -263,7 +263,13 @@
           "format": "usd_per_eur",
           "field": "usd_per_eur"
         },
-        " dollars per euro (Federal Reserve H.10, August 2026 average); bunkers at the August 2026 common market."
+        " dollars per euro (Federal Reserve H.10, August 2026 average); bunkers at the August 2026 common market.",
+        " Sources ",
+        {
+          "text": "retrieved 29 October 2026",
+          "field": "retrieved"
+        },
+        "."
       ]
     },
     "kinds": {

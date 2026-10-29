@@ -591,7 +591,13 @@
         }
       ],
       "source": [
-        "Engine output for C3 and C5 at Banchero Costa's route assessments and the week's bunkers; FFA: Banchero Costa, Dry bulk FFA assessments, 6 July 2026 and 25 October 2026; spot 5TC: Signal Group and Banchero Costa. The July spot figure does not state its vessel basis (180,000 or 182,000 dwt)."
+        "Engine output for C3 and C5 at Banchero Costa's route assessments and the week's bunkers; FFA: Banchero Costa, Dry bulk FFA assessments, 6 July 2026 and 25 October 2026; spot 5TC: Signal Group and Banchero Costa. The July spot figure does not state its vessel basis (180,000 or 182,000 dwt).",
+        " Sources ",
+        {
+          "text": "retrieved 29 October 2026",
+          "field": "retrieved"
+        },
+        "."
       ]
     },
     "fixture": {

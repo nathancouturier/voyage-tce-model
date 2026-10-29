@@ -415,7 +415,13 @@
         "field": "date"
       },
       ". Freight: Baltic Exchange via Hellenic Shipping News. Bunkers: Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026. ",
-      "A cost with no public figure is left out and named in its row."
+      "A cost with no public figure is left out and named in its row.",
+      " Sources ",
+      {
+        "text": "retrieved 29 October 2026",
+        "field": "retrieved"
+      },
+      "."
     ],
     "caption": "The bridge from gross freight to the voyage result, in US dollars, one row per step."
   },
@@ -461,7 +467,13 @@
         "text": "23 October 2026",
         "field": "date"
       },
-      ". Land: Natural Earth 1:110m."
+      ". Land: Natural Earth 1:110m.",
+      " Sources ",
+      {
+        "text": "retrieved 29 October 2026",
+        "field": "retrieved"
+      },
+      "."
     ]
   },
   "sections": [

@@ -818,7 +818,13 @@
           "field": "hormuz.latest_tce",
           "prefix": "USD "
         },
-        " a day). War risk: Marsh and Platts, July 2026. Suez and Panama tolls have no public figure for these ships and are left out."
+        " a day). War risk: Marsh and Platts, July 2026. Suez and Panama tolls have no public figure for these ships and are left out.",
+        " Sources ",
+        {
+          "text": "retrieved 29 October 2026",
+          "field": "retrieved"
+        },
+        "."
       ]
     },
     "suez_tanker": {

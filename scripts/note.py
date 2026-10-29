@@ -55,8 +55,7 @@ from reportlab.platypus import (  # noqa: E402
     TableStyle,
 )
 
-from voyage import analysis, anchors, baltic, cases, engine, export  # noqa: E402
-from voyage.sources import base  # noqa: E402
+from voyage import analysis, anchors, baltic, cases, engine, export, pages  # noqa: E402
 from voyage.words import DECIMALS, date_label, market_words  # noqa: E402
 
 OUT = REPO_ROOT / "Voyage-Economics-TCE-Research-Note.pdf"
@@ -120,26 +119,6 @@ def times(value: float) -> str:
 def short(value: float) -> str:
     """A setting as written: 5, 3.75, 0.01."""
     return f"{value:g}"
-
-
-def seed_retrieval() -> str:
-    """The day the latest document behind a seed figure was retrieved: the date of the note's data."""
-    keys: set[str] = set()
-
-    def walk(node: Any) -> None:
-        if isinstance(node, dict):
-            for name, value in node.items():
-                if name == "raw_key" and isinstance(value, str):
-                    keys.add(value)
-                walk(value)
-        elif isinstance(node, list):
-            for item in node:
-                walk(item)
-
-    for path in sorted((REPO_ROOT / "data" / "seed").glob("*.json")):
-        walk(json.loads(path.read_text(encoding="utf-8")))
-    files = base.raw_manifest()["files"]
-    return max(files[k]["retrieved_at"][:10] for k in keys if k in files)
 
 
 def plain(segments: list[Any]) -> str:
@@ -518,7 +497,7 @@ def build(out: Path) -> int:
     published = featured["published"]["tce_usd_day"]
     error = result["tce_usd_day"] / published - 1.0
     market = cases.common_market()
-    retrieved = date_label(seed_retrieval())
+    retrieved = date_label(pages.retrieval_days()[-1])
     case_count = len(json.loads((REPO_ROOT / "data" / "fixtures" / "engine-cases.json").read_text())["cases"])
     dry_commission = next(x for x in presets if x["route"] == "C5")["inputs"]["commission_pct"]
     tanker_commission = featured["inputs"]["commission_pct"]
@@ -638,7 +617,7 @@ def build(out: Path) -> int:
                 ),
                 bridge_chart(overview["bridge"]["rows"]),
                 p(
-                    "Figure 1. " + escape(plain(overview["bridge"]["source"])) + " Retrieved %s." % retrieved,
+                    "Figure 1. " + escape(plain(overview["bridge"]["source"])),
                     SOURCE,
                 ),
             ]
@@ -755,7 +734,7 @@ def build(out: Path) -> int:
                     method["page"]["chart"],
                 ),
                 p(
-                    "Figure 2. " + escape(plain(method["page"]["chart"]["source"])) + " Retrieved %s." % retrieved,
+                    "Figure 2. " + escape(plain(method["page"]["chart"]["source"])),
                     SOURCE,
                 ),
             ]
@@ -801,13 +780,13 @@ def build(out: Path) -> int:
                 p(
                     "Engine output; bunkers: Ship &amp; Bunker, %s averages (quarterly where no monthly figure "
                     "exists); allowances: %s, at the %d phase in; dollars: %s. Port charges and canal tolls have no "
-                    "public figure and are not in the costs. Retrieved %s."
+                    "public figure and are not in the costs. Sources %s."
                     % (
                         escape(market.label),
                         escape(market.eua_source),
                         cases.ETS_FULL_FROM,
                         escape(market.fx_source),
-                        retrieved,
+                        pages.retrieval_words(),
                     ),
                     SOURCE,
                 ),
@@ -927,7 +906,7 @@ def build(out: Path) -> int:
                 p(escape(plain(detours["page"]["chart"]["title"])), CAPTION),
                 detours_chart(detours["page"]["chart"]["rows"], detours["page"]["chart"]),
                 p(
-                    "Figure 3. " + escape(plain(detours["page"]["chart"]["source"])) + " Retrieved %s." % retrieved,
+                    "Figure 3. " + escape(plain(detours["page"]["chart"]["source"])),
                     SOURCE,
                 ),
             ]
@@ -982,7 +961,7 @@ def build(out: Path) -> int:
                 p(
                     "Engine output at EUR %s a tonne (%s) and %s dollars a euro (%s); emission factors of Regulation "
                     "(EU) 2015/757 Annex I as amended, global warming potentials %s for methane and %s for nitrous "
-                    "oxide. Retrieved %s."
+                    "oxide. Sources %s."
                     % (
                         number(carbon["eua_eur_t"], "eur_t"),
                         escape(carbon["eua_source"]),
@@ -990,7 +969,7 @@ def build(out: Path) -> int:
                         escape(market.fx_source),
                         short(engine.GWP_CH4),
                         short(engine.GWP_N2O),
-                        retrieved,
+                        pages.retrieval_words(),
                     ),
                     SOURCE,
                 ),
@@ -1028,7 +1007,7 @@ def build(out: Path) -> int:
                 p(escape(plain(paper["page"]["chart"]["title"])), CAPTION),
                 paper_chart(capesize, paper["page"]["chart"]),
                 p(
-                    "Figure 4. " + escape(plain(paper["page"]["chart"]["source"])) + " Retrieved %s." % retrieved,
+                    "Figure 4. " + escape(plain(paper["page"]["chart"]["source"])),
                     SOURCE,
                 ),
             ]

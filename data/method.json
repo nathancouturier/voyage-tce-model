@@ -3331,7 +3331,23 @@
         }
       ],
       "source": [
-        "Baltic Exchange weekly tanker reports as republished by Hellenic Shipping News; bunkers: Star Asia Shipbroking and Banchero Costa weekly tables; engine output."
+        "Baltic Exchange weekly tanker reports, weeks to ",
+        {
+          "text": "27 February 2026",
+          "field": "chart.first_week"
+        },
+        " to ",
+        {
+          "text": "23 October 2026",
+          "field": "chart.last_week"
+        },
+        ", as republished by Hellenic Shipping News; bunkers: Star Asia Shipbroking and Banchero Costa weekly tables; engine output.",
+        " Sources ",
+        {
+          "text": "retrieved 29 October 2026",
+          "field": "retrieved"
+        },
+        "."
       ]
     },
     "sections": [

@@ -9,6 +9,7 @@ analysis through voyage.export, which calls these functions and writes the artif
 from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
+from functools import cache
 from typing import Any
 
 from . import baltic, cases
@@ -69,6 +70,42 @@ FREIGHT_UNITS = {
     "lump_sum": "USD lump sum",
     "hire_usd_day": "USD a day",
 }
+
+
+@cache
+def retrieval_days() -> tuple[str, ...]:
+    """Every day a document behind the study's figures was retrieved: the seeds' documents and the two caches'."""
+    from .sources import base, ec_eua, frb_h10
+
+    keys: set[str] = {ec_eua.DEHST_KEY, frb_h10.KEY}
+
+    def walk(node: Any) -> None:
+        if isinstance(node, dict):
+            for name, value in node.items():
+                if name == "raw_key" and isinstance(value, str):
+                    keys.add(value)
+                walk(value)
+        elif isinstance(node, list):
+            for item in node:
+                walk(item)
+
+    for path in sorted(base.SEED.glob("*.json")):
+        walk(cases.seed(path.name))
+    files = base.raw_manifest()["files"]
+    return tuple(sorted({files[k]["retrieved_at"][:10] for k in keys if k in files}))
+
+
+def retrieval_words() -> str:
+    """ "retrieved 29 October 2026", or the first and last day when the documents were read on several."""
+    days = retrieval_days()
+    if len(days) == 1:
+        return "retrieved %s" % date_label(days[0])
+    return "retrieved from %s to %s" % (date_label(days[0]), date_label(days[-1]))
+
+
+def with_retrieval(segments: list[Any]) -> list[Any]:
+    """A chart's source line closed by the day its documents were retrieved."""
+    return [*segments, " Sources ", word(retrieval_words(), "retrieved"), "."]
 
 
 def _lookup(inputs: Mapping[str, Any], path: str) -> Any:
@@ -377,12 +414,14 @@ def overview(
             else [fig(bunker_share * 100.0, "percent", "result.bunker_share", suffix=" percent"), " of them bunkers."]
         ),
     ]
-    b["source"] = [
-        "Engine output for TD22 in the week to ",
-        word(date_label(week), "date"),
-        ". Freight: Baltic Exchange via Hellenic Shipping News. Bunkers: %s. " % bunker_source,
-        "A cost with no public figure is left out and named in its row.",
-    ]
+    b["source"] = with_retrieval(
+        [
+            "Engine output for TD22 in the week to ",
+            word(date_label(week), "date"),
+            ". Freight: Baltic Exchange via Hellenic Shipping News. Bunkers: %s. " % bunker_source,
+            "A cost with no public figure is left out and named in its row.",
+        ]
+    )
     b["caption"] = "The bridge from gross freight to the voyage result, in US dollars, one row per step."
     leaves = list(featured["excluded"])
     return {
@@ -410,12 +449,14 @@ def overview(
                 {"kind": "ballast", "text": "Ballast leg, %s to %s, drawn beside it" % (discharge, load)},
                 {"kind": "eca", "text": "Inside an emission control area: 0.10 percent sulphur fuel (MGO)"},
             ],
-            "source": [
-                "Lines: searoute over Eurostat SeaRoute, the lines the distances are measured on. "
-                "Emission control areas: MARPOL Annex VI, in force on ",
-                word(date_label(week), "date"),
-                ". Land: Natural Earth 1:110m.",
-            ],
+            "source": with_retrieval(
+                [
+                    "Lines: searoute over Eurostat SeaRoute, the lines the distances are measured on. "
+                    "Emission control areas: MARPOL Annex VI, in force on ",
+                    word(date_label(week), "date"),
+                    ". Land: Natural Earth 1:110m.",
+                ]
+            ),
         },
         "sections": [
             {
@@ -599,7 +640,9 @@ def calculator_words() -> dict[str, Any]:
             "faster ship shortens the paid days and the owner's TCE falls with speed.",
             "speed_best": "Best, {best} kn",
             "speed_current": "Priced, {current} kn",
-            "source": "Engine output at the inputs above. Preset: {preset}; bunkers and carbon: {market}.",
+            "source": "Engine output at the inputs above. Preset: {preset}; bunkers and carbon: {market}. Sources "
+            + retrieval_words()
+            + ".",
             "result_line": "Over {days} days ({ballast} in ballast, {laden} laden and {port} in port and waiting), "
             "the result is a TCE of {tce} a day.",
             "million": "USD {value} million",
@@ -791,15 +834,17 @@ def routes_page(market_label: str, eua: float, fx: float, rows: list[Mapping[str
             "axis": "Voyage costs, USD a day of the round voyage",
             "desc": "One bar a route, grouped by segment, split into bunkers and EU allowances; port charges and canal "
             "tolls have no public figure and are left out of every bar.",
-            "source": [
-                "Engine output at the common market, %s: Ship & Bunker monthly and quarterly averages at the hub "
-                "nearest each load port, EU allowances at EUR " % market_label,
-                fig(eua, "eur_t", "eua_eur_t"),
-                " and ",
-                fig(fx, "usd_per_eur", "usd_per_eur"),
-                " dollars per euro. Ships, speeds and port days: Baltic Exchange Guide to Market Benchmarks v%s."
-                % baltic.GMB["version"],
-            ],
+            "source": with_retrieval(
+                [
+                    "Engine output at the common market, %s: Ship & Bunker monthly and quarterly averages at the hub "
+                    "nearest each load port, EU allowances at EUR " % market_label,
+                    fig(eua, "eur_t", "eua_eur_t"),
+                    " and ",
+                    fig(fx, "usd_per_eur", "usd_per_eur"),
+                    " dollars per euro. Ships, speeds and port days: Baltic Exchange Guide to Market Benchmarks v%s."
+                    % baltic.GMB["version"],
+                ]
+            ),
             "legend": [
                 {"family": "bunkers", "text": "Bunkers"},
                 {"family": "ets", "text": "EU ETS allowances"},
@@ -977,15 +1022,17 @@ def detours_page(st: Mapping[str, Any], sd: Mapping[str, Any], hz: Mapping[str, 
             "without the detour or the premium; a negative bar is a saving. Waiting is priced at the TCE of the "
             "latest week, which waiting days forgo.",
             "rows": chart_rows,
-            "source": [
-                "Engine output, week to ",
-                word(date_label(st["as_of"]), "as_of"),
-                ": TC20 at the Baltic's lump sum, the Panamax at the freight that earns the P4 trip rate, TD3C at the "
-                "Baltic's TCE of the week (",
-                usd(latest_level["tce_usd_day"], "hormuz.latest_tce", "usd_day"),
-                " a day). War risk: Marsh and Platts, July 2026. Suez and Panama tolls have no public figure for "
-                "these ships and are left out.",
-            ],
+            "source": with_retrieval(
+                [
+                    "Engine output, week to ",
+                    word(date_label(st["as_of"]), "as_of"),
+                    ": TC20 at the Baltic's lump sum, the Panamax at the freight that earns the P4 trip rate, TD3C at "
+                    "the Baltic's TCE of the week (",
+                    usd(latest_level["tce_usd_day"], "hormuz.latest_tce", "usd_day"),
+                    " a day). War risk: Marsh and Platts, July 2026. Suez and Panama tolls have no public figure for "
+                    "these ships and are left out.",
+                ]
+            ),
         },
         "suez_tanker": {
             "lead": [
@@ -1134,14 +1181,16 @@ def carbon_page(c: Mapping[str, Any]) -> dict[str, Any]:
             "none": "None: no EEA port",
             "desc": "Three voyages by three years of the phase in: the cost of the allowances surrendered for the "
             "voyage's covered emissions, over its days. The voyage outside the EEA has none in any year.",
-            "source": [
-                "Engine output at EUR ",
-                fig(c["eua_eur_t"], "eur_t", "eua_eur_t"),
-                " an allowance (%s) and " % c["eua_source"],
-                fig(c["usd_per_eur"], "usd_per_eur", "usd_per_eur"),
-                " dollars per euro (Federal Reserve H.10, %s average); bunkers at the %s common market."
-                % (c["market"], c["market"]),
-            ],
+            "source": with_retrieval(
+                [
+                    "Engine output at EUR ",
+                    fig(c["eua_eur_t"], "eur_t", "eua_eur_t"),
+                    " an allowance (%s) and " % c["eua_source"],
+                    fig(c["usd_per_eur"], "usd_per_eur", "usd_per_eur"),
+                    " dollars per euro (Federal Reserve H.10, %s average); bunkers at the %s common market."
+                    % (c["market"], c["market"]),
+                ]
+            ),
         },
         "kinds": {
             "TC23": "MR, Amsterdam to Le Havre (TC23): between two EEA ports, 100 percent",
@@ -1248,12 +1297,14 @@ def paper_page(p: Mapping[str, Any]) -> dict[str, Any]:
                 {"kind": "ring", "text": "5TC FFA for the month"},
                 {"kind": "muted", "text": "Spot Capesize 5TC average"},
             ],
-            "source": [
-                "Engine output for C3 and C5 at Banchero Costa's route assessments and the week's bunkers; FFA: "
-                "Banchero Costa, Dry bulk FFA assessments, %s; spot 5TC: Signal Group and Banchero Costa. The July "
-                "spot figure does not state its vessel basis (180,000 or 182,000 dwt)."
-                % " and ".join(date_label(c["assessed"]) for c in p["curves"])
-            ],
+            "source": with_retrieval(
+                [
+                    "Engine output for C3 and C5 at Banchero Costa's route assessments and the week's bunkers; FFA: "
+                    "Banchero Costa, Dry bulk FFA assessments, %s; spot 5TC: Signal Group and Banchero Costa. The "
+                    "July spot figure does not state its vessel basis (180,000 or 182,000 dwt)."
+                    % " and ".join(date_label(c["assessed"]) for c in p["curves"])
+                ]
+            ),
         },
         "fixture": {
             "lead": [
@@ -1364,10 +1415,16 @@ def method_page(validation: Mapping[str, Any], route_rows: Sequence[Mapping[str,
                 {"kind": "ink", "text": "Bunker table of the same week"},
                 {"kind": "ring", "text": "Bunker table up to a week older"},
             ],
-            "source": [
-                "Baltic Exchange weekly tanker reports as republished by Hellenic Shipping News; bunkers: Star Asia "
-                "Shipbroking and Banchero Costa weekly tables; engine output."
-            ],
+            "source": with_retrieval(
+                [
+                    "Baltic Exchange weekly tanker reports, weeks to ",
+                    word(date_label(min(r["week_ending"] for r in reproducible)), "chart.first_week"),
+                    " to ",
+                    word(date_label(max(r["week_ending"] for r in reproducible)), "chart.last_week"),
+                    ", as republished by Hellenic Shipping News; bunkers: Star Asia Shipbroking and Banchero Costa "
+                    "weekly tables; engine output.",
+                ]
+            ),
         },
         "sections": [
             {

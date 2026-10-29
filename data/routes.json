@@ -1612,7 +1612,13 @@
           "format": "usd_per_eur",
           "field": "usd_per_eur"
         },
-        " dollars per euro. Ships, speeds and port days: Baltic Exchange Guide to Market Benchmarks v8.8."
+        " dollars per euro. Ships, speeds and port days: Baltic Exchange Guide to Market Benchmarks v8.8.",
+        " Sources ",
+        {
+          "text": "retrieved 29 October 2026",
+          "field": "retrieved"
+        },
+        "."
       ],
       "legend": [
         {

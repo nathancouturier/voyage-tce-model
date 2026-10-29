@@ -546,6 +546,7 @@ function buildOutputs(column) {
       el("li", { class: "chart-legend__item" }, [el("span", { class: "swatch swatch--outline", attrs: { "aria-hidden": "true" } }), calc.words.tornado_lower]),
       el("li", { class: "chart-legend__item" }, [el("span", { class: "swatch swatch--ink", attrs: { "aria-hidden": "true" } }), calc.words.tornado_higher]),
     ]),
+    (live.tornadoSource = el("p", { class: "source-line" })),
   ]);
   live.figures.push(tornadoFigure);
   column.appendChild(tornadoFigure);
@@ -553,7 +554,8 @@ function buildOutputs(column) {
   live.speedTitle = el("h2", { class: "block__heading" });
   live.speedFrame = el("div", { class: "chart-frame" });
   live.speedNote = el("p", { class: "source-line" });
-  const speedFigure = el("figure", { class: "block" }, [live.speedTitle, live.speedFrame, el("p", { class: "source-line", text: calc.words.speed_desc }), live.speedNote]);
+  live.speedSource = el("p", { class: "source-line" });
+  const speedFigure = el("figure", { class: "block" }, [live.speedTitle, live.speedFrame, el("p", { class: "source-line", text: calc.words.speed_desc }), live.speedNote, live.speedSource]);
   live.figures.push(speedFigure);
   column.appendChild(speedFigure);
 
@@ -618,6 +620,8 @@ function recompute() {
     live.resultLine.textContent = "";
     live.leaves.textContent = leavesOut();
     live.source.textContent = "";
+    live.tornadoSource.textContent = "";
+    live.speedSource.textContent = "";
     live.tornadoTitle.textContent = "";
     live.speedTitle.textContent = "";
     clear(live.tornadoFrame);
@@ -668,6 +672,8 @@ function recompute() {
   });
   live.leaves.textContent = leavesOut();
   live.source.textContent = fill(calc.words.source, { preset: preset.label, market: preset.market_words });
+  live.tornadoSource.textContent = live.source.textContent;
+  live.speedSource.textContent = live.source.textContent;
   drawTornado();
   drawSpeed();
 }
