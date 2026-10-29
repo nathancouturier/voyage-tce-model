@@ -27,19 +27,20 @@ Samples: `data/cache/eua_monthly.csv` reads `2026-08,82.31,DEHSt (German auction
 
 ## Sources read once and cited
 
-Press, broker and regulator documents were downloaded once, recorded in the manifest (329 files) and are cited
+Press, broker and regulator documents were downloaded once, recorded in the manifest (348 files) and are cited
 figure by figure in the seeds. None is redistributed.
 
 | Input | Source | Seed |
 |---|---|---|
 | Bunker prices, August 2026 (common market) | Ship & Bunker monthly sales analyses (Singapore, Fujairah) and port price pages (quarterly averages) | `market.json` |
-| Bunker prices, anchor weeks | Star Asia Shipbroking weekly reports (weeks 9, 10, 26, 28, 31, 36, 40, 43 of 2026); Banchero Costa week 27 | `market.json` |
-| War risk premiums | Platts and Marsh as reported by Hellenic Shipping News (1 April, 18 and 25 June, 24 July, 5 October 2026) | `market.json` |
+| Bunker prices, anchor weeks | Star Asia Shipbroking weekly reports (week 49 of 2025; weeks 4, 8, 9, 10, 11, 12, 15, 16, 26, 28, 31, 36, 37, 40, 41, 43 of 2026), each dated by its close of business Friday; Banchero Costa week 27; Intermodal week 11 as a cross-check. Star Asia often reprints a week's table unchanged (weeks 8 and 9, 15 and 16, 36 and 37, 40 and 41 are identical in every cell; Houston's row of 20 March recurs on 10 and 17 April): a reprinted row is dated by its first printing. Weeks 50 of 2025 and 13 of 2026 have no post on Hellenic Shipping News. | `market.json` |
+| War risk premiums and who pays them | Platts and Marsh as reported by Hellenic Shipping News (8 December 2025; 1 April, 18 and 25 June, 24 July, 5 October 2026); Gard (21 March 2026); Windward on Saudi linked ships (30 July 2026) | `market.json`, `conventions.json` |
+| The Hormuz shuttle | The Wall Street Journal via ChosunBiz (21 September 2026), Windward (30 July, 12 October 2026), Kpler (23 September 2026), as republished by Hellenic Shipping News | `market.json` |
 | Hull values | Xclusiv Shipbrokers weekly report, 7 September 2026, 5 year old values (read from the rendered tables) | `market.json` |
 | Tanker rates and TCEs | Baltic Exchange weekly tanker reports as republished by Hellenic Shipping News, 13 weeks from 12 December 2025 to 23 October 2026 | `anchors.json` |
 | Early March 2026 VLCC rates | Platts (via Hellenic Shipping News), Argus, Oilprice.com (via Yahoo Finance) | `anchors.json` |
-| Dry rates | Signal Group (via Hellenic Shipping News), Banchero Costa weeks 27 and 43 | `anchors.json` |
-| FFA curves | Banchero Costa dry bulk FFA assessments, 6 July and 25 October 2026 | `ffa.json` |
+| Dry rates | Signal Group (via Hellenic Shipping News, with the BCI and BDI of 3 July 2026 that fix its 5TC's vessel basis), Banchero Costa weeks 27 and 43 | `anchors.json` |
+| FFA curves | Banchero Costa dry bulk FFA assessments, printed at 6 July (with the previous column, 29 June) and 25 October 2026 | `ffa.json` |
 | FFA settlement | EEX contract specifications (release 047a, 23 July 2026); ICE Futures Europe rulebook Section TTT Part II E | `ffa.json` |
 | Suez Canal | Suez Canal Authority periodicals 16, 17 and 18 of 2026 (surcharges from 15 July 2026); SCA via Hellenic Shipping News (23 July 2026) | `canals.json` |
 | Panama Canal | EIA This Week in Petroleum, 27 September 2023; Hellenic Shipping News, April 2026 | `canals.json` |
@@ -57,7 +58,9 @@ figure by figure in the seeds. None is redistributed.
 | Bulk carrier port consumption | The guide prints none for bulk carriers. |
 | C3 and C5 loading time | The Baltic's terms load at the port's own scale, which is not published. |
 | Crew war bonus | 100 percent of basic wage in the Warlike Operations Area; the wage bill has no public source. |
-| Ship to ship transfer cost | No dated public figure found. |
+| Ship to ship transfer cost | No dated public figure found for the transfer itself; the shuttle through the strait was reported (above) and is set beside the export voyage. |
+| Panama transit and waiting time on the dry routes | The guide's dry route terms set no canal days. |
+| A typical split of tanker commission between address commission and brokerage | No public source; the Baltic quotes the total. |
 
 ## Hosts that could not be reached
 

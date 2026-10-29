@@ -50,10 +50,10 @@
       "segment": "dry",
       "contract": "voyage",
       "days": 76.522292,
-      "total_usd": 2238516.9,
-      "per_day_usd": 29253.134626,
+      "total_usd": 2746359.54,
+      "per_day_usd": 35889.66666,
       "costs_usd": {
-        "bunkers": 2238516.9,
+        "bunkers": 2746359.54,
         "ports": 0.0,
         "canals": 0.0,
         "ets": 0.0,
@@ -72,13 +72,13 @@
         "port charges at Tubarao and Qingdao (no public per call figure)"
       ],
       "excluded_block_per_day_usd": 1306.808746,
-      "hub": "rotterdam",
+      "hub": "singapore",
       "laden_nm": 11136.9,
       "ballast_nm": 11136.9,
       "eca_nm": 0,
       "with_hormuz_war_risk": null,
       "bunkers_by_grade_usd": {
-        "vlsfo": 2238516.9,
+        "vlsfo": 2746359.54,
         "hsfo": 0.0,
         "mgo": 0.0
       },
@@ -112,7 +112,7 @@
         "canal_days": 0.0
       },
       "vessel_label": "Baltic Standard Capesize (BCI182)",
-      "hub_name": "Rotterdam",
+      "hub_name": "Singapore",
       "label": "C3"
     },
     {
@@ -120,11 +120,11 @@
       "name": "West Australia to Qingdao",
       "segment": "dry",
       "contract": "voyage",
-      "days": 28.983542,
-      "total_usd": 870670.62,
-      "per_day_usd": 30040.173489,
+      "days": 29.252292,
+      "total_usd": 881274.42,
+      "per_day_usd": 30126.679648,
       "costs_usd": {
-        "bunkers": 870670.62,
+        "bunkers": 881274.42,
         "ports": 0.0,
         "canals": 0.0,
         "ets": 0.0,
@@ -142,19 +142,19 @@
         "fuel burnt in port (the Baltic prints no port consumption for bulk carriers)",
         "port charges at Port Hedland and Qingdao (no public per call figure)"
       ],
-      "excluded_block_per_day_usd": 3450.233969,
+      "excluded_block_per_day_usd": 3418.535585,
       "hub": "singapore",
-      "laden_nm": 3530.7,
-      "ballast_nm": 3530.7,
+      "laden_nm": 3573.7,
+      "ballast_nm": 3573.7,
       "eca_nm": 0,
       "with_hormuz_war_risk": null,
       "bunkers_by_grade_usd": {
-        "vlsfo": 870670.62,
+        "vlsfo": 881274.42,
         "hsfo": 0.0,
         "mgo": 0.0
       },
       "fuel_t": {
-        "vlsfo": 1059.21,
+        "vlsfo": 1072.11,
         "hsfo": 0.0,
         "mgo": 0.0
       },
@@ -168,7 +168,7 @@
         {
           "routing": "direct",
           "label": "shortest route, canals open",
-          "laden_nm": 3530.7,
+          "laden_nm": 3573.7,
           "passes": [
             "Lombok Strait"
           ]
@@ -191,10 +191,10 @@
       "segment": "dry",
       "contract": "voyage",
       "days": 86.98213,
-      "total_usd": 1483467.452917,
-      "per_day_usd": 17054.853212,
+      "total_usd": 1507417.742917,
+      "per_day_usd": 17330.20046,
       "costs_usd": {
-        "bunkers": 1483467.452917,
+        "bunkers": 1507417.742917,
         "ports": 0.0,
         "canals": 0.0,
         "ets": 0.0,
@@ -211,23 +211,24 @@
         "fuel burnt in port (the Baltic prints no port consumption for bulk carriers)",
         "port charges at New Orleans and Qingdao (no public per call figure)",
         "the Panama Canal toll on the laden leg (no public toll for this ship)",
-        "the Panama Canal toll on the ballast leg (no public toll for this ship)"
+        "the Panama Canal toll on the ballast leg (no public toll for this ship)",
+        "time at the Panama Canal, the transit and any wait (no canal days in the guide's P7 terms)"
       ],
       "excluded_block_per_day_usd": 1149.661435,
       "hub": "houston",
       "laden_nm": 10084.0,
       "ballast_nm": 10084.0,
-      "eca_nm": 452.8,
+      "eca_nm": 905.6,
       "with_hormuz_war_risk": null,
       "bunkers_by_grade_usd": {
-        "vlsfo": 1414858.0375,
+        "vlsfo": 1383933.2125,
         "hsfo": 0.0,
-        "mgo": 68609.415417
+        "mgo": 123484.530417
       },
       "fuel_t": {
-        "vlsfo": 2006.890833,
+        "vlsfo": 1963.025833,
         "hsfo": 0.0,
-        "mgo": 54.843657
+        "mgo": 98.708657
       },
       "vessel": "BPI82",
       "cargo_t": 66000,
@@ -268,7 +269,7 @@
           ]
         }
       ],
-      "eca_share": 0.022451,
+      "eca_share": 0.044903,
       "port_days": {
         "load_days": 10.24,
         "discharge_days": 12.55,
@@ -372,7 +373,8 @@
         "war_risk": 0.0
       },
       "excluded": [
-        "port charges at Ras Tanura and Ningbo (no public per call figure)"
+        "port charges at Ras Tanura and Ningbo (no public per call figure)",
+        "the additional war risk premium in the Gulf (usually the charterer's; the Baltic's TCE leaves it out)"
       ],
       "excluded_block_per_day_usd": 2127.333163,
       "hub": "fujairah",
@@ -382,22 +384,11 @@
       "with_hormuz_war_risk": {
         "premium_pct": 7.5,
         "hull_value_usd": 157000000.0,
-        "costs_usd": {
-          "bunkers": 1816996.505457,
-          "ports": 0.0,
-          "canals": 0.0,
-          "ets": 0.0,
-          "war_risk": 11775000.0
-        },
-        "total_usd": 13591996.505457,
-        "shares": {
-          "bunkers": 0.133681,
-          "ports": 0.0,
-          "canals": 0.0,
-          "ets": 0.0,
-          "war_risk": 0.866319
-        },
-        "war_risk_to_bunkers": 6.480475
+        "days_inside": 6.528946,
+        "periods": 1.0,
+        "premium_usd": 11775000.0,
+        "premium_to_bunkers": 6.480475,
+        "per_tonne_usd": 43.611111
       },
       "bunkers_by_grade_usd": {
         "vlsfo": 1816996.505457,
@@ -738,41 +729,41 @@
       "name": "US Gulf to Continent",
       "segment": "clean",
       "contract": "voyage",
-      "days": 41.188401,
-      "total_usd": 827097.053795,
-      "per_day_usd": 20080.82433,
+      "days": 40.741086,
+      "total_usd": 814500.644288,
+      "per_day_usd": 19992.119246,
       "costs_usd": {
-        "bunkers": 701324.267214,
+        "bunkers": 690118.998065,
         "ports": 0.0,
         "canals": 0.0,
-        "ets": 125772.786581,
+        "ets": 124381.646223,
         "war_risk": 0.0
       },
       "shares": {
-        "bunkers": 0.847935,
+        "bunkers": 0.847291,
         "ports": 0.0,
         "canals": 0.0,
-        "ets": 0.152065,
+        "ets": 0.152709,
         "war_risk": 0.0
       },
       "excluded": [
         "port charges at Houston and Amsterdam (no public per call figure)"
       ],
-      "excluded_block_per_day_usd": 2427.867955,
+      "excluded_block_per_day_usd": 2454.524669,
       "hub": "houston",
-      "laden_nm": 5161.5,
-      "ballast_nm": 5161.5,
-      "eca_nm": 2847.6,
+      "laden_nm": 5097.7,
+      "ballast_nm": 5097.7,
+      "eca_nm": 2720.0,
       "with_hormuz_war_risk": null,
       "bunkers_by_grade_usd": {
         "vlsfo": 369945.596142,
         "hsfo": 0.0,
-        "mgo": 331378.671072
+        "mgo": 320173.401923
       },
       "fuel_t": {
         "vlsfo": 524.745526,
         "hsfo": 0.0,
-        "mgo": 264.891024
+        "mgo": 255.933974
       },
       "vessel": "MR50",
       "cargo_t": 38000,
@@ -784,14 +775,14 @@
         {
           "routing": "direct",
           "label": "shortest route, canals open",
-          "laden_nm": 5161.5,
+          "laden_nm": 5097.7,
           "passes": [
             "Dover Strait",
             "Florida Strait"
           ]
         }
       ],
-      "eca_share": 0.27585,
+      "eca_share": 0.266787,
       "port_days": {
         "load_days": 2,
         "discharge_days": 2,
@@ -825,7 +816,8 @@
         "war_risk": 0.0
       },
       "excluded": [
-        "port charges at Ras Tanura and Yokohama (no public per call figure)"
+        "port charges at Ras Tanura and Yokohama (no public per call figure)",
+        "the additional war risk premium in the Gulf (usually the charterer's; the Baltic's TCE leaves it out)"
       ],
       "excluded_block_per_day_usd": 1945.334237,
       "hub": "fujairah",
@@ -835,22 +827,11 @@
       "with_hormuz_war_risk": {
         "premium_pct": 7.5,
         "hull_value_usd": 85000000.0,
-        "costs_usd": {
-          "bunkers": 1221619.872296,
-          "ports": 0.0,
-          "canals": 0.0,
-          "ets": 0.0,
-          "war_risk": 6375000.0
-        },
-        "total_usd": 7596619.872296,
-        "shares": {
-          "bunkers": 0.160811,
-          "ports": 0.0,
-          "canals": 0.0,
-          "ets": 0.0,
-          "war_risk": 0.839189
-        },
-        "war_risk_to_bunkers": 5.218481
+        "days_inside": 5.028946,
+        "periods": 1.0,
+        "premium_usd": 6375000.0,
+        "premium_to_bunkers": 5.218481,
+        "per_tonne_usd": 85.0
       },
       "bunkers_by_grade_usd": {
         "vlsfo": 1221619.872296,
@@ -913,7 +894,8 @@
         "war_risk": 0.0
       },
       "excluded": [
-        "port charges at Ras Tanura and Yokohama (no public per call figure)"
+        "port charges at Ras Tanura and Yokohama (no public per call figure)",
+        "the additional war risk premium in the Gulf (usually the charterer's; the Baltic's TCE leaves it out)"
       ],
       "excluded_block_per_day_usd": 1926.594882,
       "hub": "fujairah",
@@ -1124,8 +1106,8 @@
         ],
         "adjustment_nm": 0,
         "composite": false,
-        "searoute_nm": 3234.6,
-        "error": 0.022314,
+        "searoute_nm": 3246.5,
+        "error": 0.026075,
         "within_tolerance": false,
         "note": ""
       },
@@ -1147,8 +1129,8 @@
         ],
         "adjustment_nm": 0,
         "composite": false,
-        "searoute_nm": 3766.9,
-        "error": 0.011792,
+        "searoute_nm": 3778.8,
+        "error": 0.014988,
         "within_tolerance": true,
         "note": ""
       },
@@ -1262,8 +1244,8 @@
         ],
         "adjustment_nm": 0,
         "composite": false,
-        "searoute_nm": 3589.5,
-        "error": 0.030281,
+        "searoute_nm": 3631.3,
+        "error": 0.042279,
         "within_tolerance": false,
         "note": ""
       },
@@ -1413,6 +1395,128 @@
         "note": "Galveston's route plus 47 miles, the rule Pub. 151 prints for Houston on p. 44 (TD25)"
       },
       {
+        "id": "houston_amsterdam",
+        "from": "Houston",
+        "to": "Amsterdam",
+        "from_position": "Pub. 151 p. 44",
+        "to_position": "Pub. 151 p. 4",
+        "routing": "direct",
+        "published_nm": 5085,
+        "parts": [
+          {
+            "entry": "GALVESTON, TEXAS, U.S.A.",
+            "line": "Straits of Florida",
+            "nm": 698,
+            "page": 36
+          },
+          {
+            "entry": "BISHOP ROCK, ENGLAND",
+            "line": "Straits of Florida",
+            "nm": 3859,
+            "page": 14
+          },
+          {
+            "entry": "BISHOP ROCK, ENGLAND",
+            "line": "Amsterdam, Netherlands",
+            "nm": 481,
+            "page": 14
+          }
+        ],
+        "adjustment_nm": 47,
+        "composite": true,
+        "searoute_nm": 5097.3,
+        "error": 0.002419,
+        "within_tolerance": true,
+        "note": "Galveston's route plus 47 miles, the rule Pub. 151 prints for Houston on p. 44 (TC14)"
+      },
+      {
+        "id": "amsterdam_le_havre",
+        "from": "Amsterdam",
+        "to": "Le Havre",
+        "from_position": "Pub. 151 p. 4",
+        "to_position": "Pub. 151 p. 56",
+        "routing": "direct",
+        "published_nm": 273,
+        "parts": [
+          {
+            "entry": "AMSTERDAM, NETHERLANDS",
+            "line": "Le Havre, France",
+            "nm": 273,
+            "page": 4
+          }
+        ],
+        "adjustment_nm": 0,
+        "composite": false,
+        "searoute_nm": 281.1,
+        "error": 0.02967,
+        "within_tolerance": false,
+        "note": "the TC23 route"
+      },
+      {
+        "id": "galveston_shanghai_cape",
+        "from": "Galveston",
+        "to": "Shanghai",
+        "from_position": "Pub. 151 p. 36",
+        "to_position": "Pub. 151 p. 102",
+        "routing": "no_canals",
+        "published_nm": 15167,
+        "parts": [
+          {
+            "entry": "GALVESTON, TEXAS, U.S.A.",
+            "line": "Straits of Florida",
+            "nm": 698,
+            "page": 36
+          },
+          {
+            "entry": "CAPE OF GOOD HOPE, SOUTH AFRICA",
+            "line": "Straits of Florida",
+            "nm": 6770,
+            "page": 21
+          },
+          {
+            "entry": "CAPE OF GOOD HOPE, SOUTH AFRICA",
+            "line": "Selat Sunda, Indonesia",
+            "nm": 5164,
+            "page": 21
+          },
+          {
+            "entry": "SELAT SUNDA, INDONESIA",
+            "line": "Shanghai, China",
+            "nm": 2535,
+            "page": 101
+          }
+        ],
+        "adjustment_nm": 0,
+        "composite": true,
+        "searoute_nm": 15167.9,
+        "error": 5.9e-05,
+        "within_tolerance": true,
+        "note": "through the Straits of Florida, the Cape of Good Hope and Selat Sunda, the TD22 route"
+      },
+      {
+        "id": "port_hedland_lombok",
+        "from": "Port Hedland",
+        "to": "Selat Lombok",
+        "from_position": "Pub. 151 p. 84",
+        "to_position": "Pub. 151 p. 100",
+        "routing": "direct",
+        "published_nm": 715,
+        "parts": [
+          {
+            "entry": "PORT HEDLAND, AUSTRALIA",
+            "line": "Selat Lombok, Indonesia",
+            "nm": 715,
+            "page": 84
+          }
+        ],
+        "adjustment_nm": 0,
+        "composite": false,
+        "searoute_nm": 724.9,
+        "error": 0.013846,
+        "within_tolerance": true,
+        "note": "the first stretch of the C5 route, from the port"
+      },
+      {
         "id": "bonny_rotterdam",
         "from": "Bonny",
         "to": "Rotterdam",
@@ -1477,8 +1581,8 @@
         ],
         "adjustment_nm": 0,
         "composite": true,
-        "searoute_nm": 6543.1,
-        "error": 0.011455,
+        "searoute_nm": 6555.0,
+        "error": 0.013294,
         "within_tolerance": true,
         "note": "through Port Said, Gibraltar and Ushant, the TC20 route by Suez"
       },
@@ -1512,8 +1616,8 @@
         ],
         "adjustment_nm": 0,
         "composite": true,
-        "searoute_nm": 11326.2,
-        "error": 0.002407,
+        "searoute_nm": 11338.1,
+        "error": 0.00346,
         "within_tolerance": true,
         "note": "through the Cape of Good Hope and Ushant, the TC20 route round the Cape"
       }
@@ -1540,13 +1644,13 @@
         "format": "count",
         "field": "rows.count"
       },
-      " routes; on the ",
+      " routes and, on the ",
       {
         "value": 5,
         "format": "count",
         "field": "with_ets.count"
       },
-      " that touch the EEA, EU allowances add ",
+      " that touch the EEA, EU allowances are ",
       {
         "value": 12.564212,
         "format": "percent",
@@ -1559,20 +1663,20 @@
         "field": "ets_share.max",
         "suffix": " percent"
       },
-      ". A Hormuz war risk premium at the latest dated rate, ",
+      " of them; a Hormuz war risk premium at the latest dated rate, ",
       {
         "value": 7.5,
         "format": "percent",
         "field": "hormuz.premium_pct",
         "suffix": " percent"
       },
-      " of hull value, would cost TD3C ",
+      " of hull value, would cost the charterer of a TD3C cargo ",
       {
         "value": 6.480475,
         "format": "exponent",
-        "field": "hormuz.war_risk_to_bunkers"
+        "field": "hormuz.premium_to_bunkers"
       },
-      " times its fuel bill."
+      " times the voyage's fuel bill."
     ],
     "baltic_map": {
       "before": "Each route is defined by the Baltic Exchange (Guide to Market Benchmarks v8.8, September 2026) and drawn on ",
@@ -1581,9 +1685,9 @@
     },
     "chart": {
       "title": [
-        "Voyage costs run from ",
+        "Sourced voyage costs run from ",
         {
-          "value": 17054.853212,
+          "value": 17330.20046,
           "format": "usd_day",
           "field": "per_day_usd.min",
           "prefix": "USD "
@@ -1595,12 +1699,18 @@
           "field": "per_day_usd.max",
           "prefix": "USD "
         },
-        " on TD3C; outside Europe they are bunkers alone."
+        " on TD3C; on the ",
+        {
+          "value": 7,
+          "format": "count",
+          "field": "bunkers_only.count"
+        },
+        " routes that do not touch the EEA they are bunkers alone, since port charges and canal tolls have no public figure."
       ],
-      "axis": "Voyage costs, USD a day of the round voyage",
-      "desc": "One bar a route, grouped by segment, split into bunkers and EU allowances; port charges and canal tolls have no public figure and are left out of every bar.",
+      "axis": "Sourced voyage costs, USD a day of the round voyage",
+      "desc": "One bar a route, grouped by segment, split into bunkers and EU allowances; port charges and canal tolls have no public figure and are left out of every bar. S4A is a trip time charter: its bar holds the charterer's trip costs and the owner's ballast leg back to the US Gulf.",
       "source": [
-        "Engine output at the common market, August 2026: Ship & Bunker monthly and quarterly averages at the hub nearest each load port, EU allowances at EUR ",
+        "Engine output at the common market, August 2026: Ship & Bunker's August 2026 averages where it publishes them (Singapore VLSFO and HSFO; Fujairah VLSFO) and its third quarter averages, July to September, for the other hub prices (Singapore MGO; Fujairah HSFO and MGO; Rotterdam VLSFO, HSFO and MGO; Houston VLSFO, HSFO and MGO), at each route's bunker hub; EU allowances at EUR ",
         {
           "value": 82.31,
           "format": "eur_t",
@@ -1612,7 +1722,7 @@
           "format": "usd_per_eur",
           "field": "usd_per_eur"
         },
-        " dollars per euro. Ships, speeds and port days: Baltic Exchange Guide to Market Benchmarks v8.8.",
+        " dollars per euro. Ships, speed and consumption pairs and port days: Baltic Exchange Guide to Market Benchmarks v8.8; tankers sail at the speeds their descriptions name, bulk carriers at the fastest pair printed, the study's choice.",
         " Sources ",
         {
           "text": "retrieved 29 October 2026",
@@ -1631,10 +1741,10 @@
         }
       ]
     },
-    "table_caption": "Every route: the Baltic's ship and cargo, distances by routing, the share of the miles inside emission control areas, port days and voyage costs at August 2026 prices.",
+    "table_caption": "Every route: the Baltic's ship and cargo, distances by routing, the share of the miles inside emission control areas, port days and sourced voyage costs at August 2026 prices.",
     "hormuz": {
       "title": "The Gulf loadings with the Hormuz premium",
-      "caption": "Each Gulf loading at the common market with one transit period of the latest dated Hormuz premium, on its hull value; the LR1 of TC5 has no dated public hull value.",
+      "caption": "Each Gulf loading at the common market with the latest dated Hormuz premium for each seven days or part of them it spends inside the Gulf, on its hull value. On the usual spot terms the premium is the charterer's, so it is set beside the voyage costs, not in them; the LR1 of TC5 has no dated public hull value.",
       "lead": [
         "At ",
         {
@@ -1643,7 +1753,19 @@
           "field": "hormuz.premium_pct",
           "suffix": " percent"
         },
-        " of hull value for one transit period (Marsh, 22 July 2026), the war risk premium becomes most of the voyage costs of every Gulf loading with a dated hull value."
+        " of hull value a period (Marsh, 22 July 2026), the charterer's premium for a Gulf loading is ",
+        {
+          "value": 5.218481,
+          "format": "exponent",
+          "field": "hormuz.premium_to_bunkers_min"
+        },
+        " to ",
+        {
+          "value": 6.480475,
+          "format": "exponent",
+          "field": "hormuz.premium_to_bunkers_max"
+        },
+        " times the voyage's fuel bill."
       ]
     },
     "segments": {
@@ -1663,7 +1785,7 @@
         "id": "assumptions",
         "name": "Assumptions",
         "summary": [
-          "What each route's TCE leaves out, and how laytime becomes port days."
+          "What each route's TCE leaves out, the speeds, and how laytime becomes port days."
         ]
       },
       {
@@ -1675,14 +1797,17 @@
       }
     ],
     "method": [
-      "Distances are searoute 1.6.0 over Eurostat's SeaRoute network, the line the map draws. Each route has a routing for each leg (the shortest with the canals open, or Suez, Panama or both avoided) and the table lists every routing that changes the distance. The laden leg runs from the load port to the discharge port; the ballast leg back from the discharge port, the Baltic's TCE delivery point.",
+      "Distances are searoute 1.6.0 over Eurostat's SeaRoute network, the line the map draws. Each route has a routing for each leg (the shortest with the canals open, or Suez, Panama or both avoided) and the table lists every routing that changes the distance. The laden leg runs from the load port to the discharge port; the ballast leg back from the discharge port, the Baltic's TCE delivery point. TD22 sails round the Cape of Good Hope and through the Sunda Strait, as NGA Pub. 151's route to Shanghai does; the Baltic measures its distances on AtoBviaC tables, which are not published.",
+      "Each line starts at the network's node nearest its port. Amsterdam's nearest node lies in the IJmeer, behind the lakes, so its legs are asked from IJmuiden and the 14 miles of the North Sea Canal are added (Pub. 151 page 44); the stretch from the port is added at Port Hedland (43 nm of open water) and Jubail (12 nm). Elsewhere it is left out: under 10 nm at most ports, up a river or ship channel the network does not draw at Ningbo and Houston, and about 21.5 nm a leg at Tubarao, where the node lies off the way the line runs.",
       "Miles inside emission control areas are measured on the same line against polygons built from MARPOL Annex VI Appendix VII and the area regulations, with the Mediterranean ECA from 1 May 2025 and the Canadian Arctic and Norwegian Sea ECAs from 1 March 2027. Inside them a ship without a scrubber burns MGO at 0.10 percent sulphur; outside, VLSFO at 0.50 percent.",
-      "Bunkers are priced at the hub nearest the load port among the four with public prices for every grade (Singapore, Fujairah, Rotterdam, Houston), the Baltic's rule for its tanker TCEs applied to every route. The common market is the latest month with dated public bunker prices and an EU allowance price: August 2026."
+      "Bunkers are priced at the hub nearest the load port among the four with public prices for every grade (Singapore, Fujairah, Rotterdam, Houston), the rule the Baltic applies to its tanker TCEs (Guide to Market Benchmarks v8.8, Appendix 3, page 98), applied to every route except C3, priced at Singapore: the hub nearest Tubarao, Rotterdam, lies over 4,000 nm off the voyage, while the round voyage leaves Qingdao in ballast and passes about 270 nm from Singapore, the waypoint a ship leaving China takes for orders (special report on TCE earnings, April 2015, page 2); the guide leaves dry bunker prices to its panellists (section 7.4.2, page 35). The common market is August 2026: Ship & Bunker's August 2026 averages where it publishes them (Singapore VLSFO and HSFO; Fujairah VLSFO) and its third quarter averages, July to September, for the other hub prices (Singapore MGO; Fujairah HSFO and MGO; Rotterdam VLSFO, HSFO and MGO; Houston VLSFO, HSFO and MGO); the allowance price and the dollar rate are August 2026 averages."
     ],
     "assumptions": [
       "Port charges have no public per call figure for any study port (the Baltic uses Cory Brothers' estimates, which are not published), so every TCE leaves them out and reads high by their amount.",
-      "Canal tolls depend on each ship's own canal tonnage, which is not published for the Baltic's standard ships; a routing through a canal leaves its toll out and says so.",
-      "Dry laytime becomes calendar days by the route's terms: Saturdays and Sundays excepted terms count five working days in seven, Sundays and holidays included terms count every day, and the turn time is added. Capesize loading on the port's scale has no published rate and is left out."
+      "Canal tolls depend on each ship's own canal tonnage, which is not published for the Baltic's standard ships; a routing through a canal leaves its toll out and says so. The guide's dry route terms set no time at a canal, so P7 also leaves out its transit and any wait at Panama, where unbooked waits of Unbooked first come, first served waits of 18 to 30 days were common in April 2026, according to a Panama based agent were reported in April 2026.",
+      "Tankers sail at the laden and ballast speeds their descriptions name, at which the Baltic prices its TCEs. The dry routes name no speed, so the study prices bulk carriers at the fastest pair the guide prints for each ship, its own choice; the calculator shows the TCE at every speed.",
+      "Dry laytime becomes calendar days by the route's terms: Saturdays and Sundays excepted terms count five working days in seven, Sundays and holidays included terms count every day, and the turn time is added. Capesize loading on the port's scale has no published rate and is left out.",
+      "S4A is a trip time charter: the charterer pays the trip's bunkers, ports and allowances, and the owner's TCE counts the ballast back to the US Gulf, the guide's way of setting a time charter's ballast time against its hire (section 7.4.3)."
     ],
     "pub151": {
       "published_head": "Pub. 151",
@@ -1694,7 +1819,7 @@
     "downloads": [
       {
         "file": "data/downloads/cost_structure_2026_08.csv",
-        "text": "Voyage costs by route at the August 2026 market, CSV"
+        "text": "Sourced voyage costs by route at the August 2026 market, CSV"
       },
       {
         "file": "data/downloads/sea_routes.csv",

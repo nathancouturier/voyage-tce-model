@@ -72,6 +72,7 @@ const featured = presetById(overview.featured);
 const defaultPreset = presetById(calc.default_preset);
 const c5 = latestOf("C5");
 const td3c = latestOf("TD3C");
+const tc20 = latestOf("TC20");
 
 const CHECKS = [];
 
@@ -163,6 +164,31 @@ CHECKS.push(
         [hidden, "a figure is drawn without a TCE to draw"],
         [status === "empty", "the flat rate field's status is " + status + ", not empty"],
         [priced === expected, "with a flat rate of " + flat + " the verdict reads \"" + priced + "\", the engine gives \"" + expected + "\""],
+      ];
+    },
+  },
+  {
+    name: "a Gulf premium is the charterer's and leaves the owner's TCE alone; paid by the owner, the TCE is the engine's",
+    hash: "#/calculator?preset=" + tc20.id + "&open=costs",
+    async run(page) {
+      const before = await page.evaluate(text(VERDICT));
+      // A premium a visitor types, in percent of hull value a period; the page holds none.
+      const premium = 7.5;
+      await page.evaluate(typeInto("#field-war_risk-areas-gulf-premium_pct", String(premium)));
+      const charterer = await page.evaluate(text(VERDICT));
+      const line = await page.evaluate(text(".war-periods"));
+      await page.evaluate(choose("#field-war-payer", "owner"));
+      const owner = await page.evaluate(text(VERDICT));
+      const inputs = clone(tc20.inputs);
+      inputs.war_risk.areas.gulf.premium_pct = premium;
+      inputs.war_risk.payer = "owner";
+      const expected = verdictFor(inputs);
+      const periods = engine.evaluate(inputs).war_risk.areas.gulf.periods;
+      return [
+        [tc20.inputs.war_risk.areas.gulf.entries > 0, tc20.id + " does not enter the Gulf"],
+        [charterer === before, "with the charterer paying the verdict moved to \"" + charterer + "\""],
+        [line.includes(periods === 1 ? calc.words.war_period_one : String(periods)), "the periods line reads \"" + line + "\""],
+        [owner === expected, "with the owner paying the verdict reads \"" + owner + "\", the engine gives \"" + expected + "\""],
       ];
     },
   },

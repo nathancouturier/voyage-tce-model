@@ -235,6 +235,58 @@
       "licence": "Copyright of the publisher; not redistributed, figures cited with link",
       "note": "HSN post (09/03/2026) linking Star Asia Week 10 PDF."
     },
+    "bunkers_hsn_post_starasia_week11_2026_html": {
+      "url": "https://www.hellenicshippingnews.com/star-asia-shipbroking-weekly-market-report-week-11-4/",
+      "path": "data/raw/licensed/research/bunkers_ports/hsn_post_starasia_week11_2026.html",
+      "retrieved_at": "2026-10-29T19:13:48Z",
+      "bytes": 118376,
+      "sha256": "84c0f6c2c5f1efd0c99497469a865c9f27ef230cbb58eafd2758d3bb744200d7",
+      "stored": "as served",
+      "committable": false,
+      "committed": false,
+      "publisher": "Hellenic Shipping News Worldwide (republishing the named author)",
+      "licence": "Copyright of the publisher; not redistributed, figures cited with link",
+      "note": "HSN post (16/03/2026) linking Star Asia Week 11 PDF."
+    },
+    "bunkers_hsn_post_starasia_week12_2026_html": {
+      "url": "https://www.hellenicshippingnews.com/star-asia-shipbroking-weekly-market-report-week-12-4/",
+      "path": "data/raw/licensed/research/bunkers_ports/hsn_post_starasia_week12_2026.html",
+      "retrieved_at": "2026-10-29T19:14:20Z",
+      "bytes": 118441,
+      "sha256": "1170ee567e5a1a19cb05d2b4c0c1d767a7474247c8a289366e408e2cda82228a",
+      "stored": "as served",
+      "committable": false,
+      "committed": false,
+      "publisher": "Hellenic Shipping News Worldwide (republishing the named author)",
+      "licence": "Copyright of the publisher; not redistributed, figures cited with link",
+      "note": "HSN post (23/03/2026) linking Star Asia Week 12 PDF."
+    },
+    "bunkers_hsn_post_starasia_week15_2026_html": {
+      "url": "https://www.hellenicshippingnews.com/star-asia-shipbroking-weekly-market-report-week-15-4/",
+      "path": "data/raw/licensed/research/bunkers_ports/hsn_post_starasia_week15_2026.html",
+      "retrieved_at": "2026-10-29T19:28:36Z",
+      "bytes": 118322,
+      "sha256": "3d322fb55bde8c8aff764fdbe5b019f860b090acb38c5d71d1e43a376030eb3d",
+      "stored": "as served",
+      "committable": false,
+      "committed": false,
+      "publisher": "Hellenic Shipping News Worldwide (republishing the named author)",
+      "licence": "Copyright of the publisher; not redistributed, figures cited with link",
+      "note": "HSN post (13/04/2026) linking Star Asia Week 15 PDF."
+    },
+    "bunkers_hsn_post_starasia_week16_2026_html": {
+      "url": "https://www.hellenicshippingnews.com/star-asia-shipbroking-weekly-market-report-week-16-4/",
+      "path": "data/raw/licensed/research/bunkers_ports/hsn_post_starasia_week16_2026.html",
+      "retrieved_at": "2026-10-29T19:14:53Z",
+      "bytes": 118367,
+      "sha256": "e33d711ccc50669d877d73e6a5ea203c8e2513f049147a79efd03afd1a682980",
+      "stored": "as served",
+      "committable": false,
+      "committed": false,
+      "publisher": "Hellenic Shipping News Worldwide (republishing the named author)",
+      "licence": "Copyright of the publisher; not redistributed, figures cited with link",
+      "note": "HSN post (20/04/2026) linking Star Asia Week 16 PDF."
+    },
     "bunkers_hsn_post_starasia_week26_4_html": {
       "url": "https://www.hellenicshippingnews.com/star-asia-shipbroking-weekly-market-report-week-26-4/",
       "path": "data/raw/licensed/research/bunkers_ports/hsn_post_starasia_week26-4.html",
@@ -261,6 +313,19 @@
       "licence": "Copyright of the publisher; not redistributed, figures cited with link",
       "note": "HSN post (13/07/2026) linking Star Asia Week 28 PDF."
     },
+    "bunkers_hsn_post_starasia_week37_2026_html": {
+      "url": "https://www.hellenicshippingnews.com/star-asia-shipbroking-weekly-market-report-week-37-5/",
+      "path": "data/raw/licensed/research/bunkers_ports/hsn_post_starasia_week37_2026.html",
+      "retrieved_at": "2026-10-29T19:29:08Z",
+      "bytes": 118312,
+      "sha256": "7fd7331dfabf4e25f1f2ecd2df2a6e01a0b180f187a4b5d368e5729779a363a6",
+      "stored": "as served",
+      "committable": false,
+      "committed": false,
+      "publisher": "Hellenic Shipping News Worldwide (republishing the named author)",
+      "licence": "Copyright of the publisher; not redistributed, figures cited with link",
+      "note": "HSN post (14/09/2026) linking Star Asia Week 37 PDF."
+    },
     "bunkers_hsn_post_starasia_week40_5_html": {
       "url": "https://www.hellenicshippingnews.com/star-asia-shipbroking-weekly-market-report-week-40-5/",
       "path": "data/raw/licensed/research/bunkers_ports/hsn_post_starasia_week40-5.html",
@@ -274,6 +339,19 @@
       "licence": "Copyright of the publisher; not redistributed, figures cited with link",
       "note": "HSN post (05/10/2026) linking Star Asia Week 40 PDF."
     },
+    "bunkers_hsn_post_starasia_week41_2026_html": {
+      "url": "https://www.hellenicshippingnews.com/star-asia-shipbroking-weekly-market-report-week-41-5/",
+      "path": "data/raw/licensed/research/bunkers_ports/hsn_post_starasia_week41_2026.html",
+      "retrieved_at": "2026-10-29T19:29:39Z",
+      "bytes": 118477,
+      "sha256": "f4b418519d50824a6656149dae4bb15ab58bb92dfcc11fae6cb231046b61a340",
+      "stored": "as served",
+      "committable": false,
+      "committed": false,
+      "publisher": "Hellenic Shipping News Worldwide (republishing the named author)",
+      "licence": "Copyright of the publisher; not redistributed, figures cited with link",
+      "note": "HSN post (12/10/2026) linking Star Asia Week 41 PDF."
+    },
     "bunkers_hsn_post_starasia_week43_5_html": {
       "url": "https://www.hellenicshippingnews.com/star-asia-shipbroking-weekly-market-report-week-43-5/",
       "path": "data/raw/licensed/research/bunkers_ports/hsn_post_starasia_week43-5.html",
@@ -286,6 +364,45 @@
       "publisher": "Hellenic Shipping News Worldwide (republishing the named author)",
       "licence": "Copyright of the publisher; not redistributed, figures cited with link",
       "note": "HSN post (26/10/2026) linking Star Asia Week 43 PDF."
+    },
+    "bunkers_hsn_post_starasia_week49_2025_html": {
+      "url": "https://www.hellenicshippingnews.com/star-asia-shipbroking-weekly-market-report-week-49-3/",
+      "path": "data/raw/licensed/research/bunkers_ports/hsn_post_starasia_week49_2025.html",
+      "retrieved_at": "2026-10-29T19:12:12Z",
+      "bytes": 118374,
+      "sha256": "95f67786597dbffe9b98f735c5feb01249e956c3f2d56911854ec6194402626d",
+      "stored": "as served",
+      "committable": false,
+      "committed": false,
+      "publisher": "Hellenic Shipping News Worldwide (republishing the named author)",
+      "licence": "Copyright of the publisher; not redistributed, figures cited with link",
+      "note": "HSN post (08/12/2025) linking Star Asia Week 49 PDF."
+    },
+    "bunkers_hsn_post_starasia_week4_2026_html": {
+      "url": "https://www.hellenicshippingnews.com/star-asia-shipbroking-weekly-market-report-week-4-2/",
+      "path": "data/raw/licensed/research/bunkers_ports/hsn_post_starasia_week4_2026.html",
+      "retrieved_at": "2026-10-29T19:12:44Z",
+      "bytes": 118390,
+      "sha256": "ac317c5c834182778f059ba18e608a7f09cd6fed2de6ec1031b32c06243f13b3",
+      "stored": "as served",
+      "committable": false,
+      "committed": false,
+      "publisher": "Hellenic Shipping News Worldwide (republishing the named author)",
+      "licence": "Copyright of the publisher; not redistributed, figures cited with link",
+      "note": "HSN post (26/01/2026) linking Star Asia Week 4 PDF."
+    },
+    "bunkers_hsn_post_starasia_week8_2026_html": {
+      "url": "https://www.hellenicshippingnews.com/star-asia-shipbroking-weekly-market-report-week-8-2/",
+      "path": "data/raw/licensed/research/bunkers_ports/hsn_post_starasia_week8_2026.html",
+      "retrieved_at": "2026-10-29T19:13:16Z",
+      "bytes": 118370,
+      "sha256": "cfc046ceb81563e1dc8b1964143f78f8d7484341407f345ba6122721dba69de0",
+      "stored": "as served",
+      "committable": false,
+      "committed": false,
+      "publisher": "Hellenic Shipping News Worldwide (republishing the named author)",
+      "licence": "Copyright of the publisher; not redistributed, figures cited with link",
+      "note": "HSN post (23/02/2026) linking Star Asia Week 8 PDF."
     },
     "bunkers_hsn_post_starasia_week9_2_html": {
       "url": "https://www.hellenicshippingnews.com/star-asia-shipbroking-weekly-market-report-week-9-2/",
@@ -338,6 +455,19 @@
       "publisher": "Hellenic Shipping News Worldwide (republishing the named author)",
       "licence": "Copyright of the publisher; not redistributed, figures cited with link",
       "note": "HSN site listing page 3 (Star Asia weeks 1-10 2026 with posting dates)."
+    },
+    "bunkers_hsn_search_starasia_all_p4_html": {
+      "url": "https://www.hellenicshippingnews.com/page/4/?s=Star+Asia+Shipbroking+Weekly+Market+Report",
+      "path": "data/raw/licensed/research/bunkers_ports/hsn_search_starasia_all_p4.html",
+      "retrieved_at": "2026-10-29T19:28:04Z",
+      "bytes": 171675,
+      "sha256": "744321bb96172d258f627f15fbb9bc889806f5ddf4f0aa690d49bdf86ede6f0c",
+      "stored": "as served",
+      "committable": false,
+      "committed": false,
+      "publisher": "Hellenic Shipping News Worldwide (republishing the named author)",
+      "licence": "Copyright of the publisher; not redistributed, figures cited with link",
+      "note": "HSN site listing page 4 (Star Asia weeks 29-44 2025 with posting dates); with pages 1-3 it shows no post for 2025 Week 50 or 51 or for 2026 Week 13."
     },
     "bunkers_intermodal_weekly_report_week27_2026_pdf": {
       "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/07/Intermodal-Report-Week-27-2026.pdf",
@@ -729,6 +859,32 @@
       "licence": "Copyright of the publisher; not redistributed, figures cited with link",
       "note": "Ship & Bunker Singapore price page (latest row Wed Oct 28 2026): quarterly averages table Q1-Q4 2026 (Q4 partial). Embedded multi-year chart history REMOVED. Raw sha256: `9b0016ee4e39efe676b5c4d630e6993f9f4d0f2d51007f16f127b30cfb15a07a`."
     },
+    "bunkers_starasia_market_report_week04_2026_pdf": {
+      "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/01/Market-report-Week-4.pdf",
+      "path": "data/raw/licensed/research/bunkers_ports/starasia_market_report_week04_2026.pdf",
+      "retrieved_at": "2026-10-29T19:15:56Z",
+      "bytes": 830469,
+      "sha256": "6627d6f3536f4e9fccd393b4165e975d636e57db54644681570bcea49b76280b",
+      "stored": "as served",
+      "committable": false,
+      "committed": false,
+      "publisher": "Hellenic Shipping News Worldwide (republishing the named author)",
+      "licence": "Copyright of the publisher; not redistributed, figures cited with link",
+      "note": "Star Asia weekly report Week 4 (23 Jan 2026), via HSN: bunker table VLSFO/HSFO/MGO for Singapore, HK, Fujairah, Rotterdam, Houston."
+    },
+    "bunkers_starasia_market_report_week08_2026_pdf": {
+      "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/02/Market-report-Week-8.pdf",
+      "path": "data/raw/licensed/research/bunkers_ports/starasia_market_report_week08_2026.pdf",
+      "retrieved_at": "2026-10-29T19:16:28Z",
+      "bytes": 821319,
+      "sha256": "908668f5f8dbcaa3c48b4984d20176e31d0bc0a9f13ff8714d1bf1d2cbf974a8",
+      "stored": "as served",
+      "committable": false,
+      "committed": false,
+      "publisher": "Hellenic Shipping News Worldwide (republishing the named author)",
+      "licence": "Copyright of the publisher; not redistributed, figures cited with link",
+      "note": "Star Asia weekly report Week 8 (20 Feb 2026), via HSN: bunker table VLSFO/HSFO/MGO for Singapore, HK, Fujairah, Rotterdam, Houston."
+    },
     "bunkers_starasia_market_report_week09_2026_pdf": {
       "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/03/Market-report-Week-9.pdf",
       "path": "data/raw/licensed/research/bunkers_ports/starasia_market_report_week09_2026.pdf",
@@ -754,6 +910,58 @@
       "publisher": "Hellenic Shipping News Worldwide (republishing the named author)",
       "licence": "Copyright of the publisher; not redistributed, figures cited with link",
       "note": "Star Asia weekly report Week 10 (7 Mar 2026; FX column dated 6 Mar), via HSN: bunker table."
+    },
+    "bunkers_starasia_market_report_week11_2026_pdf": {
+      "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/03/Market-report-Week-11.pdf",
+      "path": "data/raw/licensed/research/bunkers_ports/starasia_market_report_week11_2026.pdf",
+      "retrieved_at": "2026-10-29T19:16:59Z",
+      "bytes": 834623,
+      "sha256": "72caad87adc1865ecb345a75655de85a52221f12bc5f1733a788d11320bcba4c",
+      "stored": "as served",
+      "committable": false,
+      "committed": false,
+      "publisher": "Hellenic Shipping News Worldwide (republishing the named author)",
+      "licence": "Copyright of the publisher; not redistributed, figures cited with link",
+      "note": "Star Asia weekly report Week 11 (13 Mar 2026), via HSN: bunker table VLSFO/HSFO/MGO for Singapore, HK, Fujairah, Rotterdam, Houston."
+    },
+    "bunkers_starasia_market_report_week12_2026_pdf": {
+      "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/03/Market-report-Week-12.pdf",
+      "path": "data/raw/licensed/research/bunkers_ports/starasia_market_report_week12_2026.pdf",
+      "retrieved_at": "2026-10-29T19:17:31Z",
+      "bytes": 850119,
+      "sha256": "0d8e40d5f89dc4fbb8be0efde2612e11363dbdaa0e16a44c9a4068fc7c79ccc1",
+      "stored": "as served",
+      "committable": false,
+      "committed": false,
+      "publisher": "Hellenic Shipping News Worldwide (republishing the named author)",
+      "licence": "Copyright of the publisher; not redistributed, figures cited with link",
+      "note": "Star Asia weekly report Week 12 (20 Mar 2026), via HSN: bunker table VLSFO/HSFO/MGO for Singapore, HK, Fujairah, Rotterdam, Houston."
+    },
+    "bunkers_starasia_market_report_week15_2026_pdf": {
+      "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/04/Market-report-Week-15.pdf",
+      "path": "data/raw/licensed/research/bunkers_ports/starasia_market_report_week15_2026.pdf",
+      "retrieved_at": "2026-10-29T19:30:11Z",
+      "bytes": 838432,
+      "sha256": "be5ad8d08593f6d91b938f2099e529ab23faa3aea875db049c3a3fb35ca9054d",
+      "stored": "as served",
+      "committable": false,
+      "committed": false,
+      "publisher": "Hellenic Shipping News Worldwide (republishing the named author)",
+      "licence": "Copyright of the publisher; not redistributed, figures cited with link",
+      "note": "Star Asia weekly report Week 15 (12 Apr 2026; FX column and C.O.B. note dated 10 Apr), via HSN: bunker table VLSFO/HSFO/MGO for Singapore, HK, Fujairah, Rotterdam, Houston."
+    },
+    "bunkers_starasia_market_report_week16_2026_pdf": {
+      "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/04/Market-report-Week-16.pdf",
+      "path": "data/raw/licensed/research/bunkers_ports/starasia_market_report_week16_2026.pdf",
+      "retrieved_at": "2026-10-29T19:18:03Z",
+      "bytes": 846342,
+      "sha256": "0ec180541f6ff2c86c810c6126ca8aecb3a02cc9e4c9a2159edadf4b7bed93dc",
+      "stored": "as served",
+      "committable": false,
+      "committed": false,
+      "publisher": "Hellenic Shipping News Worldwide (republishing the named author)",
+      "licence": "Copyright of the publisher; not redistributed, figures cited with link",
+      "note": "Star Asia weekly report Week 16 (18 Apr 2026; FX column and C.O.B. note dated 17 Apr), via HSN: bunker table VLSFO/HSFO/MGO for Singapore, HK, Fujairah, Rotterdam, Houston."
     },
     "bunkers_starasia_market_report_week26_2026_pdf": {
       "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/06/Market-Report-Week-26.pdf",
@@ -807,6 +1015,19 @@
       "licence": "Copyright of the publisher; not redistributed, figures cited with link",
       "note": "Star Asia weekly report Week 36 (4 Sep 2026), via HSN: bunker table."
     },
+    "bunkers_starasia_market_report_week37_2026_pdf": {
+      "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/09/Market-Report-Week-37.pdf",
+      "path": "data/raw/licensed/research/bunkers_ports/starasia_market_report_week37_2026.pdf",
+      "retrieved_at": "2026-10-29T19:30:42Z",
+      "bytes": 657606,
+      "sha256": "480ec22e80956754f0ae55aa130d44a4bd54899dedae5e2280a9d7e9a9a87c2b",
+      "stored": "as served",
+      "committable": false,
+      "committed": false,
+      "publisher": "Hellenic Shipping News Worldwide (republishing the named author)",
+      "licence": "Copyright of the publisher; not redistributed, figures cited with link",
+      "note": "Star Asia weekly report Week 37 (11 Sep 2026), via HSN: bunker table VLSFO/HSFO/MGO for Singapore, HK, Fujairah, Rotterdam, Houston."
+    },
     "bunkers_starasia_market_report_week40_2026_pdf": {
       "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/10/Market-Report-Week-40.pdf",
       "path": "data/raw/licensed/research/bunkers_ports/starasia_market_report_week40_2026.pdf",
@@ -820,6 +1041,19 @@
       "licence": "Copyright of the publisher; not redistributed, figures cited with link",
       "note": "Star Asia weekly report Week 40 (2 Oct 2026), via HSN: bunker table."
     },
+    "bunkers_starasia_market_report_week41_2026_pdf": {
+      "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/10/Market-Report-Week-41.pdf",
+      "path": "data/raw/licensed/research/bunkers_ports/starasia_market_report_week41_2026.pdf",
+      "retrieved_at": "2026-10-29T19:31:14Z",
+      "bytes": 679113,
+      "sha256": "5fe06a055889d69743d541eb09526e1d0de7bdfa1fec005bac4046cfd4a3d3ba",
+      "stored": "as served",
+      "committable": false,
+      "committed": false,
+      "publisher": "Hellenic Shipping News Worldwide (republishing the named author)",
+      "licence": "Copyright of the publisher; not redistributed, figures cited with link",
+      "note": "Star Asia weekly report Week 41 (9 Oct 2026), via HSN: bunker table VLSFO/HSFO/MGO for Singapore, HK, Fujairah, Rotterdam, Houston."
+    },
     "bunkers_starasia_market_report_week43_2026_pdf": {
       "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/10/Market-Report-Week-43.pdf",
       "path": "data/raw/licensed/research/bunkers_ports/starasia_market_report_week43_2026.pdf",
@@ -832,6 +1066,19 @@
       "publisher": "Hellenic Shipping News Worldwide (republishing the named author)",
       "licence": "Copyright of the publisher; not redistributed, figures cited with link",
       "note": "Star Asia weekly report Week 43 (23 Oct 2026), via HSN: bunker table."
+    },
+    "bunkers_starasia_market_report_week49_2025_pdf": {
+      "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/12/Market-report-Week-49.pdf",
+      "path": "data/raw/licensed/research/bunkers_ports/starasia_market_report_week49_2025.pdf",
+      "retrieved_at": "2026-10-29T19:15:24Z",
+      "bytes": 954134,
+      "sha256": "1b2dbe5f622bdcf9060f8558f24f0e7ca1d6b04ba2281a77f26a75b498d64957",
+      "stored": "as served",
+      "committable": false,
+      "committed": false,
+      "publisher": "Hellenic Shipping News Worldwide (republishing the named author)",
+      "licence": "Copyright of the publisher; not redistributed, figures cited with link",
+      "note": "Star Asia weekly report Week 49 (5 Dec 2025), via HSN: bunker table VLSFO/HSFO/MGO for Singapore, HK, Fujairah, Rotterdam, Houston."
     },
     "canals_eia_tie_60842_panama_drought_delays_html": {
       "url": "https://www.eia.gov/todayinenergy/detail.php?id=60842",

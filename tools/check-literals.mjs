@@ -108,6 +108,9 @@ const LAYOUT_CONSTANTS = {
     { name: "LINE_HEIGHT", value: "260", why: "a line chart's plot" },
     { name: "LINE_HEIGHT_NARROW", value: "200", why: "the same below NARROW_WIDTH" },
     { name: "TOOLTIP_OFFSET", value: "14", why: "the readout's distance from the pointer" },
+    { name: "LABEL_ASCENT", value: "11", why: "a meta sized label's reach above its baseline" },
+    { name: "LABEL_DESCENT", value: "4", why: "a meta sized label's reach below its baseline" },
+    { name: "PLATE_PAD", value: "2", why: "the margin of the ground plate under a label" },
   ],
   "src/map.js": [
     { name: "PORT_RADIUS", value: "3.5", why: "a port's dot, in screen px" },
@@ -132,6 +135,7 @@ const DECLARED = {
   ],
   "src/dom.js": [
     { snippet: "const MOST_NAMED = 4;", count: 1, why: "columns a table caption names one by one" },
+    { snippet: "const STACK_FROM = 3;", count: 1, why: "columns above which a table stacks on a phone" },
   ],
 };
 
@@ -503,7 +507,7 @@ function selfTest() {
     { name: "a value with a unit in a string", file: "src/planted.js", kind: "js", source: 'node.style.width = "999px";\n', expect: ["999"] },
     { name: "a 1 as an object's value", file: "src/planted.js", kind: "js", source: "const opts = { share: 1, open: 0 };\n", expect: ["1"] },
     { name: "a value in an inline style string", file: "index.html", kind: "html", source: '<style>.x::after { content: "23.96"; width: 12px; }</style>\n', expect: ["23.96"] },
-    { name: "a declared snippet moved", file: "src/dom.js", kind: "js", source: "const MOST_NAMED = 5;\n", expect: ["5", "const MOST_NAMED = 4;"] },
+    { name: "a declared snippet moved", file: "src/dom.js", kind: "js", source: "const MOST_NAMED = 5;\n", expect: ["5", "const MOST_NAMED = 4;", "const STACK_FROM = 3;"] },
     { name: "a unit constant with a moved value", file: "src/format.js", kind: "js", source: "const MINUS_SIGN = 0x2213;\n", expect: ["0x2213"] },
     { name: "a unit constant used outside its declaration", file: "src/format.js", kind: "js", source: "const MINUS_SIGN = 0x2212;\nconst x = 0x2212;\n", expect: ["0x2212"] },
     { name: "a layout constant with a moved value", file: "src/charts.js", kind: "js", source: CHARTS + "const GEOMETRY = Object.freeze({\n  PAD_TOP: 29,\n});\n", expect: ["29"] },

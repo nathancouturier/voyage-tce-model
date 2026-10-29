@@ -107,7 +107,23 @@
       "lon": -70.5,
       "lat": -53.5,
       "within_nm": 150.0
+    },
+    "IJsselmeer": {
+      "lon": 5.25,
+      "lat": 52.75,
+      "within_nm": 10.0
     }
+  },
+  "sea_gates": {
+    "amsterdam": {
+      "lon": 4.5667,
+      "lat": 52.4667,
+      "source": "IJmuiden, NGA Pub. 151 printed page 44: 'Subtract 14 miles from Amsterdam distances'"
+    }
+  },
+  "port_ends": {
+    "port_hedland": "the node lies 43 nm north of the port, on the way out; Pub. 151 page 84 measures from the port",
+    "jubail": "the node lies 12 nm out in open water, on the way out"
   },
   "ports": [
     {
@@ -296,53 +312,53 @@
       "from": "tubarao",
       "to": "port_hedland",
       "routing": "direct",
-      "distance_nm": 8474.2,
+      "distance_nm": 8517.2,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
       "passes": [
         "Cape of Good Hope"
       ],
-      "vertices": 53
+      "vertices": 54
     },
     "tubarao__port_hedland__no_suez": {
       "from": "tubarao",
       "to": "port_hedland",
       "routing": "no_suez",
-      "distance_nm": 8474.2,
+      "distance_nm": 8517.2,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
       "passes": [
         "Cape of Good Hope"
       ],
-      "vertices": 53
+      "vertices": 54
     },
     "tubarao__port_hedland__no_panama": {
       "from": "tubarao",
       "to": "port_hedland",
       "routing": "no_panama",
-      "distance_nm": 8474.2,
+      "distance_nm": 8517.2,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
       "passes": [
         "Cape of Good Hope"
       ],
-      "vertices": 53
+      "vertices": 54
     },
     "tubarao__port_hedland__no_canals": {
       "from": "tubarao",
       "to": "port_hedland",
       "routing": "no_canals",
-      "distance_nm": 8474.2,
+      "distance_nm": 8517.2,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
       "passes": [
         "Cape of Good Hope"
       ],
-      "vertices": 53
+      "vertices": 54
     },
     "tubarao__qingdao__direct": {
       "from": "tubarao",
@@ -616,7 +632,7 @@
       "from": "tubarao",
       "to": "jubail",
       "routing": "direct",
-      "distance_nm": 8290.1,
+      "distance_nm": 8302.1,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -625,13 +641,13 @@
         "Strait of Hormuz",
         "Cape of Good Hope"
       ],
-      "vertices": 51
+      "vertices": 52
     },
     "tubarao__jubail__no_suez": {
       "from": "tubarao",
       "to": "jubail",
       "routing": "no_suez",
-      "distance_nm": 8290.1,
+      "distance_nm": 8302.1,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -640,13 +656,13 @@
         "Strait of Hormuz",
         "Cape of Good Hope"
       ],
-      "vertices": 51
+      "vertices": 52
     },
     "tubarao__jubail__no_panama": {
       "from": "tubarao",
       "to": "jubail",
       "routing": "no_panama",
-      "distance_nm": 8290.1,
+      "distance_nm": 8302.1,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -655,13 +671,13 @@
         "Strait of Hormuz",
         "Cape of Good Hope"
       ],
-      "vertices": 51
+      "vertices": 52
     },
     "tubarao__jubail__no_canals": {
       "from": "tubarao",
       "to": "jubail",
       "routing": "no_canals",
-      "distance_nm": 8290.1,
+      "distance_nm": 8302.1,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -670,7 +686,7 @@
         "Strait of Hormuz",
         "Cape of Good Hope"
       ],
-      "vertices": 51
+      "vertices": 52
     },
     "tubarao__ningbo__direct": {
       "from": "tubarao",
@@ -964,45 +980,45 @@
       "from": "tubarao",
       "to": "amsterdam",
       "routing": "direct",
-      "distance_nm": 5054.1,
+      "distance_nm": 4990.2,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait"
       ],
-      "vertices": 81
+      "vertices": 77
     },
     "tubarao__amsterdam__no_suez": {
       "from": "tubarao",
       "to": "amsterdam",
       "routing": "no_suez",
-      "distance_nm": 5054.1,
+      "distance_nm": 4990.2,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait"
       ],
-      "vertices": 81
+      "vertices": 77
     },
     "tubarao__amsterdam__no_panama": {
       "from": "tubarao",
       "to": "amsterdam",
       "routing": "no_panama",
-      "distance_nm": 5054.1,
+      "distance_nm": 4990.2,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait"
       ],
-      "vertices": 81
+      "vertices": 77
     },
     "tubarao__amsterdam__no_canals": {
       "from": "tubarao",
       "to": "amsterdam",
       "routing": "no_canals",
-      "distance_nm": 5054.1,
+      "distance_nm": 4990.2,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait"
       ],
-      "vertices": 81
+      "vertices": 77
     },
     "tubarao__le_havre__direct": {
       "from": "tubarao",
@@ -1140,415 +1156,415 @@
       "from": "port_hedland",
       "to": "tubarao",
       "routing": "direct",
-      "distance_nm": 8474.2,
+      "distance_nm": 8517.2,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
       "passes": [
         "Cape of Good Hope"
       ],
-      "vertices": 53
+      "vertices": 54
     },
     "port_hedland__tubarao__no_suez": {
       "from": "port_hedland",
       "to": "tubarao",
       "routing": "no_suez",
-      "distance_nm": 8474.2,
+      "distance_nm": 8517.2,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
       "passes": [
         "Cape of Good Hope"
       ],
-      "vertices": 53
+      "vertices": 54
     },
     "port_hedland__tubarao__no_panama": {
       "from": "port_hedland",
       "to": "tubarao",
       "routing": "no_panama",
-      "distance_nm": 8474.2,
+      "distance_nm": 8517.2,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
       "passes": [
         "Cape of Good Hope"
       ],
-      "vertices": 53
+      "vertices": 54
     },
     "port_hedland__tubarao__no_canals": {
       "from": "port_hedland",
       "to": "tubarao",
       "routing": "no_canals",
-      "distance_nm": 8474.2,
+      "distance_nm": 8517.2,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
       "passes": [
         "Cape of Good Hope"
       ],
-      "vertices": 53
+      "vertices": 54
     },
     "port_hedland__qingdao__direct": {
       "from": "port_hedland",
       "to": "qingdao",
       "routing": "direct",
-      "distance_nm": 3530.7,
+      "distance_nm": 3573.7,
       "passages_reported_by_searoute": [],
       "passes": [
         "Lombok Strait"
       ],
-      "vertices": 44
+      "vertices": 45
     },
     "port_hedland__qingdao__no_suez": {
       "from": "port_hedland",
       "to": "qingdao",
       "routing": "no_suez",
-      "distance_nm": 3530.7,
+      "distance_nm": 3573.7,
       "passages_reported_by_searoute": [],
       "passes": [
         "Lombok Strait"
       ],
-      "vertices": 44
+      "vertices": 45
     },
     "port_hedland__qingdao__no_panama": {
       "from": "port_hedland",
       "to": "qingdao",
       "routing": "no_panama",
-      "distance_nm": 3530.7,
+      "distance_nm": 3573.7,
       "passages_reported_by_searoute": [],
       "passes": [
         "Lombok Strait"
       ],
-      "vertices": 44
+      "vertices": 45
     },
     "port_hedland__qingdao__no_canals": {
       "from": "port_hedland",
       "to": "qingdao",
       "routing": "no_canals",
-      "distance_nm": 3530.7,
+      "distance_nm": 3573.7,
+      "passages_reported_by_searoute": [],
+      "passes": [
+        "Lombok Strait"
+      ],
+      "vertices": 45
+    },
+    "port_hedland__new_orleans__direct": {
+      "from": "port_hedland",
+      "to": "new_orleans",
+      "routing": "direct",
+      "distance_nm": 11510.8,
+      "passages_reported_by_searoute": [
+        "panama"
+      ],
+      "passes": [
+        "Panama Canal",
+        "Yucatan Channel"
+      ],
+      "vertices": 108
+    },
+    "port_hedland__new_orleans__no_suez": {
+      "from": "port_hedland",
+      "to": "new_orleans",
+      "routing": "no_suez",
+      "distance_nm": 11510.8,
+      "passages_reported_by_searoute": [
+        "panama"
+      ],
+      "passes": [
+        "Panama Canal",
+        "Yucatan Channel"
+      ],
+      "vertices": 108
+    },
+    "port_hedland__new_orleans__no_panama": {
+      "from": "port_hedland",
+      "to": "new_orleans",
+      "routing": "no_panama",
+      "distance_nm": 12631.1,
+      "passages_reported_by_searoute": [
+        "south_africa"
+      ],
+      "passes": [
+        "Cape of Good Hope",
+        "Florida Strait"
+      ],
+      "vertices": 127
+    },
+    "port_hedland__new_orleans__no_canals": {
+      "from": "port_hedland",
+      "to": "new_orleans",
+      "routing": "no_canals",
+      "distance_nm": 12631.1,
+      "passages_reported_by_searoute": [
+        "south_africa"
+      ],
+      "passes": [
+        "Cape of Good Hope",
+        "Florida Strait"
+      ],
+      "vertices": 127
+    },
+    "port_hedland__ras_tanura__direct": {
+      "from": "port_hedland",
+      "to": "ras_tanura",
+      "routing": "direct",
+      "distance_nm": 5249.1,
+      "passages_reported_by_searoute": [
+        "ormuz"
+      ],
+      "passes": [
+        "Strait of Hormuz"
+      ],
+      "vertices": 43
+    },
+    "port_hedland__ras_tanura__no_suez": {
+      "from": "port_hedland",
+      "to": "ras_tanura",
+      "routing": "no_suez",
+      "distance_nm": 5249.1,
+      "passages_reported_by_searoute": [
+        "ormuz"
+      ],
+      "passes": [
+        "Strait of Hormuz"
+      ],
+      "vertices": 43
+    },
+    "port_hedland__ras_tanura__no_panama": {
+      "from": "port_hedland",
+      "to": "ras_tanura",
+      "routing": "no_panama",
+      "distance_nm": 5249.1,
+      "passages_reported_by_searoute": [
+        "ormuz"
+      ],
+      "passes": [
+        "Strait of Hormuz"
+      ],
+      "vertices": 43
+    },
+    "port_hedland__ras_tanura__no_canals": {
+      "from": "port_hedland",
+      "to": "ras_tanura",
+      "routing": "no_canals",
+      "distance_nm": 5249.1,
+      "passages_reported_by_searoute": [
+        "ormuz"
+      ],
+      "passes": [
+        "Strait of Hormuz"
+      ],
+      "vertices": 43
+    },
+    "port_hedland__mina_al_fahal__direct": {
+      "from": "port_hedland",
+      "to": "mina_al_fahal",
+      "routing": "direct",
+      "distance_nm": 4708.8,
+      "passages_reported_by_searoute": [],
+      "passes": [],
+      "vertices": 32
+    },
+    "port_hedland__mina_al_fahal__no_suez": {
+      "from": "port_hedland",
+      "to": "mina_al_fahal",
+      "routing": "no_suez",
+      "distance_nm": 4708.8,
+      "passages_reported_by_searoute": [],
+      "passes": [],
+      "vertices": 32
+    },
+    "port_hedland__mina_al_fahal__no_panama": {
+      "from": "port_hedland",
+      "to": "mina_al_fahal",
+      "routing": "no_panama",
+      "distance_nm": 4708.8,
+      "passages_reported_by_searoute": [],
+      "passes": [],
+      "vertices": 32
+    },
+    "port_hedland__mina_al_fahal__no_canals": {
+      "from": "port_hedland",
+      "to": "mina_al_fahal",
+      "routing": "no_canals",
+      "distance_nm": 4708.8,
+      "passages_reported_by_searoute": [],
+      "passes": [],
+      "vertices": 32
+    },
+    "port_hedland__fujairah__direct": {
+      "from": "port_hedland",
+      "to": "fujairah",
+      "routing": "direct",
+      "distance_nm": 4857.0,
+      "passages_reported_by_searoute": [],
+      "passes": [],
+      "vertices": 33
+    },
+    "port_hedland__fujairah__no_suez": {
+      "from": "port_hedland",
+      "to": "fujairah",
+      "routing": "no_suez",
+      "distance_nm": 4857.0,
+      "passages_reported_by_searoute": [],
+      "passes": [],
+      "vertices": 33
+    },
+    "port_hedland__fujairah__no_panama": {
+      "from": "port_hedland",
+      "to": "fujairah",
+      "routing": "no_panama",
+      "distance_nm": 4857.0,
+      "passages_reported_by_searoute": [],
+      "passes": [],
+      "vertices": 33
+    },
+    "port_hedland__fujairah__no_canals": {
+      "from": "port_hedland",
+      "to": "fujairah",
+      "routing": "no_canals",
+      "distance_nm": 4857.0,
+      "passages_reported_by_searoute": [],
+      "passes": [],
+      "vertices": 33
+    },
+    "port_hedland__jubail__direct": {
+      "from": "port_hedland",
+      "to": "jubail",
+      "routing": "direct",
+      "distance_nm": 5273.0,
+      "passages_reported_by_searoute": [
+        "ormuz"
+      ],
+      "passes": [
+        "Strait of Hormuz"
+      ],
+      "vertices": 44
+    },
+    "port_hedland__jubail__no_suez": {
+      "from": "port_hedland",
+      "to": "jubail",
+      "routing": "no_suez",
+      "distance_nm": 5273.0,
+      "passages_reported_by_searoute": [
+        "ormuz"
+      ],
+      "passes": [
+        "Strait of Hormuz"
+      ],
+      "vertices": 44
+    },
+    "port_hedland__jubail__no_panama": {
+      "from": "port_hedland",
+      "to": "jubail",
+      "routing": "no_panama",
+      "distance_nm": 5273.0,
+      "passages_reported_by_searoute": [
+        "ormuz"
+      ],
+      "passes": [
+        "Strait of Hormuz"
+      ],
+      "vertices": 44
+    },
+    "port_hedland__jubail__no_canals": {
+      "from": "port_hedland",
+      "to": "jubail",
+      "routing": "no_canals",
+      "distance_nm": 5273.0,
+      "passages_reported_by_searoute": [
+        "ormuz"
+      ],
+      "passes": [
+        "Strait of Hormuz"
+      ],
+      "vertices": 44
+    },
+    "port_hedland__ningbo__direct": {
+      "from": "port_hedland",
+      "to": "ningbo",
+      "routing": "direct",
+      "distance_nm": 3195.4,
       "passages_reported_by_searoute": [],
       "passes": [
         "Lombok Strait"
       ],
       "vertices": 44
     },
-    "port_hedland__new_orleans__direct": {
-      "from": "port_hedland",
-      "to": "new_orleans",
-      "routing": "direct",
-      "distance_nm": 11467.8,
-      "passages_reported_by_searoute": [
-        "panama"
-      ],
-      "passes": [
-        "Panama Canal",
-        "Yucatan Channel"
-      ],
-      "vertices": 107
-    },
-    "port_hedland__new_orleans__no_suez": {
-      "from": "port_hedland",
-      "to": "new_orleans",
-      "routing": "no_suez",
-      "distance_nm": 11467.8,
-      "passages_reported_by_searoute": [
-        "panama"
-      ],
-      "passes": [
-        "Panama Canal",
-        "Yucatan Channel"
-      ],
-      "vertices": 107
-    },
-    "port_hedland__new_orleans__no_panama": {
-      "from": "port_hedland",
-      "to": "new_orleans",
-      "routing": "no_panama",
-      "distance_nm": 12588.0,
-      "passages_reported_by_searoute": [
-        "south_africa"
-      ],
-      "passes": [
-        "Cape of Good Hope",
-        "Florida Strait"
-      ],
-      "vertices": 126
-    },
-    "port_hedland__new_orleans__no_canals": {
-      "from": "port_hedland",
-      "to": "new_orleans",
-      "routing": "no_canals",
-      "distance_nm": 12588.0,
-      "passages_reported_by_searoute": [
-        "south_africa"
-      ],
-      "passes": [
-        "Cape of Good Hope",
-        "Florida Strait"
-      ],
-      "vertices": 126
-    },
-    "port_hedland__ras_tanura__direct": {
-      "from": "port_hedland",
-      "to": "ras_tanura",
-      "routing": "direct",
-      "distance_nm": 5206.1,
-      "passages_reported_by_searoute": [
-        "ormuz"
-      ],
-      "passes": [
-        "Strait of Hormuz"
-      ],
-      "vertices": 42
-    },
-    "port_hedland__ras_tanura__no_suez": {
-      "from": "port_hedland",
-      "to": "ras_tanura",
-      "routing": "no_suez",
-      "distance_nm": 5206.1,
-      "passages_reported_by_searoute": [
-        "ormuz"
-      ],
-      "passes": [
-        "Strait of Hormuz"
-      ],
-      "vertices": 42
-    },
-    "port_hedland__ras_tanura__no_panama": {
-      "from": "port_hedland",
-      "to": "ras_tanura",
-      "routing": "no_panama",
-      "distance_nm": 5206.1,
-      "passages_reported_by_searoute": [
-        "ormuz"
-      ],
-      "passes": [
-        "Strait of Hormuz"
-      ],
-      "vertices": 42
-    },
-    "port_hedland__ras_tanura__no_canals": {
-      "from": "port_hedland",
-      "to": "ras_tanura",
-      "routing": "no_canals",
-      "distance_nm": 5206.1,
-      "passages_reported_by_searoute": [
-        "ormuz"
-      ],
-      "passes": [
-        "Strait of Hormuz"
-      ],
-      "vertices": 42
-    },
-    "port_hedland__mina_al_fahal__direct": {
-      "from": "port_hedland",
-      "to": "mina_al_fahal",
-      "routing": "direct",
-      "distance_nm": 4665.8,
-      "passages_reported_by_searoute": [],
-      "passes": [],
-      "vertices": 31
-    },
-    "port_hedland__mina_al_fahal__no_suez": {
-      "from": "port_hedland",
-      "to": "mina_al_fahal",
-      "routing": "no_suez",
-      "distance_nm": 4665.8,
-      "passages_reported_by_searoute": [],
-      "passes": [],
-      "vertices": 31
-    },
-    "port_hedland__mina_al_fahal__no_panama": {
-      "from": "port_hedland",
-      "to": "mina_al_fahal",
-      "routing": "no_panama",
-      "distance_nm": 4665.8,
-      "passages_reported_by_searoute": [],
-      "passes": [],
-      "vertices": 31
-    },
-    "port_hedland__mina_al_fahal__no_canals": {
-      "from": "port_hedland",
-      "to": "mina_al_fahal",
-      "routing": "no_canals",
-      "distance_nm": 4665.8,
-      "passages_reported_by_searoute": [],
-      "passes": [],
-      "vertices": 31
-    },
-    "port_hedland__fujairah__direct": {
-      "from": "port_hedland",
-      "to": "fujairah",
-      "routing": "direct",
-      "distance_nm": 4814.0,
-      "passages_reported_by_searoute": [],
-      "passes": [],
-      "vertices": 32
-    },
-    "port_hedland__fujairah__no_suez": {
-      "from": "port_hedland",
-      "to": "fujairah",
-      "routing": "no_suez",
-      "distance_nm": 4814.0,
-      "passages_reported_by_searoute": [],
-      "passes": [],
-      "vertices": 32
-    },
-    "port_hedland__fujairah__no_panama": {
-      "from": "port_hedland",
-      "to": "fujairah",
-      "routing": "no_panama",
-      "distance_nm": 4814.0,
-      "passages_reported_by_searoute": [],
-      "passes": [],
-      "vertices": 32
-    },
-    "port_hedland__fujairah__no_canals": {
-      "from": "port_hedland",
-      "to": "fujairah",
-      "routing": "no_canals",
-      "distance_nm": 4814.0,
-      "passages_reported_by_searoute": [],
-      "passes": [],
-      "vertices": 32
-    },
-    "port_hedland__jubail__direct": {
-      "from": "port_hedland",
-      "to": "jubail",
-      "routing": "direct",
-      "distance_nm": 5218.0,
-      "passages_reported_by_searoute": [
-        "ormuz"
-      ],
-      "passes": [
-        "Strait of Hormuz"
-      ],
-      "vertices": 42
-    },
-    "port_hedland__jubail__no_suez": {
-      "from": "port_hedland",
-      "to": "jubail",
-      "routing": "no_suez",
-      "distance_nm": 5218.0,
-      "passages_reported_by_searoute": [
-        "ormuz"
-      ],
-      "passes": [
-        "Strait of Hormuz"
-      ],
-      "vertices": 42
-    },
-    "port_hedland__jubail__no_panama": {
-      "from": "port_hedland",
-      "to": "jubail",
-      "routing": "no_panama",
-      "distance_nm": 5218.0,
-      "passages_reported_by_searoute": [
-        "ormuz"
-      ],
-      "passes": [
-        "Strait of Hormuz"
-      ],
-      "vertices": 42
-    },
-    "port_hedland__jubail__no_canals": {
-      "from": "port_hedland",
-      "to": "jubail",
-      "routing": "no_canals",
-      "distance_nm": 5218.0,
-      "passages_reported_by_searoute": [
-        "ormuz"
-      ],
-      "passes": [
-        "Strait of Hormuz"
-      ],
-      "vertices": 42
-    },
-    "port_hedland__ningbo__direct": {
-      "from": "port_hedland",
-      "to": "ningbo",
-      "routing": "direct",
-      "distance_nm": 3152.4,
-      "passages_reported_by_searoute": [],
-      "passes": [
-        "Lombok Strait"
-      ],
-      "vertices": 43
-    },
     "port_hedland__ningbo__no_suez": {
       "from": "port_hedland",
       "to": "ningbo",
       "routing": "no_suez",
-      "distance_nm": 3152.4,
+      "distance_nm": 3195.4,
       "passages_reported_by_searoute": [],
       "passes": [
         "Lombok Strait"
       ],
-      "vertices": 43
+      "vertices": 44
     },
     "port_hedland__ningbo__no_panama": {
       "from": "port_hedland",
       "to": "ningbo",
       "routing": "no_panama",
-      "distance_nm": 3152.4,
+      "distance_nm": 3195.4,
       "passages_reported_by_searoute": [],
       "passes": [
         "Lombok Strait"
       ],
-      "vertices": 43
+      "vertices": 44
     },
     "port_hedland__ningbo__no_canals": {
       "from": "port_hedland",
       "to": "ningbo",
       "routing": "no_canals",
-      "distance_nm": 3152.4,
+      "distance_nm": 3195.4,
       "passages_reported_by_searoute": [],
       "passes": [
         "Lombok Strait"
       ],
-      "vertices": 43
+      "vertices": 44
     },
     "port_hedland__yokohama__direct": {
       "from": "port_hedland",
       "to": "yokohama",
       "routing": "direct",
-      "distance_nm": 3748.6,
+      "distance_nm": 3791.6,
       "passages_reported_by_searoute": [],
       "passes": [],
-      "vertices": 32
+      "vertices": 33
     },
     "port_hedland__yokohama__no_suez": {
       "from": "port_hedland",
       "to": "yokohama",
       "routing": "no_suez",
-      "distance_nm": 3748.6,
+      "distance_nm": 3791.6,
       "passages_reported_by_searoute": [],
       "passes": [],
-      "vertices": 32
+      "vertices": 33
     },
     "port_hedland__yokohama__no_panama": {
       "from": "port_hedland",
       "to": "yokohama",
       "routing": "no_panama",
-      "distance_nm": 3748.6,
+      "distance_nm": 3791.6,
       "passages_reported_by_searoute": [],
       "passes": [],
-      "vertices": 32
+      "vertices": 33
     },
     "port_hedland__yokohama__no_canals": {
       "from": "port_hedland",
       "to": "yokohama",
       "routing": "no_canals",
-      "distance_nm": 3748.6,
+      "distance_nm": 3791.6,
       "passages_reported_by_searoute": [],
       "passes": [],
-      "vertices": 32
+      "vertices": 33
     },
     "port_hedland__galveston__direct": {
       "from": "port_hedland",
       "to": "galveston",
       "routing": "direct",
-      "distance_nm": 11568.4,
+      "distance_nm": 11611.4,
       "passages_reported_by_searoute": [
         "panama"
       ],
@@ -1556,13 +1572,13 @@
         "Panama Canal",
         "Yucatan Channel"
       ],
-      "vertices": 89
+      "vertices": 90
     },
     "port_hedland__galveston__no_suez": {
       "from": "port_hedland",
       "to": "galveston",
       "routing": "no_suez",
-      "distance_nm": 11568.4,
+      "distance_nm": 11611.4,
       "passages_reported_by_searoute": [
         "panama"
       ],
@@ -1570,13 +1586,13 @@
         "Panama Canal",
         "Yucatan Channel"
       ],
-      "vertices": 89
+      "vertices": 90
     },
     "port_hedland__galveston__no_panama": {
       "from": "port_hedland",
       "to": "galveston",
       "routing": "no_panama",
-      "distance_nm": 12769.6,
+      "distance_nm": 12812.7,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
@@ -1584,13 +1600,13 @@
         "Cape of Good Hope",
         "Florida Strait"
       ],
-      "vertices": 114
+      "vertices": 115
     },
     "port_hedland__galveston__no_canals": {
       "from": "port_hedland",
       "to": "galveston",
       "routing": "no_canals",
-      "distance_nm": 12769.6,
+      "distance_nm": 12812.7,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
@@ -1598,13 +1614,13 @@
         "Cape of Good Hope",
         "Florida Strait"
       ],
-      "vertices": 114
+      "vertices": 115
     },
     "port_hedland__houston__direct": {
       "from": "port_hedland",
       "to": "houston",
       "routing": "direct",
-      "distance_nm": 11601.9,
+      "distance_nm": 11645.0,
       "passages_reported_by_searoute": [
         "panama"
       ],
@@ -1612,13 +1628,13 @@
         "Panama Canal",
         "Yucatan Channel"
       ],
-      "vertices": 98
+      "vertices": 99
     },
     "port_hedland__houston__no_suez": {
       "from": "port_hedland",
       "to": "houston",
       "routing": "no_suez",
-      "distance_nm": 11601.9,
+      "distance_nm": 11645.0,
       "passages_reported_by_searoute": [
         "panama"
       ],
@@ -1626,13 +1642,13 @@
         "Panama Canal",
         "Yucatan Channel"
       ],
-      "vertices": 98
+      "vertices": 99
     },
     "port_hedland__houston__no_panama": {
       "from": "port_hedland",
       "to": "houston",
       "routing": "no_panama",
-      "distance_nm": 12803.2,
+      "distance_nm": 12846.2,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
@@ -1640,13 +1656,13 @@
         "Cape of Good Hope",
         "Florida Strait"
       ],
-      "vertices": 123
+      "vertices": 124
     },
     "port_hedland__houston__no_canals": {
       "from": "port_hedland",
       "to": "houston",
       "routing": "no_canals",
-      "distance_nm": 12803.2,
+      "distance_nm": 12846.2,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
@@ -1654,13 +1670,13 @@
         "Cape of Good Hope",
         "Florida Strait"
       ],
-      "vertices": 123
+      "vertices": 124
     },
     "port_hedland__new_york__direct": {
       "from": "port_hedland",
       "to": "new_york",
       "routing": "direct",
-      "distance_nm": 11579.3,
+      "distance_nm": 11622.4,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -1671,26 +1687,26 @@
         "Suez Canal",
         "Strait of Gibraltar"
       ],
-      "vertices": 122
+      "vertices": 123
     },
     "port_hedland__new_york__no_suez": {
       "from": "port_hedland",
       "to": "new_york",
       "routing": "no_suez",
-      "distance_nm": 12074.0,
+      "distance_nm": 12117.0,
       "passages_reported_by_searoute": [
         "panama"
       ],
       "passes": [
         "Panama Canal"
       ],
-      "vertices": 113
+      "vertices": 114
     },
     "port_hedland__new_york__no_panama": {
       "from": "port_hedland",
       "to": "new_york",
       "routing": "no_panama",
-      "distance_nm": 11579.3,
+      "distance_nm": 11622.4,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -1701,26 +1717,26 @@
         "Suez Canal",
         "Strait of Gibraltar"
       ],
-      "vertices": 122
+      "vertices": 123
     },
     "port_hedland__new_york__no_canals": {
       "from": "port_hedland",
       "to": "new_york",
       "routing": "no_canals",
-      "distance_nm": 12126.5,
+      "distance_nm": 12169.5,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
       "passes": [
         "Cape of Good Hope"
       ],
-      "vertices": 108
+      "vertices": 109
     },
     "port_hedland__rotterdam__direct": {
       "from": "port_hedland",
       "to": "rotterdam",
       "routing": "direct",
-      "distance_nm": 9775.8,
+      "distance_nm": 9818.8,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -1732,13 +1748,13 @@
         "Strait of Gibraltar",
         "Dover Strait"
       ],
-      "vertices": 124
+      "vertices": 125
     },
     "port_hedland__rotterdam__no_suez": {
       "from": "port_hedland",
       "to": "rotterdam",
       "routing": "no_suez",
-      "distance_nm": 11510.2,
+      "distance_nm": 11553.3,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
@@ -1746,13 +1762,13 @@
         "Dover Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 109
+      "vertices": 110
     },
     "port_hedland__rotterdam__no_panama": {
       "from": "port_hedland",
       "to": "rotterdam",
       "routing": "no_panama",
-      "distance_nm": 9775.8,
+      "distance_nm": 9818.8,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -1764,13 +1780,13 @@
         "Strait of Gibraltar",
         "Dover Strait"
       ],
-      "vertices": 124
+      "vertices": 125
     },
     "port_hedland__rotterdam__no_canals": {
       "from": "port_hedland",
       "to": "rotterdam",
       "routing": "no_canals",
-      "distance_nm": 11510.2,
+      "distance_nm": 11553.3,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
@@ -1778,13 +1794,13 @@
         "Dover Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 109
+      "vertices": 110
     },
     "port_hedland__amsterdam__direct": {
       "from": "port_hedland",
       "to": "amsterdam",
       "routing": "direct",
-      "distance_nm": 9874.9,
+      "distance_nm": 9854.1,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -1796,13 +1812,13 @@
         "Strait of Gibraltar",
         "Dover Strait"
       ],
-      "vertices": 124
+      "vertices": 121
     },
     "port_hedland__amsterdam__no_suez": {
       "from": "port_hedland",
       "to": "amsterdam",
       "routing": "no_suez",
-      "distance_nm": 11609.3,
+      "distance_nm": 11588.5,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
@@ -1810,13 +1826,13 @@
         "Dover Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 109
+      "vertices": 106
     },
     "port_hedland__amsterdam__no_panama": {
       "from": "port_hedland",
       "to": "amsterdam",
       "routing": "no_panama",
-      "distance_nm": 9874.9,
+      "distance_nm": 9854.1,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -1828,13 +1844,13 @@
         "Strait of Gibraltar",
         "Dover Strait"
       ],
-      "vertices": 124
+      "vertices": 121
     },
     "port_hedland__amsterdam__no_canals": {
       "from": "port_hedland",
       "to": "amsterdam",
       "routing": "no_canals",
-      "distance_nm": 11609.3,
+      "distance_nm": 11588.5,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
@@ -1842,13 +1858,13 @@
         "Dover Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 109
+      "vertices": 106
     },
     "port_hedland__le_havre__direct": {
       "from": "port_hedland",
       "to": "le_havre",
       "routing": "direct",
-      "distance_nm": 9577.6,
+      "distance_nm": 9620.7,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -1859,26 +1875,26 @@
         "Suez Canal",
         "Strait of Gibraltar"
       ],
-      "vertices": 107
+      "vertices": 108
     },
     "port_hedland__le_havre__no_suez": {
       "from": "port_hedland",
       "to": "le_havre",
       "routing": "no_suez",
-      "distance_nm": 11312.1,
+      "distance_nm": 11355.1,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
       "passes": [
         "Cape of Good Hope"
       ],
-      "vertices": 92
+      "vertices": 93
     },
     "port_hedland__le_havre__no_panama": {
       "from": "port_hedland",
       "to": "le_havre",
       "routing": "no_panama",
-      "distance_nm": 9577.6,
+      "distance_nm": 9620.7,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -1889,116 +1905,116 @@
         "Suez Canal",
         "Strait of Gibraltar"
       ],
-      "vertices": 107
+      "vertices": 108
     },
     "port_hedland__le_havre__no_canals": {
       "from": "port_hedland",
       "to": "le_havre",
       "routing": "no_canals",
-      "distance_nm": 11312.1,
+      "distance_nm": 11355.1,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
       "passes": [
         "Cape of Good Hope"
       ],
-      "vertices": 92
+      "vertices": 93
     },
     "port_hedland__bonny__direct": {
       "from": "port_hedland",
       "to": "bonny",
       "routing": "direct",
-      "distance_nm": 7823.2,
+      "distance_nm": 7866.2,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
       "passes": [
         "Cape of Good Hope"
       ],
-      "vertices": 50
+      "vertices": 51
     },
     "port_hedland__bonny__no_suez": {
       "from": "port_hedland",
       "to": "bonny",
       "routing": "no_suez",
-      "distance_nm": 7823.2,
+      "distance_nm": 7866.2,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
       "passes": [
         "Cape of Good Hope"
       ],
-      "vertices": 50
+      "vertices": 51
     },
     "port_hedland__bonny__no_panama": {
       "from": "port_hedland",
       "to": "bonny",
       "routing": "no_panama",
-      "distance_nm": 7823.2,
+      "distance_nm": 7866.2,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
       "passes": [
         "Cape of Good Hope"
       ],
-      "vertices": 50
+      "vertices": 51
     },
     "port_hedland__bonny__no_canals": {
       "from": "port_hedland",
       "to": "bonny",
       "routing": "no_canals",
-      "distance_nm": 7823.2,
+      "distance_nm": 7866.2,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
       "passes": [
         "Cape of Good Hope"
       ],
-      "vertices": 50
+      "vertices": 51
     },
     "port_hedland__singapore__direct": {
       "from": "port_hedland",
       "to": "singapore",
       "routing": "direct",
-      "distance_nm": 1687.7,
+      "distance_nm": 1730.8,
       "passages_reported_by_searoute": [],
       "passes": [
         "Lombok Strait"
       ],
-      "vertices": 20
+      "vertices": 21
     },
     "port_hedland__singapore__no_suez": {
       "from": "port_hedland",
       "to": "singapore",
       "routing": "no_suez",
-      "distance_nm": 1687.7,
+      "distance_nm": 1730.8,
       "passages_reported_by_searoute": [],
       "passes": [
         "Lombok Strait"
       ],
-      "vertices": 20
+      "vertices": 21
     },
     "port_hedland__singapore__no_panama": {
       "from": "port_hedland",
       "to": "singapore",
       "routing": "no_panama",
-      "distance_nm": 1687.7,
+      "distance_nm": 1730.8,
       "passages_reported_by_searoute": [],
       "passes": [
         "Lombok Strait"
       ],
-      "vertices": 20
+      "vertices": 21
     },
     "port_hedland__singapore__no_canals": {
       "from": "port_hedland",
       "to": "singapore",
       "routing": "no_canals",
-      "distance_nm": 1687.7,
+      "distance_nm": 1730.8,
       "passages_reported_by_searoute": [],
       "passes": [
         "Lombok Strait"
       ],
-      "vertices": 20
+      "vertices": 21
     },
     "qingdao__tubarao__direct": {
       "from": "qingdao",
@@ -2064,45 +2080,45 @@
       "from": "qingdao",
       "to": "port_hedland",
       "routing": "direct",
-      "distance_nm": 3530.7,
+      "distance_nm": 3573.7,
       "passages_reported_by_searoute": [],
       "passes": [
         "Lombok Strait"
       ],
-      "vertices": 44
+      "vertices": 45
     },
     "qingdao__port_hedland__no_suez": {
       "from": "qingdao",
       "to": "port_hedland",
       "routing": "no_suez",
-      "distance_nm": 3530.7,
+      "distance_nm": 3573.7,
       "passages_reported_by_searoute": [],
       "passes": [
         "Lombok Strait"
       ],
-      "vertices": 44
+      "vertices": 45
     },
     "qingdao__port_hedland__no_panama": {
       "from": "qingdao",
       "to": "port_hedland",
       "routing": "no_panama",
-      "distance_nm": 3530.7,
+      "distance_nm": 3573.7,
       "passages_reported_by_searoute": [],
       "passes": [
         "Lombok Strait"
       ],
-      "vertices": 44
+      "vertices": 45
     },
     "qingdao__port_hedland__no_canals": {
       "from": "qingdao",
       "to": "port_hedland",
       "routing": "no_canals",
-      "distance_nm": 3530.7,
+      "distance_nm": 3573.7,
       "passages_reported_by_searoute": [],
       "passes": [
         "Lombok Strait"
       ],
-      "vertices": 44
+      "vertices": 45
     },
     "qingdao__new_orleans__direct": {
       "from": "qingdao",
@@ -2336,7 +2352,7 @@
       "from": "qingdao",
       "to": "jubail",
       "routing": "direct",
-      "distance_nm": 6239.0,
+      "distance_nm": 6251.0,
       "passages_reported_by_searoute": [
         "malacca",
         "ormuz"
@@ -2345,13 +2361,13 @@
         "Strait of Hormuz",
         "Strait of Malacca"
       ],
-      "vertices": 72
+      "vertices": 73
     },
     "qingdao__jubail__no_suez": {
       "from": "qingdao",
       "to": "jubail",
       "routing": "no_suez",
-      "distance_nm": 6239.0,
+      "distance_nm": 6251.0,
       "passages_reported_by_searoute": [
         "malacca",
         "ormuz"
@@ -2360,13 +2376,13 @@
         "Strait of Hormuz",
         "Strait of Malacca"
       ],
-      "vertices": 72
+      "vertices": 73
     },
     "qingdao__jubail__no_panama": {
       "from": "qingdao",
       "to": "jubail",
       "routing": "no_panama",
-      "distance_nm": 6239.0,
+      "distance_nm": 6251.0,
       "passages_reported_by_searoute": [
         "malacca",
         "ormuz"
@@ -2375,13 +2391,13 @@
         "Strait of Hormuz",
         "Strait of Malacca"
       ],
-      "vertices": 72
+      "vertices": 73
     },
     "qingdao__jubail__no_canals": {
       "from": "qingdao",
       "to": "jubail",
       "routing": "no_canals",
-      "distance_nm": 6239.0,
+      "distance_nm": 6251.0,
       "passages_reported_by_searoute": [
         "malacca",
         "ormuz"
@@ -2390,7 +2406,7 @@
         "Strait of Hormuz",
         "Strait of Malacca"
       ],
-      "vertices": 72
+      "vertices": 73
     },
     "qingdao__ningbo__direct": {
       "from": "qingdao",
@@ -2726,7 +2742,7 @@
       "from": "qingdao",
       "to": "amsterdam",
       "routing": "direct",
-      "distance_nm": 10952.1,
+      "distance_nm": 10888.2,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -2740,13 +2756,13 @@
         "Dover Strait",
         "Strait of Malacca"
       ],
-      "vertices": 157
+      "vertices": 153
     },
     "qingdao__amsterdam__no_suez": {
       "from": "qingdao",
       "to": "amsterdam",
       "routing": "no_suez",
-      "distance_nm": 13619.3,
+      "distance_nm": 13555.5,
       "passages_reported_by_searoute": [
         "panama"
       ],
@@ -2754,13 +2770,13 @@
         "Dover Strait",
         "Panama Canal"
       ],
-      "vertices": 171
+      "vertices": 167
     },
     "qingdao__amsterdam__no_panama": {
       "from": "qingdao",
       "to": "amsterdam",
       "routing": "no_panama",
-      "distance_nm": 10952.1,
+      "distance_nm": 10888.2,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -2774,13 +2790,13 @@
         "Dover Strait",
         "Strait of Malacca"
       ],
-      "vertices": 157
+      "vertices": 153
     },
     "qingdao__amsterdam__no_canals": {
       "from": "qingdao",
       "to": "amsterdam",
       "routing": "no_canals",
-      "distance_nm": 14272.0,
+      "distance_nm": 14208.2,
       "passages_reported_by_searoute": [
         "south_africa",
         "sunda"
@@ -2790,7 +2806,7 @@
         "Sunda Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 151
+      "vertices": 147
     },
     "qingdao__le_havre__direct": {
       "from": "qingdao",
@@ -3002,7 +3018,7 @@
       "from": "new_orleans",
       "to": "port_hedland",
       "routing": "direct",
-      "distance_nm": 11467.8,
+      "distance_nm": 11510.8,
       "passages_reported_by_searoute": [
         "panama"
       ],
@@ -3010,13 +3026,13 @@
         "Panama Canal",
         "Yucatan Channel"
       ],
-      "vertices": 107
+      "vertices": 108
     },
     "new_orleans__port_hedland__no_suez": {
       "from": "new_orleans",
       "to": "port_hedland",
       "routing": "no_suez",
-      "distance_nm": 11467.8,
+      "distance_nm": 11510.8,
       "passages_reported_by_searoute": [
         "panama"
       ],
@@ -3024,13 +3040,13 @@
         "Panama Canal",
         "Yucatan Channel"
       ],
-      "vertices": 107
+      "vertices": 108
     },
     "new_orleans__port_hedland__no_panama": {
       "from": "new_orleans",
       "to": "port_hedland",
       "routing": "no_panama",
-      "distance_nm": 12588.0,
+      "distance_nm": 12631.1,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
@@ -3038,13 +3054,13 @@
         "Cape of Good Hope",
         "Florida Strait"
       ],
-      "vertices": 126
+      "vertices": 127
     },
     "new_orleans__port_hedland__no_canals": {
       "from": "new_orleans",
       "to": "port_hedland",
       "routing": "no_canals",
-      "distance_nm": 12588.0,
+      "distance_nm": 12631.1,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
@@ -3052,7 +3068,7 @@
         "Cape of Good Hope",
         "Florida Strait"
       ],
-      "vertices": 126
+      "vertices": 127
     },
     "new_orleans__qingdao__direct": {
       "from": "new_orleans",
@@ -3322,7 +3338,7 @@
       "from": "new_orleans",
       "to": "jubail",
       "routing": "direct",
-      "distance_nm": 9707.8,
+      "distance_nm": 9719.8,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -3336,13 +3352,13 @@
         "Strait of Gibraltar",
         "Florida Strait"
       ],
-      "vertices": 163
+      "vertices": 164
     },
     "new_orleans__jubail__no_suez": {
       "from": "new_orleans",
       "to": "jubail",
       "routing": "no_suez",
-      "distance_nm": 12404.0,
+      "distance_nm": 12416.0,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -3352,13 +3368,13 @@
         "Cape of Good Hope",
         "Florida Strait"
       ],
-      "vertices": 124
+      "vertices": 125
     },
     "new_orleans__jubail__no_panama": {
       "from": "new_orleans",
       "to": "jubail",
       "routing": "no_panama",
-      "distance_nm": 9707.8,
+      "distance_nm": 9719.8,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -3372,13 +3388,13 @@
         "Strait of Gibraltar",
         "Florida Strait"
       ],
-      "vertices": 163
+      "vertices": 164
     },
     "new_orleans__jubail__no_canals": {
       "from": "new_orleans",
       "to": "jubail",
       "routing": "no_canals",
-      "distance_nm": 12404.0,
+      "distance_nm": 12416.0,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -3388,7 +3404,7 @@
         "Cape of Good Hope",
         "Florida Strait"
       ],
-      "vertices": 124
+      "vertices": 125
     },
     "new_orleans__ningbo__direct": {
       "from": "new_orleans",
@@ -3686,49 +3702,49 @@
       "from": "new_orleans",
       "to": "amsterdam",
       "routing": "direct",
-      "distance_nm": 4941.6,
+      "distance_nm": 4877.8,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait",
         "Florida Strait"
       ],
-      "vertices": 140
+      "vertices": 136
     },
     "new_orleans__amsterdam__no_suez": {
       "from": "new_orleans",
       "to": "amsterdam",
       "routing": "no_suez",
-      "distance_nm": 4941.6,
+      "distance_nm": 4877.8,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait",
         "Florida Strait"
       ],
-      "vertices": 140
+      "vertices": 136
     },
     "new_orleans__amsterdam__no_panama": {
       "from": "new_orleans",
       "to": "amsterdam",
       "routing": "no_panama",
-      "distance_nm": 4941.6,
+      "distance_nm": 4877.8,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait",
         "Florida Strait"
       ],
-      "vertices": 140
+      "vertices": 136
     },
     "new_orleans__amsterdam__no_canals": {
       "from": "new_orleans",
       "to": "amsterdam",
       "routing": "no_canals",
-      "distance_nm": 4941.6,
+      "distance_nm": 4877.8,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait",
         "Florida Strait"
       ],
-      "vertices": 140
+      "vertices": 136
     },
     "new_orleans__le_havre__direct": {
       "from": "new_orleans",
@@ -3952,53 +3968,53 @@
       "from": "ras_tanura",
       "to": "port_hedland",
       "routing": "direct",
-      "distance_nm": 5206.1,
+      "distance_nm": 5249.1,
       "passages_reported_by_searoute": [
         "ormuz"
       ],
       "passes": [
         "Strait of Hormuz"
       ],
-      "vertices": 42
+      "vertices": 43
     },
     "ras_tanura__port_hedland__no_suez": {
       "from": "ras_tanura",
       "to": "port_hedland",
       "routing": "no_suez",
-      "distance_nm": 5206.1,
+      "distance_nm": 5249.1,
       "passages_reported_by_searoute": [
         "ormuz"
       ],
       "passes": [
         "Strait of Hormuz"
       ],
-      "vertices": 42
+      "vertices": 43
     },
     "ras_tanura__port_hedland__no_panama": {
       "from": "ras_tanura",
       "to": "port_hedland",
       "routing": "no_panama",
-      "distance_nm": 5206.1,
+      "distance_nm": 5249.1,
       "passages_reported_by_searoute": [
         "ormuz"
       ],
       "passes": [
         "Strait of Hormuz"
       ],
-      "vertices": 42
+      "vertices": 43
     },
     "ras_tanura__port_hedland__no_canals": {
       "from": "ras_tanura",
       "to": "port_hedland",
       "routing": "no_canals",
-      "distance_nm": 5206.1,
+      "distance_nm": 5249.1,
       "passages_reported_by_searoute": [
         "ormuz"
       ],
       "passes": [
         "Strait of Hormuz"
       ],
-      "vertices": 42
+      "vertices": 43
     },
     "ras_tanura__qingdao__direct": {
       "from": "ras_tanura",
@@ -4240,37 +4256,37 @@
       "from": "ras_tanura",
       "to": "jubail",
       "routing": "direct",
-      "distance_nm": 42.3,
+      "distance_nm": 54.3,
       "passages_reported_by_searoute": [],
       "passes": [],
-      "vertices": 3
+      "vertices": 4
     },
     "ras_tanura__jubail__no_suez": {
       "from": "ras_tanura",
       "to": "jubail",
       "routing": "no_suez",
-      "distance_nm": 42.3,
+      "distance_nm": 54.3,
       "passages_reported_by_searoute": [],
       "passes": [],
-      "vertices": 3
+      "vertices": 4
     },
     "ras_tanura__jubail__no_panama": {
       "from": "ras_tanura",
       "to": "jubail",
       "routing": "no_panama",
-      "distance_nm": 42.3,
+      "distance_nm": 54.3,
       "passages_reported_by_searoute": [],
       "passes": [],
-      "vertices": 3
+      "vertices": 4
     },
     "ras_tanura__jubail__no_canals": {
       "from": "ras_tanura",
       "to": "jubail",
       "routing": "no_canals",
-      "distance_nm": 42.3,
+      "distance_nm": 54.3,
       "passages_reported_by_searoute": [],
       "passes": [],
-      "vertices": 3
+      "vertices": 4
     },
     "ras_tanura__ningbo__direct": {
       "from": "ras_tanura",
@@ -4680,7 +4696,7 @@
       "from": "ras_tanura",
       "to": "amsterdam",
       "routing": "direct",
-      "distance_nm": 6630.3,
+      "distance_nm": 6566.5,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -4694,13 +4710,13 @@
         "Strait of Gibraltar",
         "Dover Strait"
       ],
-      "vertices": 112
+      "vertices": 108
     },
     "ras_tanura__amsterdam__no_suez": {
       "from": "ras_tanura",
       "to": "amsterdam",
       "routing": "no_suez",
-      "distance_nm": 11413.3,
+      "distance_nm": 11349.5,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -4710,13 +4726,13 @@
         "Dover Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 107
+      "vertices": 103
     },
     "ras_tanura__amsterdam__no_panama": {
       "from": "ras_tanura",
       "to": "amsterdam",
       "routing": "no_panama",
-      "distance_nm": 6630.3,
+      "distance_nm": 6566.5,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -4730,13 +4746,13 @@
         "Strait of Gibraltar",
         "Dover Strait"
       ],
-      "vertices": 112
+      "vertices": 108
     },
     "ras_tanura__amsterdam__no_canals": {
       "from": "ras_tanura",
       "to": "amsterdam",
       "routing": "no_canals",
-      "distance_nm": 11413.3,
+      "distance_nm": 11349.5,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -4746,7 +4762,7 @@
         "Dover Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 107
+      "vertices": 103
     },
     "ras_tanura__le_havre__direct": {
       "from": "ras_tanura",
@@ -4992,37 +5008,37 @@
       "from": "mina_al_fahal",
       "to": "port_hedland",
       "routing": "direct",
-      "distance_nm": 4665.8,
+      "distance_nm": 4708.8,
       "passages_reported_by_searoute": [],
       "passes": [],
-      "vertices": 31
+      "vertices": 32
     },
     "mina_al_fahal__port_hedland__no_suez": {
       "from": "mina_al_fahal",
       "to": "port_hedland",
       "routing": "no_suez",
-      "distance_nm": 4665.8,
+      "distance_nm": 4708.8,
       "passages_reported_by_searoute": [],
       "passes": [],
-      "vertices": 31
+      "vertices": 32
     },
     "mina_al_fahal__port_hedland__no_panama": {
       "from": "mina_al_fahal",
       "to": "port_hedland",
       "routing": "no_panama",
-      "distance_nm": 4665.8,
+      "distance_nm": 4708.8,
       "passages_reported_by_searoute": [],
       "passes": [],
-      "vertices": 31
+      "vertices": 32
     },
     "mina_al_fahal__port_hedland__no_canals": {
       "from": "mina_al_fahal",
       "to": "port_hedland",
       "routing": "no_canals",
-      "distance_nm": 4665.8,
+      "distance_nm": 4708.8,
       "passages_reported_by_searoute": [],
       "passes": [],
-      "vertices": 31
+      "vertices": 32
     },
     "mina_al_fahal__qingdao__direct": {
       "from": "mina_al_fahal",
@@ -5232,53 +5248,53 @@
       "from": "mina_al_fahal",
       "to": "jubail",
       "routing": "direct",
-      "distance_nm": 617.6,
+      "distance_nm": 629.6,
       "passages_reported_by_searoute": [
         "ormuz"
       ],
       "passes": [
         "Strait of Hormuz"
       ],
-      "vertices": 14
+      "vertices": 15
     },
     "mina_al_fahal__jubail__no_suez": {
       "from": "mina_al_fahal",
       "to": "jubail",
       "routing": "no_suez",
-      "distance_nm": 617.6,
+      "distance_nm": 629.6,
       "passages_reported_by_searoute": [
         "ormuz"
       ],
       "passes": [
         "Strait of Hormuz"
       ],
-      "vertices": 14
+      "vertices": 15
     },
     "mina_al_fahal__jubail__no_panama": {
       "from": "mina_al_fahal",
       "to": "jubail",
       "routing": "no_panama",
-      "distance_nm": 617.6,
+      "distance_nm": 629.6,
       "passages_reported_by_searoute": [
         "ormuz"
       ],
       "passes": [
         "Strait of Hormuz"
       ],
-      "vertices": 14
+      "vertices": 15
     },
     "mina_al_fahal__jubail__no_canals": {
       "from": "mina_al_fahal",
       "to": "jubail",
       "routing": "no_canals",
-      "distance_nm": 617.6,
+      "distance_nm": 629.6,
       "passages_reported_by_searoute": [
         "ormuz"
       ],
       "passes": [
         "Strait of Hormuz"
       ],
-      "vertices": 14
+      "vertices": 15
     },
     "mina_al_fahal__ningbo__direct": {
       "from": "mina_al_fahal",
@@ -5640,7 +5656,7 @@
       "from": "mina_al_fahal",
       "to": "amsterdam",
       "routing": "direct",
-      "distance_nm": 6090.0,
+      "distance_nm": 6026.2,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -5652,13 +5668,13 @@
         "Strait of Gibraltar",
         "Dover Strait"
       ],
-      "vertices": 101
+      "vertices": 97
     },
     "mina_al_fahal__amsterdam__no_suez": {
       "from": "mina_al_fahal",
       "to": "amsterdam",
       "routing": "no_suez",
-      "distance_nm": 10873.1,
+      "distance_nm": 10809.2,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
@@ -5666,13 +5682,13 @@
         "Dover Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 96
+      "vertices": 92
     },
     "mina_al_fahal__amsterdam__no_panama": {
       "from": "mina_al_fahal",
       "to": "amsterdam",
       "routing": "no_panama",
-      "distance_nm": 6090.0,
+      "distance_nm": 6026.2,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -5684,13 +5700,13 @@
         "Strait of Gibraltar",
         "Dover Strait"
       ],
-      "vertices": 101
+      "vertices": 97
     },
     "mina_al_fahal__amsterdam__no_canals": {
       "from": "mina_al_fahal",
       "to": "amsterdam",
       "routing": "no_canals",
-      "distance_nm": 10873.1,
+      "distance_nm": 10809.2,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
@@ -5698,7 +5714,7 @@
         "Dover Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 96
+      "vertices": 92
     },
     "mina_al_fahal__le_havre__direct": {
       "from": "mina_al_fahal",
@@ -5920,37 +5936,37 @@
       "from": "fujairah",
       "to": "port_hedland",
       "routing": "direct",
-      "distance_nm": 4814.0,
+      "distance_nm": 4857.0,
       "passages_reported_by_searoute": [],
       "passes": [],
-      "vertices": 32
+      "vertices": 33
     },
     "fujairah__port_hedland__no_suez": {
       "from": "fujairah",
       "to": "port_hedland",
       "routing": "no_suez",
-      "distance_nm": 4814.0,
+      "distance_nm": 4857.0,
       "passages_reported_by_searoute": [],
       "passes": [],
-      "vertices": 32
+      "vertices": 33
     },
     "fujairah__port_hedland__no_panama": {
       "from": "fujairah",
       "to": "port_hedland",
       "routing": "no_panama",
-      "distance_nm": 4814.0,
+      "distance_nm": 4857.0,
       "passages_reported_by_searoute": [],
       "passes": [],
-      "vertices": 32
+      "vertices": 33
     },
     "fujairah__port_hedland__no_canals": {
       "from": "fujairah",
       "to": "port_hedland",
       "routing": "no_canals",
-      "distance_nm": 4814.0,
+      "distance_nm": 4857.0,
       "passages_reported_by_searoute": [],
       "passes": [],
-      "vertices": 32
+      "vertices": 33
     },
     "fujairah__qingdao__direct": {
       "from": "fujairah",
@@ -6160,53 +6176,53 @@
       "from": "fujairah",
       "to": "jubail",
       "routing": "direct",
-      "distance_nm": 491.2,
+      "distance_nm": 503.2,
       "passages_reported_by_searoute": [
         "ormuz"
       ],
       "passes": [
         "Strait of Hormuz"
       ],
-      "vertices": 13
+      "vertices": 14
     },
     "fujairah__jubail__no_suez": {
       "from": "fujairah",
       "to": "jubail",
       "routing": "no_suez",
-      "distance_nm": 491.2,
+      "distance_nm": 503.2,
       "passages_reported_by_searoute": [
         "ormuz"
       ],
       "passes": [
         "Strait of Hormuz"
       ],
-      "vertices": 13
+      "vertices": 14
     },
     "fujairah__jubail__no_panama": {
       "from": "fujairah",
       "to": "jubail",
       "routing": "no_panama",
-      "distance_nm": 491.2,
+      "distance_nm": 503.2,
       "passages_reported_by_searoute": [
         "ormuz"
       ],
       "passes": [
         "Strait of Hormuz"
       ],
-      "vertices": 13
+      "vertices": 14
     },
     "fujairah__jubail__no_canals": {
       "from": "fujairah",
       "to": "jubail",
       "routing": "no_canals",
-      "distance_nm": 491.2,
+      "distance_nm": 503.2,
       "passages_reported_by_searoute": [
         "ormuz"
       ],
       "passes": [
         "Strait of Hormuz"
       ],
-      "vertices": 13
+      "vertices": 14
     },
     "fujairah__ningbo__direct": {
       "from": "fujairah",
@@ -6568,7 +6584,7 @@
       "from": "fujairah",
       "to": "amsterdam",
       "routing": "direct",
-      "distance_nm": 6238.2,
+      "distance_nm": 6174.4,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -6580,13 +6596,13 @@
         "Strait of Gibraltar",
         "Dover Strait"
       ],
-      "vertices": 102
+      "vertices": 98
     },
     "fujairah__amsterdam__no_suez": {
       "from": "fujairah",
       "to": "amsterdam",
       "routing": "no_suez",
-      "distance_nm": 11021.2,
+      "distance_nm": 10957.4,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
@@ -6594,13 +6610,13 @@
         "Dover Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 97
+      "vertices": 93
     },
     "fujairah__amsterdam__no_panama": {
       "from": "fujairah",
       "to": "amsterdam",
       "routing": "no_panama",
-      "distance_nm": 6238.2,
+      "distance_nm": 6174.4,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -6612,13 +6628,13 @@
         "Strait of Gibraltar",
         "Dover Strait"
       ],
-      "vertices": 102
+      "vertices": 98
     },
     "fujairah__amsterdam__no_canals": {
       "from": "fujairah",
       "to": "amsterdam",
       "routing": "no_canals",
-      "distance_nm": 11021.2,
+      "distance_nm": 10957.4,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
@@ -6626,7 +6642,7 @@
         "Dover Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 97
+      "vertices": 93
     },
     "fujairah__le_havre__direct": {
       "from": "fujairah",
@@ -6796,7 +6812,7 @@
       "from": "jubail",
       "to": "tubarao",
       "routing": "direct",
-      "distance_nm": 8290.1,
+      "distance_nm": 8302.1,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -6805,13 +6821,13 @@
         "Strait of Hormuz",
         "Cape of Good Hope"
       ],
-      "vertices": 51
+      "vertices": 52
     },
     "jubail__tubarao__no_suez": {
       "from": "jubail",
       "to": "tubarao",
       "routing": "no_suez",
-      "distance_nm": 8290.1,
+      "distance_nm": 8302.1,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -6820,13 +6836,13 @@
         "Strait of Hormuz",
         "Cape of Good Hope"
       ],
-      "vertices": 51
+      "vertices": 52
     },
     "jubail__tubarao__no_panama": {
       "from": "jubail",
       "to": "tubarao",
       "routing": "no_panama",
-      "distance_nm": 8290.1,
+      "distance_nm": 8302.1,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -6835,13 +6851,13 @@
         "Strait of Hormuz",
         "Cape of Good Hope"
       ],
-      "vertices": 51
+      "vertices": 52
     },
     "jubail__tubarao__no_canals": {
       "from": "jubail",
       "to": "tubarao",
       "routing": "no_canals",
-      "distance_nm": 8290.1,
+      "distance_nm": 8302.1,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -6850,65 +6866,65 @@
         "Strait of Hormuz",
         "Cape of Good Hope"
       ],
-      "vertices": 51
+      "vertices": 52
     },
     "jubail__port_hedland__direct": {
       "from": "jubail",
       "to": "port_hedland",
       "routing": "direct",
-      "distance_nm": 5218.0,
+      "distance_nm": 5273.0,
       "passages_reported_by_searoute": [
         "ormuz"
       ],
       "passes": [
         "Strait of Hormuz"
       ],
-      "vertices": 42
+      "vertices": 44
     },
     "jubail__port_hedland__no_suez": {
       "from": "jubail",
       "to": "port_hedland",
       "routing": "no_suez",
-      "distance_nm": 5218.0,
+      "distance_nm": 5273.0,
       "passages_reported_by_searoute": [
         "ormuz"
       ],
       "passes": [
         "Strait of Hormuz"
       ],
-      "vertices": 42
+      "vertices": 44
     },
     "jubail__port_hedland__no_panama": {
       "from": "jubail",
       "to": "port_hedland",
       "routing": "no_panama",
-      "distance_nm": 5218.0,
+      "distance_nm": 5273.0,
       "passages_reported_by_searoute": [
         "ormuz"
       ],
       "passes": [
         "Strait of Hormuz"
       ],
-      "vertices": 42
+      "vertices": 44
     },
     "jubail__port_hedland__no_canals": {
       "from": "jubail",
       "to": "port_hedland",
       "routing": "no_canals",
-      "distance_nm": 5218.0,
+      "distance_nm": 5273.0,
       "passages_reported_by_searoute": [
         "ormuz"
       ],
       "passes": [
         "Strait of Hormuz"
       ],
-      "vertices": 42
+      "vertices": 44
     },
     "jubail__qingdao__direct": {
       "from": "jubail",
       "to": "qingdao",
       "routing": "direct",
-      "distance_nm": 6239.0,
+      "distance_nm": 6251.0,
       "passages_reported_by_searoute": [
         "malacca",
         "ormuz"
@@ -6917,13 +6933,13 @@
         "Strait of Hormuz",
         "Strait of Malacca"
       ],
-      "vertices": 72
+      "vertices": 73
     },
     "jubail__qingdao__no_suez": {
       "from": "jubail",
       "to": "qingdao",
       "routing": "no_suez",
-      "distance_nm": 6239.0,
+      "distance_nm": 6251.0,
       "passages_reported_by_searoute": [
         "malacca",
         "ormuz"
@@ -6932,13 +6948,13 @@
         "Strait of Hormuz",
         "Strait of Malacca"
       ],
-      "vertices": 72
+      "vertices": 73
     },
     "jubail__qingdao__no_panama": {
       "from": "jubail",
       "to": "qingdao",
       "routing": "no_panama",
-      "distance_nm": 6239.0,
+      "distance_nm": 6251.0,
       "passages_reported_by_searoute": [
         "malacca",
         "ormuz"
@@ -6947,13 +6963,240 @@
         "Strait of Hormuz",
         "Strait of Malacca"
       ],
-      "vertices": 72
+      "vertices": 73
     },
     "jubail__qingdao__no_canals": {
       "from": "jubail",
       "to": "qingdao",
       "routing": "no_canals",
-      "distance_nm": 6239.0,
+      "distance_nm": 6251.0,
+      "passages_reported_by_searoute": [
+        "malacca",
+        "ormuz"
+      ],
+      "passes": [
+        "Strait of Hormuz",
+        "Strait of Malacca"
+      ],
+      "vertices": 73
+    },
+    "jubail__new_orleans__direct": {
+      "from": "jubail",
+      "to": "new_orleans",
+      "routing": "direct",
+      "distance_nm": 9719.8,
+      "passages_reported_by_searoute": [
+        "babalmandab",
+        "gibraltar",
+        "ormuz",
+        "suez"
+      ],
+      "passes": [
+        "Strait of Hormuz",
+        "Bab el Mandeb",
+        "Suez Canal",
+        "Strait of Gibraltar",
+        "Florida Strait"
+      ],
+      "vertices": 164
+    },
+    "jubail__new_orleans__no_suez": {
+      "from": "jubail",
+      "to": "new_orleans",
+      "routing": "no_suez",
+      "distance_nm": 12416.0,
+      "passages_reported_by_searoute": [
+        "ormuz",
+        "south_africa"
+      ],
+      "passes": [
+        "Strait of Hormuz",
+        "Cape of Good Hope",
+        "Florida Strait"
+      ],
+      "vertices": 125
+    },
+    "jubail__new_orleans__no_panama": {
+      "from": "jubail",
+      "to": "new_orleans",
+      "routing": "no_panama",
+      "distance_nm": 9719.8,
+      "passages_reported_by_searoute": [
+        "babalmandab",
+        "gibraltar",
+        "ormuz",
+        "suez"
+      ],
+      "passes": [
+        "Strait of Hormuz",
+        "Bab el Mandeb",
+        "Suez Canal",
+        "Strait of Gibraltar",
+        "Florida Strait"
+      ],
+      "vertices": 164
+    },
+    "jubail__new_orleans__no_canals": {
+      "from": "jubail",
+      "to": "new_orleans",
+      "routing": "no_canals",
+      "distance_nm": 12416.0,
+      "passages_reported_by_searoute": [
+        "ormuz",
+        "south_africa"
+      ],
+      "passes": [
+        "Strait of Hormuz",
+        "Cape of Good Hope",
+        "Florida Strait"
+      ],
+      "vertices": 125
+    },
+    "jubail__ras_tanura__direct": {
+      "from": "jubail",
+      "to": "ras_tanura",
+      "routing": "direct",
+      "distance_nm": 54.3,
+      "passages_reported_by_searoute": [],
+      "passes": [],
+      "vertices": 4
+    },
+    "jubail__ras_tanura__no_suez": {
+      "from": "jubail",
+      "to": "ras_tanura",
+      "routing": "no_suez",
+      "distance_nm": 54.3,
+      "passages_reported_by_searoute": [],
+      "passes": [],
+      "vertices": 4
+    },
+    "jubail__ras_tanura__no_panama": {
+      "from": "jubail",
+      "to": "ras_tanura",
+      "routing": "no_panama",
+      "distance_nm": 54.3,
+      "passages_reported_by_searoute": [],
+      "passes": [],
+      "vertices": 4
+    },
+    "jubail__ras_tanura__no_canals": {
+      "from": "jubail",
+      "to": "ras_tanura",
+      "routing": "no_canals",
+      "distance_nm": 54.3,
+      "passages_reported_by_searoute": [],
+      "passes": [],
+      "vertices": 4
+    },
+    "jubail__mina_al_fahal__direct": {
+      "from": "jubail",
+      "to": "mina_al_fahal",
+      "routing": "direct",
+      "distance_nm": 629.6,
+      "passages_reported_by_searoute": [
+        "ormuz"
+      ],
+      "passes": [
+        "Strait of Hormuz"
+      ],
+      "vertices": 15
+    },
+    "jubail__mina_al_fahal__no_suez": {
+      "from": "jubail",
+      "to": "mina_al_fahal",
+      "routing": "no_suez",
+      "distance_nm": 629.6,
+      "passages_reported_by_searoute": [
+        "ormuz"
+      ],
+      "passes": [
+        "Strait of Hormuz"
+      ],
+      "vertices": 15
+    },
+    "jubail__mina_al_fahal__no_panama": {
+      "from": "jubail",
+      "to": "mina_al_fahal",
+      "routing": "no_panama",
+      "distance_nm": 629.6,
+      "passages_reported_by_searoute": [
+        "ormuz"
+      ],
+      "passes": [
+        "Strait of Hormuz"
+      ],
+      "vertices": 15
+    },
+    "jubail__mina_al_fahal__no_canals": {
+      "from": "jubail",
+      "to": "mina_al_fahal",
+      "routing": "no_canals",
+      "distance_nm": 629.6,
+      "passages_reported_by_searoute": [
+        "ormuz"
+      ],
+      "passes": [
+        "Strait of Hormuz"
+      ],
+      "vertices": 15
+    },
+    "jubail__fujairah__direct": {
+      "from": "jubail",
+      "to": "fujairah",
+      "routing": "direct",
+      "distance_nm": 503.2,
+      "passages_reported_by_searoute": [
+        "ormuz"
+      ],
+      "passes": [
+        "Strait of Hormuz"
+      ],
+      "vertices": 14
+    },
+    "jubail__fujairah__no_suez": {
+      "from": "jubail",
+      "to": "fujairah",
+      "routing": "no_suez",
+      "distance_nm": 503.2,
+      "passages_reported_by_searoute": [
+        "ormuz"
+      ],
+      "passes": [
+        "Strait of Hormuz"
+      ],
+      "vertices": 14
+    },
+    "jubail__fujairah__no_panama": {
+      "from": "jubail",
+      "to": "fujairah",
+      "routing": "no_panama",
+      "distance_nm": 503.2,
+      "passages_reported_by_searoute": [
+        "ormuz"
+      ],
+      "passes": [
+        "Strait of Hormuz"
+      ],
+      "vertices": 14
+    },
+    "jubail__fujairah__no_canals": {
+      "from": "jubail",
+      "to": "fujairah",
+      "routing": "no_canals",
+      "distance_nm": 503.2,
+      "passages_reported_by_searoute": [
+        "ormuz"
+      ],
+      "passes": [
+        "Strait of Hormuz"
+      ],
+      "vertices": 14
+    },
+    "jubail__ningbo__direct": {
+      "from": "jubail",
+      "to": "ningbo",
+      "routing": "direct",
+      "distance_nm": 5872.7,
       "passages_reported_by_searoute": [
         "malacca",
         "ormuz"
@@ -6964,238 +7207,11 @@
       ],
       "vertices": 72
     },
-    "jubail__new_orleans__direct": {
-      "from": "jubail",
-      "to": "new_orleans",
-      "routing": "direct",
-      "distance_nm": 9707.8,
-      "passages_reported_by_searoute": [
-        "babalmandab",
-        "gibraltar",
-        "ormuz",
-        "suez"
-      ],
-      "passes": [
-        "Strait of Hormuz",
-        "Bab el Mandeb",
-        "Suez Canal",
-        "Strait of Gibraltar",
-        "Florida Strait"
-      ],
-      "vertices": 163
-    },
-    "jubail__new_orleans__no_suez": {
-      "from": "jubail",
-      "to": "new_orleans",
-      "routing": "no_suez",
-      "distance_nm": 12404.0,
-      "passages_reported_by_searoute": [
-        "ormuz",
-        "south_africa"
-      ],
-      "passes": [
-        "Strait of Hormuz",
-        "Cape of Good Hope",
-        "Florida Strait"
-      ],
-      "vertices": 124
-    },
-    "jubail__new_orleans__no_panama": {
-      "from": "jubail",
-      "to": "new_orleans",
-      "routing": "no_panama",
-      "distance_nm": 9707.8,
-      "passages_reported_by_searoute": [
-        "babalmandab",
-        "gibraltar",
-        "ormuz",
-        "suez"
-      ],
-      "passes": [
-        "Strait of Hormuz",
-        "Bab el Mandeb",
-        "Suez Canal",
-        "Strait of Gibraltar",
-        "Florida Strait"
-      ],
-      "vertices": 163
-    },
-    "jubail__new_orleans__no_canals": {
-      "from": "jubail",
-      "to": "new_orleans",
-      "routing": "no_canals",
-      "distance_nm": 12404.0,
-      "passages_reported_by_searoute": [
-        "ormuz",
-        "south_africa"
-      ],
-      "passes": [
-        "Strait of Hormuz",
-        "Cape of Good Hope",
-        "Florida Strait"
-      ],
-      "vertices": 124
-    },
-    "jubail__ras_tanura__direct": {
-      "from": "jubail",
-      "to": "ras_tanura",
-      "routing": "direct",
-      "distance_nm": 42.3,
-      "passages_reported_by_searoute": [],
-      "passes": [],
-      "vertices": 3
-    },
-    "jubail__ras_tanura__no_suez": {
-      "from": "jubail",
-      "to": "ras_tanura",
-      "routing": "no_suez",
-      "distance_nm": 42.3,
-      "passages_reported_by_searoute": [],
-      "passes": [],
-      "vertices": 3
-    },
-    "jubail__ras_tanura__no_panama": {
-      "from": "jubail",
-      "to": "ras_tanura",
-      "routing": "no_panama",
-      "distance_nm": 42.3,
-      "passages_reported_by_searoute": [],
-      "passes": [],
-      "vertices": 3
-    },
-    "jubail__ras_tanura__no_canals": {
-      "from": "jubail",
-      "to": "ras_tanura",
-      "routing": "no_canals",
-      "distance_nm": 42.3,
-      "passages_reported_by_searoute": [],
-      "passes": [],
-      "vertices": 3
-    },
-    "jubail__mina_al_fahal__direct": {
-      "from": "jubail",
-      "to": "mina_al_fahal",
-      "routing": "direct",
-      "distance_nm": 617.6,
-      "passages_reported_by_searoute": [
-        "ormuz"
-      ],
-      "passes": [
-        "Strait of Hormuz"
-      ],
-      "vertices": 14
-    },
-    "jubail__mina_al_fahal__no_suez": {
-      "from": "jubail",
-      "to": "mina_al_fahal",
-      "routing": "no_suez",
-      "distance_nm": 617.6,
-      "passages_reported_by_searoute": [
-        "ormuz"
-      ],
-      "passes": [
-        "Strait of Hormuz"
-      ],
-      "vertices": 14
-    },
-    "jubail__mina_al_fahal__no_panama": {
-      "from": "jubail",
-      "to": "mina_al_fahal",
-      "routing": "no_panama",
-      "distance_nm": 617.6,
-      "passages_reported_by_searoute": [
-        "ormuz"
-      ],
-      "passes": [
-        "Strait of Hormuz"
-      ],
-      "vertices": 14
-    },
-    "jubail__mina_al_fahal__no_canals": {
-      "from": "jubail",
-      "to": "mina_al_fahal",
-      "routing": "no_canals",
-      "distance_nm": 617.6,
-      "passages_reported_by_searoute": [
-        "ormuz"
-      ],
-      "passes": [
-        "Strait of Hormuz"
-      ],
-      "vertices": 14
-    },
-    "jubail__fujairah__direct": {
-      "from": "jubail",
-      "to": "fujairah",
-      "routing": "direct",
-      "distance_nm": 491.2,
-      "passages_reported_by_searoute": [
-        "ormuz"
-      ],
-      "passes": [
-        "Strait of Hormuz"
-      ],
-      "vertices": 13
-    },
-    "jubail__fujairah__no_suez": {
-      "from": "jubail",
-      "to": "fujairah",
-      "routing": "no_suez",
-      "distance_nm": 491.2,
-      "passages_reported_by_searoute": [
-        "ormuz"
-      ],
-      "passes": [
-        "Strait of Hormuz"
-      ],
-      "vertices": 13
-    },
-    "jubail__fujairah__no_panama": {
-      "from": "jubail",
-      "to": "fujairah",
-      "routing": "no_panama",
-      "distance_nm": 491.2,
-      "passages_reported_by_searoute": [
-        "ormuz"
-      ],
-      "passes": [
-        "Strait of Hormuz"
-      ],
-      "vertices": 13
-    },
-    "jubail__fujairah__no_canals": {
-      "from": "jubail",
-      "to": "fujairah",
-      "routing": "no_canals",
-      "distance_nm": 491.2,
-      "passages_reported_by_searoute": [
-        "ormuz"
-      ],
-      "passes": [
-        "Strait of Hormuz"
-      ],
-      "vertices": 13
-    },
-    "jubail__ningbo__direct": {
-      "from": "jubail",
-      "to": "ningbo",
-      "routing": "direct",
-      "distance_nm": 5860.7,
-      "passages_reported_by_searoute": [
-        "malacca",
-        "ormuz"
-      ],
-      "passes": [
-        "Strait of Hormuz",
-        "Strait of Malacca"
-      ],
-      "vertices": 71
-    },
     "jubail__ningbo__no_suez": {
       "from": "jubail",
       "to": "ningbo",
       "routing": "no_suez",
-      "distance_nm": 5860.7,
+      "distance_nm": 5872.7,
       "passages_reported_by_searoute": [
         "malacca",
         "ormuz"
@@ -7204,13 +7220,13 @@
         "Strait of Hormuz",
         "Strait of Malacca"
       ],
-      "vertices": 71
+      "vertices": 72
     },
     "jubail__ningbo__no_panama": {
       "from": "jubail",
       "to": "ningbo",
       "routing": "no_panama",
-      "distance_nm": 5860.7,
+      "distance_nm": 5872.7,
       "passages_reported_by_searoute": [
         "malacca",
         "ormuz"
@@ -7219,13 +7235,13 @@
         "Strait of Hormuz",
         "Strait of Malacca"
       ],
-      "vertices": 71
+      "vertices": 72
     },
     "jubail__ningbo__no_canals": {
       "from": "jubail",
       "to": "ningbo",
       "routing": "no_canals",
-      "distance_nm": 5860.7,
+      "distance_nm": 5872.7,
       "passages_reported_by_searoute": [
         "malacca",
         "ormuz"
@@ -7234,13 +7250,13 @@
         "Strait of Hormuz",
         "Strait of Malacca"
       ],
-      "vertices": 71
+      "vertices": 72
     },
     "jubail__yokohama__direct": {
       "from": "jubail",
       "to": "yokohama",
       "routing": "direct",
-      "distance_nm": 6701.9,
+      "distance_nm": 6713.9,
       "passages_reported_by_searoute": [
         "malacca",
         "ormuz"
@@ -7249,13 +7265,13 @@
         "Strait of Hormuz",
         "Strait of Malacca"
       ],
-      "vertices": 62
+      "vertices": 63
     },
     "jubail__yokohama__no_suez": {
       "from": "jubail",
       "to": "yokohama",
       "routing": "no_suez",
-      "distance_nm": 6701.9,
+      "distance_nm": 6713.9,
       "passages_reported_by_searoute": [
         "malacca",
         "ormuz"
@@ -7264,13 +7280,13 @@
         "Strait of Hormuz",
         "Strait of Malacca"
       ],
-      "vertices": 62
+      "vertices": 63
     },
     "jubail__yokohama__no_panama": {
       "from": "jubail",
       "to": "yokohama",
       "routing": "no_panama",
-      "distance_nm": 6701.9,
+      "distance_nm": 6713.9,
       "passages_reported_by_searoute": [
         "malacca",
         "ormuz"
@@ -7279,13 +7295,13 @@
         "Strait of Hormuz",
         "Strait of Malacca"
       ],
-      "vertices": 62
+      "vertices": 63
     },
     "jubail__yokohama__no_canals": {
       "from": "jubail",
       "to": "yokohama",
       "routing": "no_canals",
-      "distance_nm": 6701.9,
+      "distance_nm": 6713.9,
       "passages_reported_by_searoute": [
         "malacca",
         "ormuz"
@@ -7294,13 +7310,13 @@
         "Strait of Hormuz",
         "Strait of Malacca"
       ],
-      "vertices": 62
+      "vertices": 63
     },
     "jubail__galveston__direct": {
       "from": "jubail",
       "to": "galveston",
       "routing": "direct",
-      "distance_nm": 9894.2,
+      "distance_nm": 9906.2,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -7314,13 +7330,13 @@
         "Strait of Gibraltar",
         "Florida Strait"
       ],
-      "vertices": 152
+      "vertices": 153
     },
     "jubail__galveston__no_suez": {
       "from": "jubail",
       "to": "galveston",
       "routing": "no_suez",
-      "distance_nm": 12585.6,
+      "distance_nm": 12597.6,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -7330,13 +7346,13 @@
         "Cape of Good Hope",
         "Florida Strait"
       ],
-      "vertices": 112
+      "vertices": 113
     },
     "jubail__galveston__no_panama": {
       "from": "jubail",
       "to": "galveston",
       "routing": "no_panama",
-      "distance_nm": 9894.2,
+      "distance_nm": 9906.2,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -7350,13 +7366,13 @@
         "Strait of Gibraltar",
         "Florida Strait"
       ],
-      "vertices": 152
+      "vertices": 153
     },
     "jubail__galveston__no_canals": {
       "from": "jubail",
       "to": "galveston",
       "routing": "no_canals",
-      "distance_nm": 12585.6,
+      "distance_nm": 12597.6,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -7366,13 +7382,13 @@
         "Cape of Good Hope",
         "Florida Strait"
       ],
-      "vertices": 112
+      "vertices": 113
     },
     "jubail__houston__direct": {
       "from": "jubail",
       "to": "houston",
       "routing": "direct",
-      "distance_nm": 9927.7,
+      "distance_nm": 9939.7,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -7386,13 +7402,13 @@
         "Strait of Gibraltar",
         "Florida Strait"
       ],
-      "vertices": 161
+      "vertices": 162
     },
     "jubail__houston__no_suez": {
       "from": "jubail",
       "to": "houston",
       "routing": "no_suez",
-      "distance_nm": 12619.1,
+      "distance_nm": 12631.1,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -7402,13 +7418,13 @@
         "Cape of Good Hope",
         "Florida Strait"
       ],
-      "vertices": 121
+      "vertices": 122
     },
     "jubail__houston__no_panama": {
       "from": "jubail",
       "to": "houston",
       "routing": "no_panama",
-      "distance_nm": 9927.7,
+      "distance_nm": 9939.7,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -7422,13 +7438,13 @@
         "Strait of Gibraltar",
         "Florida Strait"
       ],
-      "vertices": 161
+      "vertices": 162
     },
     "jubail__houston__no_canals": {
       "from": "jubail",
       "to": "houston",
       "routing": "no_canals",
-      "distance_nm": 12619.1,
+      "distance_nm": 12631.1,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -7438,13 +7454,13 @@
         "Cape of Good Hope",
         "Florida Strait"
       ],
-      "vertices": 121
+      "vertices": 122
     },
     "jubail__new_york__direct": {
       "from": "jubail",
       "to": "new_york",
       "routing": "direct",
-      "distance_nm": 8346.7,
+      "distance_nm": 8358.7,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -7457,13 +7473,13 @@
         "Suez Canal",
         "Strait of Gibraltar"
       ],
-      "vertices": 110
+      "vertices": 111
     },
     "jubail__new_york__no_suez": {
       "from": "jubail",
       "to": "new_york",
       "routing": "no_suez",
-      "distance_nm": 11942.4,
+      "distance_nm": 11954.4,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -7472,13 +7488,13 @@
         "Strait of Hormuz",
         "Cape of Good Hope"
       ],
-      "vertices": 106
+      "vertices": 107
     },
     "jubail__new_york__no_panama": {
       "from": "jubail",
       "to": "new_york",
       "routing": "no_panama",
-      "distance_nm": 8346.7,
+      "distance_nm": 8358.7,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -7491,13 +7507,13 @@
         "Suez Canal",
         "Strait of Gibraltar"
       ],
-      "vertices": 110
+      "vertices": 111
     },
     "jubail__new_york__no_canals": {
       "from": "jubail",
       "to": "new_york",
       "routing": "no_canals",
-      "distance_nm": 11942.4,
+      "distance_nm": 11954.4,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -7506,13 +7522,13 @@
         "Strait of Hormuz",
         "Cape of Good Hope"
       ],
-      "vertices": 106
+      "vertices": 107
     },
     "jubail__rotterdam__direct": {
       "from": "jubail",
       "to": "rotterdam",
       "routing": "direct",
-      "distance_nm": 6543.1,
+      "distance_nm": 6555.1,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -7526,13 +7542,13 @@
         "Strait of Gibraltar",
         "Dover Strait"
       ],
-      "vertices": 112
+      "vertices": 113
     },
     "jubail__rotterdam__no_suez": {
       "from": "jubail",
       "to": "rotterdam",
       "routing": "no_suez",
-      "distance_nm": 11326.2,
+      "distance_nm": 11338.2,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -7542,13 +7558,13 @@
         "Dover Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 107
+      "vertices": 108
     },
     "jubail__rotterdam__no_panama": {
       "from": "jubail",
       "to": "rotterdam",
       "routing": "no_panama",
-      "distance_nm": 6543.1,
+      "distance_nm": 6555.1,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -7562,13 +7578,13 @@
         "Strait of Gibraltar",
         "Dover Strait"
       ],
-      "vertices": 112
+      "vertices": 113
     },
     "jubail__rotterdam__no_canals": {
       "from": "jubail",
       "to": "rotterdam",
       "routing": "no_canals",
-      "distance_nm": 11326.2,
+      "distance_nm": 11338.2,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -7578,13 +7594,13 @@
         "Dover Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 107
+      "vertices": 108
     },
     "jubail__amsterdam__direct": {
       "from": "jubail",
       "to": "amsterdam",
       "routing": "direct",
-      "distance_nm": 6642.2,
+      "distance_nm": 6590.4,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -7598,13 +7614,13 @@
         "Strait of Gibraltar",
         "Dover Strait"
       ],
-      "vertices": 112
+      "vertices": 109
     },
     "jubail__amsterdam__no_suez": {
       "from": "jubail",
       "to": "amsterdam",
       "routing": "no_suez",
-      "distance_nm": 11425.3,
+      "distance_nm": 11373.4,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -7614,13 +7630,13 @@
         "Dover Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 107
+      "vertices": 104
     },
     "jubail__amsterdam__no_panama": {
       "from": "jubail",
       "to": "amsterdam",
       "routing": "no_panama",
-      "distance_nm": 6642.2,
+      "distance_nm": 6590.4,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -7634,13 +7650,13 @@
         "Strait of Gibraltar",
         "Dover Strait"
       ],
-      "vertices": 112
+      "vertices": 109
     },
     "jubail__amsterdam__no_canals": {
       "from": "jubail",
       "to": "amsterdam",
       "routing": "no_canals",
-      "distance_nm": 11425.3,
+      "distance_nm": 11373.4,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -7650,13 +7666,13 @@
         "Dover Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 107
+      "vertices": 104
     },
     "jubail__le_havre__direct": {
       "from": "jubail",
       "to": "le_havre",
       "routing": "direct",
-      "distance_nm": 6345.0,
+      "distance_nm": 6357.0,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -7669,13 +7685,13 @@
         "Suez Canal",
         "Strait of Gibraltar"
       ],
-      "vertices": 95
+      "vertices": 96
     },
     "jubail__le_havre__no_suez": {
       "from": "jubail",
       "to": "le_havre",
       "routing": "no_suez",
-      "distance_nm": 11128.0,
+      "distance_nm": 11140.0,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -7684,13 +7700,13 @@
         "Strait of Hormuz",
         "Cape of Good Hope"
       ],
-      "vertices": 90
+      "vertices": 91
     },
     "jubail__le_havre__no_panama": {
       "from": "jubail",
       "to": "le_havre",
       "routing": "no_panama",
-      "distance_nm": 6345.0,
+      "distance_nm": 6357.0,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -7703,13 +7719,13 @@
         "Suez Canal",
         "Strait of Gibraltar"
       ],
-      "vertices": 95
+      "vertices": 96
     },
     "jubail__le_havre__no_canals": {
       "from": "jubail",
       "to": "le_havre",
       "routing": "no_canals",
-      "distance_nm": 11128.0,
+      "distance_nm": 11140.0,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -7718,13 +7734,13 @@
         "Strait of Hormuz",
         "Cape of Good Hope"
       ],
-      "vertices": 90
+      "vertices": 91
     },
     "jubail__bonny__direct": {
       "from": "jubail",
       "to": "bonny",
       "routing": "direct",
-      "distance_nm": 7639.2,
+      "distance_nm": 7651.2,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -7733,13 +7749,13 @@
         "Strait of Hormuz",
         "Cape of Good Hope"
       ],
-      "vertices": 48
+      "vertices": 49
     },
     "jubail__bonny__no_suez": {
       "from": "jubail",
       "to": "bonny",
       "routing": "no_suez",
-      "distance_nm": 7639.2,
+      "distance_nm": 7651.2,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -7748,13 +7764,13 @@
         "Strait of Hormuz",
         "Cape of Good Hope"
       ],
-      "vertices": 48
+      "vertices": 49
     },
     "jubail__bonny__no_panama": {
       "from": "jubail",
       "to": "bonny",
       "routing": "no_panama",
-      "distance_nm": 7639.2,
+      "distance_nm": 7651.2,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -7763,13 +7779,13 @@
         "Strait of Hormuz",
         "Cape of Good Hope"
       ],
-      "vertices": 48
+      "vertices": 49
     },
     "jubail__bonny__no_canals": {
       "from": "jubail",
       "to": "bonny",
       "routing": "no_canals",
-      "distance_nm": 7639.2,
+      "distance_nm": 7651.2,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -7778,13 +7794,13 @@
         "Strait of Hormuz",
         "Cape of Good Hope"
       ],
-      "vertices": 48
+      "vertices": 49
     },
     "jubail__singapore__direct": {
       "from": "jubail",
       "to": "singapore",
       "routing": "direct",
-      "distance_nm": 3766.9,
+      "distance_nm": 3778.9,
       "passages_reported_by_searoute": [
         "malacca",
         "ormuz"
@@ -7793,13 +7809,13 @@
         "Strait of Hormuz",
         "Strait of Malacca"
       ],
-      "vertices": 38
+      "vertices": 39
     },
     "jubail__singapore__no_suez": {
       "from": "jubail",
       "to": "singapore",
       "routing": "no_suez",
-      "distance_nm": 3766.9,
+      "distance_nm": 3778.9,
       "passages_reported_by_searoute": [
         "malacca",
         "ormuz"
@@ -7808,13 +7824,13 @@
         "Strait of Hormuz",
         "Strait of Malacca"
       ],
-      "vertices": 38
+      "vertices": 39
     },
     "jubail__singapore__no_panama": {
       "from": "jubail",
       "to": "singapore",
       "routing": "no_panama",
-      "distance_nm": 3766.9,
+      "distance_nm": 3778.9,
       "passages_reported_by_searoute": [
         "malacca",
         "ormuz"
@@ -7823,13 +7839,13 @@
         "Strait of Hormuz",
         "Strait of Malacca"
       ],
-      "vertices": 38
+      "vertices": 39
     },
     "jubail__singapore__no_canals": {
       "from": "jubail",
       "to": "singapore",
       "routing": "no_canals",
-      "distance_nm": 3766.9,
+      "distance_nm": 3778.9,
       "passages_reported_by_searoute": [
         "malacca",
         "ormuz"
@@ -7838,7 +7854,7 @@
         "Strait of Hormuz",
         "Strait of Malacca"
       ],
-      "vertices": 38
+      "vertices": 39
     },
     "ningbo__tubarao__direct": {
       "from": "ningbo",
@@ -7904,45 +7920,45 @@
       "from": "ningbo",
       "to": "port_hedland",
       "routing": "direct",
-      "distance_nm": 3152.4,
+      "distance_nm": 3195.4,
       "passages_reported_by_searoute": [],
       "passes": [
         "Lombok Strait"
       ],
-      "vertices": 43
+      "vertices": 44
     },
     "ningbo__port_hedland__no_suez": {
       "from": "ningbo",
       "to": "port_hedland",
       "routing": "no_suez",
-      "distance_nm": 3152.4,
+      "distance_nm": 3195.4,
       "passages_reported_by_searoute": [],
       "passes": [
         "Lombok Strait"
       ],
-      "vertices": 43
+      "vertices": 44
     },
     "ningbo__port_hedland__no_panama": {
       "from": "ningbo",
       "to": "port_hedland",
       "routing": "no_panama",
-      "distance_nm": 3152.4,
+      "distance_nm": 3195.4,
       "passages_reported_by_searoute": [],
       "passes": [
         "Lombok Strait"
       ],
-      "vertices": 43
+      "vertices": 44
     },
     "ningbo__port_hedland__no_canals": {
       "from": "ningbo",
       "to": "port_hedland",
       "routing": "no_canals",
-      "distance_nm": 3152.4,
+      "distance_nm": 3195.4,
       "passages_reported_by_searoute": [],
       "passes": [
         "Lombok Strait"
       ],
-      "vertices": 43
+      "vertices": 44
     },
     "ningbo__qingdao__direct": {
       "from": "ningbo",
@@ -8212,7 +8228,7 @@
       "from": "ningbo",
       "to": "jubail",
       "routing": "direct",
-      "distance_nm": 5860.7,
+      "distance_nm": 5872.7,
       "passages_reported_by_searoute": [
         "malacca",
         "ormuz"
@@ -8221,13 +8237,13 @@
         "Strait of Hormuz",
         "Strait of Malacca"
       ],
-      "vertices": 71
+      "vertices": 72
     },
     "ningbo__jubail__no_suez": {
       "from": "ningbo",
       "to": "jubail",
       "routing": "no_suez",
-      "distance_nm": 5860.7,
+      "distance_nm": 5872.7,
       "passages_reported_by_searoute": [
         "malacca",
         "ormuz"
@@ -8236,13 +8252,13 @@
         "Strait of Hormuz",
         "Strait of Malacca"
       ],
-      "vertices": 71
+      "vertices": 72
     },
     "ningbo__jubail__no_panama": {
       "from": "ningbo",
       "to": "jubail",
       "routing": "no_panama",
-      "distance_nm": 5860.7,
+      "distance_nm": 5872.7,
       "passages_reported_by_searoute": [
         "malacca",
         "ormuz"
@@ -8251,13 +8267,13 @@
         "Strait of Hormuz",
         "Strait of Malacca"
       ],
-      "vertices": 71
+      "vertices": 72
     },
     "ningbo__jubail__no_canals": {
       "from": "ningbo",
       "to": "jubail",
       "routing": "no_canals",
-      "distance_nm": 5860.7,
+      "distance_nm": 5872.7,
       "passages_reported_by_searoute": [
         "malacca",
         "ormuz"
@@ -8266,7 +8282,7 @@
         "Strait of Hormuz",
         "Strait of Malacca"
       ],
-      "vertices": 71
+      "vertices": 72
     },
     "ningbo__yokohama__direct": {
       "from": "ningbo",
@@ -8566,7 +8582,7 @@
       "from": "ningbo",
       "to": "amsterdam",
       "routing": "direct",
-      "distance_nm": 10573.8,
+      "distance_nm": 10510.0,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -8580,13 +8596,13 @@
         "Dover Strait",
         "Strait of Malacca"
       ],
-      "vertices": 156
+      "vertices": 152
     },
     "ningbo__amsterdam__no_suez": {
       "from": "ningbo",
       "to": "amsterdam",
       "routing": "no_suez",
-      "distance_nm": 13660.1,
+      "distance_nm": 13596.3,
       "passages_reported_by_searoute": [
         "panama"
       ],
@@ -8594,13 +8610,13 @@
         "Dover Strait",
         "Panama Canal"
       ],
-      "vertices": 178
+      "vertices": 174
     },
     "ningbo__amsterdam__no_panama": {
       "from": "ningbo",
       "to": "amsterdam",
       "routing": "no_panama",
-      "distance_nm": 10573.8,
+      "distance_nm": 10510.0,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -8614,13 +8630,13 @@
         "Dover Strait",
         "Strait of Malacca"
       ],
-      "vertices": 156
+      "vertices": 152
     },
     "ningbo__amsterdam__no_canals": {
       "from": "ningbo",
       "to": "amsterdam",
       "routing": "no_canals",
-      "distance_nm": 13893.7,
+      "distance_nm": 13829.9,
       "passages_reported_by_searoute": [
         "south_africa",
         "sunda"
@@ -8630,7 +8646,7 @@
         "Sunda Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 150
+      "vertices": 146
     },
     "ningbo__le_havre__direct": {
       "from": "ningbo",
@@ -8858,37 +8874,37 @@
       "from": "yokohama",
       "to": "port_hedland",
       "routing": "direct",
-      "distance_nm": 3748.6,
+      "distance_nm": 3791.6,
       "passages_reported_by_searoute": [],
       "passes": [],
-      "vertices": 32
+      "vertices": 33
     },
     "yokohama__port_hedland__no_suez": {
       "from": "yokohama",
       "to": "port_hedland",
       "routing": "no_suez",
-      "distance_nm": 3748.6,
+      "distance_nm": 3791.6,
       "passages_reported_by_searoute": [],
       "passes": [],
-      "vertices": 32
+      "vertices": 33
     },
     "yokohama__port_hedland__no_panama": {
       "from": "yokohama",
       "to": "port_hedland",
       "routing": "no_panama",
-      "distance_nm": 3748.6,
+      "distance_nm": 3791.6,
       "passages_reported_by_searoute": [],
       "passes": [],
-      "vertices": 32
+      "vertices": 33
     },
     "yokohama__port_hedland__no_canals": {
       "from": "yokohama",
       "to": "port_hedland",
       "routing": "no_canals",
-      "distance_nm": 3748.6,
+      "distance_nm": 3791.6,
       "passages_reported_by_searoute": [],
       "passes": [],
-      "vertices": 32
+      "vertices": 33
     },
     "yokohama__qingdao__direct": {
       "from": "yokohama",
@@ -9158,7 +9174,7 @@
       "from": "yokohama",
       "to": "jubail",
       "routing": "direct",
-      "distance_nm": 6701.9,
+      "distance_nm": 6713.9,
       "passages_reported_by_searoute": [
         "malacca",
         "ormuz"
@@ -9167,13 +9183,13 @@
         "Strait of Hormuz",
         "Strait of Malacca"
       ],
-      "vertices": 62
+      "vertices": 63
     },
     "yokohama__jubail__no_suez": {
       "from": "yokohama",
       "to": "jubail",
       "routing": "no_suez",
-      "distance_nm": 6701.9,
+      "distance_nm": 6713.9,
       "passages_reported_by_searoute": [
         "malacca",
         "ormuz"
@@ -9182,13 +9198,13 @@
         "Strait of Hormuz",
         "Strait of Malacca"
       ],
-      "vertices": 62
+      "vertices": 63
     },
     "yokohama__jubail__no_panama": {
       "from": "yokohama",
       "to": "jubail",
       "routing": "no_panama",
-      "distance_nm": 6701.9,
+      "distance_nm": 6713.9,
       "passages_reported_by_searoute": [
         "malacca",
         "ormuz"
@@ -9197,13 +9213,13 @@
         "Strait of Hormuz",
         "Strait of Malacca"
       ],
-      "vertices": 62
+      "vertices": 63
     },
     "yokohama__jubail__no_canals": {
       "from": "yokohama",
       "to": "jubail",
       "routing": "no_canals",
-      "distance_nm": 6701.9,
+      "distance_nm": 6713.9,
       "passages_reported_by_searoute": [
         "malacca",
         "ormuz"
@@ -9212,7 +9228,7 @@
         "Strait of Hormuz",
         "Strait of Malacca"
       ],
-      "vertices": 62
+      "vertices": 63
     },
     "yokohama__ningbo__direct": {
       "from": "yokohama",
@@ -9512,7 +9528,7 @@
       "from": "yokohama",
       "to": "amsterdam",
       "routing": "direct",
-      "distance_nm": 11415.0,
+      "distance_nm": 11351.2,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -9526,13 +9542,13 @@
         "Dover Strait",
         "Strait of Malacca"
       ],
-      "vertices": 147
+      "vertices": 143
     },
     "yokohama__amsterdam__no_suez": {
       "from": "yokohama",
       "to": "amsterdam",
       "routing": "no_suez",
-      "distance_nm": 12763.4,
+      "distance_nm": 12699.6,
       "passages_reported_by_searoute": [
         "panama"
       ],
@@ -9540,13 +9556,13 @@
         "Dover Strait",
         "Panama Canal"
       ],
-      "vertices": 155
+      "vertices": 151
     },
     "yokohama__amsterdam__no_panama": {
       "from": "yokohama",
       "to": "amsterdam",
       "routing": "no_panama",
-      "distance_nm": 11415.0,
+      "distance_nm": 11351.2,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -9560,13 +9576,13 @@
         "Dover Strait",
         "Strait of Malacca"
       ],
-      "vertices": 147
+      "vertices": 143
     },
     "yokohama__amsterdam__no_canals": {
       "from": "yokohama",
       "to": "amsterdam",
       "routing": "no_canals",
-      "distance_nm": 14707.2,
+      "distance_nm": 14643.4,
       "passages_reported_by_searoute": [
         "south_africa",
         "sunda"
@@ -9576,7 +9592,7 @@
         "Sunda Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 140
+      "vertices": 136
     },
     "yokohama__le_havre__direct": {
       "from": "yokohama",
@@ -9788,7 +9804,7 @@
       "from": "galveston",
       "to": "port_hedland",
       "routing": "direct",
-      "distance_nm": 11568.4,
+      "distance_nm": 11611.4,
       "passages_reported_by_searoute": [
         "panama"
       ],
@@ -9796,13 +9812,13 @@
         "Panama Canal",
         "Yucatan Channel"
       ],
-      "vertices": 89
+      "vertices": 90
     },
     "galveston__port_hedland__no_suez": {
       "from": "galveston",
       "to": "port_hedland",
       "routing": "no_suez",
-      "distance_nm": 11568.4,
+      "distance_nm": 11611.4,
       "passages_reported_by_searoute": [
         "panama"
       ],
@@ -9810,13 +9826,13 @@
         "Panama Canal",
         "Yucatan Channel"
       ],
-      "vertices": 89
+      "vertices": 90
     },
     "galveston__port_hedland__no_panama": {
       "from": "galveston",
       "to": "port_hedland",
       "routing": "no_panama",
-      "distance_nm": 12769.6,
+      "distance_nm": 12812.7,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
@@ -9824,13 +9840,13 @@
         "Cape of Good Hope",
         "Florida Strait"
       ],
-      "vertices": 114
+      "vertices": 115
     },
     "galveston__port_hedland__no_canals": {
       "from": "galveston",
       "to": "port_hedland",
       "routing": "no_canals",
-      "distance_nm": 12769.6,
+      "distance_nm": 12812.7,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
@@ -9838,7 +9854,7 @@
         "Cape of Good Hope",
         "Florida Strait"
       ],
-      "vertices": 114
+      "vertices": 115
     },
     "galveston__qingdao__direct": {
       "from": "galveston",
@@ -10144,7 +10160,7 @@
       "from": "galveston",
       "to": "jubail",
       "routing": "direct",
-      "distance_nm": 9894.2,
+      "distance_nm": 9906.2,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -10158,13 +10174,13 @@
         "Strait of Gibraltar",
         "Florida Strait"
       ],
-      "vertices": 152
+      "vertices": 153
     },
     "galveston__jubail__no_suez": {
       "from": "galveston",
       "to": "jubail",
       "routing": "no_suez",
-      "distance_nm": 12585.6,
+      "distance_nm": 12597.6,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -10174,13 +10190,13 @@
         "Cape of Good Hope",
         "Florida Strait"
       ],
-      "vertices": 112
+      "vertices": 113
     },
     "galveston__jubail__no_panama": {
       "from": "galveston",
       "to": "jubail",
       "routing": "no_panama",
-      "distance_nm": 9894.2,
+      "distance_nm": 9906.2,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -10194,13 +10210,13 @@
         "Strait of Gibraltar",
         "Florida Strait"
       ],
-      "vertices": 152
+      "vertices": 153
     },
     "galveston__jubail__no_canals": {
       "from": "galveston",
       "to": "jubail",
       "routing": "no_canals",
-      "distance_nm": 12585.6,
+      "distance_nm": 12597.6,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -10210,7 +10226,7 @@
         "Cape of Good Hope",
         "Florida Strait"
       ],
-      "vertices": 112
+      "vertices": 113
     },
     "galveston__ningbo__direct": {
       "from": "galveston",
@@ -10472,49 +10488,49 @@
       "from": "galveston",
       "to": "amsterdam",
       "routing": "direct",
-      "distance_nm": 5127.9,
+      "distance_nm": 5064.1,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait",
         "Florida Strait"
       ],
-      "vertices": 129
+      "vertices": 125
     },
     "galveston__amsterdam__no_suez": {
       "from": "galveston",
       "to": "amsterdam",
       "routing": "no_suez",
-      "distance_nm": 5127.9,
+      "distance_nm": 5064.1,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait",
         "Florida Strait"
       ],
-      "vertices": 129
+      "vertices": 125
     },
     "galveston__amsterdam__no_panama": {
       "from": "galveston",
       "to": "amsterdam",
       "routing": "no_panama",
-      "distance_nm": 5127.9,
+      "distance_nm": 5064.1,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait",
         "Florida Strait"
       ],
-      "vertices": 129
+      "vertices": 125
     },
     "galveston__amsterdam__no_canals": {
       "from": "galveston",
       "to": "amsterdam",
       "routing": "no_canals",
-      "distance_nm": 5127.9,
+      "distance_nm": 5064.1,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait",
         "Florida Strait"
       ],
-      "vertices": 129
+      "vertices": 125
     },
     "galveston__le_havre__direct": {
       "from": "galveston",
@@ -10722,7 +10738,7 @@
       "from": "houston",
       "to": "port_hedland",
       "routing": "direct",
-      "distance_nm": 11601.9,
+      "distance_nm": 11645.0,
       "passages_reported_by_searoute": [
         "panama"
       ],
@@ -10730,13 +10746,13 @@
         "Panama Canal",
         "Yucatan Channel"
       ],
-      "vertices": 98
+      "vertices": 99
     },
     "houston__port_hedland__no_suez": {
       "from": "houston",
       "to": "port_hedland",
       "routing": "no_suez",
-      "distance_nm": 11601.9,
+      "distance_nm": 11645.0,
       "passages_reported_by_searoute": [
         "panama"
       ],
@@ -10744,13 +10760,13 @@
         "Panama Canal",
         "Yucatan Channel"
       ],
-      "vertices": 98
+      "vertices": 99
     },
     "houston__port_hedland__no_panama": {
       "from": "houston",
       "to": "port_hedland",
       "routing": "no_panama",
-      "distance_nm": 12803.2,
+      "distance_nm": 12846.2,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
@@ -10758,13 +10774,13 @@
         "Cape of Good Hope",
         "Florida Strait"
       ],
-      "vertices": 123
+      "vertices": 124
     },
     "houston__port_hedland__no_canals": {
       "from": "houston",
       "to": "port_hedland",
       "routing": "no_canals",
-      "distance_nm": 12803.2,
+      "distance_nm": 12846.2,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
@@ -10772,7 +10788,7 @@
         "Cape of Good Hope",
         "Florida Strait"
       ],
-      "vertices": 123
+      "vertices": 124
     },
     "houston__qingdao__direct": {
       "from": "houston",
@@ -11078,7 +11094,7 @@
       "from": "houston",
       "to": "jubail",
       "routing": "direct",
-      "distance_nm": 9927.7,
+      "distance_nm": 9939.7,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -11092,13 +11108,13 @@
         "Strait of Gibraltar",
         "Florida Strait"
       ],
-      "vertices": 161
+      "vertices": 162
     },
     "houston__jubail__no_suez": {
       "from": "houston",
       "to": "jubail",
       "routing": "no_suez",
-      "distance_nm": 12619.1,
+      "distance_nm": 12631.1,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -11108,13 +11124,13 @@
         "Cape of Good Hope",
         "Florida Strait"
       ],
-      "vertices": 121
+      "vertices": 122
     },
     "houston__jubail__no_panama": {
       "from": "houston",
       "to": "jubail",
       "routing": "no_panama",
-      "distance_nm": 9927.7,
+      "distance_nm": 9939.7,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -11128,13 +11144,13 @@
         "Strait of Gibraltar",
         "Florida Strait"
       ],
-      "vertices": 161
+      "vertices": 162
     },
     "houston__jubail__no_canals": {
       "from": "houston",
       "to": "jubail",
       "routing": "no_canals",
-      "distance_nm": 12619.1,
+      "distance_nm": 12631.1,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -11144,7 +11160,7 @@
         "Cape of Good Hope",
         "Florida Strait"
       ],
-      "vertices": 121
+      "vertices": 122
     },
     "houston__ningbo__direct": {
       "from": "houston",
@@ -11406,49 +11422,49 @@
       "from": "houston",
       "to": "amsterdam",
       "routing": "direct",
-      "distance_nm": 5161.5,
+      "distance_nm": 5097.7,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait",
         "Florida Strait"
       ],
-      "vertices": 138
+      "vertices": 134
     },
     "houston__amsterdam__no_suez": {
       "from": "houston",
       "to": "amsterdam",
       "routing": "no_suez",
-      "distance_nm": 5161.5,
+      "distance_nm": 5097.7,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait",
         "Florida Strait"
       ],
-      "vertices": 138
+      "vertices": 134
     },
     "houston__amsterdam__no_panama": {
       "from": "houston",
       "to": "amsterdam",
       "routing": "no_panama",
-      "distance_nm": 5161.5,
+      "distance_nm": 5097.7,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait",
         "Florida Strait"
       ],
-      "vertices": 138
+      "vertices": 134
     },
     "houston__amsterdam__no_canals": {
       "from": "houston",
       "to": "amsterdam",
       "routing": "no_canals",
-      "distance_nm": 5161.5,
+      "distance_nm": 5097.7,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait",
         "Florida Strait"
       ],
-      "vertices": 138
+      "vertices": 134
     },
     "houston__le_havre__direct": {
       "from": "houston",
@@ -11648,7 +11664,7 @@
       "from": "new_york",
       "to": "port_hedland",
       "routing": "direct",
-      "distance_nm": 11579.3,
+      "distance_nm": 11622.4,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -11659,26 +11675,26 @@
         "Suez Canal",
         "Strait of Gibraltar"
       ],
-      "vertices": 122
+      "vertices": 123
     },
     "new_york__port_hedland__no_suez": {
       "from": "new_york",
       "to": "port_hedland",
       "routing": "no_suez",
-      "distance_nm": 12074.0,
+      "distance_nm": 12117.0,
       "passages_reported_by_searoute": [
         "panama"
       ],
       "passes": [
         "Panama Canal"
       ],
-      "vertices": 113
+      "vertices": 114
     },
     "new_york__port_hedland__no_panama": {
       "from": "new_york",
       "to": "port_hedland",
       "routing": "no_panama",
-      "distance_nm": 11579.3,
+      "distance_nm": 11622.4,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -11689,20 +11705,20 @@
         "Suez Canal",
         "Strait of Gibraltar"
       ],
-      "vertices": 122
+      "vertices": 123
     },
     "new_york__port_hedland__no_canals": {
       "from": "new_york",
       "to": "port_hedland",
       "routing": "no_canals",
-      "distance_nm": 12126.5,
+      "distance_nm": 12169.5,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
       "passes": [
         "Cape of Good Hope"
       ],
-      "vertices": 108
+      "vertices": 109
     },
     "new_york__qingdao__direct": {
       "from": "new_york",
@@ -12000,7 +12016,7 @@
       "from": "new_york",
       "to": "jubail",
       "routing": "direct",
-      "distance_nm": 8346.7,
+      "distance_nm": 8358.7,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -12013,13 +12029,13 @@
         "Suez Canal",
         "Strait of Gibraltar"
       ],
-      "vertices": 110
+      "vertices": 111
     },
     "new_york__jubail__no_suez": {
       "from": "new_york",
       "to": "jubail",
       "routing": "no_suez",
-      "distance_nm": 11942.4,
+      "distance_nm": 11954.4,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -12028,13 +12044,13 @@
         "Strait of Hormuz",
         "Cape of Good Hope"
       ],
-      "vertices": 106
+      "vertices": 107
     },
     "new_york__jubail__no_panama": {
       "from": "new_york",
       "to": "jubail",
       "routing": "no_panama",
-      "distance_nm": 8346.7,
+      "distance_nm": 8358.7,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -12047,13 +12063,13 @@
         "Suez Canal",
         "Strait of Gibraltar"
       ],
-      "vertices": 110
+      "vertices": 111
     },
     "new_york__jubail__no_canals": {
       "from": "new_york",
       "to": "jubail",
       "routing": "no_canals",
-      "distance_nm": 11942.4,
+      "distance_nm": 11954.4,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -12062,7 +12078,7 @@
         "Strait of Hormuz",
         "Cape of Good Hope"
       ],
-      "vertices": 106
+      "vertices": 107
     },
     "new_york__ningbo__direct": {
       "from": "new_york",
@@ -12320,45 +12336,45 @@
       "from": "new_york",
       "to": "amsterdam",
       "routing": "direct",
-      "distance_nm": 3421.4,
+      "distance_nm": 3357.6,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait"
       ],
-      "vertices": 84
+      "vertices": 80
     },
     "new_york__amsterdam__no_suez": {
       "from": "new_york",
       "to": "amsterdam",
       "routing": "no_suez",
-      "distance_nm": 3421.4,
+      "distance_nm": 3357.6,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait"
       ],
-      "vertices": 84
+      "vertices": 80
     },
     "new_york__amsterdam__no_panama": {
       "from": "new_york",
       "to": "amsterdam",
       "routing": "no_panama",
-      "distance_nm": 3421.4,
+      "distance_nm": 3357.6,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait"
       ],
-      "vertices": 84
+      "vertices": 80
     },
     "new_york__amsterdam__no_canals": {
       "from": "new_york",
       "to": "amsterdam",
       "routing": "no_canals",
-      "distance_nm": 3421.4,
+      "distance_nm": 3357.6,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait"
       ],
-      "vertices": 84
+      "vertices": 80
     },
     "new_york__le_havre__direct": {
       "from": "new_york",
@@ -12548,7 +12564,7 @@
       "from": "rotterdam",
       "to": "port_hedland",
       "routing": "direct",
-      "distance_nm": 9775.8,
+      "distance_nm": 9818.8,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -12560,13 +12576,13 @@
         "Strait of Gibraltar",
         "Dover Strait"
       ],
-      "vertices": 124
+      "vertices": 125
     },
     "rotterdam__port_hedland__no_suez": {
       "from": "rotterdam",
       "to": "port_hedland",
       "routing": "no_suez",
-      "distance_nm": 11510.2,
+      "distance_nm": 11553.3,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
@@ -12574,13 +12590,13 @@
         "Dover Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 109
+      "vertices": 110
     },
     "rotterdam__port_hedland__no_panama": {
       "from": "rotterdam",
       "to": "port_hedland",
       "routing": "no_panama",
-      "distance_nm": 9775.8,
+      "distance_nm": 9818.8,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -12592,13 +12608,13 @@
         "Strait of Gibraltar",
         "Dover Strait"
       ],
-      "vertices": 124
+      "vertices": 125
     },
     "rotterdam__port_hedland__no_canals": {
       "from": "rotterdam",
       "to": "port_hedland",
       "routing": "no_canals",
-      "distance_nm": 11510.2,
+      "distance_nm": 11553.3,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
@@ -12606,7 +12622,7 @@
         "Dover Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 109
+      "vertices": 110
     },
     "rotterdam__qingdao__direct": {
       "from": "rotterdam",
@@ -12930,7 +12946,7 @@
       "from": "rotterdam",
       "to": "jubail",
       "routing": "direct",
-      "distance_nm": 6543.1,
+      "distance_nm": 6555.1,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -12944,13 +12960,13 @@
         "Strait of Gibraltar",
         "Dover Strait"
       ],
-      "vertices": 112
+      "vertices": 113
     },
     "rotterdam__jubail__no_suez": {
       "from": "rotterdam",
       "to": "jubail",
       "routing": "no_suez",
-      "distance_nm": 11326.2,
+      "distance_nm": 11338.2,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -12960,13 +12976,13 @@
         "Dover Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 107
+      "vertices": 108
     },
     "rotterdam__jubail__no_panama": {
       "from": "rotterdam",
       "to": "jubail",
       "routing": "no_panama",
-      "distance_nm": 6543.1,
+      "distance_nm": 6555.1,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -12980,13 +12996,13 @@
         "Strait of Gibraltar",
         "Dover Strait"
       ],
-      "vertices": 112
+      "vertices": 113
     },
     "rotterdam__jubail__no_canals": {
       "from": "rotterdam",
       "to": "jubail",
       "routing": "no_canals",
-      "distance_nm": 11326.2,
+      "distance_nm": 11338.2,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -12996,7 +13012,7 @@
         "Dover Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 107
+      "vertices": 108
     },
     "rotterdam__ningbo__direct": {
       "from": "rotterdam",
@@ -13282,37 +13298,37 @@
       "from": "rotterdam",
       "to": "amsterdam",
       "routing": "direct",
-      "distance_nm": 144.0,
+      "distance_nm": 80.2,
       "passages_reported_by_searoute": [],
       "passes": [],
-      "vertices": 15
+      "vertices": 11
     },
     "rotterdam__amsterdam__no_suez": {
       "from": "rotterdam",
       "to": "amsterdam",
       "routing": "no_suez",
-      "distance_nm": 144.0,
+      "distance_nm": 80.2,
       "passages_reported_by_searoute": [],
       "passes": [],
-      "vertices": 15
+      "vertices": 11
     },
     "rotterdam__amsterdam__no_panama": {
       "from": "rotterdam",
       "to": "amsterdam",
       "routing": "no_panama",
-      "distance_nm": 144.0,
+      "distance_nm": 80.2,
       "passages_reported_by_searoute": [],
       "passes": [],
-      "vertices": 15
+      "vertices": 11
     },
     "rotterdam__amsterdam__no_canals": {
       "from": "rotterdam",
       "to": "amsterdam",
       "routing": "no_canals",
-      "distance_nm": 144.0,
+      "distance_nm": 80.2,
       "passages_reported_by_searoute": [],
       "passes": [],
-      "vertices": 15
+      "vertices": 11
     },
     "rotterdam__le_havre__direct": {
       "from": "rotterdam",
@@ -13478,51 +13494,51 @@
       "from": "amsterdam",
       "to": "tubarao",
       "routing": "direct",
-      "distance_nm": 5054.1,
+      "distance_nm": 4990.2,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait"
       ],
-      "vertices": 81
+      "vertices": 77
     },
     "amsterdam__tubarao__no_suez": {
       "from": "amsterdam",
       "to": "tubarao",
       "routing": "no_suez",
-      "distance_nm": 5054.1,
+      "distance_nm": 4990.2,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait"
       ],
-      "vertices": 81
+      "vertices": 77
     },
     "amsterdam__tubarao__no_panama": {
       "from": "amsterdam",
       "to": "tubarao",
       "routing": "no_panama",
-      "distance_nm": 5054.1,
+      "distance_nm": 4990.2,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait"
       ],
-      "vertices": 81
+      "vertices": 77
     },
     "amsterdam__tubarao__no_canals": {
       "from": "amsterdam",
       "to": "tubarao",
       "routing": "no_canals",
-      "distance_nm": 5054.1,
+      "distance_nm": 4990.2,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait"
       ],
-      "vertices": 81
+      "vertices": 77
     },
     "amsterdam__port_hedland__direct": {
       "from": "amsterdam",
       "to": "port_hedland",
       "routing": "direct",
-      "distance_nm": 9874.9,
+      "distance_nm": 9854.1,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -13534,13 +13550,13 @@
         "Strait of Gibraltar",
         "Dover Strait"
       ],
-      "vertices": 124
+      "vertices": 121
     },
     "amsterdam__port_hedland__no_suez": {
       "from": "amsterdam",
       "to": "port_hedland",
       "routing": "no_suez",
-      "distance_nm": 11609.3,
+      "distance_nm": 11588.5,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
@@ -13548,13 +13564,13 @@
         "Dover Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 109
+      "vertices": 106
     },
     "amsterdam__port_hedland__no_panama": {
       "from": "amsterdam",
       "to": "port_hedland",
       "routing": "no_panama",
-      "distance_nm": 9874.9,
+      "distance_nm": 9854.1,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -13566,13 +13582,13 @@
         "Strait of Gibraltar",
         "Dover Strait"
       ],
-      "vertices": 124
+      "vertices": 121
     },
     "amsterdam__port_hedland__no_canals": {
       "from": "amsterdam",
       "to": "port_hedland",
       "routing": "no_canals",
-      "distance_nm": 11609.3,
+      "distance_nm": 11588.5,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
@@ -13580,13 +13596,13 @@
         "Dover Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 109
+      "vertices": 106
     },
     "amsterdam__qingdao__direct": {
       "from": "amsterdam",
       "to": "qingdao",
       "routing": "direct",
-      "distance_nm": 10952.1,
+      "distance_nm": 10888.2,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -13600,13 +13616,13 @@
         "Dover Strait",
         "Strait of Malacca"
       ],
-      "vertices": 157
+      "vertices": 153
     },
     "amsterdam__qingdao__no_suez": {
       "from": "amsterdam",
       "to": "qingdao",
       "routing": "no_suez",
-      "distance_nm": 13619.3,
+      "distance_nm": 13555.5,
       "passages_reported_by_searoute": [
         "panama"
       ],
@@ -13614,13 +13630,13 @@
         "Dover Strait",
         "Panama Canal"
       ],
-      "vertices": 171
+      "vertices": 167
     },
     "amsterdam__qingdao__no_panama": {
       "from": "amsterdam",
       "to": "qingdao",
       "routing": "no_panama",
-      "distance_nm": 10952.1,
+      "distance_nm": 10888.2,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -13634,13 +13650,13 @@
         "Dover Strait",
         "Strait of Malacca"
       ],
-      "vertices": 157
+      "vertices": 153
     },
     "amsterdam__qingdao__no_canals": {
       "from": "amsterdam",
       "to": "qingdao",
       "routing": "no_canals",
-      "distance_nm": 14272.0,
+      "distance_nm": 14208.2,
       "passages_reported_by_searoute": [
         "south_africa",
         "sunda"
@@ -13650,61 +13666,61 @@
         "Sunda Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 151
+      "vertices": 147
     },
     "amsterdam__new_orleans__direct": {
       "from": "amsterdam",
       "to": "new_orleans",
       "routing": "direct",
-      "distance_nm": 4941.6,
+      "distance_nm": 4877.8,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait",
         "Florida Strait"
       ],
-      "vertices": 140
+      "vertices": 136
     },
     "amsterdam__new_orleans__no_suez": {
       "from": "amsterdam",
       "to": "new_orleans",
       "routing": "no_suez",
-      "distance_nm": 4941.6,
+      "distance_nm": 4877.8,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait",
         "Florida Strait"
       ],
-      "vertices": 140
+      "vertices": 136
     },
     "amsterdam__new_orleans__no_panama": {
       "from": "amsterdam",
       "to": "new_orleans",
       "routing": "no_panama",
-      "distance_nm": 4941.6,
+      "distance_nm": 4877.8,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait",
         "Florida Strait"
       ],
-      "vertices": 140
+      "vertices": 136
     },
     "amsterdam__new_orleans__no_canals": {
       "from": "amsterdam",
       "to": "new_orleans",
       "routing": "no_canals",
-      "distance_nm": 4941.6,
+      "distance_nm": 4877.8,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait",
         "Florida Strait"
       ],
-      "vertices": 140
+      "vertices": 136
     },
     "amsterdam__ras_tanura__direct": {
       "from": "amsterdam",
       "to": "ras_tanura",
       "routing": "direct",
-      "distance_nm": 6630.3,
+      "distance_nm": 6566.5,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -13718,13 +13734,13 @@
         "Strait of Gibraltar",
         "Dover Strait"
       ],
-      "vertices": 112
+      "vertices": 108
     },
     "amsterdam__ras_tanura__no_suez": {
       "from": "amsterdam",
       "to": "ras_tanura",
       "routing": "no_suez",
-      "distance_nm": 11413.3,
+      "distance_nm": 11349.5,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -13734,13 +13750,13 @@
         "Dover Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 107
+      "vertices": 103
     },
     "amsterdam__ras_tanura__no_panama": {
       "from": "amsterdam",
       "to": "ras_tanura",
       "routing": "no_panama",
-      "distance_nm": 6630.3,
+      "distance_nm": 6566.5,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -13754,13 +13770,13 @@
         "Strait of Gibraltar",
         "Dover Strait"
       ],
-      "vertices": 112
+      "vertices": 108
     },
     "amsterdam__ras_tanura__no_canals": {
       "from": "amsterdam",
       "to": "ras_tanura",
       "routing": "no_canals",
-      "distance_nm": 11413.3,
+      "distance_nm": 11349.5,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -13770,13 +13786,13 @@
         "Dover Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 107
+      "vertices": 103
     },
     "amsterdam__mina_al_fahal__direct": {
       "from": "amsterdam",
       "to": "mina_al_fahal",
       "routing": "direct",
-      "distance_nm": 6090.0,
+      "distance_nm": 6026.2,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -13788,13 +13804,13 @@
         "Strait of Gibraltar",
         "Dover Strait"
       ],
-      "vertices": 101
+      "vertices": 97
     },
     "amsterdam__mina_al_fahal__no_suez": {
       "from": "amsterdam",
       "to": "mina_al_fahal",
       "routing": "no_suez",
-      "distance_nm": 10873.1,
+      "distance_nm": 10809.2,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
@@ -13802,13 +13818,13 @@
         "Dover Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 96
+      "vertices": 92
     },
     "amsterdam__mina_al_fahal__no_panama": {
       "from": "amsterdam",
       "to": "mina_al_fahal",
       "routing": "no_panama",
-      "distance_nm": 6090.0,
+      "distance_nm": 6026.2,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -13820,13 +13836,13 @@
         "Strait of Gibraltar",
         "Dover Strait"
       ],
-      "vertices": 101
+      "vertices": 97
     },
     "amsterdam__mina_al_fahal__no_canals": {
       "from": "amsterdam",
       "to": "mina_al_fahal",
       "routing": "no_canals",
-      "distance_nm": 10873.1,
+      "distance_nm": 10809.2,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
@@ -13834,13 +13850,13 @@
         "Dover Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 96
+      "vertices": 92
     },
     "amsterdam__fujairah__direct": {
       "from": "amsterdam",
       "to": "fujairah",
       "routing": "direct",
-      "distance_nm": 6238.2,
+      "distance_nm": 6174.4,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -13852,13 +13868,13 @@
         "Strait of Gibraltar",
         "Dover Strait"
       ],
-      "vertices": 102
+      "vertices": 98
     },
     "amsterdam__fujairah__no_suez": {
       "from": "amsterdam",
       "to": "fujairah",
       "routing": "no_suez",
-      "distance_nm": 11021.2,
+      "distance_nm": 10957.4,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
@@ -13866,13 +13882,13 @@
         "Dover Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 97
+      "vertices": 93
     },
     "amsterdam__fujairah__no_panama": {
       "from": "amsterdam",
       "to": "fujairah",
       "routing": "no_panama",
-      "distance_nm": 6238.2,
+      "distance_nm": 6174.4,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -13884,13 +13900,13 @@
         "Strait of Gibraltar",
         "Dover Strait"
       ],
-      "vertices": 102
+      "vertices": 98
     },
     "amsterdam__fujairah__no_canals": {
       "from": "amsterdam",
       "to": "fujairah",
       "routing": "no_canals",
-      "distance_nm": 11021.2,
+      "distance_nm": 10957.4,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
@@ -13898,13 +13914,13 @@
         "Dover Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 97
+      "vertices": 93
     },
     "amsterdam__jubail__direct": {
       "from": "amsterdam",
       "to": "jubail",
       "routing": "direct",
-      "distance_nm": 6642.2,
+      "distance_nm": 6590.4,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -13918,13 +13934,13 @@
         "Strait of Gibraltar",
         "Dover Strait"
       ],
-      "vertices": 112
+      "vertices": 109
     },
     "amsterdam__jubail__no_suez": {
       "from": "amsterdam",
       "to": "jubail",
       "routing": "no_suez",
-      "distance_nm": 11425.3,
+      "distance_nm": 11373.4,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -13934,13 +13950,13 @@
         "Dover Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 107
+      "vertices": 104
     },
     "amsterdam__jubail__no_panama": {
       "from": "amsterdam",
       "to": "jubail",
       "routing": "no_panama",
-      "distance_nm": 6642.2,
+      "distance_nm": 6590.4,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -13954,13 +13970,13 @@
         "Strait of Gibraltar",
         "Dover Strait"
       ],
-      "vertices": 112
+      "vertices": 109
     },
     "amsterdam__jubail__no_canals": {
       "from": "amsterdam",
       "to": "jubail",
       "routing": "no_canals",
-      "distance_nm": 11425.3,
+      "distance_nm": 11373.4,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -13970,13 +13986,13 @@
         "Dover Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 107
+      "vertices": 104
     },
     "amsterdam__ningbo__direct": {
       "from": "amsterdam",
       "to": "ningbo",
       "routing": "direct",
-      "distance_nm": 10573.8,
+      "distance_nm": 10510.0,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -13990,13 +14006,13 @@
         "Dover Strait",
         "Strait of Malacca"
       ],
-      "vertices": 156
+      "vertices": 152
     },
     "amsterdam__ningbo__no_suez": {
       "from": "amsterdam",
       "to": "ningbo",
       "routing": "no_suez",
-      "distance_nm": 13660.1,
+      "distance_nm": 13596.3,
       "passages_reported_by_searoute": [
         "panama"
       ],
@@ -14004,13 +14020,13 @@
         "Dover Strait",
         "Panama Canal"
       ],
-      "vertices": 178
+      "vertices": 174
     },
     "amsterdam__ningbo__no_panama": {
       "from": "amsterdam",
       "to": "ningbo",
       "routing": "no_panama",
-      "distance_nm": 10573.8,
+      "distance_nm": 10510.0,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -14024,13 +14040,13 @@
         "Dover Strait",
         "Strait of Malacca"
       ],
-      "vertices": 156
+      "vertices": 152
     },
     "amsterdam__ningbo__no_canals": {
       "from": "amsterdam",
       "to": "ningbo",
       "routing": "no_canals",
-      "distance_nm": 13893.7,
+      "distance_nm": 13829.9,
       "passages_reported_by_searoute": [
         "south_africa",
         "sunda"
@@ -14040,13 +14056,13 @@
         "Sunda Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 150
+      "vertices": 146
     },
     "amsterdam__yokohama__direct": {
       "from": "amsterdam",
       "to": "yokohama",
       "routing": "direct",
-      "distance_nm": 11415.0,
+      "distance_nm": 11351.2,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -14060,13 +14076,13 @@
         "Dover Strait",
         "Strait of Malacca"
       ],
-      "vertices": 147
+      "vertices": 143
     },
     "amsterdam__yokohama__no_suez": {
       "from": "amsterdam",
       "to": "yokohama",
       "routing": "no_suez",
-      "distance_nm": 12763.4,
+      "distance_nm": 12699.6,
       "passages_reported_by_searoute": [
         "panama"
       ],
@@ -14074,13 +14090,13 @@
         "Dover Strait",
         "Panama Canal"
       ],
-      "vertices": 155
+      "vertices": 151
     },
     "amsterdam__yokohama__no_panama": {
       "from": "amsterdam",
       "to": "yokohama",
       "routing": "no_panama",
-      "distance_nm": 11415.0,
+      "distance_nm": 11351.2,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -14094,13 +14110,13 @@
         "Dover Strait",
         "Strait of Malacca"
       ],
-      "vertices": 147
+      "vertices": 143
     },
     "amsterdam__yokohama__no_canals": {
       "from": "amsterdam",
       "to": "yokohama",
       "routing": "no_canals",
-      "distance_nm": 14707.2,
+      "distance_nm": 14643.4,
       "passages_reported_by_searoute": [
         "south_africa",
         "sunda"
@@ -14110,277 +14126,277 @@
         "Sunda Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 140
+      "vertices": 136
     },
     "amsterdam__galveston__direct": {
       "from": "amsterdam",
       "to": "galveston",
       "routing": "direct",
-      "distance_nm": 5127.9,
+      "distance_nm": 5064.1,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait",
         "Florida Strait"
       ],
-      "vertices": 129
+      "vertices": 125
     },
     "amsterdam__galveston__no_suez": {
       "from": "amsterdam",
       "to": "galveston",
       "routing": "no_suez",
-      "distance_nm": 5127.9,
+      "distance_nm": 5064.1,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait",
         "Florida Strait"
       ],
-      "vertices": 129
+      "vertices": 125
     },
     "amsterdam__galveston__no_panama": {
       "from": "amsterdam",
       "to": "galveston",
       "routing": "no_panama",
-      "distance_nm": 5127.9,
+      "distance_nm": 5064.1,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait",
         "Florida Strait"
       ],
-      "vertices": 129
+      "vertices": 125
     },
     "amsterdam__galveston__no_canals": {
       "from": "amsterdam",
       "to": "galveston",
       "routing": "no_canals",
-      "distance_nm": 5127.9,
+      "distance_nm": 5064.1,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait",
         "Florida Strait"
       ],
-      "vertices": 129
+      "vertices": 125
     },
     "amsterdam__houston__direct": {
       "from": "amsterdam",
       "to": "houston",
       "routing": "direct",
-      "distance_nm": 5161.5,
+      "distance_nm": 5097.7,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait",
         "Florida Strait"
       ],
-      "vertices": 138
+      "vertices": 134
     },
     "amsterdam__houston__no_suez": {
       "from": "amsterdam",
       "to": "houston",
       "routing": "no_suez",
-      "distance_nm": 5161.5,
+      "distance_nm": 5097.7,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait",
         "Florida Strait"
       ],
-      "vertices": 138
+      "vertices": 134
     },
     "amsterdam__houston__no_panama": {
       "from": "amsterdam",
       "to": "houston",
       "routing": "no_panama",
-      "distance_nm": 5161.5,
+      "distance_nm": 5097.7,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait",
         "Florida Strait"
       ],
-      "vertices": 138
+      "vertices": 134
     },
     "amsterdam__houston__no_canals": {
       "from": "amsterdam",
       "to": "houston",
       "routing": "no_canals",
-      "distance_nm": 5161.5,
+      "distance_nm": 5097.7,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait",
         "Florida Strait"
       ],
-      "vertices": 138
+      "vertices": 134
     },
     "amsterdam__new_york__direct": {
       "from": "amsterdam",
       "to": "new_york",
       "routing": "direct",
-      "distance_nm": 3421.4,
+      "distance_nm": 3357.6,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait"
       ],
-      "vertices": 84
+      "vertices": 80
     },
     "amsterdam__new_york__no_suez": {
       "from": "amsterdam",
       "to": "new_york",
       "routing": "no_suez",
-      "distance_nm": 3421.4,
+      "distance_nm": 3357.6,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait"
       ],
-      "vertices": 84
+      "vertices": 80
     },
     "amsterdam__new_york__no_panama": {
       "from": "amsterdam",
       "to": "new_york",
       "routing": "no_panama",
-      "distance_nm": 3421.4,
+      "distance_nm": 3357.6,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait"
       ],
-      "vertices": 84
+      "vertices": 80
     },
     "amsterdam__new_york__no_canals": {
       "from": "amsterdam",
       "to": "new_york",
       "routing": "no_canals",
-      "distance_nm": 3421.4,
+      "distance_nm": 3357.6,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait"
       ],
-      "vertices": 84
+      "vertices": 80
     },
     "amsterdam__rotterdam__direct": {
       "from": "amsterdam",
       "to": "rotterdam",
       "routing": "direct",
-      "distance_nm": 144.0,
+      "distance_nm": 80.2,
       "passages_reported_by_searoute": [],
       "passes": [],
-      "vertices": 15
+      "vertices": 11
     },
     "amsterdam__rotterdam__no_suez": {
       "from": "amsterdam",
       "to": "rotterdam",
       "routing": "no_suez",
-      "distance_nm": 144.0,
+      "distance_nm": 80.2,
       "passages_reported_by_searoute": [],
       "passes": [],
-      "vertices": 15
+      "vertices": 11
     },
     "amsterdam__rotterdam__no_panama": {
       "from": "amsterdam",
       "to": "rotterdam",
       "routing": "no_panama",
-      "distance_nm": 144.0,
+      "distance_nm": 80.2,
       "passages_reported_by_searoute": [],
       "passes": [],
-      "vertices": 15
+      "vertices": 11
     },
     "amsterdam__rotterdam__no_canals": {
       "from": "amsterdam",
       "to": "rotterdam",
       "routing": "no_canals",
-      "distance_nm": 144.0,
+      "distance_nm": 80.2,
       "passages_reported_by_searoute": [],
       "passes": [],
-      "vertices": 15
+      "vertices": 11
     },
     "amsterdam__le_havre__direct": {
       "from": "amsterdam",
       "to": "le_havre",
       "routing": "direct",
-      "distance_nm": 345.3,
+      "distance_nm": 281.5,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait"
       ],
-      "vertices": 24
+      "vertices": 20
     },
     "amsterdam__le_havre__no_suez": {
       "from": "amsterdam",
       "to": "le_havre",
       "routing": "no_suez",
-      "distance_nm": 345.3,
+      "distance_nm": 281.5,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait"
       ],
-      "vertices": 24
+      "vertices": 20
     },
     "amsterdam__le_havre__no_panama": {
       "from": "amsterdam",
       "to": "le_havre",
       "routing": "no_panama",
-      "distance_nm": 345.3,
+      "distance_nm": 281.5,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait"
       ],
-      "vertices": 24
+      "vertices": 20
     },
     "amsterdam__le_havre__no_canals": {
       "from": "amsterdam",
       "to": "le_havre",
       "routing": "no_canals",
-      "distance_nm": 345.3,
+      "distance_nm": 281.5,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait"
       ],
-      "vertices": 24
+      "vertices": 20
     },
     "amsterdam__bonny__direct": {
       "from": "amsterdam",
       "to": "bonny",
       "routing": "direct",
-      "distance_nm": 4565.6,
+      "distance_nm": 4501.8,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait"
       ],
-      "vertices": 70
+      "vertices": 66
     },
     "amsterdam__bonny__no_suez": {
       "from": "amsterdam",
       "to": "bonny",
       "routing": "no_suez",
-      "distance_nm": 4565.6,
+      "distance_nm": 4501.8,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait"
       ],
-      "vertices": 70
+      "vertices": 66
     },
     "amsterdam__bonny__no_panama": {
       "from": "amsterdam",
       "to": "bonny",
       "routing": "no_panama",
-      "distance_nm": 4565.6,
+      "distance_nm": 4501.8,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait"
       ],
-      "vertices": 70
+      "vertices": 66
     },
     "amsterdam__bonny__no_canals": {
       "from": "amsterdam",
       "to": "bonny",
       "routing": "no_canals",
-      "distance_nm": 4565.6,
+      "distance_nm": 4501.8,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait"
       ],
-      "vertices": 70
+      "vertices": 66
     },
     "amsterdam__singapore__direct": {
       "from": "amsterdam",
       "to": "singapore",
       "routing": "direct",
-      "distance_nm": 8480.0,
+      "distance_nm": 8416.1,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -14394,13 +14410,13 @@
         "Dover Strait",
         "Strait of Malacca"
       ],
-      "vertices": 123
+      "vertices": 119
     },
     "amsterdam__singapore__no_suez": {
       "from": "amsterdam",
       "to": "singapore",
       "routing": "no_suez",
-      "distance_nm": 11968.1,
+      "distance_nm": 11904.3,
       "passages_reported_by_searoute": [
         "south_africa",
         "sunda"
@@ -14410,13 +14426,13 @@
         "Sunda Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 122
+      "vertices": 118
     },
     "amsterdam__singapore__no_panama": {
       "from": "amsterdam",
       "to": "singapore",
       "routing": "no_panama",
-      "distance_nm": 8480.0,
+      "distance_nm": 8416.1,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -14430,13 +14446,13 @@
         "Dover Strait",
         "Strait of Malacca"
       ],
-      "vertices": 123
+      "vertices": 119
     },
     "amsterdam__singapore__no_canals": {
       "from": "amsterdam",
       "to": "singapore",
       "routing": "no_canals",
-      "distance_nm": 11968.1,
+      "distance_nm": 11904.3,
       "passages_reported_by_searoute": [
         "south_africa",
         "sunda"
@@ -14446,7 +14462,7 @@
         "Sunda Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 122
+      "vertices": 118
     },
     "le_havre__tubarao__direct": {
       "from": "le_havre",
@@ -14488,7 +14504,7 @@
       "from": "le_havre",
       "to": "port_hedland",
       "routing": "direct",
-      "distance_nm": 9577.6,
+      "distance_nm": 9620.7,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -14499,26 +14515,26 @@
         "Suez Canal",
         "Strait of Gibraltar"
       ],
-      "vertices": 107
+      "vertices": 108
     },
     "le_havre__port_hedland__no_suez": {
       "from": "le_havre",
       "to": "port_hedland",
       "routing": "no_suez",
-      "distance_nm": 11312.1,
+      "distance_nm": 11355.1,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
       "passes": [
         "Cape of Good Hope"
       ],
-      "vertices": 92
+      "vertices": 93
     },
     "le_havre__port_hedland__no_panama": {
       "from": "le_havre",
       "to": "port_hedland",
       "routing": "no_panama",
-      "distance_nm": 9577.6,
+      "distance_nm": 9620.7,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -14529,20 +14545,20 @@
         "Suez Canal",
         "Strait of Gibraltar"
       ],
-      "vertices": 107
+      "vertices": 108
     },
     "le_havre__port_hedland__no_canals": {
       "from": "le_havre",
       "to": "port_hedland",
       "routing": "no_canals",
-      "distance_nm": 11312.1,
+      "distance_nm": 11355.1,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
       "passes": [
         "Cape of Good Hope"
       ],
-      "vertices": 92
+      "vertices": 93
     },
     "le_havre__qingdao__direct": {
       "from": "le_havre",
@@ -14846,7 +14862,7 @@
       "from": "le_havre",
       "to": "jubail",
       "routing": "direct",
-      "distance_nm": 6345.0,
+      "distance_nm": 6357.0,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -14859,13 +14875,13 @@
         "Suez Canal",
         "Strait of Gibraltar"
       ],
-      "vertices": 95
+      "vertices": 96
     },
     "le_havre__jubail__no_suez": {
       "from": "le_havre",
       "to": "jubail",
       "routing": "no_suez",
-      "distance_nm": 11128.0,
+      "distance_nm": 11140.0,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -14874,13 +14890,13 @@
         "Strait of Hormuz",
         "Cape of Good Hope"
       ],
-      "vertices": 90
+      "vertices": 91
     },
     "le_havre__jubail__no_panama": {
       "from": "le_havre",
       "to": "jubail",
       "routing": "no_panama",
-      "distance_nm": 6345.0,
+      "distance_nm": 6357.0,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -14893,13 +14909,13 @@
         "Suez Canal",
         "Strait of Gibraltar"
       ],
-      "vertices": 95
+      "vertices": 96
     },
     "le_havre__jubail__no_canals": {
       "from": "le_havre",
       "to": "jubail",
       "routing": "no_canals",
-      "distance_nm": 11128.0,
+      "distance_nm": 11140.0,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -14908,7 +14924,7 @@
         "Strait of Hormuz",
         "Cape of Good Hope"
       ],
-      "vertices": 90
+      "vertices": 91
     },
     "le_havre__ningbo__direct": {
       "from": "le_havre",
@@ -15214,45 +15230,45 @@
       "from": "le_havre",
       "to": "amsterdam",
       "routing": "direct",
-      "distance_nm": 345.3,
+      "distance_nm": 281.5,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait"
       ],
-      "vertices": 24
+      "vertices": 20
     },
     "le_havre__amsterdam__no_suez": {
       "from": "le_havre",
       "to": "amsterdam",
       "routing": "no_suez",
-      "distance_nm": 345.3,
+      "distance_nm": 281.5,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait"
       ],
-      "vertices": 24
+      "vertices": 20
     },
     "le_havre__amsterdam__no_panama": {
       "from": "le_havre",
       "to": "amsterdam",
       "routing": "no_panama",
-      "distance_nm": 345.3,
+      "distance_nm": 281.5,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait"
       ],
-      "vertices": 24
+      "vertices": 20
     },
     "le_havre__amsterdam__no_canals": {
       "from": "le_havre",
       "to": "amsterdam",
       "routing": "no_canals",
-      "distance_nm": 345.3,
+      "distance_nm": 281.5,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait"
       ],
-      "vertices": 24
+      "vertices": 20
     },
     "le_havre__bonny__direct": {
       "from": "le_havre",
@@ -15398,53 +15414,53 @@
       "from": "bonny",
       "to": "port_hedland",
       "routing": "direct",
-      "distance_nm": 7823.2,
+      "distance_nm": 7866.2,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
       "passes": [
         "Cape of Good Hope"
       ],
-      "vertices": 50
+      "vertices": 51
     },
     "bonny__port_hedland__no_suez": {
       "from": "bonny",
       "to": "port_hedland",
       "routing": "no_suez",
-      "distance_nm": 7823.2,
+      "distance_nm": 7866.2,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
       "passes": [
         "Cape of Good Hope"
       ],
-      "vertices": 50
+      "vertices": 51
     },
     "bonny__port_hedland__no_panama": {
       "from": "bonny",
       "to": "port_hedland",
       "routing": "no_panama",
-      "distance_nm": 7823.2,
+      "distance_nm": 7866.2,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
       "passes": [
         "Cape of Good Hope"
       ],
-      "vertices": 50
+      "vertices": 51
     },
     "bonny__port_hedland__no_canals": {
       "from": "bonny",
       "to": "port_hedland",
       "routing": "no_canals",
-      "distance_nm": 7823.2,
+      "distance_nm": 7866.2,
       "passages_reported_by_searoute": [
         "south_africa"
       ],
       "passes": [
         "Cape of Good Hope"
       ],
-      "vertices": 50
+      "vertices": 51
     },
     "bonny__qingdao__direct": {
       "from": "bonny",
@@ -15718,7 +15734,7 @@
       "from": "bonny",
       "to": "jubail",
       "routing": "direct",
-      "distance_nm": 7639.2,
+      "distance_nm": 7651.2,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -15727,13 +15743,13 @@
         "Strait of Hormuz",
         "Cape of Good Hope"
       ],
-      "vertices": 48
+      "vertices": 49
     },
     "bonny__jubail__no_suez": {
       "from": "bonny",
       "to": "jubail",
       "routing": "no_suez",
-      "distance_nm": 7639.2,
+      "distance_nm": 7651.2,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -15742,13 +15758,13 @@
         "Strait of Hormuz",
         "Cape of Good Hope"
       ],
-      "vertices": 48
+      "vertices": 49
     },
     "bonny__jubail__no_panama": {
       "from": "bonny",
       "to": "jubail",
       "routing": "no_panama",
-      "distance_nm": 7639.2,
+      "distance_nm": 7651.2,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -15757,13 +15773,13 @@
         "Strait of Hormuz",
         "Cape of Good Hope"
       ],
-      "vertices": 48
+      "vertices": 49
     },
     "bonny__jubail__no_canals": {
       "from": "bonny",
       "to": "jubail",
       "routing": "no_canals",
-      "distance_nm": 7639.2,
+      "distance_nm": 7651.2,
       "passages_reported_by_searoute": [
         "ormuz",
         "south_africa"
@@ -15772,7 +15788,7 @@
         "Strait of Hormuz",
         "Cape of Good Hope"
       ],
-      "vertices": 48
+      "vertices": 49
     },
     "bonny__ningbo__direct": {
       "from": "bonny",
@@ -16066,45 +16082,45 @@
       "from": "bonny",
       "to": "amsterdam",
       "routing": "direct",
-      "distance_nm": 4565.6,
+      "distance_nm": 4501.8,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait"
       ],
-      "vertices": 70
+      "vertices": 66
     },
     "bonny__amsterdam__no_suez": {
       "from": "bonny",
       "to": "amsterdam",
       "routing": "no_suez",
-      "distance_nm": 4565.6,
+      "distance_nm": 4501.8,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait"
       ],
-      "vertices": 70
+      "vertices": 66
     },
     "bonny__amsterdam__no_panama": {
       "from": "bonny",
       "to": "amsterdam",
       "routing": "no_panama",
-      "distance_nm": 4565.6,
+      "distance_nm": 4501.8,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait"
       ],
-      "vertices": 70
+      "vertices": 66
     },
     "bonny__amsterdam__no_canals": {
       "from": "bonny",
       "to": "amsterdam",
       "routing": "no_canals",
-      "distance_nm": 4565.6,
+      "distance_nm": 4501.8,
       "passages_reported_by_searoute": [],
       "passes": [
         "Dover Strait"
       ],
-      "vertices": 70
+      "vertices": 66
     },
     "bonny__le_havre__direct": {
       "from": "bonny",
@@ -16266,45 +16282,45 @@
       "from": "singapore",
       "to": "port_hedland",
       "routing": "direct",
-      "distance_nm": 1687.7,
+      "distance_nm": 1730.8,
       "passages_reported_by_searoute": [],
       "passes": [
         "Lombok Strait"
       ],
-      "vertices": 20
+      "vertices": 21
     },
     "singapore__port_hedland__no_suez": {
       "from": "singapore",
       "to": "port_hedland",
       "routing": "no_suez",
-      "distance_nm": 1687.7,
+      "distance_nm": 1730.8,
       "passages_reported_by_searoute": [],
       "passes": [
         "Lombok Strait"
       ],
-      "vertices": 20
+      "vertices": 21
     },
     "singapore__port_hedland__no_panama": {
       "from": "singapore",
       "to": "port_hedland",
       "routing": "no_panama",
-      "distance_nm": 1687.7,
+      "distance_nm": 1730.8,
       "passages_reported_by_searoute": [],
       "passes": [
         "Lombok Strait"
       ],
-      "vertices": 20
+      "vertices": 21
     },
     "singapore__port_hedland__no_canals": {
       "from": "singapore",
       "to": "port_hedland",
       "routing": "no_canals",
-      "distance_nm": 1687.7,
+      "distance_nm": 1730.8,
       "passages_reported_by_searoute": [],
       "passes": [
         "Lombok Strait"
       ],
-      "vertices": 20
+      "vertices": 21
     },
     "singapore__qingdao__direct": {
       "from": "singapore",
@@ -16580,7 +16596,7 @@
       "from": "singapore",
       "to": "jubail",
       "routing": "direct",
-      "distance_nm": 3766.9,
+      "distance_nm": 3778.9,
       "passages_reported_by_searoute": [
         "malacca",
         "ormuz"
@@ -16589,13 +16605,13 @@
         "Strait of Hormuz",
         "Strait of Malacca"
       ],
-      "vertices": 38
+      "vertices": 39
     },
     "singapore__jubail__no_suez": {
       "from": "singapore",
       "to": "jubail",
       "routing": "no_suez",
-      "distance_nm": 3766.9,
+      "distance_nm": 3778.9,
       "passages_reported_by_searoute": [
         "malacca",
         "ormuz"
@@ -16604,13 +16620,13 @@
         "Strait of Hormuz",
         "Strait of Malacca"
       ],
-      "vertices": 38
+      "vertices": 39
     },
     "singapore__jubail__no_panama": {
       "from": "singapore",
       "to": "jubail",
       "routing": "no_panama",
-      "distance_nm": 3766.9,
+      "distance_nm": 3778.9,
       "passages_reported_by_searoute": [
         "malacca",
         "ormuz"
@@ -16619,13 +16635,13 @@
         "Strait of Hormuz",
         "Strait of Malacca"
       ],
-      "vertices": 38
+      "vertices": 39
     },
     "singapore__jubail__no_canals": {
       "from": "singapore",
       "to": "jubail",
       "routing": "no_canals",
-      "distance_nm": 3766.9,
+      "distance_nm": 3778.9,
       "passages_reported_by_searoute": [
         "malacca",
         "ormuz"
@@ -16634,7 +16650,7 @@
         "Strait of Hormuz",
         "Strait of Malacca"
       ],
-      "vertices": 38
+      "vertices": 39
     },
     "singapore__ningbo__direct": {
       "from": "singapore",
@@ -16992,7 +17008,7 @@
       "from": "singapore",
       "to": "amsterdam",
       "routing": "direct",
-      "distance_nm": 8480.0,
+      "distance_nm": 8416.1,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -17006,13 +17022,13 @@
         "Dover Strait",
         "Strait of Malacca"
       ],
-      "vertices": 123
+      "vertices": 119
     },
     "singapore__amsterdam__no_suez": {
       "from": "singapore",
       "to": "amsterdam",
       "routing": "no_suez",
-      "distance_nm": 11968.1,
+      "distance_nm": 11904.3,
       "passages_reported_by_searoute": [
         "south_africa",
         "sunda"
@@ -17022,13 +17038,13 @@
         "Sunda Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 122
+      "vertices": 118
     },
     "singapore__amsterdam__no_panama": {
       "from": "singapore",
       "to": "amsterdam",
       "routing": "no_panama",
-      "distance_nm": 8480.0,
+      "distance_nm": 8416.1,
       "passages_reported_by_searoute": [
         "babalmandab",
         "gibraltar",
@@ -17042,13 +17058,13 @@
         "Dover Strait",
         "Strait of Malacca"
       ],
-      "vertices": 123
+      "vertices": 119
     },
     "singapore__amsterdam__no_canals": {
       "from": "singapore",
       "to": "amsterdam",
       "routing": "no_canals",
-      "distance_nm": 11968.1,
+      "distance_nm": 11904.3,
       "passages_reported_by_searoute": [
         "south_africa",
         "sunda"
@@ -17058,7 +17074,7 @@
         "Sunda Strait",
         "Cape of Good Hope"
       ],
-      "vertices": 122
+      "vertices": 118
     },
     "singapore__le_havre__direct": {
       "from": "singapore",
@@ -17349,8 +17365,8 @@
         ],
         "adjustment_nm": 0,
         "composite": false,
-        "searoute_nm": 3234.6,
-        "error": 0.022314,
+        "searoute_nm": 3246.5,
+        "error": 0.026075,
         "within_tolerance": false,
         "note": ""
       },
@@ -17372,8 +17388,8 @@
         ],
         "adjustment_nm": 0,
         "composite": false,
-        "searoute_nm": 3766.9,
-        "error": 0.011792,
+        "searoute_nm": 3778.8,
+        "error": 0.014988,
         "within_tolerance": true,
         "note": ""
       },
@@ -17487,8 +17503,8 @@
         ],
         "adjustment_nm": 0,
         "composite": false,
-        "searoute_nm": 3589.5,
-        "error": 0.030281,
+        "searoute_nm": 3631.3,
+        "error": 0.042279,
         "within_tolerance": false,
         "note": ""
       },
@@ -17638,6 +17654,128 @@
         "note": "Galveston's route plus 47 miles, the rule Pub. 151 prints for Houston on p. 44 (TD25)"
       },
       {
+        "id": "houston_amsterdam",
+        "from": "Houston",
+        "to": "Amsterdam",
+        "from_position": "Pub. 151 p. 44",
+        "to_position": "Pub. 151 p. 4",
+        "routing": "direct",
+        "published_nm": 5085,
+        "parts": [
+          {
+            "entry": "GALVESTON, TEXAS, U.S.A.",
+            "line": "Straits of Florida",
+            "nm": 698,
+            "page": 36
+          },
+          {
+            "entry": "BISHOP ROCK, ENGLAND",
+            "line": "Straits of Florida",
+            "nm": 3859,
+            "page": 14
+          },
+          {
+            "entry": "BISHOP ROCK, ENGLAND",
+            "line": "Amsterdam, Netherlands",
+            "nm": 481,
+            "page": 14
+          }
+        ],
+        "adjustment_nm": 47,
+        "composite": true,
+        "searoute_nm": 5097.3,
+        "error": 0.002419,
+        "within_tolerance": true,
+        "note": "Galveston's route plus 47 miles, the rule Pub. 151 prints for Houston on p. 44 (TC14)"
+      },
+      {
+        "id": "amsterdam_le_havre",
+        "from": "Amsterdam",
+        "to": "Le Havre",
+        "from_position": "Pub. 151 p. 4",
+        "to_position": "Pub. 151 p. 56",
+        "routing": "direct",
+        "published_nm": 273,
+        "parts": [
+          {
+            "entry": "AMSTERDAM, NETHERLANDS",
+            "line": "Le Havre, France",
+            "nm": 273,
+            "page": 4
+          }
+        ],
+        "adjustment_nm": 0,
+        "composite": false,
+        "searoute_nm": 281.1,
+        "error": 0.02967,
+        "within_tolerance": false,
+        "note": "the TC23 route"
+      },
+      {
+        "id": "galveston_shanghai_cape",
+        "from": "Galveston",
+        "to": "Shanghai",
+        "from_position": "Pub. 151 p. 36",
+        "to_position": "Pub. 151 p. 102",
+        "routing": "no_canals",
+        "published_nm": 15167,
+        "parts": [
+          {
+            "entry": "GALVESTON, TEXAS, U.S.A.",
+            "line": "Straits of Florida",
+            "nm": 698,
+            "page": 36
+          },
+          {
+            "entry": "CAPE OF GOOD HOPE, SOUTH AFRICA",
+            "line": "Straits of Florida",
+            "nm": 6770,
+            "page": 21
+          },
+          {
+            "entry": "CAPE OF GOOD HOPE, SOUTH AFRICA",
+            "line": "Selat Sunda, Indonesia",
+            "nm": 5164,
+            "page": 21
+          },
+          {
+            "entry": "SELAT SUNDA, INDONESIA",
+            "line": "Shanghai, China",
+            "nm": 2535,
+            "page": 101
+          }
+        ],
+        "adjustment_nm": 0,
+        "composite": true,
+        "searoute_nm": 15167.9,
+        "error": 5.9e-05,
+        "within_tolerance": true,
+        "note": "through the Straits of Florida, the Cape of Good Hope and Selat Sunda, the TD22 route"
+      },
+      {
+        "id": "port_hedland_lombok",
+        "from": "Port Hedland",
+        "to": "Selat Lombok",
+        "from_position": "Pub. 151 p. 84",
+        "to_position": "Pub. 151 p. 100",
+        "routing": "direct",
+        "published_nm": 715,
+        "parts": [
+          {
+            "entry": "PORT HEDLAND, AUSTRALIA",
+            "line": "Selat Lombok, Indonesia",
+            "nm": 715,
+            "page": 84
+          }
+        ],
+        "adjustment_nm": 0,
+        "composite": false,
+        "searoute_nm": 724.9,
+        "error": 0.013846,
+        "within_tolerance": true,
+        "note": "the first stretch of the C5 route, from the port"
+      },
+      {
         "id": "bonny_rotterdam",
         "from": "Bonny",
         "to": "Rotterdam",
@@ -17702,8 +17840,8 @@
         ],
         "adjustment_nm": 0,
         "composite": true,
-        "searoute_nm": 6543.1,
-        "error": 0.011455,
+        "searoute_nm": 6555.0,
+        "error": 0.013294,
         "within_tolerance": true,
         "note": "through Port Said, Gibraltar and Ushant, the TC20 route by Suez"
       },
@@ -17737,8 +17875,8 @@
         ],
         "adjustment_nm": 0,
         "composite": true,
-        "searoute_nm": 11326.2,
-        "error": 0.002407,
+        "searoute_nm": 11338.1,
+        "error": 0.00346,
         "within_tolerance": true,
         "note": "through the Cape of Good Hope and Ushant, the TC20 route round the Cape"
       }

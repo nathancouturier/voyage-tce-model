@@ -43,7 +43,7 @@
         "text": "Southbound convoy transit 11 hours; waiting at most three hours",
         "raw_key": "canals_sca_new_suez_canal_html",
         "quote": "Shortening the transit time from 18 hours to 11 hours for the southbound convoy Minimize the waiting time for vessels to become three hours at most",
-        "use": "the canal day the study adds to a Suez routing (one day, against the 2 canal days the Baltic's TC20 TCE basis allows)"
+        "use": "context only: the study adds no canal days of its own; the Baltic's TC20 TCE basis allows 2 canal days, and the dry routings through a canal leave the time at it out and say so"
       }
     ]
   },

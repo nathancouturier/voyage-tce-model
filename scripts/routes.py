@@ -6,7 +6,9 @@
 
 Every ordered pair of study ports (voyage.ports) is computed under each routing
 of voyage.sea_routes.ROUTINGS, and each check of voyage.distance_checks is
-measured against its Pub. 151 figure. The distances, the passages searoute
+measured against its Pub. 151 figure. A port behind land is asked from its
+sea gate, and the stretch from a port far from the network is added to the
+line (voyage.sea_routes.SEA_GATES and PORT_ENDS). The distances, the passages searoute
 reports and the checks go to data/seed/sea_routes.json; every line goes to
 data/seed/sea_routes.geojson.gz, gzipped with no timestamp so the bytes are
 reproducible. searoute is installed only where this script runs:
@@ -33,20 +35,61 @@ LINES = SEED / "sea_routes.geojson.gz"
 PLACES = 4
 
 
-def route(searoute, origin: tuple[float, float], destination: tuple[float, float], routing: str) -> dict:
+def ends(position: tuple[float, float], port_id: str | None) -> tuple[tuple[float, float], tuple[float, float] | None]:
+    """Where searoute is asked to start or stop for a position, and the point added to the line there.
+
+    A port with a sea gate is asked from the gate and its own position is added
+    to the line; a port in PORT_ENDS is asked from itself and its position is
+    added (searoute's line starts at the network node nearest it); any other
+    position is asked as it is and nothing is added.
+    """
+    gate = sea_routes.SEA_GATES.get(port_id) if port_id else None
+    if gate is not None:
+        return (gate[0], gate[1]), position
+    if port_id in sea_routes.PORT_ENDS:
+        return position, position
+    return position, None
+
+
+def route(
+    searoute,
+    origin: tuple[float, float],
+    destination: tuple[float, float],
+    routing: str,
+    origin_port: str | None = None,
+    destination_port: str | None = None,
+) -> dict:
+    ask_from, add_from = ends(origin, origin_port)
+    ask_to, add_to = ends(destination, destination_port)
     feature = searoute.searoute(
-        [origin[0], origin[1]],
-        [destination[0], destination[1]],
+        [ask_from[0], ask_from[1]],
+        [ask_to[0], ask_to[1]],
         units="naut",
         restrictions=list(sea_routes.ROUTINGS[routing]),
         return_passages=True,
     )
     coordinates = [[round(float(x), PLACES), round(float(y), PLACES)] for x, y in feature["geometry"]["coordinates"]]
+    distance = float(feature["properties"]["length"])
+    # The stretch from a port to the network is a straight segment; searoute's
+    # line may run past 180 degrees, so the added point follows its longitude.
+    if add_from is not None:
+        point = [round(_near(add_from[0], coordinates[0][0]), PLACES), round(add_from[1], PLACES)]
+        distance += geo.haversine_nm(point, coordinates[0])
+        coordinates.insert(0, point)
+    if add_to is not None:
+        point = [round(_near(add_to[0], coordinates[-1][0]), PLACES), round(add_to[1], PLACES)]
+        distance += geo.haversine_nm(coordinates[-1], point)
+        coordinates.append(point)
     return {
-        "distance_nm": round(float(feature["properties"]["length"]), 1),
+        "distance_nm": round(distance, 1),
         "passages": sorted(feature["properties"].get("traversed_passages") or []),
         "coordinates": coordinates,
     }
+
+
+def _near(lon: float, reference: float) -> float:
+    """The longitude, moved by whole turns to lie within half a turn of a reference."""
+    return lon + 360.0 * round((reference - lon) / 360.0)
 
 
 def compute() -> tuple[dict, dict]:
@@ -66,7 +109,14 @@ def compute() -> tuple[dict, dict]:
             if origin.id == destination.id:
                 continue
             for routing in sea_routes.ROUTINGS:
-                result = route(searoute, (origin.lon, origin.lat), (destination.lon, destination.lat), routing)
+                result = route(
+                    searoute,
+                    (origin.lon, origin.lat),
+                    (destination.lon, destination.lat),
+                    routing,
+                    origin.id,
+                    destination.id,
+                )
                 key = sea_routes.leg_key(origin.id, destination.id, routing)
                 nearest = sea_routes.passes(result["coordinates"])
                 legs[key] = {
@@ -91,7 +141,14 @@ def compute() -> tuple[dict, dict]:
     for check in distance_checks.CHECKS:
         a = distance_checks.POSITIONS[check.origin]
         b = distance_checks.POSITIONS[check.destination]
-        result = route(searoute, (a[0], a[1]), (b[0], b[1]), check.routing)
+        result = route(
+            searoute,
+            (a[0], a[1]),
+            (b[0], b[1]),
+            check.routing,
+            distance_checks.STUDY_PORTS.get(check.origin),
+            distance_checks.STUDY_PORTS.get(check.destination),
+        )
         error = result["distance_nm"] / check.published_nm - 1.0
         checks.append(
             {
@@ -130,6 +187,11 @@ def compute() -> tuple[dict, dict]:
             name: {"lon": lon, "lat": lat, "within_nm": radius}
             for name, (lon, lat, radius) in sea_routes.REFERENCE_POINTS.items()
         },
+        "sea_gates": {
+            port: {"lon": round(lon, PLACES), "lat": round(lat, PLACES), "source": why}
+            for port, (lon, lat, why) in sea_routes.SEA_GATES.items()
+        },
+        "port_ends": dict(sea_routes.PORT_ENDS),
         "ports": ports.as_records(study),
         "legs": legs,
         "pub151_checks": {

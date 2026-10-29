@@ -245,6 +245,31 @@ export function fueleu(fuelResult, inputs) {
   };
 }
 
+/** The additional war risk premium by listed area: days inside, seven day periods, dollars. */
+export function war_risk(inputs) {
+  const k = need();
+  const war = inputs.war_risk;
+  const margin = inputs.sea_margin;
+  const port = inputs.port;
+  const areas = {};
+  let premium = 0.0;
+  for (const name of k.WAR_RISK_AREAS) {
+    const area = war.areas[name];
+    if (area.entries <= 0) {
+      areas[name] = { days: 0.0, periods: 0.0, usd: 0.0 };
+      continue;
+    }
+    const inside = sea_days(area.laden_nm, inputs.laden.speed_kn, margin)
+      + sea_days(area.ballast_nm, inputs.ballast.speed_kn, margin)
+      + sum(area.port_activities.map((activity) => port[activity + "_days"]));
+    const periods = Math.max(area.entries, Math.ceil(inside / k.WAR_RISK_PERIOD_DAYS));
+    const usd = area.premium_pct / k.PERCENT * war.hull_value_usd * periods;
+    areas[name] = { days: inside, periods, usd };
+    premium += usd;
+  }
+  return { areas, premium_usd: premium, total_usd: premium + war.crew_bonus_usd };
+}
+
 const TRIP_ACTIVITIES = ["laden", "load", "discharge", "waiting", "canal", "delay", "sts"];
 
 /** Every line of the voyage estimate, and the TCE. */
@@ -269,8 +294,8 @@ export function evaluate(inputs) {
   const fe = fueleu(f, inputs);
 
   const costs = inputs.costs;
-  const war = inputs.war_risk;
-  const war_risk_usd = war.premium_pct / k.PERCENT * war.hull_value_usd * war.periods + war.crew_bonus_usd;
+  const war = war_risk(inputs);
+  const war_risk_usd = war.total_usd;
   const port_usd = costs.port_load_usd + costs.port_discharge_usd;
   const canal_usd = costs.canal_laden_usd + costs.canal_ballast_usd;
   const other_usd = costs.other_usd + costs.sts_usd;
@@ -295,13 +320,14 @@ export function evaluate(inputs) {
     lines = { bunkers: owner_bunkers, ports: 0.0, canals: owner_canal, ets: owner_ets, war_risk: 0.0, other: 0.0, fueleu: owner_fueleu };
     gross = inputs.freight_value * d.trip;
   } else {
-    charterer_costs = 0.0;
+    const charterer_pays_war = inputs.war_risk.payer === "charterer";
+    charterer_costs = charterer_pays_war ? war_risk_usd : 0.0;
     lines = {
       bunkers: sum(Object.values(bunkers_by_activity)),
       ports: port_usd,
       canals: canal_usd,
       ets: ets_all,
-      war_risk: war_risk_usd,
+      war_risk: charterer_pays_war ? 0.0 : war_risk_usd,
       other: other_usd,
       fueleu: fueleu_usd,
     };
@@ -323,6 +349,7 @@ export function evaluate(inputs) {
     emissions: em,
     ets_all_usd: ets_all,
     fueleu: fe,
+    war_risk: war,
     revenue: { gross_usd: gross, other_usd: other_revenue, commission_usd: commission, net_usd: net_revenue },
     costs: { ...lines, total_usd: voyage_costs },
     charterer_costs_usd: charterer_costs,
@@ -415,17 +442,22 @@ export function sensitivities(inputs) {
 // Paper: FFAs and hedges
 // --------------------------------------------------------------------------
 
+/** The paper side of a physical voyage; the TCE is grossed up by its commission against a time charter FFA. */
 export function hedge(inputs, physical_tce_usd_day, tc_ffa_usd_day, route_ffa_usd_t) {
   const total_days = days(inputs).total;
+  const keep = 1.0 - inputs.commission_pct / need().PERCENT;
+  const gross_tce = physical_tce_usd_day / keep;
   let route_tce = null;
   if (route_ffa_usd_t !== null) {
     route_tce = evaluate({ ...inputs, freight_basis: "usd_t", freight_value: route_ffa_usd_t }).tce_usd_day;
   }
   return {
     tc_hedge_days: total_days,
+    tc_hedge_days_net: total_days * keep,
     route_hedge_t: inputs.cargo_t,
     route_ffa_tce_usd_day: route_tce,
-    basis_vs_tc_ffa_usd_day: tc_ffa_usd_day === null ? null : physical_tce_usd_day - tc_ffa_usd_day,
+    physical_tce_gross_usd_day: gross_tce,
+    basis_vs_tc_ffa_usd_day: tc_ffa_usd_day === null ? null : gross_tce - tc_ffa_usd_day,
     basis_vs_route_ffa_usd_day: route_tce === null ? null : physical_tce_usd_day - route_tce,
   };
 }

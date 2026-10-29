@@ -48,47 +48,47 @@
     {
       "route": "TC23",
       "kind": "between two EEA ports",
-      "co2_t": 323.490718,
-      "co2e_t": 328.444989,
+      "co2_t": 296.300293,
+      "co2e_t": 300.838142,
       "laden_share": 1.0,
       "ballast_share": 1.0,
       "fueleu": {
-        "energy_mj": 4308500.824519,
+        "energy_mj": 3946357.608173,
         "intensity_g_mj": 90.767447,
         "target_g_mj": 89.3368,
-        "balance_g": -6163945.100908,
-        "penalty_eur": 3975.17292,
-        "penalty_usd": 4608.664049
+        "balance_g": -5645845.883769,
+        "penalty_eur": 3641.046976,
+        "penalty_usd": 4221.291157
       },
       "years": [
         {
           "year": 2024,
           "phase_in": 0.4,
-          "covered_t": 323.490718,
-          "allowances_t": 129.396287,
-          "cost_usd": 12347.909627,
-          "per_day_usd": 1663.920445,
-          "per_tonne_cargo_usd": 0.411597,
+          "covered_t": 296.300293,
+          "allowances_t": 118.520117,
+          "cost_usd": 11310.028497,
+          "per_day_usd": 1621.821537,
+          "per_tonne_cargo_usd": 0.377001,
           "share_of_voyage_costs": 0.088558
         },
         {
           "year": 2025,
           "phase_in": 0.7,
-          "covered_t": 323.490718,
-          "allowances_t": 226.443502,
-          "cost_usd": 21608.841848,
-          "per_day_usd": 2911.860779,
-          "per_tonne_cargo_usd": 0.720295,
+          "covered_t": 296.300293,
+          "allowances_t": 207.410205,
+          "cost_usd": 19792.549869,
+          "per_day_usd": 2838.18769,
+          "per_tonne_cargo_usd": 0.659752,
           "share_of_voyage_costs": 0.145324
         },
         {
           "year": 2026,
           "phase_in": 1.0,
-          "covered_t": 328.444989,
-          "allowances_t": 328.444989,
-          "cost_usd": 31342.545717,
-          "per_day_usd": 4223.50861,
-          "per_tonne_cargo_usd": 1.044752,
+          "covered_t": 300.838142,
+          "allowances_t": 300.838142,
+          "cost_usd": 28708.104927,
+          "per_day_usd": 4116.649474,
+          "per_tonne_cargo_usd": 0.956937,
           "share_of_voyage_costs": 0.197834
         }
       ]
@@ -199,9 +199,9 @@
   "page": {
     "title": "Carbon: what the EU ETS adds to a voyage",
     "takeaway": [
-      "In 2026, with every tonne covered, an MR between two EEA ports pays ",
+      "In 2026, with every tonne covered, a Handy tanker between two EEA ports pays ",
       {
-        "value": 31342.545717,
+        "value": 28708.104927,
         "format": "usd",
         "field": "TC23.2026.cost_usd",
         "prefix": "USD "
@@ -213,14 +213,14 @@
         "field": "TC23.2026.share",
         "suffix": " percent"
       },
-      " of its voyage costs; a Suezmax from West Africa to Rotterdam pays ",
+      " of its sourced voyage costs, a Suezmax from West Africa to Rotterdam ",
       {
         "value": 200058.941082,
         "format": "usd",
         "field": "TD20.2026.cost_usd",
         "prefix": "USD "
       },
-      " for half its emissions, and a VLCC from the Gulf to China nothing. In 2024 the same voyages paid ",
+      " for half its emissions and a VLCC from the Gulf to China nothing; in 2024 the same voyages paid ",
       {
         "value": 40.0,
         "format": "percent_0",
@@ -233,12 +233,12 @@
       "title": [
         "Per day of the voyage the 2026 allowances take ",
         {
-          "value": 4223.50861,
+          "value": 4116.649474,
           "format": "usd_day",
           "field": "TC23.2026.per_day_usd",
           "prefix": "USD "
         },
-        " from the intra-EEA MR's TCE and ",
+        " from the intra-EEA Handy tanker's TCE and ",
         {
           "value": 5508.897381,
           "format": "usd_day",
@@ -273,14 +273,14 @@
       ]
     },
     "kinds": {
-      "TC23": "MR, Amsterdam to Le Havre (TC23): between two EEA ports, 100 percent",
+      "TC23": "Handy tanker, Amsterdam to Le Havre (TC23): between two EEA ports, 100 percent",
       "TD20": "Suezmax, Bonny to Rotterdam (TD20): into the EEA, 50 percent",
       "TD3C": "VLCC, Ras Tanura to Ningbo (TD3C): outside the EEA"
     },
     "time_charter": {
-      "title": "On a time charter the charterer surrenders the allowances",
+      "title": "On a time charter the charterer provides and pays for the allowances",
       "lead": [
-        "Under BIMCO's ETS Allowances Clause for time charter parties (2022) the party that provides and pays for the fuel provides the allowances: on the S4A trip the charterer bears ",
+        "Under BIMCO's ETS Allowances Clause for time charter parties (2022) the charterer provides and pays for the allowances for the ship's emissions during the charter and transfers them to the owner, who as the shipping company surrenders them (Directive 2003/87/EC, Article 3gc): on the S4A trip the charterer bears ",
         {
           "value": 66689.587316,
           "format": "usd",
@@ -313,6 +313,13 @@
         ]
       },
       {
+        "id": "assumptions",
+        "name": "Assumptions",
+        "summary": [
+          "The allowance price and dollar rate, the fuel and its class, the warming potentials."
+        ]
+      },
+      {
         "id": "data",
         "name": "Data",
         "summary": [
@@ -320,12 +327,38 @@
         ]
       }
     ],
+    "assumptions": [
+      [
+        "Allowances at EUR ",
+        {
+          "value": 82.31,
+          "format": "eur_t",
+          "field": "eua_eur_t"
+        },
+        " a tonne (DEHSt (German auctions, proxy), monthly average for August 2026) and ",
+        {
+          "value": 1.159362,
+          "format": "usd_per_eur",
+          "field": "usd_per_eur"
+        },
+        " dollars per euro (Federal Reserve H.10, August 2026 average), held for every year so that only the phase in moves the cost."
+      ],
+      [
+        "Fuel at the August 2026 common market, each voyage on its Baltic ship's speeds and consumptions: MGO inside emission control areas and at berth in EU ports, VLSFO elsewhere, classed as HFO (ISO 8217 residual grades RME, RMG and RMK) for its emission factor, as IMO resolution MEPC.391(81) classes it."
+      ],
+      [
+        "Methane and nitrous oxide at the warming potentials of the ETS and MRV, 28 and 265 (Delegated Regulation (EU) 2020/1044); FuelEU uses the Renewable Energy Directive's 25 and 298."
+      ],
+      [
+        "A voyage's share of its sourced voyage costs leaves out the port charges at its ports, which have no public figure, so with them the share would be lower."
+      ]
+    ],
     "fueleu": [
       "FuelEU Maritime (Regulation (EU) 2023/1805) has applied since 1 January 2025. It sets a limit on the greenhouse gas intensity of the energy a ship uses over a year, 89.34 grams of CO2 equivalent per megajoule from 2025 (2 percent under the 91.16 reference), and a penalty of EUR 2,400 per tonne of VLSFO equivalent energy in deficit. It is settled per ship and year, with banking, borrowing and pooling, so a single voyage has no penalty of its own: the figures below are the penalty the voyage's energy would carry if the ship burnt the same fuel all year, shown beside the TCE and kept out of it."
     ],
     "method": [
       "Emissions are the fuel burnt by grade times the factors of the MRV Regulation (EU) 2015/757 as amended: 3.114 t of CO2 per t of HFO, 3.151 for LFO and 3.206 for MGO, with VLSFO an ISO 8217 residual grade (HFO). From 2026 methane and nitrous oxide count, at 0.00005 and 0.00018 g per g of fuel times warming potentials of 28 and 265.",
-      "Covered emissions follow Article 3ga of the ETS Directive: 100 percent of a voyage between two EEA ports and of the time at berth in them, 50 percent of a voyage into or out of the EEA. Allowances are surrendered for 40 percent of 2024 emissions, 70 percent of 2025 and 100 percent from 2026 (Article 3gb)."
+      "Covered emissions follow Article 3ga of the ETS Directive: 100 percent of a voyage between two EEA ports and of the emissions within a port of call in the EEA, 50 percent of a voyage into or out of the EEA. Allowances are surrendered for 40 percent of 2024 emissions, 70 percent of 2025 and 100 percent from 2026 (Article 3gb); methane and nitrous oxide count from 2026 (Annex I)."
     ]
   },
   "convention_links": {
@@ -344,9 +377,14 @@
     "vlsfo_grade": "https://wwwcdn.imo.org/localresources/en/KnowledgeCentre/IndexofIMOResolutions/MEPCDocuments/MEPC.391(81",
     "ets_scope": "http://publications.europa.eu/resource/celex/32023L0959",
     "ets_phase_in": "http://publications.europa.eu/resource/celex/32023L0959",
+    "ets_gases": "http://publications.europa.eu/resource/celex/02003L0087-20240301",
     "bimco_etsa": "https://www.bimco.org/contractual-affairs/bimco-clauses/current-clauses/etsa_clause/",
+    "ets_surrender": "http://publications.europa.eu/resource/celex/02003L0087-20240301",
     "fueleu": "http://publications.europa.eu/resource/celex/32023R1805",
-    "gwp_fueleu": "http://publications.europa.eu/resource/celex/32018L2001"
+    "gwp_fueleu": "http://publications.europa.eu/resource/celex/32018L2001",
+    "war_risk_period": "https://www.hellenicshippingnews.com/war-risk-insurance-cost-off-highs-but-still-elevated-in-persian-gulf/",
+    "war_risk_payer": "https://www.hellenicshippingnews.com/maritime-war-risk-premiums-fall-in-red-sea-rise-in-black-sea-amid-changing-security-dynamics/",
+    "war_risk_chain": "https://www.hellenicshippingnews.com/the-middle-east-conflict-frequently-asked-questions/"
   },
   "conventions_rows": [
     {
@@ -355,7 +393,8 @@
       "rule": "Tonnes of CO2 per tonne of fuel: HFO (ISO 8217 RME to RMK) 3.114, LFO (RMA to RMD) 3.151, MDO and MGO (DMX to DMB) 3.206; CH4 0.00005 and N2O 0.00018 g per g.",
       "source": "Regulation (EU) 2015/757 Annex I as replaced by Delegated Regulation (EU) 2023/2776",
       "raw_key": "law_eu_2023_2776_mrv_delegatedreg_oj_en_xhtml",
-      "quote": "HFO ISO 8217 Grades RME to RMK 3,114 0,00005 0,00018 - LFO ISO 8217 Grades RMA to RMD 3,151 0,00005 0,00018 - MDO MGO ISO 8217 Grades DMX to DMB 3,206 0,00005 0,00018"
+      "quote": "HFO ISO 8217 Grades RME to RMK 3,114 0,00005 0,00018 - LFO ISO 8217 Grades RMA to RMD 3,151 0,00005 0,00018 - MDO MGO ISO 8217 Grades DMX to DMB 3,206 0,00005 0,00018",
+      "display": "HFO, ISO 8217 Grades RME to RMK: CO2 3,114, CH4 0,00005, N2O 0,00018; LFO, Grades RMA to RMD: CO2 3,151, CH4 0,00005, N2O 0,00018; MDO and MGO, Grades DMX to DMB: CO2 3,206, CH4 0,00005, N2O 0,00018 (grams per gram of fuel; the column heads are images in the regulation's text)"
     },
     {
       "id": "gwp_ets",
@@ -363,7 +402,8 @@
       "rule": "CH4 28 and N2O 265.",
       "source": "Delegated Regulation (EU) 2020/1044, Annex",
       "raw_key": "law_eu_2020_1044_gwp_delegatedreg_oj_en_pdf",
-      "quote": "Methane (CH) 28 4 Nitrous oxide (N O) 265"
+      "quote": "Methane (CH) 28 4 Nitrous oxide (N O) 265",
+      "display": "Methane (CH4) 28; Nitrous oxide (N2O) 265"
     },
     {
       "id": "vlsfo_grade",
@@ -371,7 +411,8 @@
       "rule": "VLSFO is classed as HFO (ISO 8217 residual grades RME, RMG and RMK) for its emission factor.",
       "source": "IMO resolution MEPC.391(81), 2024 LCA guidelines, Appendix 1",
       "raw_key": "law_imo_mepc_391_81_2024_lca_guidelines_pdf",
-      "quote": "(ISO 8217 Grades RME, RMG and RMK, 0.10 < S"
+      "quote": "(ISO 8217 Grades RME, RMG and RMK, 0.10 < S",
+      "display": "Heavy Fuel Oil (VLSFO) (ISO 8217 Grades RME, RMG and RMK, 0.10 < S <= 0.50%)"
     },
     {
       "id": "ets_scope",
@@ -384,7 +425,7 @@
     {
       "id": "ets_phase_in",
       "topic": "EU ETS phase-in",
-      "rule": "Allowances for 40 percent of 2024 emissions, 70 percent of 2025 and 100 percent from 2026; methane and nitrous oxide covered from 2026.",
+      "rule": "Allowances for 40 percent of 2024 emissions, 70 percent of 2025 and 100 percent from 2026.",
       "source": "Directive 2003/87/EC Article 3gb",
       "raw_key": "law_eu_2023_959_ets_amending_directive_oj_en_pdf",
       "quote": "(a) 40% of verified emissions reported for 2024 that would be subject to surrender requirements in accordance with Article 12; (b) 70% of verified emissions reported for 2025"
@@ -392,12 +433,13 @@
     {
       "id": "bimco_etsa",
       "topic": "ETS on a time charter",
-      "rule": "The charterer provides and pays for the allowances for the ship's emissions during the charter: on a trip time charter the trip's allowances are the charterer's.",
-      "source": "BIMCO ETS Allowances Clause for Time Charter Parties 2022, clause (c)(i)",
+      "rule": "The charterer provides and pays for the allowances for the ship's emissions during the charter and transfers them to the owner's account: on a trip time charter the trip's allowances are the charterer's.",
+      "source": "BIMCO ETS Allowances Clause for Time Charter Parties 2022, clauses (c)(i) and (c)(iii)",
       "raw_key": "law_bimco_etsa_clause_timecharter_2022_page_html",
       "quote": [
         "Throughout the Charter Party period the Charterers shall provide and pay for the Emission Allowances corresponding to the Vessel's emissions under the scope of the applicable Emission Scheme",
-        "the party providing and paying for the fuel under the time charter is the party that is responsible for providing and paying for emissions trading allowances"
+        "the party providing and paying for the fuel under the time charter is the party that is responsible for providing and paying for emissions trading allowances",
+        "shall be transferred by the Charterers and received into the Owners"
       ]
     },
     {
@@ -410,6 +452,11 @@
         "reducing the reference value of 91,16 grams of CO 2 equivalent per MJ by the following percentage: - 2% from 1 January 2025",
         "Is 1 metric ton of VLSFO that is equivalent to 41 000 MJ 7. 2 400",
         "HFO ISO 8217 Grades RME to RMK 0,0405 13,5 ALL ICEs 3,114 0,00005 0,00018"
+      ],
+      "display": [
+        "reducing the reference value of 91,16 grams of CO2 equivalent per MJ by the following percentage: 2% from 1 January 2025",
+        "41 000: 1 metric ton of VLSFO is equivalent to 41 000 MJ; 2 400: the amount paid in EUR per equivalent metric ton of VLSFO",
+        "HFO, ISO 8217 Grades RME to RMK: lower calorific value 0,0405 MJ per g; well to tank 13,5 gCO2eq per MJ; all ICEs; CO2 3,114, CH4 0,00005, N2O 0,00018 g per g of fuel (the column heads are images in the text)"
       ]
     },
     {
@@ -418,7 +465,8 @@
       "rule": "FuelEU takes CH4 25 and N2O 298, the values of the Renewable Energy Directive, not the ETS's 28 and 265.",
       "source": "Directive (EU) 2018/2001 Annex V Part C point 4",
       "raw_key": "law_eu_2018_2001_red_ii_directive_oj_en_pdf",
-      "quote": "those gases shall be valued as follows: 2 CO: 1 2 N O: 298 2 CH: 25"
+      "quote": "those gases shall be valued as follows: 2 CO: 1 2 N O: 298 2 CH: 25",
+      "display": "those gases shall be valued as follows: CO2: 1, N2O: 298, CH4: 25"
     }
   ]
 }

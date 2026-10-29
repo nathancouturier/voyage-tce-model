@@ -4,7 +4,8 @@
  * chart is the voyage cost of every route per day of its round voyage, split
  * into the cost families that have a public figure; the table under it gives
  * each route's ship, cargo, commission, distances by routing, the share of its
- * miles inside emission control areas, its port days and its voyage costs.
+ * miles inside emission control areas, its port days and its sourced voyage
+ * costs.
  * The Gulf loadings are shown again with the Hormuz war risk premium, which
  * would swamp the chart. Method, Assumptions and Data sit behind buttons.
  *
@@ -29,11 +30,6 @@ export function render(root, data, route) {
   const page = routes.page;
   const decimals = routes.conventions.decimals;
   const title = viewHead(root, page.title, page.takeaway, decimals);
-  root.appendChild(el("p", { class: "lead" }, [
-    page.baltic_map.before,
-    el("a", { class: "text-link", text: page.baltic_map.link, attrs: { href: routes.baltic_map_url } }),
-    page.baltic_map.after,
-  ]));
 
   root.appendChild(chartFigure({
     title: page.chart.title,
@@ -62,6 +58,12 @@ export function render(root, data, route) {
     }),
   }));
 
+  // The routes on the Baltic routes map, under the chart so the takeaway leads straight to it.
+  root.appendChild(el("p", { class: "note block" }, [
+    page.baltic_map.before,
+    el("a", { class: "text-link", text: page.baltic_map.link, attrs: { href: routes.baltic_map_url } }),
+    page.baltic_map.after,
+  ]));
   root.appendChild(el("div", { class: "block" }, [routeTable(routes, decimals)]));
   root.appendChild(hormuzBlock(routes, decimals));
 
@@ -93,8 +95,8 @@ function routeTable(routes, decimals) {
     el("th", { class: "col-num", text: "Miles inside ECAs, percent", attrs: { scope: "col", "data-short": "ECA miles" } }),
     el("th", { text: "Port days: loading, discharging, waiting", attrs: { scope: "col", "data-short": "port days" } }),
     el("th", { class: "col-num", text: "Round voyage, days", attrs: { scope: "col", "data-short": "days" } }),
-    el("th", { class: "col-num", text: "Voyage costs, " + UNITS.usd_day, attrs: { scope: "col", "data-short": "voyage costs" } }),
-    el("th", { class: "col-num", text: "EU allowances, percent of costs", attrs: { scope: "col", "data-short": "EU allowances" } }),
+    el("th", { class: "col-num", text: "Sourced voyage costs, " + UNITS.usd_day, attrs: { scope: "col", "data-short": "voyage costs" } }),
+    el("th", { class: "col-num", text: "EU allowances, percent of sourced costs", attrs: { scope: "col", "data-short": "EU allowances" } }),
     el("th", { text: "Bunker hub", attrs: { scope: "col", "data-short": "bunker hub" } }),
   ]);
   const body = el("tbody");
@@ -126,10 +128,11 @@ function hormuzBlock(routes, decimals) {
   const head = el("tr", {}, [
     el("th", { text: "Route", attrs: { scope: "col" } }),
     el("th", { class: "col-num", text: "Hull value, " + UNITS.usd_m, attrs: { scope: "col", "data-short": "hull value" } }),
-    el("th", { class: "col-num", text: "War risk premium, " + UNITS.usd, attrs: { scope: "col", "data-short": "premium" } }),
-    el("th", { class: "col-num", text: "Bunkers, " + UNITS.usd, attrs: { scope: "col", "data-short": "bunkers" } }),
-    el("th", { class: "col-num", text: "Premium over bunkers, times", attrs: { scope: "col", "data-short": "premium over bunkers" } }),
-    el("th", { class: "col-num", text: "Premium in voyage costs, percent", attrs: { scope: "col", "data-short": "share" } }),
+    el("th", { class: "col-num", text: "Days inside the Gulf", attrs: { scope: "col", "data-short": "days inside" } }),
+    el("th", { class: "col-num", text: "Seven day periods", attrs: { scope: "col", "data-short": "periods" } }),
+    el("th", { class: "col-num", text: "War risk premium, the charterer's, " + UNITS.usd, attrs: { scope: "col", "data-short": "premium" } }),
+    el("th", { class: "col-num", text: "The same a tonne of cargo, " + UNITS.usd_t, attrs: { scope: "col", "data-short": "premium a tonne" } }),
+    el("th", { class: "col-num", text: "Premium over the voyage's bunkers, times", attrs: { scope: "col", "data-short": "premium over bunkers" } }),
   ]);
   const body = el("tbody");
   for (const row of rows) {
@@ -138,10 +141,11 @@ function hormuzBlock(routes, decimals) {
     if (w.hull_value_usd) {
       cells.push(
         figureCell(formatCell(w.hull_value_usd / scale.million, "usd_m", decimals), "hull_value_usd"),
-        figureCell(formatCell(w.costs_usd.war_risk, "usd", decimals), "war_risk"),
-        figureCell(formatCell(w.costs_usd.bunkers, "usd", decimals), "bunkers"),
-        figureCell(formatCell(w.war_risk_to_bunkers, "exponent", decimals), "war_risk_to_bunkers"),
-        figureCell(formatCell(w.shares.war_risk * scale.percent, "percent", decimals), "shares.war_risk"),
+        figureCell(formatCell(w.days_inside, "days", decimals), "days_inside"),
+        figureCell(formatCell(w.periods, "count", decimals), "periods"),
+        figureCell(formatCell(w.premium_usd, "usd", decimals), "premium_usd"),
+        figureCell(formatCell(w.per_tonne_usd, "usd_t", decimals), "per_tonne_usd"),
+        figureCell(formatCell(w.premium_to_bunkers, "exponent", decimals), "premium_to_bunkers"),
       );
     } else {
       cells.push(el("td", { class: "num is-missing", text: w.why_empty, attrs: { colspan: String(head.children.length - 1) } }));

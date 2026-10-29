@@ -9,9 +9,11 @@
  *
  * WHERE THE NUMBERS COME FROM. Every input starts from data/calculator.json,
  * where the export wrote it with its status and source: sourced (a dated
- * public document), derived (a stated rule on sourced values) or empty (no
- * public figure; it counts as zero and the result says it is left out). A
- * field the visitor edits says "Your figure" and gains a Reset button. The
+ * public document), derived (a stated rule on sourced values), chosen (the
+ * study's choice among published values, with the reason), left out (a cost
+ * the Baltic's TCE leaves out, priced at zero) or empty (no public figure; it
+ * counts as zero and the result says it is left out). A field the visitor
+ * edits says "Your figure" and gains a Reset button. The
  * outputs are computed here, by src/engine.js, the browser copy of the Python
  * engine (tools/validate-engine.mjs holds the two to 1e-9); the words around
  * them are the artifact's, with {name} filled by the figure computed.
@@ -95,6 +97,11 @@ function parse(text) {
   return Number(clean);
 }
 
+/** A source sentence as it follows a status word: its first letter a capital. */
+function firstUpper(text) {
+  return text ? text.charAt(0).toUpperCase() + text.slice(1) : text;
+}
+
 function display(value, format, scale) {
   if (value === null || value === undefined) return "";
   return formatNumber(value * (scale || 1), format, decimals, { context: "table" }) || "";
@@ -163,6 +170,7 @@ export function render(root, artifactsData, route) {
   lowerSections = buildSections(VIEW, withBuilders(calc.sections, {
     method: (inner) => methodSection(inner),
     speed: (inner) => speedSection(inner),
+    assumptions: (inner) => assumptionsSection(inner),
     data: (inner) => dataSection(inner),
   }), decimals, route);
   root.appendChild(lowerSections.node);
@@ -269,7 +277,7 @@ function numberField(spec, options) {
     input.value = emptyNow ? "" : display(value, format, scale);
     input.placeholder = info.status === "empty" ? calc.words.empty_placeholder : "";
     const words = calc.status_words[info.status];
-    source.replaceChildren(...(words ? [el("span", { class: "field__status", text: words + ". " })] : []), info.source);
+    source.replaceChildren(...(words ? [el("span", { class: "field__status", text: words + ". " })] : []), firstUpper(info.source));
     reset.hidden = !changed.has(spec.path);
   };
 
@@ -283,7 +291,7 @@ function numberField(spec, options) {
         set(inputs, spec.path, get(preset.inputs, spec.path) === null ? null : 0);
         changed.delete(spec.path);
         wrapper.setAttribute("data-status", "empty");
-        source.replaceChildren(el("span", { class: "field__status", text: calc.status_words.empty + ". " }), info.source);
+        source.replaceChildren(el("span", { class: "field__status", text: calc.status_words.empty + ". " }), firstUpper(info.source));
         reset.hidden = true;
         recompute();
         return;
@@ -298,7 +306,7 @@ function numberField(spec, options) {
     set(inputs, spec.path, value / scale);
     changed.add(spec.path);
     wrapper.setAttribute("data-status", "changed");
-    source.replaceChildren(el("span", { class: "field__status", text: calc.status_words.changed + ". " }), sourceLine(spec.path));
+    source.replaceChildren(el("span", { class: "field__status", text: calc.status_words.changed + ". " }), firstUpper(sourceLine(spec.path)));
     reset.hidden = false;
     recompute();
   });
@@ -451,26 +459,65 @@ function switchBasis(basis) {
   recompute();
 }
 
+/* The listed areas this voyage enters, the dated premiums for each with a
+ * button that enters one, who pays, and the seven day periods the engine
+ * counts from the days inside. */
 function warRates(fieldset) {
+  const entered = Object.keys(inputs.war_risk.areas).filter((area) => preset.inputs.war_risk.areas[area].entries > 0);
   const list = el("ul", { class: "war-rates" });
-  for (const rate of calc.war_risk_rates) {
+  for (const rate of calc.war_risk_rates.filter((r) => entered.includes(r.engine_area))) {
     const values = rate.low === rate.high ? [rate.low] : [rate.low, rate.high];
+    const path = "war_risk.areas." + rate.engine_area + ".premium_pct";
     const item = el("li", { class: "war-rates__item" }, [
       el("span", { text: rate.area + ", " + formatDay(rate.as_of) + ": " + values.map((v) => formatNumber(v, "percent_2", decimals)).join(" to ") + " percent. " + rate.reported + ". " }),
     ]);
     for (const value of values) {
       const button = el("button", { class: "field__reset", text: fill(calc.words.war_use, { value: formatNumber(value, "percent_2", decimals) }), attrs: { type: "button" } });
       button.addEventListener("click", () => {
-        inputs.war_risk.premium_pct = value;
-        changed.add("war_risk.premium_pct");
-        refreshFields(["war_risk.premium_pct"]);
+        set(inputs, path, value);
+        changed.add(path);
+        refreshFields([path]);
         recompute();
       });
       item.appendChild(button);
     }
     list.appendChild(item);
   }
-  fieldset.appendChild(el("div", { class: "field field--wide" }, [el("p", { class: "field__label", text: calc.words.war_rates }), list]));
+  const holder = el("div", { class: "field field--wide" }, [el("p", { class: "field__label", text: calc.words.war_rates })]);
+  holder.appendChild(entered.length ? list : el("p", { class: "field__source", text: calc.words.war_none }));
+  fieldset.appendChild(holder);
+  if (inputs.contract !== "trip") {
+    const payer = preset.sources["war_risk.payer"];
+    fieldset.appendChild(selectField(calc.words.war_payer, "field-war-payer",
+      Object.entries(calc.payer_words).map(([value, label]) => ({ value, label })), inputs.war_risk.payer, (value) => {
+        inputs.war_risk.payer = value;
+        changed.add("war_risk.payer");
+        recompute();
+      }, payer ? firstUpper(payer.source) : null));
+  }
+  live.warLine = el("p", { class: "field__source field--wide war-periods" });
+  fieldset.appendChild(live.warLine);
+}
+
+/* Days inside each listed area entered, the periods they make and who pays. */
+function drawWarLine(result) {
+  if (!live.warLine) return;
+  const parts = [];
+  for (const [area, info] of Object.entries(result.war_risk.areas)) {
+    if (!info.periods) continue;
+    parts.push(fill(calc.words.war_area_line, {
+      area: calc.war_area_names[area],
+      days: formatNumber(info.days, "days", decimals),
+      periods: info.periods === 1 ? calc.words.war_period_one : fill(calc.words.war_period_many, { n: formatNumber(info.periods, "count", decimals) }),
+      usd: moneyText(info.usd),
+    }));
+  }
+  if (!parts.length) {
+    live.warLine.textContent = "";
+    return;
+  }
+  const payer = inputs.contract === "trip" || inputs.war_risk.payer === "charterer" ? calc.words.war_paid_charterer : calc.words.war_paid_owner;
+  live.warLine.textContent = parts.join(" ") + " " + payer;
 }
 
 function advancedExtras(fieldset) {
@@ -553,11 +600,14 @@ function buildOutputs(column) {
 
   live.speedTitle = el("h2", { class: "block__heading" });
   live.speedFrame = el("div", { class: "chart-frame" });
-  live.speedNote = el("p", { class: "source-line" });
   live.speedSource = el("p", { class: "source-line" });
-  const speedFigure = el("figure", { class: "block" }, [live.speedTitle, live.speedFrame, el("p", { class: "source-line", text: calc.words.speed_desc }), live.speedNote, live.speedSource]);
+  const speedFigure = el("figure", { class: "block" }, [live.speedTitle, live.speedFrame, el("p", { class: "source-line", text: calc.words.speed_desc }), live.speedSource]);
+  live.speedFigure = speedFigure;
   live.figures.push(speedFigure);
   column.appendChild(speedFigure);
+  // On a trip the charterer sets the speed and the owner's hire a day does not move with it.
+  live.speedTrip = el("p", { class: "note block", text: calc.words.speed_trip_note });
+  column.appendChild(live.speedTrip);
 
   onWidthChange(live.tornadoFrame, () => drawTornado());
   onWidthChange(live.speedFrame, () => drawSpeed());
@@ -574,7 +624,7 @@ function bridgeRows(result) {
   for (const family of ["bunkers", "ports", "canals", "ets", "war_risk", "other", "fueleu"]) {
     const value = result.costs[family];
     if ((family === "other" || family === "fueleu") && !value) continue;
-    const zeroWords = zeroReason(family);
+    const zeroWords = zeroReason(family, result);
     rows.push({
       id: family,
       label: calc.cost_labels[family],
@@ -594,13 +644,16 @@ function bridgeRows(result) {
 
 /* Why a cost family is zero: left out for want of a figure, or none on this
  * voyage. The words are the artifact's status words. */
-function zeroReason(family) {
+function zeroReason(family, result) {
   const paths = {
     ports: ["costs.port_load_usd", "costs.port_discharge_usd"],
     canals: ["costs.canal_laden_usd", "costs.canal_ballast_usd"],
-    war_risk: ["war_risk.premium_pct"],
+    war_risk: ["war_risk.areas.gulf.premium_pct", "war_risk.areas.red_sea.premium_pct"],
     ets: [],
   }[family] || [];
+  // A premium priced but paid by the charterer is the charterer's, not the owner's.
+  if (family === "war_risk" && result.war_risk.total_usd) return fill(calc.words.war_charterer, { usd: moneyText(result.war_risk.total_usd) });
+  if (paths.some((path) => sourceOf(path).status === "left_out")) return calc.status_words.left_out;
   if (paths.some((path) => sourceOf(path).status === "empty")) return calc.status_words.empty;
   if (family === "ets") return calc.words.none_ets;
   return calc.words.none;
@@ -610,6 +663,9 @@ function recompute() {
   const ready = readiness();
   clear(live.notes);
   for (const figure of live.figures) figure.hidden = !ready.ok;
+  const trip = inputs.contract === "trip";
+  live.speedFigure.hidden = !ready.ok || trip;
+  live.speedTrip.hidden = !trip;
   if (!ready.ok) {
     live.verdict.textContent = ready.why;
     live.verdict.classList.add("is-blocked");
@@ -671,9 +727,10 @@ function recompute() {
     port: formatNumber(result.days.port_total, "days", decimals),
   });
   live.leaves.textContent = leavesOut();
-  live.source.textContent = fill(calc.words.source, { preset: preset.label, market: preset.market_words });
+  live.source.textContent = fill(calc.words.source, { preset: preset.label, market: preset.market_words, eua: preset.eua_words, fx: preset.fx_words });
   live.tornadoSource.textContent = live.source.textContent;
   live.speedSource.textContent = live.source.textContent;
+  drawWarLine(result);
   drawTornado();
   drawSpeed();
 }
@@ -739,7 +796,7 @@ function drawTornado() {
 }
 
 function drawSpeed() {
-  if (!live.result) return;
+  if (!live.result || inputs.contract === "trip") return;
   const width = live.speedFrame.clientWidth;
   if (!width) return;
   const speeds = inputs.laden_curve.map(([v]) => v);
@@ -759,7 +816,6 @@ function drawSpeed() {
   if (atTop) template = calc.words.speed_title_bound;
   else if (atBottom) template = calc.words.speed_title_low;
   live.speedTitle.textContent = fill(template, { best: knots(best.laden_kn), current: knots(current) });
-  live.speedNote.textContent = inputs.contract === "trip" ? calc.words.speed_trip_note : "";
   const ys = points.map((p) => p.tce_usd_day).concat([best.tce_usd_day]);
   const y = niceDomain(ys, GEOMETRY.Y_TICKS, false);
   const x = { low, high, step: niceDomain([low, high], GEOMETRY.X_TICKS, false).step };
@@ -816,6 +872,18 @@ function speedSection(inner) {
   inner.appendChild(el("p", { class: "note block", text: speed.note }));
 }
 
+function assumptionsSection(inner) {
+  const words = calc.assumptions;
+  inner.appendChild(el("div", { class: "block" }, [
+    el("h3", { class: "block__heading", text: words.leaves_out_heading }),
+    el("ul", { class: "plain-list" }, (preset.excluded.length ? preset.excluded : [calc.words.leaves_out_none]).map((text) => el("li", { text: firstUpper(text) + "." }))),
+  ]));
+  inner.appendChild(el("div", { class: "block" }, [
+    el("h3", { class: "block__heading", text: words.statuses_heading }),
+    el("ul", { class: "plain-list" }, words.statuses.map(([status, text]) => el("li", {}, [el("span", { class: "field__status", text: calc.status_words[status] + ": " }), text]))),
+  ]));
+}
+
 function dataSection(inner) {
   const head = el("tr", {}, [
     el("th", { text: "Input", attrs: { scope: "col" } }),
@@ -832,6 +900,7 @@ function dataSection(inner) {
     const raw = get(inputs, path);
     let value;
     if (Array.isArray(raw)) value = el("td", { class: "words", text: raw.map(([v, c]) => formatNumber(v, "knots", decimals) + " kn: " + formatNumber(c, "tpd", decimals)).join(", ") });
+    else if (path === "war_risk.payer") value = el("td", { class: "words", text: calc.payer_words[raw] });
     else if (typeof raw === "string") value = el("td", { class: "words", text: raw });
     else if (raw === null || raw === undefined || (info.status === "empty" && !raw)) value = el("td", { class: "num is-missing", text: calc.status_words.empty });
     else value = figureCell(formatCell(raw * spec.scale, path === "freight_value" ? freightFormat() : spec.format, decimals), path);
@@ -841,7 +910,7 @@ function dataSection(inner) {
       value,
       el("td", { class: "nowrap", text: format ? UNITS[format] : "" }),
       el("td", { class: "status status--" + info.status, text: calc.status_words[info.status] || "" }),
-      el("td", { class: "words", text: info.status === "changed" ? sourceLine(path) : info.source }),
+      el("td", { class: "words", text: firstUpper(info.status === "changed" ? sourceLine(path) : info.source) }),
     ]));
   }
   const table = el("table", { class: "table table--inputs" }, [el("thead", {}, [head]), body]);

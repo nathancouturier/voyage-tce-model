@@ -14,7 +14,7 @@
  * Numeric literals: none.
  */
 
-import { el, scrollTable, figureCell } from "./dom.js";
+import { el, scrollTable, figureCell, sentence } from "./dom.js";
 import { formatCell, formatNumber, formatDay, formatDayShort, UNITS } from "./format.js";
 import { dotChart } from "./charts.js";
 import { chartFigure, viewHead } from "./figure.js";
@@ -42,12 +42,14 @@ export function render(root, data, route) {
       width,
       keepZero: true,
       rows: anchors.map((row) => {
-        const sameWeek = row.bunkers.endsWith(row.week_ending);
+        // Ink: prices first printed that week; a ring: up to a week before; muted: older, reprinted.
+        const fresh = row.bunker_freshness === "fresh";
+        const old = row.bunker_freshness === "older";
         return {
           id: row.route + row.week_ending,
           label: row.route + ", " + formatDay(row.week_ending),
           group: null,
-          dots: [{ value: row.error * scale.percent, className: sameWeek ? "mark-series-fill" : "mark-printed" }],
+          dots: [{ value: row.error * scale.percent, className: fresh ? "mark-series-fill" : (old ? "mark-context-fill" : "mark-printed") }],
           span: { from: 0, to: row.error * scale.percent },
           tip: [
             row.route + ", week to " + formatDay(row.week_ending),
@@ -77,7 +79,10 @@ export function update(root, route) {
   if (sections) sections.update(route);
 }
 
-function quoteText(quote) {
+/* A quote as the page shows it: its plain display form where the text layer
+ * runs a table's cells together, the words as found otherwise. */
+function quoteText(item) {
+  const quote = item.display || item.quote;
   return Array.isArray(quote) ? quote.join(" [...] ") : String(quote || "");
 }
 
@@ -94,7 +99,7 @@ function conventionsSection(inner, method) {
       el("th", { text: item.topic, attrs: { scope: "row" } }),
       el("td", { class: "words", text: item.rule }),
       el("td", { class: "words" }, [item.url ? el("a", { class: "text-link", text: item.source, attrs: { href: item.url } }) : item.source]),
-      el("td", { class: "words quote", text: quoteText(item.quote) }),
+      el("td", { class: "words quote", text: quoteText(item) }),
     ]));
   }
   const table = el("table", { class: "table table--wide" }, [el("thead", {}, [head]), body]);
@@ -137,10 +142,12 @@ function validationSection(inner, method, decimals, scale) {
   const dryHead = el("tr", {}, [
     el("th", { text: "Route and date", attrs: { scope: "col" } }),
     el("th", { class: "col-num", text: "Freight, " + UNITS.usd_t, attrs: { scope: "col" } }),
-    el("th", { class: "col-num", text: "Engine TCE, " + UNITS.usd_day, attrs: { scope: "col", "data-short": "engine TCE" } }),
+    el("th", { class: "col-num", text: "Engine TCE, net, " + UNITS.usd_day, attrs: { scope: "col", "data-short": "net TCE" } }),
+    el("th", { class: "col-num", text: "Grossed up, " + UNITS.usd_day, attrs: { scope: "col", "data-short": "gross TCE" } }),
     el("th", { text: "Benchmark", attrs: { scope: "col", "data-short": "benchmark" } }),
-    el("th", { class: "col-num", text: "Benchmark, " + UNITS.usd_day, attrs: { scope: "col", "data-short": "benchmark value" } }),
-    el("th", { class: "col-num", text: "Gap, " + UNITS.usd_day, attrs: { scope: "col", "data-short": "gap" } }),
+    el("th", { class: "col-num", text: "As printed, " + UNITS.usd_day, attrs: { scope: "col", "data-short": "printed" } }),
+    el("th", { class: "col-num", text: method.page.dry_benchmark_head, attrs: { scope: "col", "data-short": "like for like" } }),
+    el("th", { class: "col-num", text: "Gap, grossed up TCE less benchmark, " + UNITS.usd_day, attrs: { scope: "col", "data-short": "gap" } }),
   ]);
   const dryBody = el("tbody");
   for (const row of v.dry) {
@@ -148,14 +155,16 @@ function validationSection(inner, method, decimals, scale) {
       el("th", { text: row.route + ", " + formatDay(row.date), attrs: { scope: "row" } }),
       figureCell(formatCell(row.freight_usd_t, "usd_t", decimals), "freight_usd_t"),
       figureCell(formatCell(row.engine_tce_usd_day, "usd_day", decimals), "engine_tce_usd_day"),
+      figureCell(formatCell(row.engine_tce_gross_usd_day, "usd_day", decimals), "engine_tce_gross_usd_day"),
       el("td", { class: "nowrap", text: row.benchmark.replace(/_usd_day$/, "").replace(/_/g, " ") }),
       figureCell(formatCell(row.benchmark_usd_day, "usd_day", decimals), "benchmark_usd_day"),
+      figureCell(formatCell(row.benchmark_182_usd_day, "usd_day", decimals), "benchmark_182_usd_day"),
       figureCell(formatCell(row.gap_usd_day, "usd_day", decimals, true), "gap_usd_day"),
     ]));
   }
   const dryTable = el("table", { class: "table table--wide" }, [el("thead", {}, [dryHead]), dryBody]);
   inner.appendChild(el("div", { class: "block" }, [
-    scrollTable(["Dry route rates priced by the engine against the time charter average of the same week. The gap is not an error: the averages are gross time charter rates over a basket of routes, the TCEs are net of commission on one round voyage and leave out port charges and loading time."], dryTable),
+    scrollTable([sentence("span", method.page.dry_caption, decimals, "")], dryTable),
   ]));
 
   // Early March 2026: the VLCC rates reported in dollars a tonne.
@@ -163,7 +172,7 @@ function validationSection(inner, method, decimals, scale) {
     el("th", { text: "Rate", attrs: { scope: "col" } }),
     el("th", { class: "col-num", text: UNITS.usd_t, attrs: { scope: "col" } }),
     el("th", { class: "col-num", text: "Engine TCE, " + UNITS.usd_day, attrs: { scope: "col", "data-short": "engine TCE" } }),
-    el("th", { class: "col-num", text: "With the early March war risk premium, " + UNITS.usd_day, attrs: { scope: "col", "data-short": "with war risk" } }),
+    el("th", { class: "col-num", text: "With the early March war risk premium, " + UNITS.usd_day, attrs: { scope: "col", "data-short": "war risk TCE" } }),
     el("th", { text: "Bunkers", attrs: { scope: "col", "data-short": "bunkers" } }),
   ]);
   const marchBody = el("tbody");
@@ -212,7 +221,7 @@ function sourcesSection(inner, manifest) {
   for (const series of manifest.series) {
     body.appendChild(el("tr", {}, [
       el("th", { class: "manifest__series", attrs: { scope: "row" } }, [el("a", { class: "text-link", text: series.what, attrs: { href: series.source.url } })]),
-      el("td", { class: "nowrap", text: formatDay(series.as_of) }),
+      el("td", { class: "nowrap", text: series.as_of ? formatDay(series.as_of) : series.as_of_words }),
       el("td", { class: "nowrap", text: formatDay(series.source.retrieved) }),
       el("td", { class: "manifest__words", text: series.source.publisher }),
       el("td", { class: "manifest__words", text: series.licence }),

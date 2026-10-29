@@ -146,6 +146,29 @@ export function uniqueId(prefix) {
  *  focus inside it is scrolled fully into view with its focus ring. */
 export function scrollTable(captionChildren, table) {
   const id = uniqueId("table-caption");
+  // At 600px and below a table of more than STACK_FROM columns is set as one
+  // block per row, each cell under its column's name (styles: .table--stack),
+  // so no figure is cut by the edge of a scroll box.
+  const heads = [...table.querySelectorAll("thead tr:last-child th")].map((th) => th.textContent.trim());
+  if (heads.length > STACK_FROM) {
+    table.classList.add("table--stack");
+    // A table set as blocks loses its table semantics in some browsers, so the
+    // roles are written into the markup, as the bridge's are.
+    table.setAttribute("role", "table");
+    for (const group of table.querySelectorAll("thead, tbody")) group.setAttribute("role", "rowgroup");
+    for (const th of table.querySelectorAll("thead th")) th.setAttribute("role", "columnheader");
+    for (const tr of table.querySelectorAll("tr")) tr.setAttribute("role", "row");
+    for (const tr of table.querySelectorAll("tbody tr")) {
+      let column = 0;
+      for (const cell of tr.children) {
+        if (cell.tagName === "TD") {
+          cell.setAttribute("role", "cell");
+          if (heads[column]) cell.setAttribute("data-label", heads[column]);
+        } else if (cell.tagName === "TH") cell.setAttribute("role", "rowheader");
+        column += Number(cell.getAttribute("colspan") || 1);
+      }
+    }
+  }
   const more = el("span", { class: "table-caption__more" });
   const caption = el("p", { class: "table-caption", id }, [...captionChildren, more]);
   table.setAttribute("aria-labelledby", id);
@@ -201,9 +224,12 @@ function offScreenWords(scroller, table) {
   const right = [];
   const left = [];
   heads.slice(1).forEach((th) => {
+    // The column's content box: a cell whose words are all on screen is not
+    // off screen because its right padding is.
     const rect = th.getBoundingClientRect();
-    const start = rect.left + scroller.scrollLeft - tableLeft;
-    const end = start + rect.width;
+    const style = getComputedStyle(th);
+    const start = rect.left + scroller.scrollLeft - tableLeft + (parseFloat(style.paddingLeft) || 0);
+    const end = rect.left + scroller.scrollLeft - tableLeft + rect.width - (parseFloat(style.paddingRight) || 0);
     if (end > visibleRight + 1) right.push(shortName(th));
     else if (start < visibleLeft - 1) left.push(shortName(th));
   });
@@ -211,13 +237,18 @@ function offScreenWords(scroller, table) {
 }
 
 function shortName(th) {
-  const name = (th.dataset.short || th.textContent || "").trim();
+  // data-short is written as it reads inside a sentence ("Baltic TCE",
+  // "Supramax"); only a heading's own text is lowered.
+  if (th.dataset.short) return th.dataset.short.trim();
+  const name = (th.textContent || "").trim();
   return /^[A-Z][a-z]/.test(name) ? name.charAt(0).toLowerCase() + name.slice(1) : name;
 }
 
 /* " The a, b and c columns are to the right." More than a handful are named by
  * the first of them. */
 const MOST_NAMED = 4;
+/* A table of more columns than this is stacked at 600px and below. */
+const STACK_FROM = 3;
 function columnsSentence(names, where) {
   if (!names.length) return "";
   if (names.length > MOST_NAMED) return " The columns from " + names[0] + " on are " + where + ".";

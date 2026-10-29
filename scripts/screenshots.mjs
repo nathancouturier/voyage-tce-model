@@ -36,11 +36,11 @@ const THEMES = ["light", "dark"];
 /* Every view, and the sections that open behind its buttons. */
 const VIEWS = {
   overview: { hash: "#/overview", open: "method,assumptions,data" },
-  calculator: { hash: "#/calculator", open: "ship,route,market,costs,advanced,method,speed,data" },
+  calculator: { hash: "#/calculator", open: "ship,route,market,costs,advanced,method,speed,assumptions,data" },
   routes: { hash: "#/routes", open: "method,assumptions,data" },
-  detours: { hash: "#/detours", open: "suez,dry,hormuz,method,data" },
-  carbon: { hash: "#/carbon", open: "method,fueleu,data" },
-  paper: { hash: "#/paper", open: "hedge,tankers,method,data" },
+  detours: { hash: "#/detours", open: "suez,dry,hormuz,method,assumptions,data" },
+  carbon: { hash: "#/carbon", open: "method,fueleu,assumptions,data" },
+  paper: { hash: "#/paper", open: "hedge,tankers,method,assumptions,data" },
   method: { hash: "#/method", open: "conventions,formulas,validation,sources,limitations,downloads" },
 };
 

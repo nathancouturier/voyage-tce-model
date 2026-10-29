@@ -78,7 +78,7 @@
       "field": "breakeven.usd_t",
       "prefix": "USD "
     },
-    " a tonne would only cover its voyage costs."
+    " a tonne would only cover the voyage costs priced."
   ],
   "dates": [
     [
@@ -131,12 +131,12 @@
           "suffix": " percent"
         },
         " higher",
-        ", mostly the port charges it leaves out."
+        ". Port charges, which it leaves out, explain only part of that: across the weeks checked the gap grows with freight, which a fixed charge cannot do."
       ]
     },
     {
       "id": "breakeven",
-      "label": "Freight that covers voyage costs",
+      "label": "Freight that covers the voyage costs priced",
       "value": {
         "value": 17.239597,
         "format": "usd_t",
@@ -172,7 +172,7 @@
     },
     {
       "id": "bunker_share",
-      "label": "Bunkers in voyage costs",
+      "label": "Bunkers in the voyage costs priced",
       "value": {
         "value": 100.0,
         "format": "percent",
@@ -195,7 +195,7 @@
           "field": "inputs.prices.mgo_usd_t",
           "prefix": "USD "
         },
-        " a tonne; port charges, the other voyage cost, have no public figure."
+        " a tonne. Port charges at Galveston and Ningbo, the voyage's only other cost, have no public figure and are left out, so the share is of the costs priced, not of all voyage costs."
       ]
     }
   ],
@@ -323,9 +323,9 @@
         "family": "war",
         "accent": false,
         "detail": [
-          "No war risk area priced on this routing"
+          "No listed war risk area on this routing"
         ],
-        "zero": "None in the base case"
+        "zero": "None on this routing"
       },
       {
         "id": "result",
@@ -405,8 +405,8 @@
         "prefix": "USD ",
         "suffix": " million"
       },
-      " of voyage costs, ",
-      "all of them bunkers."
+      " of voyage costs priced, ",
+      "all of them bunkers; port charges, with no public figure, are left out."
     ],
     "source": [
       "Engine output for TD22 in the week to ",
@@ -490,7 +490,7 @@
         },
         " weather margin, and the engine against the Baltic in ",
         {
-          "value": 7,
+          "value": 13,
           "format": "count",
           "field": "comparison.count"
         },
@@ -522,7 +522,7 @@
           "field": "inputs.sea_margin",
           "suffix": " percent"
         },
-        " weather margin; fuel is priced at the bunker port nearest the load port; port, waiting and canal days follow the route description."
+        " weather margin; fuel is priced at the bunker port nearest the load port; port, waiting and canal days follow the route description. TD22 loads in the Galveston lightering area, sails round the Cape of Good Hope and through the Sunda Strait to Ningbo, as NGA Pub. 151's route to Shanghai does; the Baltic measures its distances on AtoBviaC tables, which are not published."
       ],
       [
         "Operating and capital costs are not voyage costs: a TCE is compared with them, never net of them. A TCE without the ballast leg is a different number; the one here includes it."
@@ -531,10 +531,10 @@
     "formulas": [
       "TCE = (gross freight + other revenue - commission - voyage costs) / total voyage days",
       "Voyage days = ballast steaming + laden steaming (each with the weather margin) + port, waiting and canal days",
-      "Freight that covers voyage costs = voyage costs / (1 - commission share), the TCE set to zero"
+      "Freight that covers the voyage costs priced = voyage costs / (1 - commission share), the TCE set to zero"
     ],
     "comparison_title": [
-      "Against the Baltic's own TD22 TCE, the engine reads between ",
+      "Against the Baltic's own TD22 TCE the engine reads between ",
       {
         "value": 3.202623,
         "format": "error_percent",
@@ -543,14 +543,78 @@
       },
       " and ",
       {
-        "value": 5.180652,
+        "value": 5.204958,
         "format": "error_percent",
         "field": "comparison.max_error",
         "suffix": " percent"
       },
-      " higher in weeks with a bunker table of the same week."
+      " higher in the weeks priced with prices first printed that week, the two weeks after the closure of Hormuz aside, and further above in dollars as freight rises: ",
+      {
+        "value": 4866.635354,
+        "format": "usd_day",
+        "field": "comparison.gap_low",
+        "prefix": "USD "
+      },
+      " a day on a ",
+      {
+        "value": 13.675,
+        "format": "usd_m",
+        "field": "comparison.gap_low_rate",
+        "prefix": "USD ",
+        "suffix": " million"
+      },
+      " lump sum (",
+      {
+        "text": "23 January 2026",
+        "field": "comparison.gap_low_week"
+      },
+      "), ",
+      {
+        "value": 15386.553291,
+        "format": "usd_day",
+        "field": "comparison.gap_high",
+        "prefix": "USD "
+      },
+      " on ",
+      {
+        "value": 79.611111,
+        "format": "usd_m",
+        "field": "comparison.gap_high_rate",
+        "prefix": "USD ",
+        "suffix": " million"
+      },
+      " (",
+      {
+        "text": "9 October 2026",
+        "field": "comparison.gap_high_week"
+      },
+      ")."
     ],
-    "comparison_note": "Higher every week because the engine leaves out port charges (the Baltic uses Cory Brothers' estimates, which are not published). The week to 13 March 2026 is priced with the table of 6 March, before bunker prices jumped after the closure of the Strait of Hormuz, and reads furthest above."
+    "comparison_note": [
+      "Port charges, which the engine leaves out (the Baltic uses Cory Brothers' estimates, which are not published), are a fixed sum a voyage, so they explain only part of the gap; the rest grows with freight, as it would if the Baltic's voyage were longer than searoute's or carried another cost that scales with freight, and the weeks checked cannot tell which. In the weeks to ",
+      {
+        "text": "13 March 2026",
+        "field": "exception.0"
+      },
+      " and ",
+      {
+        "text": "20 March 2026",
+        "field": "exception.1"
+      },
+      " the engine reads ",
+      {
+        "value": 18.122068,
+        "format": "error_percent",
+        "field": "exception.0.error"
+      },
+      " and ",
+      {
+        "value": 10.041131,
+        "format": "error_percent",
+        "field": "exception.1.error"
+      },
+      " percent above with the bunker tables of those weeks, and why is not established; the guide changed its description of the fuel price in May 2026 (version 8.4), so how the Baltic priced fuel in March is not documented. Star Asia sometimes reprints a week's bunker table unchanged, so each week below says when the prices it was priced with were first printed."
+    ]
   },
   "assumptions": {
     "leaves_out": [
@@ -624,7 +688,7 @@
       "text": null,
       "status": "sourced",
       "status_words": "Sourced",
-      "source": "the guide's description speed, VLCC300"
+      "source": "GMB v8.8 page 89, VLCC300: the laden speed its description names, at which the Baltic prices its TCE (Appendix 3, page 98); its 11 knot pairs are the guide's Eco speeds"
     },
     {
       "path": "ballast.speed_kn",
@@ -634,7 +698,7 @@
       "text": null,
       "status": "sourced",
       "status_words": "Sourced",
-      "source": "the guide's description speed, VLCC300"
+      "source": "GMB v8.8 page 89, VLCC300: the ballast speed its description names, at which the Baltic prices its TCE (Appendix 3, page 98); its 11 knot pairs are the guide's Eco speeds"
     },
     {
       "path": "laden_curve",
@@ -907,14 +971,24 @@
       "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
     },
     {
-      "path": "war_risk.premium_pct",
-      "label": "War risk premium, percent of hull value",
+      "path": "war_risk.areas.gulf.premium_pct",
+      "label": "War risk premium in the Gulf, percent of hull value a period",
       "value": 0.0,
       "format": "percent_2",
       "text": null,
-      "status": "sourced",
-      "status_words": "Sourced",
-      "source": "no war risk area on this routing in the base case"
+      "status": "derived",
+      "status_words": "Derived",
+      "source": "the routing does not enter the Gulf"
+    },
+    {
+      "path": "war_risk.areas.red_sea.premium_pct",
+      "label": "War risk premium for the Red Sea, percent of hull value a period",
+      "value": 0.0,
+      "format": "percent_2",
+      "text": null,
+      "status": "derived",
+      "status_words": "Derived",
+      "source": "the routing does not pass Bab el Mandeb"
     },
     {
       "path": "war_risk.hull_value_usd",
@@ -935,9 +1009,61 @@
       "status": "empty",
       "status_words": "No public figure",
       "source": "The International Bargaining Forum designated the Strait of Hormuz, the Gulf of Oman and the Persian Gulf a Warlike Operations Area from 6 March 2026, with a bonus equal to 100 percent of basic wage for a minimum of five days; the bonus in dollars needs the crew's wage bill, which has no public source for these ships."
+    },
+    {
+      "path": "war_risk.payer",
+      "label": "Who pays the war risk premium",
+      "value": null,
+      "format": null,
+      "text": "The charterer, as on most spot voyage charters",
+      "status": "sourced",
+      "status_words": "Sourced",
+      "source": "usually the charterer's in spot voyage charters (Platts, 8 December 2025), reimbursed to the owner at cost under VOYWAR 2013 (Gard, 21 March 2026)"
     }
   ],
   "comparison": [
+    {
+      "week_ending": "2025-12-12",
+      "rate_usd": 13722222,
+      "published_tce_usd_day": 94300,
+      "qualifier": "a little over",
+      "engine_tce_usd_day": 97816.474239,
+      "error": 0.03729,
+      "bunkers": "week of 2025-12-05",
+      "bunkers_first_printed": "2025-12-05",
+      "bunker_age_days": 7,
+      "post_closure": false,
+      "error_pct": 3.729029,
+      "bunkers_words": "Week of 5 December 2025, the latest table before it"
+    },
+    {
+      "week_ending": "2026-01-23",
+      "rate_usd": 13675000,
+      "published_tce_usd_day": 93500,
+      "qualifier": "just under",
+      "engine_tce_usd_day": 98366.635354,
+      "error": 0.05205,
+      "bunkers": "week of 2026-01-23",
+      "bunkers_first_printed": "2026-01-23",
+      "bunker_age_days": 0,
+      "post_closure": false,
+      "error_pct": 5.204958,
+      "bunkers_words": "Same week"
+    },
+    {
+      "week_ending": "2026-02-20",
+      "rate_usd": 14680000,
+      "published_tce_usd_day": 100000,
+      "qualifier": "just under",
+      "engine_tce_usd_day": 104722.721637,
+      "error": 0.047227,
+      "bunkers": "week of 2026-02-20",
+      "bunkers_first_printed": "2026-02-20",
+      "bunker_age_days": 0,
+      "post_closure": false,
+      "error_pct": 4.722722,
+      "bunkers_words": "Same week"
+    },
     {
       "week_ending": "2026-02-27",
       "rate_usd": 17300000,
@@ -946,8 +1072,11 @@
       "engine_tce_usd_day": 127534.311743,
       "error": 0.049665,
       "bunkers": "week of 2026-02-27",
+      "bunkers_first_printed": "2026-02-20",
+      "bunker_age_days": 7,
+      "post_closure": false,
       "error_pct": 4.966512,
-      "bunkers_words": "Same week"
+      "bunkers_words": "The week's table, reprinting prices of 20 February 2026"
     },
     {
       "week_ending": "2026-03-06",
@@ -957,6 +1086,9 @@
       "engine_tce_usd_day": 219678.684801,
       "error": 0.043044,
       "bunkers": "week of 2026-03-06",
+      "bunkers_first_printed": "2026-03-06",
+      "bunker_age_days": 0,
+      "post_closure": false,
       "error_pct": 4.304428,
       "bunkers_words": "Same week"
     },
@@ -965,11 +1097,56 @@
       "rate_usd": 21244444,
       "published_tce_usd_day": 126000,
       "qualifier": "just over",
-      "engine_tce_usd_day": 155732.704306,
-      "error": 0.235974,
-      "bunkers": "week of 2026-03-06",
-      "error_pct": 23.597384,
-      "bunkers_words": "Week of 6 March 2026, the latest table before it"
+      "engine_tce_usd_day": 148833.806238,
+      "error": 0.181221,
+      "bunkers": "week of 2026-03-13",
+      "bunkers_first_printed": "2026-03-13",
+      "bunker_age_days": 0,
+      "post_closure": true,
+      "error_pct": 18.122068,
+      "bunkers_words": "Same week"
+    },
+    {
+      "week_ending": "2026-03-20",
+      "rate_usd": 22217222,
+      "published_tce_usd_day": 137200,
+      "qualifier": "about",
+      "engine_tce_usd_day": 150976.431898,
+      "error": 0.100411,
+      "bunkers": "week of 2026-03-20",
+      "bunkers_first_printed": "2026-03-20",
+      "bunker_age_days": 0,
+      "post_closure": true,
+      "error_pct": 10.041131,
+      "bunkers_words": "Same week"
+    },
+    {
+      "week_ending": "2026-03-27",
+      "rate_usd": 22760556,
+      "published_tce_usd_day": 150500,
+      "qualifier": "nearly",
+      "engine_tce_usd_day": 155707.085523,
+      "error": 0.034599,
+      "bunkers": "week of 2026-03-20",
+      "bunkers_first_printed": "2026-03-20",
+      "bunker_age_days": 7,
+      "post_closure": false,
+      "error_pct": 3.459857,
+      "bunkers_words": "Week of 20 March 2026, the latest table before it"
+    },
+    {
+      "week_ending": "2026-04-17",
+      "rate_usd": 16550000,
+      "published_tce_usd_day": 102250,
+      "qualifier": "nearly",
+      "engine_tce_usd_day": 101633.552011,
+      "error": -0.006029,
+      "bunkers": "week of 2026-04-17",
+      "bunkers_first_printed": "2026-03-20",
+      "bunker_age_days": 28,
+      "post_closure": false,
+      "error_pct": -0.602883,
+      "bunkers_words": "The week's table, reprinting prices of 20 March 2026"
     },
     {
       "week_ending": "2026-06-26",
@@ -979,6 +1156,9 @@
       "engine_tce_usd_day": 154194.836071,
       "error": 0.051807,
       "bunkers": "week of 2026-06-26",
+      "bunkers_first_printed": "2026-06-26",
+      "bunker_age_days": 0,
+      "post_closure": false,
       "error_pct": 5.180652,
       "bunkers_words": "Same week"
     },
@@ -989,9 +1169,12 @@
       "qualifier": "just over",
       "engine_tce_usd_day": 270679.677992,
       "error": 0.053228,
-      "bunkers": "week of 2026-09-04",
+      "bunkers": "week of 2026-09-11",
+      "bunkers_first_printed": "2026-09-04",
+      "bunker_age_days": 7,
+      "post_closure": false,
       "error_pct": 5.322832,
-      "bunkers_words": "Week of 4 September 2026, the latest table before it"
+      "bunkers_words": "The week's table, reprinting prices of 4 September 2026"
     },
     {
       "week_ending": "2026-10-09",
@@ -1000,9 +1183,12 @@
       "qualifier": "exact",
       "engine_tce_usd_day": 653061.553291,
       "error": 0.024129,
-      "bunkers": "week of 2026-10-02",
+      "bunkers": "week of 2026-10-09",
+      "bunkers_first_printed": "2026-10-02",
+      "bunker_age_days": 7,
+      "post_closure": false,
       "error_pct": 2.412915,
-      "bunkers_words": "Week of 2 October 2026, the latest table before it"
+      "bunkers_words": "The week's table, reprinting prices of 2 October 2026"
     },
     {
       "week_ending": "2026-10-23",
@@ -1012,9 +1198,12 @@
       "engine_tce_usd_day": 466377.812043,
       "error": 0.032026,
       "bunkers": "week of 2026-10-23",
+      "bunkers_first_printed": "2026-10-23",
+      "bunker_age_days": 0,
+      "post_closure": false,
       "error_pct": 3.202623,
       "bunkers_words": "Same week"
     }
   ],
-  "plain_verdict": "A VLCC fixed on TD22, Galveston to Ningbo, at the Baltic's USD 58.22 million in the week to 23 October 2026, earns about USD 466,378 a day over a 110.5 day round voyage; freight of USD 17.24 a tonne would only cover its voyage costs."
+  "plain_verdict": "A VLCC fixed on TD22, Galveston to Ningbo, at the Baltic's USD 58.22 million in the week to 23 October 2026, earns about USD 466,378 a day over a 110.5 day round voyage; freight of USD 17.24 a tonne would only cover the voyage costs priced."
 }

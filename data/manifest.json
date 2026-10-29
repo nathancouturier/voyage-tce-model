@@ -56,7 +56,8 @@
     {
       "id": "ports",
       "what": "Port positions, NGA World Port Index (Pub. 150)",
-      "as_of": "2026-10-29",
+      "as_of": null,
+      "as_of_words": "Not dated: the agency's service carries no edition date",
       "source": {
         "url": "https://msi.nga.mil/api/publications/world-port-index?output=json",
         "retrieved": "2026-10-29",
@@ -67,7 +68,8 @@
     {
       "id": "distances",
       "what": "Sea routes, searoute 1.6.0 over Eurostat SeaRoute, checked against NGA Pub. 151",
-      "as_of": "2026-10-29",
+      "as_of": null,
+      "as_of_words": "searoute 1.6.0's network; Pub. 151, 11th edition, 2001",
       "source": {
         "url": "https://github.com/genthalili/searoute-py",
         "retrieved": "2026-10-29",
@@ -78,7 +80,7 @@
     {
       "id": "eca",
       "what": "Emission control areas, MARPOL Annex VI Appendix VII and the area regulations",
-      "as_of": "2026-10-29",
+      "as_of": "2024-10-04",
       "source": {
         "url": "https://wwwcdn.imo.org/localresources/en/KnowledgeCentre/IndexofIMOResolutions/MEPCDocuments/MEPC.328(76).pdf",
         "retrieved": "2026-10-29",
@@ -110,7 +112,7 @@
     },
     {
       "id": "bunkers",
-      "what": "Bunker prices: Ship & Bunker monthly and quarterly averages; Star Asia and Banchero Costa weekly tables",
+      "what": "Bunker prices, weekly: Star Asia Shipbroking and Banchero Costa tables",
       "as_of": "2026-10-23",
       "source": {
         "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/10/Market-Report-Week-43.pdf",
@@ -118,6 +120,17 @@
         "publisher": "Hellenic Shipping News Worldwide (republishing the named author)"
       },
       "licence": "Copyright of the publishers; figures cited"
+    },
+    {
+      "id": "bunkers_sb",
+      "what": "Bunker prices, monthly and quarterly averages: Ship & Bunker",
+      "as_of": "2026-09-30",
+      "source": {
+        "url": "https://shipandbunker.com/prices/emea/nwe/nl-rtm-rotterdam",
+        "retrieved": "2026-10-29",
+        "publisher": "Ship & Bunker"
+      },
+      "licence": "Copyright of the publisher; figures cited"
     },
     {
       "id": "tanker_rates",
@@ -186,11 +199,13 @@
       "licence": "Cited"
     }
   ],
-  "raw_files": 346,
+  "raw_files": 365,
   "raw_committed": 4,
   "footer": {
     "sources": "Data: Baltic Exchange route definitions and weekly reports as republished, Ship & Bunker, Star Asia and Banchero Costa bunker and FFA tables, the European Commission and DEHSt auction reports, the Federal Reserve, NGA, Eurostat SeaRoute, the IMO and EUR-Lex, each cited where it is used.",
-    "updated_words": "Latest market input dated",
+    "updated_words": "Data last updated",
+    "updated": "2026-10-29",
+    "latest_words": "latest market input dated",
     "latest_input": "2026-10-25",
     "method_words": "Every source with its date and licence"
   }

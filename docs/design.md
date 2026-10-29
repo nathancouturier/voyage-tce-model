@@ -85,6 +85,8 @@ for it, and it never appears beside HSFO.
 |---|---|---|
 | Sourced | the value in `--text`, a source line under the field in `--text-muted` with the document and its date, linked to the Method view's source table | Singapore VLSFO 822 USD/t, Ship & Bunker, August 2026 average |
 | Derived | the value in `--text`, the rule in the source line, starting "From" | Load days 10.24, from 66,000 t at 10,000 t a day, five working days a week, plus 24 hours |
+| Study's choice | the value in `--text` in a dotted field, the reason in the source line | Laden speed 14 knots, the fastest of the speeds the guide prints for BCI182, since the C3 terms name none |
+| Left out of the TCE | a zero in a dashed field: a cost the Baltic's TCE leaves out too, which the visitor may enter | War risk premium in the Gulf, usually the charterer's |
 | Empty | an empty field, its placeholder "No public figure", and the reason in the source line; the result's "Leaves out" list names it | Port charges at Galveston: no public per call figure |
 | Changed by the visitor | the field keeps its value, the source line reads "Your figure", and a Reset button restores the default | |
 
@@ -106,8 +108,9 @@ Nothing is a card.
   USD 58.22 million in the week to 23 October 2026, earns about USD {tce} a day after USD {costs} of voyage costs;
   it would need USD {breakeven} a tonne to cover them." Figures from `data/overview.json`, written by the export.
 - **Three facts** under it, in one row at 768px and above, stacked below: TCE (USD/day), breakeven freight (USD/t
-  and lump sum), bunker share of voyage costs (percent). Each with its as-of date and source in `--text-muted`.
-  Not cards: three label and value pairs separated by space only.
+  and lump sum), bunker share of the voyage costs priced (percent). Each with its as-of date and source in
+  `--text-muted`. Not cards: three label and value pairs separated by space only. The date and source of every
+  input follow the bridge and the map, so on a phone the figures come first.
 - **The bridge** (the one orchestrated motion, Part 5): a table of rows, one per line, gross freight down to the
   result and the TCE: gross freight (ink fill), commission (ink outline), bunkers, ports, canals, ETS, war risk
   (family colours, zero rows shown as a hairline with "none sourced" or "none on this route"), result (ink total),
@@ -190,11 +193,13 @@ Nothing is a card.
 One approach for every chart, the siblings': SVG drawn by hand in `src/charts.js`, marks coloured by classes
 that read the roles in `tokens.css` and the palette above, so a theme change needs no redraw. Every chart has a
 title that states the takeaway, axis titles with units, a source line with the retrieval date, a readout or
-tooltip on hover and keyboard focus, and a button under it naming its table ("Every line of the bridge", "Every
-route by routing"), which reveals a real `table`. Marks follow the dataviz method: 2px lines, bars at most 24px
+tooltip on hover and keyboard focus, and its figures in a real `table` beside it or behind the view's Data
+button (the bridge is itself a table). Marks follow the dataviz method: 2px lines, bars at most 24px
 thick, a 2px `--bg` gap between touching bars, dots of radius 4 with a 2px `--bg` ring, hairline gridlines in
 `--border`, one axis per chart, labels selective. Values a visitor would read are always in a table or a label,
-never only in a tooltip.
+never only in a tooltip. Below 600px a row's label sits above its bar on a plate of the ground, so no gridline
+or rule runs through it; a mark's label in a line chart takes the first place, above, below or beside the dot,
+where no line runs; a bar's value is written after its own bar, and the plot is as wide as every value allows.
 
 ## Part 5. Motion
 
@@ -209,7 +214,9 @@ Keyboard order: skip link, site name, nav, theme toggle, the view's title (focus
 then the view in reading order. Every SVG has `role="img"` with a `title` and a `desc` built from the artifact.
 Touch targets 44px. The layout works from 320px with no horizontal page scroll: the calculator's inputs stack
 above its outputs below 1024px, the bridge rows become two lines (name, then bar and figure) below 600px, and a
-wide table scrolls inside its own box with its first column sticky.
+table of more than three columns becomes one block per row at 600px and below, each cell under its column's name,
+with the table roles written into the markup; above that a wide table scrolls inside its own box with its first
+column sticky and its caption naming the columns off screen.
 
 ## Part 7. Artifacts
 

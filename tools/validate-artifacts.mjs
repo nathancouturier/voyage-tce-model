@@ -54,9 +54,13 @@ const REQUIRED = Object.freeze({
   calculator: [
     "title", "lead", "default_preset", "steps", "fields", "freight_bases", "ets_years", "vlsfo_classes", "shocks",
     "speed_chart.margin_kn", "speed_chart.step_kn", "target_tce.value", "presets", "vessels", "routes", "alternatives",
-    "cost_labels", "war_risk_rates", "route_order", "input_labels", "status_words", "words", "sections",
+    "cost_labels", "war_risk_rates", "route_order", "input_labels", "status_words", "payer_words", "war_area_names",
+    "words", "sections", "assumptions.statuses",
   ],
-  engine: ["constants.HOURS_PER_DAY", "constants.PERCENT", "constants.SHOCKS", "constants.SPEED_STEP_KN"],
+  engine: [
+    "constants.HOURS_PER_DAY", "constants.PERCENT", "constants.SHOCKS", "constants.SPEED_STEP_KN",
+    "constants.WAR_RISK_PERIOD_DAYS", "constants.WAR_RISK_AREAS",
+  ],
   map: ["land", "voyages"],
   routes: [
     "page.title", "page.takeaway", "page.baltic_map", "page.chart.title", "page.chart.axis", "page.chart.desc",
@@ -66,28 +70,33 @@ const REQUIRED = Object.freeze({
   ],
   detours: [
     "page.title", "page.takeaway", "page.chart.title", "page.chart.rows", "page.chart.legend", "page.chart.source",
-    "page.suez_tanker.lead", "page.suez_dry.lead", "page.hormuz.lead", "page.sections", "page.method",
-    "page.events_heading", "suez_tanker.options", "suez_dry.options", "hormuz.scenarios", "hormuz.levels", "events",
+    "page.suez_tanker.lead", "page.suez_dry.lead", "page.hormuz.lead", "page.hormuz.chain", "page.sections", "page.method",
+    "page.assumptions", "page.events_heading", "suez_tanker.options", "suez_dry.options", "suez_dry.basis",
+    "hormuz.scenarios", "hormuz.levels", "events",
   ],
   carbon: [
     "page.title", "page.takeaway", "page.chart.title", "page.chart.axis", "page.chart.source", "page.chart.none",
     "page.kinds", "page.time_charter.title", "page.time_charter.lead", "page.sections", "page.method", "page.fueleu",
+    "page.assumptions",
     "rows", "time_charter.rule", "conventions_rows", "convention_links", "market",
   ],
   paper: [
     "page.title", "page.takeaway", "page.chart.title", "page.chart.legend", "page.chart.source", "page.fixture.lead",
-    "page.td3c.lead", "page.sections", "page.method", "page.hedge_columns", "capesize", "c5_fixture", "settlement",
-    "curves",
+    "page.td3c.lead", "page.sections", "page.method", "page.assumptions", "page.hedge_columns", "page.months_words",
+    "capesize", "c5_fixture", "settlement", "curves",
   ],
   speed: ["lead", "note", "bound_mark", "routes", "textbook"],
   method: [
     "page.title", "page.takeaway", "page.chart.title", "page.chart.legend", "page.chart.source", "page.sections",
     "page.formulas", "page.limitations", "page.limitations_heading", "page.blocked", "page.blocked_heading",
-    "page.downloads", "page.early_march_caption", "page.baltic_2017_caption", "page.baltic_2017_labels",
+    "page.downloads", "page.early_march_caption", "page.dry_caption", "page.baltic_2017_caption", "page.baltic_2017_labels",
     "page.baltic_2017_head", "convention_items", "validation.tanker", "validation.dry", "validation.early_march",
     "validation.baltic_2017.published", "validation.baltic_2017.computed",
   ],
-  manifest: ["series", "caption", "footer.sources", "footer.updated_words", "footer.latest_input", "footer.method_words"],
+  manifest: [
+    "series", "caption", "footer.sources", "footer.updated_words", "footer.updated", "footer.latest_words",
+    "footer.latest_input", "footer.method_words",
+  ],
 });
 
 const SEGMENT_KEYS = new Set(["value", "format", "field", "prefix", "suffix", "signed", "accent", "missing"]);

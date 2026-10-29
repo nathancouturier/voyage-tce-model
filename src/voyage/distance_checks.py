@@ -11,9 +11,10 @@ which is how the composite checks below are built.
 Each check measures searoute between the two positions Pub. 151 prints (the
 World Port Index's where Pub. 151 prints none, for ports that appear only as
 destinations), under the routing that matches the published path, and the
-study requires agreement within two percent (brief section 4). The published
-figures are typed here from the pages named; tests/test_distances.py reads
-those pages of the committed PDF again and finds each one.
+study requires agreement within two percent (brief section 4). Positions at
+a study port are measured with the study's own port rules (STUDY_PORTS). The
+published figures are typed here from the pages named; tests/test_distances.py
+reads those pages of the committed PDF again and finds each one.
 """
 
 from __future__ import annotations
@@ -47,10 +48,18 @@ POSITIONS: dict[str, tuple[float, float, str]] = {
     "Rio de Janeiro": (dms(43, 11, 0, "W"), dms(22, 53, 30, "S"), "Pub. 151 p. 93"),
     "Panama": (dms(79, 31, 0, "W"), dms(8, 53, 0, "N"), "Pub. 151 p. 76"),
     "Cape of Good Hope": (dms(18, 23, 0, "E"), dms(34, 22, 0, "S"), "Pub. 151 p. 21"),
+    "Amsterdam": (dms(4, 54, 0, "E"), dms(52, 23, 0, "N"), "Pub. 151 p. 4"),
+    "Le Havre": (dms(0, 6, 0, "E"), dms(49, 29, 0, "N"), "Pub. 151 p. 56"),
+    "Selat Lombok": (dms(115, 43, 0, "E"), dms(8, 50, 0, "S"), "Pub. 151 p. 100"),
     # Destinations only in Pub. 151: positions from the World Port Index.
     "Ras Tanura": (50.166667, 26.633333, "WPI 48340"),
     "Mina al Ahmadi": (48.166667, 29.066667, "WPI 48361"),
 }
+
+
+#: Positions at a study port, measured with the same port rules as the study's
+#: legs (voyage.sea_routes.SEA_GATES and PORT_ENDS): position name -> port id.
+STUDY_PORTS: dict[str, str] = {"Amsterdam": "amsterdam", "Port Hedland": "port_hedland", "Al Jubayl": "jubail"}
 
 
 @dataclass(frozen=True)
@@ -196,6 +205,48 @@ CHECKS: Sequence[Check] = (
         ),
         adjustment_nm=47,
         note="Galveston's route plus 47 miles, the rule Pub. 151 prints for Houston on p. 44 (TD25)",
+    ),
+    Check(
+        "houston_amsterdam",
+        "Houston",
+        "Amsterdam",
+        "direct",
+        (
+            Part("GALVESTON, TEXAS, U.S.A.", "Straits of Florida", 698, 36),
+            Part("BISHOP ROCK, ENGLAND", "Straits of Florida", 3859, 14),
+            Part("BISHOP ROCK, ENGLAND", "Amsterdam, Netherlands", 481, 14),
+        ),
+        adjustment_nm=47,
+        note="Galveston's route plus 47 miles, the rule Pub. 151 prints for Houston on p. 44 (TC14)",
+    ),
+    Check(
+        "amsterdam_le_havre",
+        "Amsterdam",
+        "Le Havre",
+        "direct",
+        (Part("AMSTERDAM, NETHERLANDS", "Le Havre, France", 273, 4),),
+        note="the TC23 route",
+    ),
+    Check(
+        "galveston_shanghai_cape",
+        "Galveston",
+        "Shanghai",
+        "no_canals",
+        (
+            Part("GALVESTON, TEXAS, U.S.A.", "Straits of Florida", 698, 36),
+            Part("CAPE OF GOOD HOPE, SOUTH AFRICA", "Straits of Florida", 6770, 21),
+            Part("CAPE OF GOOD HOPE, SOUTH AFRICA", "Selat Sunda, Indonesia", 5164, 21),
+            Part("SELAT SUNDA, INDONESIA", "Shanghai, China", 2535, 101),
+        ),
+        note="through the Straits of Florida, the Cape of Good Hope and Selat Sunda, the TD22 route",
+    ),
+    Check(
+        "port_hedland_lombok",
+        "Port Hedland",
+        "Selat Lombok",
+        "direct",
+        (Part("PORT HEDLAND, AUSTRALIA", "Selat Lombok, Indonesia", 715, 84),),
+        note="the first stretch of the C5 route, from the port",
     ),
     Check(
         "bonny_rotterdam",

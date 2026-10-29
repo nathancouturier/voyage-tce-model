@@ -45,8 +45,10 @@ def test_eca_miles_of_study_legs():
     assert set(miles) == {"north_sea", "na_atlantic_gulf"}
     assert miles["na_atlantic_gulf"] == pytest.approx(1231.8, abs=5)
     assert cases.eca_miles("ras_tanura", "ningbo", "direct", "2026-08-31") == ()
+    # Amsterdam to Le Havre lies wholly in the North Sea ECA, from IJmuiden by the canal.
+    leg = cases.leg_record("amsterdam", "le_havre", "direct")
     assert dict(cases.eca_miles("amsterdam", "le_havre", "direct", "2026-08-31"))["north_sea"] == pytest.approx(
-        345.3, abs=3
+        leg["distance_nm"], abs=3
     )
 
 
@@ -56,6 +58,16 @@ def test_bunker_hub_is_the_nearest_with_prices():
     assert cases.bunker_hub("port_hedland") == "singapore"
     assert cases.bunker_hub("tubarao") == "rotterdam"
     assert cases.bunker_hub("bonny") == "rotterdam"
+
+
+def test_c3_names_its_hub_because_the_nearest_is_off_the_voyage():
+    c3 = baltic.ROUTES["C3"]
+    assert cases.route_hub(c3) == "singapore" and c3.bunker_hub_why
+    assert all(
+        cases.route_hub(baltic.ROUTES[code]) == cases.bunker_hub(baltic.ROUTES[code].load)
+        for code in baltic.STUDY_ROUTES
+        if code != "C3"
+    )
 
 
 def test_common_market_is_august_2026():

@@ -77,6 +77,11 @@
     "FUELEU_MJ_PER_T_VLSFO": 41000.0,
     "GRAMS_PER_TONNE": 1000000.0,
     "SPEED_STEP_KN": 0.01,
+    "WAR_RISK_PERIOD_DAYS": 7.0,
+    "WAR_RISK_AREAS": [
+      "gulf",
+      "red_sea"
+    ],
     "SHOCKS": [
       [
         "freight",

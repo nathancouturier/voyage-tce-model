@@ -87,7 +87,7 @@ async function buildFooter() {
   const manifest = result.data.manifest;
   footer.appendChild(el("p", {}, [manifest.footer.sources]));
   footer.appendChild(el("p", {}, [
-    manifest.footer.updated_words + " " + formatDay(manifest.footer.latest_input) + ". ",
+    manifest.footer.updated_words + " " + formatDay(manifest.footer.updated) + "; " + manifest.footer.latest_words + " " + formatDay(manifest.footer.latest_input) + ". ",
     el("a", { class: "text-link", text: manifest.footer.method_words, attrs: { href: router.href("method") } }),
     ".",
   ]));

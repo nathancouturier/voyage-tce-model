@@ -1,11 +1,12 @@
 /* paper.js
  *
  * The Paper view: the physical fixture against the FFA. The key chart sets,
- * for each anchor week and Capesize route, the voyage's TCE beside the 5TC FFA
- * for the voyage month and the spot 5TC average of the week, on one axis in
- * dollars a day; the rule between the first two is the basis. Then a fixture
- * against its index, and behind buttons the hedges, the tanker comparison,
- * the settlement rules and the curves as assessed.
+ * for each anchor week and Capesize route, the voyage's TCE grossed up by its
+ * commission beside the 5TC FFA over the voyage's days and the spot 5TC on
+ * the fixture date, on one axis in dollars a day; the rule between the first
+ * two is the basis. Then a fixture against its index, and behind buttons the
+ * hedges, the tanker figures, the settlement rules, the assumptions and the
+ * curves as printed.
  *
  * Every figure is from data/paper.json.
  *
@@ -43,16 +44,16 @@ export function render(root, data, route) {
         label: row.route + ", " + formatDay(row.date),
         group: null,
         dots: [
-          { value: row.spot_index_usd_day, className: "mark-context-fill" },
+          { value: row.spot_182_usd_day, className: "mark-context-fill" },
+          { value: row.physical_tce_gross_usd_day, className: "mark-series-fill" },
           { value: row.ffa.usd_day, className: "mark-printed" },
-          { value: row.physical_tce_usd_day, className: "mark-series-fill" },
         ],
-        span: { from: row.physical_tce_usd_day, to: row.ffa.usd_day },
+        span: { from: row.physical_tce_gross_usd_day, to: row.ffa.usd_day },
         tip: [
           row.route + ", " + formatDay(row.date) + ", at " + formatNumber(row.freight_usd_t, "usd_t", decimals) + " " + UNITS.usd_t,
-          physical.text + ": " + day(row.physical_tce_usd_day),
-          ffa.text + " (" + formatDay(row.ffa.period) + "): " + day(row.ffa.usd_day),
-          spot.text + ": " + day(row.spot_index_usd_day),
+          physical.text + ": " + day(row.physical_tce_gross_usd_day) + " (" + day(row.physical_tce_usd_day) + " net)",
+          ffa.text + ", curve of " + formatDay(row.ffa.dated) + ": " + day(row.ffa.usd_day),
+          spot.text + ": " + day(row.spot_182_usd_day),
         ],
       })),
       words: { title: titleText, desc: page.chart.desc, axis: page.chart.axis },
@@ -65,6 +66,7 @@ export function render(root, data, route) {
     hedge: (inner) => hedgeSection(inner, paper, decimals),
     tankers: (inner) => tankerSection(inner, paper, decimals),
     method: (inner) => methodSection(inner, paper),
+    assumptions: (inner) => assumptionsSection(inner, paper, decimals),
     data: (inner) => curvesSection(inner, paper, decimals),
   }), decimals, route);
   root.appendChild(sections.node);
@@ -88,17 +90,19 @@ function hedgeSection(inner, paper, decimals) {
       el("th", { text: row.route + ", " + formatDay(row.date), attrs: { scope: "row" } }),
       figureCell(formatCell(row.freight_usd_t, "usd_t", decimals), "freight_usd_t"),
       figureCell(formatCell(row.physical_tce_usd_day, "usd_day", decimals), "physical_tce_usd_day"),
-      el("td", { class: "nowrap", text: formatDay(row.ffa.period) }),
+      figureCell(formatCell(row.physical_tce_gross_usd_day, "usd_day", decimals), "physical_tce_gross_usd_day"),
+      el("td", { class: "words", text: paper.page.months_words[row.route + " " + row.date] }),
       figureCell(formatCell(row.ffa.usd_day, "usd_day", decimals), "ffa.usd_day"),
       figureCell(formatCell(row.basis_usd_day, "usd_day", decimals, true), "basis_usd_day"),
       figureCell(formatCell(row.freight_matching_ffa_usd_t, "usd_t", decimals), "freight_matching_ffa_usd_t"),
-      figureCell(formatCell(row.spot_index_usd_day, "usd_day", decimals), "spot_index_usd_day"),
+      figureCell(formatCell(row.spot_182_usd_day, "usd_day", decimals), "spot_182_usd_day"),
       figureCell(formatCell(row.timing_basis_usd_day, "usd_day", decimals, true), "timing_basis_usd_day"),
       figureCell(formatCell(row.hedge_days, "days", decimals), "hedge_days"),
+      figureCell(formatCell(row.hedge_days_net, "days", decimals), "hedge_days_net"),
     ]));
   }
   const table = el("table", { class: "table table--wide" }, [el("thead", {}, [head]), body]);
-  inner.appendChild(el("div", { class: "block" }, [scrollTable(["Each anchor week: the physical TCE, the FFA for the voyage month, the basis between them, the freight that would earn the FFA, the spot average, the timing basis and the hedge."], table)]));
+  inner.appendChild(el("div", { class: "block" }, [scrollTable([paper.page.hedge_caption], table)]));
   const f = paper.c5_fixture;
   const fixture = el("table", { class: "table" }, [
     el("thead", {}, [el("tr", {}, [
@@ -138,13 +142,17 @@ function methodSection(inner, paper) {
   inner.appendChild(el("div", { class: "block" }, [scrollTable(["How each FFA settles, from the exchanges' contract specifications."], table)]));
 }
 
+function assumptionsSection(inner, paper, decimals) {
+  inner.appendChild(el("div", { class: "block" }, paper.page.assumptions.map((segments) => sentence("p", segments, decimals, "prose"))));
+}
+
 function curvesSection(inner, paper, decimals) {
   for (const curve of paper.curves) {
     const segments = Object.entries(curve.segments);
     const periods = [...new Set(segments.flatMap(([, s]) => s.points.map((p) => p.period)))];
     const head = el("tr", {}, [
       el("th", { text: "Period", attrs: { scope: "col" } }),
-      ...segments.map(([name, s]) => el("th", { class: "col-num", text: name.charAt(0).toUpperCase() + name.slice(1) + ", " + s.index + ", " + UNITS.usd_day, attrs: { scope: "col", "data-short": name } })),
+      ...segments.map(([name, s]) => el("th", { class: "col-num", text: name.charAt(0).toUpperCase() + name.slice(1) + ", " + s.index + ", " + UNITS.usd_day, attrs: { scope: "col", "data-short": name.charAt(0).toUpperCase() + name.slice(1) } })),
     ]);
     const body = el("tbody");
     for (const period of periods) {
@@ -157,6 +165,6 @@ function curvesSection(inner, paper, decimals) {
       ]));
     }
     const table = el("table", { class: "table" }, [el("thead", {}, [head]), body]);
-    inner.appendChild(el("div", { class: "block" }, [scrollTable([curve.source + ", assessed " + formatDay(curve.assessed) + "."], table)]));
+    inner.appendChild(el("div", { class: "block" }, [scrollTable([curve.source + ", printed at " + formatDay(curve.assessed) + "; the previous column, " + formatDay(curve.previous) + ", is in the report beside it."], table)]));
   }
 }

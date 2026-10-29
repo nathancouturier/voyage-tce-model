@@ -343,39 +343,37 @@ def bridge_chart(rows: list[dict[str, Any]]) -> Image:
 
 
 def validation_chart(rows: list[dict[str, Any]], words: dict[str, Any]) -> Image:
-    """Figure 2: the engine against the Baltic's published TCE, week by week."""
-    height = 0.42 + 0.21 * len(rows)
+    """Figure 2: the engine against the Baltic's published TCE, week by week, marked by how fresh the bunkers were."""
+    height = 0.45 + 0.15 * len(rows)
     fig, ax = new_figure(height)
+    marks = {
+        "fresh": (C["text"], C["text"]),
+        "week_old": ("white", C["text"]),
+        "older": (C["text-muted"], C["text-muted"]),
+    }
     labels = []
     for at, r in enumerate(rows):
         y = -at
-        same = r["bunkers"] == "week of " + r["week_ending"]
+        face, edge = marks[r["bunker_freshness"]]
         labels.append("%s, %s" % (r["route"], date_label(r["week_ending"])))
-        ax.scatter(
-            [r["error"] * 100.0],
-            [y],
-            s=26,
-            color=C["text"] if same else "white",
-            edgecolors=C["text"],
-            linewidths=1.1,
-            zorder=3,
-        )
+        ax.scatter([r["error"] * 100.0], [y], s=24, color=face, edgecolors=edge, linewidths=1.1, zorder=3)
         ax.text(
-            r["error"] * 100.0 + 0.6,
+            r["error"] * 100.0 + (0.6 if r["error"] >= 0 else -0.6),
             y,
             number(r["error"] * 100.0, "error_percent", signed=True),
             va="center",
-            fontsize=6.8,
+            ha="left" if r["error"] >= 0 else "right",
+            fontsize=6.6,
             family="Liberation Mono",
             bbox=HALO,
         )
     ax.axvline(0, color=C["text-muted"], linewidth=0.8)
     ax.set_yticks([-i for i in range(len(rows))], labels)
     ax.set_ylim(-len(rows) + 0.5, 0.5)
-    ax.set_xlim(-1, max(r["error"] for r in rows) * 100.0 + 3.5)
+    ax.set_xlim(min(-2.5, min(r["error"] for r in rows) * 100.0 - 3.0), max(r["error"] for r in rows) * 100.0 + 4.0)
     ax.set_xlabel(words["axis"])
-    ink, ring = (next(item["text"] for item in words["legend"] if item["kind"] == kind) for kind in ("ink", "ring"))
-    key(ax, [dot(C["text"], C["text"], ink), dot("white", C["text"], ring)], loc="lower right")
+    kinds = {"ink": "fresh", "ring": "week_old", "muted": "older"}
+    key(ax, [dot(*marks[kinds[item["kind"]]], item["text"]) for item in words["legend"]], loc="lower right")
     style_axes(ax)
     for label in ax.get_yticklabels():
         label.set_color(C["text"])
@@ -384,7 +382,7 @@ def validation_chart(rows: list[dict[str, Any]], words: dict[str, Any]) -> Image
 
 
 def detours_chart(rows: list[dict[str, Any]], words: dict[str, Any]) -> Image:
-    """Figure 3: the extra freight a tonne that keeps the TCE, detour by detour."""
+    """Figure 3: what a tonne of cargo costs more, detour by detour: the owner's freight and the charterer's premium."""
     groups: list[str] = []
     for r in rows:
         if r["group"] not in groups:
@@ -393,9 +391,11 @@ def detours_chart(rows: list[dict[str, Any]], words: dict[str, Any]) -> Image:
     for g in groups:
         lines.append(("group", g, None))
         lines += [("row", r["label"], r) for r in rows if r["group"] == g]
-    height = 0.45 + 0.19 * len(lines)
+    height = 0.95 + 0.18 * len(lines)
     fig, ax = new_figure(height)
+    faces = {"routing": C["text"], "war": C["data-war"]}
     ticks, labels = [], []
+    totals = []
     for at, (kind, text, r) in enumerate(lines):
         y = -at
         if kind == "group":
@@ -410,29 +410,27 @@ def detours_chart(rows: list[dict[str, Any]], words: dict[str, Any]) -> Image:
                 fontweight="bold",
             )
             continue
-        face = C["data-war"] if r["family"] == "war" else C["text"]
-        ax.barh(y, r["value"], height=0.55, color=face)
-        value = number(r["value"], "usd_t", signed=True) + (", " + r["detail"] if r["detail"] else "")
-        ax.text(
-            r["value"] + (1.5 if r["value"] >= 0 else -1.5),
-            y,
-            value,
-            va="center",
-            ha="left" if r["value"] >= 0 else "right",
-            fontsize=6.8,
-            family="Liberation Mono",
-            bbox=HALO,
-        )
+        start = 0.0
+        for segment in r["segments"]:
+            ax.barh(y, segment["value"], left=start, height=0.55, color=faces[segment["family"]])
+            start += segment["value"]
+        totals.append(start)
+        value = number(start, "usd_t", signed=True) + (", " + r["detail"] if r["detail"] else "")
+        ax.text(start + 3.0, y, value, va="center", ha="left", fontsize=6.6, family="Liberation Mono", bbox=HALO)
         ticks.append(y)
         labels.append(text)
     ax.set_yticks(ticks, labels)
     ax.set_ylim(-len(lines) + 0.5, 0.6)
-    low = min(r["value"] for r in rows)
-    ax.set_xlim(min(0, low) * 2.6, max(r["value"] for r in rows) * 1.8)
+    ax.set_xlim(0, max(totals) * 1.45)
     ax.axvline(0, color=C["text-muted"], linewidth=0.8)
     ax.set_xlabel(words["axis"])
-    faces = {"routing": C["text"], "war": C["data-war"]}
-    key(ax, [Patch(facecolor=faces[item["family"]], label=item["text"]) for item in words["legend"]], loc="lower right")
+    key(
+        ax,
+        [Patch(facecolor=faces[item["family"]], label=item["text"]) for item in words["legend"]],
+        loc="upper left",
+        bbox_to_anchor=(-0.02, -0.1),
+        ncol=1,
+    )
     style_axes(ax)
     for label in ax.get_yticklabels():
         label.set_color(C["text"])
@@ -441,18 +439,19 @@ def detours_chart(rows: list[dict[str, Any]], words: dict[str, Any]) -> Image:
 
 
 def paper_chart(rows: list[dict[str, Any]], words: dict[str, Any]) -> Image:
-    """Figure 4: the physical voyage TCE against the 5TC FFA for the month and the spot 5TC."""
-    height = 0.75 + 0.27 * len(rows)
+    """Figure 4: the voyage TCE grossed up by its commission against the 5TC FFA over its days and the spot 5TC."""
+    height = 0.95 + 0.25 * len(rows)
     fig, ax = new_figure(height)
     labels = []
     for at, r in enumerate(rows):
         y = -at
         labels.append("%s, %s" % (r["route"], date_label(r["date"])))
         ffa = r["ffa"]["usd_day"]
-        ax.plot([r["physical_tce_usd_day"], ffa], [y, y], color=C["text-muted"], linewidth=1, zorder=1)
-        ax.scatter([r["spot_index_usd_day"]], [y], s=20, color=C["text-muted"], zorder=2)
-        ax.scatter([ffa], [y], s=26, color="white", edgecolors=C["text"], linewidths=1.1, zorder=3)
-        ax.scatter([r["physical_tce_usd_day"]], [y], s=26, color=C["text"], zorder=4)
+        gross = r["physical_tce_gross_usd_day"]
+        ax.plot([gross, ffa], [y, y], color=C["text-muted"], linewidth=1, zorder=1)
+        ax.scatter([r["spot_182_usd_day"]], [y], s=20, color=C["text-muted"], zorder=2)
+        ax.scatter([gross], [y], s=26, color=C["text"], zorder=3)
+        ax.scatter([ffa], [y], s=26, color="none", edgecolors=C["text"], linewidths=1.1, zorder=4)
     ax.set_yticks([-i for i in range(len(rows))], labels)
     ax.set_ylim(-len(rows) + 0.5, 0.5)
     ax.set_xlabel(words["axis"])
@@ -461,8 +460,8 @@ def paper_chart(rows: list[dict[str, Any]], words: dict[str, Any]) -> Image:
         ax,
         [dot(*marks[item["kind"]], item["text"]) for item in words["legend"]],
         loc="upper center",
-        bbox_to_anchor=(0.5, -0.42),
-        ncol=len(words["legend"]),
+        bbox_to_anchor=(0.45, -0.38),
+        ncol=2,
     )
     ax.xaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda v, _: number(v, "usd_day")))
     style_axes(ax)
@@ -490,8 +489,9 @@ def build(out: Path) -> int:
     speed = analysis.speed()
     carbon = analysis.carbon()
     tanker = anchors.tanker_weekly()
-    reproducible = [r for r in tanker if r["reproducible"]]
-    same_week = [r for r in reproducible if r["bunkers"] == "week of " + r["week_ending"]]
+    summary = anchors.lump_sum_summary()
+    cross = anchors.broker_cross_check()
+    reproducible = summary["rows"]
     ws = [r for r in tanker if not r["reproducible"] and r["rate_basis"] == "ws"]
     distances = anchors.distances()
     within = [c for c in distances["checks"] if c["within_tolerance"]]
@@ -531,32 +531,37 @@ def build(out: Path) -> int:
     hz_scen = {s["id"]: s for s in hz["scenarios"]}
     latest_level = hz["levels"][-1]
 
-    def hz_extra(sid: str) -> float:
-        return next(
-            lv["extra_freight_usd_t"]
-            for lv in hz_scen[sid]["levels"]
-            if lv["week_ending"] == latest_level["week_ending"]
-        )
+    def hz_owner(sid: str, week: str | None = None) -> float:
+        week = week or latest_level["week_ending"]
+        return next(lv["extra_freight_usd_t"] for lv in hz_scen[sid]["levels"] if lv["week_ending"] == week)
 
     ets_rows = [r for r in structure["rows"] if r["shares"]["ets"] > 0]
     td3c = next(r for r in structure["rows"] if r["route"] == "TD3C")
     war = td3c["with_hormuz_war_risk"]
+    red = st["red_sea_war_risk"]
     rows_27 = [r for r in capesize if r["date"] == capesize[0]["date"]]
     c3_27 = next(r for r in rows_27 if r["route"] == "C3")
     c5_27 = next(r for r in rows_27 if r["route"] == "C5")
+    c3_43 = next(r for r in capesize if r["route"] == "C3" and r["date"] != c3_27["date"])
     textbook = speed["textbook"]
     holds = all(t["freight_pushes_speed_up"] and t["bunkers_push_speed_down"] for t in textbook)
+    low, high = summary["gap_low"], summary["gap_high"]
+
+    def side(value: float) -> str:
+        return "below" if value < 0 else "above"
+
     story.append(p("Summary", H2))
     story.append(
         bullets(
             [
                 escape(plain(overview["verdict"]))
-                + " The Baltic's own round voyage TCE that week was %s; the engine reads %s percent higher, about the "
-                "port charges it leaves out." % (usd(published, "usd_day"), number(error * 100.0, "error_percent")),
+                + " The Baltic's own round voyage TCE that week was %s; the engine reads %s percent higher. The port "
+                "charges it leaves out explain only part of that: across the weeks checked the gap grows with freight."
+                % (usd(published, "usd_day"), number(error * 100.0, "error_percent")),
                 "On routes outside Europe, bunkers are every sourced dollar of voyage cost at the %s market; on "
                 "voyages into or out of the EEA, EU allowances at the %d phase in are %s to %s percent of it (EUA "
-                "EUR %s a tonne). A Hormuz war risk premium of %s percent of a %s VLCC hull would cost %s a transit, "
-                "%s times TD3C's bunker bill."
+                "EUR %s a tonne). A Hormuz war risk premium of %s percent of a %s VLCC hull would cost the charterer "
+                "%s for each seven days inside the Gulf, %s times TD3C's bunker bill."
                 % (
                     market.label,
                     cases.ETS_FULL_FROM,
@@ -565,41 +570,45 @@ def build(out: Path) -> int:
                     number(market.eua_eur_t, "eur_t"),
                     number(war["premium_pct"], "percent"),
                     usd_m(war["hull_value_usd"], "usd_m_0"),
-                    usd_m(war["costs_usd"]["war_risk"]),
-                    times(war["war_risk_to_bunkers"]),
+                    usd_m(war["premium_usd"]),
+                    times(war["premium_to_bunkers"]),
                 ),
                 "Round the Cape of Good Hope an LR2 on TC20 sails %s more days than by Suez and needs %s (%s a tonne) "
-                "more freight to earn what Suez earns with the Red Sea premium paid; Suez stays the better way until "
-                "its toll passes %s."
+                "more freight to earn what it earns by Suez, against a Red Sea premium of %s a tonne for its "
+                "charterer; Suez stays the better way for the owner until its toll passes %s."
                 % (
                     number(cape["extra_days"], "days"),
                     usd_m(cape["extra_freight_lump_sum_usd"]),
                     usd(cape["extra_freight_usd_t"], "usd_t"),
+                    usd(red["per_tonne_usd"], "usd_t"),
                     usd_m(st["break_even_suez_toll_usd"]),
                 ),
-                "For a VLCC from the Gulf, a %s percent Hormuz premium needs %s a tonne more freight to keep its TCE; "
-                "with 20 days of waiting to transit, at the TCE of the week to %s, %s."
+                "For a VLCC from the Gulf a %s percent premium costs the charterer %s a tonne for one seven day "
+                "period; 20 days of waiting inside the Gulf make %d periods, %s a tonne, and the owner needs %s a "
+                "tonne more freight to keep the TCE of the week to %s."
                 % (
                     number(war["premium_pct"], "percent"),
-                    usd(hz_extra("war_low"), "usd_t"),
+                    usd(hz_scen["war_low"]["charterer_war_risk_usd_t"], "usd_t"),
+                    hz_scen["wait_20"]["periods"],
+                    usd(hz_scen["wait_20"]["charterer_war_risk_usd_t"], "usd_t"),
+                    usd(hz_owner("wait_20"), "usd_t"),
                     date_label(latest_level["week_ending"]),
-                    usd(hz_extra("wait_20"), "usd_t"),
                 ),
-                "In the week to %s a C3 cargo at %s a tonne earned %s a day, %s a day %s the %s Capesize 5TC FFA; "
-                "a C5 cargo at %s earned %s a day, %s %s it. The FFA stood %s a day above the spot 5TC: the market "
-                "priced the coming months above the week's spot."
+                "In the week to %s a C3 cargo at %s a tonne earned %s a day net of its commission, %s grossed up to "
+                "the gross hire the 5TC is assessed in: %s a day %s the 5TC FFA over its days; a C5 cargo earned %s "
+                "a day %s it. By %s the C3 voyage sat %s a day %s the curve."
                 % (
                     date_label(c3_27["date"]),
                     usd(c3_27["freight_usd_t"], "usd_t"),
                     usd(c3_27["physical_tce_usd_day"], "usd_day"),
+                    usd(c3_27["physical_tce_gross_usd_day"], "usd_day"),
                     usd(abs(c3_27["basis_usd_day"]), "usd_day"),
-                    "below" if c3_27["basis_usd_day"] < 0 else "above",
-                    date_label(c3_27["ffa"]["period"]),
-                    usd(c5_27["freight_usd_t"], "usd_t"),
-                    usd(c5_27["physical_tce_usd_day"], "usd_day"),
+                    side(c3_27["basis_usd_day"]),
                     usd(abs(c5_27["basis_usd_day"]), "usd_day"),
-                    "below" if c5_27["basis_usd_day"] < 0 else "above",
-                    usd(c3_27["timing_basis_usd_day"], "usd_day"),
+                    side(c5_27["basis_usd_day"]),
+                    date_label(c3_43["date"]),
+                    usd(abs(c3_43["basis_usd_day"]), "usd_day"),
+                    side(c3_43["basis_usd_day"]),
                 ),
                 "Higher freight raises the speed that maximises the TCE and dearer bunkers lower it, %s of the routes "
                 "tested (%s)."
@@ -636,11 +645,9 @@ def build(out: Path) -> int:
     story.append(
         p(
             "For a given ship, route and market: what does the voyage earn a day, what freight does it need, which "
-            "costs decide the answer, and is fixing the cargo physically better than hedging the same exposure on "
-            "paper? The study covers the routes the Baltic Exchange defines in its Guide to Market Benchmarks v8.8 "
-            "(September 2026): Capesize C3 and C5, Panamax P7 and the Supramax trip S4A for dry bulk; TD3C, TD22, "
-            "TD20 and TD25 for dirty tankers; TC2, TC14, TC1 and TC5 for clean, with TC20 and TD34 where the "
-            "Baltic's lump sums and the Hormuz bypass need them."
+            "costs decide the answer, and is fixing the cargo better than hedging it on paper? The routes are the "
+            "Baltic Exchange's (Guide to Market Benchmarks v8.8, September 2026): C3, C5, P7 and the S4A trip for "
+            "dry bulk; TD3C, TD22, TD20 and TD25 dirty; TC2, TC14, TC1 and TC5 clean; TC20 and TD34 where needed."
         )
     )
     story.append(
@@ -648,44 +655,93 @@ def build(out: Path) -> int:
             "The TCE is gross freight and other revenue, less commission and voyage costs, over the days of the "
             "whole round voyage, the ballast leg included: TCE = (freight + other revenue %s commission %s voyage "
             "costs) / voyage days. Voyage costs are bunkers by sulphur zone (MGO inside emission control areas, "
-            "measured on the route line), port charges, canal tolls, EU allowances and war risk premiums. The tanker "
-            "TCE follows the Baltic's own method (Appendix 3 of the guide): a 5 percent weather margin on steaming "
-            "days, the round voyage from the discharge port, the port and waiting days and consumptions of the "
-            "route's description, and bunkers at the hub nearest the load port. Worldscale freight is WS / 100 x "
-            "flat rate; flat rates are licensed and none is public for 2025 or 2026, so a Worldscale rate is priced "
-            "only with the reader's own. Commission is %s percent on dry routes and %s percent on tankers."
+            "measured on the route line), port charges, canal tolls, EU allowances and, where the owner pays it, the "
+            "war risk premium. The tanker TCE follows the Baltic's own method (Appendix 3 of the guide): a 5 percent "
+            "weather margin on steaming days, the round voyage from the discharge port, the port and waiting days "
+            "and consumptions of the route's description, and bunkers at the hub nearest the load port; C3 alone is "
+            "priced at Singapore, the hub on its voyage, since the hub nearest Tubarao lies off it. Worldscale "
+            "freight is WS / 100 x flat rate; flat rates are licensed and none is public for 2025 or 2026, so a "
+            "Worldscale rate is priced only with the reader's own. Commission is %s percent on dry routes and %s "
+            "percent on tankers, address commission and brokerage together."
             % (MINUS, MINUS, short(dry_commission), short(tanker_commission))
         )
     )
     story.append(
         p(
-            "Every input is either sourced (a dated public document, with the passage it was read from), derived "
-            "(a stated rule on sourced values) or empty: a figure with no public source stays out of the TCE and the "
-            "result names it. Port charges have no public per call figure for any study port and Suez and Panama "
-            "tolls depend on each ship's canal tonnage, so every TCE here leaves them out and reads high by their "
-            "amount. A dated market reads no price from after its date. The engine is a Python package, mirrored "
-            "in the browser and held to it within one part in a billion on %d cases." % case_count
+            "Every input is sourced (a dated public document, with the passage read), derived (a stated rule), the "
+            "study's choice (bulk carrier speeds: the fastest pair printed), left out as the Baltic leaves it out (a "
+            "war risk premium, usually the charterer's) or empty: a figure with no public source, such as port "
+            "charges and canal tolls, stays out of the TCE and the result names it. A dated market reads no price "
+            "from after its date; the August 2026 common market is a period average. The engine is a Python "
+            "package, mirrored in the browser and held to it within one part in a billion on %d cases." % case_count
         )
     )
     # ------------------------------------------------------------- validation
     story.append(p("2. Validation", H2))
+    exception = summary["exception"]
+    stale = summary["stale"]
     story.append(
         p(
             "The Baltic publishes its tanker routes on a Worldscale and a TCE basis. Only two study routes are "
             "assessed as a lump sum in dollars, TD22 and TC20, so only they can be priced without a licensed flat "
-            "rate: %d weeks between %s and %s, with bunker prices of the same week, reproduce the Baltic's TCE within "
-            "%s to %s percent, the engine always above it by about the port charges it leaves out. The %d "
-            "Worldscale anchors cannot be reproduced without a licensed flat rate, and are recorded as such rather "
-            "than tuned. The Baltic's "
-            "own worked TD3C calculation of July 2017 is reproduced line by line: laden %s days, ballast %s days, "
-            "%s days in all, and %s tonnes of fuel laden; it prints no prices. Searoute distances fall within 2 "
-            "percent of NGA Pub. 151 for %d of %d port pairs; the largest miss is %s (%s percent)."
+            "rate: %d weeks between %s and %s. With bunker prices first printed in the week, the engine reads %s to "
+            "%s percent above the Baltic's TCE, and %s to %s percent with prices up to a week old, always above it. "
+            "The gap grows with freight, from %s a day at a %s lump sum (%s) to %s at %s (%s), so the port charges "
+            "the engine leaves out, a fixed sum a voyage, explain only part of it. The weeks to %s, just after the "
+            "closure of Hormuz, read %s percent above with tables of the same weeks, and why is not established."
             % (
-                len(same_week),
-                date_label(min(r["week_ending"] for r in same_week)),
-                date_label(max(r["week_ending"] for r in same_week)),
-                number(min(r["error"] for r in same_week) * 100.0, "error_percent"),
-                number(max(r["error"] for r in same_week) * 100.0, "error_percent"),
+                summary["weeks"],
+                date_label(min(r["week_ending"] for r in reproducible)),
+                date_label(max(r["week_ending"] for r in reproducible)),
+                number(summary["fresh_error"][0] * 100.0, "error_percent"),
+                number(summary["fresh_error"][1] * 100.0, "error_percent"),
+                number(summary["usual_error"][0] * 100.0, "error_percent"),
+                number(summary["usual_error"][1] * 100.0, "error_percent"),
+                usd(low["gap_usd_day"], "usd_day"),
+                usd_m(low["row"]["rate_value"]),
+                date_label(low["row"]["week_ending"]),
+                usd(high["gap_usd_day"], "usd_day"),
+                usd_m(high["row"]["rate_value"]),
+                date_label(high["row"]["week_ending"]),
+                " and ".join(date_label(r["week_ending"]) for r in exception),
+                " and ".join(number(r["error"] * 100.0, "error_percent") for r in exception),
+            )
+        )
+    )
+    story.append(
+        KeepTogether(
+            [
+                p(escape(plain(method["page"]["chart"]["title"])), CAPTION),
+                validation_chart(
+                    sorted(reproducible, key=lambda r: (r["route"] != "TD22", r["week_ending"])),
+                    method["page"]["chart"],
+                ),
+                p(
+                    "Figure 2. " + escape(plain(method["page"]["chart"]["source"])),
+                    SOURCE,
+                ),
+            ]
+        )
+    )
+
+    story.append(
+        p(
+            "The bunker table matters too: Star Asia sometimes reprints a week's table (%s, priced with Houston "
+            "prices first printed on %s, reads %s percent %s), and for %s Intermodal's Houston VLSFO, USD %s, against "
+            "Star Asia's USD %s moves the comparison from %s to %s percent. The %d Worldscale anchors need a licensed "
+            "flat rate and are recorded, not tuned. The Baltic's worked TD3C calculation of July 2017 is reproduced "
+            "line by line: laden %s days, ballast %s, %s in all, %s t of fuel laden. Searoute distances fall within "
+            "2 percent of NGA Pub. 151 for %d of %d port pairs; the largest miss is %s (%s percent)."
+            % (
+                ", ".join("the week to %s" % date_label(r["week_ending"]) for r in stale) or "no week",
+                ", ".join(date_label(r["bunkers_first_printed"]) for r in stale) or "",
+                ", ".join(number(abs(r["error"]) * 100.0, "error_percent") for r in stale) or "",
+                ", ".join(side(r["error"]) for r in stale) or "",
+                date_label(cross["date"]),
+                number(cross["vlsfo_other_usd_t"], "usd_t"),
+                number(cross["vlsfo_study_usd_t"], "usd"),
+                number(cross["error_study"] * 100.0, "error_percent"),
+                number(cross["error_other"] * 100.0, "error_percent"),
                 len(ws),
                 number(b2017["computed"]["laden_days"], "days_2"),
                 number(b2017["computed"]["ballast_days"], "days_2"),
@@ -711,17 +767,18 @@ def build(out: Path) -> int:
     story.append(
         p(
             "Early March 2026: Platts assessed the Gulf to China VLCC rate at %s a tonne on %s, which the engine "
-            "turns into %s a day with the bunkers of the %s (%s with the early March war risk premium of %s "
-            "percent of a %s hull). The %s a tonne widely reported on %s names no primary assessment; it would "
-            "give %s a day. The Baltic's TD3C TCE was %s in the week to %s and %s in the week to %s."
+            "turns into %s a day with the bunkers of the %s; with the early March war risk premium of %s percent of "
+            "a %s hull for one seven day period in the owner's costs, as if the freight carried it, %s. The %s a "
+            "tonne widely reported on %s names no primary assessment; it would give %s a day. The Baltic's TD3C TCE "
+            "was %s in the week to %s and %s in the week to %s."
             % (
                 usd(platts["freight_usd_t"], "usd_t"),
                 date_label(platts["date"]),
                 usd(platts["engine_tce_usd_day"], "usd_day"),
                 market_words(platts["bunkers"]),
-                usd(platts["engine_tce_with_war_risk_usd_day"], "usd_day"),
                 number(early_premium, "percent"),
                 usd_m(early_hull, "usd_m_0"),
+                usd(platts["engine_tce_with_war_risk_usd_day"], "usd_day"),
                 usd(rumour["freight_usd_t"], "usd_t"),
                 date_label(rumour["date"]),
                 usd(rumour["engine_tce_usd_day"], "usd_day"),
@@ -732,30 +789,13 @@ def build(out: Path) -> int:
             )
         )
     )
-    story.append(
-        KeepTogether(
-            [
-                p(escape(plain(method["page"]["chart"]["title"])), CAPTION),
-                validation_chart(
-                    sorted(reproducible, key=lambda r: (r["route"] != "TD22", r["week_ending"])),
-                    method["page"]["chart"],
-                ),
-                p(
-                    "Figure 2. " + escape(plain(method["page"]["chart"]["source"])),
-                    SOURCE,
-                ),
-            ]
-        )
-    )
-
     # -------------------------------------------------------- cost structure
     story.append(p("3. Where the money goes", H2))
     story.append(
         p(
-            "At one common dated market, %s (Ship &amp; Bunker's monthly averages, the EU allowance at EUR %s a tonne "
-            "and %s dollars a euro), sourced voyage costs are bunkers and, on voyages that touch the EEA, EU "
-            "allowances. The share of MGO in the bunker bill follows the miles inside emission control areas and the "
-            "days at EU berths."
+            "At one common dated market, %s (the EU allowance at EUR %s a tonne and %s dollars a euro), sourced voyage "
+            "costs are bunkers and, on voyages that touch the EEA, EU allowances. The share of MGO in the bunker bill "
+            "follows the miles inside emission control areas and the days at EU berths."
             % (escape(market.label), number(market.eua_eur_t, "eur_t"), number(market.usd_per_eur, "usd_per_eur"))
         )
     )
@@ -779,17 +819,25 @@ def build(out: Path) -> int:
             [
                 p("Table 1. Sourced voyage costs at the %s market, by route." % escape(market.label), CAPTION),
                 table(
-                    ["Route", "Voyage", "Days", "Voyage costs, USD", "Bunkers, %", "EU ETS, %", "MGO in bunkers, %"],
+                    [
+                        "Route",
+                        "Voyage",
+                        "Days",
+                        "Sourced voyage costs, USD",
+                        "Bunkers, %",
+                        "EU ETS, %",
+                        "MGO in bunkers, %",
+                    ],
                     cost_rows,
-                    [0.07, 0.38, 0.07, 0.14, 0.1, 0.1, 0.14],
+                    [0.07, 0.36, 0.07, 0.16, 0.1, 0.1, 0.14],
                     {2, 3, 4, 5, 6},
                 ),
                 p(
-                    "Engine output; bunkers: Ship &amp; Bunker, %s averages (quarterly where no monthly figure "
-                    "exists); allowances: %s, at the %d phase in; dollars: %s. Port charges and canal tolls have no "
-                    "public figure and are not in the costs. Sources %s."
+                    "Engine output; bunkers: %s, at each route's hub; allowances: %s, at the %d phase in; dollars: %s. "
+                    "Port charges and canal tolls have no public figure and are not in the costs. S4A is a trip time "
+                    "charter: its row holds the charterer's trip costs and the owner's ballast leg. Sources %s."
                     % (
-                        escape(market.label),
+                        escape(pages.common_market_words()),
                         escape(market.eua_source),
                         cases.ETS_FULL_FROM,
                         escape(market.fx_source),
@@ -824,12 +872,11 @@ def build(out: Path) -> int:
         )
     story.append(
         p(
-            "The TCE was computed at every laden speed on a %s knot grid from %s knot below the slowest published "
-            "consumption to %s knot above the fastest, at the lowest, median and highest public freight of 2026 and "
-            "at the lowest weekly, the %s and the highest weekly bunker price at the route's hub. The textbook "
-            "result %s: freight pushes the best speed up, bunkers push it down. The guide gives tanker consumption "
-            "at two speeds only, so the fitted exponent is low and, at 2026 freight, the best tanker speed sits at "
-            "the top of the range: the curves cannot say whether that speed is reachable."
+            "The TCE was computed on a %s knot grid from %s knot below the slowest published consumption to %s knot "
+            "above the fastest, at the lowest, median and highest public freight of 2026 and at the lowest weekly, "
+            "the %s and the highest weekly bunker price at the route's hub. The textbook result %s: freight pushes "
+            "the best speed up, bunkers push it down. Tanker consumption comes at two speeds, so the fitted exponent "
+            "is low and the best tanker speed sits at the top of the range."
             % (
                 short(speed["step_kn"]),
                 short(speed["margin_kn"]),
@@ -858,9 +905,9 @@ def build(out: Path) -> int:
                     {1, 2, 3, 4, 5, 6},
                 ),
                 p(
-                    "Freight columns at the August bunker price, bunker columns at the median freight. Edge: the best "
-                    "speed is at an end of the range searched. Engine output on the Baltic's published speed and "
-                    "consumption pairs (Guide to Market Benchmarks v8.8).",
+                    "Freight columns at the common market's bunker price, bunker columns at the median freight. Edge: "
+                    "the best speed is at an end of the range searched. Engine output on the Baltic's published speed "
+                    "and consumption pairs (Guide to Market Benchmarks v8.8).",
                     SOURCE,
                 ),
             ]
@@ -870,21 +917,26 @@ def build(out: Path) -> int:
     # ---------------------------------------------------------------- detours
     story.append(p("5. Detours: Suez, the Cape and Hormuz", H2))
     dry = {o["name"]: o for o in sd["options"]}
+    chains = hz["chains"]
+    shuttle = pages._shuttle(hz)
     story.append(
         p(
             "Asia to Europe. An LR2 on TC20, Jubail to Rotterdam at the Baltic's lump sum of %s in the week to %s, "
-            "earns %s a day by Suez with the Red Sea premium paid, before any toll, and %s round the Cape, %s days and "
-            "%s tonne miles more. A "
-            "Panamax from Qingdao to Rotterdam needs %s a tonne to earn the P4 trip rate by Suez, %s by Panama and %s "
-            "round the Cape; at the Cape's freight, Suez could bear %s of tolls and waiting, Panama %s."
+            "earns the owner %s a day by Suez before any toll and %s round the Cape, %s days and %s tonne miles more; "
+            "the war risk premiums are the charterer's, the Red Sea's %s a tonne on the Suez routing. A Panamax "
+            "delivered at Qingdao and redelivered at Rotterdam, one way like the P4 trip, needs %s a tonne by Suez to "
+            "earn the P4 hire of %s a day net of its commission, %s by Panama and %s round the Cape, before port "
+            "time, port charges and tolls; at the Cape's freight, Suez could bear %s of tolls and waiting, Panama %s."
             % (
                 usd_m(st["rate_usd"]),
                 date_label(st["as_of"]),
+                usd(st["options"][0]["tce_usd_day"], "usd_day"),
                 usd(st["options"][1]["tce_usd_day"], "usd_day"),
-                usd(st["options"][2]["tce_usd_day"], "usd_day"),
                 number(cape["extra_days"], "days"),
                 number(cape["extra_tonne_miles"] / 1e9, "tonne_miles_bn") + " billion",
+                usd(red["per_tonne_usd"], "usd_t"),
                 usd(dry["Suez"]["freight_for_target_usd_t"], "usd_t"),
+                usd(sd["p4_hire_usd_day"], "usd_day"),
                 usd(dry["Panama"]["freight_for_target_usd_t"], "usd_t"),
                 usd(dry["Cape of Good Hope"]["freight_for_target_usd_t"], "usd_t"),
                 usd(dry["Suez"]["toll_and_waiting_budget_usd"]),
@@ -894,16 +946,25 @@ def build(out: Path) -> int:
     )
     story.append(
         p(
-            "Hormuz. For a VLCC from Ras Tanura, the premium and the waiting outweigh every routing choice. Loading by "
-            "a ship to ship transfer off Fujairah shortens the voyage by %s days, and loading at Mina Al Fahal outside "
-            "the strait (the Baltic's TD34) by %s, but the cost of the transfer and of the shuttle through the strait "
-            "has no public figure. The Baltic's TD34 TCE was %s a day in the week to %s, against %s on TD3C."
+            "Hormuz. A TD3C voyage spends %s days inside the Gulf, one seven day period of premium; each further week "
+            "of waiting there adds a period for the charterer and the TCE it forgoes for the owner. Loading off "
+            "Fujairah splits the voyage in two: the export VLCC sails %s fewer days, but the shuttle through the "
+            "strait was reported at USD %s to %s a barrel (about %s to %s a tonne) and at %s a transit, and the "
+            "transfer's own cost has no public figure. The Baltic's TD34, a cargo loading outside the strait, was "
+            "assessed at %s a day against TD3C's %s in the week to %s, freight of %s a tonne against %s."
             % (
-                number(-hz_scen["sts"]["extra_days"], "days"),
-                number(-hz_scen["td34"]["extra_days"], "days"),
-                usd(hz["td34_vs_td3c_published"]["td34_tce_usd_day"], "usd_day"),
-                date_label(latest_level["week_ending"]),
+                number(hz_scen["war_low"]["days_inside_gulf"], "days"),
+                number(abs(chains["sts"]["extra_days"]), "days"),
+                short(shuttle["bbl_low"]),
+                short(shuttle["bbl_high"]),
+                usd(shuttle["bbl_low_t"], "usd_t"),
+                usd(shuttle["bbl_high_t"], "usd_t"),
+                usd_m(shuttle["transit_usd"], "usd_m_0"),
+                usd(chains["td34"]["published_tce_usd_day"], "usd_day"),
                 usd(hz["td34_vs_td3c_published"]["td3c_tce_usd_day"], "usd_day"),
+                date_label(latest_level["week_ending"]),
+                usd(chains["td34"]["freight_at_own_tce_usd_t"], "usd_t"),
+                usd(chains["td3c_freight_at_own_tce_usd_t"], "usd_t"),
             )
         )
     )
@@ -938,12 +999,13 @@ def build(out: Path) -> int:
     story.append(
         p(
             "EU allowances cover half the emissions of a voyage into or out of the EEA and all of one between two "
-            "EEA ports, for %s percent of %d emissions, %s percent of %d and 100 percent from %d, when methane "
-            "and nitrous oxide join carbon dioxide (Directive 2003/87/EC, Articles 3ga and 3gb). Under the BIMCO ETS "
-            "Allowances Clause for time charter parties the charterer provides the allowances for the ship's "
-            "emissions during the charter: on the S4A trip the charterer pays %s and the owner %s for the ballast leg "
-            "back. FuelEU Maritime's penalty is assessed on a ship's yearly energy, not a voyage's, so it is shown "
-            "beside the TCE and kept out of it."
+            "EEA ports and within a port of call, for %s percent of %d emissions, %s percent of %d and 100 percent "
+            "from %d, when methane and nitrous oxide join carbon dioxide (Directive 2003/87/EC, Articles 3ga and 3gb "
+            "and Annex I). Under the BIMCO ETS Allowances Clause for time charter parties the charterer provides and "
+            "pays for the allowances for the ship's emissions during the charter, and the owner, as the shipping "
+            "company, surrenders them (Article 3gc): on the S4A trip the charterer pays %s and the owner %s for the "
+            "ballast leg back. FuelEU Maritime's penalty is assessed on a ship's yearly energy, not a voyage's, so it "
+            "is shown beside the TCE and kept out of it."
             % (
                 short(cases.ETS_PHASE_IN[2024] * 100.0),
                 2024,
@@ -987,19 +1049,24 @@ def build(out: Path) -> int:
     # ------------------------------------------------------------------ paper
     story.append(p("7. Physical against paper", H2))
     fixture = paper["c5_fixture"]
+    basis = anchors.capesize_basis_2026_07_03()
     story.append(
         p(
-            "Time charter FFAs such as Capesize 5TC settle on the month's average of the daily index in dollars a "
-            "day; voyage route FFAs such as C3 and C5, and the tanker routes on ICE, on the month's average in "
-            "dollars a tonne. A voyage is hedged with 5TC days equal to its days, or with route FFA tonnes equal to "
-            "its cargo: %s days of 5TC or %s tonnes of C3 for the C3 voyage of the week to %s. The basis between a "
-            "fixture and its index can be small: a C5 cargo fixed on %s at %s a tonne for %s, against a C5 index of "
-            "%s, earns %s a day more than a cargo at the index. Public FFA quotes in dollars a tonne for tanker "
-            "routes were not found."
+            "Capesize 5TC FFAs settle on the month's average of the daily index in dollars a day; C3, C5 and the ICE "
+            "tanker routes on the month's average in dollars a tonne. Time charter assessments are gross hire, so a "
+            "voyage's net TCE is grossed up by its commission before it is set against them (guide, section 7.4.3), "
+            "and the FFA is the strip over the voyage's days from the fixture date. The C3 voyage of the week to %s "
+            "is hedged with %s days of 5TC (%s hedge the owner's net earnings exactly) or %s tonnes of C3. That "
+            "day's spot 5TC, USD %s, is the 180,000 t basis, as the BCI and BDI of the day show: the 182,000 t ship "
+            "is set against USD %s. A C5 cargo fixed on %s at %s a tonne for %s, against a C5 index of %s, earns %s "
+            "a day more than one at the index. No public tanker FFA quote in dollars a tonne was found."
             % (
-                number(c3_27["hedge_days"], "days"),
-                number(c3_27.get("hedge_tonnes", baltic.ROUTES["C3"].cargo_t), "t"),
                 date_label(c3_27["date"]),
+                number(c3_27["hedge_days"], "days"),
+                number(c3_27["hedge_days_net"], "days"),
+                number(baltic.ROUTES["C3"].cargo_t, "t"),
+                number(basis["printed_usd_day"], "usd_day"),
+                number(basis["basket_182_if_180_usd_day"], "usd_day"),
                 date_label(fixture["date"]),
                 usd(fixture["fixture_usd_t"], "usd_t"),
                 fixture["laycan"],
@@ -1023,31 +1090,42 @@ def build(out: Path) -> int:
 
     # ------------------------------------------------------------ limitations
     story.append(p("8. What the study cannot do", H2))
-    story.append(bullets([escape(item) for item in method["page"]["limitations"]]))
+    per_day = {r["route"]: r["excluded_block_per_day_usd"] for r in structure["rows"]}
+    story.append(
+        bullets(
+            [
+                "Port charges have no public per call figure: every TCE leaves them out (each USD 100,000 is %s a day "
+                "on C3, %s on C5 and %s on TD22), and they explain only part of the gap to the Baltic, which grows "
+                "with freight." % (usd(per_day["C3"]), usd(per_day["C5"]), usd(per_day["TD22"])),
+                "Worldscale flat rates are licensed and none is public for 2025 or 2026: a Worldscale rate is priced "
+                "only with the reader's own, and those anchors are not reproduced.",
+                "Suez and Panama tolls, and the time at a canal on the dry routings, are left out; the detours report "
+                "what each routing could bear instead.",
+                "Bunker prices are broker tables and averages at four hubs, not what a ship paid: two brokers can "
+                "differ widely for the same day, and Star Asia sometimes reprints a week's table.",
+                "War risk premiums are the latest dated rates found, from July 2026, and the listed area is taken to "
+                "end at the strait, so the count of seven day periods is a lower bound.",
+                "The dry FFA curves are two dated assessments whose vessel basis and dates are partly unstated; no "
+                "public tanker FFA quote in dollars a tonne was found.",
+                "Bulk carrier speeds are the study's choice, the fastest pair the guide prints; tanker consumption "
+                "comes as two pairs, so the best speed often sits at the top of the range searched.",
+            ]
+        )
+    )
     story.append(p("Sources and reproduction", H2))
     story.append(
         p(
-            "Baltic Exchange, Guide to Market Benchmarks v8.8 (September 2026) and its TD3C TCE calculation process "
-            "(July 2017); the Baltic's weekly tanker reports as republished by Hellenic Shipping News, %s "
-            "to %s; Ship &amp; Bunker monthly analyses and quarterly tables; Star Asia Shipbroking and "
-            "Banchero Costa weekly reports; Signal Group and Xclusiv Shipbrokers weekly reports; Marsh and S&amp;P "
-            "Global Platts as reported in July 2026; EIA, Today in Energy, 26 March 2026; the European "
-            "Commission's auction reports and DEHSt's German auction reports; the Federal Reserve's H.10; EUR-Lex "
-            "(Directive 2003/87/EC as amended by Directive (EU) 2023/959, Regulation (EU) 2015/757 as amended, "
-            "Regulation (EU) 2023/1805); IMO resolutions MEPC.328(76), MEPC.361(79) and MEPC.392(82); NGA Pub. 150 "
-            "and Pub. 151; searoute 1.6.0 over Eurostat SeaRoute; EEX and ICE Futures Europe contract "
-            "specifications. Every figure's document, retrieval time and hash are in the repository's "
-            "data/raw/manifest.json; licensed documents are cited, never redistributed."
+            "Baltic Exchange, Guide to Market Benchmarks v8.8 (September 2026) and its TD3C TCE calculation of July "
+            "2017; the Baltic's weekly tanker reports, %s to %s, and the brokers' and insurers' reports cited above, "
+            "as republished by Hellenic Shipping News; Ship &amp; Bunker; the European Commission and DEHSt auction "
+            "reports; the Federal Reserve's H.10; EUR-Lex and IMO texts; NGA Pub. 150 and Pub. 151; searoute 1.6.0 "
+            "over Eurostat SeaRoute; EEX and ICE contract specifications. Every figure's document, retrieval time "
+            "and hash are in the repository's data/raw/manifest.json; licensed documents are cited, never "
+            "redistributed. scripts/note.py writes this note from the committed data."
             % (
                 date_label(min(r["week_ending"] for r in tanker)[:7]),
                 date_label(max(r["week_ending"] for r in tanker)[:7]),
             )
-        )
-    )
-    story.append(
-        p(
-            "This note is written by scripts/note.py from the committed data; make gate checks the data, the engine "
-            "and the site, and make note writes the note again."
         )
     )
 

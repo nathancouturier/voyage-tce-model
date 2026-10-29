@@ -66,7 +66,9 @@ class Vessel:
     page: int
     laden: tuple[tuple[float, float], ...]
     ballast: tuple[tuple[float, float], ...]
-    #: the speeds the guide names first: the Baltic's description speed
+    #: the speeds the study prices at: for a tanker the laden and ballast speed
+    #: its description names (Appendix 3, page 98, prices the TCE at it); for a
+    #: bulk carrier, whose route terms name no speed, the fastest pair printed
     reference_laden_kn: float
     reference_ballast_kn: float
     fuel_at_sea: str = "MFO"
@@ -266,7 +268,9 @@ class Route:
     Baltic states for its tanker TCEs (delivery at the discharge port, ballast
     back to the load port, load, laden passage); for the dry voyage routes,
     which carry no Baltic TCE basis, the study applies the same round voyage
-    and says so.
+    and says so. For a trip the owner's TCE counts the ballast passage to
+    delivery from the redelivery area, as the guide counts the ballast time of
+    a time charter's equivalent yield (section 7.4.3, pages 35 and 36).
     """
 
     code: str
@@ -305,6 +309,10 @@ class Route:
     trip_days: tuple[float, float] | None = None
     in_basket: str = ""
     notes: tuple[str, ...] = field(default_factory=tuple)
+    #: the bunker hub when the rule (the hub nearest the load port) picks one
+    #: off the voyage, with the reason; empty to follow the rule
+    bunker_hub: str = ""
+    bunker_hub_why: str = ""
 
 
 ROUTES: Mapping[str, Route] = {
@@ -331,6 +339,11 @@ ROUTES: Mapping[str, Route] = {
         load_turn_h=6,
         discharge_turn_h=24,
         notes=("The cargo moved to 170,000 t from 2 January 2025 (Baltic circular 44/24).",),
+        bunker_hub="singapore",
+        bunker_hub_why="the hub nearest Tubarao, Rotterdam, lies over 4,000 nm off the voyage, while the round "
+        "voyage leaves Qingdao in ballast and passes about 270 nm from Singapore, the waypoint a ship leaving China "
+        "takes for orders (special report on TCE earnings, April 2015, page 2); the guide leaves dry bunker prices "
+        "to its panellists (section 7.4.2, page 35)",
     ),
     "C5": Route(
         "C5",
@@ -406,6 +419,29 @@ ROUTES: Mapping[str, Route] = {
             "A trip time charter: the charterer pays the bunkers, ports and canals of the trip, the owner "
             "earns hire. The study places delivery at New Orleans and redelivery at Rotterdam, inside the "
             "named ranges.",
+        ),
+    ),
+    "P4_82": Route(
+        "P4_82",
+        "Far East trip to Skaw-Gibraltar",
+        "dry",
+        "BPI",
+        "trip",
+        "USD/day",
+        "BPI82",
+        "qingdao",
+        "rotterdam",
+        80,
+        "Delivery Hong Kong-South Korea including Taiwan, loading 15 to 20 days from the index date, for a 55 to "
+        "70 day trip, redelivery Skaw-Gibraltar range (the short description reads Skaw-Passero), basis the Baltic "
+        "Standard Panamax, 5 percent total commission",
+        commission_pct=5.0,
+        laydays="loading 15/20 days from index date",
+        trip_days=(55, 70),
+        in_basket="P5TC 10%",
+        notes=(
+            "Used as the hire a Panamax earns from the Far East to Europe in the Asia to Europe detour; the study "
+            "places delivery at Qingdao and redelivery at Rotterdam, inside the named ranges.",
         ),
     ),
     "TD3C": Route(
@@ -710,6 +746,11 @@ SUPPORT_ROUTES: tuple[str, ...] = ("TD34", "TC20", "TC23")
 TANKER_SEA_MARGIN = 0.05
 #: Appendix 2, page 77: C5TC(180) = C5TC(182) - 3,503 USD/day.
 C5TC_180_DIFFERENTIAL = 3503.0
+#: Appendix 2, page 76: BCI = RoundedSum(C8*0.15, C9*0.125, C10*0.35, C14*0.25, C16*0.125)*0.11026, the
+#: weighted basket being the C5TC(182) of page 77; BDI = RoundedSum(C5TC*0.40, P5TC*0.30, S11TC*0.30)*0.10.
+BCI_FACTOR = 0.11026
+BDI_WEIGHTS = {"C5TC": 0.40, "P5TC": 0.30, "S11TC": 0.30}
+BDI_FACTOR = 0.10
 #: The day each Capesize vessel became the standard (circulars 19/25 and 41/25).
 BCI182_STANDARD_FROM = "2026-01-02"
 BCI182_REPORTED_FROM = "2025-01-02"

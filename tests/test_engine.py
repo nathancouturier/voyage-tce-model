@@ -7,6 +7,10 @@ import pytest
 from voyage import engine
 
 
+def no_area():
+    return {"premium_pct": 0.0, "entries": 0, "laden_nm": 0.0, "ballast_nm": 0.0, "port_activities": []}
+
+
 def simple_voyage(**changes):
     """A voyage small enough to price on paper: see the comments in each test."""
     inputs = {
@@ -63,7 +67,12 @@ def simple_voyage(**changes):
             "other_usd": 0.0,
             "sts_usd": 0.0,
         },
-        "war_risk": {"premium_pct": 0.0, "hull_value_usd": 0.0, "periods": 1.0, "crew_bonus_usd": 0.0},
+        "war_risk": {
+            "hull_value_usd": 0.0,
+            "crew_bonus_usd": 0.0,
+            "payer": "owner",
+            "areas": {"gulf": no_area(), "red_sea": no_area()},
+        },
     }
     for path, value in changes.items():
         head, _, tail = path.partition(".")
@@ -165,11 +174,44 @@ def test_fueleu_penalty_for_heavy_fuel_oil():
     assert included["costs"]["fueleu"] == pytest.approx(fe["penalty_eur"] * 1.1)
 
 
-def test_war_risk_premium():
-    r = engine.evaluate(
-        simple_voyage(war_risk={"premium_pct": 0.5, "hull_value_usd": 100e6, "periods": 2.0, "crew_bonus_usd": 10000.0})
-    )
+def war(payer, gulf=None, red_sea=None):
+    return {
+        "hull_value_usd": 100e6,
+        "crew_bonus_usd": 10000.0,
+        "payer": payer,
+        "areas": {"gulf": gulf or no_area(), "red_sea": red_sea or no_area()},
+    }
+
+
+def test_war_risk_premium_counts_seven_day_periods_inside_the_area():
+    # The Gulf: 1,200 nm of the laden leg at 10 knots is 5 days, plus 2 days loading: 7 days, one period.
+    gulf = {"premium_pct": 0.5, "entries": 1, "laden_nm": 1200.0, "ballast_nm": 0.0, "port_activities": ["load"]}
+    r = engine.evaluate(simple_voyage(war_risk=war("owner", gulf=gulf)))
+    assert r["war_risk"]["areas"]["gulf"]["days"] == pytest.approx(7.0)
+    assert r["war_risk"]["areas"]["gulf"]["periods"] == 1.0
+    assert r["costs"]["war_risk"] == pytest.approx(0.005 * 100e6 * 1 + 10000)
+    # A day of delay at the load port makes 8 days inside: two periods.
+    delayed = simple_voyage(war_risk=war("owner", gulf=dict(gulf, port_activities=["load", "delay"])))
+    delayed["port"] = dict(delayed["port"], delay_days=1.0)
+    r = engine.evaluate(delayed)
+    assert r["war_risk"]["areas"]["gulf"]["periods"] == 2.0
     assert r["costs"]["war_risk"] == pytest.approx(0.005 * 100e6 * 2 + 10000)
+
+
+def test_a_red_sea_transit_on_each_leg_is_a_period_each():
+    red_sea = {"premium_pct": 0.5, "entries": 2, "laden_nm": 0.0, "ballast_nm": 0.0, "port_activities": []}
+    r = engine.evaluate(simple_voyage(war_risk=war("owner", red_sea=red_sea)))
+    assert r["war_risk"]["areas"]["red_sea"]["periods"] == 2.0
+    assert r["war_risk"]["premium_usd"] == pytest.approx(0.005 * 100e6 * 2)
+
+
+def test_the_charterer_pays_the_premium_and_the_owner_tce_stands():
+    gulf = {"premium_pct": 7.5, "entries": 1, "laden_nm": 300.0, "ballast_nm": 300.0, "port_activities": ["load"]}
+    plain = engine.evaluate(simple_voyage())
+    r = engine.evaluate(simple_voyage(war_risk=war("charterer", gulf=gulf)))
+    assert r["costs"]["war_risk"] == 0.0
+    assert r["charterer_costs_usd"] == pytest.approx(0.075 * 100e6 + 10000)
+    assert r["tce_usd_day"] == pytest.approx(plain["tce_usd_day"])
 
 
 def test_breakeven_freight_reprices_to_the_target():
@@ -230,7 +272,10 @@ def test_hedge_sizes_and_basis():
     assert h["tc_hedge_days"] == pytest.approx(23 + 1 / 3)
     assert h["route_hedge_t"] == 100000.0
     assert h["route_ffa_tce_usd_day"] == pytest.approx(engine.evaluate(dict(inputs, freight_value=9.0))["tce_usd_day"])
-    assert h["basis_vs_tc_ffa_usd_day"] == pytest.approx(physical - 20000.0)
+    # A time charter FFA is gross hire: the net TCE is grossed up by the 5 percent commission first.
+    assert h["physical_tce_gross_usd_day"] == pytest.approx(physical / 0.95)
+    assert h["basis_vs_tc_ffa_usd_day"] == pytest.approx(physical / 0.95 - 20000.0)
+    assert h["tc_hedge_days_net"] == pytest.approx((23 + 1 / 3) * 0.95)
 
 
 def test_sensitivities_move_the_right_way():

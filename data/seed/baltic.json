@@ -532,7 +532,9 @@
       "in_basket": "",
       "notes": [
         "The cargo moved to 170,000 t from 2 January 2025 (Baltic circular 44/24)."
-      ]
+      ],
+      "bunker_hub": "singapore",
+      "bunker_hub_why": "the hub nearest Tubarao, Rotterdam, lies over 4,000 nm off the voyage, while the round voyage leaves Qingdao in ballast and passes about 270 nm from Singapore, the waypoint a ship leaving China takes for orders (special report on TCE earnings, April 2015, page 2); the guide leaves dry bunker prices to its panellists (section 7.4.2, page 35)"
     },
     "C5": {
       "code": "C5",
@@ -568,7 +570,9 @@
       "in_basket": "",
       "notes": [
         "The guide allows 160,000 t or 170,000 t; the study prices 170,000 t, the C3 cargo, and the calculator takes either."
-      ]
+      ],
+      "bunker_hub": "",
+      "bunker_hub_why": ""
     },
     "P7": {
       "code": "P7",
@@ -604,7 +608,9 @@
       "in_basket": "",
       "notes": [
         "The guide names no canal; the study prices P7 through Panama and shows the Cape as the alternative."
-      ]
+      ],
+      "bunker_hub": "",
+      "bunker_hub_why": ""
     },
     "S4A_63": {
       "code": "S4A_63",
@@ -643,7 +649,50 @@
       "in_basket": "S11TC 7.5%",
       "notes": [
         "A trip time charter: the charterer pays the bunkers, ports and canals of the trip, the owner earns hire. The study places delivery at New Orleans and redelivery at Rotterdam, inside the named ranges."
-      ]
+      ],
+      "bunker_hub": "",
+      "bunker_hub_why": ""
+    },
+    "P4_82": {
+      "code": "P4_82",
+      "name": "Far East trip to Skaw-Gibraltar",
+      "segment": "dry",
+      "family": "BPI",
+      "contract": "trip",
+      "unit": "USD/day",
+      "vessel": "BPI82",
+      "load": "qingdao",
+      "discharge": "rotterdam",
+      "page": 80,
+      "description": "Delivery Hong Kong-South Korea including Taiwan, loading 15 to 20 days from the index date, for a 55 to 70 day trip, redelivery Skaw-Gibraltar range (the short description reads Skaw-Passero), basis the Baltic Standard Panamax, 5 percent total commission",
+      "cargo_t": null,
+      "commission_pct": 5.0,
+      "laydays": "loading 15/20 days from index date",
+      "load_days": null,
+      "discharge_days": null,
+      "waiting_days": null,
+      "canal_days": null,
+      "tce_page": null,
+      "tce_basis": "",
+      "load_rate_tpd": null,
+      "load_terms": "",
+      "discharge_rate_tpd": null,
+      "discharge_terms": "",
+      "load_turn_h": null,
+      "discharge_turn_h": null,
+      "also_usd_t": "",
+      "laden_routing": "direct",
+      "ballast_routing": "direct",
+      "trip_days": [
+        55,
+        70
+      ],
+      "in_basket": "P5TC 10%",
+      "notes": [
+        "Used as the hire a Panamax earns from the Far East to Europe in the Asia to Europe detour; the study places delivery at Qingdao and redelivery at Rotterdam, inside the named ranges."
+      ],
+      "bunker_hub": "",
+      "bunker_hub_why": ""
     },
     "TD3C": {
       "code": "TD3C",
@@ -677,7 +726,9 @@
       "ballast_routing": "direct",
       "trip_days": null,
       "in_basket": "",
-      "notes": []
+      "notes": [],
+      "bunker_hub": "",
+      "bunker_hub_why": ""
     },
     "TD34": {
       "code": "TD34",
@@ -713,7 +764,9 @@
       "in_basket": "",
       "notes": [
         "Added to the guide in version 8.4 (May 2026), its TCE in 8.7 (August 2026) and TD34$ in 8.8 (September 2026), which also amended the TCE's waiting days."
-      ]
+      ],
+      "bunker_hub": "",
+      "bunker_hub_why": ""
     },
     "TD22": {
       "code": "TD22",
@@ -749,7 +802,9 @@
       "in_basket": "",
       "notes": [
         "A laden VLCC fits neither canal, so the laden leg goes round the Cape of Good Hope; the ballast leg is priced round the Cape as well, with Suez in ballast as the alternative."
-      ]
+      ],
+      "bunker_hub": "",
+      "bunker_hub_why": ""
     },
     "TD20": {
       "code": "TD20",
@@ -783,7 +838,9 @@
       "ballast_routing": "direct",
       "trip_days": null,
       "in_basket": "",
-      "notes": []
+      "notes": [],
+      "bunker_hub": "",
+      "bunker_hub_why": ""
     },
     "TD25": {
       "code": "TD25",
@@ -819,7 +876,9 @@
       "in_basket": "",
       "notes": [
         "The TCE description names an AFRA105 that the guide never specifies; the study uses the AFRA115."
-      ]
+      ],
+      "bunker_hub": "",
+      "bunker_hub_why": ""
     },
     "TC2_37": {
       "code": "TC2_37",
@@ -853,7 +912,9 @@
       "ballast_routing": "direct",
       "trip_days": null,
       "in_basket": "",
-      "notes": []
+      "notes": [],
+      "bunker_hub": "",
+      "bunker_hub_why": ""
     },
     "TC14": {
       "code": "TC14",
@@ -887,7 +948,9 @@
       "ballast_routing": "direct",
       "trip_days": null,
       "in_basket": "",
-      "notes": []
+      "notes": [],
+      "bunker_hub": "",
+      "bunker_hub_why": ""
     },
     "TC1": {
       "code": "TC1",
@@ -921,7 +984,9 @@
       "ballast_routing": "direct",
       "trip_days": null,
       "in_basket": "",
-      "notes": []
+      "notes": [],
+      "bunker_hub": "",
+      "bunker_hub_why": ""
     },
     "TC5": {
       "code": "TC5",
@@ -955,7 +1020,9 @@
       "ballast_routing": "direct",
       "trip_days": null,
       "in_basket": "",
-      "notes": []
+      "notes": [],
+      "bunker_hub": "",
+      "bunker_hub_why": ""
     },
     "TC20": {
       "code": "TC20",
@@ -991,7 +1058,9 @@
       "in_basket": "",
       "notes": [
         "Used for the Suez against Cape detour; the Baltic's TCE basis is via Suez."
-      ]
+      ],
+      "bunker_hub": "",
+      "bunker_hub_why": ""
     },
     "TC23": {
       "code": "TC23",
@@ -1027,7 +1096,9 @@
       "in_basket": "",
       "notes": [
         "Used as the voyage between two EEA ports in the carbon analysis."
-      ]
+      ],
+      "bunker_hub": "",
+      "bunker_hub_why": ""
     }
   },
   "schema": "voyage-tce-model seed: Baltic Exchange routes and vessels"

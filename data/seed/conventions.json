@@ -26,10 +26,13 @@
     {
       "id": "fuel_price",
       "topic": "Bunker price",
-      "rule": "Fuel is priced at the main bunkering port closest to the load port, in the grade the activity burns.",
-      "source": "GMB v8.8 Appendix 3, page 98",
+      "rule": "Fuel is priced at the main bunkering port closest to the load port, in the grade the activity burns. The guide changed its description of the fuel price in version 8.4 (May 2026), so how the Baltic priced fuel before then is not documented in the current guide.",
+      "source": "GMB v8.8 Appendix 3, page 98, and the document history",
       "raw_key": "baltic_gmb",
-      "quote": "The cost of the fuel at the main bunkering port closest to the load port."
+      "quote": [
+        "The cost of the fuel at the main bunkering port closest to the load port.",
+        "May 2026 - Update to description in appendix 3 on FuelPrice"
+      ]
     },
     {
       "id": "port_costs",
@@ -53,10 +56,13 @@
     {
       "id": "commission_tanker",
       "topic": "Tanker commission",
-      "rule": "Baltic tanker routes are assessed on 3.75 percent total commission (address commission plus brokerage), since circular 27/21.",
-      "source": "GMB v8.8, document history, version 4.7",
+      "rule": "Baltic tanker routes are assessed on 3.75 percent total commission, since circular 27/21. The guide states the total, address commission and brokerage together, and asks its panellists to allow for business quoted at other rates, such as a higher or lower address commission; the study takes the total as one input, since only the total moves the TCE and no public source gives a typical split.",
+      "source": "GMB v8.8, document history, version 4.7, and section 7.3.3(5), page 34",
       "raw_key": "baltic_gmb",
-      "quote": "As per Circular 27/21 all tanker routes were changed to standard commission at 3.75% (from 2.5%)"
+      "quote": [
+        "As per Circular 27/21 all tanker routes were changed to standard commission at 3.75% (from 2.5%)",
+        "Panellists are expected to make allowance for any variation in the rate of commission, for example increased or reduced address commissions"
+      ]
     },
     {
       "id": "commission_dry",
@@ -99,7 +105,8 @@
       "rule": "Tonnes of CO2 per tonne of fuel: HFO (ISO 8217 RME to RMK) 3.114, LFO (RMA to RMD) 3.151, MDO and MGO (DMX to DMB) 3.206; CH4 0.00005 and N2O 0.00018 g per g.",
       "source": "Regulation (EU) 2015/757 Annex I as replaced by Delegated Regulation (EU) 2023/2776",
       "raw_key": "law_eu_2023_2776_mrv_delegatedreg_oj_en_xhtml",
-      "quote": "HFO ISO 8217 Grades RME to RMK 3,114 0,00005 0,00018 - LFO ISO 8217 Grades RMA to RMD 3,151 0,00005 0,00018 - MDO MGO ISO 8217 Grades DMX to DMB 3,206 0,00005 0,00018"
+      "quote": "HFO ISO 8217 Grades RME to RMK 3,114 0,00005 0,00018 - LFO ISO 8217 Grades RMA to RMD 3,151 0,00005 0,00018 - MDO MGO ISO 8217 Grades DMX to DMB 3,206 0,00005 0,00018",
+      "display": "HFO, ISO 8217 Grades RME to RMK: CO2 3,114, CH4 0,00005, N2O 0,00018; LFO, Grades RMA to RMD: CO2 3,151, CH4 0,00005, N2O 0,00018; MDO and MGO, Grades DMX to DMB: CO2 3,206, CH4 0,00005, N2O 0,00018 (grams per gram of fuel; the column heads are images in the regulation's text)"
     },
     {
       "id": "gwp_ets",
@@ -107,7 +114,8 @@
       "rule": "CH4 28 and N2O 265.",
       "source": "Delegated Regulation (EU) 2020/1044, Annex",
       "raw_key": "law_eu_2020_1044_gwp_delegatedreg_oj_en_pdf",
-      "quote": "Methane (CH) 28 4 Nitrous oxide (N O) 265"
+      "quote": "Methane (CH) 28 4 Nitrous oxide (N O) 265",
+      "display": "Methane (CH4) 28; Nitrous oxide (N2O) 265"
     },
     {
       "id": "vlsfo_grade",
@@ -115,7 +123,8 @@
       "rule": "VLSFO is classed as HFO (ISO 8217 residual grades RME, RMG and RMK) for its emission factor.",
       "source": "IMO resolution MEPC.391(81), 2024 LCA guidelines, Appendix 1",
       "raw_key": "law_imo_mepc_391_81_2024_lca_guidelines_pdf",
-      "quote": "(ISO 8217 Grades RME, RMG and RMK, 0.10 < S"
+      "quote": "(ISO 8217 Grades RME, RMG and RMK, 0.10 < S",
+      "display": "Heavy Fuel Oil (VLSFO) (ISO 8217 Grades RME, RMG and RMK, 0.10 < S <= 0.50%)"
     },
     {
       "id": "ets_scope",
@@ -128,21 +137,38 @@
     {
       "id": "ets_phase_in",
       "topic": "EU ETS phase-in",
-      "rule": "Allowances for 40 percent of 2024 emissions, 70 percent of 2025 and 100 percent from 2026; methane and nitrous oxide covered from 2026.",
+      "rule": "Allowances for 40 percent of 2024 emissions, 70 percent of 2025 and 100 percent from 2026.",
       "source": "Directive 2003/87/EC Article 3gb",
       "raw_key": "law_eu_2023_959_ets_amending_directive_oj_en_pdf",
       "quote": "(a) 40% of verified emissions reported for 2024 that would be subject to surrender requirements in accordance with Article 12; (b) 70% of verified emissions reported for 2025"
     },
     {
+      "id": "ets_gases",
+      "topic": "EU ETS gases",
+      "rule": "Shipping's allowances cover carbon dioxide, and methane and nitrous oxide from 2026.",
+      "source": "Directive 2003/87/EC Annex I, maritime transport row (consolidated text of 1 March 2024)",
+      "raw_key": "law_eu_2003_87_ets_directive_consolidated_2024_03_01_en_html",
+      "quote": "Carbon dioxide From 1 January 2026, methane and nitrous oxide"
+    },
+    {
       "id": "bimco_etsa",
       "topic": "ETS on a time charter",
-      "rule": "The charterer provides and pays for the allowances for the ship's emissions during the charter: on a trip time charter the trip's allowances are the charterer's.",
-      "source": "BIMCO ETS Allowances Clause for Time Charter Parties 2022, clause (c)(i)",
+      "rule": "The charterer provides and pays for the allowances for the ship's emissions during the charter and transfers them to the owner's account: on a trip time charter the trip's allowances are the charterer's.",
+      "source": "BIMCO ETS Allowances Clause for Time Charter Parties 2022, clauses (c)(i) and (c)(iii)",
       "raw_key": "law_bimco_etsa_clause_timecharter_2022_page_html",
       "quote": [
         "Throughout the Charter Party period the Charterers shall provide and pay for the Emission Allowances corresponding to the Vessel's emissions under the scope of the applicable Emission Scheme",
-        "the party providing and paying for the fuel under the time charter is the party that is responsible for providing and paying for emissions trading allowances"
+        "the party providing and paying for the fuel under the time charter is the party that is responsible for providing and paying for emissions trading allowances",
+        "shall be transferred by the Charterers and received into the Owners"
       ]
+    },
+    {
+      "id": "ets_surrender",
+      "topic": "Who surrenders",
+      "rule": "The shipping company surrenders the allowances, whoever bears their cost under the charter.",
+      "source": "Directive 2003/87/EC Article 3gc (consolidated text of 1 March 2024)",
+      "raw_key": "law_eu_2003_87_ets_directive_consolidated_2024_03_01_en_html",
+      "quote": "The shipping company shall remain the entity responsible for surrendering allowances"
     },
     {
       "id": "fueleu",
@@ -154,6 +180,11 @@
         "reducing the reference value of 91,16 grams of CO 2 equivalent per MJ by the following percentage: - 2% from 1 January 2025",
         "Is 1 metric ton of VLSFO that is equivalent to 41 000 MJ 7. 2 400",
         "HFO ISO 8217 Grades RME to RMK 0,0405 13,5 ALL ICEs 3,114 0,00005 0,00018"
+      ],
+      "display": [
+        "reducing the reference value of 91,16 grams of CO2 equivalent per MJ by the following percentage: 2% from 1 January 2025",
+        "41 000: 1 metric ton of VLSFO is equivalent to 41 000 MJ; 2 400: the amount paid in EUR per equivalent metric ton of VLSFO",
+        "HFO, ISO 8217 Grades RME to RMK: lower calorific value 0,0405 MJ per g; well to tank 13,5 gCO2eq per MJ; all ICEs; CO2 3,114, CH4 0,00005, N2O 0,00018 g per g of fuel (the column heads are images in the text)"
       ]
     },
     {
@@ -162,7 +193,35 @@
       "rule": "FuelEU takes CH4 25 and N2O 298, the values of the Renewable Energy Directive, not the ETS's 28 and 265.",
       "source": "Directive (EU) 2018/2001 Annex V Part C point 4",
       "raw_key": "law_eu_2018_2001_red_ii_directive_oj_en_pdf",
-      "quote": "those gases shall be valued as follows: 2 CO: 1 2 N O: 298 2 CH: 25"
+      "quote": "those gases shall be valued as follows: 2 CO: 1 2 N O: 298 2 CH: 25",
+      "display": "those gases shall be valued as follows: CO2: 1, N2O: 298, CH4: 25"
+    },
+    {
+      "id": "war_risk_period",
+      "topic": "War risk premium",
+      "rule": "An additional war risk premium is a percentage of hull and machinery value, charged on entering a listed area for a period of up to seven days there; each further seven days inside, or part of them, is another period. Cover periods have shortened since February 2026, so the count is a lower bound.",
+      "source": "Platts, 1 April 2026 and 5 October 2026, republished by Hellenic Shipping News",
+      "raw_key": "risk_hsn_2026_04_01_war_risk_cost_off_highs_persian_gulf_html",
+      "quote": "The AWRP had reached around 2.5% of the Hull and Machinery value of ships per seven-day period in the Persian Gulf earlier in March"
+    },
+    {
+      "id": "war_risk_payer",
+      "topic": "Who pays the war risk premium",
+      "rule": "On spot voyage charters the premium is usually the charterer's. The study leaves it out of the owner's TCE, as the Baltic's TCEs leave it out, and shows it as the charterer's cost; the payer input moves it into the owner's costs for a fixture that puts it in the freight.",
+      "source": "Platts, 8 December 2025, republished by Hellenic Shipping News",
+      "raw_key": "risk_hsn_2025_12_08_war_risk_premiums_fall_red_sea_html",
+      "quote": "AWRPs are usually on the charterer's account in spot freight deals"
+    },
+    {
+      "id": "war_risk_chain",
+      "topic": "War risk under VOYWAR 2013",
+      "rule": "The owner is reimbursed the additional premium through the charter chain; the clause covers a deviation to avoid a dangerous place but not waiting time, which stays the owner's.",
+      "source": "Gard, 21 March 2026, republished by Hellenic Shipping News",
+      "raw_key": "risk_hsn_2026_03_21_middle_east_conflict_faq_html",
+      "quote": [
+        "the cost of any additional premiums will flow through the charterparty chain",
+        "VOYWAR 2013 only addresses the cost of a deviation to avoid a dangerous place, not waiting time"
+      ]
     }
   ]
 }

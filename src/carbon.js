@@ -66,6 +66,7 @@ export function render(root, data, route) {
   sections = buildSections(VIEW, withBuilders(page.sections, {
     method: (inner) => methodSection(inner, carbon),
     fueleu: (inner) => fueleuSection(inner, carbon, decimals),
+    assumptions: (inner) => assumptionsSection(inner, carbon, decimals),
     data: (inner) => dataSection(inner),
   }), decimals, route);
   root.appendChild(sections.node);
@@ -84,7 +85,7 @@ function costTable(carbon, decimals, scale) {
     el("th", { class: "col-num", text: "Cost, " + UNITS.usd, attrs: { scope: "col", "data-short": "cost" } }),
     el("th", { class: "col-num", text: "Per day, " + UNITS.usd_day, attrs: { scope: "col", "data-short": "per day" } }),
     el("th", { class: "col-num", text: "Per tonne of cargo, " + UNITS.usd_t, attrs: { scope: "col", "data-short": "per tonne" } }),
-    el("th", { class: "col-num", text: "Share of voyage costs, percent", attrs: { scope: "col", "data-short": "share" } }),
+    el("th", { class: "col-num", text: "Share of sourced voyage costs, percent", attrs: { scope: "col", "data-short": "share" } }),
   ]);
   const body = el("tbody");
   for (const voyage of carbon.rows) {
@@ -147,6 +148,10 @@ function fueleuSection(inner, carbon, decimals) {
   }
   const table = el("table", { class: "table" }, [el("thead", {}, [head]), body]);
   inner.appendChild(el("div", { class: "block" }, [scrollTable(["The FuelEU penalty one voyage's energy would carry if the ship burnt the same fuel all year: shown, and kept out of the TCE."], table)]));
+}
+
+function assumptionsSection(inner, carbon, decimals) {
+  inner.appendChild(el("div", { class: "block" }, carbon.page.assumptions.map((segments) => sentence("p", segments, decimals, "prose"))));
 }
 
 function dataSection(inner) {

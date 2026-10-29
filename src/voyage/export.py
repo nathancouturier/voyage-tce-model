@@ -134,7 +134,7 @@ def _latest_rates() -> dict[str, dict[str, Any]]:
 
 
 def _market_for(route: baltic.Route, date: str) -> cases.Market:
-    hub = cases.bunker_hub(route.load)
+    hub = cases.route_hub(route)
     try:
         return cases.weekly_market(date, hub)
     except ValueError:
@@ -163,6 +163,8 @@ def _preset(
         "date": market.date,
         "market": market.label,
         "market_words": market_words(market.label),
+        "eua_words": market.eua_source,
+        "fx_words": market.fx_source,
         "inputs": inputs,
         "sources": case.sources,
         "excluded": case.excluded,
@@ -215,7 +217,7 @@ def presets() -> list[dict[str, Any]]:
         if not row["reproducible"]:
             continue
         route = baltic.ROUTES[row["route"]]
-        market = cases.weekly_market(row["week_ending"], cases.bunker_hub(route.load))
+        market = cases.weekly_market(row["week_ending"], cases.route_hub(route))
         case = cases.build(
             row["route"],
             market,
@@ -240,11 +242,7 @@ def presets() -> list[dict[str, Any]]:
             )
         )
     for item in anchors.early_march():
-        market = (
-            cases.quarter_market("2025-Q4", item["date"])
-            if item["date"] < "2026"
-            else cases.weekly_market("2026-03-02", "fujairah")
-        )
+        market = anchors.early_march_market(item["date"])
         case = cases.build(
             "TD3C", market, freight_value=item["freight_usd_t"], freight_basis="usd_t", freight_source=item["source"]
         )
@@ -370,6 +368,9 @@ def overview(preset_list: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
             "engine_tce_usd_day": r["engine_tce_usd_day"],
             "error": r["error"],
             "bunkers": r["bunkers"],
+            "bunkers_first_printed": r["bunkers_first_printed"],
+            "bunker_age_days": r["bunker_age_days"],
+            "post_closure": r["week_ending"] in anchors.POST_CLOSURE_WEEKS,
         }
         for r in anchors.tanker_weekly()
         if r["route"] == "TD22" and r["reproducible"]
@@ -412,9 +413,23 @@ FIELD_SPECS = [
     ("costs", "costs.port_discharge_usd", "Port charges at discharge", "USD", "usd", 1.0),
     ("costs", "costs.canal_laden_usd", "Canal toll, laden", "USD", "usd", 1.0),
     ("costs", "costs.canal_ballast_usd", "Canal toll, ballast", "USD", "usd", 1.0),
-    ("costs", "war_risk.premium_pct", "War risk premium", "percent of hull value a period", "percent_2", 1.0),
+    (
+        "costs",
+        "war_risk.areas.gulf.premium_pct",
+        "War risk premium, the Gulf",
+        "percent of hull value a period",
+        "percent_2",
+        1.0,
+    ),
+    (
+        "costs",
+        "war_risk.areas.red_sea.premium_pct",
+        "War risk premium, Red Sea and Gulf of Aden",
+        "percent of hull value a period",
+        "percent_2",
+        1.0,
+    ),
     ("costs", "war_risk.hull_value_usd", "Hull value", "USD", "usd", 1.0),
-    ("costs", "war_risk.periods", "War risk periods", "periods of seven days", "count", 1.0),
     ("costs", "war_risk.crew_bonus_usd", "Crew war bonus", "USD", "usd", 1.0),
     ("costs", "costs.sts_usd", "Ship to ship transfer cost", "USD", "usd", 1.0),
     ("costs", "costs.other_usd", "Other voyage costs", "USD", "usd", 1.0),
@@ -448,6 +463,9 @@ EXCLUDED_FIELDS = (
     ("fuel burnt in port", ("port.load_tpd", "port.discharge_tpd")),
     ("toll on the laden leg", ("costs.canal_laden_usd",)),
     ("toll on the ballast leg", ("costs.canal_ballast_usd",)),
+    ("canal days", ("port.canal_days",)),
+    ("war risk premium in the Gulf", ("war_risk.areas.gulf.premium_pct",)),
+    ("war risk premium for the Red Sea", ("war_risk.areas.red_sea.premium_pct",)),
 )
 
 
@@ -548,7 +566,7 @@ def calculator(preset_list: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
         ],
         shocks=[{"id": s, "label": SHOCK_LABELS[s]} for s, _, _ in engine.SHOCKS],
         speed_chart={"margin_kn": analysis.SPEED_MARGIN_KN, "step_kn": analysis.SPEED_CHART_STEP_KN},
-        target_tce={"value": 0.0, "label": "Breakeven: the freight that covers voyage costs"},
+        target_tce={"value": 0.0, "label": "Breakeven: the freight that covers the voyage costs priced"},
         presets=[{**p, "excluded_items": excluded_items(p)} for p in preset_list],
         route_order=[
             {"code": code, "label": code.replace("_37", "").replace("_63", ""), "segment": baltic.ROUTES[code].segment}
@@ -560,6 +578,8 @@ def calculator(preset_list: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
             for path, (label, fmt, scale) in pages.INPUT_LABELS.items()
         },
         status_words=pages.STATUS_WORDS,
+        payer_words=pages.PAYER_WORDS,
+        war_area_names=pages.WAR_AREA_NAMES,
         **pages.calculator_words(),
         vessels=vessels,
         routes=routes,
@@ -720,7 +740,7 @@ def method_artifact() -> dict[str, Any]:
         {
             **with_url(row),
             "route_label": row["route"].replace("_37", "").replace("_63", ""),
-            "bunkers_words": market_words(row["bunkers"]) if row["bunkers"] else "",
+            "bunkers_words": pages.bunker_age_words(row).lower() if row["bunkers"] else "",
         }
         for row in validation["tanker"]
     ]
@@ -752,14 +772,16 @@ def manifest_artifact() -> dict[str, Any]:
         {
             "id": "ports",
             "what": "Port positions, NGA World Port Index (Pub. 150)",
-            "as_of": "2026-10-29",
+            "as_of": None,
+            "as_of_words": "Not dated: the agency's service carries no edition date",
             "source": raw_source("nga_wpi_ports"),
             "licence": "US Government work, public domain",
         },
         {
             "id": "distances",
             "what": "Sea routes, searoute 1.6.0 over Eurostat SeaRoute, checked against NGA Pub. 151",
-            "as_of": "2026-10-29",
+            "as_of": None,
+            "as_of_words": "searoute 1.6.0's network; Pub. 151, 11th edition, 2001",
             "source": {
                 "url": "https://github.com/genthalili/searoute-py",
                 "retrieved": "2026-10-29",
@@ -770,7 +792,7 @@ def manifest_artifact() -> dict[str, Any]:
         {
             "id": "eca",
             "what": "Emission control areas, MARPOL Annex VI Appendix VII and the area regulations",
-            "as_of": "2026-10-29",
+            "as_of": "2024-10-04",
             "source": raw_source("imo_mepc_328_76"),
             "licence": "IMO documents, cited",
         },
@@ -790,11 +812,17 @@ def manifest_artifact() -> dict[str, Any]:
         },
         {
             "id": "bunkers",
-            "what": "Bunker prices: Ship & Bunker monthly and quarterly averages; Star Asia and Banchero "
-            "Costa weekly tables",
+            "what": "Bunker prices, weekly: Star Asia Shipbroking and Banchero Costa tables",
             "as_of": "2026-10-23",
             "source": raw_source("bunkers_starasia_market_report_week43_2026_pdf"),
             "licence": "Copyright of the publishers; figures cited",
+        },
+        {
+            "id": "bunkers_sb",
+            "what": "Bunker prices, monthly and quarterly averages: Ship & Bunker",
+            "as_of": "2026-09-30",
+            "source": raw_source("bunkers_sb_prices_rotterdam_20261028_redacted_html"),
+            "licence": "Copyright of the publisher; figures cited",
         },
         {
             "id": "tanker_rates",
@@ -850,7 +878,9 @@ def manifest_artifact() -> dict[str, Any]:
             "sources": "Data: Baltic Exchange route definitions and weekly reports as republished, Ship & Bunker, "
             "Star Asia and Banchero Costa bunker and FFA tables, the European Commission and DEHSt auction "
             "reports, the Federal Reserve, NGA, Eurostat SeaRoute, the IMO and EUR-Lex, each cited where it is used.",
-            "updated_words": "Latest market input dated",
+            "updated_words": "Data last updated",
+            "updated": pages.retrieval_days()[-1],
+            "latest_words": "latest market input dated",
             "latest_input": max(
                 s["as_of"] for s in series if s["id"] in ("bunkers", "tanker_rates", "dry_rates", "ffa", "eua", "fx")
             ),
@@ -897,6 +927,7 @@ def downloads() -> dict[str, str]:
                 "engine_tce_usd_day",
                 "error",
                 "bunkers",
+                "bunkers_first_printed",
                 "reason",
             ],
         ),
@@ -907,10 +938,14 @@ def downloads() -> dict[str, str]:
                 "route",
                 "freight_usd_t",
                 "engine_tce_usd_day",
+                "engine_tce_gross_usd_day",
                 "benchmark",
                 "benchmark_usd_day",
+                "benchmark_basis",
+                "benchmark_182_usd_day",
                 "gap_usd_day",
                 "bunkers",
+                "hub",
                 "days",
                 "ballast_days",
             ],
@@ -950,14 +985,30 @@ def downloads() -> dict[str, str]:
                 "label": s["label"],
                 "days": s["days"],
                 "extra_days": s["extra_days"],
+                "days_inside_gulf": s["days_inside_gulf"],
+                "periods": s["periods"],
                 "laden_nm": s["laden_nm"],
-                "war_risk_usd": s["war_risk_usd"],
-                **{"extra_freight_usd_t_at_%s" % lvl["week_ending"]: lvl["extra_freight_usd_t"] for lvl in s["levels"]},
+                "charterer_war_risk_usd": s["war_risk_usd"],
+                "charterer_war_risk_usd_t": s["charterer_war_risk_usd_t"],
+                **{
+                    "owner_extra_freight_usd_t_at_%s" % lvl["week_ending"]: lvl["extra_freight_usd_t"]
+                    for lvl in s["levels"]
+                },
             }
             for s in hz["scenarios"]
         ],
-        ["scenario", "label", "days", "extra_days", "laden_nm", "war_risk_usd"]
-        + ["extra_freight_usd_t_at_%s" % lvl["week_ending"] for lvl in hz["levels"]],
+        [
+            "scenario",
+            "label",
+            "days",
+            "extra_days",
+            "days_inside_gulf",
+            "periods",
+            "laden_nm",
+            "charterer_war_risk_usd",
+            "charterer_war_risk_usd_t",
+        ]
+        + ["owner_extra_freight_usd_t_at_%s" % lvl["week_ending"] for lvl in hz["levels"]],
     )
     carbon = analysis.carbon()
     files["carbon_ets.csv"] = csv_text(

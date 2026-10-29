@@ -1,91 +1,91 @@
-week_ending,route,rate_basis,rate_value,published_tce_usd_day,tce_qualifier,reproducible,engine_tce_usd_day,error,bunkers,reason
-2025-12-12,TC20,lump_sum_usd,4000000,,rate only,False,,,,a rate only: the report gives no TCE for this route that week
-2025-12-12,TD3C,ws,125.780000,122676,exact,False,,,,Worldscale rate: the 2025 flat rate is licensed and no public source states it
-2025-12-12,TD22,lump_sum_usd,13722222,94300,a little over,False,,,,no public bunker table within a week before the assessment
-2025-12-12,TD20,ws,126,61400,about,False,,,,Worldscale rate: the 2025 flat rate is licensed and no public source states it
-2025-12-12,TD25,ws,197.780000,55200,around,False,,,,Worldscale rate: the 2025 flat rate is licensed and no public source states it
-2025-12-12,TC14,ws,166,21600,exact,False,,,,Worldscale rate: the 2025 flat rate is licensed and no public source states it
-2026-01-23,TC20,lump_sum_usd,4550000,,rate only,False,,,,a rate only: the report gives no TCE for this route that week
-2026-01-23,TD3C,ws,126.500000,112394,exact,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-01-23,TD22,lump_sum_usd,13675000,93500,just under,False,,,,no public bunker table within a week before the assessment
-2026-01-23,TD20,ws,149.720000,66725,exact,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-01-23,TD25,ws,280,77200,almost,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-01-23,TC14,ws,152,14000,exact,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-02-20,TC20,lump_sum_usd,4000000,,rate only,False,,,,a rate only: the report gives no TCE for this route that week
-2026-02-20,TD3C,ws,163.280000,151208,exact,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-02-20,TD22,lump_sum_usd,14680000,100000,just under,False,,,,no public bunker table within a week before the assessment
-2026-02-20,TD20,ws,163.610000,73400,just over,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-02-20,TD25,ws,285,77200,just over,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-02-20,TC1,ws,165,36000,just over,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-02-20,TC2_37,ws,125,6700,exact,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-02-27,TC20,lump_sum_usd,4700000,,rate only,False,,,,a rate only: the report gives no TCE for this route that week
-2026-02-27,TD3C,ws,216.890000,209550,exact,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-02-27,TD22,lump_sum_usd,17300000,121500,just over,True,127534.311743,0.049665,week of 2026-02-27,
-2026-02-27,TD20,ws,211.110000,101600,over,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-02-27,TD25,ws,293.610000,79600,just over,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-02-27,TC1,ws,197,45800,just under,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-02-27,TC2_37,ws,127,6500,exact,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-03-06,TC20,lump_sum_usd,8510000,,rate only,False,,,,a rate only: the report gives no TCE for this route that week
-2026-03-06,TD3C,ws,473.330000,485959,exact,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-03-06,TD22,lump_sum_usd,28588889,210613,exact,True,219678.684801,0.043044,week of 2026-03-06,
-2026-03-06,TD20,ws,329.440000,170000,just shy of,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-03-06,TD25,ws,393.060000,111600,almost,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-03-06,TC1,ws,446,120000,exact,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-03-06,TC2_37,ws,236,24800,exact,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-03-13,TC20,lump_sum_usd,7450000,,rate only,False,,,,a rate only: the report gives no TCE for this route that week
-2026-03-13,TD3C,ws,348.890000,326198,exact,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-03-13,TD22,lump_sum_usd,21244444,126000,just over,True,155732.704306,0.235974,week of 2026-03-06,
-2026-03-13,TD20,ws,249.330000,123500,about,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-03-13,TD25,ws,289,55900,almost,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-03-13,TC1,ws,358,80200,exact,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-03-13,TC2_37,ws,220,19300,exact,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-03-20,TC20,lump_sum_usd,7290000,,rate only,False,,,,a rate only: the report gives no TCE for this route that week
-2026-03-20,TD3C,ws,413.890000,400928,exact,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-03-20,TD22,lump_sum_usd,22217222,137200,about,False,,,,no public bunker table within a week before the assessment
-2026-03-20,TD20,ws,256.670000,118650,exact,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-03-20,TD25,ws,433,120100,over,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-03-20,TC2_37,ws,230,19700,exact,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-03-27,TC20,lump_sum_usd,7320000,,rate only,False,,,,a rate only: the report gives no TCE for this route that week
-2026-03-27,TD3C,ws,366,356483,exact,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-03-27,TD22,lump_sum_usd,22760556,150500,nearly,False,,,,no public bunker table within a week before the assessment
-2026-03-27,TD20,ws,412.780000,215300,about,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-03-27,TD25,ws,760,238500,a little over,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-03-27,TC2_37,ws,300,33900,exact,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-04-17,TC20,lump_sum_usd,10200000,,rate only,False,,,,a rate only: the report gives no TCE for this route that week
-2026-04-17,TD3C,ws,467.220000,474000,almost,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-04-17,TD22,lump_sum_usd,16550000,102250,nearly,False,,,,no public bunker table within a week before the assessment
-2026-04-17,TD20,ws,192.110000,82600,over,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-04-17,TD25,ws,346.110000,91500,about,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-04-17,TC2_37,ws,279,30000,exact,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-06-26,TC20,lump_sum_usd,9930000,,rate only,False,,,,a rate only: the report gives no TCE for this route that week
-2026-06-26,TD3C,ws,318.890000,313000,close to,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-06-26,TD22,lump_sum_usd,21361111,146600,just over,True,154194.836071,0.051807,week of 2026-06-26,
-2026-06-26,TD20,ws,238.610000,115400,exact,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-06-26,TD25,ws,191.940000,40513,just over,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-06-26,TC2_37,ws,125.310000,4355,exact,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-09-11,TC20,lump_sum_usd,16500000,,rate only,False,,,,a rate only: the report gives no TCE for this route that week
-2026-09-11,TD3C,ws,821.110000,862150,exact,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-09-11,TD34,ws,450.710000,465764,exact,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-09-11,TD22,lump_sum_usd,35110000,257000,just over,True,270679.677992,0.053228,week of 2026-09-04,
-2026-09-11,TD20,ws,326.670000,162200,about,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-09-11,TD25,ws,375,99400,almost,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-09-11,TC1,ws,785,232000,around,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-09-11,TC2_37,ws,100,-6400,exact,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-10-09,TD3C,ws,1318.750000,1412594,exact,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-10-09,TD34,ws,841.070000,912660,exact,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-10-09,TD22,lump_sum_usd,79611111,637675,exact,True,653061.553291,0.024129,week of 2026-10-02,
-2026-10-09,TD20,ws,981.110000,561600,about,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-10-09,TD25,ws,955,308200,almost,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-10-09,TC20,lump_sum_usd,18400000,281800,exact,True,294175.564710,0.043916,week of 2026-10-02,
-2026-10-09,TC5,ws,940,192900,exact,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-10-09,TC14,ws,285,32600,exact,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-10-23,TD3C,ws,1208.130000,1287851,exact,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-10-23,TD34,ws,620,656587,exact,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-10-23,TD22,lump_sum_usd,58220000,451905,exact,True,466377.812043,0.032026,week of 2026-10-23,
-2026-10-23,TD20,ws,731.110000,406769,about,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-10-23,TD25,ws,651,197000,just under,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-10-23,TC1,ws,1075,313200,exact,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-10-23,TC20,lump_sum_usd,21510000,336400,exact,True,351004.923456,0.043415,week of 2026-10-23,
-2026-10-23,TC5,ws,1105,229900,exact,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-10-23,TC2_37,ws,207,12900,exact,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-10-23,TC14,ws,399,53900,exact,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+week_ending,route,rate_basis,rate_value,published_tce_usd_day,tce_qualifier,reproducible,engine_tce_usd_day,error,bunkers,bunkers_first_printed,reason
+2025-12-12,TC20,lump_sum_usd,4000000,,rate only,False,,,,,a rate only: the report gives no TCE for this route that week
+2025-12-12,TD3C,ws,125.780000,122676,exact,False,,,,,Worldscale rate: the 2025 flat rate is licensed and no public source states it
+2025-12-12,TD22,lump_sum_usd,13722222,94300,a little over,True,97816.474239,0.037290,week of 2025-12-05,2025-12-05,
+2025-12-12,TD20,ws,126,61400,about,False,,,,,Worldscale rate: the 2025 flat rate is licensed and no public source states it
+2025-12-12,TD25,ws,197.780000,55200,around,False,,,,,Worldscale rate: the 2025 flat rate is licensed and no public source states it
+2025-12-12,TC14,ws,166,21600,exact,False,,,,,Worldscale rate: the 2025 flat rate is licensed and no public source states it
+2026-01-23,TC20,lump_sum_usd,4550000,,rate only,False,,,,,a rate only: the report gives no TCE for this route that week
+2026-01-23,TD3C,ws,126.500000,112394,exact,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-01-23,TD22,lump_sum_usd,13675000,93500,just under,True,98366.635354,0.052050,week of 2026-01-23,2026-01-23,
+2026-01-23,TD20,ws,149.720000,66725,exact,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-01-23,TD25,ws,280,77200,almost,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-01-23,TC14,ws,152,14000,exact,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-02-20,TC20,lump_sum_usd,4000000,,rate only,False,,,,,a rate only: the report gives no TCE for this route that week
+2026-02-20,TD3C,ws,163.280000,151208,exact,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-02-20,TD22,lump_sum_usd,14680000,100000,just under,True,104722.721637,0.047227,week of 2026-02-20,2026-02-20,
+2026-02-20,TD20,ws,163.610000,73400,just over,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-02-20,TD25,ws,285,77200,just over,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-02-20,TC1,ws,165,36000,just over,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-02-20,TC2_37,ws,125,6700,exact,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-02-27,TC20,lump_sum_usd,4700000,,rate only,False,,,,,a rate only: the report gives no TCE for this route that week
+2026-02-27,TD3C,ws,216.890000,209550,exact,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-02-27,TD22,lump_sum_usd,17300000,121500,just over,True,127534.311743,0.049665,week of 2026-02-27,2026-02-20,
+2026-02-27,TD20,ws,211.110000,101600,over,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-02-27,TD25,ws,293.610000,79600,just over,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-02-27,TC1,ws,197,45800,just under,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-02-27,TC2_37,ws,127,6500,exact,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-03-06,TC20,lump_sum_usd,8510000,,rate only,False,,,,,a rate only: the report gives no TCE for this route that week
+2026-03-06,TD3C,ws,473.330000,485959,exact,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-03-06,TD22,lump_sum_usd,28588889,210613,exact,True,219678.684801,0.043044,week of 2026-03-06,2026-03-06,
+2026-03-06,TD20,ws,329.440000,170000,just shy of,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-03-06,TD25,ws,393.060000,111600,almost,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-03-06,TC1,ws,446,120000,exact,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-03-06,TC2_37,ws,236,24800,exact,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-03-13,TC20,lump_sum_usd,7450000,,rate only,False,,,,,a rate only: the report gives no TCE for this route that week
+2026-03-13,TD3C,ws,348.890000,326198,exact,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-03-13,TD22,lump_sum_usd,21244444,126000,just over,True,148833.806238,0.181221,week of 2026-03-13,2026-03-13,
+2026-03-13,TD20,ws,249.330000,123500,about,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-03-13,TD25,ws,289,55900,almost,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-03-13,TC1,ws,358,80200,exact,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-03-13,TC2_37,ws,220,19300,exact,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-03-20,TC20,lump_sum_usd,7290000,,rate only,False,,,,,a rate only: the report gives no TCE for this route that week
+2026-03-20,TD3C,ws,413.890000,400928,exact,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-03-20,TD22,lump_sum_usd,22217222,137200,about,True,150976.431898,0.100411,week of 2026-03-20,2026-03-20,
+2026-03-20,TD20,ws,256.670000,118650,exact,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-03-20,TD25,ws,433,120100,over,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-03-20,TC2_37,ws,230,19700,exact,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-03-27,TC20,lump_sum_usd,7320000,,rate only,False,,,,,a rate only: the report gives no TCE for this route that week
+2026-03-27,TD3C,ws,366,356483,exact,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-03-27,TD22,lump_sum_usd,22760556,150500,nearly,True,155707.085523,0.034599,week of 2026-03-20,2026-03-20,
+2026-03-27,TD20,ws,412.780000,215300,about,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-03-27,TD25,ws,760,238500,a little over,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-03-27,TC2_37,ws,300,33900,exact,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-04-17,TC20,lump_sum_usd,10200000,,rate only,False,,,,,a rate only: the report gives no TCE for this route that week
+2026-04-17,TD3C,ws,467.220000,474000,almost,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-04-17,TD22,lump_sum_usd,16550000,102250,nearly,True,101633.552011,-0.006029,week of 2026-04-17,2026-03-20,
+2026-04-17,TD20,ws,192.110000,82600,over,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-04-17,TD25,ws,346.110000,91500,about,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-04-17,TC2_37,ws,279,30000,exact,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-06-26,TC20,lump_sum_usd,9930000,,rate only,False,,,,,a rate only: the report gives no TCE for this route that week
+2026-06-26,TD3C,ws,318.890000,313000,close to,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-06-26,TD22,lump_sum_usd,21361111,146600,just over,True,154194.836071,0.051807,week of 2026-06-26,2026-06-26,
+2026-06-26,TD20,ws,238.610000,115400,exact,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-06-26,TD25,ws,191.940000,40513,just over,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-06-26,TC2_37,ws,125.310000,4355,exact,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-09-11,TC20,lump_sum_usd,16500000,,rate only,False,,,,,a rate only: the report gives no TCE for this route that week
+2026-09-11,TD3C,ws,821.110000,862150,exact,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-09-11,TD34,ws,450.710000,465764,exact,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-09-11,TD22,lump_sum_usd,35110000,257000,just over,True,270679.677992,0.053228,week of 2026-09-11,2026-09-04,
+2026-09-11,TD20,ws,326.670000,162200,about,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-09-11,TD25,ws,375,99400,almost,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-09-11,TC1,ws,785,232000,around,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-09-11,TC2_37,ws,100,-6400,exact,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-10-09,TD3C,ws,1318.750000,1412594,exact,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-10-09,TD34,ws,841.070000,912660,exact,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-10-09,TD22,lump_sum_usd,79611111,637675,exact,True,653061.553291,0.024129,week of 2026-10-09,2026-10-02,
+2026-10-09,TD20,ws,981.110000,561600,about,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-10-09,TD25,ws,955,308200,almost,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-10-09,TC20,lump_sum_usd,18400000,281800,exact,True,293652.745168,0.042061,week of 2026-10-09,2026-10-02,
+2026-10-09,TC5,ws,940,192900,exact,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-10-09,TC14,ws,285,32600,exact,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-10-23,TD3C,ws,1208.130000,1287851,exact,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-10-23,TD34,ws,620,656587,exact,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-10-23,TD22,lump_sum_usd,58220000,451905,exact,True,466377.812043,0.032026,week of 2026-10-23,2026-10-23,
+2026-10-23,TD20,ws,731.110000,406769,about,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-10-23,TD25,ws,651,197000,just under,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-10-23,TC1,ws,1075,313200,exact,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-10-23,TC20,lump_sum_usd,21510000,336400,exact,True,350393.739545,0.041599,week of 2026-10-23,2026-10-23,
+2026-10-23,TC5,ws,1105,229900,exact,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-10-23,TC2_37,ws,207,12900,exact,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
+2026-10-23,TC14,ws,399,53900,exact,False,,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it

@@ -112,8 +112,92 @@
     }
   },
   "weekly_bunkers_usd_t": {
-    "note": "Brokers' weekly tables of VLSFO, HSFO and MGO by port, used to price each anchor week. Order of the values: vlsfo, hsfo, mgo.",
+    "note": "Brokers' weekly tables of VLSFO, HSFO and MGO by port, used to price each anchor week. Order of the values: vlsfo, hsfo, mgo. Each table is dated by its report's close of business Friday. Star Asia often reprints the previous week's table unchanged (weeks 8 and 9, 15 and 16, 36 and 37, 40 and 41 of 2026 are identical in every cell, and Houston's row of 20 March 2026 recurs on 10 and 17 April): the study prices with the table of the date and says when its row was first printed.",
     "weeks": [
+      {
+        "date": "2025-12-05",
+        "source": "Star Asia Shipbroking weekly market report, week 49 of 2025",
+        "raw_key": "bunkers_starasia_market_report_week49_2025_pdf",
+        "quote": "PORTS VLSFO (0.5%) HSFO (3.5%) MGO (0.1%) SINGAPORE 435 355 681 HONG KONG 456 383 676 FUJAIRAH 431 327 712 ROTTERDAM 403 356 677 HOUSTON 434 360 666",
+        "prices": {
+          "singapore": [
+            435,
+            355,
+            681
+          ],
+          "fujairah": [
+            431,
+            327,
+            712
+          ],
+          "rotterdam": [
+            403,
+            356,
+            677
+          ],
+          "houston": [
+            434,
+            360,
+            666
+          ]
+        }
+      },
+      {
+        "date": "2026-01-23",
+        "source": "Star Asia Shipbroking weekly market report, week 4 of 2026",
+        "raw_key": "bunkers_starasia_market_report_week04_2026_pdf",
+        "quote": "PORTS VLSFO (0.5%) HSFO (3.5%) MGO (0.1%) SINGAPORE 422 357 601 HONG KONG 436 392 622 FUJAIRAH 420 333 714 ROTTERDAM 407 354 621 HOUSTON 417 344 602",
+        "prices": {
+          "singapore": [
+            422,
+            357,
+            601
+          ],
+          "fujairah": [
+            420,
+            333,
+            714
+          ],
+          "rotterdam": [
+            407,
+            354,
+            621
+          ],
+          "houston": [
+            417,
+            344,
+            602
+          ]
+        }
+      },
+      {
+        "date": "2026-02-20",
+        "source": "Star Asia Shipbroking weekly market report, week 8 of 2026",
+        "raw_key": "bunkers_starasia_market_report_week08_2026_pdf",
+        "quote": "PORTS VLSFO (0.5%) HSFO (3.5%) MGO (0.1%) SINGAPORE 495 448 680 HONG KONG 509 493 709 FUJAIRAH 489 432 753 ROTTERDAM 461 404 679 HOUSTON 466 371 660",
+        "prices": {
+          "singapore": [
+            495,
+            448,
+            680
+          ],
+          "fujairah": [
+            489,
+            432,
+            753
+          ],
+          "rotterdam": [
+            461,
+            404,
+            679
+          ],
+          "houston": [
+            466,
+            371,
+            660
+          ]
+        }
+      },
       {
         "date": "2026-02-27",
         "source": "Star Asia Shipbroking weekly market report, week 9 of 2026",
@@ -167,6 +251,118 @@
             584,
             475,
             927
+          ]
+        }
+      },
+      {
+        "date": "2026-03-13",
+        "source": "Star Asia Shipbroking weekly market report, week 11 of 2026",
+        "raw_key": "bunkers_starasia_market_report_week11_2026_pdf",
+        "quote": "PORTS VLSFO (0.5%) HSFO (3.5%) MGO (0.1%) SINGAPORE 1067 845 1726 HONG KONG 1101 951 1499 FUJAIRAH 1036 844 1558 ROTTERDAM 745 700 1145 HOUSTON 721 581 1158",
+        "prices": {
+          "singapore": [
+            1067,
+            845,
+            1726
+          ],
+          "fujairah": [
+            1036,
+            844,
+            1558
+          ],
+          "rotterdam": [
+            745,
+            700,
+            1145
+          ],
+          "houston": [
+            721,
+            581,
+            1158
+          ]
+        }
+      },
+      {
+        "date": "2026-03-20",
+        "source": "Star Asia Shipbroking weekly market report, week 12 of 2026",
+        "raw_key": "bunkers_starasia_market_report_week12_2026_pdf",
+        "quote": "PORTS VLSFO (0.5%) HSFO (3.5%) MGO (0.1%) SINGAPORE 1057 826 1842 HONG KONG 1101 901 1602 FUJAIRAH 1040 844 1731 ROTTERDAM 818 818 1296 HOUSTON 849 700 1334",
+        "prices": {
+          "singapore": [
+            1057,
+            826,
+            1842
+          ],
+          "fujairah": [
+            1040,
+            844,
+            1731
+          ],
+          "rotterdam": [
+            818,
+            818,
+            1296
+          ],
+          "houston": [
+            849,
+            700,
+            1334
+          ]
+        }
+      },
+      {
+        "date": "2026-04-10",
+        "source": "Star Asia Shipbroking weekly market report, week 15 of 2026",
+        "raw_key": "bunkers_starasia_market_report_week15_2026_pdf",
+        "quote": "PORTS VLSFO (0.5%) HSFO (3.5%) MGO (0.1%) SINGAPORE 871 706 1837 HONG KONG 901 764 1620 FUJAIRAH 816 714 1685 ROTTERDAM 718 670 1341 HOUSTON 849 700 1334",
+        "prices": {
+          "singapore": [
+            871,
+            706,
+            1837
+          ],
+          "fujairah": [
+            816,
+            714,
+            1685
+          ],
+          "rotterdam": [
+            718,
+            670,
+            1341
+          ],
+          "houston": [
+            849,
+            700,
+            1334
+          ]
+        }
+      },
+      {
+        "date": "2026-04-17",
+        "source": "Star Asia Shipbroking weekly market report, week 16 of 2026",
+        "raw_key": "bunkers_starasia_market_report_week16_2026_pdf",
+        "quote": "PORTS VLSFO (0.5%) HSFO (3.5%) MGO (0.1%) SINGAPORE 871 706 1837 HONG KONG 901 764 1620 FUJAIRAH 816 714 1685 ROTTERDAM 718 670 1341 HOUSTON 849 700 1334",
+        "prices": {
+          "singapore": [
+            871,
+            706,
+            1837
+          ],
+          "fujairah": [
+            816,
+            714,
+            1685
+          ],
+          "rotterdam": [
+            718,
+            670,
+            1341
+          ],
+          "houston": [
+            849,
+            700,
+            1334
           ]
         }
       },
@@ -261,7 +457,7 @@
         }
       },
       {
-        "date": "2026-08-01",
+        "date": "2026-07-31",
         "source": "Star Asia Shipbroking weekly market report, week 31 of 2026",
         "raw_key": "bunkers_starasia_market_report_week31_2026_pdf",
         "quote": "PORT VLSFO (0.5%) HSFO (3.5%) MGO (0.1%) SINGAPORE $797 $588 $1225 HONG KONG $780 $607 $1195 FUJAIRAH $789 $607 $1349 ROTTERDAM $680 $550 $1280 HOUSTON $725 $527 $1242",
@@ -317,9 +513,65 @@
         }
       },
       {
+        "date": "2026-09-11",
+        "source": "Star Asia Shipbroking weekly market report, week 37 of 2026",
+        "raw_key": "bunkers_starasia_market_report_week37_2026_pdf",
+        "quote": "PORT VLSFO (0.5%) HSFO (3.5%) MGO (0.1%) SINGAPORE $777 $634 $1134 HONG KONG $799 $669 $1156 FUJAIRAH $780 $621 $1388 ROTTERDAM $662 $530 $1299 HOUSTON $690 $472 $1253",
+        "prices": {
+          "singapore": [
+            777,
+            634,
+            1134
+          ],
+          "fujairah": [
+            780,
+            621,
+            1388
+          ],
+          "rotterdam": [
+            662,
+            530,
+            1299
+          ],
+          "houston": [
+            690,
+            472,
+            1253
+          ]
+        }
+      },
+      {
         "date": "2026-10-02",
         "source": "Star Asia Shipbroking weekly market report, week 40 of 2026",
         "raw_key": "bunkers_starasia_market_report_week40_2026_pdf",
+        "quote": "PORT VLSFO (0.5%) HSFO (3.5%) MGO (0.1%) SINGAPORE $906 $741 $1445 HONG KONG $921 $788 $1445 FUJAIRAH $1014 $749 $1707 ROTTERDAM $717 $622 $1500 HOUSTON $787 $530 $1481",
+        "prices": {
+          "singapore": [
+            906,
+            741,
+            1445
+          ],
+          "fujairah": [
+            1014,
+            749,
+            1707
+          ],
+          "rotterdam": [
+            717,
+            622,
+            1500
+          ],
+          "houston": [
+            787,
+            530,
+            1481
+          ]
+        }
+      },
+      {
+        "date": "2026-10-09",
+        "source": "Star Asia Shipbroking weekly market report, week 41 of 2026",
+        "raw_key": "bunkers_starasia_market_report_week41_2026_pdf",
         "quote": "PORT VLSFO (0.5%) HSFO (3.5%) MGO (0.1%) SINGAPORE $906 $741 $1445 HONG KONG $921 $788 $1445 FUJAIRAH $1014 $749 $1707 ROTTERDAM $717 $622 $1500 HOUSTON $787 $530 $1481",
         "prices": {
           "singapore": [
@@ -375,7 +627,7 @@
     ]
   },
   "war_risk": {
-    "convention": "An additional war risk premium (AWRP) is quoted as a percentage of the hull and machinery value for a period in a listed area, usually seven days, and is paid by the owner and recovered from the charterer on most tanker forms; the study prices it per transit period, times a hull value.",
+    "convention": "An additional war risk premium (AWRP) is a percentage of hull and machinery value, charged on entering a listed area for a period of up to seven days there (Platts, 1 April 2026). On spot voyage charters it is usually the charterer's (Platts, 8 December 2025), reimbursed to the owner through the charter chain under VOYWAR 2013 (Gard, 21 March 2026), and the Baltic's TCEs leave it out. The study counts the seven day periods from the days a voyage spends inside, shows the premium as the charterer's cost beside the owner's TCE, and moves it into the owner's costs when the payer input says so.",
     "rates_pct": [
       {
         "id": "red_sea_2024",
@@ -385,7 +637,8 @@
         "high": 0.7,
         "raw_key": "risk_hsn_2026_04_01_war_risk_cost_off_highs_persian_gulf_html",
         "quote": "Even during the attacks by the Houthis rebels in Yemen on ships in the Red Sea and the Bab al-Mandab Strait, in 2024, the AWRP rarely reached 1% of the H&M value. Most of the time, it remained between 0.4% and 0.7%",
-        "reported": "Platts, quoting two maritime insurance brokers, republished by Hellenic Shipping News on 1 April 2026"
+        "reported": "Platts, quoting two maritime insurance brokers, republished by Hellenic Shipping News on 1 April 2026",
+        "engine_area": "red_sea"
       },
       {
         "id": "bab_el_mandeb_2026_07",
@@ -395,7 +648,8 @@
         "high": 0.5,
         "raw_key": "risk_hsn_2026_07_24_marsh_middle_east_insurance_costs_rise_html",
         "quote": "Premiums for vessels transiting the Bab al-Mandab Strait currently stand at 0.5% of hull value, according to Baker",
-        "reported": "Marsh (Marcus Baker) to Platts, 22 July 2026, republished by Hellenic Shipping News on 24 July 2026"
+        "reported": "Marsh (Marcus Baker) to Platts, 22 July 2026, republished by Hellenic Shipping News on 24 July 2026",
+        "engine_area": "red_sea"
       },
       {
         "id": "hormuz_prewar",
@@ -405,7 +659,19 @@
         "high": 0.15,
         "raw_key": "risk_hsn_2026_04_01_war_risk_cost_off_highs_persian_gulf_html",
         "quote": "in the pre-war period, when the value was around 0.1%-0.15%, or even lower, two maritime insurers said",
-        "reported": "Platts, 1 April 2026"
+        "reported": "Platts, 1 April 2026",
+        "engine_area": "gulf"
+      },
+      {
+        "id": "hormuz_prewar_marsh",
+        "area": "Strait of Hormuz",
+        "as_of": "2026-02",
+        "low": 0.25,
+        "high": 0.25,
+        "raw_key": "risk_hsn_2026_06_25_war_cover_available_hormuz_insurers_html",
+        "quote": "This compared with the prewar level of 0.25%.",
+        "reported": "Marsh (Marcus Baker) to Platts, Hellenic Shipping News 25 June 2026; a higher pre-war level than the insurers Platts quoted on 1 April 2026",
+        "engine_area": "gulf"
       },
       {
         "id": "hormuz_2026_03_early",
@@ -415,7 +681,8 @@
         "high": 2.5,
         "raw_key": "risk_hsn_2026_04_01_war_risk_cost_off_highs_persian_gulf_html",
         "quote": "The AWRP had reached around 2.5% of the Hull and Machinery value of ships per seven-day period in the Persian Gulf earlier in March, but it is now close to 1%",
-        "reported": "Platts, quoting maritime insurance executives, 1 April 2026"
+        "reported": "Platts, quoting maritime insurance executives, 1 April 2026",
+        "engine_area": "gulf"
       },
       {
         "id": "hormuz_2026_06_15",
@@ -425,7 +692,8 @@
         "high": 5.75,
         "raw_key": "risk_hsn_2026_06_18_hormuz_insurance_deters_clean_tankers_html",
         "quote": "European tanker sources put the figure closer to 7%-9% for clean tankers and 5%-5.75% for crude tankers",
-        "reported": "Platts, 18 June 2026; the 5 to 5.75 percent range is for crude tankers, 7 to 9 percent for clean tankers"
+        "reported": "Platts, 18 June 2026; the 5 to 5.75 percent range is for crude tankers, 7 to 9 percent for clean tankers",
+        "engine_area": "gulf"
       },
       {
         "id": "hormuz_2026_06_post_deal",
@@ -435,7 +703,8 @@
         "high": 4.0,
         "raw_key": "risk_hsn_2026_06_25_war_cover_available_hormuz_insurers_html",
         "quote": "The additional war-risk premium was around 3%-4% of hull value after the peace deal was signed, down from 4.5%-6% before, according to Marcus Baker, global head of marine, cargo and logistics at Marsh. This compared with the prewar level of 0.25%.",
-        "reported": "Marsh to Platts, Hellenic Shipping News 25 June 2026"
+        "reported": "Marsh to Platts, Hellenic Shipping News 25 June 2026",
+        "engine_area": "gulf"
       },
       {
         "id": "hormuz_2026_07_22",
@@ -445,7 +714,8 @@
         "high": 10.0,
         "raw_key": "risk_hsn_2026_07_24_marsh_middle_east_insurance_costs_rise_html",
         "quote": "Additional war risk premiums in the region have jumped from 1%-3% of hull value weeks ago to 7.5%-10% currently",
-        "reported": "Marsh (Marcus Baker) to Platts, 22 July 2026, Hellenic Shipping News 24 July 2026; the latest dated percentage for Hormuz found"
+        "reported": "Marsh (Marcus Baker) to Platts, 22 July 2026, Hellenic Shipping News 24 July 2026; the latest dated percentage for Hormuz found",
+        "engine_area": "gulf"
       }
     ],
     "latest_note": {
@@ -459,6 +729,16 @@
       "why_empty": "The International Bargaining Forum designated the Strait of Hormuz, the Gulf of Oman and the Persian Gulf a Warlike Operations Area from 6 March 2026, with a bonus equal to 100 percent of basic wage for a minimum of five days; the bonus in dollars needs the crew's wage bill, which has no public source for these ships.",
       "raw_key": "risk_hsn_2026_03_06_joint_itf_jng_statement_hormuz_woa_html",
       "quote": "A bonus equal to 100% of basic wage, payable for a minimum of five days, and for each additional day a vessel remains in the area."
+    },
+    "area_note": "engine_area names the listed area of the engine a rate applies to: gulf for the Gulf inside the Strait of Hormuz, red_sea for the southern Red Sea and Gulf of Aden entered at Bab el Mandeb.",
+    "cover_note": {
+      "raw_key": "risk_hsn_2026_07_30_two_closed_corridors_hormuz_bab_el_mandeb_html",
+      "quote": [
+        "Lloyd's market insurers are excluding ships with Saudi links from war risk cover",
+        "The insurance withdrawal took effect from July 24"
+      ],
+      "reported": "Windward, republished by Hellenic Shipping News on 30 July 2026",
+      "use": "context for TC20: a Jubail loading is Saudi linked, so cover at the quoted rate may not be available"
     }
   },
   "hull_values_usd": {
@@ -569,5 +849,72 @@
         }
       }
     ]
+  },
+  "hormuz_chain": {
+    "about": "Reported costs of the shuttle that carries a cargo through the Strait of Hormuz to a ship to ship transfer in the Gulf of Oman: the market's figures, set beside the export voyage, which is all the study prices.",
+    "reports": [
+      {
+        "id": "shuttle_usd_bbl_2026_09_21",
+        "low": 16.0,
+        "high": 20.0,
+        "unit": "USD a barrel",
+        "raw_key": "risk_hsn_2026_09_21_saudi_revives_hormuz_shuttle_html",
+        "quote": "oil producers must pay $16-$20 per barrel to compensate crews and owners who accept the risk of transiting the Strait of Hormuz",
+        "reported": "The Wall Street Journal via ChosunBiz, republished by Hellenic Shipping News on 21 September 2026"
+      },
+      {
+        "id": "shuttle_usd_transit_2026_10_12",
+        "low": 50000000.0,
+        "high": 50000000.0,
+        "unit": "USD a transit",
+        "raw_key": "risk_hsn_2026_10_12_tanker_attacks_spread_beyond_hormuz_html",
+        "quote": "National oil companies are paying tankers $50 million per transit to ship crude to ship-to-ship transfer areas off Fujairah and Oman",
+        "reported": "Windward, republished by Hellenic Shipping News on 12 October 2026"
+      },
+      {
+        "id": "vlcc_barrels_2026_07_30",
+        "low": 2000000.0,
+        "high": 2000000.0,
+        "unit": "barrels in a VLCC cargo",
+        "raw_key": "risk_hsn_2026_07_30_two_closed_corridors_hormuz_bab_el_mandeb_html",
+        "quote": "A Hong Kong-flagged VLCC carrying approximately 2 million barrels of crude",
+        "reported": "Windward, republished by Hellenic Shipping News on 30 July 2026"
+      },
+      {
+        "id": "goo_round_voyage_2026_09_23",
+        "low": 17.0,
+        "high": 17.0,
+        "unit": "days, a shuttle's round voyage in the Gulf of Oman",
+        "raw_key": "risk_hsn_2026_09_23_gulf_of_oman_sts_bottlenecks_html",
+        "quote": "increasing it from an observed 17 days to 21 days",
+        "reported": "Kpler, republished by Hellenic Shipping News on 23 September 2026"
+      }
+    ]
+  },
+  "broker_cross_check": {
+    "about": "Another broker's table for a date a Star Asia table covers, to show how far two brokers' prices for the same day can differ; not used to price any voyage.",
+    "date": "2026-03-06",
+    "source": "Intermodal weekly market report, week 11 of 2026, page 7, Market Data Bunker Prices, column 6-Mar-26",
+    "raw_key": "examples_intermodal_weekly_report_week11_2026_pdf",
+    "quote": "- M a r- 2 1,0 7 0.3 1,1 8 2.5 1,4 1 1.0 6 5 4.3 6 0 4.3 7 5 2.3 6 7 4.0 6 8 9.3 8 9 4.0",
+    "display": "6 March 2026, USD a tonne: MGO Rotterdam 1,070.3, Houston 1,182.5, Singapore 1,411.0; 380cst Rotterdam 654.3, Houston 604.3, Singapore 752.3; VLSFO Rotterdam 674.0, Houston 689.3, Singapore 894.0",
+    "read_from": "The page's text layer gives each column separately and letter spaced; rows are mapped to ports by their order (Rotterdam, Houston, Singapore, three times) and to grades by the rotated labels beside each group of three (MGO, 380cst, VLSFO, top to bottom), checked against the printed change column.",
+    "prices": {
+      "rotterdam": [
+        674.0,
+        654.3,
+        1070.3
+      ],
+      "houston": [
+        689.3,
+        604.3,
+        1182.5
+      ],
+      "singapore": [
+        894.0,
+        752.3,
+        1411.0
+      ]
+    }
   }
 }

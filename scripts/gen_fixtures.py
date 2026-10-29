@@ -9,11 +9,13 @@ voyage.engine to 1e-9. The cases are:
   voyage and trip charters, every freight basis, two and four point speed
   curves, speeds inside and outside the published pairs (the power law), ECA
   miles, scrubbers, every ETS share and phase-in, FuelEU in and out of the TCE,
-  war risk, canal and port costs, zero cost lines;
+  war risk in two listed areas paid by either party, canal and port costs,
+  zero cost lines;
 * every anchor the study reproduces (the lump sum tanker weeks, the early March
   VLCC rates, the dry weeks), and every study route on the common market;
 * edge cases named in their "edge" field: a zero length ballast leg, a speed
-  exactly on a published pair, an ECA longer than its leg.
+  exactly on a published pair, an ECA longer than its leg, seven days and a
+  moment over seven days in a listed area.
 
 For each case the file holds evaluate(), the freight for two target TCEs, the
 sensitivities, the hedge against a time charter and a route FFA and, for every
@@ -63,6 +65,16 @@ def _port(rng: random.Random) -> dict:
         port[activity + "_eca"] = rng.random() < 0.4
         port[activity + "_ets_share"] = rng.choice([0.0, 0.5, 1.0])
     return port
+
+
+def _war_area(rng: random.Random) -> dict:
+    return {
+        "premium_pct": rng.choice([0.0, 0.25, 0.5, 2.5, 7.5]),
+        "entries": rng.choice([0, 0, 1, 2]),
+        "laden_nm": round(rng.choice([0.0, rng.uniform(50.0, 900.0)]), 1),
+        "ballast_nm": round(rng.choice([0.0, rng.uniform(50.0, 900.0)]), 1),
+        "port_activities": sorted(rng.sample(["load", "discharge", "waiting", "delay", "sts"], rng.randint(0, 3))),
+    }
 
 
 def random_case(rng: random.Random, number: int) -> dict:
@@ -132,10 +144,10 @@ def random_case(rng: random.Random, number: int) -> dict:
             "sts_usd": round(rng.choice([0.0, rng.uniform(0.0, 300000.0)]), 2),
         },
         "war_risk": {
-            "premium_pct": rng.choice([0.0, 0.25, 0.5, 2.5, 7.5]),
             "hull_value_usd": round(rng.uniform(2e7, 2e8), 0),
-            "periods": rng.choice([1.0, 2.0, 3.0]),
             "crew_bonus_usd": round(rng.choice([0.0, 50000.0]), 2),
+            "payer": rng.choice(["owner", "charterer"]),
+            "areas": {"gulf": _war_area(rng), "red_sea": _war_area(rng)},
         },
     }
 
@@ -145,20 +157,16 @@ def study_cases() -> list[tuple[str, dict]]:
     out = []
     for row in anchors.tanker_weekly():
         if row["reproducible"]:
-            hub = cases.bunker_hub(baltic.ROUTES[row["route"]].load)
+            hub = cases.route_hub(baltic.ROUTES[row["route"]])
             market = cases.weekly_market(row["week_ending"], hub)
             case = cases.build(row["route"], market, freight_value=row["rate_value"], freight_basis="lump_sum")
             out.append(("anchor %s %s" % (row["route"], row["week_ending"]), case.inputs))
     for row in anchors.dry_weekly():
-        hub = cases.bunker_hub(baltic.ROUTES[row["route"]].load)
+        hub = cases.route_hub(baltic.ROUTES[row["route"]])
         case = cases.build(row["route"], cases.weekly_market(row["date"], hub), freight_value=row["freight_usd_t"])
         out.append(("anchor %s %s" % (row["route"], row["date"]), case.inputs))
     for row in anchors.early_march():
-        market = (
-            cases.quarter_market("2025-Q4", row["date"])
-            if row["date"] < "2026"
-            else cases.weekly_market("2026-03-02", "fujairah")
-        )
+        market = anchors.early_march_market(row["date"])
         case = cases.build("TD3C", market, freight_value=row["freight_usd_t"], freight_basis="usd_t")
         out.append(("anchor TD3C %s" % row["id"], case.inputs))
     common = cases.common_market()
@@ -178,10 +186,22 @@ def edge_cases(rng: random.Random) -> list[tuple[str, dict]]:
     on_pair["laden"]["speed_kn"] = sorted(v for v, _ in on_pair["laden_curve"])[0]
     long_eca = copy.deepcopy(base)
     long_eca["laden"]["eca_nm"] = long_eca["laden"]["distance_nm"] * 2.0
+    # Seven days inside a listed area is one period; a moment more is two.
+    seven = copy.deepcopy(base)
+    seven["contract"], seven["freight_basis"] = "voyage", "usd_t"
+    seven["war_risk"]["payer"] = "owner"
+    seven["war_risk"]["areas"]["gulf"] = dict(
+        premium_pct=2.5, entries=1, laden_nm=0.0, ballast_nm=0.0, port_activities=["load"]
+    )
+    seven["port"]["load_days"] = 7.0
+    longer = copy.deepcopy(seven)
+    longer["port"]["load_days"] = 7.0001
     return [
         ("zero ballast leg", no_ballast),
         ("speed on a published pair", on_pair),
         ("ECA longer than the leg", long_eca),
+        ("seven days in a listed area", seven),
+        ("a moment over seven days in a listed area", longer),
     ]
 
 

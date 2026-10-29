@@ -46,6 +46,31 @@ ROUTING_LABELS: Mapping[str, str] = {
     "no_canals": "Suez and Panama avoided",
 }
 
+#: Ports whose nearest node of the network lies behind land: the route is asked
+#: of searoute from a gate at sea, and the stretch from the gate's node to the
+#: port is added to the line as a straight segment. Amsterdam's nearest node is
+#: in the IJmeer, behind the Markermeer and the IJsselmeer; ships reach the port
+#: by the North Sea Canal from IJmuiden. port id -> (lon, lat, source)
+SEA_GATES: Mapping[str, tuple[float, float, str]] = {
+    "amsterdam": (
+        4 + 34 / 60,
+        52 + 28 / 60,
+        "IJmuiden, NGA Pub. 151 printed page 44: 'Subtract 14 miles from Amsterdam distances'",
+    ),
+}
+
+#: Ports whose nearest node lies 10 nm or more out across open water, with the
+#: study's legs running on from it: the straight stretch from the port to the
+#: node is added to the line (searoute's lines start at the node). Elsewhere the
+#: stretch is under 10 nm, or runs up a river or ship channel the network does
+#: not draw (Ningbo 14.2 nm, Houston 9.1 nm), or would double back on the line
+#: (Tubarao 45.6 nm out, where adding it would overstate each leg by about 24 nm,
+#: so each C3 leg is about 21.5 nm short). port id -> why
+PORT_ENDS: Mapping[str, str] = {
+    "port_hedland": "the node lies 43 nm north of the port, on the way out; Pub. 151 page 84 measures from the port",
+    "jubail": "the node lies 12 nm out in open water, on the way out",
+}
+
 #: A point in each passage a route can be tested against, with the distance
 #: within which a route counts as passing it, in nautical miles. Positions are
 #: (longitude, latitude); the Cape is rounded offshore, so its radius is wider.
@@ -63,6 +88,9 @@ REFERENCE_POINTS: Mapping[str, tuple[float, float, float]] = {
     "Yucatan Channel": (-85.9, 21.9, 60.0),
     "Florida Strait": (-81.0, 24.1, 60.0),
     "Strait of Magellan": (-70.5, -53.5, 150.0),
+    # Not a passage: a guard, since a route from the network's node nearest
+    # Amsterdam, in the IJmeer, runs through the lakes (see SEA_GATES).
+    "IJsselmeer": (5.25, 52.75, 10.0),
 }
 
 #: The legs the study's voyages sail, with what each must and must not pass.
@@ -91,8 +119,8 @@ STUDY_LEGS: Sequence[tuple[str, str, str, tuple[str, ...], tuple[str, ...]]] = (
     ("rotterdam", "houston", "direct", ("Dover Strait",), ("Panama Canal",)),
     ("rotterdam", "new_york", "direct", ("Dover Strait",), ()),
     ("new_york", "rotterdam", "direct", ("Dover Strait",), ()),
-    ("houston", "amsterdam", "direct", ("Dover Strait",), ("Panama Canal",)),
-    ("amsterdam", "houston", "direct", ("Dover Strait",), ("Panama Canal",)),
+    ("houston", "amsterdam", "direct", ("Dover Strait",), ("Panama Canal", "IJsselmeer")),
+    ("amsterdam", "houston", "direct", ("Dover Strait",), ("Panama Canal", "IJsselmeer")),
     ("ras_tanura", "yokohama", "direct", ("Strait of Hormuz", "Strait of Malacca"), ()),
     ("yokohama", "ras_tanura", "direct", ("Strait of Hormuz", "Strait of Malacca"), ()),
     ("jubail", "rotterdam", "direct", ("Strait of Hormuz", "Bab el Mandeb", "Suez Canal"), ("Cape of Good Hope",)),
@@ -104,8 +132,8 @@ STUDY_LEGS: Sequence[tuple[str, str, str, tuple[str, ...], tuple[str, ...]]] = (
     ("qingdao", "rotterdam", "no_canals", ("Cape of Good Hope",), ("Suez Canal", "Panama Canal")),
     ("rotterdam", "qingdao", "no_canals", ("Cape of Good Hope",), ("Suez Canal", "Panama Canal")),
     ("qingdao", "rotterdam", "no_suez", ("Panama Canal",), ("Suez Canal", "Cape of Good Hope")),
-    ("amsterdam", "le_havre", "direct", ("Dover Strait",), ()),
-    ("le_havre", "amsterdam", "direct", ("Dover Strait",), ()),
+    ("amsterdam", "le_havre", "direct", ("Dover Strait",), ("IJsselmeer",)),
+    ("le_havre", "amsterdam", "direct", ("Dover Strait",), ("IJsselmeer",)),
     ("ras_tanura", "fujairah", "direct", ("Strait of Hormuz",), ()),
     ("fujairah", "ras_tanura", "direct", ("Strait of Hormuz",), ()),
     ("fujairah", "ningbo", "direct", ("Strait of Malacca",), ("Strait of Hormuz",)),

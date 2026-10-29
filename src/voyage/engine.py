@@ -26,6 +26,12 @@ On a trip time charter the owner earns hire for the days from delivery to
 redelivery and the charterer pays the trip's bunkers, ports, canals and, under
 the BIMCO ETS Allowances Clause for Time Charter Parties 2022, its emission
 allowances; the owner pays only the ballast leg that positions the ship.
+
+An additional war risk premium is a percentage of hull value for each period
+of up to seven days in a listed area, charged on entering it. On a voyage
+charter it goes to whichever party the input names as its payer: usually the
+charterer, which leaves it out of the owner's TCE, as the Baltic's TCEs leave
+it out.
 """
 
 from __future__ import annotations
@@ -62,6 +68,13 @@ FUELEU_REFERENCE_G_MJ = 91.16
 FUELEU_PENALTY_EUR_PER_T = 2400.0
 FUELEU_MJ_PER_T_VLSFO = 41000.0
 GRAMS_PER_TONNE = 1.0e6
+
+#: An additional war risk premium covers a period of up to seven days in a
+#: listed area (Platts, 1 April 2026: "per seven-day period").
+WAR_RISK_PERIOD_DAYS = 7.0
+#: The listed areas the study can price: the Gulf, inside the Strait of Hormuz,
+#: and the southern Red Sea and Gulf of Aden, entered at Bab el Mandeb.
+WAR_RISK_AREAS = ("gulf", "red_sea")
 
 
 def _total(values: Iterable[float]) -> float:
@@ -336,6 +349,37 @@ def fueleu(fuel_result: Mapping[str, Any], inputs: Mapping[str, Any]) -> dict[st
     }
 
 
+def war_risk(inputs: Mapping[str, Any]) -> dict[str, Any]:
+    """The additional war risk premium by listed area: days inside, seven day periods, dollars.
+
+    Each area carries its premium (percent of hull value a period), the miles
+    each leg sails inside it, the port activities spent inside it, and how many
+    separate times the voyage enters it. Its periods are the days inside over
+    seven, rounded up, and never fewer than its entries, since a premium is
+    charged on entering. A crew war bonus is added once, as a sum.
+    """
+    war = inputs["war_risk"]
+    margin = inputs["sea_margin"]
+    port = inputs["port"]
+    areas: dict[str, dict[str, float]] = {}
+    premium = 0.0
+    for name in WAR_RISK_AREAS:
+        area = war["areas"][name]
+        if area["entries"] <= 0:
+            areas[name] = {"days": 0.0, "periods": 0.0, "usd": 0.0}
+            continue
+        inside = (
+            sea_days(area["laden_nm"], inputs["laden"]["speed_kn"], margin)
+            + sea_days(area["ballast_nm"], inputs["ballast"]["speed_kn"], margin)
+            + _total(port[activity + "_days"] for activity in area["port_activities"])
+        )
+        periods = max(float(area["entries"]), float(math.ceil(inside / WAR_RISK_PERIOD_DAYS)))
+        usd = area["premium_pct"] / PERCENT * war["hull_value_usd"] * periods
+        areas[name] = {"days": inside, "periods": periods, "usd": usd}
+        premium += usd
+    return {"areas": areas, "premium_usd": premium, "total_usd": premium + war["crew_bonus_usd"]}
+
+
 #: The activities whose costs a trip charterer pays, and the owner the rest.
 _TRIP_ACTIVITIES = ("laden", "load", "discharge", "waiting", "canal", "delay", "sts")
 
@@ -343,9 +387,10 @@ _TRIP_ACTIVITIES = ("laden", "load", "discharge", "waiting", "canal", "delay", "
 def evaluate(inputs: Mapping[str, Any]) -> dict[str, Any]:
     """Every line of the voyage estimate, and the TCE.
 
-    The owner's voyage costs on a voyage charter are all of them. On a trip time
-    charter they are the ballast leg only: its bunkers and its allowances; the
-    trip's costs are reported as the charterer's.
+    The owner's voyage costs on a voyage charter are all of them, except a war
+    risk premium whose payer is the charterer. On a trip time charter they are
+    the ballast leg only: its bunkers and its allowances; the trip's costs are
+    reported as the charterer's.
     """
     d = days(inputs)
     f = fuel(inputs)
@@ -363,8 +408,8 @@ def evaluate(inputs: Mapping[str, Any]) -> dict[str, Any]:
     fe = fueleu(f, inputs)
 
     costs = inputs["costs"]
-    war = inputs["war_risk"]
-    war_risk_usd = war["premium_pct"] / PERCENT * war["hull_value_usd"] * war["periods"] + war["crew_bonus_usd"]
+    war = war_risk(inputs)
+    war_risk_usd = war["total_usd"]
     port_usd = costs["port_load_usd"] + costs["port_discharge_usd"]
     canal_usd = costs["canal_laden_usd"] + costs["canal_ballast_usd"]
     other_usd = costs["other_usd"] + costs["sts_usd"]
@@ -397,13 +442,14 @@ def evaluate(inputs: Mapping[str, Any]) -> dict[str, Any]:
         }
         gross = inputs["freight_value"] * d["trip"]
     else:
-        charterer_costs = 0.0
+        charterer_pays_war = inputs["war_risk"]["payer"] == "charterer"
+        charterer_costs = war_risk_usd if charterer_pays_war else 0.0
         lines = {
             "bunkers": _total(bunkers_by_activity.values()),
             "ports": port_usd,
             "canals": canal_usd,
             "ets": ets_all,
-            "war_risk": war_risk_usd,
+            "war_risk": 0.0 if charterer_pays_war else war_risk_usd,
             "other": other_usd,
             "fueleu": fueleu_usd,
         }
@@ -424,6 +470,7 @@ def evaluate(inputs: Mapping[str, Any]) -> dict[str, Any]:
         "emissions": em,
         "ets_all_usd": ets_all,
         "fueleu": fe,
+        "war_risk": war,
         "revenue": {
             "gross_usd": gross,
             "other_usd": other_revenue,
@@ -583,19 +630,31 @@ def hedge(
     time charter index) hedges the voyage's days: size = the voyage's total
     days. A voyage route FFA (USD/t, settling on the monthly average of the
     route assessment) hedges the cargo: size = the cargo in tonnes, and its
-    level converts to a TCE with this same engine. The basis is the physical
-    TCE less the paper TCE.
+    level converts to a TCE with this same engine.
+
+    A time charter index and its FFA are gross daily hire (each of its routes
+    at its total commission, GMB v8.8 pages 77 and 78), while a voyage TCE is
+    net of commission. The guide grosses a voyage's net TCE up by the
+    commission before comparing it with time charter rates (section 7.4.3,
+    pages 35 and 36), and so does the basis here: the grossed up TCE less the
+    time charter FFA. Against a route FFA, converted with the same engine, both
+    sides are net. The owner keeps the net share of what the index pays, so
+    the voyage's days times that share hedge its net earnings exactly.
     """
     total_days = days(inputs)["total"]
+    keep = 1.0 - inputs["commission_pct"] / PERCENT
+    gross_tce = physical_tce_usd_day / keep
     route_tce = None
     if route_ffa_usd_t is not None:
         priced = dict(inputs, freight_basis="usd_t", freight_value=route_ffa_usd_t)
         route_tce = evaluate(priced)["tce_usd_day"]
     return {
         "tc_hedge_days": total_days,
+        "tc_hedge_days_net": total_days * keep,
         "route_hedge_t": inputs["cargo_t"],
         "route_ffa_tce_usd_day": route_tce,
-        "basis_vs_tc_ffa_usd_day": None if tc_ffa_usd_day is None else physical_tce_usd_day - tc_ffa_usd_day,
+        "physical_tce_gross_usd_day": gross_tce,
+        "basis_vs_tc_ffa_usd_day": None if tc_ffa_usd_day is None else gross_tce - tc_ffa_usd_day,
         "basis_vs_route_ffa_usd_day": None if route_tce is None else physical_tce_usd_day - route_tce,
     }
 
@@ -619,5 +678,7 @@ def constants() -> dict[str, Any]:
         "FUELEU_MJ_PER_T_VLSFO": FUELEU_MJ_PER_T_VLSFO,
         "GRAMS_PER_TONNE": GRAMS_PER_TONNE,
         "SPEED_STEP_KN": SPEED_STEP_KN,
+        "WAR_RISK_PERIOD_DAYS": WAR_RISK_PERIOD_DAYS,
+        "WAR_RISK_AREAS": list(WAR_RISK_AREAS),
         "SHOCKS": [list(shock) for shock in SHOCKS],
     }

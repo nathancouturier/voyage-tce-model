@@ -35,10 +35,6 @@ export function render(root, data, route) {
   verdict.setAttribute("tabindex", "-1");
   root.appendChild(verdict);
 
-  const dates = el("ul", { class: "data-dates", attrs: { "aria-label": "The date and source of every input" } });
-  for (const line of view.dates) dates.appendChild(appendSegments(el("li"), line, decimals));
-  root.appendChild(dates);
-
   root.appendChild(facts(view, decimals));
 
   // The bridge builds once, on the first load of the site, never on a return.
@@ -64,6 +60,11 @@ export function render(root, data, route) {
     title: words(view.map.title, decimals),
     desc: view.map.legend.map((item) => item.text).join(". ") + ".",
   });
+
+  // The date and source of every input, under the bridge and the map so the figures come first on a phone.
+  const dates = el("ul", { class: "data-dates", attrs: { "aria-label": "The date and source of every input" } });
+  for (const line of view.dates) dates.appendChild(appendSegments(el("li"), line, decimals));
+  root.appendChild(dates);
 
   root.appendChild(sentence("p", view.leaves_out, decimals, "lead block leaves-out"));
 
@@ -133,7 +134,7 @@ function methodSection(inner, view, decimals) {
   const table = el("table", { class: "table" }, [el("thead", {}, [head]), body]);
   inner.appendChild(el("div", { class: "block" }, [
     scrollTable([appendSegments(el("span"), method.comparison_title, decimals)], table),
-    el("p", { class: "note", text: method.comparison_note }),
+    sentence("p", method.comparison_note, decimals, "note"),
   ]));
 }
 

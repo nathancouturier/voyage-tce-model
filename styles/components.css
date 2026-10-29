@@ -295,6 +295,8 @@
 .mark-accent-dot { fill: var(--role-mark-accent); stroke: none; }
 .mark-printed { fill: var(--role-ring); stroke: var(--role-series); stroke-width: 1.5px; }
 .mark-printed--mixed { stroke-dasharray: 2 2; }
+/* An open dot drawn over a filled one stays a ring, so both show. */
+.mark-printed--over { fill: none; }
 .mark-event { stroke: var(--role-decor); fill: none; stroke-width: 1px; stroke-dasharray: 2 3; }
 .text-accent { color: var(--role-text-accent); fill: var(--role-text-accent); }
 
@@ -387,6 +389,9 @@
   stroke-width: 3px;
   stroke-linejoin: round;
 }
+/* A plate of the ground under a label set above its row, so no gridline or
+ * rule runs between its letters: the halo's colour, the label's box. */
+.chart-plate { fill: var(--role-ring); stroke: none; }
 
 /* The source line under a chart: what the figures are read from, and the
  * date of the data. */
@@ -585,7 +590,9 @@ p.block,
 .result-line .fig { font-weight: 600; }
 .leaves-out { margin-top: 28px; }
 .plain-list { display: grid; gap: 6px; max-width: 64em; }
-.plain-list > li { padding-left: 14px; position: relative; }
+.plain-list > li { padding-left: 14px; position: relative; min-width: 0; overflow-wrap: anywhere; }
+/* The date and place of an event: free to wrap with the column. */
+.event__when { font-weight: 500; font-variant-numeric: tabular-nums lining-nums; }
 .plain-list > li::before {
   content: "";
   position: absolute;
@@ -844,6 +851,10 @@ p.block,
   text-underline-offset: 3px;
 }
 .field[data-status="empty"] .field__input { border-style: dashed; }
+/* The study's choice among published values, and a cost left out as the Baltic
+ * leaves it out: each looks different from a sourced figure. */
+.field[data-status="chosen"] .field__input { border-style: dotted; }
+.field[data-status="left_out"] .field__input { border-style: dashed; }
 
 /* The one place --bg-elev is used: the field a figure is typed into. */
 .field__input,
@@ -864,7 +875,7 @@ p.block,
 .field__select { width: 100%; }
 .field__input::placeholder { color: var(--text-muted); opacity: 1; }
 .field__check { display: flex; align-items: center; gap: 10px; min-height: 44px; font-size: var(--fs-body-s); }
-.field__check input { width: 20px; height: 20px; accent-color: var(--accent); }
+.field__check input { flex: none; width: 20px; height: 20px; accent-color: var(--accent); }
 .curve-table { margin-top: 4px; }
 
 .war-rates { display: grid; gap: 8px; font-size: var(--fs-meta); line-height: 1.45; }
@@ -898,4 +909,70 @@ p.block,
   .table-scroll .table th:first-child,
   .table-scroll .table td:first-child { max-width: 8.5rem; white-space: normal; }
   .row-name { min-width: 0; }
+}
+
+/* At 600px and below a table of more than three columns is one block per row:
+ * the row's name, then each cell under its column's name (src/dom.js writes
+ * the names and the table roles). No sideways scroll and no figure cut. */
+@media (max-width: 600px) {
+  .table-scroll:has(.table--stack) { overflow-x: visible; padding-bottom: 0; }
+  .table--stack,
+  .table--stack tbody,
+  .table--stack tr { display: block; width: 100%; }
+  .table--stack thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .table--stack tr { padding-block: 10px; border-top: 1px solid var(--border); }
+  .table--stack tr:first-child { border-top: 1px solid var(--border-strong); }
+  .table-scroll .table--stack th:first-child,
+  .table-scroll .table--stack td:first-child {
+    position: static;
+    max-width: none;
+    border-right: 0;
+    background: none;
+  }
+  .table--stack th[scope="row"] {
+    display: block;
+    height: auto;
+    padding: 0 0 4px;
+    font-weight: 600;
+    white-space: normal;
+  }
+  .table--stack td {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    height: auto;
+    min-width: 0;
+    max-width: none;
+    padding: 2px 0;
+    text-align: right;
+  }
+  .table-scroll .table--stack th:first-child + *,
+  .table-scroll .table--stack td:first-child + * { padding-left: 0; }
+  .table--stack td::before {
+    content: attr(data-label);
+    flex: 1 1 auto;
+    text-align: left;
+    font-family: var(--ff-body);
+    font-size: var(--fs-meta);
+    font-weight: 400;
+    color: var(--text-muted);
+    white-space: normal;
+  }
+  .table--stack td.words,
+  .table--stack td.quote,
+  .table--stack td.is-missing { display: block; text-align: left; white-space: normal; }
+  .table--stack td.words::before,
+  .table--stack td.quote::before,
+  .table--stack td.is-missing::before { display: block; }
+  .table--routes.table--stack td.words,
+  .table--inputs.table--stack td.words,
+  .table--wide.table--stack td.words { min-width: 0; }
 }

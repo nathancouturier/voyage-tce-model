@@ -83,7 +83,50 @@ export const GEOMETRY = Object.freeze({
   LINE_HEIGHT_NARROW: 200,
   /* The readout's distance from the pointer. */
   TOOLTIP_OFFSET: 14,
+  /* A label's reach above and below its baseline in the meta size, and the
+   * margin of the ground plate under a label set above its row. */
+  LABEL_ASCENT: 11,
+  LABEL_DESCENT: 4,
+  PLATE_PAD: 2,
 });
+
+/** A plate of the ground under a label set above its row, so no gridline or
+ *  rule runs through the label: the halo, the size of the label's box. */
+function plate(group, x, y, lines, anchor) {
+  const g = GEOMETRY;
+  const width = Math.max(...lines.map((line) => String(line).length)) * g.CHAR;
+  const left = anchor === "end" ? x - width : x;
+  group.appendChild(svgEl("rect", {
+    class: "chart-plate",
+    x: px(left - g.PLATE_PAD),
+    y: px(y - g.LABEL_ASCENT - g.PLATE_PAD),
+    width: px(width + g.PLATE_PAD + g.PLATE_PAD),
+    height: px((lines.length - 1) * g.LABEL_LINE + g.LABEL_ASCENT + g.LABEL_DESCENT + g.PLATE_PAD + g.PLATE_PAD),
+  }));
+}
+
+/** Whether the segment from p to q enters the box (Liang and Barsky). */
+function segmentCrosses(box, p, q) {
+  let enter = 0;
+  let leave = 1;
+  const dx = q.x - p.x;
+  const dy = q.y - p.y;
+  for (const [step, room] of [[-dx, p.x - box.left], [dx, box.right - p.x], [-dy, p.y - box.top], [dy, box.bottom - p.y]]) {
+    if (step === 0) {
+      if (room < 0) return false;
+      continue;
+    }
+    const t = room / step;
+    if (step < 0) {
+      if (t > leave) return false;
+      if (t > enter) enter = t;
+    } else {
+      if (t < enter) return false;
+      if (t < leave) leave = t;
+    }
+  }
+  return enter <= leave;
+}
 
 /* The mantissas of decimal notation, a fact about how numbers are written. */
 const TICK_LADDER = Object.freeze([1, 2, 5, 10]);
@@ -272,7 +315,10 @@ function bottomAxis(svg, xOf, low, high, step, top, bottom, title, width) {
     const x = xOf(value);
     svg.appendChild(svgEl("line", { class: value === 0 ? "mark-context" : "mark-grid", x1: px(x), x2: px(x), y1: px(top), y2: px(bottom) }));
     if (index % every !== 0) return;
-    svg.appendChild(svgEl("text", { class: "tick", x: px(x), y: px(bottom + g.AXIS_GAP), "text-anchor": "middle", "dominant-baseline": "middle" }, labels[index]));
+    // A label too wide to centre on the first or last tick is set inside the chart from it.
+    const half = labels[index].length * g.CHAR * g.HALF;
+    const anchor = x - half < 0 ? "start" : (x + half > width ? "end" : "middle");
+    svg.appendChild(svgEl("text", { class: "tick", x: px(anchor === "start" ? Math.max(x, 0) : x), y: px(bottom + g.AXIS_GAP), "text-anchor": anchor, "dominant-baseline": "middle" }, labels[index]));
   });
   if (title) {
     svg.appendChild(svgEl("text", { class: "chart-axis-title", x: px(width), y: px(bottom + g.AXIS_GAP + g.AXIS_BELOW), "text-anchor": "end" }, title));
@@ -507,7 +553,17 @@ export function barChart({ width, rows, domain, words }) {
   const negatives = rows.map((row) => (row.segments || []).reduce((sum, s) => sum + (present(s.value) && s.value < 0 ? s.value : 0), 0));
   const fit = domain || niceDomain([...totals, ...negatives], g.X_TICKS, true);
   const left = labelColumn + (narrow ? g.SMALL_RADIUS : g.LABEL_GAP);
-  const right = Math.max(width - g.VALUE_ROOM, left + g.VALUE_ROOM);
+  // The plot as wide as it can be with each row's value written right of its
+  // own bar inside the chart: a long value on a short bar needs no room at
+  // the right of the longest one.
+  let right = width - g.VALUE_ROOM;
+  rows.forEach((row, at) => {
+    if (!row.valueText) return;
+    const need = String(row.valueText).length * g.CHAR + g.LABEL_GAP;
+    const share = (Math.max(totals[at], 0) - fit.low) / (fit.high - fit.low);
+    if (share > 0) right = Math.min(right, left + (width - need - left) / share);
+  });
+  right = Math.max(right, left + g.VALUE_ROOM);
   const xOf = linear(fit.low, fit.high, left, right);
   const rowHeight = narrow ? g.ROW_NARROW : g.ROW;
 
@@ -516,6 +572,15 @@ export function barChart({ width, rows, domain, words }) {
   const height = plotBottom + g.AXIS_GAP + g.AXIS_BELOW + g.LABEL_GAP;
   const svg = imageSvg({ width, height, title: words.title, desc: words.desc, className: "chart--bars" });
   bottomAxis(svg, xOf, fit.low, fit.high, fit.step, 0, plotBottom, words.axis, width);
+  // Plates of the ground under the group headings and, when narrow, under the
+  // labels set above their bars: drawn over the gridlines, under every mark.
+  for (const item of layout) {
+    if (item.kind === "group") plate(svg, 0, item.y, item.lines, "start");
+    else if (narrow) {
+      const top = item.y + item.height - g.BAR_THICKNESS - g.LABEL_GAP;
+      plate(svg, 0, top - g.LABEL_GAP * g.HALF - (item.lines.length - 1) * g.LABEL_LINE, item.lines, "start");
+    }
+  }
 
   const regions = [];
   const labelsToDraw = [];
@@ -559,17 +624,17 @@ export function barChart({ width, rows, domain, words }) {
       end = Math.max(end, x1);
     });
     if (row.valueText) {
-      svg.appendChild(svgEl("text", {
+      haloText(svg, {
         class: segments.length ? "chart-value" : "chart-label--context",
         x: px((segments.length ? end : xOf(0)) + g.LABEL_GAP),
         y: px(barTop + g.BAR_THICKNESS * g.HALF),
         "dominant-baseline": "middle",
-      }, row.valueText));
+      }, row.valueText);
     }
     regions.push({ x: 0, y: item.y, w: width, h: item.height, lines: row.tip || [row.label, row.valueText || ""] });
   }
-  // The labels last, with a halo of the ground, so the zero rule never runs
-  // through one set above its bar.
+  // The labels last, each on a plate of the ground when it is set above its
+  // bar, so no gridline or the zero rule runs through it.
   for (const label of labelsToDraw) haloLines(svg, label.attrs, label.lines);
   return { svg, regions };
 }
@@ -603,12 +668,14 @@ export function dotChart({ width, rows, domain, words, keepZero }) {
   const regions = [];
   for (const item of layout) {
     if (item.kind === "group") {
+      plate(svg, 0, item.y, item.lines, "start");
       haloLines(svg, { class: "chart-group", x: 0, y: px(item.y) }, item.lines);
       continue;
     }
     const { row } = item;
     const middle = narrow ? item.y + item.height - g.DOT_RADIUS - g.LABEL_GAP : item.y + item.height * g.HALF;
     svg.appendChild(svgEl("line", { class: "mark-grid", x1: px(left), x2: px(right), y1: px(middle), y2: px(middle) }));
+    if (narrow) plate(svg, 0, middle - g.DOT_RADIUS - g.LABEL_GAP - (item.lines.length - 1) * g.LABEL_LINE, item.lines, "start");
     haloLines(svg, {
       class: "chart-label",
       x: px(narrow ? 0 : labelColumn),
@@ -619,10 +686,14 @@ export function dotChart({ width, rows, domain, words, keepZero }) {
     if (row.span && present(row.span.from) && present(row.span.to)) {
       svg.appendChild(svgEl("line", { class: "mark-span", x1: px(xOf(row.span.from)), x2: px(xOf(row.span.to)), y1: px(middle), y2: px(middle) }));
     }
-    for (const dot of row.dots) {
-      if (!present(dot.value)) continue;
-      svg.appendChild(svgEl("circle", { class: "mark-ring-fill", cx: px(xOf(dot.value)), cy: px(middle), r: g.DOT_RADIUS + g.RING_WIDTH }));
-      svg.appendChild(svgEl("circle", { class: dot.className || "mark-series-fill", cx: px(xOf(dot.value)), cy: px(middle), r: g.DOT_RADIUS }));
+    // Filled dots first, each ringed in the ground; an open dot last and
+    // unfilled, so a value on top of another reads as a dot inside a ring.
+    const drawn = row.dots.filter((dot) => present(dot.value));
+    const open = (dot) => dot.className === "mark-printed";
+    for (const dot of [...drawn.filter((d) => !open(d)), ...drawn.filter(open)]) {
+      if (!open(dot)) svg.appendChild(svgEl("circle", { class: "mark-ring-fill", cx: px(xOf(dot.value)), cy: px(middle), r: g.DOT_RADIUS + g.RING_WIDTH }));
+      const over = open(dot) && drawn.some((d) => !open(d) && Math.abs(xOf(d.value) - xOf(dot.value)) < g.DOT_RADIUS + g.DOT_RADIUS + g.RING_WIDTH);
+      svg.appendChild(svgEl("circle", { class: over ? "mark-printed mark-printed--over" : dot.className || "mark-series-fill", cx: px(xOf(dot.value)), cy: px(middle), r: g.DOT_RADIUS }));
     }
     regions.push({ x: 0, y: item.y, w: width, h: item.height, lines: row.tip || [row.label] });
   }
@@ -652,6 +723,9 @@ export function tornadoChart({ width, rows, base, words }) {
   const height = plotBottom + g.AXIS_GAP + g.AXIS_BELOW + g.LABEL_GAP;
   const svg = imageSvg({ width, height, title: words.title, desc: words.desc, className: "chart--tornado" });
   bottomAxis(svg, xOf, fit.low, fit.high, fit.step, 0, plotBottom, words.axis, width);
+  // The base rule under the bars, and a plate of the ground under each label
+  // set above its row, so neither the rule nor a gridline runs through it.
+  svg.appendChild(svgEl("line", { class: "mark-accent-rule", x1: px(xOf(base)), x2: px(xOf(base)), y1: 0, y2: px(plotBottom) }));
   const regions = [];
   const rowLabels = [];
   layout.forEach((item) => {
@@ -660,7 +734,11 @@ export function tornadoChart({ width, rows, base, words }) {
     const barTop = narrow ? top + item.height - g.BAR_THICKNESS - g.LABEL_GAP : top + (item.height - g.BAR_THICKNESS) * g.HALF;
     const middle = barTop + g.BAR_THICKNESS * g.HALF;
     rowLabels.push({ x: narrow ? 0 : labelColumn, y: narrow ? barTop - g.LABEL_GAP * g.HALF - (item.lines.length - 1) * g.LABEL_LINE : middle, narrow, lines: item.lines });
-    for (const side of [{ value: row.low, text: row.lowText, className: "mark-negative" }, { value: row.high, text: row.highText, className: "mark-series-fill" }]) {
+    if (narrow) plate(svg, 0, barTop - g.LABEL_GAP * g.HALF - (item.lines.length - 1) * g.LABEL_LINE, item.lines, "start");
+    // An input that moves nothing has one side to write, not two on the same spot.
+    const sides = [{ value: row.low, text: row.lowText, className: "mark-negative" }, { value: row.high, text: row.highText, className: "mark-series-fill" }];
+    if (row.low === row.high) sides.pop();
+    for (const side of sides) {
       if (!present(side.value)) continue;
       const x0 = xOf(Math.min(base, side.value));
       const x1 = xOf(Math.max(base, side.value));
@@ -678,19 +756,17 @@ export function tornadoChart({ width, rows, base, words }) {
       }
       if (side.text) {
         const toLeft = side.value < base;
-        svg.appendChild(svgEl("text", {
+        haloText(svg, {
           class: "chart-value",
           x: px(toLeft ? x0 - g.LABEL_GAP * g.HALF : x1 + g.LABEL_GAP * g.HALF),
           y: px(middle),
           "text-anchor": toLeft ? "end" : "start",
           "dominant-baseline": "middle",
-        }, side.text));
+        }, side.text);
       }
     }
     regions.push({ x: 0, y: top, w: width, h: item.height, lines: row.tip || [row.label] });
   });
-  const x = xOf(base);
-  svg.appendChild(svgEl("line", { class: "mark-accent-rule", x1: px(x), x2: px(x), y1: 0, y2: px(plotBottom) }));
   // The labels last, with a halo of the ground, so a label read on a phone,
   // above its bar, stays legible where the base rule crosses it.
   for (const label of rowLabels) {
@@ -762,6 +838,21 @@ export function lineChart({ width, series, marks, x, y, words, tipFor }) {
     group.appendChild(svgEl("path", { class: "mark-series", d: d.trim() }));
     svg.appendChild(group);
   }
+  // The series as pixel segments, so a mark's label is set where no line runs.
+  const segments = [];
+  for (const line of series) {
+    let previous = null;
+    for (const [vx, vy] of line.points) {
+      if (!present(vy)) {
+        previous = null;
+        continue;
+      }
+      const point = { x: xOf(vx), y: yOf(vy) };
+      if (previous) segments.push([previous, point]);
+      previous = point;
+    }
+  }
+  const taken = [];
   for (const mark of marks || []) {
     if (!present(mark.x) || !present(mark.y)) continue;
     const cx = xOf(mark.x);
@@ -770,9 +861,27 @@ export function lineChart({ width, series, marks, x, y, words, tipFor }) {
     svg.appendChild(svgEl("circle", { class: mark.className || "mark-series-fill", cx: px(cx), cy: px(cy), r: g.DOT_RADIUS }));
     if (mark.label) {
       const room = mark.label.length * g.CHAR;
-      const anchor = cx + room * g.HALF > right ? "end" : (cx - room * g.HALF < left ? "start" : "middle");
-      const ly = mark.below ? cy + g.DOT_RADIUS + g.LABEL_GAP + g.LABEL_GAP : cy - g.DOT_RADIUS - g.LABEL_GAP;
-      haloText(svg, { class: mark.className === "mark-accent-dot" ? "chart-label text-accent" : "chart-label", x: px(cx), y: px(ly), "text-anchor": anchor }, mark.label);
+      const above = cy - g.DOT_RADIUS - g.LABEL_GAP;
+      const below = cy + g.DOT_RADIUS + g.LABEL_GAP + g.LABEL_GAP;
+      const beside = g.DOT_RADIUS + g.LABEL_GAP;
+      // Above or below first, as asked, centred then to either side; then
+      // beside the dot. The first box no line runs through and no other label
+      // covers, inside the plot.
+      const places = [];
+      for (const ly of mark.below ? [below, above] : [above, below]) {
+        for (const anchor of ["middle", "start", "end"]) places.push({ x: cx, y: ly, anchor });
+      }
+      places.push({ x: cx + beside, y: cy + g.LABEL_DESCENT, anchor: "start" }, { x: cx - beside, y: cy + g.LABEL_DESCENT, anchor: "end" });
+      const boxOf = (p) => {
+        const x0 = p.anchor === "start" ? p.x : p.anchor === "end" ? p.x - room : p.x - room * g.HALF;
+        return { left: x0, right: x0 + room, top: p.y - g.LABEL_ASCENT, bottom: p.y + g.LABEL_DESCENT };
+      };
+      const fits = (b) => b.left >= left && b.right <= right && b.top >= 0 && b.bottom <= bottom;
+      const clear = (b) => !segments.some(([p, q]) => segmentCrosses(b, p, q)) &&
+        !taken.some((o) => o.left < b.right && b.left < o.right && o.top < b.bottom && b.top < o.bottom);
+      const place = places.find((p) => fits(boxOf(p)) && clear(boxOf(p))) || places.find((p) => fits(boxOf(p))) || places[0];
+      taken.push(boxOf(place));
+      haloText(svg, { class: mark.className === "mark-accent-dot" ? "chart-label text-accent" : "chart-label", x: px(place.x), y: px(place.y), "text-anchor": place.anchor }, mark.label);
     }
   }
 

@@ -47,40 +47,30 @@
     "cargo_t": 90000,
     "options": [
       {
-        "name": "Suez, no war risk",
-        "laden_nm": 6543.1,
-        "ballast_nm": 6543.1,
-        "days": 52.8751,
-        "tce_usd_day": 351004.923456,
-        "costs_usd": 2143954.515514,
-        "war_risk_usd": 0.0,
-        "result_usd": 18559420.484486,
+        "name": "Suez",
+        "laden_nm": 6555.1,
+        "ballast_nm": 6555.1,
+        "days": 52.959235,
+        "tce_usd_day": 350393.739545,
+        "costs_usd": 2146790.683528,
+        "war_risk_usd": 7225000.0,
+        "war_risk_periods": {
+          "gulf": 1.0,
+          "red_sea": 2.0
+        },
+        "war_risk_days_inside": {
+          "gulf": 5.697216,
+          "red_sea": 0.0
+        },
+        "war_risk_payer": "charterer",
+        "charterer_war_risk_usd_t": 80.277778,
+        "result_usd": 18556584.316472,
         "excluded": [
           "port charges at Jubail and Rotterdam (no public per call figure)",
           "the Suez Canal toll on the laden leg (no public toll for this ship)",
-          "the Suez Canal toll on the ballast leg (no public toll for this ship)"
-        ],
-        "passes": [
-          "Strait of Hormuz",
-          "Bab el Mandeb",
-          "Suez Canal",
-          "Strait of Gibraltar",
-          "Dover Strait"
-        ]
-      },
-      {
-        "name": "Suez, Red Sea war risk on both transits",
-        "laden_nm": 6543.1,
-        "ballast_nm": 6543.1,
-        "days": 52.8751,
-        "tce_usd_day": 334929.30379,
-        "costs_usd": 2993954.515514,
-        "war_risk_usd": 850000.0,
-        "result_usd": 17709420.484486,
-        "excluded": [
-          "port charges at Jubail and Rotterdam (no public per call figure)",
-          "the Suez Canal toll on the laden leg (no public toll for this ship)",
-          "the Suez Canal toll on the ballast leg (no public toll for this ship)"
+          "the Suez Canal toll on the ballast leg (no public toll for this ship)",
+          "the additional war risk premium in the Gulf (usually the charterer's; the Baltic's TCE leaves it out)",
+          "the additional war risk premium for the Red Sea passage (usually the charterer's; the Baltic's TCE leaves it out)"
         ],
         "passes": [
           "Strait of Hormuz",
@@ -92,15 +82,26 @@
       },
       {
         "name": "Cape of Good Hope",
-        "laden_nm": 11326.2,
-        "ballast_nm": 11326.2,
-        "days": 84.410457,
-        "tce_usd_day": 210415.897915,
-        "costs_usd": 2942072.953621,
-        "war_risk_usd": 0.0,
-        "result_usd": 17761302.046379,
+        "laden_nm": 11338.2,
+        "ballast_nm": 11338.2,
+        "days": 84.494591,
+        "tce_usd_day": 210172.812194,
+        "costs_usd": 2944909.121635,
+        "war_risk_usd": 6375000.0,
+        "war_risk_periods": {
+          "gulf": 1.0,
+          "red_sea": 0.0
+        },
+        "war_risk_days_inside": {
+          "gulf": 5.697216,
+          "red_sea": 0.0
+        },
+        "war_risk_payer": "charterer",
+        "charterer_war_risk_usd_t": 70.833333,
+        "result_usd": 17758465.878365,
         "excluded": [
-          "port charges at Jubail and Rotterdam (no public per call figure)"
+          "port charges at Jubail and Rotterdam (no public per call figure)",
+          "the additional war risk premium in the Gulf (usually the charterer's; the Baltic's TCE leaves it out)"
         ],
         "passes": [
           "Strait of Hormuz",
@@ -112,50 +113,71 @@
     "cape_vs_suez": {
       "extra_days": 31.535357,
       "extra_tonne_miles": 430479000.0,
-      "freight_needed_usd_t": 360.330256,
-      "extra_freight_usd_t": 121.330256,
-      "extra_freight_lump_sum_usd": 10919723.074315
+      "freight_needed_usd_t": 375.772409,
+      "extra_freight_usd_t": 136.772409,
+      "extra_freight_lump_sum_usd": 12309516.836083
     },
     "red_sea_war_risk": {
-      "cost_usd": 850000.0,
-      "freight_needed_usd_t": 248.81241,
-      "extra_freight_usd_t": 9.81241
-    },
-    "break_even_suez_toll_usd": 6583658.806945,
-    "war_risk": {
       "premium_pct": 0.5,
-      "periods": 2,
-      "source_id": "bab_el_mandeb_2026_07"
+      "source_id": "bab_el_mandeb_2026_07",
+      "transits": 2,
+      "cost_usd": 850000.0,
+      "per_tonne_usd": 9.444444
     },
+    "gulf_war_risk": {
+      "premium_pct": 7.5,
+      "source_id": "hormuz_2026_07_22"
+    },
+    "break_even_suez_toll_usd": 7425993.012057,
     "toll_reference": "Suez Canal Authority: about USD 500,000 for a ship carrying one million barrels of crude"
   },
   "suez_dry": {
     "as_of": "2026-10-23",
-    "target_tce_usd_day": 13556,
-    "target": "P4_82, Far East to Skaw-Gibraltar Panamax trip, 23 October 2026 (Banchero Costa)",
+    "p4_hire_usd_day": 13556,
+    "p4_commission_pct": 5.0,
+    "p4_trip_days": [
+      55,
+      70
+    ],
+    "p4_page": 80,
+    "target_tce_usd_day": 12878.2,
+    "target": "P4_82, 23 October 2026 (Banchero Costa): delivery Hong Kong-South Korea, a 55 to 70 day trip, redelivery Skaw-Gibraltar, hire before 5 percent total commission (Guide to Market Benchmarks v8.8, page 80)",
+    "basis": "one way: delivery Qingdao, redelivery Rotterdam, no ballast leg, no port time",
     "cargo_t": 66000,
     "war_risk": {
       "premium_pct": 0.5,
-      "periods": 2,
-      "source_id": "bab_el_mandeb_2026_07"
+      "transits": 1,
+      "source_id": "bab_el_mandeb_2026_07",
+      "payer": "charterer"
     },
     "options": [
       {
         "name": "Suez",
         "laden_nm": 10853.0,
-        "ballast_nm": 10853.0,
-        "days": 69.087384,
-        "tce_usd_day": -43548.91095,
-        "costs_usd": 3008680.344871,
-        "war_risk_usd": 405000.0,
-        "result_usd": -3008680.344871,
+        "ballast_nm": 0.0,
+        "days": 35.171759,
+        "tce_usd_day": -38837.860647,
+        "costs_usd": 1365995.884831,
+        "war_risk_usd": 202500.0,
+        "war_risk_periods": {
+          "gulf": 0.0,
+          "red_sea": 1.0
+        },
+        "war_risk_days_inside": {
+          "gulf": 0.0,
+          "red_sea": 0.0
+        },
+        "war_risk_payer": "charterer",
+        "charterer_war_risk_usd_t": 3.068182,
+        "result_usd": -1365995.884831,
         "excluded": [
           "loading time at Qingdao (no terms for this voyage)",
           "discharging time at Rotterdam (no terms for this voyage)",
           "fuel burnt in port (the Baltic prints no port consumption for bulk carriers)",
           "port charges at Qingdao and Rotterdam (no public per call figure)",
           "the Suez Canal toll on the laden leg (no public toll for this ship)",
-          "the Suez Canal toll on the ballast leg (no public toll for this ship)"
+          "time at the Suez Canal, the transit and any wait (no canal days in the guide's QD_RTM_PMX terms)",
+          "the additional war risk premium for the Red Sea passage (usually the charterer's; the Baltic's TCE leaves it out)"
         ],
         "passes": [
           "Bab el Mandeb",
@@ -164,22 +186,34 @@
           "Dover Strait",
           "Strait of Malacca"
         ],
-        "freight_for_target_usd_t": 62.922311,
+        "freight_for_target_usd_t": 29.010284,
+        "cost_of_carriage_usd_t": 32.078466,
         "extra_days_vs_suez": 0.0,
         "extra_tonne_miles_vs_suez": 0.0,
         "extra_freight_vs_suez_usd_t": 0.0,
-        "toll_and_waiting_budget_usd": 462219.364881,
-        "waiting_days_budget": 34.097032
+        "extra_cost_of_carriage_vs_suez_usd_t": 0.0,
+        "toll_and_waiting_budget_usd": 443217.909725,
+        "waiting_days_budget": 34.416138
       },
       {
         "name": "Cape of Good Hope",
         "laden_nm": 14172.9,
-        "ballast_nm": 14172.9,
-        "days": 90.221007,
-        "tce_usd_day": -35295.685877,
-        "costs_usd": 3184412.320632,
+        "ballast_nm": 0.0,
+        "days": 45.930694,
+        "tce_usd_day": -36373.455609,
+        "costs_usd": 1670658.075454,
         "war_risk_usd": 0.0,
-        "result_usd": -3184412.320632,
+        "war_risk_periods": {
+          "gulf": 0.0,
+          "red_sea": 0.0
+        },
+        "war_risk_days_inside": {
+          "gulf": 0.0,
+          "red_sea": 0.0
+        },
+        "war_risk_payer": "charterer",
+        "charterer_war_risk_usd_t": 0.0,
+        "result_usd": -1670658.075454,
         "excluded": [
           "loading time at Qingdao (no terms for this voyage)",
           "discharging time at Rotterdam (no terms for this voyage)",
@@ -191,40 +225,54 @@
           "Sunda Strait",
           "Cape of Good Hope"
         ],
-        "freight_for_target_usd_t": 70.294231,
-        "extra_days_vs_suez": 21.133623,
+        "freight_for_target_usd_t": 36.079151,
+        "cost_of_carriage_usd_t": 36.079151,
+        "extra_days_vs_suez": 10.758935,
         "extra_tonne_miles_vs_suez": 219113400.0,
-        "extra_freight_vs_suez_usd_t": 7.37192,
+        "extra_freight_vs_suez_usd_t": 7.068866,
+        "extra_cost_of_carriage_vs_suez_usd_t": 4.000684,
         "toll_and_waiting_budget_usd": 0.0,
         "waiting_days_budget": 0.0
       },
       {
         "name": "Panama",
         "laden_nm": 13520.3,
-        "ballast_nm": 13520.3,
-        "days": 86.066725,
-        "tce_usd_day": -35176.464691,
-        "costs_usd": 3027523.096709,
+        "ballast_nm": 0.0,
+        "days": 43.815787,
+        "tce_usd_day": -36544.759955,
+        "costs_usd": 1601237.419528,
         "war_risk_usd": 0.0,
-        "result_usd": -3027523.096709,
+        "war_risk_periods": {
+          "gulf": 0.0,
+          "red_sea": 0.0
+        },
+        "war_risk_days_inside": {
+          "gulf": 0.0,
+          "red_sea": 0.0
+        },
+        "war_risk_payer": "charterer",
+        "charterer_war_risk_usd_t": 0.0,
+        "result_usd": -1601237.419528,
         "excluded": [
           "loading time at Qingdao (no terms for this voyage)",
           "discharging time at Rotterdam (no terms for this voyage)",
           "fuel burnt in port (the Baltic prints no port consumption for bulk carriers)",
           "port charges at Qingdao and Rotterdam (no public per call figure)",
           "the Panama Canal toll on the laden leg (no public toll for this ship)",
-          "the Panama Canal toll on the ballast leg (no public toll for this ship)"
+          "time at the Panama Canal, the transit and any wait (no canal days in the guide's QD_RTM_PMX terms)"
         ],
         "passes": [
           "Dover Strait",
           "Panama Canal"
         ],
-        "freight_for_target_usd_t": 66.893838,
-        "extra_days_vs_suez": 16.97934,
+        "freight_for_target_usd_t": 34.537574,
+        "cost_of_carriage_usd_t": 34.537574,
+        "extra_days_vs_suez": 8.644028,
         "extra_tonne_miles_vs_suez": 176041800.0,
-        "extra_freight_vs_suez_usd_t": 3.971526,
-        "toll_and_waiting_budget_usd": 213204.676237,
-        "waiting_days_budget": 15.727698
+        "extra_freight_vs_suez_usd_t": 5.52729,
+        "extra_cost_of_carriage_vs_suez_usd_t": 2.459108,
+        "toll_and_waiting_budget_usd": 96656.8565,
+        "waiting_days_budget": 7.505463
       }
     ]
   },
@@ -255,250 +303,274 @@
         "label": "No war risk, no waiting",
         "days": 47.007212,
         "extra_days": 0.0,
+        "days_inside_gulf": 6.528946,
+        "periods": 1.0,
         "laden_nm": 5848.8,
         "tonne_miles": 1579176000.0,
         "extra_tonne_miles": 0.0,
         "war_risk_usd": 0.0,
+        "charterer_war_risk_usd_t": 0.0,
         "voyage_costs_usd": 2191646.558904,
         "excluded": [
-          "port charges at Ras Tanura and Ningbo (no public per call figure)"
+          "port charges at Ras Tanura and Ningbo (no public per call figure)",
+          "the additional war risk premium in the Gulf (usually the charterer's; the Baltic's TCE leaves it out)"
         ],
         "levels": [
           {
             "week_ending": "2025-12-12",
             "freight_needed_usd_t": 30.623581,
-            "extra_freight_usd_t": 0.0
+            "extra_freight_usd_t": 0.0,
+            "extra_cost_of_carriage_usd_t": 0.0
           },
           {
             "week_ending": "2026-03-06",
             "freight_needed_usd_t": 96.335639,
-            "extra_freight_usd_t": 0.0
+            "extra_freight_usd_t": 0.0,
+            "extra_cost_of_carriage_usd_t": 0.0
           },
           {
             "week_ending": "2026-10-23",
             "freight_needed_usd_t": 241.385016,
-            "extra_freight_usd_t": 0.0
+            "extra_freight_usd_t": 0.0,
+            "extra_cost_of_carriage_usd_t": 0.0
           }
         ]
       },
       {
         "id": "war_low",
-        "label": "War risk 7.5 percent of hull value, one transit period",
+        "label": "War risk 7.5 percent of hull value",
         "days": 47.007212,
         "extra_days": 0.0,
+        "days_inside_gulf": 6.528946,
+        "periods": 1.0,
         "laden_nm": 5848.8,
         "tonne_miles": 1579176000.0,
         "extra_tonne_miles": 0.0,
         "war_risk_usd": 11775000.0,
-        "voyage_costs_usd": 13966646.558904,
+        "charterer_war_risk_usd_t": 43.611111,
+        "voyage_costs_usd": 2191646.558904,
         "excluded": [
-          "port charges at Ras Tanura and Ningbo (no public per call figure)"
+          "port charges at Ras Tanura and Ningbo (no public per call figure)",
+          "the additional war risk premium in the Gulf (usually the charterer's; the Baltic's TCE leaves it out)"
         ],
         "levels": [
           {
             "week_ending": "2025-12-12",
-            "freight_needed_usd_t": 75.933827,
-            "extra_freight_usd_t": 45.310245
+            "freight_needed_usd_t": 30.623581,
+            "extra_freight_usd_t": 0.0,
+            "extra_cost_of_carriage_usd_t": 43.611111
           },
           {
             "week_ending": "2026-03-06",
-            "freight_needed_usd_t": 141.645884,
-            "extra_freight_usd_t": 45.310245
+            "freight_needed_usd_t": 96.335639,
+            "extra_freight_usd_t": 0.0,
+            "extra_cost_of_carriage_usd_t": 43.611111
           },
           {
             "week_ending": "2026-10-23",
-            "freight_needed_usd_t": 286.695261,
-            "extra_freight_usd_t": 45.310245
+            "freight_needed_usd_t": 241.385016,
+            "extra_freight_usd_t": 0.0,
+            "extra_cost_of_carriage_usd_t": 43.611111
           }
         ]
       },
       {
         "id": "war_high",
-        "label": "War risk 10 percent of hull value, one transit period",
+        "label": "War risk 10 percent of hull value",
         "days": 47.007212,
         "extra_days": 0.0,
+        "days_inside_gulf": 6.528946,
+        "periods": 1.0,
         "laden_nm": 5848.8,
         "tonne_miles": 1579176000.0,
         "extra_tonne_miles": 0.0,
         "war_risk_usd": 15700000.0,
-        "voyage_costs_usd": 17891646.558904,
+        "charterer_war_risk_usd_t": 58.148148,
+        "voyage_costs_usd": 2191646.558904,
         "excluded": [
-          "port charges at Ras Tanura and Ningbo (no public per call figure)"
+          "port charges at Ras Tanura and Ningbo (no public per call figure)",
+          "the additional war risk premium in the Gulf (usually the charterer's; the Baltic's TCE leaves it out)"
         ],
         "levels": [
           {
             "week_ending": "2025-12-12",
-            "freight_needed_usd_t": 91.037242,
-            "extra_freight_usd_t": 60.41366
+            "freight_needed_usd_t": 30.623581,
+            "extra_freight_usd_t": 0.0,
+            "extra_cost_of_carriage_usd_t": 58.148148
           },
           {
             "week_ending": "2026-03-06",
-            "freight_needed_usd_t": 156.749299,
-            "extra_freight_usd_t": 60.41366
+            "freight_needed_usd_t": 96.335639,
+            "extra_freight_usd_t": 0.0,
+            "extra_cost_of_carriage_usd_t": 58.148148
           },
           {
             "week_ending": "2026-10-23",
-            "freight_needed_usd_t": 301.798676,
-            "extra_freight_usd_t": 60.41366
+            "freight_needed_usd_t": 241.385016,
+            "extra_freight_usd_t": 0.0,
+            "extra_cost_of_carriage_usd_t": 58.148148
           }
         ]
       },
       {
         "id": "wait_5",
-        "label": "War risk 7.5 percent and 5 days waiting to transit",
+        "label": "War risk 7.5 percent and 5 days waiting inside the Gulf",
         "days": 52.007212,
         "extra_days": 5.0,
+        "days_inside_gulf": 11.528946,
+        "periods": 2.0,
         "laden_nm": 5848.8,
         "tonne_miles": 1579176000.0,
         "extra_tonne_miles": 0.0,
-        "war_risk_usd": 11775000.0,
-        "voyage_costs_usd": 14015346.558904,
+        "war_risk_usd": 23550000.0,
+        "charterer_war_risk_usd_t": 87.222222,
+        "voyage_costs_usd": 2240346.558904,
         "excluded": [
-          "port charges at Ras Tanura and Ningbo (no public per call figure)"
+          "port charges at Ras Tanura and Ningbo (no public per call figure)",
+          "the additional war risk premium in the Gulf (usually the charterer's; the Baltic's TCE leaves it out)"
         ],
         "levels": [
           {
             "week_ending": "2025-12-12",
-            "freight_needed_usd_t": 78.481513,
-            "extra_freight_usd_t": 47.857932
+            "freight_needed_usd_t": 33.171268,
+            "extra_freight_usd_t": 2.547686,
+            "extra_cost_of_carriage_usd_t": 89.769909
           },
           {
             "week_ending": "2026-03-06",
-            "freight_needed_usd_t": 151.183142,
-            "extra_freight_usd_t": 54.847504
+            "freight_needed_usd_t": 105.872897,
+            "extra_freight_usd_t": 9.537258,
+            "extra_cost_of_carriage_usd_t": 96.759481
           },
           {
             "week_ending": "2026-10-23",
-            "freight_needed_usd_t": 311.660937,
-            "extra_freight_usd_t": 70.275921
+            "freight_needed_usd_t": 266.350691,
+            "extra_freight_usd_t": 24.965676,
+            "extra_cost_of_carriage_usd_t": 112.187898
           }
         ]
       },
       {
         "id": "wait_10",
-        "label": "War risk 7.5 percent and 10 days waiting to transit",
+        "label": "War risk 7.5 percent and 10 days waiting inside the Gulf",
         "days": 57.007212,
         "extra_days": 10.0,
+        "days_inside_gulf": 16.528946,
+        "periods": 3.0,
         "laden_nm": 5848.8,
         "tonne_miles": 1579176000.0,
         "extra_tonne_miles": 0.0,
-        "war_risk_usd": 11775000.0,
-        "voyage_costs_usd": 14064046.558904,
+        "war_risk_usd": 35325000.0,
+        "charterer_war_risk_usd_t": 130.833333,
+        "voyage_costs_usd": 2289046.558904,
         "excluded": [
-          "port charges at Ras Tanura and Ningbo (no public per call figure)"
+          "port charges at Ras Tanura and Ningbo (no public per call figure)",
+          "the additional war risk premium in the Gulf (usually the charterer's; the Baltic's TCE leaves it out)"
         ],
         "levels": [
           {
             "week_ending": "2025-12-12",
-            "freight_needed_usd_t": 81.0292,
-            "extra_freight_usd_t": 50.405618
+            "freight_needed_usd_t": 35.718954,
+            "extra_freight_usd_t": 5.095373,
+            "extra_cost_of_carriage_usd_t": 135.928706
           },
           {
             "week_ending": "2026-03-06",
-            "freight_needed_usd_t": 160.7204,
-            "extra_freight_usd_t": 64.384762
+            "freight_needed_usd_t": 115.410155,
+            "extra_freight_usd_t": 19.074517,
+            "extra_cost_of_carriage_usd_t": 149.90785
           },
           {
             "week_ending": "2026-10-23",
-            "freight_needed_usd_t": 336.626613,
-            "extra_freight_usd_t": 95.241597
+            "freight_needed_usd_t": 291.316367,
+            "extra_freight_usd_t": 49.931352,
+            "extra_cost_of_carriage_usd_t": 180.764685
           }
         ]
       },
       {
         "id": "wait_20",
-        "label": "War risk 7.5 percent and 20 days waiting to transit",
+        "label": "War risk 7.5 percent and 20 days waiting inside the Gulf",
         "days": 67.007212,
         "extra_days": 20.0,
+        "days_inside_gulf": 26.528946,
+        "periods": 4.0,
         "laden_nm": 5848.8,
         "tonne_miles": 1579176000.0,
         "extra_tonne_miles": 0.0,
-        "war_risk_usd": 11775000.0,
-        "voyage_costs_usd": 14161446.558904,
+        "war_risk_usd": 47100000.0,
+        "charterer_war_risk_usd_t": 174.444444,
+        "voyage_costs_usd": 2386446.558904,
         "excluded": [
-          "port charges at Ras Tanura and Ningbo (no public per call figure)"
+          "port charges at Ras Tanura and Ningbo (no public per call figure)",
+          "the additional war risk premium in the Gulf (usually the charterer's; the Baltic's TCE leaves it out)"
         ],
         "levels": [
           {
             "week_ending": "2025-12-12",
-            "freight_needed_usd_t": 86.124572,
-            "extra_freight_usd_t": 55.500991
+            "freight_needed_usd_t": 40.814327,
+            "extra_freight_usd_t": 10.190746,
+            "extra_cost_of_carriage_usd_t": 184.63519
           },
           {
             "week_ending": "2026-03-06",
-            "freight_needed_usd_t": 179.794917,
-            "extra_freight_usd_t": 83.459278
+            "freight_needed_usd_t": 134.484672,
+            "extra_freight_usd_t": 38.149033,
+            "extra_cost_of_carriage_usd_t": 212.593478
           },
           {
             "week_ending": "2026-10-23",
-            "freight_needed_usd_t": 386.557964,
-            "extra_freight_usd_t": 145.172949
-          }
-        ]
-      },
-      {
-        "id": "sts",
-        "label": "Loading by ship to ship transfer off Fujairah, no Hormuz transit",
-        "days": 44.257412,
-        "extra_days": -2.7498,
-        "laden_nm": 5456.6,
-        "tonne_miles": 1473282000.0,
-        "extra_tonne_miles": -105894000.0,
-        "war_risk_usd": 0.0,
-        "voyage_costs_usd": 2062970.078873,
-        "excluded": [
-          "port charges at Fujairah and Ningbo (no public per call figure)"
-        ],
-        "levels": [
-          {
-            "week_ending": "2025-12-12",
-            "freight_needed_usd_t": 28.83037,
-            "extra_freight_usd_t": -1.793212
-          },
-          {
-            "week_ending": "2026-03-06",
-            "freight_needed_usd_t": 90.698442,
-            "extra_freight_usd_t": -5.637196
-          },
-          {
-            "week_ending": "2026-10-23",
-            "freight_needed_usd_t": 227.262808,
-            "extra_freight_usd_t": -14.122208
-          }
-        ]
-      },
-      {
-        "id": "td34",
-        "label": "TD34, loading at Mina Al Fahal outside the strait",
-        "days": 42.21905,
-        "extra_days": -4.788161,
-        "laden_nm": 5308.5,
-        "tonne_miles": 1433295000.0,
-        "extra_tonne_miles": -145881000.0,
-        "war_risk_usd": 0.0,
-        "voyage_costs_usd": 2004640.107704,
-        "excluded": [
-          "port charges at Mina Al Fahal and Ningbo (no public per call figure)"
-        ],
-        "levels": [
-          {
-            "week_ending": "2025-12-12",
-            "freight_needed_usd_t": 27.643692,
-            "extra_freight_usd_t": -2.97989
-          },
-          {
-            "week_ending": "2026-03-06",
-            "freight_needed_usd_t": 86.662309,
-            "extra_freight_usd_t": -9.673329
-          },
-          {
-            "week_ending": "2026-10-23",
-            "freight_needed_usd_t": 216.936937,
-            "extra_freight_usd_t": -24.448079
+            "freight_needed_usd_t": 341.247719,
+            "extra_freight_usd_t": 99.862703,
+            "extra_cost_of_carriage_usd_t": 274.307148
           }
         ]
       }
     ],
+    "chains": {
+      "sts": {
+        "label": "Export VLCC from Fujairah after a transfer",
+        "days": 44.257412,
+        "extra_days": -2.7498,
+        "freight_at_td3c_tce_usd_t": 227.262808,
+        "excluded": [
+          "port charges at Fujairah and Ningbo (no public per call figure)"
+        ]
+      },
+      "td34": {
+        "label": "TD34, a cargo loading at Mina Al Fahal",
+        "days": 42.21905,
+        "extra_days": -4.788161,
+        "freight_at_td3c_tce_usd_t": 216.936937,
+        "freight_at_own_tce_usd_t": 114.382375,
+        "published_tce_usd_day": 656587,
+        "excluded": [
+          "port charges at Mina Al Fahal and Ningbo (no public per call figure)"
+        ]
+      },
+      "td3c_freight_at_own_tce_usd_t": 241.385016,
+      "shuttle": [
+        {
+          "id": "shuttle_usd_bbl_2026_09_21",
+          "low": 16.0,
+          "high": 20.0,
+          "unit": "USD a barrel",
+          "raw_key": "risk_hsn_2026_09_21_saudi_revives_hormuz_shuttle_html",
+          "quote": "oil producers must pay $16-$20 per barrel to compensate crews and owners who accept the risk of transiting the Strait of Hormuz",
+          "reported": "The Wall Street Journal via ChosunBiz, republished by Hellenic Shipping News on 21 September 2026"
+        },
+        {
+          "id": "shuttle_usd_transit_2026_10_12",
+          "low": 50000000.0,
+          "high": 50000000.0,
+          "unit": "USD a transit",
+          "raw_key": "risk_hsn_2026_10_12_tanker_attacks_spread_beyond_hormuz_html",
+          "quote": "National oil companies are paying tankers $50 million per transit to ship crude to ship-to-ship transfer areas off Fujairah and Oman",
+          "reported": "Windward, republished by Hellenic Shipping News on 12 October 2026"
+        }
+      ]
+    },
+    "days_inside_to_58e": 7.501179,
     "td34_vs_td3c_published": {
       "td3c_tce_usd_day": 1287851,
       "td34_tce_usd_day": 656587
@@ -642,7 +714,7 @@
           "text": "Southbound convoy transit 11 hours; waiting at most three hours",
           "raw_key": "canals_sca_new_suez_canal_html",
           "quote": "Shortening the transit time from 18 hours to 11 hours for the southbound convoy Minimize the waiting time for vessels to become three hours at most",
-          "use": "the canal day the study adds to a Suez routing (one day, against the 2 canal days the Baltic's TC20 TCE basis allows)"
+          "use": "context only: the study adds no canal days of its own; the Baltic's TC20 TCE basis allows 2 canal days, and the dry routings through a canal leave the time at it out and say so"
         }
       ]
     },
@@ -681,128 +753,173 @@
       },
       " and needs ",
       {
-        "value": 10.919723,
-        "format": "usd_m",
-        "field": "cape_vs_suez.extra_freight_lump_sum_usd",
-        "prefix": "USD ",
-        "suffix": " million"
-      },
-      " more freight (",
-      {
-        "value": 121.330256,
+        "value": 136.772409,
         "format": "usd_t",
         "field": "cape_vs_suez.extra_freight_usd_t",
         "prefix": "USD "
       },
-      " a tonne) to earn what Suez earns with the Red Sea premium paid; a ",
+      " a tonne more freight to earn what it earns by Suez, against a Red Sea premium of ",
       {
-        "value": 7.5,
-        "format": "percent",
-        "field": "hormuz.premium",
-        "suffix": " percent"
-      },
-      " Hormuz war risk premium adds ",
-      {
-        "value": 45.310245,
+        "value": 9.444444,
         "format": "usd_t",
-        "field": "hormuz.war_low.extra",
+        "field": "red_sea.per_tonne_usd",
         "prefix": "USD "
       },
-      " a tonne to a VLCC from Ras Tanura."
+      " a tonne for its charterer; for a VLCC loading in the Gulf, each further seven days inside costs the charterer another ",
+      {
+        "value": 43.611111,
+        "format": "usd_t",
+        "field": "hormuz.war_low.per_tonne",
+        "prefix": "USD "
+      },
+      " a tonne of premium at 7.5 percent of hull value."
     ],
     "chart": {
       "title": [
-        "Per tonne of cargo, the Cape costs an LR2 more than the Red Sea premium does, and the Hormuz premium and waiting outweigh every routing choice for a VLCC."
+        "Per tonne of cargo the Cape costs an LR2's owner far more freight than the Red Sea premium costs its charterer, and for a VLCC loading in the Gulf each week of waiting adds a period of premium to the TCE the wait forgoes."
       ],
-      "axis": "Extra freight to keep the TCE, USD a tonne",
+      "axis": "Extra cost of carriage, USD a tonne",
       "legend": [
         {
           "family": "routing",
-          "text": "Another routing or loading point: its days and fuel"
+          "text": "Extra freight the owner needs: more days, more fuel, or days waiting"
         },
         {
           "family": "war",
-          "text": "A war risk premium, with waiting where stated"
+          "text": "War risk premium, the charterer's, at cost"
         }
       ],
-      "desc": "Each bar is the freight a tonne of cargo must rise by for the voyage to earn what it earns without the detour or the premium; a negative bar is a saving. Waiting is priced at the TCE of the latest week, which waiting days forgo.",
+      "desc": "Each bar is what a tonne of cargo costs more than on the base routing: the freight the owner needs to earn the base TCE (ink) and the charterer's war risk premium at cost (coloured). A premium is charged for each seven days or part of them inside a listed area; waiting is priced at the TCE of the latest week, which waiting days forgo.",
       "rows": [
         {
           "group": "LR2, Jubail to Rotterdam (TC20), against Suez",
           "label": "Cape of Good Hope instead of Suez",
-          "value": 121.330256,
-          "family": "routing",
+          "segments": [
+            {
+              "value": 136.772409,
+              "family": "routing"
+            }
+          ],
           "detail": "31.5 more days"
         },
         {
           "group": "LR2, Jubail to Rotterdam (TC20), against Suez",
-          "label": "Red Sea war risk on both transits",
-          "value": 9.81241,
-          "family": "war",
+          "label": "Red Sea premium on the two Suez transits, the charterer's",
+          "segments": [
+            {
+              "value": 9.444444,
+              "family": "war"
+            }
+          ],
           "detail": "USD 850,000"
         },
         {
-          "group": "Panamax, Qingdao to Rotterdam, against Suez",
+          "group": "Panamax, Qingdao to Rotterdam one way, against Suez",
           "label": "Cape of Good Hope instead of Suez",
-          "value": 7.37192,
-          "family": "routing",
-          "detail": "21.1 more days"
+          "segments": [
+            {
+              "value": 7.068866,
+              "family": "routing"
+            }
+          ],
+          "detail": "10.8 more days"
         },
         {
-          "group": "Panamax, Qingdao to Rotterdam, against Suez",
+          "group": "Panamax, Qingdao to Rotterdam one way, against Suez",
           "label": "Panama instead of Suez",
-          "value": 3.971526,
-          "family": "routing",
-          "detail": "17.0 more days"
+          "segments": [
+            {
+              "value": 5.52729,
+              "family": "routing"
+            }
+          ],
+          "detail": "8.6 more days"
         },
         {
-          "group": "VLCC, Ras Tanura to Ningbo (TD3C), against no premium",
+          "group": "Panamax, Qingdao to Rotterdam one way, against Suez",
+          "label": "Red Sea premium on the Suez transit, the charterer's",
+          "segments": [
+            {
+              "value": 3.068182,
+              "family": "war"
+            }
+          ],
+          "detail": ""
+        },
+        {
+          "group": "VLCC, Ras Tanura to Ningbo (TD3C), against no premium and no waiting",
           "label": "War risk 7.5 percent of hull value",
-          "value": 45.310245,
-          "family": "war",
-          "detail": ""
+          "segments": [
+            {
+              "value": 43.611111,
+              "family": "war"
+            },
+            {
+              "value": 0.0,
+              "family": "routing"
+            }
+          ],
+          "detail": "1 period"
         },
         {
-          "group": "VLCC, Ras Tanura to Ningbo (TD3C), against no premium",
+          "group": "VLCC, Ras Tanura to Ningbo (TD3C), against no premium and no waiting",
           "label": "War risk 10 percent of hull value",
-          "value": 60.41366,
-          "family": "war",
-          "detail": ""
+          "segments": [
+            {
+              "value": 58.148148,
+              "family": "war"
+            },
+            {
+              "value": 0.0,
+              "family": "routing"
+            }
+          ],
+          "detail": "1 period"
         },
         {
-          "group": "VLCC, Ras Tanura to Ningbo (TD3C), against no premium",
-          "label": "7.5 percent and 5 days waiting to transit",
-          "value": 70.275921,
-          "family": "war",
-          "detail": ""
+          "group": "VLCC, Ras Tanura to Ningbo (TD3C), against no premium and no waiting",
+          "label": "7.5 percent and 5 days waiting inside the Gulf",
+          "segments": [
+            {
+              "value": 87.222222,
+              "family": "war"
+            },
+            {
+              "value": 24.965676,
+              "family": "routing"
+            }
+          ],
+          "detail": "2 periods"
         },
         {
-          "group": "VLCC, Ras Tanura to Ningbo (TD3C), against no premium",
+          "group": "VLCC, Ras Tanura to Ningbo (TD3C), against no premium and no waiting",
           "label": "7.5 percent and 10 days waiting",
-          "value": 95.241597,
-          "family": "war",
-          "detail": ""
+          "segments": [
+            {
+              "value": 130.833333,
+              "family": "war"
+            },
+            {
+              "value": 49.931352,
+              "family": "routing"
+            }
+          ],
+          "detail": "3 periods"
         },
         {
-          "group": "VLCC, Ras Tanura to Ningbo (TD3C), against no premium",
+          "group": "VLCC, Ras Tanura to Ningbo (TD3C), against no premium and no waiting",
           "label": "7.5 percent and 20 days waiting",
-          "value": 145.172949,
-          "family": "war",
-          "detail": ""
-        },
-        {
-          "group": "VLCC, Ras Tanura to Ningbo (TD3C), against no premium",
-          "label": "Load by ship to ship transfer off Fujairah instead",
-          "value": -14.122208,
-          "family": "routing",
-          "detail": ""
-        },
-        {
-          "group": "VLCC, Ras Tanura to Ningbo (TD3C), against no premium",
-          "label": "Load at Mina Al Fahal outside the strait (TD34)",
-          "value": -24.448079,
-          "family": "routing",
-          "detail": ""
+          "segments": [
+            {
+              "value": 174.444444,
+              "family": "war"
+            },
+            {
+              "value": 99.862703,
+              "family": "routing"
+            }
+          ],
+          "detail": "4 periods"
         }
       ],
       "source": [
@@ -811,14 +928,14 @@
           "text": "23 October 2026",
           "field": "as_of"
         },
-        ": TC20 at the Baltic's lump sum, the Panamax at the freight that earns the P4 trip rate, TD3C at the Baltic's TCE of the week (",
+        ": TC20 at the Baltic's lump sum, the Panamax one way at the freight that earns the P4 hire net of its commission, TD3C at the Baltic's TCE of the week (",
         {
           "value": 1287851,
           "format": "usd_day",
           "field": "hormuz.latest_tce",
           "prefix": "USD "
         },
-        " a day). War risk: Marsh and Platts, July 2026. Suez and Panama tolls have no public figure for these ships and are left out.",
+        " a day). War risk: Marsh, 22 July 2026, on Xclusiv Shipbrokers' hull values of 7 September 2026. Suez and Panama tolls and the crew war bonus have no public figure for these ships and are left out; the transfer chain and TD34 are set out in the Hormuz panel.",
         " Sources ",
         {
           "text": "retrieved 29 October 2026",
@@ -829,18 +946,25 @@
     },
     "suez_tanker": {
       "lead": [
-        "Before any toll Suez earns ",
+        "Before any toll Suez earns the owner ",
         {
-          "value": 334929.30379,
+          "value": 350393.739545,
           "format": "usd_day",
           "field": "suez.tce",
           "prefix": "USD "
         },
-        " a day with the Red Sea premium (",
+        " a day and the Cape ",
+        {
+          "value": 210172.812194,
+          "format": "usd_day",
+          "field": "cape.tce",
+          "prefix": "USD "
+        },
+        ". The premiums are the charterer's: the Gulf's, which both routings pay, and on the Suez routing the Red Sea's, ",
         {
           "value": 0.5,
           "format": "percent",
-          "field": "suez.war_risk.premium_pct",
+          "field": "red_sea.premium_pct",
           "suffix": " percent"
         },
         " of a ",
@@ -855,80 +979,101 @@
         {
           "value": 2,
           "format": "count",
-          "field": "suez.war_risk.periods"
+          "field": "red_sea.transits"
         },
-        " transits) and the Cape ",
+        " transits, ",
         {
-          "value": 210415.897915,
-          "format": "usd_day",
-          "field": "cape.tce",
+          "value": 850000.0,
+          "format": "usd",
+          "field": "red_sea.cost_usd",
           "prefix": "USD "
         },
-        ". Suez stays the better voyage until its toll passes ",
+        ". Suez stays the better voyage for the owner until its toll passes ",
         {
-          "value": 6.583659,
+          "value": 7.425993,
           "format": "usd_m",
           "field": "break_even_suez_toll_usd",
           "prefix": "USD ",
           "suffix": " million"
         },
-        "; the Suez Canal Authority puts the toll of a one million barrel crude tanker at about USD 500,000."
+        "; the Suez Canal Authority puts the toll of a one million barrel crude tanker at about USD 500,000. A Jubail loading is Saudi linked, and from 24 July 2026 Lloyd's insurers excluded Saudi linked ships from war risk cover (Windward, 30 July 2026), so cover at the quoted rate may not be available."
       ]
     },
     "suez_dry": {
       "lead": [
-        "To earn the P4 trip rate of ",
+        "P4 pays a Panamax ",
         {
           "value": 13556,
+          "format": "usd_day",
+          "field": "p4_hire_usd_day",
+          "prefix": "USD "
+        },
+        " a day for a trip from the Far East to the Skaw-Gibraltar range, ",
+        {
+          "value": 12878.2,
           "format": "usd_day",
           "field": "target_tce_usd_day",
           "prefix": "USD "
         },
-        " a day, a Panamax with 66,000 t from Qingdao to Rotterdam needs ",
+        " after its ",
         {
-          "value": 62.922311,
+          "value": 5.0,
+          "format": "percent_0",
+          "field": "p4_commission_pct",
+          "suffix": " percent"
+        },
+        " commission. To earn as much one way, delivered at Qingdao with 66,000 t and redelivered at Rotterdam, a voyage needs ",
+        {
+          "value": 29.010284,
           "format": "usd_t",
           "field": "suez.freight",
           "prefix": "USD "
         },
-        " a tonne by Suez (with the Red Sea premium), ",
+        " a tonne by Suez, ",
         {
-          "value": 66.893838,
+          "value": 34.537574,
           "format": "usd_t",
           "field": "panama.freight",
           "prefix": "USD "
         },
         " by Panama and ",
         {
-          "value": 70.294231,
+          "value": 36.079151,
           "format": "usd_t",
           "field": "cape.freight",
           "prefix": "USD "
         },
-        " round the Cape. At the Cape's freight, Suez can spend ",
+        " round the Cape, before port time, port charges and tolls; by Suez its charterer also pays the Red Sea premium, ",
         {
-          "value": 462219.364881,
+          "value": 3.068182,
+          "format": "usd_t",
+          "field": "suez.premium_t",
+          "prefix": "USD "
+        },
+        " a tonne. At the Cape's freight, Suez can spend ",
+        {
+          "value": 443217.909725,
           "format": "usd",
           "field": "suez.budget",
           "prefix": "USD "
         },
-        " on tolls and waiting, ",
+        " on its toll and waiting, ",
         {
-          "value": 34.097032,
+          "value": 34.416138,
           "format": "days",
           "field": "suez.waiting_days",
           "suffix": " days"
         },
-        " of P4 hire, and Panama ",
+        " of P4 hire after commission before waiting fuel, and Panama ",
         {
-          "value": 213204.676237,
+          "value": 96656.8565,
           "format": "usd",
           "field": "panama.budget",
           "prefix": "USD "
         },
         " (",
         {
-          "value": 15.727698,
+          "value": 7.505463,
           "format": "days",
           "field": "panama.waiting_days",
           "suffix": " days"
@@ -961,28 +1106,88 @@
           "prefix": "USD ",
           "suffix": " million"
         },
-        " for one transit, ",
+        " for each seven days, or part of them, inside the Gulf: the ",
         {
-          "value": 45.310245,
+          "value": 6.528946,
+          "format": "days",
+          "field": "hormuz.days_inside",
+          "suffix": " days"
+        },
+        " a TD3C voyage spends there make one period, ",
+        {
+          "value": 43.611111,
           "format": "usd_t",
-          "field": "hormuz.war_low.extra",
+          "field": "hormuz.war_low.per_tonne",
           "prefix": "USD "
         },
-        " a tonne of cargo whatever the market. Waiting to transit costs the TCE it forgoes: 10 days add ",
+        " a tonne for the charterer whatever the market. Each further seven days of waiting adds a period of premium and costs the owner the TCE it forgoes: 10 days add ",
         {
-          "value": 19.074517,
+          "value": 87.222222,
           "format": "usd_t",
-          "field": "hormuz.wait_10.closure",
+          "field": "hormuz.wait_10.premium_t",
           "prefix": "USD "
         },
-        " a tonne at the closure week's TCE and ",
+        " a tonne of premium and ",
         {
           "value": 49.931352,
           "format": "usd_t",
           "field": "hormuz.wait_10.latest",
           "prefix": "USD "
         },
-        " at the latest. The Baltic's TD34, loading outside the strait, was assessed at ",
+        " of freight at the latest week's TCE (",
+        {
+          "value": 19.074517,
+          "format": "usd_t",
+          "field": "hormuz.wait_10.closure",
+          "prefix": "USD "
+        },
+        " at the closure week's)."
+      ],
+      "chain": [
+        "Loading off Fujairah splits the voyage in two. A shuttle carries the cargo through the strait, reported at USD 16 to 20 a barrel (The Wall Street Journal via ChosunBiz, 21 September 2026), about ",
+        {
+          "value": 118.518519,
+          "format": "usd_t",
+          "field": "shuttle.bbl_low_t",
+          "prefix": "USD "
+        },
+        " to ",
+        {
+          "value": 148.148148,
+          "format": "usd_t",
+          "field": "shuttle.bbl_high_t",
+          "prefix": "USD "
+        },
+        " a tonne at 2 million barrels a cargo, and at ",
+        {
+          "value": 50.0,
+          "format": "usd_m_0",
+          "field": "shuttle.transit_usd",
+          "prefix": "USD ",
+          "suffix": " million"
+        },
+        " a transit (Windward, 12 October 2026), ",
+        {
+          "value": 185.185185,
+          "format": "usd_t",
+          "field": "shuttle.transit_t",
+          "prefix": "USD "
+        },
+        " a tonne; the transfer's own cost and days have no public figure. The export VLCC then sails ",
+        {
+          "value": 2.7498,
+          "format": "days",
+          "field": "chains.sts.days_saved",
+          "suffix": " fewer days"
+        },
+        " than from Ras Tanura, worth ",
+        {
+          "value": 14.122208,
+          "format": "usd_t",
+          "field": "chains.sts.saving_t",
+          "prefix": "USD "
+        },
+        " a tonne at TD3C's TCE. TD34 loads outside the strait: the Baltic assessed it at ",
         {
           "value": 656587,
           "format": "usd_day",
@@ -1001,12 +1206,31 @@
           "text": "23 October 2026",
           "field": "hormuz.as_of"
         },
-        "."
+        ", which puts its freight at ",
+        {
+          "value": 114.382375,
+          "format": "usd_t",
+          "field": "td34.freight_t",
+          "prefix": "USD "
+        },
+        " a tonne against TD3C's ",
+        {
+          "value": 241.385016,
+          "format": "usd_t",
+          "field": "td3c.freight_t",
+          "prefix": "USD "
+        },
+        ", for a cargo already in the Gulf of Oman."
       ],
       "levels_words": {
         "2025-12-12": "before the war",
         "2026-03-06": "the week of the closure",
         "2026-10-23": "the latest week"
+      },
+      "levels_short": {
+        "2025-12-12": "pre-war",
+        "2026-03-06": "closure week",
+        "2026-10-23": "latest week"
       }
     },
     "sections": [
@@ -1014,28 +1238,35 @@
         "id": "suez",
         "name": "Suez or the Cape, LR2",
         "summary": [
-          "TC20 from Jubail to Rotterdam: days, distance, TCE and the toll Suez can bear."
+          "TC20 from Jubail to Rotterdam: days, distance, TCE, premiums and the toll Suez can bear."
         ]
       },
       {
         "id": "dry",
         "name": "Asia to Europe, Panamax",
         "summary": [
-          "Suez, Panama or the Cape for a Panamax: the freight each needs and what it can spend."
+          "Suez, Panama or the Cape for a Panamax one way: the freight each needs and what it can spend."
         ]
       },
       {
         "id": "hormuz",
         "name": "Hormuz, VLCC",
         "summary": [
-          "War risk, waiting, a transfer off Fujairah and TD34, at three dated TCE levels."
+          "War risk and waiting at three dated TCE levels, the transfer chain and TD34."
         ]
       },
       {
         "id": "method",
         "name": "Method",
         "summary": [
-          "How a detour is priced, and the dated events."
+          "How a detour and a premium are priced, and the dated events."
+        ]
+      },
+      {
+        "id": "assumptions",
+        "name": "Assumptions",
+        "summary": [
+          "Who pays, where the ship waits, the listed area's edge, and what each case leaves out."
         ]
       },
       {
@@ -1047,8 +1278,15 @@
       }
     ],
     "method": [
-      "A detour is priced with the same engine at the same week's bunkers: the extra days and tonne miles against the base routing, and the freight at which the detour earns the base routing's TCE. For a premium the extra freight is the premium over the cargo net of commission; for waiting it is also the TCE the waiting days forgo, so it depends on the market's level.",
-      "War risk premiums are a percentage of hull value per transit period of seven days, from dated insurer and broker reports; hull values are Xclusiv Shipbrokers' five year old values of 7 September 2026. The Suez and Panama tolls, the ship to ship transfer's cost, the shuttle through the strait and the crew's war bonus have no public figure for these ships and are left out, and each panel says which."
+      "A detour is priced with the same engine at the same week's bunkers: the extra days and tonne miles against the base routing, and the freight at which the detour earns the base routing's TCE. On the usual spot terms a war risk premium is the charterer's (Platts, 8 December 2025), reimbursed to the owner at cost under VOYWAR 2013 (Gard, 21 March 2026), and the Baltic's TCEs leave it out: it is shown at cost per tonne of cargo beside the owner's freight. Waiting stays the owner's (VOYWAR 2013 covers a deviation, not waiting), so it moves the freight the owner needs by the TCE it forgoes and depends on the market's level.",
+      "An additional premium is a percentage of hull value charged on entering a listed area, for up to seven days there (Platts, 1 April 2026); each further seven days inside, or part of them, is another period, counted from the days the voyage spends in the Gulf west of the Strait of Hormuz, the load port's days and any waiting there included. Each Red Sea passage is one period."
+    ],
+    "assumptions": [
+      "The ship waits at its load port, inside the Gulf, so its waiting days count toward the premium's periods; a ship that waits outside before entering would pay one period.",
+      "The listed area is taken to end at the Strait of Hormuz, so the count is a lower bound: cover periods have shortened since February 2026 (Platts, 5 October 2026), and if the area ran into the Gulf of Oman, as far as 58 degrees east, a TD3C voyage would spend about 7.5 days inside and pay two periods with no waiting.",
+      "Hull values are Xclusiv Shipbrokers' five year old values of 7 September 2026; the LR1 and the Handy tanker have none. The premium rates are the latest dated ones found: Marsh, 22 July 2026, for the Gulf and for Bab el Mandeb.",
+      "The Panamax runs one way like the P4 trip, delivered at Qingdao and redelivered at Rotterdam, with no ballast leg and no port time; P4's own 55 to 70 days include port time and the positioning before delivery, so its freights are floors.",
+      "Left out everywhere: port charges, the Suez and Panama tolls, time at a canal on the dry routings, and the crew war bonus; on the transfer chain the transfer's own cost and days, and the shuttle, which is set beside the export voyage, not in it."
     ],
     "events_heading": "Dated events behind the scenarios"
   }

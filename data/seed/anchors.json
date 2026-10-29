@@ -1000,10 +1000,15 @@
         "values": {
           "C3_usd_t": 30.11,
           "C5_usd_t": 12.25,
-          "C5TC_usd_day": 33678
+          "C5TC_usd_day": 33678,
+          "BCI": 4100,
+          "BDI": 2717
         },
-        "quote": "Average C5TC earnings climbed to $33,678/day (+$1,618 day-on-day). Iron ore routes remained firm, with C3 at $30.11/mt and C5 at $12.25/mt",
-        "basis_note": "The report does not say whether this C5TC average is on the 180,000 t or the 182,000 t basis; both were published in 2026 (C5TC(180) = C5TC(182) - 3,503)."
+        "quote": [
+          "Average C5TC earnings climbed to $33,678/day (+$1,618 day-on-day). Iron ore routes remained firm, with C3 at $30.11/mt and C5 at $12.25/mt",
+          "BCI rose to 4,100 (Day +179, Week +460), lifting the BDI to 2,717"
+        ],
+        "basis_note": "The report does not name the basis of its C5TC average. The BCI of 4,100 and the BDI of 2,717 it prints the same day fit a 182,000 t basket of 33,678 + 3,503 = 37,181 and not 33,678 itself (the indices' formulas, GMB v8.8 page 76, with the P5TC and S11TC of the same day), so 33,678 is the 180,000 t basis; the study compares the 182,000 t ship it prices with 37,181."
       },
       {
         "date": "2026-07-03",
