@@ -118,8 +118,10 @@ def test_dry_laytime_in_calendar_days():
     assert any("loading time" in text for text in c3.excluded)
 
 
-def test_capesize_vessel_changes_on_2_january_2026():
-    before = cases.build("C5", cases.weekly_market("2026-07-03", "singapore"), freight_value=10.0)
-    assert before.legs["vessel"] == "BCI182"
-    assert baltic.vessel_for(baltic.ROUTES["C5"], "2025-12-24").id == "BCI180"
+def test_capesize_vessel_is_the_bci182_from_2_january_2026_and_refused_before():
+    priced = cases.build("C5", cases.weekly_market("2026-07-03", "singapore"), freight_value=10.0)
+    assert priced.legs["vessel"] == "BCI182"
     assert baltic.vessel_for(baltic.ROUTES["C5"], "2026-01-02").id == "BCI182"
+    # The BCI180 is not defined: v8.8 no longer prints its consumptions.
+    with pytest.raises(ValueError):
+        baltic.vessel_for(baltic.ROUTES["C5"], "2025-12-24")

@@ -1,10 +1,10 @@
 """What every adapter shares: where files live, how to fetch politely, and the raw manifest.
 
 Fetching follows the house rules of the sibling studies (jkm-ttf-arbitrage,
-lngarb.sources.base, adapted): a browser user agent, a polite pause before
-every request, retries only on statuses that can change, and robots.txt read
-with the matching rules of RFC 9309 before anything is sent. A URL robots.txt
-disallows is never requested; it becomes a manual step.
+lngarb.sources.base, adapted): the project's own user agent (USER_AGENT below),
+a polite pause before every request, retries only on statuses that can change,
+and robots.txt read with the matching rules of RFC 9309 before anything is
+sent. A URL robots.txt disallows is never requested; it becomes a manual step.
 
 Every download is recorded in data/raw/manifest.json with its URL, the time it
 was retrieved, its size and its sha256. Files whose terms allow redistribution

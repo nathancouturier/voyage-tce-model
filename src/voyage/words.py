@@ -10,6 +10,7 @@ the decimals the artifact declares for its format, in DECIMALS below.
 
 from __future__ import annotations
 
+import math
 from typing import Any
 
 #: The decimals of every format the artifacts use. One table, so a figure has the
@@ -127,3 +128,18 @@ def market_words(label: str) -> str:
     if len(head) == 7 and head[4:6] == "-Q":
         return "%s %s%s" % (head[5:], head[:4], label[len(head) :])
     return label
+
+
+def rounded_parts(parts: list[float], fmt: str) -> list[float]:
+    """Parts rounded to a format's places so that they add up to their total rounded the same way.
+
+    Each part is rounded down, and the units the total still needs go to the
+    parts with the largest remainders (the largest remainder method).
+    """
+    scale = 10 ** DECIMALS[fmt]
+    total = round(math.fsum(parts) * scale)
+    floors = [int(part * scale // 1) for part in parts]
+    order = sorted(range(len(parts)), key=lambda i: parts[i] * scale - floors[i], reverse=True)
+    for i in order[: max(0, total - sum(floors))]:
+        floors[i] += 1
+    return [value / scale for value in floors]

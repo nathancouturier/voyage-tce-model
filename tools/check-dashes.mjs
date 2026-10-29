@@ -4,7 +4,7 @@
 //     node tools/check-dashes.mjs
 //     node tools/check-dashes.mjs --list        print the files scanned
 //
-// The study's brief bans both characters from this repository: code, comments,
+// The study bans both characters from this repository: code, comments,
 // copy, README, commit messages and the research note. The rule exists because
 // the sibling repos on the same GitHub profile follow it, and a project that
 // keeps it in half its files reads as several projects rather than one body of

@@ -40,8 +40,25 @@
         "panama"
       ],
       "label": "Suez and Panama avoided"
+    },
+    "no_canals_no_sunda": {
+      "avoids": [
+        "northwest",
+        "suez",
+        "babalmandab",
+        "panama",
+        "sunda"
+      ],
+      "label": "Suez, Panama and the Sunda Strait avoided"
     }
   },
+  "special_legs": [
+    [
+      "galveston",
+      "ningbo",
+      "no_canals_no_sunda"
+    ]
+  ],
   "reference_points": {
     "Strait of Hormuz": {
       "lon": 56.45,
@@ -17203,6 +17220,22 @@
         "Cape of Good Hope"
       ],
       "vertices": 63
+    },
+    "galveston__ningbo__no_canals_no_sunda": {
+      "from": "galveston",
+      "to": "ningbo",
+      "routing": "no_canals_no_sunda",
+      "distance_nm": 15230.6,
+      "passages_reported_by_searoute": [
+        "malacca",
+        "south_africa"
+      ],
+      "passes": [
+        "Strait of Malacca",
+        "Cape of Good Hope",
+        "Florida Strait"
+      ],
+      "vertices": 138
     }
   },
   "pub151_checks": {

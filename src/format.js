@@ -27,6 +27,8 @@
  */
 
 const MINUS_SIGN = 0x2212;
+/* The base of the decimal places a format rounds to. */
+const DECIMAL_BASE = 10;
 
 /** U+2212, the typographic minus, for prose. */
 export const MINUS_PROSE = String.fromCharCode(MINUS_SIGN);
@@ -218,7 +220,8 @@ export function formatDayShort(iso) {
   if (typeof iso !== "string" || iso.length < ISO_DAY.length) return formatDay(iso);
   const date = new Date(iso.slice(0, ISO_DAY.length));
   if (Number.isNaN(date.getTime())) return iso;
-  return new Intl.DateTimeFormat("en-GB", SHORT_DAY_PARTS).format(date);
+  // Some engines abbreviate September as "Sept"; every other month takes three letters.
+  return new Intl.DateTimeFormat("en-GB", SHORT_DAY_PARTS).format(date).replace("Sept", "Sep");
 }
 
 /* ------------------------------------------ loading, empty and error --- */
@@ -235,10 +238,10 @@ export function loadFailureSentences(failure) {
   const happened =
     "The page could not load " + failure.path + ", which holds " + failure.holds +
     ": " + failure.what + (when ? ", at " + when : "") + ".";
-  const todo = failure.todo ||
+  const remedy = failure.remedy ||
     "Reload the page to try again. If it fails again the file is missing or damaged in this copy of the site, " +
     "and nothing it holds is shown, rather than shown from a guess.";
-  return [happened, todo];
+  return [happened, remedy];
 }
 
 /** What a cell with no figure says when nothing else can be said about it. */
@@ -261,4 +264,21 @@ export function listWords(items) {
   const list = (items || []).filter((item) => item !== "" && item !== null && item !== undefined);
   if (list.length <= 1) return list.join("");
   return list.slice(0, -1).join(", ") + " and " + list[list.length - 1];
+}
+
+/** Parts rounded to a format's places so that they add up to their total
+ * rounded the same way: each part rounded down, and the units the total still
+ * needs given to the parts with the largest remainders. */
+export function roundedParts(parts, format, decimals) {
+  const scale = DECIMAL_BASE ** decimalsFor(format, decimals);
+  const total = Math.round(parts.reduce((a, b) => a + b, 0) * scale);
+  const floors = parts.map((part) => Math.floor(part * scale));
+  const order = parts.map((part, i) => i).sort((a, b) => (parts[b] * scale - floors[b]) - (parts[a] * scale - floors[a]));
+  let missing = total - floors.reduce((a, b) => a + b, 0);
+  for (const i of order) {
+    if (missing <= 0) break;
+    floors[i] += 1;
+    missing -= 1;
+  }
+  return floors.map((value) => value / scale);
 }

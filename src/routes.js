@@ -49,9 +49,9 @@ export function render(root, data, route) {
         valueText: formatNumber(row.per_day_usd, "usd_day", decimals),
         tip: [
           row.label + ", " + row.name,
-          page.chart.legend[0].text + ": " + formatNumber(row.costs_usd.bunkers / row.days, "usd_day", decimals) + " " + UNITS.usd_day,
-          page.chart.legend[1].text + ": " + formatNumber(row.costs_usd.ets / row.days, "usd_day", decimals) + " " + UNITS.usd_day,
-          formatNumber(row.days, "days", decimals) + " " + UNITS.days,
+          page.chart.legend[0].text + ": USD " + formatNumber(row.costs_usd.bunkers / row.days, "usd_day", decimals, { context: "prose" }) + " a day",
+          page.chart.legend[1].text + ": USD " + formatNumber(row.costs_usd.ets / row.days, "usd_day", decimals, { context: "prose" }) + " a day",
+          "Round voyage: " + formatNumber(row.days, "days", decimals) + " " + UNITS.days,
         ],
       })),
       words: { title: titleText, desc: page.chart.desc, axis: page.chart.axis },
@@ -60,6 +60,7 @@ export function render(root, data, route) {
 
   // The routes on the Baltic routes map, under the chart so the takeaway leads straight to it.
   root.appendChild(el("p", { class: "note block" }, [
+    page.chart.note + " ",
     page.baltic_map.before,
     el("a", { class: "text-link", text: page.baltic_map.link, attrs: { href: routes.baltic_map_url } }),
     page.baltic_map.after,
@@ -101,8 +102,10 @@ function routeTable(routes, decimals) {
   ]);
   const body = el("tbody");
   for (const row of routes.rows) {
-    const routings = row.by_routing.map((r) => r.label + ": " + formatNumber(r.laden_nm, "nm", routes.conventions.decimals)).join("; ");
+    const routings = row.by_routing.map((r) => r.label + ": " + formatNumber(r.laden_nm, "nm", routes.conventions.decimals) + (r.priced ? " " + routes.page.priced_mark : "")).join("; ");
     const port = row.port_days;
+    const portDays = [port.load_days, port.discharge_days, port.waiting_days].map((d) => formatNumber(d, "days_2", decimals));
+    if (row.load_turn_only) portDays[0] += " " + routes.page.turn_time_mark;
     body.appendChild(el("tr", { attrs: { "data-route": row.route } }, [
       el("th", { attrs: { scope: "row" } }, [el("span", { class: "row-code", text: row.label }), el("span", { class: "row-name", text: row.name })]),
       el("td", { class: "nowrap", text: row.vessel }),
@@ -110,7 +113,7 @@ function routeTable(routes, decimals) {
       figureCell(formatCell(row.commission_pct, "percent_2", decimals), "commission_pct"),
       el("td", { class: "words", text: routings }),
       figureCell(formatCell(row.eca_share * scale.percent, "percent", decimals), "eca_share"),
-      el("td", { class: "nowrap", text: [port.load_days, port.discharge_days, port.waiting_days].map((d) => formatNumber(d, "days_2", decimals)).join(", ") }),
+      el("td", { class: "words", text: portDays.join(", ") }),
       figureCell(formatCell(row.days, "days", decimals), "days"),
       figureCell(formatCell(row.per_day_usd, "usd_day", decimals), "per_day_usd"),
       figureCell(formatCell(row.shares.ets * scale.percent, "percent", decimals), "shares.ets"),
@@ -182,10 +185,11 @@ function dataSection(inner, routes, decimals) {
   const body = el("tbody");
   for (const check of routes.pub151.checks) {
     body.appendChild(el("tr", {}, [
-      el("th", { text: check.from + " to " + check.to, attrs: { scope: "row" } }),
+      el("th", { text: check.pair_words, attrs: { scope: "row" } }),
       figureCell(formatCell(check.published_nm, "nm", decimals), "published_nm"),
       figureCell(formatCell(check.searoute_nm, "nm", decimals), "searoute_nm"),
-      figureCell(formatCell(check.error * scale.percent, "error_percent", decimals, true), "error"),
+      // Two decimals, so a check just outside the 2 percent line does not read as on it.
+      figureCell(formatCell(check.error * scale.percent, "percent_2", decimals, true), "error"),
       el("td", { text: check.within_tolerance ? "Yes" : "No" }),
       el("td", { class: "words", text: check.note || (check.parts || []).map((part) => part.entry + ", " + part.line + ", page " + String(part.page)).join("; ") }),
     ]));

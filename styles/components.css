@@ -294,9 +294,6 @@
 .mark-ring-fill { fill: var(--role-ring); stroke: none; }
 .mark-accent-dot { fill: var(--role-mark-accent); stroke: none; }
 .mark-printed { fill: var(--role-ring); stroke: var(--role-series); stroke-width: 1.5px; }
-.mark-printed--mixed { stroke-dasharray: 2 2; }
-/* An open dot drawn over a filled one stays a ring, so both show. */
-.mark-printed--over { fill: none; }
 .mark-event { stroke: var(--role-decor); fill: none; stroke-width: 1px; stroke-dasharray: 2 3; }
 .text-accent { color: var(--role-text-accent); fill: var(--role-text-accent); }
 
@@ -786,9 +783,25 @@ p.block,
 }
 .calc__inputs { min-width: 0; }
 .calc__outputs { min-width: 0; }
+/* The sensitivities and the speed chart, side by side under both columns. */
+.calc-wide {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0 48px;
+}
+.calc-wide > * { min-width: 0; }
+/* The result in one line under each open step, for the narrow screens where
+ * the result sits above the steps. */
+.calc-live { display: none; }
 @media (max-width: 1099.98px) {
   .calc { grid-template-columns: minmax(0, 1fr); }
   .calc__outputs { order: -1; }
+  .calc-wide { grid-template-columns: minmax(0, 1fr); }
+  .calc-live {
+    display: block;
+    margin-top: 16px;
+    font-weight: 500;
+  }
 }
 
 /* The sentence the inputs move: the verdict's face, a step smaller. */
@@ -855,6 +868,8 @@ p.block,
  * leaves it out: each looks different from a sourced figure. */
 .field[data-status="chosen"] .field__input { border-style: dotted; }
 .field[data-status="left_out"] .field__input { border-style: dashed; }
+/* A scenario input, zero in the base case: its figure in the muted ink. */
+.field[data-status="scenario"] .field__input { color: var(--text-muted); }
 
 /* The one place --bg-elev is used: the field a figure is typed into. */
 .field__input,

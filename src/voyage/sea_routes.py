@@ -15,6 +15,11 @@ calculator can ballast from any of them:
 * no_panama   the Panama Canal closed;
 * no_canals   both closed, for ships no canal takes (a laden VLCC).
 
+One further routing is computed only for the legs listed in SPECIAL_LEGS:
+no_canals_no_sunda also closes the Sunda Strait, for a laden VLCC from the
+Cape of Good Hope to China, which takes the Strait of Malacca as the Baltic's
+own TD3C calculation routes the same ship and cargo.
+
 The checks work from the committed geometry alone, independently of the
 library: each line's great circle length within 0.5 percent of the length
 searoute reported, and each study leg passing the straits it should and
@@ -39,12 +44,32 @@ ROUTINGS: Mapping[str, tuple[str, ...]] = {
     "no_canals": ("northwest", "suez", "babalmandab", "panama"),
 }
 
+#: Routings computed only for the legs in SPECIAL_LEGS, not for every pair.
+SPECIAL_ROUTINGS: Mapping[str, tuple[str, ...]] = {
+    "no_canals_no_sunda": ("northwest", "suez", "babalmandab", "panama", "sunda"),
+}
+
+#: The legs a special routing is computed for: TD22's laden leg, Galveston to
+#: Ningbo round the Cape. The shortest network line runs through the Sunda
+#: Strait; the Baltic routes a laden VLCC300 with 270,000 t through the Strait
+#: of Malacca on TD3C (5,897 nm, TD3C TCE Calculation Process, July 2017).
+SPECIAL_LEGS: Sequence[tuple[str, str, str]] = (("galveston", "ningbo", "no_canals_no_sunda"),)
+
 ROUTING_LABELS: Mapping[str, str] = {
     "direct": "shortest route, canals open",
     "no_suez": "Suez Canal and Red Sea avoided",
     "no_panama": "Panama Canal avoided",
     "no_canals": "Suez and Panama avoided",
+    "no_canals_no_sunda": "Suez, Panama and the Sunda Strait avoided",
 }
+
+
+def restrictions(routing: str) -> tuple[str, ...]:
+    """The passages searoute is told to avoid under a routing."""
+    if routing in ROUTINGS:
+        return tuple(ROUTINGS[routing])
+    return tuple(SPECIAL_ROUTINGS[routing])
+
 
 #: Ports whose nearest node of the network lies behind land: the route is asked
 #: of searoute from a gate at sea, and the stretch from the gate's node to the
@@ -111,6 +136,13 @@ STUDY_LEGS: Sequence[tuple[str, str, str, tuple[str, ...], tuple[str, ...]]] = (
     ("mina_al_fahal", "ningbo", "direct", ("Strait of Malacca",), ("Strait of Hormuz",)),
     ("ningbo", "mina_al_fahal", "direct", ("Strait of Malacca",), ("Strait of Hormuz",)),
     ("galveston", "ningbo", "no_canals", ("Cape of Good Hope",), ("Panama Canal", "Suez Canal")),
+    (
+        "galveston",
+        "ningbo",
+        "no_canals_no_sunda",
+        ("Cape of Good Hope", "Strait of Malacca"),
+        ("Panama Canal", "Suez Canal", "Sunda Strait"),
+    ),
     ("ningbo", "galveston", "no_canals", ("Cape of Good Hope",), ("Panama Canal", "Suez Canal")),
     ("ningbo", "galveston", "no_panama", ("Suez Canal", "Bab el Mandeb"), ("Panama Canal", "Cape of Good Hope")),
     ("bonny", "rotterdam", "direct", ("Dover Strait",), ("Strait of Gibraltar",)),

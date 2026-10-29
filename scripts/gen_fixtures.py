@@ -9,7 +9,8 @@ voyage.engine to 1e-9. The cases are:
   voyage and trip charters, every freight basis, two and four point speed
   curves, speeds inside and outside the published pairs (the power law), ECA
   miles, scrubbers, every ETS share and phase-in, FuelEU in and out of the TCE,
-  war risk in two listed areas paid by either party, canal and port costs,
+  war risk in two listed areas paid by either party, ballast transits paid by
+  the owner, canal and port costs,
   zero cost lines;
 * every anchor the study reproduces (the lump sum tanker weeks, the early March
   VLCC rates, the dry weeks), and every study route on the common market;
@@ -74,6 +75,7 @@ def _war_area(rng: random.Random) -> dict:
         "laden_nm": round(rng.choice([0.0, rng.uniform(50.0, 900.0)]), 1),
         "ballast_nm": round(rng.choice([0.0, rng.uniform(50.0, 900.0)]), 1),
         "port_activities": sorted(rng.sample(["load", "discharge", "waiting", "delay", "sts"], rng.randint(0, 3))),
+        "ballast_transits": rng.choice([0, 0, 1, 2]),
     }
 
 
@@ -191,7 +193,7 @@ def edge_cases(rng: random.Random) -> list[tuple[str, dict]]:
     seven["contract"], seven["freight_basis"] = "voyage", "usd_t"
     seven["war_risk"]["payer"] = "owner"
     seven["war_risk"]["areas"]["gulf"] = dict(
-        premium_pct=2.5, entries=1, laden_nm=0.0, ballast_nm=0.0, port_activities=["load"]
+        premium_pct=2.5, entries=1, laden_nm=0.0, ballast_nm=0.0, port_activities=["load"], ballast_transits=0
     )
     seven["port"]["load_days"] = 7.0
     longer = copy.deepcopy(seven)

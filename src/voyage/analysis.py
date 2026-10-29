@@ -1,4 +1,4 @@
-"""The pre-registered analysis of the study brief, section 5, computed from the seeds and the engine.
+"""The study's five pre-registered analyses, computed from the seeds and the engine.
 
 1. Cost structure at the common dated market (August 2026): each route's
    voyage costs by family, the share of each, and what the sourced costs
@@ -22,8 +22,10 @@ Nothing here is tuned; every figure comes from a seed through the engine.
 
 from __future__ import annotations
 
+import math
 import statistics
 from dataclasses import replace
+from itertools import pairwise
 from typing import Any
 
 from . import anchors, baltic, cases, engine, geo, sea_routes
@@ -32,7 +34,7 @@ from . import anchors, baltic, cases, engine, geo, sea_routes
 # 1. Cost structure
 # --------------------------------------------------------------------------
 
-#: The cost families of the study brief, in the order the site shows them.
+#: The cost families of a voyage, in the order the site shows them.
 FAMILIES = ("bunkers", "ports", "canals", "ets", "war_risk")
 #: The block of excluded cost the result is restated per day for.
 EXCLUDED_BLOCK_USD = 100_000.0
@@ -56,7 +58,7 @@ def cost_structure() -> dict[str, Any]:
         case = cases.build(code, market, freight_value=0.0, freight_basis="usd_t")
         r = _voyage_view(case)
         costs = {family: r["costs"][family] for family in FAMILIES}
-        total = sum(costs.values())
+        total = math.fsum(costs.values())
         war = None
         if case.inputs["war_risk"]["areas"]["gulf"]["entries"]:
             marsh = _rate("hormuz_2026_07_22")
@@ -170,7 +172,8 @@ def speed() -> dict[str, Any]:
                         "bunker_as_of": as_of,
                         "vlsfo_usd_t": case.inputs["prices"]["vlsfo_usd_t"],
                         "optimal_laden_kn": best["laden_kn"],
-                        "at_bound": best["laden_kn"] <= lo or best["laden_kn"] >= hi - engine.SPEED_STEP_KN / 2,
+                        "at_top": best["laden_kn"] >= hi - engine.SPEED_STEP_KN / 2,
+                        "at_bottom": best["laden_kn"] <= lo + engine.SPEED_STEP_KN / 2,
                         "optimal_tce_usd_day": best["tce_usd_day"],
                         "reference_laden_kn": case.inputs["laden"]["speed_kn"],
                         "reference_tce_usd_day": at_reference,
@@ -198,15 +201,41 @@ def speed() -> dict[str, Any]:
         )
     checks = []
     for row in out:
-        by = {(g["freight_level"], g["bunker_level"]): g["optimal_laden_kn"] for g in row["grid"]}
+        by = {(g["freight_level"], g["bunker_level"]): g for g in row["grid"]}
+        # Freight: along each bunker level, low to high freight; bunkers: along
+        # each freight level, low to high bunkers, the speed taken the other way.
+        freight = [[by[(f, b)] for f in LEVELS] for b in LEVELS]
+        bunkers = [[by[(f, b)] for b in reversed(LEVELS)] for f in LEVELS]
         checks.append(
             {
                 "route": row["route"],
-                "freight_pushes_speed_up": by[("high", "mid")] >= by[("mid", "mid")] >= by[("low", "mid")],
-                "bunkers_push_speed_down": by[("mid", "high")] <= by[("mid", "mid")] <= by[("mid", "low")],
+                "freight_pushes_speed_up": textbook_test(freight),
+                "bunkers_push_speed_down": textbook_test(bunkers),
             }
         )
     return {"margin_kn": SPEED_MARGIN_KN, "step_kn": engine.SPEED_STEP_KN, "routes": out, "textbook": checks}
+
+
+#: The levels of the speed grid, low to high.
+LEVELS = ("low", "mid", "high")
+
+
+def textbook_test(lines: list[list[dict[str, Any]]]) -> str:
+    """Whether the best speed rises along every line of grid cells, as the textbook says.
+
+    "holds": it never falls and rises somewhere; "contradicted": it falls
+    somewhere; "not_tested": it never moves and every cell sits at an end of
+    the speeds searched, where it could not move; "no_move": it never moves
+    although it could.
+    """
+    speeds = [[cell["optimal_laden_kn"] for cell in line] for line in lines]
+    if any(b < a for line in speeds for a, b in pairwise(line)):
+        return "contradicted"
+    if any(b > a for line in speeds for a, b in pairwise(line)):
+        return "holds"
+    if all(cell["at_top"] or cell["at_bottom"] for line in lines for cell in line):
+        return "not_tested"
+    return "no_move"
 
 
 # --------------------------------------------------------------------------
@@ -225,14 +254,32 @@ def _with_war(inputs: dict[str, Any], area: str, premium_pct: float, **area_chan
     return dict(inputs, war_risk=dict(inputs["war_risk"], areas=areas))
 
 
+#: Tonne miles are shown in billions.
+BILLION = 1.0e9
+
+#: The words a case's leaves-out list uses for each listed area's premium.
+_PREMIUM_WORDS = {
+    "gulf": "the additional war risk premium in the Gulf",
+    "red_sea": "the additional war risk premium for the Red Sea passage",
+}
+
+
 def _option(
     name: str, case: cases.Case, inputs: dict[str, Any] | None = None, excluded: list[str] | None = None
 ) -> dict[str, Any]:
+    """One routing or scenario: days, TCE, and the premium each party pays.
+
+    A premium priced here is no longer something the TCE leaves out, so its
+    item leaves the list; the columns say who pays it.
+    """
     inputs = inputs or case.inputs
     r = engine.evaluate(inputs)
     cargo = inputs["cargo_t"]
     war = r["war_risk"]
     charterer = inputs["war_risk"]["payer"] == "charterer"
+    charter_usd = war["charter_usd"] if charterer else 0.0
+    priced = [words for area, words in _PREMIUM_WORDS.items() if inputs["war_risk"]["areas"][area]["premium_pct"] > 0]
+    left_out = excluded if excluded is not None else case.excluded
     return {
         "name": name,
         "laden_nm": inputs["laden"]["distance_nm"],
@@ -242,11 +289,14 @@ def _option(
         "costs_usd": r["costs"]["total_usd"],
         "war_risk_usd": war["total_usd"],
         "war_risk_periods": {area: info["periods"] for area, info in war["areas"].items()},
+        "war_risk_ballast_periods": {area: info["ballast_periods"] for area, info in war["areas"].items()},
         "war_risk_days_inside": {area: info["days"] for area, info in war["areas"].items()},
         "war_risk_payer": inputs["war_risk"]["payer"],
-        "charterer_war_risk_usd_t": war["total_usd"] / cargo if charterer and cargo else 0.0,
+        "charterer_war_risk_usd": charter_usd,
+        "owner_war_risk_usd": r["costs"]["war_risk"],
+        "charterer_war_risk_usd_t": charter_usd / cargo if cargo else 0.0,
         "result_usd": r["result_usd"],
-        "excluded": excluded if excluded is not None else case.excluded,
+        "excluded": [item for item in left_out if not any(item.startswith(words) for words in priced)],
         "inputs": inputs,
         "passes": case.legs["laden"]["passes"],
     }
@@ -266,12 +316,13 @@ def _stand_still(option: dict[str, Any], base: dict[str, Any], cargo_t: float) -
 
 
 def suez_tanker() -> dict[str, Any]:
-    """TC20 (Jubail to Rotterdam, LR2) at the latest week: Suez against the Cape, war risk the charterer's.
+    """TC20 (Jubail to Rotterdam, LR2) at the latest week: Suez against the Cape, with the war risk premiums.
 
     Both routings load inside the Gulf, so both pay the Gulf premium; Suez also
     pays the Red Sea premium on each transit. On the usual spot terms the
-    charterer pays the premiums, so they move the cost of carriage, not the
-    owner's TCE; the freight the owner needs moves only with days and costs.
+    charterer pays the Gulf's and the laden transit's, which move the cost of
+    carriage, not the owner's TCE; the ballast transit, the approach to the
+    next loading, is the owner's and comes off its TCE by Suez.
     """
     report = cases.seed("anchors.json")["tanker_weekly"]["reports"][-1]
     entry = next(e for e in report["entries"] if e["route"] == "TC20")
@@ -290,24 +341,37 @@ def suez_tanker() -> dict[str, Any]:
     # The largest toll at which Suez still earns the Cape's TCE: the Suez result less the Cape TCE over Suez days.
     break_even_toll = suez["result_usd"] - cape["tce_usd_day"] * suez["days"]
     cargo = baltic.ROUTES["TC20"].cargo_t or 0.0
-    red_sea_usd = engine.evaluate(suez_war)["war_risk"]["areas"]["red_sea"]["usd"]
+    red_sea_war = engine.evaluate(suez_war)["war_risk"]["areas"]["red_sea"]
+    red_sea_area = suez_war["war_risk"]["areas"]["red_sea"]
     return {
         "route": "TC20",
         "as_of": report["week_ending"],
         "rate_usd": entry["rate_value"],
         "cargo_t": cargo,
-        "options": [_strip(o) for o in (suez, cape)],
+        "options": [
+            dict(_strip(o), extra_tonne_miles_bn=cargo * (o["laden_nm"] - suez["laden_nm"]) / BILLION)
+            for o in (suez, cape)
+        ],
         "cape_vs_suez": _stand_still(cape, suez, cargo),
         "red_sea_war_risk": {
             "premium_pct": red_sea["low"],
             "source_id": red_sea["id"],
-            "transits": suez_war["war_risk"]["areas"]["red_sea"]["entries"],
-            "cost_usd": red_sea_usd,
-            "per_tonne_usd": red_sea_usd / cargo,
+            "transits": red_sea_area["entries"] + red_sea_area["ballast_transits"],
+            "laden_transits": red_sea_area["entries"],
+            "ballast_transits": red_sea_area["ballast_transits"],
+            "cost_usd": red_sea_war["usd"] + red_sea_war["ballast_usd"],
+            "charterer_usd": red_sea_war["usd"],
+            "owner_usd": red_sea_war["ballast_usd"],
+            "per_tonne_usd": red_sea_war["usd"] / cargo,
+            "per_transit_usd": red_sea["low"] / engine.PERCENT * suez_war["war_risk"]["hull_value_usd"],
         },
         "gulf_war_risk": {"premium_pct": gulf["low"], "source_id": gulf["id"]},
         "break_even_suez_toll_usd": break_even_toll,
-        "toll_reference": "Suez Canal Authority: about USD 500,000 for a ship carrying one million barrels of crude",
+        "break_even_suez_transits": sum(
+            1 for leg in ("laden", "ballast") if "Suez Canal" in suez_case.legs[leg]["passes"]
+        ),
+        "toll_reference": "Suez Canal Authority: about USD 500,000 a transit for a ship carrying one million "
+        "barrels of crude",
     }
 
 
@@ -336,8 +400,12 @@ def one_way(case: cases.Case) -> tuple[dict[str, Any], list[str]]:
     inputs = dict(case.inputs, ballast=dict(case.inputs["ballast"], distance_nm=0.0, eca_nm=0.0))
     laden = case.legs["laden"]["passes"]
     areas = dict(inputs["war_risk"]["areas"])
-    areas["gulf"] = dict(areas["gulf"], ballast_nm=0.0, entries=1 if "Strait of Hormuz" in laden else 0)
-    areas["red_sea"] = dict(areas["red_sea"], ballast_nm=0.0, entries=1 if "Bab el Mandeb" in laden else 0)
+    areas["gulf"] = dict(
+        areas["gulf"], ballast_nm=0.0, entries=1 if "Strait of Hormuz" in laden else 0, ballast_transits=0
+    )
+    areas["red_sea"] = dict(
+        areas["red_sea"], ballast_nm=0.0, entries=1 if "Bab el Mandeb" in laden else 0, ballast_transits=0
+    )
     inputs["war_risk"] = dict(inputs["war_risk"], areas=areas)
     return inputs, [e for e in case.excluded if "ballast leg" not in e]
 
@@ -385,6 +453,7 @@ def suez_dry() -> dict[str, Any]:
                 _strip(option),
                 extra_days_vs_suez=option["days"] - options[0]["days"],
                 extra_tonne_miles_vs_suez=cargo * (option["laden_nm"] - options[0]["laden_nm"]),
+                extra_tonne_miles_bn=cargo * (option["laden_nm"] - options[0]["laden_nm"]) / BILLION,
                 extra_freight_vs_suez_usd_t=option["freight_for_target_usd_t"] - options[0]["freight_for_target_usd_t"],
                 extra_cost_of_carriage_vs_suez_usd_t=option["cost_of_carriage_usd_t"]
                 - options[0]["cost_of_carriage_usd_t"],
@@ -444,7 +513,7 @@ def _days_inside_to(case: cases.Case, edge_lon: float) -> float:
             run += length
         total += engine.sea_days(run, inputs[leg]["speed_kn"], inputs["sea_margin"])
     port = inputs["port"]
-    return total + sum(port[a + "_days"] for a in inputs["war_risk"]["areas"]["gulf"]["port_activities"])
+    return total + math.fsum(port[a + "_days"] for a in inputs["war_risk"]["areas"]["gulf"]["port_activities"])
 
 
 def hormuz() -> dict[str, Any]:
@@ -517,7 +586,9 @@ def hormuz() -> dict[str, Any]:
                 "laden_nm": option["laden_nm"],
                 "tonne_miles": cargo * option["laden_nm"],
                 "extra_tonne_miles": cargo * (option["laden_nm"] - base_option["laden_nm"]),
+                "extra_tonne_miles_bn": cargo * (option["laden_nm"] - base_option["laden_nm"]) / BILLION,
                 "war_risk_usd": option["war_risk_usd"],
+                "charterer_war_risk_usd": option["charterer_war_risk_usd"],
                 "charterer_war_risk_usd_t": option["charterer_war_risk_usd_t"],
                 "voyage_costs_usd": option["costs_usd"],
                 "excluded": option["excluded"],
@@ -532,23 +603,38 @@ def hormuz() -> dict[str, Any]:
     td34 = cases.build("TD34", market, freight_value=0.0, freight_basis="usd_t")
     published = {e["route"]: e["tce_usd_day"] for e in report["2026-10-23"]["entries"] if e["tce_usd_day"]}
     base_latest = engine.freight_for_tce(base_case.inputs, latest)["usd_t"]
+
+    def chain(label: str, case: cases.Case) -> dict[str, Any]:
+        """An export voyage that loads outside the strait, set against TD3C as the scenarios are."""
+        voyage_days = engine.days(case.inputs)["total"]
+        laden_nm = case.inputs["laden"]["distance_nm"]
+        return {
+            "label": label,
+            "days": voyage_days,
+            "extra_days": voyage_days - base_option["days"],
+            "laden_nm": laden_nm,
+            "tonne_miles": cargo * laden_nm,
+            "extra_tonne_miles": cargo * (laden_nm - base_option["laden_nm"]),
+            "extra_tonne_miles_bn": cargo * (laden_nm - base_option["laden_nm"]) / BILLION,
+            "freight_at_td3c_tce_usd_t": engine.freight_for_tce(case.inputs, latest)["usd_t"],
+            "levels": [
+                {
+                    "week_ending": level["week_ending"],
+                    "extra_freight_usd_t": engine.freight_for_tce(case.inputs, level["tce_usd_day"])["usd_t"]
+                    - engine.freight_for_tce(base_option["inputs"], level["tce_usd_day"])["usd_t"],
+                }
+                for level in levels
+            ],
+            "excluded": case.excluded,
+        }
+
     chains = {
-        "sts": {
-            "label": "Export VLCC from Fujairah after a transfer",
-            "days": engine.days(sts_case.inputs)["total"],
-            "extra_days": engine.days(sts_case.inputs)["total"] - base_option["days"],
-            "freight_at_td3c_tce_usd_t": engine.freight_for_tce(sts_case.inputs, latest)["usd_t"],
-            "excluded": sts_case.excluded,
-        },
-        "td34": {
-            "label": "TD34, a cargo loading at Mina Al Fahal",
-            "days": engine.days(td34.inputs)["total"],
-            "extra_days": engine.days(td34.inputs)["total"] - base_option["days"],
-            "freight_at_td3c_tce_usd_t": engine.freight_for_tce(td34.inputs, latest)["usd_t"],
-            "freight_at_own_tce_usd_t": engine.freight_for_tce(td34.inputs, published["TD34"])["usd_t"],
-            "published_tce_usd_day": published["TD34"],
-            "excluded": td34.excluded,
-        },
+        "sts": chain("Export VLCC from Fujairah after a transfer", sts_case),
+        "td34": dict(
+            chain("TD34, a cargo loading at Mina Al Fahal", td34),
+            freight_at_own_tce_usd_t=engine.freight_for_tce(td34.inputs, published["TD34"])["usd_t"],
+            published_tce_usd_day=published["TD34"],
+        ),
         "td3c_freight_at_own_tce_usd_t": base_latest,
         "shuttle": [
             next(r for r in cases.seed("market.json")["hormuz_chain"]["reports"] if r["id"] == rid)
@@ -668,15 +754,30 @@ def curve_for(curve_id: str, physical_date: str) -> dict[str, Any]:
     return {"curve": curve, "column": column, "dated": dated}
 
 
-def ffa_strip(curve_id: str, segment: str, physical_date: str, total_days: float) -> dict[str, Any]:
+def printings(dated: str) -> list[dict[str, Any]]:
+    """Every column of the seed's curves dated on a day: a report prints a curve at its date, and the next
+    report prints it again beside its own, not always with the same values."""
+    out = []
+    for curve in cases.seed("ffa.json")["curves"]:
+        if curve["assessed"] == dated:
+            out.append({"curve": curve, "column": "usd_day", "dated": dated})
+        if curve["previous"] == dated:
+            out.append({"curve": curve, "column": "previous_usd_day", "dated": dated})
+    return out
+
+
+def ffa_strip(
+    curve_id: str, segment: str, physical_date: str, total_days: float, chosen: dict[str, Any] | None = None
+) -> dict[str, Any]:
     """The FFA over a voyage's days: each day from the physical date, ballast leg first, at its month's FFA.
 
-    Raises when a month the voyage reaches has no FFA on the curve: no month is
-    filled in.
+    The column is the latest a desk could have traded on the physical date,
+    unless one is given. Raises when a month the voyage reaches has no FFA on
+    the curve: no month is filled in.
     """
     from datetime import date, timedelta
 
-    chosen = curve_for(curve_id, physical_date)
+    chosen = chosen or curve_for(curve_id, physical_date)
     points = {p["period"]: p[chosen["column"]] for p in chosen["curve"]["segments"][segment]["points"]}
     weights: dict[str, float] = {}
     cursor = date.fromisoformat(physical_date)
@@ -691,9 +792,11 @@ def ffa_strip(curve_id: str, segment: str, physical_date: str, total_days: float
     missing = [m for m in weights if m not in points]
     if missing:
         raise ValueError("curve %s has no FFA for %s" % (curve_id, ", ".join(missing)))
-    value = sum(points[m] * w for m, w in weights.items()) / total_days
+    value = math.fsum(points[m] * w for m, w in weights.items()) / total_days
     return {
-        "curve": curve_id,
+        "curve": chosen["curve"]["id"],
+        "column": chosen["column"],
+        "printed": chosen["curve"]["assessed"],
         "dated": chosen["dated"],
         "assessed": chosen["curve"]["assessed"],
         "source": chosen["curve"]["source"],
@@ -722,6 +825,22 @@ def paper() -> dict[str, Any]:
         h = engine.hedge(case.inputs, physical, strip["usd_day"], None)
         keep = 1.0 - case.inputs["commission_pct"] / engine.PERCENT
         equivalent = engine.freight_for_tce(case.inputs, strip["usd_day"] * keep)["usd_t"]
+        # The same date's curve as every report printed it: the basis on each print.
+        prints = []
+        for chosen in printings(strip["dated"]):
+            other = ffa_strip(chosen["curve"]["id"], "capesize", date, days, chosen)
+            prints.append(
+                {
+                    "curve": other["curve"],
+                    "printed": other["printed"],
+                    "column": other["column"],
+                    "usd_day": other["usd_day"],
+                    "basis_usd_day": h["physical_tce_gross_usd_day"] - other["usd_day"],
+                    "used": (other["curve"], other["column"]) == (strip["curve"], strip["column"]),
+                }
+            )
+        # Without the weather margin the guide leaves to dry panellists (7.4.2): the sensitivity the page states.
+        bare = engine.evaluate(dict(case.inputs, sea_margin=0.0))["tce_usd_day"]
         row = {
             "date": date,
             "route": route,
@@ -734,12 +853,17 @@ def paper() -> dict[str, Any]:
             "hedge_days": h["tc_hedge_days"],
             "hedge_days_net": h["tc_hedge_days_net"],
             "basis_usd_day": h["basis_vs_tc_ffa_usd_day"],
+            "printings": prints,
+            "basis_range_usd_day": [min(x["basis_usd_day"] for x in prints), max(x["basis_usd_day"] for x in prints)],
+            "no_margin_tce_gross_usd_day": bare / keep,
+            "no_margin_basis_usd_day": bare / keep - strip["usd_day"],
             "freight_matching_ffa_usd_t": equivalent,
             "spot_index_usd_day": anchor["benchmark_usd_day"],
             "spot_basis": anchor["benchmark_basis"],
             "spot_182_usd_day": anchor["benchmark_182_usd_day"],
             "timing_basis_usd_day": strip["usd_day"] - anchor["benchmark_182_usd_day"],
             "excluded": anchor["excluded"],
+            "inputs": case.inputs,
         }
         if code.bunker_hub:
             # The hub the general rule would give, for the sensitivity the page states.
@@ -758,20 +882,35 @@ def paper() -> dict[str, Any]:
     fixture = cases.seed("ffa.json")["physical_fixtures"][0]
     hub = cases.route_hub(baltic.ROUTES["C5"])
     market = cases.weekly_market("2026-10-23", hub)
-    fixed = engine.evaluate(cases.build("C5", market, freight_value=fixture["freight_usd_t"]).inputs)["tce_usd_day"]
-    index = engine.evaluate(cases.build("C5", market, freight_value=fixture["index_same_week"]["C5_usd_t"]).inputs)[
-        "tce_usd_day"
-    ]
+
+    def c5_tce(usd_t: float) -> float:
+        return engine.evaluate(cases.build("C5", market, freight_value=usd_t).inputs)["tce_usd_day"]
+
+    # The report gives the route on the fixture's own day only in its narrative; its table of Baltic
+    # indices and its narrative differ at the next day's close, so the basis is given on both series.
+    on_day = fixture["route_on_day"]["usd_t"]
+    table_next = fixture["index_same_week"]["C5_usd_t"]
+    narrative_next = fixture["narrative_next_day"]["usd_t"]
+    gap = table_next - narrative_next
+    fixed = c5_tce(fixture["freight_usd_t"])
     fixture_row = {
         "date": fixture["date"],
         "laycan": fixture["laycan"],
         "fixture_usd_t": fixture["freight_usd_t"],
-        "index_usd_t": fixture["index_same_week"]["C5_usd_t"],
         "fixture_tce_usd_day": fixed,
-        "index_tce_usd_day": index,
-        "basis_usd_t": fixture["freight_usd_t"] - fixture["index_same_week"]["C5_usd_t"],
-        "basis_usd_day": fixed - index,
+        "route_on_day_usd_t": on_day,
+        "route_on_day_tce_usd_day": c5_tce(on_day),
+        "next_day": fixture["index_same_week"]["date"],
+        "index_next_day_usd_t": table_next,
+        "index_next_day_tce_usd_day": c5_tce(table_next),
+        "narrative_next_day_usd_t": narrative_next,
+        "series_gap_usd_t": gap,
+        "basis_usd_t": fixture["freight_usd_t"] - on_day,
+        "basis_usd_day": fixed - c5_tce(on_day),
+        "basis_table_series_usd_t": fixture["freight_usd_t"] - (on_day + gap),
+        "basis_table_series_usd_day": fixed - c5_tce(on_day + gap),
         "cargo_t": baltic.ROUTES["C5"].cargo_t,
+        "tce_market": market.label,
     }
     tanker = cases.seed("ffa.json")["tanker_ffa_tce"][0]
     reports = {r["week_ending"]: r for r in cases.seed("anchors.json")["tanker_weekly"]["reports"]}

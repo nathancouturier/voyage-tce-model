@@ -207,7 +207,7 @@
     {
       "id": "war_risk_payer",
       "topic": "Who pays the war risk premium",
-      "rule": "On spot voyage charters the premium is usually the charterer's. The study leaves it out of the owner's TCE, as the Baltic's TCEs leave it out, and shows it as the charterer's cost; the payer input moves it into the owner's costs for a fixture that puts it in the freight.",
+      "rule": "On spot voyage charters the premium is usually the charterer's: the study leaves it out of the owner's TCE and shows it as the charterer's cost. The Baltic's TCEs leave it out too: Appendix 3 of the guide (page 98) admits additional insurance only as a route's description in Appendix 2 sets it out, and no tanker TCE description names a war risk premium; at the flat rate Platts' January pairs imply, the engine reads TD3C a few percent above the Baltic in the war months, where a premium in the costs would put it far above. A passage on the ballast leg, the approach to the next loading, stays the owner's unless the charter says otherwise. The payer input moves the charter's premium into the owner's costs for a fixture that puts it in the freight.",
       "source": "Platts, 8 December 2025, republished by Hellenic Shipping News",
       "raw_key": "risk_hsn_2025_12_08_war_risk_premiums_fall_red_sea_html",
       "quote": "AWRPs are usually on the charterer's account in spot freight deals"
@@ -215,12 +215,13 @@
     {
       "id": "war_risk_chain",
       "topic": "War risk under VOYWAR 2013",
-      "rule": "The owner is reimbursed the additional premium through the charter chain; the clause covers a deviation to avoid a dangerous place but not waiting time, which stays the owner's.",
+      "rule": "The owner is reimbursed the additional premium through the charter chain; the clause covers a deviation to avoid a dangerous place but not waiting time. A charterer pays a premium incurred on the approach voyage only if the contract says so. Waiting at a load port after notice of readiness counts as laytime and then demurrage under the charter, which the study does not price: it prices waiting as days the owner loses.",
       "source": "Gard, 21 March 2026, republished by Hellenic Shipping News",
       "raw_key": "risk_hsn_2026_03_21_middle_east_conflict_faq_html",
       "quote": [
         "the cost of any additional premiums will flow through the charterparty chain",
-        "VOYWAR 2013 only addresses the cost of a deviation to avoid a dangerous place, not waiting time"
+        "VOYWAR 2013 only addresses the cost of a deviation to avoid a dangerous place, not waiting time",
+        "In the absence of a contractual provision making them responsible for AWRP on the approach voyage, there would be no basis to require them to cover the cost of the AWRP"
       ]
     }
   ]

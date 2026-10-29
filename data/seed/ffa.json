@@ -3,6 +3,58 @@
   "note": "FFA levels are licensed data. These are the dated public assessments printed in Banchero Costa's weekly report (Hellenic Shipping News republishes it), used as defaults for the physical against paper comparison; every other level is an input.",
   "curves": [
     {
+      "id": "wk26_2026",
+      "assessed": "2026-06-29",
+      "previous": "2026-06-22",
+      "source": "Banchero Costa, Dry bulk FFA assessments, weekly market report week 26, 2026",
+      "raw_key": "dry_bancosta_weekly_2026_wk26_pdf",
+      "previous_note": "previous_usd_day is the column of the report's previous assessment date, printed beside each point",
+      "date_note": "The first print of the 29 June curve. The week 27 issue prints the same date again with other values (July 36,232 against 31,367 here); the Paper view sets the week 27 voyages against both prints.",
+      "segments": {
+        "capesize": {
+          "index": "C5TC",
+          "basis_note": "Capesize 5TC, the vessel basis is not printed in this issue",
+          "points": [
+            {
+              "period": "2026-06",
+              "usd_day": 38957,
+              "raw_key": "dry_bancosta_weekly_2026_wk26_pdf",
+              "quote": "Jun-26 usd/day 38,957 38,867",
+              "previous_usd_day": 38867
+            },
+            {
+              "period": "2026-07",
+              "usd_day": 31367,
+              "raw_key": "dry_bancosta_weekly_2026_wk26_pdf",
+              "quote": "Jul-26 usd/day 31,367 30,117",
+              "previous_usd_day": 30117
+            },
+            {
+              "period": "2026-08",
+              "usd_day": 33410,
+              "raw_key": "dry_bancosta_weekly_2026_wk26_pdf",
+              "quote": "Aug-26 usd/day 33,410 32,285",
+              "previous_usd_day": 32285
+            },
+            {
+              "period": "2026-09",
+              "usd_day": 36178,
+              "raw_key": "dry_bancosta_weekly_2026_wk26_pdf",
+              "quote": "Sep-26 usd/day 36,178 35,307",
+              "previous_usd_day": 35307
+            },
+            {
+              "period": "2026-11",
+              "usd_day": 36167,
+              "raw_key": "dry_bancosta_weekly_2026_wk26_pdf",
+              "quote": "Nov-26 usd/day 36,167 35,489",
+              "previous_usd_day": 35489
+            }
+          ]
+        }
+      }
+    },
+    {
       "id": "wk27_2026",
       "assessed": "2026-07-06",
       "previous": "2026-06-29",
@@ -167,7 +219,7 @@
         }
       },
       "previous_note": "previous_usd_day is the column of the report's previous assessment date, printed beside each point",
-      "date_note": "The report prints this curve at Monday 6 July 2026, one trading day after the physical rates of Friday 3 July, and its previous column at 29 June, the latest curve before 3 July. Its premium column (each month against the day's spot) puts the 6 July spot near 39,100 a day. The issue does not state the vessel basis; the week 43 issue states 182,000 t. The week 26 issue printed other values for 29 June (July 31,367 against 36,232 here), so the 29 June level is uncertain."
+      "date_note": "The report prints this curve at Monday 6 July 2026, one trading day after the physical rates of Friday 3 July, and its previous column at 29 June, the latest curve before 3 July. Its premium column (each month against the day's spot) puts the 6 July spot near 39,100 a day. The issue does not state the vessel basis; the week 43 issue states 182,000 t. The week 26 issue printed other values for 29 June (July 31,367 against 36,232 here), so the 29 June level is uncertain: the Paper view gives the basis on both prints."
     },
     {
       "id": "wk43_2026",
@@ -327,7 +379,24 @@
       "read_from": "Banchero Costa week 43 narrative: a Dampier to Qingdao Capesize fixture at USD 14.15/wmt for 5 to 7 November loading; the PDF's text layer interleaves two columns, so the words are quoted around the figure",
       "index_same_week": {
         "C5_usd_t": 14.1,
-        "date": "2026-10-23"
+        "date": "2026-10-23",
+        "raw_key": "dry_bancosta_weekly_2026_wk43_pdf",
+        "quote": "C5 W. Aust. - Qingdao usd/t 14.10 11.70",
+        "read_from": "the report's table of Baltic indices, 23 October"
+      },
+      "route_on_day": {
+        "usd_t": 14.15,
+        "date": "2026-10-22",
+        "raw_key": "dry_bancosta_weekly_2026_wk43_pdf",
+        "quote": "14.15/wmt on 22 October",
+        "read_from": "the report's narrative: the Western Australia to Qingdao route eased 5 cents to USD 14.15/wmt on 22 October"
+      },
+      "narrative_next_day": {
+        "usd_t": 14.0,
+        "date": "2026-10-23",
+        "raw_key": "dry_bancosta_weekly_2026_wk43_pdf",
+        "quote": "USD 14.00/wmt on 23 October",
+        "read_from": "the report's narrative: the route slipped 15 cents to close at USD 14.00/wmt on 23 October"
       }
     }
   ],
@@ -347,9 +416,19 @@
   ],
   "settlement": [
     {
-      "contract": "EEX Baltic Capesize 5TC Freight Futures (CPTM) and Capesize 5TC (182) (C5TM)",
+      "contract": "EEX Baltic Capesize 5TC (182) Freight Futures (C5TM)",
       "unit": "USD/day, 1 day per lot",
-      "rule": "the arithmetic average of all the Baltic Exchange's daily assessments of the five route time charter basket in the contract month",
+      "rule": "the arithmetic average of the Baltic Exchange's daily assessments of the five route time charter basket for the 182,000 t ship in the contract month; the study's 182,000 t ship is hedged in these days",
+      "raw_key": "dry_eex_contract_specs_trade_registration_047a_2026_07_23_pdf",
+      "quote": [
+        "Capesize (182) Dry Bulk Time Charter Freight Basket Routes (Avg. 5 routes)",
+        "Contract Volume 1 day Pricing In USD per day"
+      ]
+    },
+    {
+      "contract": "EEX Baltic Capesize 5TC Freight Futures (CPTM)",
+      "unit": "USD/day, 1 day per lot",
+      "rule": "the arithmetic average of the Baltic's daily assessments of the 180,000 t basket, which the guide derives as the 182,000 t basket less USD 3,503 a day (GMB v8.8 page 77): a CPTM hedge of the 182,000 t ship carries that fixed difference",
       "raw_key": "dry_eex_contract_specs_trade_registration_047a_2026_07_23_pdf",
       "quote": [
         "The Index is the arithmetic average of all daily spot price assessments for \"Capesize Dry Bulk Time Charter Freight Basket Routes (Avg. 5 routes)\" of the respective month as published by Baltic Exchange.",
@@ -374,22 +453,30 @@
       ]
     },
     {
-      "contract": "ICE Futures Europe tanker FFAs (TD3C, TD20, TD22, TD25, TC2, TC14 and others)",
+      "contract": "ICE Futures Europe Baltic tanker FFAs: TD3C, TD20, TD22, TD25, TD34, TC2, TC14, TC20, TC23",
       "unit": "USD/t",
-      "rule": "the average of the Baltic's assessments for the route for each business day of the determination period, in US dollars and cents per tonne",
+      "rule": "the average of the Baltic Exchange's assessments for the route for each business day of the determination period, in US dollars and cents per tonne",
       "raw_key": "dry_ice_futures_europe_section_ttt_partiie_freight_pdf",
       "quote": [
         "the Floating Price will be a price in USD and cents per metric tonne based on the average of the assessments as Final Settlement Price made public by the Baltic Exchange for the relevant route for each business day",
         "18. TD3C FFA - Middle East Gulf to China (Baltic) Future",
-        "24. TD22 FFA - US Gulf to China (Baltic) Future"
+        "24. TD22 FFA - US Gulf to China (Baltic) Future",
+        "TD34 FFA - Gulf of Oman to China (Baltic) Future"
       ]
     },
     {
-      "contract": "ICE TD34 FFA",
+      "contract": "ICE TC5 FFA, Arabian Gulf to Japan (Platts)",
       "unit": "USD/t",
-      "rule": "launched on ICE on 5 October 2026; 3,837 trades in its first five days against 2,989 for TD3C",
-      "raw_key": "risk_hsn_2026_10_15_baltic_td34_ffa_trades_outpace_td3c_html",
-      "quote": "According to Baltic Exchange, 3,837 trades were made on ICE for the new TD34 FFA in its first five days of trading (5-9 October). By comparison, the TD3C FFA (Middle East Gulf to China) recorded 2,989 trades on ICE during the same period."
+      "rule": "the average of Platts' Worldscale assessments for its Arab Gulf to Japan 55,000 t route, times the TC5 flat rate, each business day of the month: a TC5 cargo priced off the Baltic and hedged here carries the difference between the two assessors",
+      "raw_key": "dry_ice_futures_europe_section_ttt_partiie_freight_pdf",
+      "quote": "for the Arab Gulf to Japan 55kt route multiplied by the applicable Worldscale flat rate for the TC5 route"
+    },
+    {
+      "contract": "ICE Clean FFA, Arab Gulf to Japan 75kt (Platts)",
+      "unit": "USD/t",
+      "rule": "the average of Platts' dollar a tonne assessments for its Arab Gulf to Japan 75,000 t route, the TC1 size, each business day of the month; ICE lists no Baltic settled TC1 contract",
+      "raw_key": "dry_ice_futures_europe_section_ttt_partiie_freight_pdf",
+      "quote": "for the Arab Gulf to Japan 75kt route for each business day"
     }
   ]
 }

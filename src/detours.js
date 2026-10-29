@@ -88,9 +88,11 @@ function suezSection(inner, detours, decimals) {
     el("th", { text: "Routing", attrs: { scope: "col" } }),
     el("th", { class: "col-num", text: "Laden, " + UNITS.nm, attrs: { scope: "col", "data-short": "laden" } }),
     el("th", { class: "col-num", text: "Round voyage, days", attrs: { scope: "col", "data-short": "days" } }),
+    el("th", { class: "col-num", text: "Extra laden tonne miles against Suez, " + UNITS.tonne_miles_bn, attrs: { scope: "col", "data-short": "extra tonne miles" } }),
     el("th", { class: "col-num", text: "Voyage costs, " + UNITS.usd, attrs: { scope: "col", "data-short": "voyage costs" } }),
     el("th", { class: "col-num", text: "War risk premium, the charterer's, " + UNITS.usd, attrs: { scope: "col", "data-short": "charterer's premium" } }),
     el("th", { class: "col-num", text: "The same a tonne, " + UNITS.usd_t, attrs: { scope: "col", "data-short": "premium a tonne" } }),
+    el("th", { class: "col-num", text: "War risk premium, the owner's, in its voyage costs, " + UNITS.usd, attrs: { scope: "col", "data-short": "owner's premium" } }),
     el("th", { class: "col-num", text: "Owner's TCE, " + UNITS.usd_day, attrs: { scope: "col", "data-short": "TCE" } }),
     el("th", { text: "Leaves out", attrs: { scope: "col", "data-short": "leaves out" } }),
   ]);
@@ -100,15 +102,17 @@ function suezSection(inner, detours, decimals) {
       el("th", { text: option.name, attrs: { scope: "row" } }),
       figureCell(formatCell(option.laden_nm, "nm", decimals), "laden_nm"),
       figureCell(formatCell(option.days, "days", decimals), "days"),
+      figureCell(formatCell(option.extra_tonne_miles_bn, "tonne_miles_bn", decimals, true), "extra_tonne_miles_bn"),
       figureCell(formatCell(option.costs_usd, "usd", decimals), "costs_usd"),
-      figureCell(formatCell(option.war_risk_usd, "usd", decimals), "war_risk_usd"),
+      figureCell(formatCell(option.charterer_war_risk_usd, "usd", decimals), "charterer_war_risk_usd"),
       figureCell(formatCell(option.charterer_war_risk_usd_t, "usd_t", decimals), "charterer_war_risk_usd_t"),
+      figureCell(formatCell(option.owner_war_risk_usd, "usd", decimals), "owner_war_risk_usd"),
       figureCell(formatCell(option.tce_usd_day, "usd_day", decimals), "tce_usd_day"),
       leavesOut(option.excluded),
     ]));
   }
   const table = el("table", { class: "table table--wide" }, [el("thead", {}, [head]), body]);
-  inner.appendChild(el("div", { class: "block" }, [scrollTable([st.route + " at the Baltic's lump sum of " + formatNumber(st.rate_usd, "usd", decimals) + " " + UNITS.usd + ", week to " + formatDay(st.as_of) + "."], table)]));
+  inner.appendChild(el("div", { class: "block" }, [scrollTable([st.route + " at the Baltic's lump sum of USD " + formatNumber(st.rate_usd, "usd", decimals, { context: "prose" }) + ", week to " + formatDay(st.as_of) + ", before any Suez toll."], table)]));
 }
 
 function drySection(inner, detours, decimals) {
@@ -118,6 +122,7 @@ function drySection(inner, detours, decimals) {
     el("th", { text: "Routing", attrs: { scope: "col" } }),
     el("th", { class: "col-num", text: "Laden, " + UNITS.nm, attrs: { scope: "col", "data-short": "laden" } }),
     el("th", { class: "col-num", text: "One way, days", attrs: { scope: "col", "data-short": "days" } }),
+    el("th", { class: "col-num", text: "Extra tonne miles against Suez, " + UNITS.tonne_miles_bn, attrs: { scope: "col", "data-short": "extra tonne miles" } }),
     el("th", { class: "col-num", text: "Freight to earn P4 net of commission, " + UNITS.usd_t, attrs: { scope: "col", "data-short": "freight" } }),
     el("th", { class: "col-num", text: "Extra freight against Suez, " + UNITS.usd_t, attrs: { scope: "col", "data-short": "extra freight" } }),
     el("th", { class: "col-num", text: "Red Sea premium, the charterer's, " + UNITS.usd_t, attrs: { scope: "col", "data-short": "charterer's premium" } }),
@@ -130,6 +135,7 @@ function drySection(inner, detours, decimals) {
       el("th", { text: option.name, attrs: { scope: "row" } }),
       figureCell(formatCell(option.laden_nm, "nm", decimals), "laden_nm"),
       figureCell(formatCell(option.days, "days", decimals), "days"),
+      figureCell(formatCell(option.extra_tonne_miles_bn, "tonne_miles_bn", decimals, true), "extra_tonne_miles_bn"),
       figureCell(formatCell(option.freight_for_target_usd_t, "usd_t", decimals), "freight_for_target_usd_t"),
       figureCell(formatCell(option.extra_freight_vs_suez_usd_t, "usd_t", decimals, true), "extra_freight_vs_suez_usd_t"),
       figureCell(formatCell(option.charterer_war_risk_usd_t, "usd_t", decimals), "charterer_war_risk_usd_t"),
@@ -149,13 +155,15 @@ function hormuzSection(inner, detours, decimals) {
   const head = el("tr", {}, [
     el("th", { text: "Scenario", attrs: { scope: "col" } }),
     el("th", { class: "col-num", text: "Round voyage, days", attrs: { scope: "col", "data-short": "days" } }),
+    el("th", { class: "col-num", text: "Extra laden tonne miles, " + UNITS.tonne_miles_bn, attrs: { scope: "col", "data-short": "extra tonne miles" } }),
     el("th", { class: "col-num", text: "Days inside the Gulf", attrs: { scope: "col", "data-short": "days inside" } }),
     el("th", { class: "col-num", text: "Seven day periods", attrs: { scope: "col", "data-short": "periods" } }),
     el("th", { class: "col-num", text: "War risk premium, the charterer's, " + UNITS.usd, attrs: { scope: "col", "data-short": "premium" } }),
     el("th", { class: "col-num", text: "The same a tonne, " + UNITS.usd_t, attrs: { scope: "col", "data-short": "premium a tonne" } }),
+    el("th", { class: "col-num", text: "Shuttle through the strait, the charterer's, reported, " + UNITS.usd_t, attrs: { scope: "col", "data-short": "shuttle" } }),
     ...hz.levels.map((level) => el("th", {
       class: "col-num",
-      text: "Extra freight the owner needs, " + UNITS.usd_t + ", at the TCE " + level.label + ", " + formatNumber(level.tce_usd_day, "usd_day", decimals) + " a day",
+      text: "Extra freight the owner needs, " + UNITS.usd_t + ", at the TCE " + level.label + ", USD " + formatNumber(level.tce_usd_day, "usd_day", decimals, { context: "prose" }) + " a day",
       attrs: { scope: "col", "data-short": detours.page.hormuz.levels_short[level.week_ending] },
     })),
   ]);
@@ -164,16 +172,35 @@ function hormuzSection(inner, detours, decimals) {
     body.appendChild(el("tr", {}, [
       el("th", { text: scenario.label, attrs: { scope: "row" } }),
       figureCell(formatCell(scenario.days, "days", decimals), "days"),
+      figureCell(formatCell(scenario.extra_tonne_miles_bn, "tonne_miles_bn", decimals, true), "extra_tonne_miles_bn"),
       figureCell(formatCell(scenario.days_inside_gulf, "days", decimals), "days_inside_gulf"),
       figureCell(formatCell(scenario.periods, "count", decimals), "periods"),
-      figureCell(formatCell(scenario.war_risk_usd, "usd", decimals), "war_risk_usd"),
+      figureCell(formatCell(scenario.charterer_war_risk_usd, "usd", decimals), "charterer_war_risk_usd"),
       figureCell(formatCell(scenario.charterer_war_risk_usd_t, "usd_t", decimals), "charterer_war_risk_usd_t"),
+      figureCell(null, "shuttle_usd_t", { missing: "no shuttle" }),
       ...scenario.levels.map((level) => figureCell(formatCell(level.extra_freight_usd_t, "usd_t", decimals, true), "extra_freight_usd_t")),
     ]));
   }
+  // Loading outside the strait: the export voyage priced as the scenarios are, the shuttle beside it.
+  const shuttle = detours.page.hormuz.shuttle_range;
+  for (const [key, chain] of [["sts", hz.chains.sts], ["td34", hz.chains.td34]]) {
+    body.appendChild(el("tr", {}, [
+      el("th", { text: chain.label, attrs: { scope: "row" } }),
+      figureCell(formatCell(chain.days, "days", decimals), "days"),
+      figureCell(formatCell(chain.extra_tonne_miles_bn, "tonne_miles_bn", decimals, true), "extra_tonne_miles_bn"),
+      figureCell(null, "days_inside_gulf", { missing: "outside the Gulf" }),
+      figureCell(null, "periods", { missing: "no dated rate" }),
+      figureCell(null, "charterer_war_risk_usd", { missing: "no dated rate" }),
+      figureCell(null, "charterer_war_risk_usd_t", { missing: "no dated rate" }),
+      key === "sts" ? el("td", { class: "num", text: shuttle }) : figureCell(null, "shuttle_usd_t", { missing: "no shuttle" }),
+      ...chain.levels.map((level) => figureCell(formatCell(level.extra_freight_usd_t, "usd_t", decimals, true), "extra_freight_usd_t")),
+    ]));
+  }
   const table = el("table", { class: "table table--wide" }, [el("thead", {}, [head]), body]);
-  inner.appendChild(el("div", { class: "block" }, [scrollTable(["TD3C, Ras Tanura to Ningbo, bunkers of the week to " + formatDay(hz.as_of) + "; the premium is the charterer's, and each freight column keeps the Baltic's TD3C TCE of its week."], table)]));
-  inner.appendChild(el("p", { class: "note block", text: "Every scenario leaves out " + hz.scenarios[0].excluded.join("; ") + "." }));
+  inner.appendChild(el("div", { class: "block" }, [scrollTable([detours.page.hormuz.table_caption], table)]));
+  // What every scenario leaves out; a premium a scenario prices is in its own columns.
+  const common = hz.scenarios.map((scenario) => scenario.excluded).reduce((all, list) => all.filter((item) => list.includes(item)));
+  inner.appendChild(el("p", { class: "note block", text: "Every scenario leaves out " + common.join("; ") + "." }));
   inner.appendChild(sentence("p", detours.page.hormuz.chain, decimals, "prose block"));
 }
 

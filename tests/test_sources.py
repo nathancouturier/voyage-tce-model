@@ -26,3 +26,11 @@ def test_caches_are_complete_for_the_study_months():
     value, count = frb_h10.monthly_mean("2026-08")
     assert count == 21
     assert 1.0 < value < 1.3
+
+
+def test_the_allowance_proxy_sits_a_quarter_euro_above_the_platform():
+    gap = ec_eua.proxy_gap()
+    assert (gap["months"], gap["first"], gap["last"]) == (30, "2023-01", "2025-06")
+    assert round(gap["mean_eur_t"], 2) == 0.25
+    assert round(gap["low_eur_t"], 2) == -1.58
+    assert round(gap["high_eur_t"], 2) == 1.67

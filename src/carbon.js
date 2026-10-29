@@ -56,10 +56,10 @@ export function render(root, data, route) {
     draw: (width, titleText) => barChart({ width, rows, words: { title: titleText, desc: page.chart.desc, axis: page.chart.axis } }),
   }));
 
-  root.appendChild(el("div", { class: "block" }, [costTable(carbon, decimals, scale)]));
   root.appendChild(el("div", { class: "block" }, [
     el("h2", { class: "block__heading", text: page.time_charter.title }),
     sentence("p", page.time_charter.lead, decimals, "prose"),
+    timeCharterTable(carbon, decimals, scale),
     el("p", { class: "note", text: carbon.time_charter.rule + "." }),
   ]));
 
@@ -67,7 +67,7 @@ export function render(root, data, route) {
     method: (inner) => methodSection(inner, carbon),
     fueleu: (inner) => fueleuSection(inner, carbon, decimals),
     assumptions: (inner) => assumptionsSection(inner, carbon, decimals),
-    data: (inner) => dataSection(inner),
+    data: (inner) => dataSection(inner, carbon, decimals, scale),
   }), decimals, route);
   root.appendChild(sections.node);
   return title;
@@ -154,7 +154,27 @@ function assumptionsSection(inner, carbon, decimals) {
   inner.appendChild(el("div", { class: "block" }, carbon.page.assumptions.map((segments) => sentence("p", segments, decimals, "prose"))));
 }
 
-function dataSection(inner) {
+/* Who bears the S4A trip's allowances: the charterer the trip's, the owner the ballast leg's. */
+function timeCharterTable(carbon, decimals, scale) {
+  const tc = carbon.time_charter;
+  const words = carbon.page.time_charter;
+  const head = el("tr", {}, [
+    el("th", { text: words.party_head, attrs: { scope: "col" } }),
+    el("th", { text: words.legs_head, attrs: { scope: "col", "data-short": "legs" } }),
+    el("th", { class: "col-num", text: "Allowances, " + UNITS.usd, attrs: { scope: "col", "data-short": "allowances" } }),
+  ]);
+  const body = el("tbody", {}, [
+    el("tr", {}, [el("th", { text: words.charterer, attrs: { scope: "row" } }), el("td", { class: "words", text: words.charterer_legs }), figureCell(formatCell(tc.trip_ets_usd, "usd", decimals), "trip_ets_usd")]),
+    el("tr", {}, [el("th", { text: words.owner, attrs: { scope: "row" } }), el("td", { class: "words", text: words.owner_legs }), figureCell(formatCell(tc.owner_ets_usd, "usd", decimals), "owner_ets_usd")]),
+  ]);
+  const caption = words.table_caption
+    .replace("{eua}", formatNumber(carbon.eua_eur_t, "eur_t", decimals))
+    .replace("{fx}", formatNumber(carbon.usd_per_eur, "usd_per_eur", decimals));
+  return scrollTable([caption], el("table", { class: "table" }, [el("thead", {}, [head]), body]));
+}
+
+function dataSection(inner, carbon, decimals, scale) {
+  inner.appendChild(el("div", { class: "block" }, [costTable(carbon, decimals, scale)]));
   inner.appendChild(el("ul", { class: "plain-list block" }, [
     el("li", {}, [el("a", { class: "text-link", text: "EU ETS cost by voyage and year, CSV", attrs: { href: "data/downloads/carbon_ets.csv" } })]),
     el("li", {}, [el("a", { class: "text-link", text: "EU allowance price, monthly, CSV", attrs: { href: "data/downloads/eua_monthly.csv" } })]),

@@ -66,6 +66,8 @@ const UNIT_CONSTANTS = {
   // The code points of the characters the page draws but never writes literally.
   "src/format.js": [
     { name: "MINUS_SIGN", value: "0x2212" },
+    // The base of decimal places, for rounding parts to a format's places.
+    { name: "DECIMAL_BASE", value: "10" },
   ],
   "src/theme.js": [
     { name: "SUN", value: "0x2600" },
@@ -122,6 +124,7 @@ const LAYOUT_CONSTANTS = {
     { name: "CHAR_EM", value: "0.6", why: "a character's width as a share of its size" },
     { name: "SHIFT", value: "0.5", why: "a name's step away from its dot, as a share of its size" },
     { name: "SHIFTS", value: "6", why: "the most steps a name moves away from its dot" },
+    { name: "BALLAST_GAP", value: "3", why: "a ballast leg beside its laden leg, in screen px" },
   ],
 };
 

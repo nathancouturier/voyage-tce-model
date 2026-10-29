@@ -8,7 +8,14 @@ from voyage import engine
 
 
 def no_area():
-    return {"premium_pct": 0.0, "entries": 0, "laden_nm": 0.0, "ballast_nm": 0.0, "port_activities": []}
+    return {
+        "premium_pct": 0.0,
+        "entries": 0,
+        "laden_nm": 0.0,
+        "ballast_nm": 0.0,
+        "port_activities": [],
+        "ballast_transits": 0,
+    }
 
 
 def simple_voyage(**changes):
@@ -185,7 +192,7 @@ def war(payer, gulf=None, red_sea=None):
 
 def test_war_risk_premium_counts_seven_day_periods_inside_the_area():
     # The Gulf: 1,200 nm of the laden leg at 10 knots is 5 days, plus 2 days loading: 7 days, one period.
-    gulf = {"premium_pct": 0.5, "entries": 1, "laden_nm": 1200.0, "ballast_nm": 0.0, "port_activities": ["load"]}
+    gulf = dict(no_area(), premium_pct=0.5, entries=1, laden_nm=1200.0, port_activities=["load"])
     r = engine.evaluate(simple_voyage(war_risk=war("owner", gulf=gulf)))
     assert r["war_risk"]["areas"]["gulf"]["days"] == pytest.approx(7.0)
     assert r["war_risk"]["areas"]["gulf"]["periods"] == 1.0
@@ -199,14 +206,30 @@ def test_war_risk_premium_counts_seven_day_periods_inside_the_area():
 
 
 def test_a_red_sea_transit_on_each_leg_is_a_period_each():
-    red_sea = {"premium_pct": 0.5, "entries": 2, "laden_nm": 0.0, "ballast_nm": 0.0, "port_activities": []}
+    red_sea = dict(no_area(), premium_pct=0.5, entries=1, ballast_transits=1)
     r = engine.evaluate(simple_voyage(war_risk=war("owner", red_sea=red_sea)))
-    assert r["war_risk"]["areas"]["red_sea"]["periods"] == 2.0
+    assert r["war_risk"]["areas"]["red_sea"]["periods"] == 1.0
+    assert r["war_risk"]["areas"]["red_sea"]["ballast_periods"] == 1.0
     assert r["war_risk"]["premium_usd"] == pytest.approx(0.005 * 100e6 * 2)
 
 
+def test_the_ballast_transit_is_the_owners_whoever_pays_the_charters_premium():
+    # 0.5 percent of a USD 100m hull is USD 500,000 a transit; the crew bonus goes with the charter's part.
+    red_sea = dict(no_area(), premium_pct=0.5, entries=1, ballast_transits=1)
+    plain = engine.evaluate(simple_voyage())
+    r = engine.evaluate(simple_voyage(war_risk=war("charterer", red_sea=red_sea)))
+    assert r["war_risk"]["charter_usd"] == pytest.approx(500000 + 10000)
+    assert r["war_risk"]["ballast_usd"] == pytest.approx(500000)
+    assert r["costs"]["war_risk"] == pytest.approx(500000)
+    assert r["charterer_costs_usd"] == pytest.approx(510000)
+    assert r["tce_usd_day"] == pytest.approx(plain["tce_usd_day"] - 500000 / plain["days"]["total"])
+    owner = engine.evaluate(simple_voyage(war_risk=war("owner", red_sea=red_sea)))
+    assert owner["costs"]["war_risk"] == pytest.approx(1010000)
+    assert owner["charterer_costs_usd"] == 0.0
+
+
 def test_the_charterer_pays_the_premium_and_the_owner_tce_stands():
-    gulf = {"premium_pct": 7.5, "entries": 1, "laden_nm": 300.0, "ballast_nm": 300.0, "port_activities": ["load"]}
+    gulf = dict(no_area(), premium_pct=7.5, entries=1, laden_nm=300.0, ballast_nm=300.0, port_activities=["load"])
     plain = engine.evaluate(simple_voyage())
     r = engine.evaluate(simple_voyage(war_risk=war("charterer", gulf=gulf)))
     assert r["costs"]["war_risk"] == 0.0

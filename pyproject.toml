@@ -7,7 +7,7 @@ name = "voyage-tce-model"
 version = "0.1.0"
 description = "Voyage economics and time charter equivalent for dry bulk and tanker routes: Worldscale, bunkers by sulphur zone, ports, canals, war risk, EU ETS and the ballast leg, set against the FFA curve"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.11.5"
 license = { text = "MIT" }
 authors = [{ name = "Nathan Couturier" }]
 # Direct dependencies are pinned to the exact versions the tests and the

@@ -18,15 +18,22 @@
  * engine (tools/validate-engine.mjs holds the two to 1e-9); the words around
  * them are the artifact's, with {name} filled by the figure computed.
  *
+ * ROUTINGS. Where the study computes more than one routing for a leg (P7,
+ * TD22, TC20), the Route step offers them. Each pair of leg routings is a
+ * variant the export built with the engine's case builder: the inputs a
+ * routing sets (distances, ECA miles, canal days, the listed areas entered),
+ * their sources, and what the voyage then leaves out. A variant overlays the
+ * preset; it is not the visitor's own figure.
+ *
  * THE ADDRESS. #/calculator?preset=latest-c3&open=market keeps the preset and
- * the open steps, so a priced voyage can be linked; edits to single fields are
- * not written to the address.
+ * the open steps, so a priced voyage can be linked; edits to single fields and
+ * routings are not written to the address.
  *
  * Numeric literals: none.
  */
 
 import { el, clear, sentence, appendSegments, scrollTable, figureCell } from "./dom.js";
-import { formatNumber, formatCell, formatDay, listWords, UNITS, MINUS_PROSE } from "./format.js";
+import { formatNumber, formatCell, formatDay, listWords, roundedParts, UNITS, MINUS_PROSE } from "./format.js";
 import { onWidthChange, tornadoChart, lineChart, tooltip, niceDomain, GEOMETRY } from "./charts.js";
 import * as engine from "./engine.js";
 import * as router from "./router.js";
@@ -45,6 +52,7 @@ let data = null;
 let calc = null;
 let decimals = null;
 let preset = null;
+let variant = null;
 let inputs = null;
 let changed = new Set();
 let target = 0;
@@ -107,10 +115,24 @@ function display(value, format, scale) {
   return formatNumber(value * (scale || 1), format, decimals, { context: "table" }) || "";
 }
 
+/* A path's source: the routing variant's where it sets one, else the preset's.
+ * A variant's null means the routing leaves that source out. */
+function cited(path) {
+  if (variant && Object.prototype.hasOwnProperty.call(variant.sources, path)) return variant.sources[path];
+  return preset.sources[path] || null;
+}
+
+/* A path's value before the visitor's edits: the variant's where it sets it. */
+function baseValue(path) {
+  if (variant && Object.prototype.hasOwnProperty.call(variant.patch, path)) return variant.patch[path];
+  return get(preset.inputs, path);
+}
+
 function sourceOf(path) {
-  if (changed.has(path)) return { status: "changed", source: calc.words.changed };
-  const cited = preset.sources[path];
-  if (cited) return cited;
+  // A figure the visitor typed keeps its source's words after the status, so they can see what it replaced.
+  if (changed.has(path)) return { status: "changed", source: sourceLine(path) };
+  const found = cited(path);
+  if (found) return found;
   return { status: "scenario", source: calc.words.not_cited };
 }
 
@@ -139,6 +161,7 @@ export function render(root, artifactsData, route) {
 
   const asked = route && route.params ? route.params.preset : null;
   preset = calc.presets.find((p) => p.id === asked) || calc.presets.find((p) => p.id === calc.default_preset);
+  variant = null;
   inputs = clone(preset.inputs);
   changed = new Set();
   target = calc.target_tce.value;
@@ -155,6 +178,9 @@ export function render(root, artifactsData, route) {
   const inputsColumn = el("div", { class: "calc__inputs" });
   const outputsColumn = el("div", { class: "calc__outputs", attrs: { "aria-live": "off" } });
   root.appendChild(el("div", { class: "calc" }, [inputsColumn, outputsColumn]));
+  // The sensitivities and the speed chart run under both columns.
+  const wideRow = el("div", { class: "calc-wide" });
+  root.appendChild(wideRow);
 
   stepSections = buildSections(VIEW, calc.steps.map((step) => ({
     id: step.id,
@@ -165,7 +191,7 @@ export function render(root, artifactsData, route) {
   stepSections.node.classList.add("calc-steps");
   inputsColumn.appendChild(stepSections.node);
 
-  buildOutputs(outputsColumn);
+  buildOutputs(outputsColumn, wideRow);
 
   lowerSections = buildSections(VIEW, withBuilders(calc.sections, {
     method: (inner) => methodSection(inner),
@@ -250,6 +276,11 @@ function buildStep(inner, stepId) {
   if (stepId === "costs") warRates(fieldset);
   if (stepId === "advanced") advancedExtras(fieldset);
   inner.appendChild(fieldset);
+  // On a narrow screen the result sits above the steps, out of sight while a field is edited.
+  const line = el("p", { class: "calc-live" });
+  live.stepLines = [...(live.stepLines || []), line];
+  inner.appendChild(line);
+  drawStepLines();
 }
 
 /** A field a figure is typed into, with its unit, its source and a Reset. */
@@ -283,12 +314,12 @@ function numberField(spec, options) {
 
   input.addEventListener("input", () => {
     const value = parse(input.value);
-    const info = preset.sources[spec.path];
+    const info = cited(spec.path);
     if (value === null) {
       // An emptied field returns to its source when that source is empty;
       // anything else needs a number.
       if (info && info.status === "empty") {
-        set(inputs, spec.path, get(preset.inputs, spec.path) === null ? null : 0);
+        set(inputs, spec.path, baseValue(spec.path) === null ? null : 0);
         changed.delete(spec.path);
         wrapper.setAttribute("data-status", "empty");
         source.replaceChildren(el("span", { class: "field__status", text: calc.status_words.empty + ". " }), firstUpper(info.source));
@@ -314,7 +345,7 @@ function numberField(spec, options) {
     if (changed.has(spec.path)) input.value = display(get(inputs, spec.path), format, scale);
   });
   reset.addEventListener("click", () => {
-    set(inputs, spec.path, clone(get(preset.inputs, spec.path)));
+    set(inputs, spec.path, clone(baseValue(spec.path)));
     changed.delete(spec.path);
     paint();
     recompute();
@@ -331,8 +362,8 @@ function numberField(spec, options) {
 /* The preset's own source of a field, kept under "Your figure" so the
  * visitor can see what they replaced. */
 function sourceLine(path) {
-  const cited = preset.sources[path];
-  return cited ? cited.source : calc.words.not_cited;
+  const found = cited(path);
+  return found ? found.source : calc.words.not_cited;
 }
 
 function selectField(label, id, options, current, onChange, note) {
@@ -397,28 +428,43 @@ function shipExtras(fieldset) {
 }
 
 function routeExtras(fieldset) {
-  const options = calc.alternatives[preset.route] || [];
-  if (options.length <= 1) return;
-  const legs = [["laden", "Laden"], ["ballast", "Ballast"]];
-  for (const [leg, word] of legs) {
-    const current = options.find((o) => o[leg + "_nm"] === inputs[leg].distance_nm);
-    fieldset.appendChild(selectField(
-      calc.words.routing + ", " + word.toLowerCase() + " leg",
-      "field-routing-" + leg,
-      options.map((o) => ({ value: o.routing, label: o.label + ", " + formatNumber(o[leg + "_nm"], "nm", decimals) + " " + UNITS.nm })),
-      current ? current.routing : "",
-      (routing) => {
-        const option = options.find((o) => o.routing === routing);
-        inputs[leg].distance_nm = option[leg + "_nm"];
-        inputs[leg].eca_nm = option[leg + "_eca_nm"];
-        changed.add(leg + ".distance_nm");
-        changed.add(leg + ".eca_nm");
-        refreshFields([leg + ".distance_nm", leg + ".eca_nm"]);
-        recompute();
-      },
-      leg === "ballast" ? calc.words.routing_note : null,
-    ));
+  const variants = preset.routings || [];
+  if (variants.length <= 1) return;
+  const legs = [["laden", calc.words.routing_laden], ["ballast", calc.words.routing_ballast]];
+  for (const [leg, label] of legs) {
+    const choices = [];
+    for (const v of variants) {
+      if (!choices.some((c) => c.value === v[leg])) {
+        choices.push({ value: v[leg], label: v[leg + "_label"] + ", " + formatNumber(v.patch[leg + ".distance_nm"], "nm", decimals) + " " + UNITS.nm });
+      }
+    }
+    if (choices.length <= 1) continue;
+    fieldset.appendChild(selectField(label, "field-routing-" + leg, choices, currentRouting()[leg], (routing) => {
+      const wanted = { ...currentRouting(), [leg]: routing };
+      applyVariant(variants.find((v) => v.laden === wanted.laden && v.ballast === wanted.ballast));
+    }, leg === "ballast" ? calc.words.routing_note : null));
   }
+}
+
+/* The pair of leg routings the inputs stand on. */
+function currentRouting() {
+  if (variant) return { laden: variant.laden, ballast: variant.ballast };
+  const own = (preset.routings || []).find((v) => v.is_preset);
+  return own ? { laden: own.laden, ballast: own.ballast } : { laden: "", ballast: "" };
+}
+
+/* A routing pair sets its inputs, sources and leaves-out list; a figure the
+ * visitor typed into one of its paths gives way to the routing's. */
+function applyVariant(next) {
+  variant = next.is_preset ? null : next;
+  const paths = Object.keys(next.patch);
+  for (const path of paths) {
+    set(inputs, path, clone(next.patch[path]));
+    changed.delete(path);
+  }
+  refreshFields(paths);
+  fillWarRates();
+  recompute();
 }
 
 function marketExtras(fieldset) {
@@ -461,9 +507,34 @@ function switchBasis(basis) {
 
 /* The listed areas this voyage enters, the dated premiums for each with a
  * button that enters one, who pays, and the seven day periods the engine
- * counts from the days inside. */
+ * counts. The list follows the routing, so it is redrawn when that changes. */
 function warRates(fieldset) {
-  const entered = Object.keys(inputs.war_risk.areas).filter((area) => preset.inputs.war_risk.areas[area].entries > 0);
+  live.warRates = el("div", { class: "field field--wide" });
+  fieldset.appendChild(live.warRates);
+  fillWarRates();
+  if (inputs.contract !== "trip") {
+    const payer = cited("war_risk.payer");
+    fieldset.appendChild(selectField(calc.words.war_payer, "field-war-payer",
+      Object.entries(calc.payer_words).map(([value, label]) => ({ value, label })), inputs.war_risk.payer, (value) => {
+        inputs.war_risk.payer = value;
+        changed.add("war_risk.payer");
+        recompute();
+      }, payer ? firstUpper(payer.source) : null));
+  }
+  live.warLine = el("p", { class: "field__source field--wide war-periods" });
+  fieldset.appendChild(live.warLine);
+}
+
+function enteredAreas() {
+  return Object.keys(inputs.war_risk.areas).filter((area) => {
+    const spec = inputs.war_risk.areas[area];
+    return spec.entries > 0 || spec.ballast_transits > 0;
+  });
+}
+
+function fillWarRates() {
+  if (!live.warRates) return;
+  const entered = enteredAreas();
   const list = el("ul", { class: "war-rates" });
   for (const rate of calc.war_risk_rates.filter((r) => entered.includes(r.engine_area))) {
     const values = rate.low === rate.high ? [rate.low] : [rate.low, rate.high];
@@ -483,41 +554,45 @@ function warRates(fieldset) {
     }
     list.appendChild(item);
   }
-  const holder = el("div", { class: "field field--wide" }, [el("p", { class: "field__label", text: calc.words.war_rates })]);
-  holder.appendChild(entered.length ? list : el("p", { class: "field__source", text: calc.words.war_none }));
-  fieldset.appendChild(holder);
-  if (inputs.contract !== "trip") {
-    const payer = preset.sources["war_risk.payer"];
-    fieldset.appendChild(selectField(calc.words.war_payer, "field-war-payer",
-      Object.entries(calc.payer_words).map(([value, label]) => ({ value, label })), inputs.war_risk.payer, (value) => {
-        inputs.war_risk.payer = value;
-        changed.add("war_risk.payer");
-        recompute();
-      }, payer ? firstUpper(payer.source) : null));
-  }
-  live.warLine = el("p", { class: "field__source field--wide war-periods" });
-  fieldset.appendChild(live.warLine);
+  live.warRates.replaceChildren(
+    el("p", { class: "field__label", text: calc.words.war_rates }),
+    entered.length ? list : el("p", { class: "field__source", text: calc.words.war_none }),
+  );
 }
 
-/* Days inside each listed area entered, the periods they make and who pays. */
+/* The periods each listed area makes and who pays them. A stay is counted in
+ * days inside; a passage of the Red Sea is one period a transit. */
 function drawWarLine(result) {
   if (!live.warLine) return;
   const parts = [];
+  const periodWords = (n) => (n === 1 ? calc.words.war_period_one : fill(calc.words.war_period_many, { n: formatNumber(n, "count", decimals) }));
+  let charter = false;
   for (const [area, info] of Object.entries(result.war_risk.areas)) {
-    if (!info.periods) continue;
-    parts.push(fill(calc.words.war_area_line, {
-      area: calc.war_area_names[area],
-      days: formatNumber(info.days, "days", decimals),
-      periods: info.periods === 1 ? calc.words.war_period_one : fill(calc.words.war_period_many, { n: formatNumber(info.periods, "count", decimals) }),
-      usd: moneyText(info.usd),
-    }));
+    if (info.periods) {
+      charter = true;
+      parts.push(fill(info.days > 0 ? calc.words.war_area_line : calc.words.war_transit_line, {
+        area: calc.war_area_names[area],
+        days: formatNumber(info.days, "days", decimals),
+        periods: periodWords(info.periods),
+        usd: moneyText(info.usd),
+      }));
+    }
+    if (info.ballast_periods) {
+      parts.push(fill(calc.words.war_ballast_line, {
+        area: calc.war_area_names[area],
+        periods: periodWords(info.ballast_periods),
+        usd: moneyText(info.ballast_usd),
+      }));
+    }
   }
   if (!parts.length) {
     live.warLine.textContent = "";
     return;
   }
-  const payer = inputs.contract === "trip" || inputs.war_risk.payer === "charterer" ? calc.words.war_paid_charterer : calc.words.war_paid_owner;
-  live.warLine.textContent = parts.join(" ") + " " + payer;
+  if (charter) {
+    parts.push(inputs.contract === "trip" || inputs.war_risk.payer === "charterer" ? calc.words.war_paid_charterer : calc.words.war_paid_owner);
+  }
+  live.warLine.textContent = parts.join(" ");
 }
 
 function advancedExtras(fieldset) {
@@ -547,7 +622,7 @@ function refreshFields(paths) {
 
 /* ------------------------------------------------------------ outputs --- */
 
-function buildOutputs(column) {
+function buildOutputs(column, wide) {
   live.verdict = el("p", { class: "calc-verdict", attrs: { role: "status" } });
   live.notes = el("div", { class: "calc-notes" });
   column.appendChild(live.verdict);
@@ -559,8 +634,9 @@ function buildOutputs(column) {
   targetInput.value = display(target, "usd_day", 1);
   targetInput.addEventListener("input", () => {
     const value = parse(targetInput.value);
-    if (value === null || Number.isNaN(value)) return;
-    target = value;
+    if (Number.isNaN(value)) return;
+    // An emptied target is a target of zero: the freight that covers the voyage costs.
+    target = value === null ? 0 : value;
     recompute();
   });
   live.breakeven = el("dl", { class: "breakeven__values" });
@@ -596,7 +672,7 @@ function buildOutputs(column) {
     (live.tornadoSource = el("p", { class: "source-line" })),
   ]);
   live.figures.push(tornadoFigure);
-  column.appendChild(tornadoFigure);
+  wide.appendChild(tornadoFigure);
 
   live.speedTitle = el("h2", { class: "block__heading" });
   live.speedFrame = el("div", { class: "chart-frame" });
@@ -604,10 +680,10 @@ function buildOutputs(column) {
   const speedFigure = el("figure", { class: "block" }, [live.speedTitle, live.speedFrame, el("p", { class: "source-line", text: calc.words.speed_desc }), live.speedSource]);
   live.speedFigure = speedFigure;
   live.figures.push(speedFigure);
-  column.appendChild(speedFigure);
+  wide.appendChild(speedFigure);
   // On a trip the charterer sets the speed and the owner's hire a day does not move with it.
   live.speedTrip = el("p", { class: "note block", text: calc.words.speed_trip_note });
-  column.appendChild(live.speedTrip);
+  wide.appendChild(live.speedTrip);
 
   onWidthChange(live.tornadoFrame, () => drawTornado());
   onWidthChange(live.speedFrame, () => drawSpeed());
@@ -625,6 +701,9 @@ function bridgeRows(result) {
     const value = result.costs[family];
     if ((family === "other" || family === "fueleu") && !value) continue;
     const zeroWords = zeroReason(family, result);
+    // Beside the owner's own premium, the charter's part when the charterer pays it.
+    const charterPays = inputs.contract === "trip" || inputs.war_risk.payer === "charterer";
+    const charterers = family === "war_risk" && value && charterPays ? result.war_risk.charter_usd : 0;
     rows.push({
       id: family,
       label: calc.cost_labels[family],
@@ -633,7 +712,7 @@ function bridgeRows(result) {
       from_usd: running,
       to_usd: running - value,
       value_usd: -value,
-      detail: null,
+      detail: charterers ? fill(calc.words.war_charterer_also, { usd: moneyText(charterers) }) : null,
       zero: value ? null : zeroWords,
     });
     running -= value;
@@ -652,7 +731,7 @@ function zeroReason(family, result) {
     ets: [],
   }[family] || [];
   // A premium priced but paid by the charterer is the charterer's, not the owner's.
-  if (family === "war_risk" && result.war_risk.total_usd) return fill(calc.words.war_charterer, { usd: moneyText(result.war_risk.total_usd) });
+  if (family === "war_risk" && result.war_risk.charter_usd) return fill(calc.words.war_charterer, { usd: moneyText(result.war_risk.charter_usd) });
   if (paths.some((path) => sourceOf(path).status === "left_out")) return calc.status_words.left_out;
   if (paths.some((path) => sourceOf(path).status === "empty")) return calc.status_words.empty;
   if (family === "ets") return calc.words.none_ets;
@@ -670,7 +749,8 @@ function recompute() {
     live.verdict.textContent = ready.why;
     live.verdict.classList.add("is-blocked");
     live.result = null;
-    clear(live.breakeven);
+    // The freight a voyage needs does not depend on the freight typed, so it is drawn even here.
+    drawBreakeven();
     clear(live.bridgeHolder);
     live.bridgeTitle.textContent = "";
     live.resultLine.textContent = "";
@@ -682,6 +762,9 @@ function recompute() {
     live.speedTitle.textContent = "";
     clear(live.tornadoFrame);
     clear(live.speedFrame);
+    drawData();
+    drawAssumptions();
+    drawStepLines();
     return;
   }
   const result = engine.evaluate(inputs);
@@ -696,7 +779,7 @@ function recompute() {
     trip_days: formatNumber(result.days.trip, "days", decimals),
     trip_tce: usdText(inputs.freight_value * (1 - inputs.commission_pct / engine_percent()), "usd_day"),
   });
-  if (preset.published && changed.size === 0) {
+  if (preset.published && changed.size === 0 && !variant) {
     const error = (tce / preset.published.tce_usd_day - 1) * engine_percent();
     live.notes.appendChild(el("p", { class: "state-message", text: fill(calc.words.published, {
       published: usdText(preset.published.tce_usd_day, "usd_day"),
@@ -719,20 +802,34 @@ function recompute() {
     live.bridgeHolder.appendChild(live.bridge.node);
   }
   if (!live.bridgeHolder.contains(live.bridge.node)) live.bridgeHolder.appendChild(live.bridge.node);
+  // The parts rounded so that they add up to the total shown.
+  const [ballastDays, ladenDays, portDays] = roundedParts([result.days.ballast_sea, result.days.laden_sea, result.days.port_total], "days", decimals);
   live.resultLine.textContent = fill(calc.words.result_line, {
     tce: usdText(tce, "usd_day"),
     days: formatNumber(days, "days", decimals),
-    ballast: formatNumber(result.days.ballast_sea, "days", decimals),
-    laden: formatNumber(result.days.laden_sea, "days", decimals),
-    port: formatNumber(result.days.port_total, "days", decimals),
+    ballast: formatNumber(ballastDays, "days", decimals),
+    laden: formatNumber(ladenDays, "days", decimals),
+    port: formatNumber(portDays, "days", decimals),
   });
   live.leaves.textContent = leavesOut();
-  live.source.textContent = fill(calc.words.source, { preset: preset.label, market: preset.market_words, eua: preset.eua_words, fx: preset.fx_words });
+  live.source.textContent = fill(calc.words.source, { preset: preset.label, market: preset.market_words, eua: preset.eua_words, fx: preset.fx_words })
+    + yourFigures();
   live.tornadoSource.textContent = live.source.textContent;
   live.speedSource.textContent = live.source.textContent;
   drawWarLine(result);
   drawTornado();
   drawSpeed();
+  drawData();
+  drawAssumptions();
+  drawStepLines();
+}
+
+/* The inputs the visitor changed, named after the preset's sources. */
+function yourFigures() {
+  const names = [...changed].map((path) => (calc.input_labels[path] ? calc.input_labels[path].label.toLowerCase() : null)).filter(Boolean);
+  const routed = variant ? [calc.words.routing_changed] : [];
+  const all = [...routed, ...names];
+  return all.length ? " " + fill(calc.words.source_changed, { fields: listWords(all) }) : "";
 }
 
 /* PERCENT is the engine's own constant, from data/engine.json. */
@@ -740,10 +837,29 @@ function engine_percent() {
   return data.engine.constants.PERCENT;
 }
 
+/* The result in one line under each open step. */
+function drawStepLines() {
+  if (!live.stepLines) return;
+  const text = live.result ? fill(calc.words.live_line, { tce: usdText(live.result.tce_usd_day, "usd_day") }) : readiness().why;
+  for (const line of live.stepLines) line.textContent = text;
+}
+
+/* The items of the leaves-out list that still apply: the routing's, less those whose inputs the visitor filled. */
+function leftOutItems() {
+  const all = variant ? variant.excluded_items : (preset.excluded_items || []);
+  return all.filter((item) => !item.paths.every((path) => changed.has(path)));
+}
+
 function leavesOut() {
-  const items = (preset.excluded_items || []).filter((item) => !item.paths.every((path) => changed.has(path)));
+  const items = leftOutItems();
   if (!items.length) return calc.words.leaves_out_none;
   return fill(calc.words.leaves_out, { items: listWords(items.map((item) => item.text)) });
+}
+
+function drawAssumptions() {
+  if (!live.assumptionsList) return;
+  const texts = leftOutItems().map((item) => item.text);
+  live.assumptionsList.replaceChildren(...(texts.length ? texts : [calc.words.leaves_out_none]).map((text) => el("li", { text: firstUpper(text) + "." })));
 }
 
 function drawBreakeven() {
@@ -778,7 +894,11 @@ function drawTornado() {
       high: s.high_tce_usd_day,
       lowText: formatNumber(s.low_tce_usd_day - base, "usd_day", decimals, { signed: true }),
       highText: formatNumber(s.high_tce_usd_day - base, "usd_day", decimals, { signed: true }),
-      tip: [label.get(s.id), calc.words.tornado_lower + ": " + usdText(s.low_tce_usd_day, "usd_day"), calc.words.tornado_higher + ": " + usdText(s.high_tce_usd_day, "usd_day")],
+      bothText: fill(calc.words.tornado_both, {
+        lower: formatNumber(s.low_tce_usd_day - base, "usd_day", decimals, { signed: true }),
+        higher: formatNumber(s.high_tce_usd_day - base, "usd_day", decimals, { signed: true }),
+      }),
+      tip: [label.get(s.id), calc.words.tornado_lower + ": " + usdText(s.low_tce_usd_day, "usd_day") + " a day", calc.words.tornado_higher + ": " + usdText(s.high_tce_usd_day, "usd_day") + " a day"],
     }));
   const first = rows[0];
   live.tornadoTitle.textContent = fill(calc.words.tornado_title, {
@@ -791,7 +911,22 @@ function drawTornado() {
     base,
     words: { title: live.tornadoTitle.textContent, desc: calc.words.tornado_desc, axis: calc.words.tornado_axis },
   });
-  live.tornadoFrame.replaceChildren(svg);
+  // The same figures as a table for a screen reader.
+  // A table lays out at its content's width, so the hidden box holds it rather than hiding the table itself.
+  const table = el("div", { class: "visually-hidden" }, [el("table", {}, [
+    el("caption", { text: live.tornadoTitle.textContent }),
+    el("thead", {}, [el("tr", {}, [
+      el("th", { text: calc.words.tornado_axis, attrs: { scope: "col" } }),
+      el("th", { text: calc.words.tornado_lower, attrs: { scope: "col" } }),
+      el("th", { text: calc.words.tornado_higher, attrs: { scope: "col" } }),
+    ])]),
+    el("tbody", {}, rows.map((row) => el("tr", {}, [
+      el("th", { text: row.label, attrs: { scope: "row" } }),
+      el("td", { text: usdText(row.low, "usd_day") + " a day" }),
+      el("td", { text: usdText(row.high, "usd_day") + " a day" }),
+    ]))),
+  ])]);
+  live.tornadoFrame.replaceChildren(svg, table);
   tooltip(live.tornadoFrame, svg, regions);
 }
 
@@ -831,7 +966,15 @@ function drawSpeed() {
     words: { title: live.speedTitle.textContent, desc: calc.words.speed_desc, xAxis: calc.words.speed_axis_x, yAxis: calc.words.speed_axis_y },
     tipFor: (v, index) => [knots(v) + " " + UNITS.knots, usdText(points[index].tce_usd_day, "usd_day") + " a day", formatNumber(points[index].days, "days", decimals) + " " + UNITS.days],
   });
-  live.speedFrame.replaceChildren(svg);
+  // The best and the priced speed as a table for a screen reader.
+  const table = el("div", { class: "visually-hidden" }, [el("table", {}, [
+    el("caption", { text: live.speedTitle.textContent }),
+    el("tbody", {}, [
+      el("tr", {}, [el("th", { text: fill(calc.words.speed_best, { best: knots(best.laden_kn) }), attrs: { scope: "row" } }), el("td", { text: usdText(best.tce_usd_day, "usd_day") + " a day" })]),
+      el("tr", {}, [el("th", { text: fill(calc.words.speed_current, { current: knots(current) }), attrs: { scope: "row" } }), el("td", { text: usdText(live.result.tce_usd_day, "usd_day") + " a day" })]),
+    ]),
+  ])]);
+  live.speedFrame.replaceChildren(svg, table);
   tooltip(live.speedFrame, svg, regions);
 }
 
@@ -841,6 +984,13 @@ function methodSection(inner) {
   const block = el("div", { class: "block" });
   for (const paragraph of calc.words.method) block.appendChild(el("p", { class: "prose", text: paragraph }));
   inner.appendChild(block);
+}
+
+/* A best speed at an end of the speeds searched says which end. */
+function boundMark(cell, speed) {
+  if (cell.at_top) return " " + speed.bound_marks.top;
+  if (cell.at_bottom) return " " + speed.bound_marks.bottom;
+  return "";
 }
 
 function speedSection(inner) {
@@ -853,7 +1003,7 @@ function speedSection(inner) {
       el("th", { class: "col-num", text: "VLSFO, " + UNITS.usd_t, attrs: { scope: "col", "data-short": "VLSFO" } }),
       el("th", { class: "col-num", text: "Best laden speed, " + UNITS.knots, attrs: { scope: "col", "data-short": "best speed" } }),
       el("th", { class: "col-num", text: "TCE at the best speed, " + UNITS.usd_day, attrs: { scope: "col", "data-short": "TCE at best" } }),
-      el("th", { class: "col-num", text: "TCE at the Baltic's speed, " + UNITS.usd_day, attrs: { scope: "col", "data-short": "TCE at the Baltic's speed" } }),
+      el("th", { class: "col-num", text: "TCE at the priced speed, " + UNITS.usd_day, attrs: { scope: "col", "data-short": "TCE at the priced speed" } }),
     ]);
     const body = el("tbody");
     for (const cell of routeEntry.grid) {
@@ -861,7 +1011,7 @@ function speedSection(inner) {
         el("th", { attrs: { scope: "row" } }, [cell.freight_words]),
         el("td", { class: "words", text: cell.bunker_words }),
         figureCell(formatCell(cell.vlsfo_usd_t, "usd_t", decimals), "vlsfo_usd_t"),
-        figureCell(formatCell(cell.optimal_laden_kn, "knots_2", decimals) + (cell.at_bound ? " " + speed.bound_mark : ""), "optimal_laden_kn"),
+        figureCell(formatCell(cell.optimal_laden_kn, "knots_2", decimals) + boundMark(cell, speed), "optimal_laden_kn"),
         figureCell(formatCell(cell.optimal_tce_usd_day, "usd_day", decimals), "optimal_tce_usd_day"),
         figureCell(formatCell(cell.reference_tce_usd_day, "usd_day", decimals), "reference_tce_usd_day"),
       ]));
@@ -874,17 +1024,29 @@ function speedSection(inner) {
 
 function assumptionsSection(inner) {
   const words = calc.assumptions;
+  // What the voyage leaves out as it now stands: the routing's items, less those the visitor has filled.
+  live.assumptionsList = el("ul", { class: "plain-list" });
   inner.appendChild(el("div", { class: "block" }, [
     el("h3", { class: "block__heading", text: words.leaves_out_heading }),
-    el("ul", { class: "plain-list" }, (preset.excluded.length ? preset.excluded : [calc.words.leaves_out_none]).map((text) => el("li", { text: firstUpper(text) + "." }))),
+    live.assumptionsList,
   ]));
+  drawAssumptions();
   inner.appendChild(el("div", { class: "block" }, [
     el("h3", { class: "block__heading", text: words.statuses_heading }),
     el("ul", { class: "plain-list" }, words.statuses.map(([status, text]) => el("li", {}, [el("span", { class: "field__status", text: calc.status_words[status] + ": " }), text]))),
   ]));
 }
 
+/* The Data section shows the inputs as they now stand, so every change redraws it. */
 function dataSection(inner) {
+  live.dataInner = inner;
+  drawData();
+}
+
+function drawData() {
+  const inner = live.dataInner;
+  if (!inner) return;
+  clear(inner);
   const head = el("tr", {}, [
     el("th", { text: "Input", attrs: { scope: "col" } }),
     el("th", { class: "col-num", text: "Value", attrs: { scope: "col", "data-short": "value" } }),
@@ -894,12 +1056,11 @@ function dataSection(inner) {
   ]);
   const body = el("tbody");
   for (const [path, spec] of Object.entries(calc.input_labels)) {
-    const cited = preset.sources[path];
-    if (!cited && !changed.has(path)) continue;
+    if (!cited(path) && !changed.has(path)) continue;
     const info = sourceOf(path);
     const raw = get(inputs, path);
     let value;
-    if (Array.isArray(raw)) value = el("td", { class: "words", text: raw.map(([v, c]) => formatNumber(v, "knots", decimals) + " kn: " + formatNumber(c, "tpd", decimals)).join(", ") });
+    if (Array.isArray(raw)) value = el("td", { class: "words", text: raw.map(([v, c]) => formatNumber(v, "knots", decimals) + " kn: " + formatNumber(c, "tpd", decimals) + " " + UNITS.tpd).join(", ") });
     else if (path === "war_risk.payer") value = el("td", { class: "words", text: calc.payer_words[raw] });
     else if (typeof raw === "string") value = el("td", { class: "words", text: raw });
     else if (raw === null || raw === undefined || (info.status === "empty" && !raw)) value = el("td", { class: "num is-missing", text: calc.status_words.empty });

@@ -97,7 +97,7 @@ export function refusal(name, data) {
   return null;
 }
 
-const REFUSAL_TODO =
+const REFUSAL_REMEDY =
   "Reload the page: the site was probably updated while this copy was open, and a reload fetches the code and the data together. " +
   "Nothing from this file is shown, rather than read with the wrong layout.";
 
@@ -120,7 +120,7 @@ async function fetchArtifact(name) {
     throw failureRecord(name, "the file arrived but is not valid JSON", String(error && error.message ? error.message : error));
   }
   const refused = refusal(name, data);
-  if (refused) throw { ...failureRecord(name, refused), todo: REFUSAL_TODO };
+  if (refused) throw { ...failureRecord(name, refused), remedy: REFUSAL_REMEDY };
   return data;
 }
 

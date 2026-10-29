@@ -13,7 +13,7 @@ from functools import cache
 from typing import Any
 
 from . import anchors, baltic, cases
-from .words import date_label, fig, plain, usd, usd_m, word
+from .words import date_label, fig, plain, rounded_parts, usd, usd_m, word
 
 Segments = list[Any]
 
@@ -77,6 +77,7 @@ STATUS_WORDS = {
     "chosen": "Study's choice",
     "left_out": "Left out of the TCE",
     "empty": "No public figure",
+    "scenario": "Scenario input",
     "changed": "Your figure",
 }
 #: The class word for each Baltic ship, as the copy names it.
@@ -89,7 +90,6 @@ VESSEL_CLASS = {
     "MR50": "MR",
     "HANDC37": "Handy tanker",
     "BCI182": "Capesize",
-    "BCI180": "Capesize",
     "BPI82": "Panamax",
     "BSI63": "Supramax",
 }
@@ -260,7 +260,8 @@ def bridge_details(preset: Mapping[str, Any], result: Mapping[str, Any]) -> dict
     else:
         ets = ["No EEA port on either leg"]
     war = inputs["war_risk"]
-    entered = [area for area, spec in war["areas"].items() if spec["entries"]]
+    entered = [area for area, spec in war["areas"].items() if spec["entries"] or spec["ballast_transits"]]
+    ballast_only = all(not war["areas"][area]["entries"] for area in entered)
     war_detail: Segments
     if result["war_risk"]["total_usd"]:
         war_detail = []
@@ -268,15 +269,21 @@ def bridge_details(preset: Mapping[str, Any], result: Mapping[str, Any]) -> dict
             info = result["war_risk"]["areas"][area]
             if war_detail:
                 war_detail.append("; ")
+            periods = info["periods"] + info["ballast_periods"]
             war_detail += [
                 fig(war["areas"][area]["premium_pct"], "percent_2", "inputs.war_risk.%s.premium_pct" % area),
                 " percent of a ",
                 usd_m(war["hull_value_usd"], "inputs.war_risk.hull_value_usd", "usd_m_0"),
                 " hull in %s, " % WAR_AREA_NAMES[area],
-                fig(info["periods"], "count", "result.war_risk.%s.periods" % area),
-                " period" if info["periods"] == 1 else " periods",
+                fig(periods, "count", "result.war_risk.%s.periods" % area),
+                " period" if periods == 1 else " periods",
             ]
-        war_detail.append(", paid by the %s" % ("owner" if war["payer"] == "owner" else "charterer"))
+        war_detail.append(
+            ", the charter's paid by the %s, a ballast transit's by the owner"
+            % ("owner" if war["payer"] == "owner" else "charterer")
+            if any(war["areas"][a]["ballast_transits"] for a in entered)
+            else ", paid by the %s" % ("owner" if war["payer"] == "owner" else "charterer")
+        )
     elif entered:
         war_detail = ["The voyage enters %s, a listed area" % " and ".join(WAR_AREA_NAMES[a] for a in entered)]
     else:
@@ -296,7 +303,11 @@ def bridge_details(preset: Mapping[str, Any], result: Mapping[str, Any]) -> dict
         "ets": {"detail": ets, "zero": "None: outside the EEA"},
         "war_risk": {
             "detail": war_detail,
-            "zero": "Left out: the charterer's, as in the Baltic's TCE"
+            "zero": (
+                "Left out, as in the Baltic's TCE: the owner's on its ballast transit"
+                if ballast_only
+                else "Left out: the charterer's, as in the Baltic's TCE"
+            )
             if entered or result["war_risk"]["total_usd"]
             else "None on this routing",
         },
@@ -311,6 +322,9 @@ def bridge(preset: Mapping[str, Any], result: Mapping[str, Any], rows: list[dict
 
     The five cost families always; other costs and FuelEU only when not zero."""
     details = bridge_details(preset, result)
+    # The parts of the voyage's days, rounded so that they add up to the total shown.
+    d = result["days"]
+    parts = rounded_parts([d["ballast_sea"], d["laden_sea"], d["port_total"]], "days")
     out = []
     for row in rows:
         if row["id"] in ("other", "fueleu") and not row["value_usd"]:
@@ -333,11 +347,11 @@ def bridge(preset: Mapping[str, Any], result: Mapping[str, Any], rows: list[dict
             "Over ",
             fig(result["days"]["total"], "days", "result.days.total", suffix=" days"),
             " (",
-            fig(result["days"]["ballast_sea"], "days", "result.days.ballast_sea"),
+            fig(parts[0], "days", "result.days.ballast_sea"),
             " in ballast, ",
-            fig(result["days"]["laden_sea"], "days", "result.days.laden_sea"),
+            fig(parts[1], "days", "result.days.laden_sea"),
             " laden and ",
-            fig(result["days"]["port_total"], "days", "result.days.port_total"),
+            fig(parts[2], "days", "result.days.port_total"),
             " in port), the result is a TCE of ",
             fig(result["tce_usd_day"], "usd_day", "result.tce_usd_day", prefix="USD ", accent=True),
             " a day.",
@@ -369,6 +383,38 @@ def _join_words(items: list[Any]) -> list[Any]:
             out.append(" and " if i == len(items) - 1 else ", ")
         out.append(item)
     return out
+
+
+def _map_title(featured: Mapping[str, Any], load: str, discharge: str, cape: bool) -> list[Any]:
+    """The overview map's title: each leg's routing where the two differ, its miles, and the miles inside the
+    emission control areas."""
+    inputs, legs = featured["inputs"], featured["legs"]
+    way = "round the Cape of Good Hope" if cape else "the shortest way"
+    zones = "the North American and US Caribbean emission control areas"
+    eca = fig(inputs["laden"]["eca_nm"], "nm", "inputs.laden.eca_nm")
+    if inputs["laden"]["distance_nm"] == inputs["ballast"]["distance_nm"]:
+        return [
+            "TD22 sails %s, %s to %s laden and back in ballast: " % (way, load, discharge),
+            fig(inputs["laden"]["distance_nm"], "nm", "inputs.laden.distance_nm", suffix=" nautical miles"),
+            " each way, ",
+            eca,
+            " of them inside %s." % zones,
+        ]
+
+    def by(leg: str, other: str) -> str:
+        only = [p for p in legs[leg]["passes"] if p not in legs[other]["passes"]]
+        return " by the " + " and the ".join(only) if only else ""
+
+    return [
+        "TD22 sails %s, %s to %s laden%s, " % (way, load, discharge, by("laden", "ballast")),
+        fig(inputs["laden"]["distance_nm"], "nm", "inputs.laden.distance_nm", suffix=" nautical miles"),
+        ", and back in ballast%s, " % by("ballast", "laden"),
+        fig(inputs["ballast"]["distance_nm"], "nm", "inputs.ballast.distance_nm"),
+        "; ",
+        eca,
+        " miles of %s lie inside %s."
+        % ("each leg" if inputs["laden"]["eca_nm"] == inputs["ballast"]["eca_nm"] else "the laden leg", zones),
+    ]
 
 
 def overview(
@@ -516,14 +562,7 @@ def overview(
         ],
         "map": {
             "key": map_key,
-            "title": [
-                "TD22 sails %s, %s to %s laden and back in ballast: "
-                % ("round the Cape of Good Hope" if cape else "the shortest way", load, discharge),
-                fig(inputs["laden"]["distance_nm"], "nm", "inputs.laden.distance_nm", suffix=" nautical miles"),
-                " each way, ",
-                fig(inputs["laden"]["eca_nm"], "nm", "inputs.laden.eca_nm"),
-                " of them inside the North American and US Caribbean emission control areas.",
-            ],
+            "title": _map_title(featured, load, discharge, cape),
             "legend": [
                 {"kind": "laden", "text": "Laden leg, %s to %s" % (load, discharge)},
                 {"kind": "ballast", "text": "Ballast leg, %s to %s, drawn beside it" % (discharge, load)},
@@ -571,9 +610,11 @@ def overview(
                     % (baltic.GMB["version"], discharge, load),
                     fig(inputs["sea_margin"] * 100.0, "percent_0", "inputs.sea_margin", suffix=" percent"),
                     " weather margin; fuel is priced at the bunker port nearest the load port; port, waiting and "
-                    "canal days follow the route description. TD22 loads in the Galveston lightering area, sails round "
-                    "the Cape of Good Hope and through the Sunda Strait to Ningbo, as NGA Pub. 151's route to Shanghai "
-                    "does; the Baltic measures its distances on AtoBviaC tables, which are not published.",
+                    "canal days follow the route description. TD22 loads in the Galveston lightering area and sails "
+                    "laden round the Cape of Good Hope and through the Strait of Malacca to Ningbo, the strait the "
+                    "Baltic's own TD3C calculation takes with the same laden VLCC, rather than the shallower Sunda "
+                    "Strait of the shortest network line; in ballast it comes back through the Sunda Strait. The "
+                    "Baltic measures its distances on AtoBviaC tables, which are not published.",
                 ],
                 [
                     "Operating and capital costs are not voyage costs: a TCE is compared with them, never net of "
@@ -624,7 +665,7 @@ def overview(
                 ),
                 " percent above with the bunker tables of those weeks, and why is not established; the guide changed "
                 "its description of the fuel price in May 2026 (version 8.4), so how the Baltic priced fuel in March "
-                "is not documented. Star Asia sometimes reprints a week's bunker table unchanged, so each week below "
+                "is not documented. Star Asia sometimes reprints a week's bunker table unchanged, so each week above "
                 "says when the prices it was priced with were first printed.",
             ],
         },
@@ -716,15 +757,19 @@ def calculator_words() -> dict[str, Any]:
             "tornado_axis": "TCE, USD a day",
             "tornado_lower": "Input lower",
             "tornado_higher": "Input higher",
-            "tornado_desc": "Each bar runs from the TCE with the input lower to the TCE with it higher; the base TCE "
-            "is the vertical rule.",
+            "tornado_both": "{lower} and {higher}",
+            "tornado_desc": "Each row has two bars from the base TCE, the vertical rule: an outlined one to the TCE "
+            "with the input lower and a filled one to the TCE with it higher. Where both cases move the TCE the same "
+            "way, the two bars share the row, the lower case above, and the two changes are written together in "
+            "that order.",
             "speed_title": "The TCE is highest at {best} knots laden at these inputs; the voyage is priced at "
             "{current}.",
-            "speed_title_bound": "The TCE still rises at {best} knots, the top of the range the published "
-            "consumptions support; the voyage is priced at {current}.",
+            "speed_title_bound": "The TCE still rises at {best} knots, the top of the range searched, a knot above "
+            "the fastest published consumption, where consumption is extrapolated; the voyage is priced at "
+            "{current}.",
             "speed_axis_x": "Laden speed, knots (ballast keeps its gap)",
             "speed_axis_y": "TCE, USD a day",
-            "speed_desc": "The TCE at each laden speed from one knot below the slowest published consumption to one "
+            "speed_desc": "The TCE at each laden speed from one knot below the slowest published speed to one "
             "knot above the fastest. Between published pairs consumption is interpolated; outside them it follows "
             "the power law fitted to the pairs.",
             "speed_title_low": "The TCE is highest at {best} knots, the slowest speed searched; the voyage is priced "
@@ -738,9 +783,10 @@ def calculator_words() -> dict[str, Any]:
             "result_line": "Over {days} days ({ballast} in ballast, {laden} laden and {port} in port and waiting), "
             "the result is a TCE of {tce} a day.",
             "million": "USD {value} million",
-            "routing": "Routing",
-            "routing_note": "A routing sets the leg's distance and its miles inside ECAs; canal days and tolls stay "
-            "as entered.",
+            "routing_laden": "Routing, laden leg",
+            "routing_ballast": "Routing, ballast leg",
+            "routing_note": "The routings the study computes for this route. A routing sets each leg's distance, its "
+            "miles inside ECAs, the canal days and the listed war risk areas it enters; tolls stay as entered.",
             "ets_year": "EU ETS year",
             "ets_year_note": "40 percent of 2024 emissions, 70 percent of 2025 and 100 percent from 2026 "
             "(Directive 2003/87/EC, Article 3gb), with methane and nitrous oxide from 2026 (Annex I).",
@@ -758,15 +804,26 @@ def calculator_words() -> dict[str, Any]:
             "a premium entered above does not count.",
             "war_payer": "Who pays the war risk premium",
             "war_area_line": "In {area}: {days} days inside, so {periods}, {usd} at the premium entered.",
+            "war_transit_line": "Through {area} on the laden leg: {periods}, one a transit, {usd} at the premium "
+            "entered.",
+            "war_ballast_line": "Through {area} on the ballast leg, the approach to the next loading: {periods}, "
+            "{usd}, the owner's unless a charter makes the charterer pay it (Gard, 21 March 2026), so it is in the "
+            "TCE.",
             "war_period_one": "one period of up to seven days",
             "war_period_many": "{n} periods of up to seven days",
-            "war_paid_charterer": "The charterer pays it: it stays out of the owner's TCE, as in the Baltic's.",
-            "war_paid_owner": "The owner pays it, and recovers it only in the freight: it is in the TCE.",
+            "war_paid_charterer": "The charterer pays the charter's premium: it stays out of the owner's TCE, as in "
+            "the Baltic's.",
+            "war_paid_owner": "The owner pays the charter's premium, and recovers it only in the freight: it is in "
+            "the TCE.",
             "war_charterer": "The charterer's: {usd}",
+            "war_charterer_also": "The charterer pays a further {usd}",
             "reset": "Reset",
             "empty_placeholder": "No public figure",
             "not_cited": "A scenario input: the base case uses the value shown.",
             "changed": "Your figure.",
+            "source_changed": "Your figures: {fields}.",
+            "live_line": "TCE now: {tce} a day.",
+            "routing_changed": "the routing",
             "invalid": "Enter a number.",
             "data_caption": "Every input of the voyage as it now stands, with its status and its source.",
             "method": [
@@ -819,6 +876,10 @@ def calculator_words() -> dict[str, Any]:
                 ["chosen", "the study's choice among published values, where the source names none, with the reason."],
                 ["left_out", "a cost the Baltic's TCE leaves out too, priced at zero; a figure entered here counts."],
                 ["empty", "no public figure: it counts as zero and the result names it among what it leaves out."],
+                [
+                    "scenario",
+                    "zero in the base case: a delay, a transfer, another cost or other revenue for you to set.",
+                ],
                 ["changed", "a figure you entered; Reset returns the field to its source."],
             ],
         },
@@ -844,8 +905,14 @@ def _bunker_level_words(cell: Mapping[str, Any], hub: str) -> str:
 
 def speed_page(speed: Mapping[str, Any]) -> dict[str, Any]:
     routes = speed["routes"]
-    held = [t for t in speed["textbook"] if t["freight_pushes_speed_up"] and t["bunkers_push_speed_down"]]
-    bound_share = sum(1 for r in routes for g in r["grid"] if g["at_bound"]) / sum(len(r["grid"]) for r in routes)
+    held = [
+        t
+        for t in speed["textbook"]
+        if t["freight_pushes_speed_up"] == "holds" and t["bunkers_push_speed_down"] == "holds"
+    ]
+    tanker_cells = [g for r in routes if baltic.ROUTES[r["route"]].segment != "dry" for g in r["grid"]]
+    top_share = sum(1 for g in tanker_cells if g["at_top"]) / len(tanker_cells)
+    moved_at = {g["freight_level"] for g in tanker_cells if not g["at_top"]}
     out_routes = []
     for r in routes:
         route = baltic.ROUTES[r["route"]]
@@ -891,18 +958,24 @@ def speed_page(speed: Mapping[str, Any]) -> dict[str, Any]:
         fig(len(held), "count", "textbook.held"),
         " of the ",
         fig(len(routes), "count", "textbook.routes"),
-        " routes with a public freight rate in dollars, a higher rate never lowers the best speed and dearer bunkers "
-        "never raise it: the textbook result holds. It holds weakly for the tankers: with only two published "
-        "consumption pairs their fitted exponents are low, so faster steaming looks cheap and in ",
-        fig(bound_share * 100.0, "percent_0", "textbook.bound_share", suffix=" percent"),
-        " of the cases the best speed is at the top of the range searched.",
+        " routes with a public freight rate in dollars, a higher rate never lowers the best speed, dearer bunkers "
+        "never raise it, and each moves it somewhere in the grid: the textbook result holds. For the tankers it "
+        "shows %s: with only two published consumption pairs their fitted exponents are low, so faster steaming "
+        "looks cheap and in "
+        % (
+            "only at the lowest public freight"
+            if moved_at == {"low"}
+            else "in %d of their %d cases" % (sum(1 for g in tanker_cells if not g["at_top"]), len(tanker_cells))
+        ),
+        fig(top_share * 100.0, "percent_0", "textbook.top_share", suffix=" percent"),
+        " of their cases the best speed is at the top of the range searched.",
     ]
     return {
         "lead": lead,
-        "bound_mark": "(top of the range)",
-        "note": "The range searched runs one knot either side of the published consumption pairs, the only speeds "
-        "the guide's data support. Linear interpolation between pairs puts kinks at the published speeds, so best "
-        "speeds often fall exactly on one of them.",
+        "bound_marks": {"top": "(top of the range)", "bottom": "(bottom of the range)"},
+        "note": "The range searched runs one knot either side of the published consumption pairs; beyond them "
+        "consumption follows the power law fitted to the pairs, an extrapolation. Linear interpolation between "
+        "pairs puts kinks at the published speeds, so best speeds often fall exactly on one of them.",
         "routes": out_routes,
     }
 
@@ -953,6 +1026,15 @@ def hub_words() -> str:
     return words + "."
 
 
+def _td22_malacca_words() -> tuple[str, str]:
+    """The Baltic's 2017 TD3C mileage, and how much shorter TD22's laden leg would be through the Sunda Strait."""
+    td22 = baltic.ROUTES["TD22"]
+    malacca = cases.leg_record(td22.load, td22.discharge, td22.laden_routing)["distance_nm"]
+    sunda = cases.leg_record(td22.load, td22.discharge, "no_canals")["distance_nm"]
+    mileage = cases.seed("anchors.json")["baltic_td3c_2017"]["inputs"]["distance_nm"]
+    return f"{mileage:,.0f}", f"{malacca - sunda:,.1f}"
+
+
 def routes_page(market_label: str, eua: float, fx: float, rows: list[Mapping[str, Any]]) -> dict[str, Any]:
     with_ets = [r for r in rows if r["costs_usd"]["ets"]]
     bunkers_only = [r for r in rows if r["shares"]["bunkers"] > 1.0 - 1e-9]
@@ -974,11 +1056,16 @@ def routes_page(market_label: str, eua: float, fx: float, rows: list[Mapping[str
         fig(min(ets_shares) * 100.0, "percent", "ets_share.min"),
         " to ",
         fig(max(ets_shares) * 100.0, "percent", "ets_share.max", suffix=" percent"),
-        " of them; a Hormuz war risk premium at the latest dated rate, ",
-        fig(w["premium_pct"], "percent", "hormuz.premium_pct", suffix=" percent"),
-        " of hull value, would cost the charterer of a %s cargo " % _short(worst["route"]),
+        " of them; a Hormuz war risk premium at the low end of the latest dated range, ",
+        fig(w["premium_pct"], "percent", "hormuz.premium_pct"),
+        " to ",
+        fig(_hormuz_high(), "percent", "hormuz.premium_pct_high", suffix=" percent"),
+        " of hull value (%s, %s), would cost the charterer of a %s cargo "
+        % (*_latest_hormuz_rate(), _short(worst["route"])),
         fig(w["premium_to_bunkers"], "exponent", "hormuz.premium_to_bunkers"),
-        " times the voyage's fuel bill.",
+        " times the voyage's fuel bill, ",
+        fig(w["premium_to_bunkers"] * _hormuz_high() / w["premium_pct"], "exponent", "hormuz.premium_to_bunkers_high"),
+        " times at the top of the range.",
     ]
     chart_title = [
         "Sourced voyage costs run from ",
@@ -1002,6 +1089,8 @@ def routes_page(market_label: str, eua: float, fx: float, rows: list[Mapping[str
         "chart": {
             "title": chart_title,
             "axis": "Sourced voyage costs, USD a day of the round voyage",
+            "note": "S4A is a trip time charter: its bar holds the charterer's trip costs and the owner's ballast leg "
+            "back to the US Gulf.",
             "desc": "One bar a route, grouped by segment, split into bunkers and EU allowances; port charges and canal "
             "tolls have no public figure and are left out of every bar. S4A is a trip time charter: its bar holds the "
             "charterer's trip costs and the owner's ballast leg back to the US Gulf.",
@@ -1022,8 +1111,11 @@ def routes_page(market_label: str, eua: float, fx: float, rows: list[Mapping[str
                 {"family": "ets", "text": "EU ETS allowances"},
             ],
         },
-        "table_caption": "Every route: the Baltic's ship and cargo, distances by routing, the share of the miles "
-        "inside emission control areas, port days and sourced voyage costs at %s prices." % market_label,
+        "table_caption": "Every route: the Baltic's ship and cargo, distances by routing (the one each route is "
+        "priced on marked), the share of the miles inside emission control areas, port days and sourced voyage costs "
+        "at %s prices." % market_label,
+        "priced_mark": "(priced)",
+        "turn_time_mark": "(turn time only: loading at the port's scale has no published rate)",
         "hormuz": {
             "title": "The Gulf loadings with the Hormuz premium",
             "caption": "Each Gulf loading at the common market with the latest dated Hormuz premium for each seven "
@@ -1063,9 +1155,11 @@ def routes_page(market_label: str, eua: float, fx: float, rows: list[Mapping[str
             "Distances are searoute 1.6.0 over Eurostat's SeaRoute network, the line the map draws. Each route has "
             "a routing for each leg (the shortest with the canals open, or Suez, Panama or both avoided) and the "
             "table lists every routing that changes the distance. The laden leg runs from the load port to the "
-            "discharge port; the ballast leg back from the discharge port, the Baltic's TCE delivery point. TD22 "
-            "sails round the Cape of Good Hope and through the Sunda Strait, as NGA Pub. 151's route to Shanghai "
-            "does; the Baltic measures its distances on AtoBviaC tables, which are not published.",
+            "discharge port; the ballast leg back from the discharge port, the Baltic's TCE delivery point. TD22's "
+            "laden VLCC goes round the Cape of Good Hope and through the Strait of Malacca, as the Baltic's own TD3C "
+            "calculation routes the same laden ship (%s nm, July 2017), not through the shallower Sunda Strait of "
+            "the shortest network line (%s nm shorter), which its ballast leg takes. The Baltic measures its "
+            "distances on AtoBviaC tables, which are not published." % _td22_malacca_words(),
             "Each line starts at the network's node nearest its port. Amsterdam's nearest node lies in the IJmeer, "
             "behind the lakes, so its legs are asked from IJmuiden and the 14 miles of the North Sea Canal are added "
             "(Pub. 151 page 44); the stretch from the port is added at Port Hedland (43 nm of open water) and Jubail "
@@ -1073,9 +1167,10 @@ def routes_page(market_label: str, eua: float, fx: float, rows: list[Mapping[str
             "does not draw at Ningbo and Houston, and about 21.5 nm a leg at Tubarao, where the node lies off the "
             "way the line runs.",
             "Miles inside emission control areas are measured on the same line against polygons built from MARPOL "
-            "Annex VI Appendix VII and the area regulations, with the Mediterranean ECA from 1 May 2025 and the "
-            "Canadian Arctic and Norwegian Sea ECAs from 1 March 2027. Inside them a ship without a scrubber burns "
-            "MGO at 0.10 percent sulphur; outside, VLSFO at 0.50 percent.",
+            "Annex VI Appendix VII and the area regulations, with the Mediterranean ECA from 1 May 2025. The "
+            "Canadian Arctic and Norwegian Sea ECAs (0.10 percent from 1 March 2027) are listed with their dates but "
+            "not drawn: no study route enters them. Inside an ECA a ship without a scrubber burns MGO at 0.10 percent "
+            "sulphur; outside, VLSFO at 0.50 percent.",
             hub_words()
             + " The common market is %s: %s; the allowance price and the dollar rate are %s averages."
             % (market_label, common_market_words(), market_label),
@@ -1085,8 +1180,7 @@ def routes_page(market_label: str, eua: float, fx: float, rows: list[Mapping[str
             "estimates, which are not published), so every TCE leaves them out and reads high by their amount.",
             "Canal tolls depend on each ship's own canal tonnage, which is not published for the Baltic's standard "
             "ships; a routing through a canal leaves its toll out and says so. The guide's dry route terms set no "
-            "time at a canal, so P7 also leaves out its transit and any wait at Panama, where unbooked waits of "
-            "%s were reported in April 2026." % _panama_wait(),
+            "time at a canal, so P7 also leaves out its transit and any wait at Panama. %s." % _panama_wait(),
             "Tankers sail at the laden and ballast speeds their descriptions name, at which the Baltic prices its "
             "TCEs. The dry routes name no speed, so the study prices bulk carriers at the fastest pair the guide "
             "prints for each ship, its own choice; the calculator shows the TCE at every speed.",
@@ -1159,10 +1253,12 @@ def detours_page(st: Mapping[str, Any], sd: Mapping[str, Any], hz: Mapping[str, 
         fig(cape["extra_days"], "days", "cape_vs_suez.extra_days", suffix=" more days"),
         " and needs ",
         usd(cape["extra_freight_usd_t"], "cape_vs_suez.extra_freight_usd_t", "usd_t"),
-        " a tonne more freight to earn what it earns by Suez, against a Red Sea premium of ",
+        " a tonne more freight to earn what it earns by Suez before Suez tolls, a gap that closes only when the two "
+        "tolls reach ",
+        usd_m(st["break_even_suez_toll_usd"], "takeaway.break_even_suez_toll_usd"),
+        "; by Suez the Red Sea premium on the laden transit costs its charterer ",
         usd(red["per_tonne_usd"], "red_sea.per_tonne_usd", "usd_t"),
-        " a tonne for its charterer; for a VLCC loading in the Gulf, each further seven days inside costs the "
-        "charterer another ",
+        " a tonne; for a VLCC loading in the Gulf, each further seven days inside costs the charterer another ",
         usd(scen["war_low"]["charterer_war_risk_usd_t"], "hormuz.war_low.per_tonne", "usd_t"),
         " a tonne of premium at %s percent of hull value." % ("%g" % marsh["low"]),
     ]
@@ -1172,15 +1268,16 @@ def detours_page(st: Mapping[str, Any], sd: Mapping[str, Any], hz: Mapping[str, 
     chart_rows = [
         {
             "group": group_tc20,
-            "label": "Cape of Good Hope instead of Suez",
+            "label": "Cape of Good Hope instead of Suez, before Suez tolls",
             "segments": [{"value": cape["extra_freight_usd_t"], "family": "routing"}],
-            "detail": "%.1f more days" % cape["extra_days"],
+            "detail": "%.1f more days, %.2f billion more tonne miles"
+            % (cape["extra_days"], cape["extra_tonne_miles"] / 1e9),
         },
         {
             "group": group_tc20,
-            "label": "Red Sea premium on the two Suez transits, the charterer's",
+            "label": "Red Sea premium on the laden Suez transit, the charterer's",
             "segments": [{"value": red["per_tonne_usd"], "family": "war"}],
-            "detail": "USD %s" % f"{red['cost_usd']:,.0f}",
+            "detail": "USD %s" % f"{red['charterer_usd']:,.0f}",
         },
         {
             "group": group_dry,
@@ -1225,9 +1322,9 @@ def detours_page(st: Mapping[str, Any], sd: Mapping[str, Any], hz: Mapping[str, 
         "takeaway": takeaway,
         "chart": {
             "title": [
-                "Per tonne of cargo the Cape costs an LR2's owner far more freight than the Red Sea premium costs "
-                "its charterer, and for a VLCC loading in the Gulf each week of waiting adds a period of premium to "
-                "the TCE the wait forgoes.",
+                "Per tonne of cargo, the Cape costs an LR2's owner far more freight than the Red Sea premium costs "
+                "its charterer; for a VLCC loading in the Gulf, each further week inside adds a period of premium and "
+                "a week of lost earnings.",
             ],
             "axis": "Extra cost of carriage, USD a tonne",
             "legend": [
@@ -1236,8 +1333,9 @@ def detours_page(st: Mapping[str, Any], sd: Mapping[str, Any], hz: Mapping[str, 
             ],
             "desc": "Each bar is what a tonne of cargo costs more than on the base routing: the freight the owner "
             "needs to earn the base TCE (ink) and the charterer's war risk premium at cost (coloured). A premium is "
-            "charged for each seven days or part of them inside a listed area; waiting is priced at the TCE of the "
-            "latest week, which waiting days forgo.",
+            "charged for each seven days or part of them inside a listed area; the TC20 owner's own premium, on its "
+            "ballast transit of the Red Sea, is inside the Suez TCE the Cape must match; waiting is priced at the TCE "
+            "of the latest week, which waiting days forgo.",
             "rows": chart_rows,
             "source": with_retrieval(
                 [
@@ -1248,7 +1346,7 @@ def detours_page(st: Mapping[str, Any], sd: Mapping[str, Any], hz: Mapping[str, 
                     usd(latest_level["tce_usd_day"], "hormuz.latest_tce", "usd_day"),
                     " a day). War risk: Marsh, 22 July 2026, on Xclusiv Shipbrokers' hull values of 7 September 2026. "
                     "Suez and Panama tolls and the crew war bonus have no public figure for these ships and are left "
-                    "out; the transfer chain and TD34 are set out in the Hormuz panel.",
+                    "out; the transfer chain and TD34 are set out under Hormuz, VLCC.",
                 ]
             ),
         },
@@ -1258,20 +1356,28 @@ def detours_page(st: Mapping[str, Any], sd: Mapping[str, Any], hz: Mapping[str, 
                 usd(st["options"][0]["tce_usd_day"], "suez.tce", "usd_day"),
                 " a day and the Cape ",
                 usd(st["options"][1]["tce_usd_day"], "cape.tce", "usd_day"),
-                ". The premiums are the charterer's: the Gulf's, which both routings pay, and on the Suez routing the "
-                "Red Sea's, ",
+                ". The Red Sea premium is ",
                 fig(red["premium_pct"], "percent", "red_sea.premium_pct", suffix=" percent"),
                 " of a ",
                 usd_m(_hull("LR2-115"), "suez.hull_value_usd", "usd_m_0"),
-                " hull on each of ",
-                fig(red["transits"], "count", "red_sea.transits"),
-                " transits, ",
-                usd(red["cost_usd"], "red_sea.cost_usd"),
-                ". Suez stays the better voyage for the owner until its toll passes ",
+                " hull a transit, ",
+                usd(red["per_transit_usd"], "red_sea.per_transit_usd"),
+                ": the charterer pays it on the laden transit, as it pays the Gulf's premium on both routings "
+                "(Platts, 8 December 2025), and the owner on the ballast one, its approach to the next loading, "
+                "which a charterer pays only if its charter says so (Gard, 21 March 2026), so it comes off the Suez "
+                "TCE. Suez stays the better voyage for the owner until its tolls for the ",
+                fig(st["break_even_suez_transits"], "count", "break_even_suez_transits"),
+                " transits together pass ",
                 usd_m(st["break_even_suez_toll_usd"], "break_even_suez_toll_usd"),
-                "; the Suez Canal Authority puts the toll of a one million barrel crude tanker at about USD 500,000. "
-                "A Jubail loading is Saudi linked, and from 24 July 2026 Lloyd's insurers excluded Saudi linked ships "
-                "from war risk cover (Windward, 30 July 2026), so cover at the quoted rate may not be available.",
+                ", about ",
+                usd_m(
+                    st["break_even_suez_toll_usd"] / st["break_even_suez_transits"],
+                    "break_even_suez_toll_per_transit_usd",
+                ),
+                " a transit; the Suez Canal Authority puts the toll of a one million barrel crude tanker at about USD "
+                "500,000 a transit. A Jubail loading is Saudi linked, and from 24 July 2026 Lloyd's insurers excluded "
+                "Saudi linked ships from war risk cover (Windward, 30 July 2026), so cover at the quoted rate may not "
+                "be available.",
             ],
         },
         "suez_dry": {
@@ -1316,13 +1422,17 @@ def detours_page(st: Mapping[str, Any], sd: Mapping[str, Any], hz: Mapping[str, 
                 " a TD3C voyage spends there make one period, ",
                 usd(scen["war_low"]["charterer_war_risk_usd_t"], "hormuz.war_low.per_tonne", "usd_t"),
                 " a tonne for the charterer whatever the market. Each further seven days of waiting adds a period of "
-                "premium and costs the owner the TCE it forgoes: 10 days add ",
+                "premium and costs the owner the TCE it forgoes: 10 days of waiting make ",
+                fig(scen["wait_10"]["periods"], "count", "hormuz.wait_10.periods", suffix=" periods"),
+                ", adding ",
                 usd(
                     scen["wait_10"]["charterer_war_risk_usd_t"] - scen["war_low"]["charterer_war_risk_usd_t"],
                     "hormuz.wait_10.premium_t",
                     "usd_t",
                 ),
-                " a tonne of premium and ",
+                " a tonne to the first period's ",
+                usd(scen["war_low"]["charterer_war_risk_usd_t"], "hormuz.war_low.per_tonne_again", "usd_t"),
+                ", and ",
                 usd(owner("wait_10", latest_level["week_ending"]), "hormuz.wait_10.latest", "usd_t"),
                 " of freight at the latest week's TCE (",
                 usd(owner("wait_10", closure["week_ending"]), "hormuz.wait_10.closure", "usd_t"),
@@ -1359,6 +1469,13 @@ def detours_page(st: Mapping[str, Any], sd: Mapping[str, Any], hz: Mapping[str, 
                 usd(chains["td3c_freight_at_own_tce_usd_t"], "td3c.freight_t", "usd_t"),
                 ", for a cargo already in the Gulf of Oman.",
             ],
+            "shuttle_range": "%s to %s" % (f"{shuttle['bbl_low_t']:,.2f}", f"{shuttle['bbl_high_t']:,.2f}"),
+            "table_caption": "TD3C, Ras Tanura to Ningbo, bunkers of the week to %s; the premium is the charterer's, "
+            "and each freight column keeps the Baltic's TD3C TCE of its week. The last two rows load outside the "
+            "strait, where no dated premium was found: the export VLCC after a transfer off Fujairah, with the "
+            "shuttle the charterer pays beside it (reported at USD %g to %g a barrel), and TD34 from Mina Al Fahal; "
+            "the transfer's own days and cost have no public figure."
+            % (date_label(hz["as_of"]), shuttle["bbl_low"], shuttle["bbl_high"]),
             "levels_words": {lvl["week_ending"]: lvl["label"] for lvl in hz["levels"]},
             "levels_short": {
                 lvl["week_ending"]: {
@@ -1403,10 +1520,12 @@ def detours_page(st: Mapping[str, Any], sd: Mapping[str, Any], hz: Mapping[str, 
             "A detour is priced with the same engine at the same week's bunkers: the extra days and tonne miles "
             "against the base routing, and the freight at which the detour earns the base routing's TCE. On the usual "
             "spot terms a war risk premium is the charterer's (Platts, 8 December 2025), reimbursed to the owner at "
-            "cost under VOYWAR 2013 (Gard, 21 March 2026), and the Baltic's TCEs leave it out: it is shown at cost per "
-            "tonne of cargo beside the owner's freight. Waiting stays the owner's (VOYWAR 2013 covers a deviation, "
-            "not waiting), so it moves the freight the owner needs by the TCE it forgoes and depends on the market's "
-            "level.",
+            "cost under VOYWAR 2013 (Gard, 21 March 2026), and the Baltic's TCE descriptions name none: it is shown "
+            "at cost per tonne of cargo beside the owner's freight. A passage on the ballast leg, the approach to the "
+            "next loading, is the owner's unless a charter says otherwise (Gard), so it comes off the owner's TCE. "
+            "Waiting is priced as days the owner loses at the week's TCE, so it moves the freight the owner needs and "
+            "depends on the market's level; waiting at a load port after notice of readiness would count as laytime "
+            "and then demurrage, which the charterer pays at the charter's rate and the study does not price.",
             "An additional premium is a percentage of hull value charged on entering a listed area, for up to seven "
             "days there (Platts, 1 April 2026); each further seven days inside, or part of them, is another period, "
             "counted from the days the voyage spends in the Gulf west of the Strait of Hormuz, the load port's days "
@@ -1415,16 +1534,18 @@ def detours_page(st: Mapping[str, Any], sd: Mapping[str, Any], hz: Mapping[str, 
         "assumptions": [
             "The ship waits at its load port, inside the Gulf, so its waiting days count toward the premium's "
             "periods; a ship that waits outside before entering would pay one period.",
-            "The listed area is taken to end at the Strait of Hormuz, so the count is a lower bound: cover periods "
-            "have shortened since February 2026 (Platts, 5 October 2026), and if the area ran into the Gulf of Oman, "
-            "as far as 58 degrees east, a TD3C voyage would spend about %s days inside and pay two periods with no "
-            "waiting." % ("%.1f" % hz["days_inside_to_58e"]),
+            "The listed area is taken to end at the Strait of Hormuz, so the count is a lower bound. The Joint War "
+            "Committee widened its Persian Gulf and Arabian Sea listed areas in 2026 and cover periods have shortened "
+            "since February (Platts, 5 October 2026); the boundary text was not found. To 58 degrees east a TD3C "
+            "voyage would spend about %s days inside and pay two periods with no waiting, and a Gulf of Oman loading "
+            "(the Fujairah transfer, TD34 at Mina Al Fahal) may pay a premium for which no dated rate was found."
+            % ("%.1f" % hz["days_inside_to_58e"]),
             "Hull values are Xclusiv Shipbrokers' five year old values of 7 September 2026; the LR1 and the Handy "
             "tanker have none. The premium rates are the latest dated ones found: Marsh, 22 July 2026, for the Gulf "
             "and for Bab el Mandeb.",
             "The Panamax runs one way like the P4 trip, delivered at Qingdao and redelivered at Rotterdam, with no "
-            "ballast leg and no port time; P4's own 55 to 70 days include port time and the positioning before "
-            "delivery, so its freights are floors.",
+            "ballast leg and no port time; P4's own 55 to 70 days run from delivery and include port time and any "
+            "positioning to the loading port after delivery, so its freights are floors.",
             "Left out everywhere: port charges, the Suez and Panama tolls, time at a canal on the dry routings, and "
             "the crew war bonus; on the transfer chain the transfer's own cost and days, and the shuttle, which is "
             "set beside the export voyage, not in it.",
@@ -1453,7 +1574,8 @@ def carbon_page(c: Mapping[str, Any]) -> dict[str, Any]:
         fig(year(intra, 2026)["share_of_voyage_costs"] * 100.0, "percent", "TC23.2026.share", suffix=" percent"),
         " of its sourced voyage costs, a Suezmax from West Africa to Rotterdam ",
         usd(year(into, 2026)["cost_usd"], "TD20.2026.cost_usd"),
-        " for half its emissions and a VLCC from the Gulf to China nothing; in 2024 the same voyages paid ",
+        " for half its emissions at sea and all of them at Rotterdam, and a VLCC from the Gulf to China nothing; in "
+        "2024 the same voyages paid ",
         fig(year(intra, 2024)["phase_in"] * 100.0, "percent_0", "phase_in.2024", suffix=" percent"),
         " of their emissions' allowances, on carbon dioxide alone.",
     ]
@@ -1501,6 +1623,16 @@ def carbon_page(c: Mapping[str, Any]) -> dict[str, Any]:
                 usd(tc["owner_ets_usd"], "time_charter.owner_ets_usd"),
                 " for the ballast leg out of the EEA after redelivery.",
             ],
+            "party_head": "Party",
+            "legs_head": "What it bears",
+            "charterer": "Charterer",
+            "charterer_legs": "The trip, US Gulf to the Skaw-Passero range, half its emissions at sea into the EEA "
+            "and all of them in port",
+            "owner": "Owner",
+            "owner_legs": "The ballast leg back to the US Gulf after redelivery, half its emissions at sea out of the "
+            "EEA",
+            "table_caption": "S4A, 2026: allowances surrendered for 100 percent of covered emissions, methane and "
+            "nitrous oxide included, at EUR {eua} a tonne and {fx} dollars per euro.",
         },
         "sections": [
             {
@@ -1533,9 +1665,9 @@ def carbon_page(c: Mapping[str, Any]) -> dict[str, Any]:
             ],
             [
                 "Fuel at the %s common market, each voyage on its Baltic ship's speeds and consumptions: MGO inside "
-                "emission control areas and at berth in EU ports, VLSFO elsewhere, classed as HFO (ISO 8217 residual "
-                "grades RME, RMG and RMK) for its emission factor, as IMO resolution MEPC.391(81) classes it."
-                % c["market"]
+                "emission control areas and at berth in EU ports, VLSFO elsewhere. VLSFO is classed by its ISO 8217 "
+                "grade (IMO resolution MEPC.391(81)): HFO for RME, RMG and RMK, the default here since most VLSFO is "
+                "tested against RMG 380, and LFO (3.151 t of CO2 a tonne) for RMA, RMB and RMD." % c["market"]
             ],
             [
                 "Methane and nitrous oxide at the warming potentials of the ETS and MRV, 28 and 265 (Delegated "
@@ -1556,8 +1688,9 @@ def carbon_page(c: Mapping[str, Any]) -> dict[str, Any]:
         ],
         "method": [
             "Emissions are the fuel burnt by grade times the factors of the MRV Regulation (EU) 2015/757 as amended: "
-            "3.114 t of CO2 per t of HFO, 3.151 for LFO and 3.206 for MGO, with VLSFO an ISO 8217 residual grade "
-            "(HFO). From 2026 methane and nitrous oxide count, at 0.00005 and 0.00018 g per g of fuel times warming "
+            "3.114 t of CO2 per t of HFO, 3.151 for LFO and 3.206 for MGO, with VLSFO classed by its ISO 8217 grade "
+            "(HFO by default, LFO for RMA to RMD). From 2026 methane and nitrous oxide count, at 0.00005 and 0.00018 g "
+            "per g of fuel times warming "
             "potentials of 28 and 265.",
             "Covered emissions follow Article 3ga of the ETS Directive: 100 percent of a voyage between two EEA ports "
             "and of the emissions within a port of call in the EEA, 50 percent of a voyage into or out of the EEA. "
@@ -1573,8 +1706,31 @@ def carbon_page(c: Mapping[str, Any]) -> dict[str, Any]:
 
 
 def _months_words(months: Sequence[Mapping[str, Any]]) -> str:
-    """'July 29.0, August 31.0, September 16.5' from a strip's month weights."""
-    return ", ".join("%s %.1f" % (date_label(m["month"]).split()[0], m["days"]) for m in months)
+    """'July 29.0 days at 36,232, August 31.0 at 36,828' from a strip's month weights and FFAs."""
+    return ", ".join(
+        "%s %.1f%s at %s"
+        % (date_label(m["month"]).split()[0], m["days"], " days" if i == 0 else "", f"{m['usd_day']:,.0f}")
+        for i, m in enumerate(months)
+    )
+
+
+def _basis_range(low: float, high: float, field: str) -> Segments:
+    """'between USD 419 and 4,060 above', a basis given on two prints of a curve."""
+    if low >= 0 or high < 0:
+        return [
+            "between ",
+            usd(abs(low if low >= 0 else high), field + ".0", "usd_day"),
+            " and ",
+            fig(abs(high if low >= 0 else low), "usd_day", field + ".1"),
+            " %s" % ("above" if low >= 0 else "below"),
+        ]
+    return [
+        "between ",
+        usd(abs(low), field + ".0", "usd_day"),
+        " below and ",
+        fig(high, "usd_day", field + ".1"),
+        " above",
+    ]
 
 
 def paper_page(p: Mapping[str, Any]) -> dict[str, Any]:
@@ -1595,12 +1751,12 @@ def paper_page(p: Mapping[str, Any]) -> dict[str, Any]:
         " a tonne earned ",
         usd(c3["physical_tce_gross_usd_day"], "C3.physical_tce_gross_usd_day", "usd_day"),
         " a day grossed up by its %g percent commission, " % c3["commission_pct"],
-        usd(abs(c3["basis_usd_day"]), "C3.basis_usd_day", "usd_day"),
-        " %s the 5TC FFA over its days, and a C5 cargo " % side(c3["basis_usd_day"]),
-        usd(abs(c5["basis_usd_day"]), "C5.basis_usd_day", "usd_day"),
-        " %s it; hedging the C3 voyage takes " % side(c5["basis_usd_day"]),
+        *_basis_range(*c3["basis_range_usd_day"], "C3.basis_range"),
+        " the 5TC FFA over its days on the two prints of the 29 June curve, and a C5 cargo ",
+        *_basis_range(*c5["basis_range_usd_day"], "C5.basis_range"),
+        " it; hedging the C3 voyage takes ",
         fig(c3["hedge_days"], "days", "C3.hedge_days", suffix=" days"),
-        " of 5TC or ",
+        " of 5TC (182) or ",
         fig(baltic.ROUTES["C3"].cargo_t, "t", "C3.cargo_t", suffix=" tonnes"),
         " of C3 FFA.",
     ]
@@ -1613,27 +1769,31 @@ def paper_page(p: Mapping[str, Any]) -> dict[str, Any]:
             {"text": "Physical TCE, net of commission, USD a day", "short": "net TCE"},
             {"text": "Grossed up by the commission, USD a day", "short": "gross TCE"},
             {"text": "FFA months, days in each", "short": "FFA months", "words": True},
-            {"text": "5TC FFA over the voyage's days, USD a day", "short": "FFA"},
+            {"text": "5TC (182) FFA over the voyage's days, the print used, USD a day", "short": "FFA"},
             {"text": "Basis, grossed up TCE less FFA, USD a day", "short": "basis"},
+            {"text": "Basis on the curve's other print, USD a day", "short": "other print"},
             {"text": "Freight whose grossed up TCE equals the FFA, USD a tonne", "short": "freight for the FFA"},
             {"text": "Spot 5TC on the fixture date, 182,000 t basis, USD a day", "short": "spot"},
             {"text": "Timing basis, FFA less spot, USD a day", "short": "timing basis"},
-            {"text": "Hedge, days of 5TC", "short": "hedge"},
+            {"text": "Hedge, days of 5TC (182), EEX C5TM", "short": "hedge"},
             {"text": "Days that hedge the net earnings", "short": "net hedge"},
         ],
         "title": "Paper: the physical fixture against the FFA",
         "takeaway": takeaway,
         "chart": {
             "title": [
-                "Grossed up by their commission, the C5 voyages earn well above the 5TC FFA over their days, while "
-                "C3 sat near it in July and ",
+                "Grossed up by their commission, the C5 voyages earn well above the 5TC FFA over their days in both "
+                "weeks; C3 sat ",
+                *_basis_range(*c3["basis_range_usd_day"], "C3.chart.basis_range"),
+                " it in July, depending on which print of the 29 June curve is read, and ",
                 usd(abs(c3_oct["basis_usd_day"]), "C3.october.basis_usd_day", "usd_day"),
                 " a day %s it in October." % side(c3_oct["basis_usd_day"]),
             ],
             "axis": "USD a day",
             "desc": "For each anchor week and route, the physical voyage TCE grossed up by its commission (ink dot), "
             "the 5TC FFA over the voyage's days (ringed dot) and the spot 5TC on the fixture date for the 182,000 t "
-            "ship (muted dot); the rule between the first two is the basis.",
+            "ship (muted dot); the rule between the first two is the basis, its value written above it.",
+            "basis_label": "Basis {basis}",
             "legend": [
                 {
                     "kind": "ink",
@@ -1653,15 +1813,37 @@ def paper_page(p: Mapping[str, Any]) -> dict[str, Any]:
         },
         "fixture": {
             "lead": [
-                "A C5 fixture reported on 22 October 2026 at ",
+                "A C5 fixture reported on %s at " % date_label(fixture["date"]),
                 usd(fixture["fixture_usd_t"], "c5_fixture.fixture_usd_t", "usd_t"),
-                " a tonne for %s, against the C5 index of " % fixture["laycan"],
-                usd(fixture["index_usd_t"], "c5_fixture.index_usd_t", "usd_t"),
-                ", earns ",
-                usd(fixture["basis_usd_day"], "c5_fixture.basis_usd_day", "usd_day"),
-                " a day more than a cargo at the index: the basis between a fixture and the index it would be hedged "
-                "with.",
+                " a tonne for %s was fixed at the route's level that day in the report's narrative, "
+                % fixture["laycan"],
+                usd(fixture["route_on_day_usd_t"], "c5_fixture.route_on_day_usd_t", "usd_t"),
+                ": no basis on the day. The report's table of Baltic indices gives the C5 index only at the next "
+                "day's close, ",
+                usd(fixture["index_next_day_usd_t"], "c5_fixture.index_next_day_usd_t", "usd_t"),
+                " on %s, where its narrative says " % date_label(fixture["next_day"]),
+                usd(fixture["narrative_next_day_usd_t"], "c5_fixture.narrative_next_day_usd_t", "usd_t"),
+                "; on the table's series the fixture sat about ",
+                usd(abs(fixture["basis_table_series_usd_t"]), "c5_fixture.basis_table_series_usd_t", "usd_t"),
+                " a tonne, ",
+                usd(abs(fixture["basis_table_series_usd_day"]), "c5_fixture.basis_table_series_usd_day", "usd_day"),
+                " a day, %s the index on its day: the basis between a fixture and the index it would be hedged with."
+                % ("below" if fixture["basis_table_series_usd_day"] < 0 else "above"),
             ],
+            "table_caption": "A fixture against the index it would be hedged with, on the fixture's day and the "
+            "next; TCEs at the bunker table of %s." % date_label(fixture["next_day"]),
+        },
+        "route_ffa": {
+            "title": "A route FFA in dollars a tonne, converted by the engine",
+            "lead": "No dated public C3 or C5 FFA quote in dollars a tonne was found, so the box starts empty. Type "
+            "one to price an anchor voyage at it with the same engine: its TCE net of commission, grossed up, against "
+            "the 5TC (182) FFA over the same days.",
+            "voyage_label": "Voyage",
+            "ffa_label": "Route FFA, USD a tonne",
+            "empty": "Type a route FFA to convert it into a TCE.",
+            "invalid": "Enter a number.",
+            "result": "At {ffa} a tonne the voyage earns {net} a day net of commission, {gross} grossed up: {basis} "
+            "{side} the 5TC (182) FFA of {strip} over its days.",
         },
         "td3c": {
             "lead": [
@@ -1704,8 +1886,13 @@ def paper_page(p: Mapping[str, Any]) -> dict[str, Any]:
             "A time charter FFA such as the Capesize 5TC settles on the arithmetic average of the Baltic's daily 5TC "
             "assessments in the contract month, in dollars a day; a voyage route FFA such as C3 or C5 on the "
             "average of the route's daily assessments, in dollars a tonne (EEX contract specifications, release "
-            "047a, July 2026). Tanker FFAs on ICE settle on the average of the route's assessments over the month, "
-            "in dollars a tonne.",
+            "047a, July 2026). The 182,000 t ship is hedged in 5TC (182) days, EEX's C5TM; EEX's CPTM settles on "
+            "the 180,000 t basket, which the guide derives as the 182,000 t basket less USD %s a day (page 77), a "
+            "fixed difference a CPTM hedge of this ship would carry. Tanker FFAs on ICE settle in dollars a tonne "
+            "on the average of the month's assessments: the Baltic's for TD3C, TD20, TD22, TD25, TD34, TC2, TC14, "
+            "TC20 and TC23, Platts' for TC5 and for the 75,000 t Arab Gulf to Japan contract, the TC1 size (ICE "
+            "Futures Europe rulebook, section TTT), so a TC1 or TC5 cargo priced off the Baltic and hedged on ICE "
+            "carries the difference between two assessors." % f"{baltic.C5TC_180_DIFFERENTIAL:,.0f}",
             "Time charter assessments, and the FFAs that settle on them, are gross daily hire: each 5TC route is "
             "assessed at 5 percent total commission (Guide to Market Benchmarks v%s, pages 77 and 78). A voyage TCE "
             "is net of the same commission, so it is grossed up by it before it is set against the 5TC, as the guide "
@@ -1735,8 +1922,30 @@ def paper_page(p: Mapping[str, Any]) -> dict[str, Any]:
                     f"{basis['basket_182_if_180_usd_day']:,.0f}",
                 )
             ],
+            [curves["wk26_2026"]["date_note"]],
             [curves["wk27_2026"]["date_note"]],
             [curves["wk43_2026"]["date_note"]],
+            [
+                "The physical TCEs carry a 5 percent weather margin on steaming time, the study's choice for dry "
+                "routes: the guide sets it for its tanker TCEs (Appendix 3) and leaves a dry route's allowances to its "
+                "panellists (section 7.4.2). Without it the grossed up TCEs would be ",
+                usd(
+                    min(r["no_margin_tce_gross_usd_day"] - r["physical_tce_gross_usd_day"] for r in rows),
+                    "no_margin.gain_low",
+                    "usd_day",
+                ),
+                " to ",
+                fig(
+                    max(r["no_margin_tce_gross_usd_day"] - r["physical_tce_gross_usd_day"] for r in rows),
+                    "usd_day",
+                    "no_margin.gain_high",
+                ),
+                " a day higher, and C3's basis ",
+                fig(c3["no_margin_basis_usd_day"], "usd_day", "C3.no_margin_basis", signed=True),
+                " in July and ",
+                fig(c3_oct["no_margin_basis_usd_day"], "usd_day", "C3.october.no_margin_basis", signed=True),
+                " in October.",
+            ],
             [
                 "C3 is priced at Singapore bunkers, the hub on its voyage. At Rotterdam's, the hub with public prices "
                 "nearest Tubarao, it would earn ",
@@ -1774,23 +1983,35 @@ def method_page(validation: Mapping[str, Any], route_rows: Sequence[Mapping[str,
     per_day = {r["route"]: r["excluded_block_per_day_usd"] for r in route_rows}
     tanker = validation["tanker"]
     summary = anchors.lump_sum_summary()
+    implied = anchors.implied_summary()
+    flats = anchors.implied_flat_rates()
     cross = anchors.broker_cross_check()
     reproducible = summary["rows"]
-    ws = [r for r in tanker if not r["reproducible"] and r["rate_basis"] == "ws"]
+    ws = [r for r in tanker if not r["reproducible"] and not r.get("implied") and r["rate_basis"] == "ws"]
     distances = validation["distances"]["checks"]
     within = [c for c in distances if c["within_tolerance"]]
     stale = summary["stale"]
     dry = validation["dry"]
     july = [r for r in dry if r["benchmark_basis"] == "180"]
     takeaway = [
-        "With bunker prices first printed in the same week the engine reproduces the Baltic's TCE for TD22 and "
-        "TC20 within ",
+        "With bunker prices first printed in the same week the engine reads ",
         fig(summary["fresh_error"][0] * 100.0, "error_percent", "validation.min_error"),
         " to ",
         fig(summary["fresh_error"][1] * 100.0, "error_percent", "validation.max_error", suffix=" percent"),
-        ", always above it, outside the two weeks after the closure of Hormuz; ",
+        " above the Baltic's TCE for TD22 and TC20 (",
+        fig(summary["usual_error"][0] * 100.0, "error_percent", "validation.usual_min_error"),
+        " to ",
+        fig(summary["usual_error"][1] * 100.0, "error_percent", "validation.usual_max_error", suffix=" percent"),
+        " with prices up to a week old), outside the two weeks after the closure of Hormuz; TD3C, priced at the "
+        "%d flat rate Platts' January pairs imply, reads " % flats["TD3C"]["year"],
+        fig(implied["error"][0] * 100.0, "error_percent", "validation.implied_min_error", signed=True),
+        " to ",
+        fig(
+            implied["error"][1] * 100.0, "error_percent", "validation.implied_max_error", signed=True, suffix=" percent"
+        ),
+        "; ",
         fig(len(ws), "count", "validation.ws_count"),
-        " Worldscale anchors cannot be reproduced without a licensed flat rate, and ",
+        " other Worldscale anchors cannot be priced without a licensed flat rate, and ",
         fig(len(within), "count", "distances.within"),
         " of ",
         fig(len(distances), "count", "distances.count"),
@@ -1801,7 +2022,8 @@ def method_page(validation: Mapping[str, Any], route_rows: Sequence[Mapping[str,
         fig(summary["usual_error"][0] * 100.0, "error_percent", "chart.min_error"),
         " to ",
         fig(summary["usual_error"][1] * 100.0, "error_percent", "chart.max_error", suffix=" percent"),
-        " above the Baltic's TCE in the weeks priced with bunker prices up to a week old, except the weeks to ",
+        " above the Baltic's TD22 and TC20 TCEs in the weeks priced with bunker prices up to a week old, except the "
+        "weeks to ",
         *_join_words(
             [word(date_label(r["week_ending"]), "chart.exception.%d" % i) for i, r in enumerate(summary["exception"])]
         ),
@@ -1824,7 +2046,15 @@ def method_page(validation: Mapping[str, Any], route_rows: Sequence[Mapping[str,
             fig(abs(r["error"]) * 100.0, "error_percent", "chart.stale.%d.error" % i, suffix=" percent"),
             " below" if r["error"] < 0 else " above",
         ]
-    chart_title.append(".")
+    inside = all(implied["error"][0] <= r["error"] <= implied["error"][1] for r in implied["exception"])
+    chart_title += [
+        "; TD3C, at the flat rate Platts' January pairs imply, reads ",
+        fig(implied["error"][0] * 100.0, "error_percent", "chart.implied.min", signed=True),
+        " to ",
+        fig(implied["error"][1] * 100.0, "error_percent", "chart.implied.max", signed=True, suffix=" percent"),
+        ", its two weeks after the closure within that range" if inside and implied["exception"] else "",
+        ".",
+    ]
     dry_caption = [
         "Dry route rates priced by the engine against the time charter average of the same day. The averages are "
         "gross hire and the TCEs net of the 5 percent commission, so each TCE is grossed up by the commission before "
@@ -1864,9 +2094,15 @@ def method_page(validation: Mapping[str, Any], route_rows: Sequence[Mapping[str,
             "title": chart_title,
             "axis": "Engine above the Baltic, percent",
             "desc": "One dot a week for TD22 and TC20, the two tanker routes whose Baltic rate is a lump sum and so "
-            "converts to dollars without a licensed flat rate. An ink dot is priced with bunker prices first printed "
-            "that week, a ringed dot with prices printed up to a week before, a muted dot with older prices a broker "
+            "converts to dollars without a licensed flat rate, and below them TD3C, whose Worldscale rate is priced at "
+            "the flat rate Platts' January pairs imply. An ink dot is priced with bunker prices first printed that "
+            "week, a ringed dot with prices printed up to a week before, a muted dot with older prices a broker "
             "reprinted.",
+            "groups": {
+                "lump_sum": "TD22 and TC20, lump sums in dollars",
+                "implied": "TD3C at the flat rate Platts' January pairs imply, USD %.2f a tonne"
+                % flats["TD3C"]["flat_usd_t"],
+            },
             "legend": [
                 {"kind": "ink", "text": "Bunker prices first printed that week"},
                 {"kind": "ring", "text": "Printed up to a week before"},
@@ -1878,8 +2114,9 @@ def method_page(validation: Mapping[str, Any], route_rows: Sequence[Mapping[str,
                     word(date_label(min(r["week_ending"] for r in reproducible)), "chart.first_week"),
                     " to ",
                     word(date_label(max(r["week_ending"] for r in reproducible)), "chart.last_week"),
-                    ", as republished by Hellenic Shipping News; bunkers: Star Asia Shipbroking and Banchero Costa "
-                    "weekly tables, a reprinted row dated by its first printing; engine output.",
+                    ", as republished by Hellenic Shipping News; bunkers: Star Asia Shipbroking weekly tables, a "
+                    "reprinted row dated by its first printing; TD3C's flat rate implied by Platts' pairs of 2 and 13 "
+                    "January 2026 (Hellenic Shipping News, 17 January 2026); engine output.",
                 ]
             ),
         },
@@ -1902,7 +2139,7 @@ def method_page(validation: Mapping[str, Any], route_rows: Sequence[Mapping[str,
             {
                 "id": "sources",
                 "name": "Sources",
-                "summary": ["Every source with its as of date, its retrieval and its licence."],
+                "summary": ["The series the figures rest on, with their dates, retrieval and licences."],
             },
             {
                 "id": "limitations",
@@ -1931,6 +2168,9 @@ def method_page(validation: Mapping[str, Any], route_rows: Sequence[Mapping[str,
             "Freight for a target TCE = (target x voyage days + voyage costs) / (1 - commission share) - other revenue",
             "Best speed = the laden speed on a 0.01 knot grid that maximises the TCE, the ballast leg keeping its gap",
         ],
+        "distances_words": "{within} of the {count} distances checked against NGA Pub. 151 fall within 2 percent; "
+        "each check, its published legs and its error are set out with the routes:",
+        "distances_link": "Routes, Data",
         "limitations_heading": "What the study cannot do",
         "blocked_heading": "Sites that could not be reached when the study was built, and what each would have added",
         "baltic_2017_head": "Baltic, 2017",
@@ -1953,8 +2193,21 @@ def method_page(validation: Mapping[str, Any], route_rows: Sequence[Mapping[str,
             "explain only part of the gap to the Baltic's TD22 TCE, which grows with freight.".format(
                 per_day["C3"], per_day["C5"], per_day["TD22"]
             ),
-            "Worldscale flat rates are licensed and none is public for 2025 or 2026, so a rate in Worldscale points "
-            "cannot be priced without the visitor's own flat rate, and those anchors are not reproduced.",
+            "No public source states a Worldscale flat rate for a study route's ports. Platts' January 2026 pairs "
+            "(w53.5 and USD 11.07 a tonne, w93 and USD 19.24) imply USD %.2f a tonne for its Persian Gulf to China "
+            "route, whose ports it does not state: the study uses it to check the Baltic's TD3C TCEs of 2026 and "
+            "nowhere else. Every other rate in Worldscale points needs the visitor's own flat rate, and those anchors "
+            "are recorded, not priced." % flats["TD3C"]["flat_usd_t"],
+            "No fully worked public voyage estimate with prices, from a textbook, a professional body or a broker, "
+            "could be retrieved: the hosts that hold them refused scripted requests (below). The Baltic's own 2017 "
+            "TD3C note, the one worked example found, prints days and tonnes and no prices, so it checks the "
+            "engine's days and fuel and not its dollars.",
+            "No dated public C3 or C5 route FFA quote in dollars a tonne was found; the Paper view converts one a "
+            "visitor types into a TCE with the same engine.",
+            "The 5 percent weather margin on dry routes is the study's choice: the guide sets it for its tanker TCEs "
+            "and leaves a dry route's allowances to its panellists (section 7.4.2). Without it the Capesize TCEs of "
+            "the Paper view would read %.0f to %.0f percent higher."
+            % (min(validation["dry_margin"]) * 100.0, max(validation["dry_margin"]) * 100.0),
             "Suez and Panama tolls depend on each ship's own canal tonnage and are left out; the detours report the "
             "toll each routing could bear instead.",
             "Bunker prices are dated public averages or weekly broker tables at four hubs, not the price a ship "
@@ -1989,13 +2242,21 @@ def method_page(validation: Mapping[str, Any], route_rows: Sequence[Mapping[str,
             "pancanal.com and micanaldepanama.com: the Panama Canal tariff and its toll calculator, which would have "
             "given dated Panama tolls by vessel class.",
             "worldscale.co.uk: the flat rate schedule, which is licensed in any case; a public statement of a 2026 "
-            "flat rate would have made the Worldscale anchors reproducible.",
+            "flat rate for a study route would have made its Worldscale anchors reproducible.",
             "dehst.de: the German auction reports, read instead from the copy the sibling study jkm-ttf-arbitrage "
             "publishes.",
             "ecfr.gov, nauticalcharts.noaa.gov and marinecadastre.gov: the North American ECA coordinates in US "
             "regulation, read instead from MARPOL Annex VI Appendix VII.",
-            "web.archive.org, tradewindsnews.com, reuters.com, gcaptain.com, freightinvestorservices.com and sgx.com: "
-            "trade press and exchange pages with more dated freight, bunker and FFA quotes.",
+            "web.archive.org, archive.org, tradewindsnews.com, reuters.com, gcaptain.com and offshore-energy.biz: "
+            "trade press with more dated freight, bunker and war risk quotes; splash247.com and lloydslist.com "
+            "answered scripts with a refusal.",
+            "freightinvestorservices.com, sgx.com and cmegroup.com: FFA curves and settlement pages, which would have "
+            "given more dated FFA levels, tanker FFAs in dollars a tonne among them.",
+            "ics.org.uk, eclass.unipi.gr, maritime-unipi.gr, commons.wmu.se, core.ac.uk, unctad.org, scribd.com and "
+            "poten.com: examiners' reports, course handouts, theses and broker notes with worked voyage estimates, "
+            "which would have given the fully worked examples, with prices, the validation lacks.",
+            "msi.nga.mil's file download path for the World Port Index: read instead from the agency's JSON service "
+            "of the same index.",
             "balticexchange.com pages behind a script challenge: the circulars and weekly roundups, read instead as "
             "republished; the Guide to Market Benchmarks itself was read as a PDF.",
         ],
@@ -2028,6 +2289,12 @@ def _hull(vessel_id: str) -> float:
 def _panama_wait() -> str:
     fact = next(f for f in cases.seed("canals.json")["panama"]["facts"] if f["id"] == "waits_2026_04")
     return fact["text"]
+
+
+def _hormuz_high() -> float:
+    """The top of the latest dated Hormuz premium range, percent of hull value."""
+    rates = [r for r in cases.seed("market.json")["war_risk"]["rates_pct"] if r["id"].startswith("hormuz")]
+    return float(max(rates, key=lambda r: r["as_of"])["high"])
 
 
 def _latest_hormuz_rate() -> tuple[str, str]:

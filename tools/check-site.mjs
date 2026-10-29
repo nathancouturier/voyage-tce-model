@@ -193,6 +193,53 @@ CHECKS.push(
     },
   },
   {
+    name: "a routing sets its distances, canal days and listed areas; the Red Sea ballast transit is the owner's",
+    hash: "#/calculator?preset=" + tc20.id + "&open=route,costs",
+    async run(page) {
+      // TC20 laden round the Cape, ballast back through Suez and the Red Sea.
+      const variant = tc20.routings.find((v) => v.laden === "no_suez" && v.ballast === "direct");
+      await page.evaluate(choose("#field-routing-laden", "no_suez"));
+      const routed = await page.evaluate(text(VERDICT));
+      // A premium a visitor types, in percent of hull value a period; the page holds none.
+      const premium = 0.5;
+      await page.evaluate(typeInto("#field-war_risk-areas-red_sea-premium_pct", String(premium)));
+      const priced = await page.evaluate(text(VERDICT));
+      const leaves = await page.evaluate(text(".leaves-out"));
+      const inputs = clone(tc20.inputs);
+      for (const [path, value] of Object.entries(variant.patch)) {
+        const keys = path.split(".");
+        keys.slice(0, -1).reduce((node, key) => node[key], inputs)[keys[keys.length - 1]] = clone(value);
+      }
+      const routedExpected = verdictFor(inputs);
+      inputs.war_risk.areas.red_sea.premium_pct = premium;
+      const expected = verdictFor(inputs);
+      const result = engine.evaluate(inputs);
+      return [
+        [Boolean(variant), tc20.id + " offers no Cape laden, Suez ballast routing"],
+        [routed === routedExpected, "routed round the Cape laden the verdict reads \"" + routed + "\", the engine gives \"" + routedExpected + "\""],
+        [priced === expected, "with a Red Sea premium the verdict reads \"" + priced + "\", the engine gives \"" + expected + "\""],
+        [result.costs.war_risk > 0 && result.war_risk.areas.red_sea.periods === 0, "the ballast transit is not the owner's alone in the engine"],
+        [!leaves.includes("Suez Canal toll on the laden leg"), "the leaves-out line still names the laden Suez toll: " + leaves],
+      ];
+    },
+  },
+  {
+    name: "a route FFA typed on Paper is priced by the engine against the 5TC (182) strip",
+    hash: "#/paper?open=hedge",
+    async run(page) {
+      const paper = read("paper");
+      const row = paper.capesize[0];
+      // A route FFA a visitor types; the page holds none.
+      const typed = 30;
+      await page.evaluate(typeInto("#field-route-ffa", String(typed)));
+      const shown = await page.evaluate(text(".route-ffa__result"));
+      const net = engine.evaluate({ ...row.inputs, freight_basis: "usd_t", freight_value: typed }).tce_usd_day;
+      const gross = net / (1 - row.commission_pct / read("engine").constants.PERCENT);
+      const expected = usd(gross, "usd_day");
+      return [[shown.includes(expected), "the box reads \"" + shown + "\", the engine's grossed up TCE is " + expected]];
+    },
+  },
+  {
     name: "switching a priced voyage to Worldscale asks for the flat rate first",
     hash: "#/calculator?open=market",
     async run(page) {

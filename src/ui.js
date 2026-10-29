@@ -88,7 +88,7 @@ async function buildFooter() {
   footer.appendChild(el("p", {}, [manifest.footer.sources]));
   footer.appendChild(el("p", {}, [
     manifest.footer.updated_words + " " + formatDay(manifest.footer.updated) + "; " + manifest.footer.latest_words + " " + formatDay(manifest.footer.latest_input) + ". ",
-    el("a", { class: "text-link", text: manifest.footer.method_words, attrs: { href: router.href("method") } }),
+    el("a", { class: "text-link", text: manifest.footer.method_words, attrs: { href: router.href("method", { open: "sources" }) } }),
     ".",
   ]));
 }
@@ -113,14 +113,14 @@ function renderUnknown(route, isFirstLoad) {
     "The address ends in " + route.hash + ", and this study has no view at " + JSON.stringify("#/" + typed) + ". ",
     "The views are: " + names + ".",
   ]);
-  const todo = el("p", { class: "state-message" }, [
+  const remedy = el("p", { class: "state-message" }, [
     "Check the address for a typing mistake, or ",
     el("a", { text: "open the overview", attrs: { href: router.href(DEFAULT_VIEW) } }),
     ".",
   ]);
   viewRoot.appendChild(title);
   viewRoot.appendChild(said);
-  viewRoot.appendChild(todo);
+  viewRoot.appendChild(remedy);
   focusTitle(title, isFirstLoad);
 }
 

@@ -141,6 +141,73 @@ def _market_for(route: baltic.Route, date: str) -> cases.Market:
         return cases.common_market()
 
 
+#: The inputs a routing sets: the legs' distances and ECA miles, the canal days
+#: and what follows from them, and each listed area's entries and miles inside.
+ROUTING_PATHS = (
+    "laden.distance_nm",
+    "laden.eca_nm",
+    "ballast.distance_nm",
+    "ballast.eca_nm",
+    "port.canal_days",
+    "port.canal_tpd",
+    "port.canal_ets_share",
+    *(
+        "war_risk.areas.%s.%s" % (area, key)
+        for area in engine.WAR_RISK_AREAS
+        for key in ("entries", "laden_nm", "ballast_nm", "port_activities", "ballast_transits")
+    ),
+)
+
+
+def routing_choices(route: baltic.Route) -> tuple[list[str], list[str]]:
+    """The routings the study computes and checks for each leg of a route (sea_routes.STUDY_LEGS)."""
+    laden = [r for o, d, r, _, _ in sea_routes.STUDY_LEGS if (o, d) == (route.load, route.discharge)]
+    ballast = [r for o, d, r, _, _ in sea_routes.STUDY_LEGS if (o, d) == (route.discharge, route.load)]
+    return laden or [route.laden_routing], ballast or [route.ballast_routing]
+
+
+def routing_variants(case: cases.Case, market: cases.Market, build: Mapping[str, Any]) -> list[dict[str, Any]]:
+    """Every pair of leg routings the study computes for the case's route, as patches to its inputs.
+
+    Each variant is the case built again with that pair: the inputs a routing
+    sets, the sources that differ from the preset's (None where the routing
+    leaves a source out), and what the voyage then leaves out.
+    """
+    route = baltic.ROUTES[case.route]
+    laden_choices, ballast_choices = routing_choices(route)
+    if len(laden_choices) * len(ballast_choices) <= 1:
+        return []
+    out = []
+    for laden in laden_choices:
+        for ballast in ballast_choices:
+            variant = cases.build(case.route, market, laden_routing=laden, ballast_routing=ballast, **build)
+            sources = {
+                path: variant.sources.get(path)
+                for path in sorted(set(case.sources) | set(variant.sources))
+                if case.sources.get(path) != variant.sources.get(path)
+            }
+            out.append(
+                {
+                    "laden": laden,
+                    "ballast": ballast,
+                    "is_preset": (laden, ballast) == (case.legs["laden"]["routing"], case.legs["ballast"]["routing"]),
+                    "laden_label": sea_routes.ROUTING_LABELS[laden],
+                    "ballast_label": sea_routes.ROUTING_LABELS[ballast],
+                    "patch": {path: _get(variant.inputs, path) for path in ROUTING_PATHS},
+                    "sources": sources,
+                    "excluded_items": excluded_items({"excluded": variant.excluded}),
+                }
+            )
+    return out
+
+
+def _get(mapping: Mapping[str, Any], path: str) -> Any:
+    node: Any = mapping
+    for key in path.split("."):
+        node = node[key]
+    return node
+
+
 def _preset(
     preset_id: str,
     label: str,
@@ -150,6 +217,7 @@ def _preset(
     market: cases.Market,
     published: Mapping[str, Any] | None = None,
     market_label: str | None = None,
+    build: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     inputs = case.inputs
     evaluable = not (inputs["freight_basis"] == "ws" and not inputs.get("flat_rate_usd_t"))
@@ -173,6 +241,7 @@ def _preset(
         "rate": dict(rate) if rate else None,
         "published": dict(published) if published else None,
         "evaluable": evaluable,
+        "routings": routing_variants(case, market, build or {}),
     }
 
 
@@ -186,14 +255,13 @@ def presets() -> list[dict[str, Any]]:
         if rate is None or (code, rate["date"]) in anchored:
             continue
         market = _market_for(route, rate["date"])
-        case = cases.build(
-            code,
-            market,
-            freight_value=rate["value"],
-            freight_basis=rate["basis"],
-            freight_source="%s; rate %s %s"
+        build = {
+            "freight_value": rate["value"],
+            "freight_basis": rate["basis"],
+            "freight_source": "%s; rate %s %s"
             % (rate["source"], "for the week to" if route.segment != "dry" else "of", date_label(rate["date"])),
-        )
+        }
+        case = cases.build(code, market, **build)
         published = None
         if rate["published_tce_usd_day"] is not None:
             published = {
@@ -211,6 +279,7 @@ def presets() -> list[dict[str, Any]]:
                 market,
                 published,
                 ("Week to %s" if route.segment != "dry" else "%s") % date_label(rate["date"]),
+                build,
             )
         )
     for row in anchors.tanker_weekly():
@@ -218,13 +287,12 @@ def presets() -> list[dict[str, Any]]:
             continue
         route = baltic.ROUTES[row["route"]]
         market = cases.weekly_market(row["week_ending"], cases.route_hub(route))
-        case = cases.build(
-            row["route"],
-            market,
-            freight_value=row["rate_value"],
-            freight_basis="lump_sum",
-            freight_source="Baltic Exchange weekly tanker report, week ending %s" % date_label(row["week_ending"]),
-        )
+        build = {
+            "freight_value": row["rate_value"],
+            "freight_basis": "lump_sum",
+            "freight_source": "Baltic Exchange weekly tanker report, week ending %s" % date_label(row["week_ending"]),
+        }
+        case = cases.build(row["route"], market, **build)
         out.append(
             _preset(
                 "anchor-%s-%s" % (row["route"].lower(), row["week_ending"]),
@@ -239,6 +307,7 @@ def presets() -> list[dict[str, Any]]:
                     "source": "Baltic Exchange, as republished by Hellenic Shipping News",
                 },
                 "Week to %s" % date_label(row["week_ending"]),
+                build,
             )
         )
     for item in anchors.early_march():
@@ -408,7 +477,7 @@ FIELD_SPECS = [
     ("market", "prices.mgo_usd_t", "MGO price", "USD a tonne", "usd_t", 1.0),
     ("market", "prices.hsfo_usd_t", "HSFO price", "USD a tonne", "usd_t", 1.0),
     ("market", "ets.eua_eur_t", "EU allowance price", "EUR a tonne", "eur_t", 1.0),
-    ("market", "ets.usd_per_eur", "Dollars per euro", "USD", "usd_per_eur", 1.0),
+    ("market", "ets.usd_per_eur", "Dollars per euro", "USD per EUR", "usd_per_eur", 1.0),
     ("costs", "costs.port_load_usd", "Port charges at loading", "USD", "usd", 1.0),
     ("costs", "costs.port_discharge_usd", "Port charges at discharge", "USD", "usd", 1.0),
     ("costs", "costs.canal_laden_usd", "Canal toll, laden", "USD", "usd", 1.0),
@@ -510,37 +579,6 @@ def calculator(preset_list: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
             "laden_routing": r.laden_routing,
             "ballast_routing": r.ballast_routing,
         }
-    alternatives = {}
-    for preset in preset_list:
-        if preset["kind"] != "latest":
-            continue
-        code = preset["route"]
-        route = baltic.ROUTES[code]
-        options = []
-        for routing in sea_routes.ROUTINGS:
-            laden = cases.leg_record(route.load, route.discharge, routing)
-            ballast = cases.leg_record(route.discharge, route.load, routing)
-            if any(
-                o["laden_nm"] == laden["distance_nm"] and o["ballast_nm"] == ballast["distance_nm"] for o in options
-            ):
-                continue
-            options.append(
-                {
-                    "routing": routing,
-                    "label": sea_routes.ROUTING_LABELS[routing],
-                    "laden_nm": laden["distance_nm"],
-                    "laden_eca_nm": round(
-                        sum(v for _, v in cases.eca_miles(route.load, route.discharge, routing, preset["date"])), 1
-                    ),
-                    "ballast_nm": ballast["distance_nm"],
-                    "ballast_eca_nm": round(
-                        sum(v for _, v in cases.eca_miles(route.discharge, route.load, routing, preset["date"])), 1
-                    ),
-                    "passes_laden": laden["passes"],
-                    "passes_ballast": ballast["passes"],
-                }
-            )
-        alternatives[code] = options
     fields = [
         {"step": s, "path": p, "label": label, "unit": unit, "format": fmt, "scale": scale}
         for s, p, label, unit, fmt, scale in FIELD_SPECS
@@ -583,7 +621,6 @@ def calculator(preset_list: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
         **pages.calculator_words(),
         vessels=vessels,
         routes=routes,
-        alternatives=alternatives,
         cost_labels=COST_LABELS,
         war_risk_rates=cases.seed("market.json")["war_risk"]["rates_pct"],
         hull_values=cases.seed("market.json")["hull_values_usd"],
@@ -598,8 +635,9 @@ def routes_artifact() -> dict[str, Any]:
     for row in cs["rows"]:
         route = baltic.ROUTES[row["route"]]
         port = cases.build(row["route"], market, freight_value=0.0, freight_basis="usd_t").inputs["port"]
+        # Every routing that changes the laden distance, the one the route is priced on first and marked.
         by_routing = []
-        for routing in sea_routes.ROUTINGS:
+        for routing in (route.laden_routing, *sea_routes.ROUTINGS):
             laden = cases.leg_record(route.load, route.discharge, routing)
             if any(b["laden_nm"] == laden["distance_nm"] for b in by_routing):
                 continue
@@ -609,6 +647,7 @@ def routes_artifact() -> dict[str, Any]:
                     "label": sea_routes.ROUTING_LABELS[routing],
                     "laden_nm": laden["distance_nm"],
                     "passes": laden["passes"],
+                    "priced": routing == route.laden_routing,
                 }
             )
         rows.append(
@@ -645,6 +684,8 @@ def routes_artifact() -> dict[str, Any]:
                 "by_routing": by_routing,
                 "eca_share": row["eca_nm"] / (row["laden_nm"] + row["ballast_nm"]),
                 "port_days": {k: port[k] for k in ("load_days", "discharge_days", "waiting_days", "canal_days")},
+                # Loading at the port's scale has no published rate: the days are the turn time alone.
+                "load_turn_only": route.segment == "dry" and route.load_terms == "port scale",
                 "vessel_label": baltic.VESSELS[route.vessel].label,
                 "hub_name": cases.ports()[row["hub"]]["name"],
                 "label": row["route"].replace("_37", "").replace("_63", ""),
@@ -657,11 +698,46 @@ def routes_artifact() -> dict[str, Any]:
         eua_eur_t=cs["eua_eur_t"],
         usd_per_eur=cs["usd_per_eur"],
         rows=rows,
-        pub151=doc["pub151_checks"],
+        pub151=_pub151_for_page(doc["pub151_checks"]),
         baltic_map_url="https://nathancouturier.github.io/baltic-freight-routes/",
         gmb={"version": baltic.GMB["version"], "date": baltic.GMB["date"], "url": baltic.GMB["url"]},
         page=page,
     )
+
+
+#: Words Pub. 151 prints in capitals that stay lower case in a name.
+_SMALL_WORDS = {"of", "and", "the", "de", "la", "al", "el"}
+
+
+def _name_case(text: str) -> str:
+    """A Pub. 151 heading, printed in capitals, in the case of a name: 'CAPE OF GOOD HOPE' to 'Cape of Good Hope'."""
+
+    def word_case(word: str, first: bool) -> str:
+        if "." in word:
+            return word
+        if not first and word.lower() in _SMALL_WORDS:
+            return word.lower()
+        return "-".join(piece[:1].upper() + piece[1:].lower() for piece in word.split("-"))
+
+    return " ".join(word_case(w, i == 0) for i, w in enumerate(text.split(" ")))
+
+
+def _pub151_for_page(document: Mapping[str, Any]) -> dict[str, Any]:
+    """The Pub. 151 checks as the Routes view shows them: the book's headings in the case of names, and a
+    pair checked under two routings named with its routing."""
+    pairs = [(c["from"], c["to"]) for c in document["checks"]]
+    checks = []
+    for check in document["checks"]:
+        twice = pairs.count((check["from"], check["to"])) > 1
+        checks.append(
+            {
+                **check,
+                "pair_words": "%s to %s%s"
+                % (check["from"], check["to"], ", " + sea_routes.ROUTING_LABELS[check["routing"]] if twice else ""),
+                "parts": [dict(part, entry=_name_case(part["entry"])) for part in check["parts"]],
+            }
+        )
+    return dict(document, checks=checks)
 
 
 def detours_artifact() -> dict[str, Any]:
@@ -671,7 +747,7 @@ def detours_artifact() -> dict[str, Any]:
         suez_tanker=st,
         suez_dry=sd,
         hormuz=hz,
-        events=cases.seed("events.json")["events"],
+        events=sorted(cases.seed("events.json")["events"], key=lambda e: e["date"]),
         canals=cases.seed("canals.json"),
         page=pages.detours_page(st, sd, hz),
     )
@@ -723,6 +799,10 @@ def speed_artifact() -> dict[str, Any]:
     )
 
 
+def _first_lower(text: str) -> str:
+    return text[:1].lower() + text[1:]
+
+
 def method_artifact() -> dict[str, Any]:
     tanker = anchors.tanker_weekly()
     validation = {
@@ -731,6 +811,11 @@ def method_artifact() -> dict[str, Any]:
         "dry": anchors.dry_weekly(),
         "baltic_2017": anchors.baltic_2017(),
         "distances": cases.seed("sea_routes.json")["pub151_checks"],
+        # How much higher the Capesize anchor TCEs read without the dry weather margin, the study's choice.
+        "dry_margin": [
+            r["no_margin_tce_gross_usd_day"] / r["physical_tce_gross_usd_day"] - 1.0
+            for r in analysis.paper()["capesize"]
+        ],
     }
 
     def with_url(item: Mapping[str, Any]) -> dict[str, Any]:
@@ -740,7 +825,8 @@ def method_artifact() -> dict[str, Any]:
         {
             **with_url(row),
             "route_label": row["route"].replace("_37", "").replace("_63", ""),
-            "bunkers_words": pages.bunker_age_words(row).lower() if row["bunkers"] else "",
+            # Lower case at the start only: the months keep their capitals.
+            "bunkers_words": _first_lower(pages.bunker_age_words(row)) if row["bunkers"] else "",
         }
         for row in validation["tanker"]
     ]
@@ -869,8 +955,11 @@ def manifest_artifact() -> dict[str, Any]:
     ]
     return header(
         "manifest",
-        caption="Every source the study reads: the date of its latest figure, when it was retrieved, its publisher "
-        "and its licence. Licensed documents are cited with their figures and never redistributed.",
+        caption="The series the study's figures rest on: the date of the latest figure, when it was retrieved, its "
+        "publisher and its licence. Every other document is cited, with its link, where its figure is used (the "
+        "conventions, validation and assumptions tables); the repository's data/raw/manifest.json lists all %d files "
+        "retrieved, with their addresses, dates and hashes. Licensed documents are cited with their figures and never "
+        "redistributed." % len(raw),
         series=series,
         raw_files=len(raw),
         raw_committed=sum(1 for e in raw.values() if e["committed"]),
@@ -884,7 +973,7 @@ def manifest_artifact() -> dict[str, Any]:
             "latest_input": max(
                 s["as_of"] for s in series if s["id"] in ("bunkers", "tanker_rates", "dry_rates", "ffa", "eua", "fx")
             ),
-            "method_words": "Every source with its date and licence",
+            "method_words": "The sources, with their dates and licences",
         },
     )
 
@@ -912,27 +1001,41 @@ def _csv_value(value: Any) -> Any:
 
 
 def downloads() -> dict[str, str]:
-    tanker = anchors.tanker_weekly()
+    # Every column carries its unit: a rate in its own column by unit, shares as fractions named so.
+    tanker = [
+        {
+            **row,
+            "rate_ws_points": row["rate_value"] if row["rate_basis"] == "ws" else None,
+            "rate_lump_sum_usd": row["rate_value"] if row["rate_basis"] == "lump_sum_usd" else None,
+            "implied_flat_rate_usd_t": row.get("implied_flat_usd_t"),
+            "error_share": row["error"],
+        }
+        for row in anchors.tanker_weekly()
+    ]
     files = {
         "anchors_tanker.csv": csv_text(
             tanker,
             [
                 "week_ending",
                 "route",
-                "rate_basis",
-                "rate_value",
+                "rate_ws_points",
+                "rate_lump_sum_usd",
+                "implied_flat_rate_usd_t",
                 "published_tce_usd_day",
                 "tce_qualifier",
                 "reproducible",
                 "engine_tce_usd_day",
-                "error",
+                "error_share",
                 "bunkers",
                 "bunkers_first_printed",
                 "reason",
             ],
         ),
         "anchors_dry.csv": csv_text(
-            anchors.dry_weekly(),
+            [
+                {**row, "benchmark_basis_dwt_t": int(row["benchmark_basis"]) * 1000 if row["benchmark_basis"] else None}
+                for row in anchors.dry_weekly()
+            ],
             [
                 "date",
                 "route",
@@ -941,7 +1044,7 @@ def downloads() -> dict[str, str]:
                 "engine_tce_gross_usd_day",
                 "benchmark",
                 "benchmark_usd_day",
-                "benchmark_basis",
+                "benchmark_basis_dwt_t",
                 "benchmark_182_usd_day",
                 "gap_usd_day",
                 "bunkers",
@@ -988,8 +1091,10 @@ def downloads() -> dict[str, str]:
                 "days_inside_gulf": s["days_inside_gulf"],
                 "periods": s["periods"],
                 "laden_nm": s["laden_nm"],
-                "charterer_war_risk_usd": s["war_risk_usd"],
+                "charterer_war_risk_usd": s["charterer_war_risk_usd"],
                 "charterer_war_risk_usd_t": s["charterer_war_risk_usd_t"],
+                "hull_value_usd": hz["hull_value_usd"],
+                "bunkers_week_ending": hz["as_of"],
                 **{
                     "owner_extra_freight_usd_t_at_%s" % lvl["week_ending"]: lvl["extra_freight_usd_t"]
                     for lvl in s["levels"]
@@ -1007,23 +1112,39 @@ def downloads() -> dict[str, str]:
             "laden_nm",
             "charterer_war_risk_usd",
             "charterer_war_risk_usd_t",
+            "hull_value_usd",
+            "bunkers_week_ending",
         ]
         + ["owner_extra_freight_usd_t_at_%s" % lvl["week_ending"] for lvl in hz["levels"]],
     )
     carbon = analysis.carbon()
     files["carbon_ets.csv"] = csv_text(
-        [{"route": r["route"], "kind": r["kind"], **y} for r in carbon["rows"] for y in r["years"]],
+        [
+            {
+                "route": r["route"],
+                "kind": r["kind"],
+                **y,
+                "phase_in_share": y["phase_in"],
+                "voyage_cost_share": y["share_of_voyage_costs"],
+                "eua_eur_t": carbon["eua_eur_t"],
+                "usd_per_eur": carbon["usd_per_eur"],
+            }
+            for r in carbon["rows"]
+            for y in r["years"]
+        ],
         [
             "route",
             "kind",
             "year",
-            "phase_in",
+            "phase_in_share",
             "covered_t",
             "allowances_t",
+            "eua_eur_t",
+            "usd_per_eur",
             "cost_usd",
             "per_day_usd",
             "per_tonne_cargo_usd",
-            "share_of_voyage_costs",
+            "voyage_cost_share",
         ],
     )
     files["eua_monthly.csv"] = (base.CACHE / "eua_monthly.csv").read_text(encoding="utf-8")

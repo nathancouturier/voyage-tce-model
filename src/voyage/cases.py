@@ -29,7 +29,8 @@ from __future__ import annotations
 
 import gzip
 import json
-from collections.abc import Mapping
+import math
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass, field
 from functools import cache, lru_cache
 from typing import Any
@@ -39,6 +40,9 @@ from .ports import BUNKER_HUBS
 from .sources import base
 from .words import date_label
 
+#: The weather margin on steaming time: the 5 percent of the Baltic's tanker
+#: method (Appendix 3), applied to the dry routes too as the study's choice,
+#: since the guide leaves a dry route's allowances to its panellists (7.4.2).
 SEA_MARGIN = baltic.TANKER_SEA_MARGIN
 GRADES = ("vlsfo", "hsfo", "mgo")
 #: SSHEX laytime counts five working days in seven.
@@ -143,6 +147,11 @@ def route_hub(route: baltic.Route) -> str:
 GULF_ACTIVITIES = ("load", "waiting", "delay")
 #: Load ports in the Gulf of Oman, outside the Strait of Hormuz.
 GULF_OF_OMAN = ("mina_al_fahal", "fujairah")
+
+
+def canal_transits(*passes: Sequence[str]) -> int:
+    """How many of the legs pass through the Suez or the Panama Canal."""
+    return sum(1 for leg in passes if {"Suez Canal", "Panama Canal"} & set(leg))
 
 
 @cache
@@ -266,7 +275,7 @@ def _fx(date: str) -> tuple[float, str]:
         words = "mean of the %d published days from 1 to %s" % (len(values), date_label(date))
     else:
         words = "mean of the %d published days of %s" % (len(values), date_label(month))
-    return sum(values) / len(values), "Federal Reserve H.10, " + words
+    return math.fsum(values) / len(values), "Federal Reserve H.10, " + words
 
 
 def month_before(month: str) -> str:
@@ -431,7 +440,7 @@ def _leg(origin: str, destination: str, routing: str, speed_kn: float, on_date: 
     leg = {
         "distance_nm": record["distance_nm"],
         "speed_kn": speed_kn,
-        "eca_nm": round(sum(miles.values()), 1),
+        "eca_nm": round(math.fsum(miles.values()), 1),
         "ets_share": ets_share(origin, destination),
     }
     info = {
@@ -571,13 +580,24 @@ def build(
         load_tpd = discharge_tpd = waiting_tpd = 0.0
         src("port.load_tpd", "empty", "the guide prints no port consumption for bulk carriers")
         src("port.discharge_tpd", "empty", "the guide prints no port consumption for bulk carriers")
+        src("port.waiting_tpd", "empty", "the guide prints no port consumption for bulk carriers")
         excluded.append("fuel burnt in port (the Baltic prints no port consumption for bulk carriers)")
     else:
+        # The guide's canal days are for its own routing's transits; a routing
+        # with fewer keeps the same days a transit.
+        canal_days = route.canal_days or 0.0
+        described = canal_transits(
+            leg_record(route.load, route.discharge, route.laden_routing)["passes"],
+            leg_record(route.discharge, route.load, route.ballast_routing)["passes"],
+        )
+        transits = canal_transits(laden_info["passes"], ballast_info["passes"])
+        if canal_days and transits != described:
+            canal_days = canal_days * transits / described if described else 0.0
         port.update(
             load_days=route.load_days or 0.0,
             discharge_days=route.discharge_days or 0.0,
             waiting_days=route.waiting_days or 0.0,
-            canal_days=route.canal_days or 0.0,
+            canal_days=canal_days,
         )
         for name in ("load_days", "discharge_days", "waiting_days", "canal_days"):
             src(
@@ -585,13 +605,21 @@ def build(
                 "sourced",
                 "GMB v8.8 page %d, %s TCE description" % (route.tce_page or route.page, route.code),
             )
+        if route.canal_days and transits != described:
+            src(
+                "port.canal_days",
+                "derived",
+                "GMB v8.8 page %d, %s TCE description: %g days for its %d canal transits, the same days a transit "
+                "for the %d of this routing"
+                % (route.tce_page or route.page, route.code, route.canal_days, described, transits),
+            )
         load_tpd = vessel.port_load_tpd or 0.0
         discharge_tpd = vessel.port_discharge_tpd or 0.0
         waiting_tpd = vessel.port_waiting_tpd or 0.0
         for name in ("load_tpd", "discharge_tpd", "waiting_tpd"):
             src("port." + name, "sourced", "GMB v8.8 page %d, %s vessel description" % (vessel.page, vessel.id))
 
-    canal_share = laden["ets_share"] if route.canal_days else 0.0
+    canal_share = laden["ets_share"] if port["canal_days"] else 0.0
     port.update(
         delay_days=0.0,
         sts_days=0.0,
@@ -614,13 +642,40 @@ def build(
         delay_ets_share=0.0,
         sts_ets_share=0.0,
     )
-    if route.canal_days:
+    if port["canal_days"]:
         port["canal_tpd"] = waiting_tpd
         src(
             "port.canal_tpd",
             "derived",
             "canal transit priced at the waiting consumption, the guide's slow steaming figure in port",
         )
+    else:
+        src("port.canal_tpd", "derived", "no canal days on this routing")
+    # Days the base case does not have, for the visitor to set, at the consumptions the guide prints.
+    if route.segment == "dry":
+        for name in ("delay_tpd", "sts_tpd"):
+            src("port." + name, "empty", "the guide prints no port consumption for bulk carriers")
+    else:
+        src(
+            "port.delay_tpd",
+            "derived",
+            "the %s waiting consumption (GMB v8.8 page %d), for days waiting to transit a listed area"
+            % (vessel.id, vessel.page),
+        )
+        src(
+            "port.sts_tpd",
+            "derived",
+            "the %s loading consumption (GMB v8.8 page %d), for the days of a ship to ship transfer"
+            % (vessel.id, vessel.page),
+        )
+    scenario = "a scenario input, zero in the base case"
+    src(
+        "port.delay_days", "scenario", scenario + ": days waiting to transit a listed area, as the Hormuz scenarios set"
+    )
+    src("port.sts_days", "scenario", scenario + ": the days of a ship to ship transfer, which have no public figure")
+    src("costs.sts_usd", "scenario", scenario + ": the cost of a ship to ship transfer, which has no public figure")
+    src("costs.other_usd", "scenario", scenario + ": any other voyage cost")
+    src("other_revenue_usd", "scenario", scenario + ": a ballast bonus, demurrage or other voyage revenue")
 
     ets = {
         "phase_in": phase_in(year),
@@ -668,10 +723,14 @@ def build(
         excluded.append("the %s Canal toll on the %s leg (no public toll for this ship)" % (canal, name))
     if route.segment == "dry" and canal_names:
         where = " and ".join("the %s Canal" % c for c in sorted(set(canal_names)))
-        src("port.canal_days", "empty", "the guide's %s terms set no time at %s" % (route.code, where))
-        excluded.append(
-            "time at %s, the transit and any wait (no canal days in the guide's %s terms)" % (where, route.code)
+        # A voyage the study builds itself is not one of the guide's routes and has no terms of its own.
+        terms = "the guide's %s terms" % route.code if route.code in baltic.ROUTES else "the study's voyage"
+        src(
+            "port.canal_days",
+            "empty",
+            "%s set%s no time at %s" % (terms, "" if terms.endswith("terms") else "s", where),
         )
+        excluded.append("time at %s, the transit and any wait (no canal days in %s)" % (where, terms))
 
     hormuz = [
         name
@@ -688,16 +747,21 @@ def build(
         if "ballast" in hormuz
         else 0.0,
         "port_activities": list(GULF_ACTIVITIES) if hormuz and in_gulf(route.load) else [],
+        "ballast_transits": 0,
     }
     red_sea = [
         name for name, info in (("laden", laden_info), ("ballast", ballast_info)) if "Bab el Mandeb" in info["passes"]
     ]
+    # Each passage of the southern Red Sea and the Gulf of Aden is one period:
+    # the laden one is the charter's, the ballast one the owner's approach to
+    # the next loading.
     red_sea_area = {
         "premium_pct": 0.0,
-        "entries": len(red_sea),
+        "entries": 1 if "laden" in red_sea else 0,
         "laden_nm": 0.0,
         "ballast_nm": 0.0,
         "port_activities": [],
+        "ballast_transits": 1 if "ballast" in red_sea else 0,
     }
 
     if route.contract == "trip":
@@ -742,7 +806,16 @@ def build(
     )
     src("cargo_t", "sourced", "%s route description" % gmb)
     src("commission_pct", "sourced", "%s route description" % gmb)
-    src("sea_margin", "sourced", "GMB v8.8 Appendix 3, page 99: 5% weather allowance on steaming time")
+    if route.segment == "dry":
+        src(
+            "sea_margin",
+            "chosen",
+            "the study's choice: the guide's tanker method sets a 5% weather allowance on steaming time (GMB v8.8 "
+            "Appendix 3, page 99), and for dry routes leaves allowances such as a bad weather allowance to its "
+            "panellists (section 7.4.2, page 35), so the study applies the same 5% to the dry routes",
+        )
+    else:
+        src("sea_margin", "sourced", "GMB v8.8 Appendix 3, page 99: 5% weather allowance on steaming time")
     src("laden_curve", "sourced", "GMB v8.8 page %d, %s" % (vessel.page, vessel.id) if vessel.page else vessel.note)
     src("ballast_curve", "sourced", sources["laden_curve"]["source"])
     src("laden.speed_kn", *speed_source(vessel, route, "laden"))
@@ -771,7 +844,20 @@ def build(
     )
     for grade in GRADES:
         src("prices.%s_usd_t" % grade, "sourced", market.bunkers[hub][grade][1])
-    src("vlsfo_class", "sourced", "IMO MEPC.391(81): VLSFO is an ISO 8217 residual grade (RME, RMG, RMK)")
+    src(
+        "mgo_at_sea_tpd",
+        "sourced" if vessel.mgo_at_sea_tpd else "derived",
+        "GMB v8.8 page %d, %s: %g t of MGO a day at sea besides fuel oil"
+        % (vessel.page, vessel.id, vessel.mgo_at_sea_tpd)
+        if vessel.mgo_at_sea_tpd
+        else "the %s description prints no diesel burnt at sea besides fuel oil" % vessel.id,
+    )
+    src(
+        "vlsfo_class",
+        "sourced",
+        "IMO MEPC.391(81) classes VLSFO by its ISO 8217 grade: HFO for RME, RMG and RMK, most VLSFO being tested "
+        "against RMG 380 (VPS via Ship & Bunker); LFO for RMA, RMB and RMD",
+    )
     src(
         "war_risk.hull_value_usd",
         "sourced" if hull.get("value") else "empty",
@@ -781,8 +867,9 @@ def build(
     )
     src("war_risk.crew_bonus_usd", "empty", seed("market.json")["war_risk"]["crew_bonus"]["why_empty"])
     baltic_leaves_out = (
-        "the Baltic leaves it out of its own TCE too (GMB v8.8 Appendix 3, page 98; the %s TCE description names no "
-        "war risk cost)" % route.code
+        "the Baltic leaves it out of its own TCE too: Appendix 3 of GMB v8.8 (page 98) admits additional insurance "
+        "only as a route's Appendix 2 description sets it out, and the %s TCE description names no war risk premium"
+        % route.code
     )
     if hormuz:
         src(
@@ -806,16 +893,32 @@ def build(
     else:
         src("war_risk.areas.gulf.premium_pct", "derived", "the routing does not enter the Gulf")
     if red_sea:
+        payers = []
+        if "laden" in red_sea:
+            payers.append("on the laden leg usually for the charterer's account (Platts, 8 December 2025)")
+            excluded.append(
+                "the additional war risk premium for the Red Sea passage on the laden leg (usually the "
+                "charterer's; the Baltic's TCE leaves it out)"
+            )
+        if "ballast" in red_sea:
+            payers.append(
+                "on the ballast leg, the approach to the next loading, the owner's unless a charter makes the "
+                "charterer pay it (Gard, 21 March 2026)"
+            )
+            excluded.append(
+                "the additional war risk premium for the Red Sea passage on the ballast leg (the owner's, unless "
+                "the next charter pays it; the Baltic's TCE leaves it out)"
+            )
         src(
             "war_risk.areas.red_sea.premium_pct",
             "left_out",
             "%s: the voyage passes Bab el Mandeb %s, into a listed area where an additional premium applies, "
-            "usually for the charterer's account (Platts, 8 December 2025); dated rates below"
-            % (baltic_leaves_out, "on both legs" if len(red_sea) == 2 else "on the %s leg" % red_sea[0]),
-        )
-        excluded.append(
-            "the additional war risk premium for the Red Sea passage (usually the charterer's; the Baltic's TCE "
-            "leaves it out)"
+            "%s; dated rates below"
+            % (
+                baltic_leaves_out,
+                "on both legs" if len(red_sea) == 2 else "on the %s leg" % red_sea[0],
+                "; ".join(payers),
+            ),
         )
     else:
         src("war_risk.areas.red_sea.premium_pct", "derived", "the routing does not pass Bab el Mandeb")
@@ -825,7 +928,8 @@ def build(
         "on a trip time charter the charterer pays the trip's costs, war risk included"
         if route.contract == "trip"
         else "usually the charterer's in spot voyage charters (Platts, 8 December 2025), reimbursed to the owner "
-        "at cost under VOYWAR 2013 (Gard, 21 March 2026)",
+        "at cost under VOYWAR 2013 (Gard, 21 March 2026); a passage on the ballast leg, the approach to the next "
+        "loading, stays the owner's unless a charter says otherwise (Gard, 21 March 2026)",
     )
 
     if route.segment == "dry" and route.contract == "voyage" and route.load_rate_tpd is None:

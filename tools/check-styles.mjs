@@ -7,7 +7,7 @@
 // no shadow would fail it. This strips comments first, then checks the
 // declarations, and adds the two rules a grep cannot see. Plain node, no
 // dependencies. The checker of the sibling studies, with one exception this
-// study's brief makes: its one orchestrated moment, the overview's bridge
+// study makes: its one orchestrated moment, the overview's bridge
 // building once on first load, is a keyframe animation named bridge-grow, and
 // that name is the only animation allowed (ONE_MOMENT below).
 //

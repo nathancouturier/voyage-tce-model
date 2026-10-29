@@ -51,6 +51,8 @@
       "commission_pct": 5.0,
       "ffa": {
         "curve": "wk27_2026",
+        "column": "previous_usd_day",
+        "printed": "2026-07-06",
         "dated": "2026-06-29",
         "assessed": "2026-07-06",
         "source": "Banchero Costa, Dry bulk FFA assessments, weekly market report week 27, 2026",
@@ -76,6 +78,30 @@
       "hedge_days": 76.522292,
       "hedge_days_net": 72.696177,
       "basis_usd_day": 418.741999,
+      "printings": [
+        {
+          "curve": "wk26_2026",
+          "printed": "2026-06-29",
+          "column": "usd_day",
+          "usd_day": 33233.407057,
+          "basis_usd_day": 4060.382366,
+          "used": false
+        },
+        {
+          "curve": "wk27_2026",
+          "printed": "2026-07-06",
+          "column": "previous_usd_day",
+          "usd_day": 36875.047424,
+          "basis_usd_day": 418.741999,
+          "used": true
+        }
+      ],
+      "basis_range_usd_day": [
+        418.741999,
+        4060.382366
+      ],
+      "no_margin_tce_gross_usd_day": 40455.536434,
+      "no_margin_basis_usd_day": 3580.489011,
       "freight_matching_ffa_usd_t": 29.921511,
       "spot_index_usd_day": 33678,
       "spot_basis": "180",
@@ -86,6 +112,140 @@
         "fuel burnt in port (the Baltic prints no port consumption for bulk carriers)",
         "port charges at Tubarao and Qingdao (no public per call figure)"
       ],
+      "inputs": {
+        "contract": "voyage",
+        "freight_basis": "usd_t",
+        "freight_value": 30.11,
+        "flat_rate_usd_t": null,
+        "cargo_t": 170000,
+        "commission_pct": 5.0,
+        "other_revenue_usd": 0.0,
+        "sea_margin": 0.05,
+        "laden": {
+          "distance_nm": 11136.9,
+          "speed_kn": 14,
+          "eca_nm": 0.0,
+          "ets_share": 0.0
+        },
+        "ballast": {
+          "distance_nm": 11136.9,
+          "speed_kn": 14,
+          "eca_nm": 0.0,
+          "ets_share": 0.0
+        },
+        "laden_curve": [
+          [
+            14,
+            52
+          ],
+          [
+            13,
+            44
+          ],
+          [
+            12,
+            36
+          ],
+          [
+            11,
+            29
+          ]
+        ],
+        "ballast_curve": [
+          [
+            14,
+            44
+          ],
+          [
+            13,
+            36
+          ],
+          [
+            12,
+            29
+          ],
+          [
+            11,
+            23
+          ]
+        ],
+        "mgo_at_sea_tpd": 0.0,
+        "scrubber": false,
+        "scrubber_in_eca": false,
+        "vlsfo_class": "HFO",
+        "port": {
+          "load_days": 0.25,
+          "discharge_days": 6.666667,
+          "waiting_days": 0.0,
+          "canal_days": 0.0,
+          "delay_days": 0.0,
+          "sts_days": 0.0,
+          "load_tpd": 0.0,
+          "discharge_tpd": 0.0,
+          "waiting_tpd": 0.0,
+          "canal_tpd": 0.0,
+          "delay_tpd": 0.0,
+          "sts_tpd": 0.0,
+          "load_eca": false,
+          "discharge_eca": false,
+          "waiting_eca": false,
+          "canal_eca": false,
+          "delay_eca": false,
+          "sts_eca": false,
+          "load_ets_share": 0.0,
+          "discharge_ets_share": 0.0,
+          "waiting_ets_share": 0.0,
+          "canal_ets_share": 0.0,
+          "delay_ets_share": 0.0,
+          "sts_ets_share": 0.0
+        },
+        "prices": {
+          "vlsfo_usd_t": 644.0,
+          "hsfo_usd_t": 429.0,
+          "mgo_usd_t": 886.8
+        },
+        "ets": {
+          "phase_in": 1.0,
+          "eua_eur_t": 77.99,
+          "usd_per_eur": 1.1416,
+          "include_non_co2": true
+        },
+        "fueleu": {
+          "include": false,
+          "reduction_pct": 2.0
+        },
+        "costs": {
+          "port_load_usd": 0.0,
+          "port_discharge_usd": 0.0,
+          "canal_laden_usd": 0.0,
+          "canal_ballast_usd": 0.0,
+          "other_usd": 0.0,
+          "sts_usd": 0.0
+        },
+        "war_risk": {
+          "hull_value_usd": 74000000.0,
+          "crew_bonus_usd": 0.0,
+          "payer": "charterer",
+          "areas": {
+            "gulf": {
+              "premium_pct": 0.0,
+              "entries": 0,
+              "laden_nm": 0.0,
+              "ballast_nm": 0.0,
+              "port_activities": [],
+              "ballast_transits": 0
+            },
+            "red_sea": {
+              "premium_pct": 0.0,
+              "entries": 0,
+              "laden_nm": 0.0,
+              "ballast_nm": 0.0,
+              "port_activities": [],
+              "ballast_transits": 0
+            }
+          }
+        }
+      },
       "rule_hub": "rotterdam",
       "rule_hub_tce_usd_day": 38791.027364,
       "rule_hub_basis_usd_day": 3957.61296
@@ -100,6 +260,8 @@
       "commission_pct": 5.0,
       "ffa": {
         "curve": "wk27_2026",
+        "column": "previous_usd_day",
+        "printed": "2026-07-06",
         "dated": "2026-06-29",
         "assessed": "2026-07-06",
         "source": "Banchero Costa, Dry bulk FFA assessments, weekly market report week 27, 2026",
@@ -120,6 +282,30 @@
       "hedge_days": 29.252292,
       "hedge_days_net": 27.789677,
       "basis_usd_day": 10108.708048,
+      "printings": [
+        {
+          "curve": "wk26_2026",
+          "printed": "2026-06-29",
+          "column": "usd_day",
+          "usd_day": 31384.620222,
+          "basis_usd_day": 14961.228135,
+          "used": false
+        },
+        {
+          "curve": "wk27_2026",
+          "printed": "2026-07-06",
+          "column": "previous_usd_day",
+          "usd_day": 36237.14031,
+          "basis_usd_day": 10108.708048,
+          "used": true
+        }
+      ],
+      "basis_range_usd_day": [
+        10108.708048,
+        14961.228135
+      ],
+      "no_margin_tce_gross_usd_day": 49322.288952,
+      "no_margin_basis_usd_day": 13085.148642,
       "freight_matching_ffa_usd_t": 10.510571,
       "spot_index_usd_day": 33678,
       "spot_basis": "180",
@@ -129,7 +315,141 @@
         "loading time at Port Hedland (the Baltic's terms load at the port's scale, which is not published)",
         "fuel burnt in port (the Baltic prints no port consumption for bulk carriers)",
         "port charges at Port Hedland and Qingdao (no public per call figure)"
-      ]
+      ],
+      "inputs": {
+        "contract": "voyage",
+        "freight_basis": "usd_t",
+        "freight_value": 12.25,
+        "flat_rate_usd_t": null,
+        "cargo_t": 170000,
+        "commission_pct": 5.0,
+        "other_revenue_usd": 0.0,
+        "sea_margin": 0.05,
+        "laden": {
+          "distance_nm": 3573.7,
+          "speed_kn": 14,
+          "eca_nm": 0.0,
+          "ets_share": 0.0
+        },
+        "ballast": {
+          "distance_nm": 3573.7,
+          "speed_kn": 14,
+          "eca_nm": 0.0,
+          "ets_share": 0.0
+        },
+        "laden_curve": [
+          [
+            14,
+            52
+          ],
+          [
+            13,
+            44
+          ],
+          [
+            12,
+            36
+          ],
+          [
+            11,
+            29
+          ]
+        ],
+        "ballast_curve": [
+          [
+            14,
+            44
+          ],
+          [
+            13,
+            36
+          ],
+          [
+            12,
+            29
+          ],
+          [
+            11,
+            23
+          ]
+        ],
+        "mgo_at_sea_tpd": 0.0,
+        "scrubber": false,
+        "scrubber_in_eca": false,
+        "vlsfo_class": "HFO",
+        "port": {
+          "load_days": 0.25,
+          "discharge_days": 6.666667,
+          "waiting_days": 0.0,
+          "canal_days": 0.0,
+          "delay_days": 0.0,
+          "sts_days": 0.0,
+          "load_tpd": 0.0,
+          "discharge_tpd": 0.0,
+          "waiting_tpd": 0.0,
+          "canal_tpd": 0.0,
+          "delay_tpd": 0.0,
+          "sts_tpd": 0.0,
+          "load_eca": false,
+          "discharge_eca": false,
+          "waiting_eca": false,
+          "canal_eca": false,
+          "delay_eca": false,
+          "sts_eca": false,
+          "load_ets_share": 0.0,
+          "discharge_ets_share": 0.0,
+          "waiting_ets_share": 0.0,
+          "canal_ets_share": 0.0,
+          "delay_ets_share": 0.0,
+          "sts_ets_share": 0.0
+        },
+        "prices": {
+          "vlsfo_usd_t": 644.0,
+          "hsfo_usd_t": 429.0,
+          "mgo_usd_t": 886.8
+        },
+        "ets": {
+          "phase_in": 1.0,
+          "eua_eur_t": 77.99,
+          "usd_per_eur": 1.1416,
+          "include_non_co2": true
+        },
+        "fueleu": {
+          "include": false,
+          "reduction_pct": 2.0
+        },
+        "costs": {
+          "port_load_usd": 0.0,
+          "port_discharge_usd": 0.0,
+          "canal_laden_usd": 0.0,
+          "canal_ballast_usd": 0.0,
+          "other_usd": 0.0,
+          "sts_usd": 0.0
+        },
+        "war_risk": {
+          "hull_value_usd": 74000000.0,
+          "crew_bonus_usd": 0.0,
+          "payer": "charterer",
+          "areas": {
+            "gulf": {
+              "premium_pct": 0.0,
+              "entries": 0,
+              "laden_nm": 0.0,
+              "ballast_nm": 0.0,
+              "port_activities": [],
+              "ballast_transits": 0
+            },
+            "red_sea": {
+              "premium_pct": 0.0,
+              "entries": 0,
+              "laden_nm": 0.0,
+              "ballast_nm": 0.0,
+              "port_activities": [],
+              "ballast_transits": 0
+            }
+          }
+        }
+      }
     },
     {
       "date": "2026-10-23",
@@ -141,6 +461,8 @@
       "commission_pct": 5.0,
       "ffa": {
         "curve": "wk43_2026",
+        "column": "usd_day",
+        "printed": "2026-10-25",
         "dated": "2026-10-25",
         "assessed": "2026-10-25",
         "source": "Banchero Costa, Dry bulk FFA assessments, weekly market report week 43, 2026",
@@ -171,6 +493,22 @@
       "hedge_days": 76.522292,
       "hedge_days_net": 72.696177,
       "basis_usd_day": -6798.779395,
+      "printings": [
+        {
+          "curve": "wk43_2026",
+          "printed": "2026-10-25",
+          "column": "usd_day",
+          "usd_day": 38841.718837,
+          "basis_usd_day": -6798.779395,
+          "used": true
+        }
+      ],
+      "basis_range_usd_day": [
+        -6798.779395,
+        -6798.779395
+      ],
+      "no_margin_tce_gross_usd_day": 35644.087297,
+      "no_margin_basis_usd_day": -3197.63154,
       "freight_matching_ffa_usd_t": 36.930342,
       "spot_index_usd_day": 34380,
       "spot_basis": "182",
@@ -181,6 +519,140 @@
         "fuel burnt in port (the Baltic prints no port consumption for bulk carriers)",
         "port charges at Tubarao and Qingdao (no public per call figure)"
       ],
+      "inputs": {
+        "contract": "voyage",
+        "freight_basis": "usd_t",
+        "freight_value": 33.87,
+        "flat_rate_usd_t": null,
+        "cargo_t": 170000,
+        "commission_pct": 5.0,
+        "other_revenue_usd": 0.0,
+        "sea_margin": 0.05,
+        "laden": {
+          "distance_nm": 11136.9,
+          "speed_kn": 14,
+          "eca_nm": 0.0,
+          "ets_share": 0.0
+        },
+        "ballast": {
+          "distance_nm": 11136.9,
+          "speed_kn": 14,
+          "eca_nm": 0.0,
+          "ets_share": 0.0
+        },
+        "laden_curve": [
+          [
+            14,
+            52
+          ],
+          [
+            13,
+            44
+          ],
+          [
+            12,
+            36
+          ],
+          [
+            11,
+            29
+          ]
+        ],
+        "ballast_curve": [
+          [
+            14,
+            44
+          ],
+          [
+            13,
+            36
+          ],
+          [
+            12,
+            29
+          ],
+          [
+            11,
+            23
+          ]
+        ],
+        "mgo_at_sea_tpd": 0.0,
+        "scrubber": false,
+        "scrubber_in_eca": false,
+        "vlsfo_class": "HFO",
+        "port": {
+          "load_days": 0.25,
+          "discharge_days": 6.666667,
+          "waiting_days": 0.0,
+          "canal_days": 0.0,
+          "delay_days": 0.0,
+          "sts_days": 0.0,
+          "load_tpd": 0.0,
+          "discharge_tpd": 0.0,
+          "waiting_tpd": 0.0,
+          "canal_tpd": 0.0,
+          "delay_tpd": 0.0,
+          "sts_tpd": 0.0,
+          "load_eca": false,
+          "discharge_eca": false,
+          "waiting_eca": false,
+          "canal_eca": false,
+          "delay_eca": false,
+          "sts_eca": false,
+          "load_ets_share": 0.0,
+          "discharge_ets_share": 0.0,
+          "waiting_ets_share": 0.0,
+          "canal_ets_share": 0.0,
+          "delay_ets_share": 0.0,
+          "sts_ets_share": 0.0
+        },
+        "prices": {
+          "vlsfo_usd_t": 940.0,
+          "hsfo_usd_t": 879.0,
+          "mgo_usd_t": 1334.0
+        },
+        "ets": {
+          "phase_in": 1.0,
+          "eua_eur_t": 82.31,
+          "usd_per_eur": 1.121006,
+          "include_non_co2": true
+        },
+        "fueleu": {
+          "include": false,
+          "reduction_pct": 2.0
+        },
+        "costs": {
+          "port_load_usd": 0.0,
+          "port_discharge_usd": 0.0,
+          "canal_laden_usd": 0.0,
+          "canal_ballast_usd": 0.0,
+          "other_usd": 0.0,
+          "sts_usd": 0.0
+        },
+        "war_risk": {
+          "hull_value_usd": 74000000.0,
+          "crew_bonus_usd": 0.0,
+          "payer": "charterer",
+          "areas": {
+            "gulf": {
+              "premium_pct": 0.0,
+              "entries": 0,
+              "laden_nm": 0.0,
+              "ballast_nm": 0.0,
+              "port_activities": [],
+              "ballast_transits": 0
+            },
+            "red_sea": {
+              "premium_pct": 0.0,
+              "entries": 0,
+              "laden_nm": 0.0,
+              "ballast_nm": 0.0,
+              "port_activities": [],
+              "ballast_transits": 0
+            }
+          }
+        }
+      },
       "rule_hub": "rotterdam",
       "rule_hub_tce_usd_day": 38256.182169,
       "rule_hub_basis_usd_day": 1427.946604
@@ -195,6 +667,8 @@
       "commission_pct": 5.0,
       "ffa": {
         "curve": "wk43_2026",
+        "column": "usd_day",
+        "printed": "2026-10-25",
         "dated": "2026-10-25",
         "assessed": "2026-10-25",
         "source": "Banchero Costa, Dry bulk FFA assessments, weekly market report week 43, 2026",
@@ -215,6 +689,22 @@
       "hedge_days": 29.252292,
       "hedge_days_net": 27.789677,
       "basis_usd_day": 6982.101412,
+      "printings": [
+        {
+          "curve": "wk43_2026",
+          "printed": "2026-10-25",
+          "column": "usd_day",
+          "usd_day": 38695.529033,
+          "basis_usd_day": 6982.101412,
+          "used": true
+        }
+      ],
+      "basis_range_usd_day": [
+        6982.101412,
+        6982.101412
+      ],
+      "no_margin_tce_gross_usd_day": 49193.162351,
+      "no_margin_basis_usd_day": 10497.633319,
       "freight_matching_ffa_usd_t": 12.898574,
       "spot_index_usd_day": 34380,
       "spot_basis": "182",
@@ -224,19 +714,161 @@
         "loading time at Port Hedland (the Baltic's terms load at the port's scale, which is not published)",
         "fuel burnt in port (the Baltic prints no port consumption for bulk carriers)",
         "port charges at Port Hedland and Qingdao (no public per call figure)"
-      ]
+      ],
+      "inputs": {
+        "contract": "voyage",
+        "freight_basis": "usd_t",
+        "freight_value": 14.1,
+        "flat_rate_usd_t": null,
+        "cargo_t": 170000,
+        "commission_pct": 5.0,
+        "other_revenue_usd": 0.0,
+        "sea_margin": 0.05,
+        "laden": {
+          "distance_nm": 3573.7,
+          "speed_kn": 14,
+          "eca_nm": 0.0,
+          "ets_share": 0.0
+        },
+        "ballast": {
+          "distance_nm": 3573.7,
+          "speed_kn": 14,
+          "eca_nm": 0.0,
+          "ets_share": 0.0
+        },
+        "laden_curve": [
+          [
+            14,
+            52
+          ],
+          [
+            13,
+            44
+          ],
+          [
+            12,
+            36
+          ],
+          [
+            11,
+            29
+          ]
+        ],
+        "ballast_curve": [
+          [
+            14,
+            44
+          ],
+          [
+            13,
+            36
+          ],
+          [
+            12,
+            29
+          ],
+          [
+            11,
+            23
+          ]
+        ],
+        "mgo_at_sea_tpd": 0.0,
+        "scrubber": false,
+        "scrubber_in_eca": false,
+        "vlsfo_class": "HFO",
+        "port": {
+          "load_days": 0.25,
+          "discharge_days": 6.666667,
+          "waiting_days": 0.0,
+          "canal_days": 0.0,
+          "delay_days": 0.0,
+          "sts_days": 0.0,
+          "load_tpd": 0.0,
+          "discharge_tpd": 0.0,
+          "waiting_tpd": 0.0,
+          "canal_tpd": 0.0,
+          "delay_tpd": 0.0,
+          "sts_tpd": 0.0,
+          "load_eca": false,
+          "discharge_eca": false,
+          "waiting_eca": false,
+          "canal_eca": false,
+          "delay_eca": false,
+          "sts_eca": false,
+          "load_ets_share": 0.0,
+          "discharge_ets_share": 0.0,
+          "waiting_ets_share": 0.0,
+          "canal_ets_share": 0.0,
+          "delay_ets_share": 0.0,
+          "sts_ets_share": 0.0
+        },
+        "prices": {
+          "vlsfo_usd_t": 940.0,
+          "hsfo_usd_t": 879.0,
+          "mgo_usd_t": 1334.0
+        },
+        "ets": {
+          "phase_in": 1.0,
+          "eua_eur_t": 82.31,
+          "usd_per_eur": 1.121006,
+          "include_non_co2": true
+        },
+        "fueleu": {
+          "include": false,
+          "reduction_pct": 2.0
+        },
+        "costs": {
+          "port_load_usd": 0.0,
+          "port_discharge_usd": 0.0,
+          "canal_laden_usd": 0.0,
+          "canal_ballast_usd": 0.0,
+          "other_usd": 0.0,
+          "sts_usd": 0.0
+        },
+        "war_risk": {
+          "hull_value_usd": 74000000.0,
+          "crew_bonus_usd": 0.0,
+          "payer": "charterer",
+          "areas": {
+            "gulf": {
+              "premium_pct": 0.0,
+              "entries": 0,
+              "laden_nm": 0.0,
+              "ballast_nm": 0.0,
+              "port_activities": [],
+              "ballast_transits": 0
+            },
+            "red_sea": {
+              "premium_pct": 0.0,
+              "entries": 0,
+              "laden_nm": 0.0,
+              "ballast_nm": 0.0,
+              "port_activities": [],
+              "ballast_transits": 0
+            }
+          }
+        }
+      }
     }
   ],
   "c5_fixture": {
     "date": "2026-10-22",
     "laycan": "5 to 7 November 2026",
     "fixture_usd_t": 14.15,
-    "index_usd_t": 14.1,
     "fixture_tce_usd_day": 43669.795671,
-    "index_tce_usd_day": 43393.748923,
-    "basis_usd_t": 0.05,
-    "basis_usd_day": 276.046748,
-    "cargo_t": 170000
+    "route_on_day_usd_t": 14.15,
+    "route_on_day_tce_usd_day": 43669.795671,
+    "next_day": "2026-10-23",
+    "index_next_day_usd_t": 14.1,
+    "index_next_day_tce_usd_day": 43393.748923,
+    "narrative_next_day_usd_t": 14.0,
+    "series_gap_usd_t": 0.1,
+    "basis_usd_t": 0.0,
+    "basis_usd_day": 0.0,
+    "basis_table_series_usd_t": -0.1,
+    "basis_table_series_usd_day": -552.093497,
+    "cargo_t": 170000,
+    "tce_market": "week of 2026-10-23"
   },
   "td3c": {
     "ffa_tce_q2_usd_day": 93100,
@@ -254,6 +886,58 @@
   },
   "c5tc_180_differential_usd_day": 3503.0,
   "curves": [
+    {
+      "id": "wk26_2026",
+      "assessed": "2026-06-29",
+      "previous": "2026-06-22",
+      "source": "Banchero Costa, Dry bulk FFA assessments, weekly market report week 26, 2026",
+      "raw_key": "dry_bancosta_weekly_2026_wk26_pdf",
+      "previous_note": "previous_usd_day is the column of the report's previous assessment date, printed beside each point",
+      "date_note": "The first print of the 29 June curve. The week 27 issue prints the same date again with other values (July 36,232 against 31,367 here); the Paper view sets the week 27 voyages against both prints.",
+      "segments": {
+        "capesize": {
+          "index": "C5TC",
+          "basis_note": "Capesize 5TC, the vessel basis is not printed in this issue",
+          "points": [
+            {
+              "period": "2026-06",
+              "usd_day": 38957,
+              "raw_key": "dry_bancosta_weekly_2026_wk26_pdf",
+              "quote": "Jun-26 usd/day 38,957 38,867",
+              "previous_usd_day": 38867
+            },
+            {
+              "period": "2026-07",
+              "usd_day": 31367,
+              "raw_key": "dry_bancosta_weekly_2026_wk26_pdf",
+              "quote": "Jul-26 usd/day 31,367 30,117",
+              "previous_usd_day": 30117
+            },
+            {
+              "period": "2026-08",
+              "usd_day": 33410,
+              "raw_key": "dry_bancosta_weekly_2026_wk26_pdf",
+              "quote": "Aug-26 usd/day 33,410 32,285",
+              "previous_usd_day": 32285
+            },
+            {
+              "period": "2026-09",
+              "usd_day": 36178,
+              "raw_key": "dry_bancosta_weekly_2026_wk26_pdf",
+              "quote": "Sep-26 usd/day 36,178 35,307",
+              "previous_usd_day": 35307
+            },
+            {
+              "period": "2026-11",
+              "usd_day": 36167,
+              "raw_key": "dry_bancosta_weekly_2026_wk26_pdf",
+              "quote": "Nov-26 usd/day 36,167 35,489",
+              "previous_usd_day": 35489
+            }
+          ]
+        }
+      }
+    },
     {
       "id": "wk27_2026",
       "assessed": "2026-07-06",
@@ -419,7 +1103,7 @@
         }
       },
       "previous_note": "previous_usd_day is the column of the report's previous assessment date, printed beside each point",
-      "date_note": "The report prints this curve at Monday 6 July 2026, one trading day after the physical rates of Friday 3 July, and its previous column at 29 June, the latest curve before 3 July. Its premium column (each month against the day's spot) puts the 6 July spot near 39,100 a day. The issue does not state the vessel basis; the week 43 issue states 182,000 t. The week 26 issue printed other values for 29 June (July 31,367 against 36,232 here), so the 29 June level is uncertain."
+      "date_note": "The report prints this curve at Monday 6 July 2026, one trading day after the physical rates of Friday 3 July, and its previous column at 29 June, the latest curve before 3 July. Its premium column (each month against the day's spot) puts the 6 July spot near 39,100 a day. The issue does not state the vessel basis; the week 43 issue states 182,000 t. The week 26 issue printed other values for 29 June (July 31,367 against 36,232 here), so the 29 June level is uncertain: the Paper view gives the basis on both prints."
     },
     {
       "id": "wk43_2026",
@@ -569,9 +1253,19 @@
   ],
   "settlement": [
     {
-      "contract": "EEX Baltic Capesize 5TC Freight Futures (CPTM) and Capesize 5TC (182) (C5TM)",
+      "contract": "EEX Baltic Capesize 5TC (182) Freight Futures (C5TM)",
       "unit": "USD/day, 1 day per lot",
-      "rule": "the arithmetic average of all the Baltic Exchange's daily assessments of the five route time charter basket in the contract month",
+      "rule": "the arithmetic average of the Baltic Exchange's daily assessments of the five route time charter basket for the 182,000 t ship in the contract month; the study's 182,000 t ship is hedged in these days",
+      "raw_key": "dry_eex_contract_specs_trade_registration_047a_2026_07_23_pdf",
+      "quote": [
+        "Capesize (182) Dry Bulk Time Charter Freight Basket Routes (Avg. 5 routes)",
+        "Contract Volume 1 day Pricing In USD per day"
+      ]
+    },
+    {
+      "contract": "EEX Baltic Capesize 5TC Freight Futures (CPTM)",
+      "unit": "USD/day, 1 day per lot",
+      "rule": "the arithmetic average of the Baltic's daily assessments of the 180,000 t basket, which the guide derives as the 182,000 t basket less USD 3,503 a day (GMB v8.8 page 77): a CPTM hedge of the 182,000 t ship carries that fixed difference",
       "raw_key": "dry_eex_contract_specs_trade_registration_047a_2026_07_23_pdf",
       "quote": [
         "The Index is the arithmetic average of all daily spot price assessments for \"Capesize Dry Bulk Time Charter Freight Basket Routes (Avg. 5 routes)\" of the respective month as published by Baltic Exchange.",
@@ -596,22 +1290,30 @@
       ]
     },
     {
-      "contract": "ICE Futures Europe tanker FFAs (TD3C, TD20, TD22, TD25, TC2, TC14 and others)",
+      "contract": "ICE Futures Europe Baltic tanker FFAs: TD3C, TD20, TD22, TD25, TD34, TC2, TC14, TC20, TC23",
       "unit": "USD/t",
-      "rule": "the average of the Baltic's assessments for the route for each business day of the determination period, in US dollars and cents per tonne",
+      "rule": "the average of the Baltic Exchange's assessments for the route for each business day of the determination period, in US dollars and cents per tonne",
       "raw_key": "dry_ice_futures_europe_section_ttt_partiie_freight_pdf",
       "quote": [
         "the Floating Price will be a price in USD and cents per metric tonne based on the average of the assessments as Final Settlement Price made public by the Baltic Exchange for the relevant route for each business day",
         "18. TD3C FFA - Middle East Gulf to China (Baltic) Future",
-        "24. TD22 FFA - US Gulf to China (Baltic) Future"
+        "24. TD22 FFA - US Gulf to China (Baltic) Future",
+        "TD34 FFA - Gulf of Oman to China (Baltic) Future"
       ]
     },
     {
-      "contract": "ICE TD34 FFA",
+      "contract": "ICE TC5 FFA, Arabian Gulf to Japan (Platts)",
       "unit": "USD/t",
-      "rule": "launched on ICE on 5 October 2026; 3,837 trades in its first five days against 2,989 for TD3C",
-      "raw_key": "risk_hsn_2026_10_15_baltic_td34_ffa_trades_outpace_td3c_html",
-      "quote": "According to Baltic Exchange, 3,837 trades were made on ICE for the new TD34 FFA in its first five days of trading (5-9 October). By comparison, the TD3C FFA (Middle East Gulf to China) recorded 2,989 trades on ICE during the same period."
+      "rule": "the average of Platts' Worldscale assessments for its Arab Gulf to Japan 55,000 t route, times the TC5 flat rate, each business day of the month: a TC5 cargo priced off the Baltic and hedged here carries the difference between the two assessors",
+      "raw_key": "dry_ice_futures_europe_section_ttt_partiie_freight_pdf",
+      "quote": "for the Arab Gulf to Japan 55kt route multiplied by the applicable Worldscale flat rate for the TC5 route"
+    },
+    {
+      "contract": "ICE Clean FFA, Arab Gulf to Japan 75kt (Platts)",
+      "unit": "USD/t",
+      "rule": "the average of Platts' dollar a tonne assessments for its Arab Gulf to Japan 75,000 t route, the TC1 size, each business day of the month; ICE lists no Baltic settled TC1 contract",
+      "raw_key": "dry_ice_futures_europe_section_ttt_partiie_freight_pdf",
+      "quote": "for the Arab Gulf to Japan 75kt route for each business day"
     }
   ],
   "page": {
@@ -638,12 +1340,16 @@
         "words": true
       },
       {
-        "text": "5TC FFA over the voyage's days, USD a day",
+        "text": "5TC (182) FFA over the voyage's days, the print used, USD a day",
         "short": "FFA"
       },
       {
         "text": "Basis, grossed up TCE less FFA, USD a day",
         "short": "basis"
+      },
+      {
+        "text": "Basis on the curve's other print, USD a day",
+        "short": "other print"
       },
       {
         "text": "Freight whose grossed up TCE equals the FFA, USD a tonne",
@@ -658,7 +1364,7 @@
         "short": "timing basis"
       },
       {
-        "text": "Hedge, days of 5TC",
+        "text": "Hedge, days of 5TC (182), EEX C5TM",
         "short": "hedge"
       },
       {
@@ -683,27 +1389,43 @@
         "prefix": "USD "
       },
       " a day grossed up by its 5 percent commission, ",
+      "between ",
       {
         "value": 418.741999,
         "format": "usd_day",
-        "field": "C3.basis_usd_day",
+        "field": "C3.basis_range.0",
         "prefix": "USD "
       },
-      " above the 5TC FFA over its days, and a C5 cargo ",
+      " and ",
+      {
+        "value": 4060.382366,
+        "format": "usd_day",
+        "field": "C3.basis_range.1"
+      },
+      " above",
+      " the 5TC FFA over its days on the two prints of the 29 June curve, and a C5 cargo ",
+      "between ",
       {
         "value": 10108.708048,
         "format": "usd_day",
-        "field": "C5.basis_usd_day",
+        "field": "C5.basis_range.0",
         "prefix": "USD "
       },
-      " above it; hedging the C3 voyage takes ",
+      " and ",
+      {
+        "value": 14961.228135,
+        "format": "usd_day",
+        "field": "C5.basis_range.1"
+      },
+      " above",
+      " it; hedging the C3 voyage takes ",
       {
         "value": 76.522292,
         "format": "days",
         "field": "C3.hedge_days",
         "suffix": " days"
       },
-      " of 5TC or ",
+      " of 5TC (182) or ",
       {
         "value": 170000,
         "format": "t",
@@ -714,7 +1436,22 @@
     ],
     "chart": {
       "title": [
-        "Grossed up by their commission, the C5 voyages earn well above the 5TC FFA over their days, while C3 sat near it in July and ",
+        "Grossed up by their commission, the C5 voyages earn well above the 5TC FFA over their days in both weeks; C3 sat ",
+        "between ",
+        {
+          "value": 418.741999,
+          "format": "usd_day",
+          "field": "C3.chart.basis_range.0",
+          "prefix": "USD "
+        },
+        " and ",
+        {
+          "value": 4060.382366,
+          "format": "usd_day",
+          "field": "C3.chart.basis_range.1"
+        },
+        " above",
+        " it in July, depending on which print of the 29 June curve is read, and ",
         {
           "value": 6798.779395,
           "format": "usd_day",
@@ -724,7 +1461,8 @@
         " a day below it in October."
       ],
       "axis": "USD a day",
-      "desc": "For each anchor week and route, the physical voyage TCE grossed up by its commission (ink dot), the 5TC FFA over the voyage's days (ringed dot) and the spot 5TC on the fixture date for the 182,000 t ship (muted dot); the rule between the first two is the basis.",
+      "desc": "For each anchor week and route, the physical voyage TCE grossed up by its commission (ink dot), the 5TC FFA over the voyage's days (ringed dot) and the spot 5TC on the fixture date for the 182,000 t ship (muted dot); the rule between the first two is the basis, its value written above it.",
+      "basis_label": "Basis {basis}",
       "legend": [
         {
           "kind": "ink",
@@ -758,22 +1496,53 @@
           "field": "c5_fixture.fixture_usd_t",
           "prefix": "USD "
         },
-        " a tonne for 5 to 7 November 2026, against the C5 index of ",
+        " a tonne for 5 to 7 November 2026 was fixed at the route's level that day in the report's narrative, ",
+        {
+          "value": 14.15,
+          "format": "usd_t",
+          "field": "c5_fixture.route_on_day_usd_t",
+          "prefix": "USD "
+        },
+        ": no basis on the day. The report's table of Baltic indices gives the C5 index only at the next day's close, ",
         {
           "value": 14.1,
           "format": "usd_t",
-          "field": "c5_fixture.index_usd_t",
+          "field": "c5_fixture.index_next_day_usd_t",
           "prefix": "USD "
         },
-        ", earns ",
+        " on 23 October 2026, where its narrative says ",
         {
-          "value": 276.046748,
-          "format": "usd_day",
-          "field": "c5_fixture.basis_usd_day",
+          "value": 14.0,
+          "format": "usd_t",
+          "field": "c5_fixture.narrative_next_day_usd_t",
           "prefix": "USD "
         },
-        " a day more than a cargo at the index: the basis between a fixture and the index it would be hedged with."
-      ]
+        "; on the table's series the fixture sat about ",
+        {
+          "value": 0.1,
+          "format": "usd_t",
+          "field": "c5_fixture.basis_table_series_usd_t",
+          "prefix": "USD "
+        },
+        " a tonne, ",
+        {
+          "value": 552.093497,
+          "format": "usd_day",
+          "field": "c5_fixture.basis_table_series_usd_day",
+          "prefix": "USD "
+        },
+        " a day, below the index on its day: the basis between a fixture and the index it would be hedged with."
+      ],
+      "table_caption": "A fixture against the index it would be hedged with, on the fixture's day and the next; TCEs at the bunker table of 23 October 2026."
+    },
+    "route_ffa": {
+      "title": "A route FFA in dollars a tonne, converted by the engine",
+      "lead": "No dated public C3 or C5 FFA quote in dollars a tonne was found, so the box starts empty. Type one to price an anchor voyage at it with the same engine: its TCE net of commission, grossed up, against the 5TC (182) FFA over the same days.",
+      "voyage_label": "Voyage",
+      "ffa_label": "Route FFA, USD a tonne",
+      "empty": "Type a route FFA to convert it into a TCE.",
+      "invalid": "Enter a number.",
+      "result": "At {ffa} a tonne the voyage earns {net} a day net of commission, {gross} grossed up: {basis} {side} the 5TC (182) FFA of {strip} over its days."
     },
     "td3c": {
       "lead": [
@@ -839,7 +1608,7 @@
       }
     ],
     "method": [
-      "A time charter FFA such as the Capesize 5TC settles on the arithmetic average of the Baltic's daily 5TC assessments in the contract month, in dollars a day; a voyage route FFA such as C3 or C5 on the average of the route's daily assessments, in dollars a tonne (EEX contract specifications, release 047a, July 2026). Tanker FFAs on ICE settle on the average of the route's assessments over the month, in dollars a tonne.",
+      "A time charter FFA such as the Capesize 5TC settles on the arithmetic average of the Baltic's daily 5TC assessments in the contract month, in dollars a day; a voyage route FFA such as C3 or C5 on the average of the route's daily assessments, in dollars a tonne (EEX contract specifications, release 047a, July 2026). The 182,000 t ship is hedged in 5TC (182) days, EEX's C5TM; EEX's CPTM settles on the 180,000 t basket, which the guide derives as the 182,000 t basket less USD 3,503 a day (page 77), a fixed difference a CPTM hedge of this ship would carry. Tanker FFAs on ICE settle in dollars a tonne on the average of the month's assessments: the Baltic's for TD3C, TD20, TD22, TD25, TD34, TC2, TC14, TC20 and TC23, Platts' for TC5 and for the 75,000 t Arab Gulf to Japan contract, the TC1 size (ICE Futures Europe rulebook, section TTT), so a TC1 or TC5 cargo priced off the Baltic and hedged on ICE carries the difference between two assessors.",
       "Time charter assessments, and the FFAs that settle on them, are gross daily hire: each 5TC route is assessed at 5 percent total commission (Guide to Market Benchmarks v8.8, pages 77 and 78). A voyage TCE is net of the same commission, so it is grossed up by it before it is set against the 5TC, as the guide does with a voyage's time charter equivalent (section 7.4.3). The basis is that grossed up TCE less the FFA; the freight that earns the FFA is the one whose net TCE equals the FFA less commission; the timing basis is the FFA less the spot 5TC on the fixture date, both gross.",
       "The FFA is the strip over the voyage's days: each day from the fixture date, ballast leg first, is priced at the FFA of its month on the latest curve that could be traded on the fixture date. The hedge is 5TC days equal to the voyage's days, or route FFA tonnes equal to its cargo; the owner keeps 95 percent of what the index pays, so the voyage's days times that share hedge its net earnings exactly."
     ],
@@ -848,10 +1617,43 @@
         "The spot 5TC of 3 July 2026, USD 33,678, is the 180,000 t basis: the BCI of 4,100 and the BDI of 2,717 printed that day fit a 182,000 t basket of 37,181 (that figure plus the guide's 3,503, page 77), and not 33,678 itself, which would give a BCI of 3,713. The study prices the 182,000 t ship and sets it against 37,181."
       ],
       [
-        "The report prints this curve at Monday 6 July 2026, one trading day after the physical rates of Friday 3 July, and its previous column at 29 June, the latest curve before 3 July. Its premium column (each month against the day's spot) puts the 6 July spot near 39,100 a day. The issue does not state the vessel basis; the week 43 issue states 182,000 t. The week 26 issue printed other values for 29 June (July 31,367 against 36,232 here), so the 29 June level is uncertain."
+        "The first print of the 29 June curve. The week 27 issue prints the same date again with other values (July 36,232 against 31,367 here); the Paper view sets the week 27 voyages against both prints."
+      ],
+      [
+        "The report prints this curve at Monday 6 July 2026, one trading day after the physical rates of Friday 3 July, and its previous column at 29 June, the latest curve before 3 July. Its premium column (each month against the day's spot) puts the 6 July spot near 39,100 a day. The issue does not state the vessel basis; the week 43 issue states 182,000 t. The week 26 issue printed other values for 29 June (July 31,367 against 36,232 here), so the 29 June level is uncertain: the Paper view gives the basis on both prints."
       ],
       [
         "The report prints this curve at 25 October 2026, a Sunday: no trading day lies between the physical rates of Friday 23 October and it, so it is the close of that week."
+      ],
+      [
+        "The physical TCEs carry a 5 percent weather margin on steaming time, the study's choice for dry routes: the guide sets it for its tanker TCEs (Appendix 3) and leaves a dry route's allowances to its panellists (section 7.4.2). Without it the grossed up TCEs would be ",
+        {
+          "value": 2976.440595,
+          "format": "usd_day",
+          "field": "no_margin.gain_low",
+          "prefix": "USD "
+        },
+        " to ",
+        {
+          "value": 3601.147855,
+          "format": "usd_day",
+          "field": "no_margin.gain_high"
+        },
+        " a day higher, and C3's basis ",
+        {
+          "value": 3580.489011,
+          "format": "usd_day",
+          "field": "C3.no_margin_basis",
+          "signed": true
+        },
+        " in July and ",
+        {
+          "value": -3197.63154,
+          "format": "usd_day",
+          "field": "C3.october.no_margin_basis",
+          "signed": true
+        },
+        " in October."
       ],
       [
         "C3 is priced at Singapore bunkers, the hub on its voyage. At Rotterdam's, the hub with public prices nearest Tubarao, it would earn ",
@@ -889,10 +1691,10 @@
       ]
     ],
     "months_words": {
-      "C3 2026-07-03": "July 29.0, August 31.0, September 16.5",
-      "C5 2026-07-03": "July 29.0, August 0.3",
-      "C3 2026-10-23": "October 9.0, November 30.0, December 31.0, January 6.5",
-      "C5 2026-10-23": "October 9.0, November 20.3"
+      "C3 2026-07-03": "July 29.0 days at 36,232, August 31.0 at 36,828, September 16.5 at 38,092",
+      "C5 2026-07-03": "July 29.0 days at 36,232, August 0.3 at 36,828",
+      "C3 2026-10-23": "October 9.0 days at 36,757, November 30.0 at 39,557, December 31.0 at 39,878, January 6.5 at 33,503",
+      "C5 2026-10-23": "October 9.0 days at 36,757, November 20.3 at 39,557"
     },
     "hedge_caption": "Each anchor week: the physical TCE net and grossed up, the 5TC FFA over the voyage's days and its months, the basis between them, the freight that would earn the FFA, the spot 5TC, the timing basis and the hedge."
   }

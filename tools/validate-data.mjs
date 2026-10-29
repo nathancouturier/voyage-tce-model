@@ -27,8 +27,8 @@ import { execFileSync } from "node:child_process";
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const ISO_INSTANT = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/;
 const SHA256 = /^[0-9a-f]{64}$/;
-/* tools/validate-engine.mjs needs at least this many cases; the brief asks
- * for 200 generated cases plus every anchor. */
+/* tools/validate-engine.mjs needs at least this many cases: 200 generated
+ * cases plus every anchor. */
 const MIN_CASES = 200;
 
 function readJson(relative) {

@@ -9,8 +9,8 @@ Units: distances in nautical miles, speeds in knots, time in days, fuel in
 tonnes and tonnes per day, prices in USD per tonne, money in USD unless a key
 says EUR, emissions in tonnes.
 
-The TCE, as the study brief and the Baltic Exchange's Guide to Market
-Benchmarks (v8.8, Appendix 3, page 98) define it:
+The TCE, as the Baltic Exchange's Guide to Market Benchmarks (v8.8, Appendix
+3, page 98) defines it:
 
     TCE = (gross freight + other revenue - commissions - voyage costs) / total voyage days
 
@@ -29,9 +29,10 @@ allowances; the owner pays only the ballast leg that positions the ship.
 
 An additional war risk premium is a percentage of hull value for each period
 of up to seven days in a listed area, charged on entering it. On a voyage
-charter it goes to whichever party the input names as its payer: usually the
-charterer, which leaves it out of the owner's TCE, as the Baltic's TCEs leave
-it out.
+charter the charter's premium goes to whichever party the input names as its
+payer: usually the charterer, which leaves it out of the owner's TCE, as the
+Baltic's TCE descriptions name no such premium. A passage through a listed
+area on the ballast leg, the approach to the next loading, is the owner's.
 """
 
 from __future__ import annotations
@@ -353,31 +354,53 @@ def war_risk(inputs: Mapping[str, Any]) -> dict[str, Any]:
     """The additional war risk premium by listed area: days inside, seven day periods, dollars.
 
     Each area carries its premium (percent of hull value a period), the miles
-    each leg sails inside it, the port activities spent inside it, and how many
-    separate times the voyage enters it. Its periods are the days inside over
-    seven, rounded up, and never fewer than its entries, since a premium is
-    charged on entering. A crew war bonus is added once, as a sum.
+    each leg sails inside it, the port activities spent inside it, how many
+    separate times the charter's voyage enters it, and how many times the
+    ballast leg passes through it on the way back to the load port. The
+    charter's periods are the days inside over seven, rounded up, and never
+    fewer than its entries, since a premium is charged on entering; each
+    ballast transit is one period. The charter's premium follows the payer;
+    a ballast transit, the approach to the next loading, is the owner's
+    (Gard, 21 March 2026). A crew war bonus is added to the charter's part.
     """
     war = inputs["war_risk"]
     margin = inputs["sea_margin"]
     port = inputs["port"]
     areas: dict[str, dict[str, float]] = {}
-    premium = 0.0
+    charter = 0.0
+    ballast = 0.0
     for name in WAR_RISK_AREAS:
         area = war["areas"][name]
-        if area["entries"] <= 0:
-            areas[name] = {"days": 0.0, "periods": 0.0, "usd": 0.0}
-            continue
-        inside = (
-            sea_days(area["laden_nm"], inputs["laden"]["speed_kn"], margin)
-            + sea_days(area["ballast_nm"], inputs["ballast"]["speed_kn"], margin)
-            + _total(port[activity + "_days"] for activity in area["port_activities"])
-        )
-        periods = max(float(area["entries"]), float(math.ceil(inside / WAR_RISK_PERIOD_DAYS)))
-        usd = area["premium_pct"] / PERCENT * war["hull_value_usd"] * periods
-        areas[name] = {"days": inside, "periods": periods, "usd": usd}
-        premium += usd
-    return {"areas": areas, "premium_usd": premium, "total_usd": premium + war["crew_bonus_usd"]}
+        rate = area["premium_pct"] / PERCENT * war["hull_value_usd"]
+        inside = 0.0
+        periods = 0.0
+        if area["entries"] > 0:
+            inside = (
+                sea_days(area["laden_nm"], inputs["laden"]["speed_kn"], margin)
+                + sea_days(area["ballast_nm"], inputs["ballast"]["speed_kn"], margin)
+                + _total(port[activity + "_days"] for activity in area["port_activities"])
+            )
+            periods = max(float(area["entries"]), float(math.ceil(inside / WAR_RISK_PERIOD_DAYS)))
+        transits = float(area["ballast_transits"])
+        usd = rate * periods
+        transit_usd = rate * transits
+        areas[name] = {
+            "days": inside,
+            "periods": periods,
+            "usd": usd,
+            "ballast_periods": transits,
+            "ballast_usd": transit_usd,
+        }
+        charter += usd
+        ballast += transit_usd
+    crew = war["crew_bonus_usd"]
+    return {
+        "areas": areas,
+        "charter_usd": charter + crew,
+        "ballast_usd": ballast,
+        "premium_usd": charter + ballast,
+        "total_usd": charter + ballast + crew,
+    }
 
 
 #: The activities whose costs a trip charterer pays, and the owner the rest.
@@ -387,10 +410,11 @@ _TRIP_ACTIVITIES = ("laden", "load", "discharge", "waiting", "canal", "delay", "
 def evaluate(inputs: Mapping[str, Any]) -> dict[str, Any]:
     """Every line of the voyage estimate, and the TCE.
 
-    The owner's voyage costs on a voyage charter are all of them, except a war
-    risk premium whose payer is the charterer. On a trip time charter they are
-    the ballast leg only: its bunkers and its allowances; the trip's costs are
-    reported as the charterer's.
+    The owner's voyage costs on a voyage charter are all of them, except the
+    charter's war risk premium when its payer is the charterer. On a trip time
+    charter they are the ballast leg only: its bunkers, its allowances and any
+    premium for a ballast transit; the trip's costs are reported as the
+    charterer's.
     """
     d = days(inputs)
     f = fuel(inputs)
@@ -409,7 +433,6 @@ def evaluate(inputs: Mapping[str, Any]) -> dict[str, Any]:
 
     costs = inputs["costs"]
     war = war_risk(inputs)
-    war_risk_usd = war["total_usd"]
     port_usd = costs["port_load_usd"] + costs["port_discharge_usd"]
     canal_usd = costs["canal_laden_usd"] + costs["canal_ballast_usd"]
     other_usd = costs["other_usd"] + costs["sts_usd"]
@@ -427,7 +450,7 @@ def evaluate(inputs: Mapping[str, Any]) -> dict[str, Any]:
             + (ets_all - owner_ets)
             + port_usd
             + costs["canal_laden_usd"]
-            + war_risk_usd
+            + war["charter_usd"]
             + other_usd
             + (fueleu_usd - owner_fueleu)
         )
@@ -436,20 +459,20 @@ def evaluate(inputs: Mapping[str, Any]) -> dict[str, Any]:
             "ports": 0.0,
             "canals": owner_canal,
             "ets": owner_ets,
-            "war_risk": 0.0,
+            "war_risk": war["ballast_usd"],
             "other": 0.0,
             "fueleu": owner_fueleu,
         }
         gross = inputs["freight_value"] * d["trip"]
     else:
         charterer_pays_war = inputs["war_risk"]["payer"] == "charterer"
-        charterer_costs = war_risk_usd if charterer_pays_war else 0.0
+        charterer_costs = war["charter_usd"] if charterer_pays_war else 0.0
         lines = {
             "bunkers": _total(bunkers_by_activity.values()),
             "ports": port_usd,
             "canals": canal_usd,
             "ets": ets_all,
-            "war_risk": 0.0 if charterer_pays_war else war_risk_usd,
+            "war_risk": war["ballast_usd"] + (0.0 if charterer_pays_war else war["charter_usd"]),
             "other": other_usd,
             "fueleu": fueleu_usd,
         }

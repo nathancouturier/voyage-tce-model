@@ -24,7 +24,9 @@
  * The laden leg is solid ink, the ballast leg a dashed muted line beside it,
  * and an ECA stretch is drawn over either in the sea green of the 0.10 percent
  * zone. The legend under the map says so in words, so no line depends on its
- * colour.
+ * colour. A ballast leg Python marks `beside`, one that sails the laden leg's
+ * water back, is moved BALLAST_GAP screen px to its side on every width
+ * change, so the two lines stay apart at any size.
  *
  * Numeric literals: MAP_GEOMETRY below, declared in tools/check-literals.mjs.
  */
@@ -48,7 +50,35 @@ export const MAP_GEOMETRY = Object.freeze({
    * of this share of its size, at most SHIFTS steps. */
   SHIFT: 0.5,
   SHIFTS: 6,
+  /* A ballast leg beside its laden leg: the distance between them, in px. */
+  BALLAST_GAP: 3,
 });
+
+/** A line moved sideways by `distance`, to its left as drawn: each point
+ *  along the mean of the normals of the segments that meet there. */
+function offsetLine(points, distance) {
+  if (points.length <= 1) return points;
+  const normals = [];
+  for (let i = 1; i < points.length; i += 1) {
+    const dx = points[i].x - points[i - 1].x;
+    const dy = points[i].y - points[i - 1].y;
+    const length = Math.hypot(dx, dy) || 1;
+    normals.push({ x: -dy / length, y: dx / length });
+  }
+  return points.map((point, i) => {
+    const before = normals[Math.max(i - 1, 0)];
+    const after = normals[Math.min(i, normals.length - 1)];
+    const nx = before.x + after.x;
+    const ny = before.y + after.y;
+    const length = Math.hypot(nx, ny) || 1;
+    return { x: point.x + (nx / length) * distance, y: point.y + (ny / length) * distance };
+  });
+}
+
+/** A path string from lines of points. */
+function pathString(lines) {
+  return lines.map((line) => line.map((point, i) => (i ? "L" : "M") + px(point.x) + " " + px(point.y)).join("")).join("");
+}
 
 /** The lines of a path string as Python writes it: absolute M and L only. */
 function pathLines(d) {
@@ -160,16 +190,21 @@ export function voyageMap(frame, land, voyage, words) {
   svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
   svg.appendChild(svgEl("path", { class: "map-land", d: land }));
 
+  // Each path of a leg with the lines it draws, so a ballast leg drawn beside
+  // the laden one can be moved again at each width.
   const leg = (drawing, kind) => {
     const group = svgEl("g", { class: "map-leg map-leg--" + kind });
-    group.appendChild(svgEl("path", { class: "map-leg__line", d: drawing.d, "vector-effect": "non-scaling-stroke" }));
-    for (const d of drawing.eca || []) {
-      group.appendChild(svgEl("path", { class: "map-leg__eca", d, "vector-effect": "non-scaling-stroke" }));
-    }
-    return group;
+    const paths = [{ className: "map-leg__line", d: drawing.d }, ...(drawing.eca || []).map((d) => ({ className: "map-leg__eca", d }))]
+      .map(({ className, d }) => {
+        const node = svgEl("path", { class: className, d, "vector-effect": "non-scaling-stroke" });
+        group.appendChild(node);
+        return { node, lines: pathLines(d) };
+      });
+    svg.appendChild(group);
+    return paths;
   };
-  svg.appendChild(leg(voyage.ballast, "ballast"));
-  svg.appendChild(leg(voyage.laden, "laden"));
+  const ballastPaths = leg(voyage.ballast, "ballast");
+  leg(voyage.laden, "laden");
 
   const ports = voyage.ports.map((port) => {
     const ring = svgEl("circle", { class: "mark-ring-fill", cx: px(port.x), cy: px(port.y) });
@@ -187,10 +222,19 @@ export function voyageMap(frame, land, voyage, words) {
   frame.appendChild(svg);
 
   // Dots and names at a screen size: k map units per px at this width.
-  const lines = [...pathLines(voyage.laden.d), ...pathLines(voyage.ballast.d)];
+  const laden = pathLines(voyage.laden.d);
   const view = { left: x0, top: y0, right: x0 + width, bottom: y0 + height };
   onWidthChange(frame, (renderedWidth) => {
     const k = width / renderedWidth;
+    let ballast = ballastPaths[0].lines;
+    if (voyage.ballast.beside) {
+      for (const path of ballastPaths) {
+        const moved = path.lines.map((line) => offsetLine(line, g.BALLAST_GAP * k));
+        path.node.setAttribute("d", pathString(moved));
+        if (path === ballastPaths[0]) ballast = moved;
+      }
+    }
+    const lines = [...laden, ...ballast];
     const font = g.PORT_FONT * k;
     const radius = g.PORT_RADIUS * k;
     const gap = g.PORT_GAP * k;

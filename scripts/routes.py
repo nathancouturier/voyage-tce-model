@@ -21,6 +21,7 @@ from __future__ import annotations
 import argparse
 import gzip
 import json
+import math
 import sys
 from pathlib import Path
 
@@ -65,7 +66,7 @@ def route(
         [ask_from[0], ask_from[1]],
         [ask_to[0], ask_to[1]],
         units="naut",
-        restrictions=list(sea_routes.ROUTINGS[routing]),
+        restrictions=list(sea_routes.restrictions(routing)),
         return_passages=True,
     )
     coordinates = [[round(float(x), PLACES), round(float(y), PLACES)] for x, y in feature["geometry"]["coordinates"]]
@@ -104,38 +105,41 @@ def compute() -> tuple[dict, dict]:
     study = ports.load()
     legs: dict[str, dict] = {}
     features = []
-    for origin in study.values():
-        for destination in study.values():
-            if origin.id == destination.id:
-                continue
-            for routing in sea_routes.ROUTINGS:
-                result = route(
-                    searoute,
-                    (origin.lon, origin.lat),
-                    (destination.lon, destination.lat),
-                    routing,
-                    origin.id,
-                    destination.id,
-                )
-                key = sea_routes.leg_key(origin.id, destination.id, routing)
-                nearest = sea_routes.passes(result["coordinates"])
-                legs[key] = {
-                    "from": origin.id,
-                    "to": destination.id,
-                    "routing": routing,
-                    "distance_nm": result["distance_nm"],
-                    "passages_reported_by_searoute": result["passages"],
-                    "passes": sea_routes.passed(nearest),
-                    "vertices": len(result["coordinates"]),
-                }
-                features.append(
-                    {
-                        "type": "Feature",
-                        "id": key,
-                        "properties": {"distance_nm": result["distance_nm"]},
-                        "geometry": {"type": "LineString", "coordinates": result["coordinates"]},
-                    }
-                )
+    asked = [
+        (origin, destination, routing)
+        for origin in study.values()
+        for destination in study.values()
+        if origin.id != destination.id
+        for routing in sea_routes.ROUTINGS
+    ] + [(study[o], study[d], routing) for o, d, routing in sea_routes.SPECIAL_LEGS]
+    for origin, destination, routing in asked:
+        result = route(
+            searoute,
+            (origin.lon, origin.lat),
+            (destination.lon, destination.lat),
+            routing,
+            origin.id,
+            destination.id,
+        )
+        key = sea_routes.leg_key(origin.id, destination.id, routing)
+        nearest = sea_routes.passes(result["coordinates"])
+        legs[key] = {
+            "from": origin.id,
+            "to": destination.id,
+            "routing": routing,
+            "distance_nm": result["distance_nm"],
+            "passages_reported_by_searoute": result["passages"],
+            "passes": sea_routes.passed(nearest),
+            "vertices": len(result["coordinates"]),
+        }
+        features.append(
+            {
+                "type": "Feature",
+                "id": key,
+                "properties": {"distance_nm": result["distance_nm"]},
+                "geometry": {"type": "LineString", "coordinates": result["coordinates"]},
+            }
+        )
 
     checks = []
     for check in distance_checks.CHECKS:
@@ -181,8 +185,9 @@ def compute() -> tuple[dict, dict]:
         "units": {"distance": "nautical miles"},
         "routings": {
             name: {"avoids": list(avoid), "label": sea_routes.ROUTING_LABELS[name]}
-            for name, avoid in sea_routes.ROUTINGS.items()
+            for name, avoid in {**sea_routes.ROUTINGS, **sea_routes.SPECIAL_ROUTINGS}.items()
         },
+        "special_legs": [list(leg) for leg in sea_routes.SPECIAL_LEGS],
         "reference_points": {
             name: {"lon": lon, "lat": lat, "within_nm": radius}
             for name, (lon, lat, radius) in sea_routes.REFERENCE_POINTS.items()
@@ -252,7 +257,7 @@ def main(argv: list[str] | None = None) -> int:
             DOCUMENT.relative_to(REPO_ROOT),
             LINES.relative_to(REPO_ROOT),
             len(lines),
-            sum(geo.polyline_length_nm(c) for c in lines.values()),
+            math.fsum(geo.polyline_length_nm(c) for c in lines.values()),
         )
     )
     return 0

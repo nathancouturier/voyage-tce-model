@@ -1,7 +1,7 @@
 """EU allowance prices, monthly, EUR per tonne of CO2: the Commission's auction reports, then DEHSt.
 
 Adapted from the sibling study jkm-ttf-arbitrage (lngarb.sources.ec_eua and
-lngarb.sources.dehst), as the study brief asks, and kept to the months the EU
+lngarb.sources.dehst), and kept to the months the EU
 ETS has covered shipping (from January 2024) and the year before.
 
 * To June 2025: the European Commission's reports on the auctions held by the
@@ -13,9 +13,10 @@ ETS has covered shipping (from January 2024) and the year before.
   several reports by this study. The latest report on the Commission's page on
   29 October 2026 covers April to June 2025.
 * From July 2025: the German Emissions Trading Authority's (DEHSt) monthly
-  average of Germany's own auctions on EEX, a proxy for the platform average
-  (0.13 EUR/t above it on average over January 2013 to June 2025, measured by
-  the sibling study). dehst.de could not be reached when this study was built,
+  average of Germany's own auctions on EEX, a proxy for the platform average.
+  Over the 30 months both cover here, January 2023 to June 2025, it sat
+  0.25 EUR/t above the platform's on average (proxy_gap below, tested in
+  tests/test_sources.py). dehst.de could not be reached when this study was built,
   so the months are read from the sibling study's committed cache of DEHSt's
   reports, which records the report each month comes from and which that
   study's weekly refresh keeps current: its main branch is read, and the copy
@@ -27,7 +28,9 @@ from __future__ import annotations
 
 import csv
 import io
+import math
 import re
+from typing import Any
 from urllib.parse import urljoin
 
 import pdfplumber
@@ -52,6 +55,7 @@ DEHST_KEY = "jkm_dehst_eua_monthly"
 CACHE = base.CACHE / "eua_monthly.csv"
 FIRST_MONTH = "2023-01"
 BOUNDS = (1.0, 200.0)
+COMMISSION = "European Commission"
 
 _LINK = re.compile(r'href="([^"]*filename=cap_report_(\d{6})_en\.pdf)"')
 _MONTHS = {
@@ -143,9 +147,7 @@ def combine(reports: dict[str, bytes], dehst_csv: bytes) -> list[dict[str, str]]
     for month in sorted(commission):
         if month >= FIRST_MONTH:
             price, report = commission[month]
-            rows.append(
-                {"month": month, "eua_eur_t": "%.2f" % price, "source": "European Commission", "report": report}
-            )
+            rows.append({"month": month, "eua_eur_t": "%.2f" % price, "source": COMMISSION, "report": report})
     reader = csv.DictReader(io.StringIO(dehst_csv.decode("utf-8")))
     for row in reader:
         month = row["date"][:7]
@@ -174,6 +176,24 @@ def write_cache(rows: list[dict[str, str]]) -> None:
 def read_cache() -> dict[str, dict[str, str]]:
     with open(CACHE, encoding="utf-8") as handle:
         return {row["month"]: row for row in csv.DictReader(handle)}
+
+
+def proxy_gap() -> dict[str, Any]:
+    """How far the proxy sits from the series it stands in for: DEHSt's monthly average less the Commission's, in
+    EUR a tonne, over the months the cache takes from the Commission and the committed DEHSt copy also prints."""
+    platform = {month: float(row["eua_eur_t"]) for month, row in read_cache().items() if row["source"] == COMMISSION}
+    reader = csv.DictReader(io.StringIO(base.raw_bytes(DEHST_KEY).decode("utf-8")))
+    dehst = {row["date"][:7]: float(row["eua_eur_t"]) for row in reader}
+    months = sorted(set(platform) & set(dehst))
+    gaps = [dehst[month] - platform[month] for month in months]
+    return {
+        "months": len(months),
+        "first": months[0],
+        "last": months[-1],
+        "mean_eur_t": math.fsum(gaps) / len(gaps),
+        "low_eur_t": min(gaps),
+        "high_eur_t": max(gaps),
+    }
 
 
 def refresh() -> list[dict[str, str]]:

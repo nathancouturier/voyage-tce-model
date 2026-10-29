@@ -220,7 +220,7 @@
         "field": "TD20.2026.cost_usd",
         "prefix": "USD "
       },
-      " for half its emissions and a VLCC from the Gulf to China nothing; in 2024 the same voyages paid ",
+      " for half its emissions at sea and all of them at Rotterdam, and a VLCC from the Gulf to China nothing; in 2024 the same voyages paid ",
       {
         "value": 40.0,
         "format": "percent_0",
@@ -295,7 +295,14 @@
           "prefix": "USD "
         },
         " for the ballast leg out of the EEA after redelivery."
-      ]
+      ],
+      "party_head": "Party",
+      "legs_head": "What it bears",
+      "charterer": "Charterer",
+      "charterer_legs": "The trip, US Gulf to the Skaw-Passero range, half its emissions at sea into the EEA and all of them in port",
+      "owner": "Owner",
+      "owner_legs": "The ballast leg back to the US Gulf after redelivery, half its emissions at sea out of the EEA",
+      "table_caption": "S4A, 2026: allowances surrendered for 100 percent of covered emissions, methane and nitrous oxide included, at EUR {eua} a tonne and {fx} dollars per euro."
     },
     "sections": [
       {
@@ -344,7 +351,7 @@
         " dollars per euro (Federal Reserve H.10, August 2026 average), held for every year so that only the phase in moves the cost."
       ],
       [
-        "Fuel at the August 2026 common market, each voyage on its Baltic ship's speeds and consumptions: MGO inside emission control areas and at berth in EU ports, VLSFO elsewhere, classed as HFO (ISO 8217 residual grades RME, RMG and RMK) for its emission factor, as IMO resolution MEPC.391(81) classes it."
+        "Fuel at the August 2026 common market, each voyage on its Baltic ship's speeds and consumptions: MGO inside emission control areas and at berth in EU ports, VLSFO elsewhere. VLSFO is classed by its ISO 8217 grade (IMO resolution MEPC.391(81)): HFO for RME, RMG and RMK, the default here since most VLSFO is tested against RMG 380, and LFO (3.151 t of CO2 a tonne) for RMA, RMB and RMD."
       ],
       [
         "Methane and nitrous oxide at the warming potentials of the ETS and MRV, 28 and 265 (Delegated Regulation (EU) 2020/1044); FuelEU uses the Renewable Energy Directive's 25 and 298."
@@ -357,7 +364,7 @@
       "FuelEU Maritime (Regulation (EU) 2023/1805) has applied since 1 January 2025. It sets a limit on the greenhouse gas intensity of the energy a ship uses over a year, 89.34 grams of CO2 equivalent per megajoule from 2025 (2 percent under the 91.16 reference), and a penalty of EUR 2,400 per tonne of VLSFO equivalent energy in deficit. It is settled per ship and year, with banking, borrowing and pooling, so a single voyage has no penalty of its own: the figures below are the penalty the voyage's energy would carry if the ship burnt the same fuel all year, shown beside the TCE and kept out of it."
     ],
     "method": [
-      "Emissions are the fuel burnt by grade times the factors of the MRV Regulation (EU) 2015/757 as amended: 3.114 t of CO2 per t of HFO, 3.151 for LFO and 3.206 for MGO, with VLSFO an ISO 8217 residual grade (HFO). From 2026 methane and nitrous oxide count, at 0.00005 and 0.00018 g per g of fuel times warming potentials of 28 and 265.",
+      "Emissions are the fuel burnt by grade times the factors of the MRV Regulation (EU) 2015/757 as amended: 3.114 t of CO2 per t of HFO, 3.151 for LFO and 3.206 for MGO, with VLSFO classed by its ISO 8217 grade (HFO by default, LFO for RMA to RMD). From 2026 methane and nitrous oxide count, at 0.00005 and 0.00018 g per g of fuel times warming potentials of 28 and 265.",
       "Covered emissions follow Article 3ga of the ETS Directive: 100 percent of a voyage between two EEA ports and of the emissions within a port of call in the EEA, 50 percent of a voyage into or out of the EEA. Allowances are surrendered for 40 percent of 2024 emissions, 70 percent of 2025 and 100 percent from 2026 (Article 3gb); methane and nitrous oxide count from 2026 (Annex I)."
     ]
   },
@@ -369,12 +376,12 @@
     "worldscale": "https://www.balticexchange.com/content/dam/balticexchange/consumer/documents/data-services/documentation/ocean-bulk-guides-policies/GMB.pdf",
     "commission_tanker": "https://www.balticexchange.com/content/dam/balticexchange/consumer/documents/data-services/documentation/ocean-bulk-guides-policies/GMB.pdf",
     "commission_dry": "https://www.balticexchange.com/content/dam/balticexchange/consumer/documents/data-services/documentation/ocean-bulk-guides-policies/GMB.pdf",
-    "sulphur": "https://wwwcdn.imo.org/localresources/en/KnowledgeCentre/IndexofIMOResolutions/MEPCDocuments/MEPC.328(76",
-    "med_eca": "https://wwwcdn.imo.org/localresources/en/KnowledgeCentre/IndexofIMOResolutions/MEPCDocuments/MEPC.361(79",
+    "sulphur": "https://wwwcdn.imo.org/localresources/en/KnowledgeCentre/IndexofIMOResolutions/MEPCDocuments/MEPC.328(76).pdf",
+    "med_eca": "https://wwwcdn.imo.org/localresources/en/KnowledgeCentre/IndexofIMOResolutions/MEPCDocuments/MEPC.361(79).pdf",
     "berth": "http://publications.europa.eu/resource/celex/32016L0802",
     "emission_factors": "http://publications.europa.eu/resource/celex/32023R2776",
     "gwp_ets": "http://publications.europa.eu/resource/celex/32020R1044",
-    "vlsfo_grade": "https://wwwcdn.imo.org/localresources/en/KnowledgeCentre/IndexofIMOResolutions/MEPCDocuments/MEPC.391(81",
+    "vlsfo_grade": "https://wwwcdn.imo.org/localresources/en/KnowledgeCentre/IndexofIMOResolutions/MEPCDocuments/MEPC.391(81).pdf",
     "ets_scope": "http://publications.europa.eu/resource/celex/32023L0959",
     "ets_phase_in": "http://publications.europa.eu/resource/celex/32023L0959",
     "ets_gases": "http://publications.europa.eu/resource/celex/02003L0087-20240301",

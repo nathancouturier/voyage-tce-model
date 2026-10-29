@@ -13,17 +13,19 @@ line is placed where it runs continuously. Latitudes from 50 south to 72 north.
 Each voyage carries its own view box, the box round its lines with a margin, so
 the page shows the part of the world the voyage sails.
 
-THE LEGS. The laden leg is drawn as it sails; the ballast leg, which often
-follows the same water back, is drawn a few map units to its side so both are
-visible. The stretches inside an emission control area in force on the voyage
-date are cut out of each leg as their own paths. The ports are given as points;
+THE LEGS. Both legs are written as they sail. A ballast leg that starts at the
+discharge port follows the laden leg's water back, all the way or most of it
+(TD22 parts only between the Strait of Malacca and the Sunda Strait), so it is
+marked `beside` and the page draws it a few screen pixels to its side, at
+whatever size it draws the map, so both legs show on a phone too. The stretches
+inside an emission control area in force on the voyage date are cut out of each
+leg as their own paths. The ports are given as points;
 the page places their names at the size it draws them (src/map.js), where no
 line runs through them and no other word lies under them.
 """
 
 from __future__ import annotations
 
-import itertools
 import json
 import math
 from collections.abc import Mapping, Sequence
@@ -39,8 +41,7 @@ LAT_MIN, LAT_MAX = -50.0, 72.0
 #: Map units per degree; the page scales the drawing to its width.
 PX_PER_DEGREE = 2.4
 PLACES = 1
-#: The ballast leg's distance from the laden leg, and the margin round a voyage's view box, in map units.
-BALLAST_OFFSET = 2.6
+#: The margin round a voyage's view box, in map units, room for the ballast leg drawn beside the laden one too.
 VIEW_MARGIN = 26.0
 #: Lines are simplified to this tolerance in map units before they are written.
 SIMPLIFY = 0.35
@@ -123,7 +124,7 @@ def land_path() -> str:
         for ring in polygon:
             ring = unwrap(ring)
             if abs(ring[-1][0] - ring[0][0]) > 180.0:
-                pole = 90.0 if sum(lat for _, lat in ring) > 0 else -90.0
+                pole = 90.0 if math.fsum(lat for _, lat in ring) > 0 else -90.0
                 ring += [(ring[-1][0], pole), (ring[0][0], pole)]
             lats = [lat for _, lat in ring]
             if max(lats) < LAT_MIN or min(lats) > LAT_MAX:
@@ -176,30 +177,6 @@ def _shift_into_window(line: list[Point]) -> list[Point]:
     return [(lon + 360.0 * best_turns, lat) for lon, lat in line]
 
 
-def offset(points: Sequence[Point], distance: float) -> list[Point]:
-    """The line moved sideways by a distance in map units, to its left as drawn."""
-    if len(points) < 2:
-        return list(points)
-    normals = []
-    for (ax, ay), (bx, by) in itertools.pairwise(points):
-        length = math.hypot(bx - ax, by - ay) or 1.0
-        normals.append((-(by - ay) / length, (bx - ax) / length))
-    out = []
-    for index, (x, y) in enumerate(points):
-        if index == 0:
-            nx, ny = normals[0]
-        elif index == len(points) - 1:
-            nx, ny = normals[-1]
-        else:
-            ax, ay = normals[index - 1]
-            bx, by = normals[index]
-            nx, ny = ax + bx, ay + by
-            length = math.hypot(nx, ny) or 1.0
-            nx, ny = nx / length, ny / length
-        out.append((x + nx * distance, y + ny * distance))
-    return out
-
-
 def eca_runs(coordinates: Sequence[Sequence[float]], on_date: str) -> list[list[Point]]:
     """The stretches of a line inside an emission control area in force on a date, as lon, lat runs."""
     zones = eca.in_force(cases.zones(), on_date)
@@ -220,14 +197,13 @@ def eca_runs(coordinates: Sequence[Sequence[float]], on_date: str) -> list[list[
     return runs
 
 
-def leg_drawing(origin: str, destination: str, routing: str, on_date: str, side: float) -> dict[str, Any]:
+def leg_drawing(origin: str, destination: str, routing: str, on_date: str) -> dict[str, Any]:
     """One leg: its path, its emission control area stretches and its box, in map units."""
     key = sea_routes.leg_key(origin, destination, routing)
     raw = cases.lines()[key]
     line = _shift_into_window(unwrap(raw))
     projected = [project(lon, lat) for lon, lat in line]
-    drawn = offset(projected, side) if side else projected
-    drawn = simplify(drawn, SIMPLIFY)
+    drawn = simplify(projected, SIMPLIFY)
     runs = []
     for run in eca_runs(raw, on_date):
         unwrapped = unwrap(run)
@@ -239,8 +215,6 @@ def leg_drawing(origin: str, destination: str, routing: str, on_date: str, side:
             if best is None or distance < best[0]:
                 best = (distance, candidate)
         points = [project(lon, lat) for lon, lat in best[1]]
-        if side:
-            points = offset(points, side)
         runs.append(path_d(simplify(points, SIMPLIFY)))
     xs = [p[0] for p in drawn]
     ys = [p[1] for p in drawn]
@@ -263,9 +237,8 @@ def voyage_map(
 ) -> dict[str, Any]:
     """The drawing of one voyage: both legs, their ECA stretches, the ports and the view box."""
     ballast_from = ballast_from or route.discharge
-    laden = leg_drawing(route.load, route.discharge, laden_routing, on_date, 0.0)
-    same_water = ballast_from == route.discharge and ballast_routing == laden_routing
-    ballast = leg_drawing(ballast_from, route.load, ballast_routing, on_date, BALLAST_OFFSET if same_water else 0.0)
+    laden = leg_drawing(route.load, route.discharge, laden_routing, on_date)
+    ballast = leg_drawing(ballast_from, route.load, ballast_routing, on_date)
     xs = [laden["box"][0], laden["box"][2], ballast["box"][0], ballast["box"][2]]
     ys = [laden["box"][1], laden["box"][3], ballast["box"][1], ballast["box"][3]]
     view = (min(xs) - VIEW_MARGIN, min(ys) - VIEW_MARGIN, max(xs) + VIEW_MARGIN, max(ys) + VIEW_MARGIN)
@@ -305,7 +278,12 @@ def voyage_map(
             round(view[3] - view[1], PLACES),
         ],
         "laden": {"key": laden["key"], "d": laden["d"], "eca": laden["eca"]},
-        "ballast": {"key": ballast["key"], "d": ballast["d"], "eca": ballast["eca"]},
+        "ballast": {
+            "key": ballast["key"],
+            "d": ballast["d"],
+            "eca": ballast["eca"],
+            "beside": ballast_from == route.discharge,
+        },
         "ports": placed,
     }
 

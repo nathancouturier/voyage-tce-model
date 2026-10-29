@@ -29,7 +29,7 @@ def haversine_nm(a: Sequence[float], b: Sequence[float]) -> float:
 
 def polyline_length_nm(coordinates: Sequence[Sequence[float]]) -> float:
     """Length of a line of (lon, lat) pairs along great circles, in nautical miles."""
-    return sum(haversine_nm(a, b) for a, b in itertools.pairwise(coordinates))
+    return math.fsum(haversine_nm(a, b) for a, b in itertools.pairwise(coordinates))
 
 
 def interpolate(a: Sequence[float], b: Sequence[float], t: float) -> Point:

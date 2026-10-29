@@ -19,6 +19,7 @@ import { formatCell, formatNumber, formatDay, formatDayShort, UNITS } from "./fo
 import { dotChart } from "./charts.js";
 import { chartFigure, viewHead } from "./figure.js";
 import { buildSections, withBuilders } from "./sections.js";
+import * as router from "./router.js";
 
 export const artifacts = Object.freeze(["method", "manifest"]);
 
@@ -32,7 +33,12 @@ export function render(root, data, route) {
   const scale = method.conventions.scale;
   const title = viewHead(root, page.title, page.takeaway, decimals);
 
-  const anchors = method.validation.tanker.filter((row) => row.reproducible);
+  // The lump sums priced as published, then TD3C at the flat rate Platts' pairs imply.
+  const groups = page.chart.groups;
+  const anchors = [
+    ...method.validation.tanker.filter((row) => row.reproducible).map((row) => ({ row, group: groups.lump_sum })),
+    ...method.validation.tanker.filter((row) => row.implied).map((row) => ({ row, group: groups.implied })),
+  ];
   root.appendChild(chartFigure({
     title: page.chart.title,
     decimals,
@@ -41,14 +47,14 @@ export function render(root, data, route) {
     draw: (width, titleText) => dotChart({
       width,
       keepZero: true,
-      rows: anchors.map((row) => {
+      rows: anchors.map(({ row, group }) => {
         // Ink: prices first printed that week; a ring: up to a week before; muted: older, reprinted.
         const fresh = row.bunker_freshness === "fresh";
         const old = row.bunker_freshness === "older";
         return {
           id: row.route + row.week_ending,
           label: row.route + ", " + formatDay(row.week_ending),
-          group: null,
+          group,
           dots: [{ value: row.error * scale.percent, className: fresh ? "mark-series-fill" : (old ? "mark-context-fill" : "mark-printed") }],
           span: { from: 0, to: row.error * scale.percent },
           tip: [
@@ -110,6 +116,13 @@ function formulasSection(inner, method) {
   inner.appendChild(el("div", { class: "block" }, method.page.formulas.map((text) => el("p", { class: "formula", text }))));
 }
 
+/* Why a row is not priced, or the bunker table it was priced with. */
+function validationNote(row) {
+  if (row.reproducible) return "Bunkers: " + row.bunkers_words;
+  if (row.implied) return row.reason + "; bunkers: " + row.bunkers_words;
+  return row.reason;
+}
+
 function validationSection(inner, method, decimals, scale) {
   const v = method.validation;
   // Tanker anchors: every published pair, reproduced or not.
@@ -124,7 +137,7 @@ function validationSection(inner, method, decimals, scale) {
   ]);
   const body = el("tbody");
   for (const row of v.tanker) {
-    const rate = row.rate_basis === "ws" ? "WS " + formatNumber(row.rate_value, "ws", decimals) : formatNumber(row.rate_value, "usd", decimals) + " " + UNITS.usd;
+    const rate = row.rate_basis === "ws" ? "WS " + formatNumber(row.rate_value, "ws", decimals) : "USD " + formatNumber(row.rate_value, "usd", decimals);
     body.appendChild(el("tr", { attrs: { "data-reproducible": row.reproducible ? "yes" : "no" } }, [
       el("th", { class: "nowrap", text: formatDayShort(row.week_ending), attrs: { scope: "row" } }),
       el("td", { class: "nowrap" }, [row.url ? el("a", { class: "text-link", text: row.route_label, attrs: { href: row.url } }) : row.route_label]),
@@ -132,7 +145,7 @@ function validationSection(inner, method, decimals, scale) {
       figureCell(formatCell(row.published_tce_usd_day, "usd_day", decimals), "published_tce_usd_day", { missing: "not given" }),
       figureCell(formatCell(row.engine_tce_usd_day, "usd_day", decimals), "engine_tce_usd_day", { missing: "not priced" }),
       figureCell(row.error === null ? null : formatCell(row.error * scale.percent, "error_percent", decimals, true), "error", { missing: "not compared" }),
-      el("td", { class: "words", text: row.reproducible ? "Bunkers of the " + row.bunkers_words : row.reason }),
+      el("td", { class: "words", text: validationNote(row) }),
     ]));
   }
   const table = el("table", { class: "table table--wide" }, [el("thead", {}, [head]), body]);
@@ -207,6 +220,14 @@ function validationSection(inner, method, decimals, scale) {
   }
   const bTable = el("table", { class: "table" }, [el("thead", {}, [bHead]), bBody]);
   inner.appendChild(el("div", { class: "block" }, [scrollTable([method.page.baltic_2017_caption], bTable)]));
+
+  // The distance checks are drawn with the routes they test.
+  const checks = v.distances.checks;
+  inner.appendChild(el("p", { class: "prose block" }, [
+    method.page.distances_words.replace("{within}", String(checks.filter((c) => c.within_tolerance).length)).replace("{count}", String(checks.length)) + " ",
+    el("a", { class: "text-link", text: method.page.distances_link, attrs: { href: router.href("routes", { open: "data" }) } }),
+    ".",
+  ]));
 }
 
 function sourcesSection(inner, manifest) {
@@ -221,7 +242,7 @@ function sourcesSection(inner, manifest) {
   for (const series of manifest.series) {
     body.appendChild(el("tr", {}, [
       el("th", { class: "manifest__series", attrs: { scope: "row" } }, [el("a", { class: "text-link", text: series.what, attrs: { href: series.source.url } })]),
-      el("td", { class: "nowrap", text: series.as_of ? formatDay(series.as_of) : series.as_of_words }),
+      el("td", { class: series.as_of ? "nowrap" : "words", text: series.as_of ? formatDay(series.as_of) : series.as_of_words }),
       el("td", { class: "nowrap", text: formatDay(series.source.retrieved) }),
       el("td", { class: "manifest__words", text: series.source.publisher }),
       el("td", { class: "manifest__words", text: series.licence }),

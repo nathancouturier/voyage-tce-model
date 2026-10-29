@@ -53,7 +53,7 @@ const REQUIRED = Object.freeze({
   ],
   calculator: [
     "title", "lead", "default_preset", "steps", "fields", "freight_bases", "ets_years", "vlsfo_classes", "shocks",
-    "speed_chart.margin_kn", "speed_chart.step_kn", "target_tce.value", "presets", "vessels", "routes", "alternatives",
+    "speed_chart.margin_kn", "speed_chart.step_kn", "target_tce.value", "presets", "vessels", "routes",
     "cost_labels", "war_risk_rates", "route_order", "input_labels", "status_words", "payer_words", "war_area_names",
     "words", "sections", "assumptions.statuses",
   ],
@@ -66,6 +66,7 @@ const REQUIRED = Object.freeze({
     "page.title", "page.takeaway", "page.baltic_map", "page.chart.title", "page.chart.axis", "page.chart.desc",
     "page.chart.source", "page.chart.legend", "page.table_caption", "page.hormuz.title", "page.hormuz.lead",
     "page.hormuz.caption", "page.segments", "page.sections", "page.method", "page.assumptions", "page.pub151.caption",
+    "page.priced_mark", "page.turn_time_mark", "page.chart.note",
     "page.pub151.published_head", "page.pub151.within_head", "page.downloads", "rows", "pub151.checks", "baltic_map_url",
   ],
   detours: [
@@ -83,9 +84,10 @@ const REQUIRED = Object.freeze({
   paper: [
     "page.title", "page.takeaway", "page.chart.title", "page.chart.legend", "page.chart.source", "page.fixture.lead",
     "page.td3c.lead", "page.sections", "page.method", "page.assumptions", "page.hedge_columns", "page.months_words",
+    "page.fixture.table_caption", "page.route_ffa.result", "page.route_ffa.empty",
     "capesize", "c5_fixture", "settlement", "curves",
   ],
-  speed: ["lead", "note", "bound_mark", "routes", "textbook"],
+  speed: ["lead", "note", "bound_marks.top", "bound_marks.bottom", "routes", "textbook"],
   method: [
     "page.title", "page.takeaway", "page.chart.title", "page.chart.legend", "page.chart.source", "page.sections",
     "page.formulas", "page.limitations", "page.limitations_heading", "page.blocked", "page.blocked_heading",
@@ -158,6 +160,10 @@ export function check(name, data) {
     }
     if (node !== null && typeof node === "object") {
       for (const [key, value] of Object.entries(node)) {
+        // A link cut at an opening parenthesis points nowhere: every bracket a link opens, it closes.
+        if ((key === "url" || key === "href") && typeof value === "string" && value.split("(").length !== value.split(")").length) {
+          problems.push(name + ": the link at " + where + "." + key + " has unbalanced parentheses: " + value);
+        }
         if (key === "format" && typeof value === "string") {
           try {
             decimalsFor(value, decimals);

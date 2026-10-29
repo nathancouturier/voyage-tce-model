@@ -146,11 +146,13 @@ export function uniqueId(prefix) {
  *  focus inside it is scrolled fully into view with its focus ring. */
 export function scrollTable(captionChildren, table) {
   const id = uniqueId("table-caption");
-  // At 600px and below a table of more than STACK_FROM columns is set as one
-  // block per row, each cell under its column's name (styles: .table--stack),
-  // so no figure is cut by the edge of a scroll box.
+  // At 600px and below a table of more than STACK_FROM columns, or of as many
+  // when its cells hold sentences, is set as one block per row, each cell under
+  // its column's name (styles: .table--stack), so no figure or sentence is cut
+  // by the edge of a scroll box.
   const heads = [...table.querySelectorAll("thead tr:last-child th")].map((th) => th.textContent.trim());
-  if (heads.length > STACK_FROM) {
+  const wordy = table.querySelector("td.words, td.quote") !== null;
+  if (heads.length > STACK_FROM || (wordy && heads.length >= STACK_FROM)) {
     table.classList.add("table--stack");
     // A table set as blocks loses its table semantics in some browsers, so the
     // roles are written into the markup, as the bridge's are.

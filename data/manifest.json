@@ -40,7 +40,7 @@
       "million": 1000000.0
     }
   },
-  "caption": "Every source the study reads: the date of its latest figure, when it was retrieved, its publisher and its licence. Licensed documents are cited with their figures and never redistributed.",
+  "caption": "The series the study's figures rest on: the date of the latest figure, when it was retrieved, its publisher and its licence. Every other document is cited, with its link, where its figure is used (the conventions, validation and assumptions tables); the repository's data/raw/manifest.json lists all 365 files retrieved, with their addresses, dates and hashes. Licensed documents are cited with their figures and never redistributed.",
   "series": [
     {
       "id": "gmb",
@@ -207,6 +207,6 @@
     "updated": "2026-10-29",
     "latest_words": "latest market input dated",
     "latest_input": "2026-10-25",
-    "method_words": "Every source with its date and licence"
+    "method_words": "The sources, with their dates and licences"
   }
 }

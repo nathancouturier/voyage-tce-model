@@ -9,6 +9,7 @@ study does not back one out of the published TCE.
 
 from __future__ import annotations
 
+import math
 from datetime import date as _date
 from typing import Any
 
@@ -81,6 +82,26 @@ def lump_sum_summary() -> dict[str, Any]:
     }
 
 
+def implied_summary() -> dict[str, Any]:
+    """The Worldscale rows priced at an implied flat rate, grouped as the lump sums are."""
+    rows = [r for r in tanker_weekly() if r.get("implied")]
+    exception = [r for r in rows if r["week_ending"] in POST_CLOSURE_WEEKS]
+    rest = [r for r in rows if r["week_ending"] not in POST_CLOSURE_WEEKS]
+    usual = [r for r in rest if r["bunker_freshness"] in ("fresh", "week_old")]
+    stale = [r for r in rest if r["bunker_freshness"] == "older"]
+    flats = implied_flat_rates()
+    return {
+        "rows": rows,
+        "routes": sorted({r["route"] for r in rows}),
+        "flat_rates": {route: flats[route]["flat_usd_t"] for route in sorted({r["route"] for r in rows})},
+        "error": [min(r["error"] for r in rows), max(r["error"] for r in rows)] if rows else [],
+        "usual_error": [min(r["error"] for r in usual), max(r["error"] for r in usual)] if usual else [],
+        "usual": usual,
+        "stale": stale,
+        "exception": exception,
+    }
+
+
 def broker_cross_check() -> dict[str, Any]:
     """TD22 on the cross-check date priced at another broker's Houston prices, against the table the study uses."""
     from dataclasses import replace
@@ -124,8 +145,30 @@ def _freshness(age_days: int) -> str:
     return "week_old" if age_days <= WEEK_DAYS else "older"
 
 
+def implied_flat_rates() -> dict[str, dict[str, Any]]:
+    """The flat rate each cited Worldscale and dollar pair implies, by the route it checks.
+
+    Dollars a tonne = points / 100 x flat rate, so each pair gives the flat
+    rate; the pairs' mean, to the cent the Worldscale Association prints, is
+    the rate used.
+    """
+    out = {}
+    for item in cases.seed("anchors.json")["implied_flat_rates"]["items"]:
+        implied = [pair["usd_t"] / (pair["ws"] / engine.PERCENT) for pair in item["pairs"]]
+        out[item["applies_to"]] = dict(
+            item, implied_usd_t=implied, flat_usd_t=round(math.fsum(implied) / len(implied), 2)
+        )
+    return out
+
+
 def tanker_weekly() -> list[dict[str, Any]]:
-    """Every tanker rate and TCE pair of the Baltic weekly reports, reproduced where the rate allows."""
+    """Every tanker rate and TCE pair of the Baltic weekly reports, reproduced where the rate allows.
+
+    Lump sums are reproduced as published. A Worldscale rate is priced only
+    where a cited pair implies the year's flat rate for its route (TD3C in
+    2026); those rows are marked implied and kept apart from the lump sums.
+    """
+    implied = implied_flat_rates()
     out = []
     for report in cases.seed("anchors.json")["tanker_weekly"]["reports"]:
         for entry in report["entries"]:
@@ -145,11 +188,42 @@ def tanker_weekly() -> list[dict[str, Any]]:
                 "reason": "",
                 "bunkers": "",
             }
+            flat = implied.get(route)
             if entry["tce_usd_day"] is None:
                 row["reason"] = "a rate only: the report gives no TCE for this route that week"
+            elif (
+                entry["rate_basis"] == "ws"
+                and flat is not None
+                and report["week_ending"] >= flat["effective_from"]
+                and report["week_ending"][:4] == str(flat["year"])
+            ):
+                hub = cases.route_hub(baltic.ROUTES[route])
+                try:
+                    market = cases.weekly_market(report["week_ending"], hub)
+                except ValueError:
+                    row["reason"] = "no bunker table retrieved from within a week before the assessment"
+                else:
+                    usd_t = engine.ws_to_usd_t(entry["rate_value"], flat["flat_usd_t"])
+                    computed = _tce(route, market, usd_t, "usd_t")
+                    first = market.bunkers_first_printed[hub]
+                    age = (_date.fromisoformat(report["week_ending"]) - _date.fromisoformat(first)).days
+                    row.update(
+                        implied=True,
+                        implied_flat_usd_t=flat["flat_usd_t"],
+                        freight_usd_t=usd_t,
+                        engine_tce_usd_day=computed["tce_usd_day"],
+                        error=computed["tce_usd_day"] / entry["tce_usd_day"] - 1.0,
+                        bunkers=market.label,
+                        bunkers_first_printed=first,
+                        bunker_age_days=age,
+                        bunker_freshness=_freshness(age),
+                        excluded=computed["case"].excluded,
+                        reason="Worldscale rate priced at USD %.2f a tonne, the %d flat rate implied by the points "
+                        "and dollars printed together for %s" % (flat["flat_usd_t"], flat["year"], flat["route"]),
+                    )
             elif entry["rate_basis"] == "ws":
                 row["reason"] = (
-                    "Worldscale rate: the %s flat rate is licensed and no public source states it"
+                    "Worldscale rate: the %s flat rate is licensed and no public source states it for this route"
                     % report["week_ending"][:4]
                 )
             elif route in LUMP_SUM_ROUTES:

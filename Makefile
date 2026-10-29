@@ -12,8 +12,8 @@ PORT ?= 8150
 
 help:
 	@echo "targets"
-	@echo "  make all           rebuild every derived file from the committed data, then run the gate:"
-	@echo "                     the Baltic seed, the engine's test cases, the site's files and the note"
+	@echo "  make all           rebuild every derived file from the committed data, run the gate, then fail"
+	@echo "                     if a rebuilt seed, test case or site file differs from the commit"
 	@echo "  make setup         install the pinned Python dependencies"
 	@echo "                     equivalent: python -m pip install -r requirements-lock.txt"
 	@echo "                                 python -m pip install --no-deps -e ."
@@ -54,6 +54,7 @@ all:
 	$(PYTHON) scripts/export.py
 	$(PYTHON) scripts/note.py
 	$(MAKE) gate PYTHON="$(PYTHON)"
+	git diff --exit-code --stat -- data index.html
 
 setup:
 	$(PYTHON) -m pip install -r requirements-lock.txt

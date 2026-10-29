@@ -133,9 +133,10 @@ h1, h2, h3, h4 {
   margin-left: auto;
 }
 
-/* Below 768px the header is two rows: the name and the toggle, then the nav,
- * wrapping. No hamburger, no horizontally scrolling nav. */
-@media (max-width: 767.98px) {
+/* Below 900px the header is two rows: the name and the toggle, then the nav,
+ * wrapping. No hamburger, no horizontally scrolling nav. At 768px one row
+ * would leave the last link alone on a second line. */
+@media (max-width: 899.98px) {
   .site-header__inner {
     flex-wrap: wrap;
     padding-block: 6px;

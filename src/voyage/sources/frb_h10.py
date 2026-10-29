@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import csv
 import io
+import math
 import zipfile
 from xml.etree import ElementTree
 
@@ -125,7 +126,7 @@ def monthly_mean(month: str) -> tuple[float, int]:
     values = [v for d, v in read_cache() if d.startswith(month) and v is not None]
     if not values:
         raise base.SourceError("no H.10 euro rate published in %s" % month)
-    return sum(values) / len(values), len(values)
+    return math.fsum(values) / len(values), len(values)
 
 
 def refresh() -> dict:

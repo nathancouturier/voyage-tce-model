@@ -59,21 +59,21 @@
     },
     ", earns about ",
     {
-      "value": 466377.812043,
+      "value": 463638.730309,
       "format": "usd_day",
       "field": "result.tce_usd_day",
       "prefix": "USD "
     },
     " a day over a ",
     {
-      "value": 110.546875,
+      "value": 111.141202,
       "format": "days",
       "field": "result.days.total"
     },
     " day round voyage; ",
     "freight of ",
     {
-      "value": 17.239597,
+      "value": 17.344432,
       "format": "usd_t",
       "field": "breakeven.usd_t",
       "prefix": "USD "
@@ -109,7 +109,7 @@
       "id": "tce",
       "label": "TCE, round voyage from Ningbo",
       "value": {
-        "value": 466377.812043,
+        "value": 463638.730309,
         "format": "usd_day",
         "field": "result.tce_usd_day"
       },
@@ -125,7 +125,7 @@
         },
         "; the engine reads ",
         {
-          "value": 3.202623,
+          "value": 2.596504,
           "format": "error_percent",
           "field": "published.error",
           "suffix": " percent"
@@ -138,7 +138,7 @@
       "id": "breakeven",
       "label": "Freight that covers the voyage costs priced",
       "value": {
-        "value": 17.239597,
+        "value": 17.344432,
         "format": "usd_t",
         "field": "breakeven.usd_t"
       },
@@ -147,7 +147,7 @@
       "note": [
         "A lump sum of ",
         {
-          "value": 4.654691,
+          "value": 4.682997,
           "format": "usd_m",
           "field": "breakeven.lump_sum_usd",
           "prefix": "USD ",
@@ -163,7 +163,7 @@
         },
         " fixed is ",
         {
-          "value": 12.507811,
+          "value": 12.432211,
           "format": "exponent",
           "field": "breakeven.cover"
         },
@@ -246,14 +246,14 @@
         "id": "bunkers",
         "label": "Bunkers",
         "kind": "cost",
-        "value_usd": -4480140.309255,
+        "value_usd": -4507384.255409,
         "from_usd": 56036750.0,
-        "to_usd": 51556609.690745,
+        "to_usd": 51529365.744591,
         "family": "bunkers",
         "accent": false,
         "detail": [
           {
-            "value": 5011.647937,
+            "value": 5045.702869,
             "format": "t",
             "field": "result.fuel_t.vlsfo",
             "suffix": " t"
@@ -276,8 +276,8 @@
         "label": "Port charges",
         "kind": "cost",
         "value_usd": 0.0,
-        "from_usd": 51556609.690745,
-        "to_usd": 51556609.690745,
+        "from_usd": 51529365.744591,
+        "to_usd": 51529365.744591,
         "family": "ports",
         "accent": false,
         "detail": [
@@ -290,8 +290,8 @@
         "label": "Canal tolls",
         "kind": "cost",
         "value_usd": 0.0,
-        "from_usd": 51556609.690745,
-        "to_usd": 51556609.690745,
+        "from_usd": 51529365.744591,
+        "to_usd": 51529365.744591,
         "family": "canals",
         "accent": false,
         "detail": [
@@ -304,8 +304,8 @@
         "label": "EU ETS allowances",
         "kind": "cost",
         "value_usd": 0.0,
-        "from_usd": 51556609.690745,
-        "to_usd": 51556609.690745,
+        "from_usd": 51529365.744591,
+        "to_usd": 51529365.744591,
         "family": "ets",
         "accent": false,
         "detail": [
@@ -318,8 +318,8 @@
         "label": "War risk premium",
         "kind": "cost",
         "value_usd": 0.0,
-        "from_usd": 51556609.690745,
-        "to_usd": 51556609.690745,
+        "from_usd": 51529365.744591,
+        "to_usd": 51529365.744591,
         "family": "war",
         "accent": false,
         "detail": [
@@ -331,9 +331,9 @@
         "id": "result",
         "label": "Voyage result",
         "kind": "total",
-        "value_usd": 51556609.690745,
+        "value_usd": 51529365.744591,
         "from_usd": 0.0,
-        "to_usd": 51556609.690745,
+        "to_usd": 51529365.744591,
         "family": null,
         "accent": true,
         "detail": [
@@ -342,25 +342,25 @@
         "zero": null
       }
     ],
-    "days": 110.546875,
-    "tce_usd_day": 466377.812043,
+    "days": 111.141202,
+    "tce_usd_day": 463638.730309,
     "result_line": [
       "Over ",
       {
-        "value": 110.546875,
+        "value": 111.141202,
         "format": "days",
         "field": "result.days.total",
         "suffix": " days"
       },
       " (",
       {
-        "value": 54.884375,
+        "value": 54.9,
         "format": "days",
         "field": "result.days.ballast_sea"
       },
       " in ballast, ",
       {
-        "value": 50.6625,
+        "value": 51.2,
         "format": "days",
         "field": "result.days.laden_sea"
       },
@@ -372,7 +372,7 @@
       },
       " in port), the result is a TCE of ",
       {
-        "value": 466377.812043,
+        "value": 463638.730309,
         "format": "usd_day",
         "field": "result.tce_usd_day",
         "prefix": "USD ",
@@ -391,7 +391,7 @@
       },
       " of freight, ",
       {
-        "value": 51.55661,
+        "value": 51.529366,
         "format": "usd_m",
         "field": "result.result_usd",
         "prefix": "USD ",
@@ -399,7 +399,7 @@
       },
       " is left after commission and ",
       {
-        "value": 4.48014,
+        "value": 4.507384,
         "format": "usd_m",
         "field": "result.costs.total_usd",
         "prefix": "USD ",
@@ -430,22 +430,28 @@
     "it is an estimate of what the voyage earns at these inputs, not a forecast."
   ],
   "map": {
-    "key": "TD22|no_canals|no_canals",
+    "key": "TD22|no_canals_no_sunda|no_canals",
     "title": [
-      "TD22 sails round the Cape of Good Hope, Galveston to Ningbo laden and back in ballast: ",
+      "TD22 sails round the Cape of Good Hope, Galveston to Ningbo laden by the Strait of Malacca, ",
       {
-        "value": 15054.0,
+        "value": 15230.6,
         "format": "nm",
         "field": "inputs.laden.distance_nm",
         "suffix": " nautical miles"
       },
-      " each way, ",
+      ", and back in ballast by the Sunda Strait, ",
+      {
+        "value": 15054.0,
+        "format": "nm",
+        "field": "inputs.ballast.distance_nm"
+      },
+      "; ",
       {
         "value": 829.0,
         "format": "nm",
         "field": "inputs.laden.eca_nm"
       },
-      " of them inside the North American and US Caribbean emission control areas."
+      " miles of each leg lie inside the North American and US Caribbean emission control areas."
     ],
     "legend": [
       {
@@ -522,7 +528,7 @@
           "field": "inputs.sea_margin",
           "suffix": " percent"
         },
-        " weather margin; fuel is priced at the bunker port nearest the load port; port, waiting and canal days follow the route description. TD22 loads in the Galveston lightering area, sails round the Cape of Good Hope and through the Sunda Strait to Ningbo, as NGA Pub. 151's route to Shanghai does; the Baltic measures its distances on AtoBviaC tables, which are not published."
+        " weather margin; fuel is priced at the bunker port nearest the load port; port, waiting and canal days follow the route description. TD22 loads in the Galveston lightering area and sails laden round the Cape of Good Hope and through the Strait of Malacca to Ningbo, the strait the Baltic's own TD3C calculation takes with the same laden VLCC, rather than the shallower Sunda Strait of the shortest network line; in ballast it comes back through the Sunda Strait. The Baltic measures its distances on AtoBviaC tables, which are not published."
       ],
       [
         "Operating and capital costs are not voyage costs: a TCE is compared with them, never net of them. A TCE without the ballast leg is a different number; the one here includes it."
@@ -536,21 +542,21 @@
     "comparison_title": [
       "Against the Baltic's own TD22 TCE the engine reads between ",
       {
-        "value": 3.202623,
+        "value": 2.596504,
         "format": "error_percent",
         "field": "comparison.min_error",
         "suffix": " percent"
       },
       " and ",
       {
-        "value": 5.204958,
+        "value": 4.505718,
         "format": "error_percent",
         "field": "comparison.max_error",
         "suffix": " percent"
       },
       " higher in the weeks priced with prices first printed that week, the two weeks after the closure of Hormuz aside, and further above in dollars as freight rises: ",
       {
-        "value": 4866.635354,
+        "value": 4212.846791,
         "format": "usd_day",
         "field": "comparison.gap_low",
         "prefix": "USD "
@@ -570,7 +576,7 @@
       },
       "), ",
       {
-        "value": 15386.553291,
+        "value": 11653.164697,
         "format": "usd_day",
         "field": "comparison.gap_high",
         "prefix": "USD "
@@ -603,17 +609,17 @@
       },
       " the engine reads ",
       {
-        "value": 18.122068,
+        "value": 17.315076,
         "format": "error_percent",
         "field": "exception.0.error"
       },
       " and ",
       {
-        "value": 10.041131,
+        "value": 9.263078,
         "format": "error_percent",
         "field": "exception.1.error"
       },
-      " percent above with the bunker tables of those weeks, and why is not established; the guide changed its description of the fuel price in May 2026 (version 8.4), so how the Baltic priced fuel in March is not documented. Star Asia sometimes reprints a week's bunker table unchanged, so each week below says when the prices it was priced with were first printed."
+      " percent above with the bunker tables of those weeks, and why is not established; the guide changed its description of the fuel price in May 2026 (version 8.4), so how the Baltic priced fuel in March is not documented. Star Asia sometimes reprints a week's bunker table unchanged, so each week above says when the prices it was priced with were first printed."
     ]
   },
   "assumptions": {
@@ -723,12 +729,12 @@
     {
       "path": "laden.distance_nm",
       "label": "Laden distance",
-      "value": 15054.0,
+      "value": 15230.6,
       "format": "nm",
       "text": null,
       "status": "derived",
       "status_words": "Derived",
-      "source": "searoute 1.6.0 over Eurostat SeaRoute, Suez and Panama avoided"
+      "source": "searoute 1.6.0 over Eurostat SeaRoute, Suez, Panama and the Sunda Strait avoided"
     },
     {
       "path": "ballast.distance_nm",
@@ -829,6 +835,16 @@
       "status": "sourced",
       "status_words": "Sourced",
       "source": "GMB v8.8 page 89, VLCC300 vessel description"
+    },
+    {
+      "path": "port.canal_tpd",
+      "label": "Fuel in canal transit",
+      "value": 0.0,
+      "format": "tpd",
+      "text": null,
+      "status": "derived",
+      "status_words": "Derived",
+      "source": "no canal days on this routing"
     },
     {
       "path": "freight_value",
@@ -948,7 +964,7 @@
       "text": "HFO, ISO 8217 RME to RMK",
       "status": "sourced",
       "status_words": "Sourced",
-      "source": "IMO MEPC.391(81): VLSFO is an ISO 8217 residual grade (RME, RMG, RMK)"
+      "source": "IMO MEPC.391(81) classes VLSFO by its ISO 8217 grade: HFO for RME, RMG and RMK, most VLSFO being tested against RMG 380 (VPS via Ship & Bunker); LFO for RMA, RMB and RMD"
     },
     {
       "path": "costs.port_load_usd",
@@ -1018,7 +1034,7 @@
       "text": "The charterer, as on most spot voyage charters",
       "status": "sourced",
       "status_words": "Sourced",
-      "source": "usually the charterer's in spot voyage charters (Platts, 8 December 2025), reimbursed to the owner at cost under VOYWAR 2013 (Gard, 21 March 2026)"
+      "source": "usually the charterer's in spot voyage charters (Platts, 8 December 2025), reimbursed to the owner at cost under VOYWAR 2013 (Gard, 21 March 2026); a passage on the ballast leg, the approach to the next loading, stays the owner's unless a charter says otherwise (Gard, 21 March 2026)"
     }
   ],
   "comparison": [
@@ -1027,13 +1043,13 @@
       "rate_usd": 13722222,
       "published_tce_usd_day": 94300,
       "qualifier": "a little over",
-      "engine_tce_usd_day": 97816.474239,
-      "error": 0.03729,
+      "engine_tce_usd_day": 97160.418666,
+      "error": 0.030333,
       "bunkers": "week of 2025-12-05",
       "bunkers_first_printed": "2025-12-05",
       "bunker_age_days": 7,
       "post_closure": false,
-      "error_pct": 3.729029,
+      "error_pct": 3.033318,
       "bunkers_words": "Week of 5 December 2025, the latest table before it"
     },
     {
@@ -1041,13 +1057,13 @@
       "rate_usd": 13675000,
       "published_tce_usd_day": 93500,
       "qualifier": "just under",
-      "engine_tce_usd_day": 98366.635354,
-      "error": 0.05205,
+      "engine_tce_usd_day": 97712.846791,
+      "error": 0.045057,
       "bunkers": "week of 2026-01-23",
       "bunkers_first_printed": "2026-01-23",
       "bunker_age_days": 0,
       "post_closure": false,
-      "error_pct": 5.204958,
+      "error_pct": 4.505718,
       "bunkers_words": "Same week"
     },
     {
@@ -1055,13 +1071,13 @@
       "rate_usd": 14680000,
       "published_tce_usd_day": 100000,
       "qualifier": "just under",
-      "engine_tce_usd_day": 104722.721637,
-      "error": 0.047227,
+      "engine_tce_usd_day": 104019.929781,
+      "error": 0.040199,
       "bunkers": "week of 2026-02-20",
       "bunkers_first_printed": "2026-02-20",
       "bunker_age_days": 0,
       "post_closure": false,
-      "error_pct": 4.722722,
+      "error_pct": 4.01993,
       "bunkers_words": "Same week"
     },
     {
@@ -1069,13 +1085,13 @@
       "rate_usd": 17300000,
       "published_tce_usd_day": 121500,
       "qualifier": "just over",
-      "engine_tce_usd_day": 127534.311743,
-      "error": 0.049665,
+      "engine_tce_usd_day": 126709.535043,
+      "error": 0.042877,
       "bunkers": "week of 2026-02-27",
       "bunkers_first_printed": "2026-02-20",
       "bunker_age_days": 7,
       "post_closure": false,
-      "error_pct": 4.966512,
+      "error_pct": 4.287683,
       "bunkers_words": "The week's table, reprinting prices of 20 February 2026"
     },
     {
@@ -1083,13 +1099,13 @@
       "rate_usd": 28588889,
       "published_tce_usd_day": 210613,
       "qualifier": "exact",
-      "engine_tce_usd_day": 219678.684801,
-      "error": 0.043044,
+      "engine_tce_usd_day": 218325.010062,
+      "error": 0.036617,
       "bunkers": "week of 2026-03-06",
       "bunkers_first_printed": "2026-03-06",
       "bunker_age_days": 0,
       "post_closure": false,
-      "error_pct": 4.304428,
+      "error_pct": 3.661697,
       "bunkers_words": "Same week"
     },
     {
@@ -1097,13 +1113,13 @@
       "rate_usd": 21244444,
       "published_tce_usd_day": 126000,
       "qualifier": "just over",
-      "engine_tce_usd_day": 148833.806238,
-      "error": 0.181221,
+      "engine_tce_usd_day": 147816.995707,
+      "error": 0.173151,
       "bunkers": "week of 2026-03-13",
       "bunkers_first_printed": "2026-03-13",
       "bunker_age_days": 0,
       "post_closure": true,
-      "error_pct": 18.122068,
+      "error_pct": 17.315076,
       "bunkers_words": "Same week"
     },
     {
@@ -1111,13 +1127,13 @@
       "rate_usd": 22217222,
       "published_tce_usd_day": 137200,
       "qualifier": "about",
-      "engine_tce_usd_day": 150976.431898,
-      "error": 0.100411,
+      "engine_tce_usd_day": 149908.943027,
+      "error": 0.092631,
       "bunkers": "week of 2026-03-20",
       "bunkers_first_printed": "2026-03-20",
       "bunker_age_days": 0,
       "post_closure": true,
-      "error_pct": 10.041131,
+      "error_pct": 9.263078,
       "bunkers_words": "Same week"
     },
     {
@@ -1125,13 +1141,13 @@
       "rate_usd": 22760556,
       "published_tce_usd_day": 150500,
       "qualifier": "nearly",
-      "engine_tce_usd_day": 155707.085523,
-      "error": 0.034599,
+      "engine_tce_usd_day": 154614.29951,
+      "error": 0.027338,
       "bunkers": "week of 2026-03-20",
       "bunkers_first_printed": "2026-03-20",
       "bunker_age_days": 7,
       "post_closure": false,
-      "error_pct": 3.459857,
+      "error_pct": 2.733754,
       "bunkers_words": "Week of 20 March 2026, the latest table before it"
     },
     {
@@ -1139,13 +1155,13 @@
       "rate_usd": 16550000,
       "published_tce_usd_day": 102250,
       "qualifier": "nearly",
-      "engine_tce_usd_day": 101633.552011,
-      "error": -0.006029,
+      "engine_tce_usd_day": 100829.9239,
+      "error": -0.013888,
       "bunkers": "week of 2026-04-17",
       "bunkers_first_printed": "2026-03-20",
       "bunker_age_days": 28,
       "post_closure": false,
-      "error_pct": -0.602883,
+      "error_pct": -1.388827,
       "bunkers_words": "The week's table, reprinting prices of 20 March 2026"
     },
     {
@@ -1153,13 +1169,13 @@
       "rate_usd": 21361111,
       "published_tce_usd_day": 146600,
       "qualifier": "just over",
-      "engine_tce_usd_day": 154194.836071,
-      "error": 0.051807,
+      "engine_tce_usd_day": 153174.176788,
+      "error": 0.044844,
       "bunkers": "week of 2026-06-26",
       "bunkers_first_printed": "2026-06-26",
       "bunker_age_days": 0,
       "post_closure": false,
-      "error_pct": 5.180652,
+      "error_pct": 4.484432,
       "bunkers_words": "Same week"
     },
     {
@@ -1167,13 +1183,13 @@
       "rate_usd": 35110000,
       "published_tce_usd_day": 257000,
       "qualifier": "just over",
-      "engine_tce_usd_day": 270679.677992,
-      "error": 0.053228,
+      "engine_tce_usd_day": 269020.796133,
+      "error": 0.046774,
       "bunkers": "week of 2026-09-11",
       "bunkers_first_printed": "2026-09-04",
       "bunker_age_days": 7,
       "post_closure": false,
-      "error_pct": 5.322832,
+      "error_pct": 4.677353,
       "bunkers_words": "The week's table, reprinting prices of 4 September 2026"
     },
     {
@@ -1181,13 +1197,13 @@
       "rate_usd": 79611111,
       "published_tce_usd_day": 637675,
       "qualifier": "exact",
-      "engine_tce_usd_day": 653061.553291,
-      "error": 0.024129,
+      "engine_tce_usd_day": 649328.164697,
+      "error": 0.018274,
       "bunkers": "week of 2026-10-09",
       "bunkers_first_printed": "2026-10-02",
       "bunker_age_days": 7,
       "post_closure": false,
-      "error_pct": 2.412915,
+      "error_pct": 1.827446,
       "bunkers_words": "The week's table, reprinting prices of 2 October 2026"
     },
     {
@@ -1195,15 +1211,15 @@
       "rate_usd": 58220000,
       "published_tce_usd_day": 451905,
       "qualifier": "exact",
-      "engine_tce_usd_day": 466377.812043,
-      "error": 0.032026,
+      "engine_tce_usd_day": 463638.730309,
+      "error": 0.025965,
       "bunkers": "week of 2026-10-23",
       "bunkers_first_printed": "2026-10-23",
       "bunker_age_days": 0,
       "post_closure": false,
-      "error_pct": 3.202623,
+      "error_pct": 2.596504,
       "bunkers_words": "Same week"
     }
   ],
-  "plain_verdict": "A VLCC fixed on TD22, Galveston to Ningbo, at the Baltic's USD 58.22 million in the week to 23 October 2026, earns about USD 466,378 a day over a 110.5 day round voyage; freight of USD 17.24 a tonne would only cover the voyage costs priced."
+  "plain_verdict": "A VLCC fixed on TD22, Galveston to Ningbo, at the Baltic's USD 58.22 million in the week to 23 October 2026, earns about USD 463,639 a day over a 111.1 day round voyage; freight of USD 17.34 a tonne would only cover the voyage costs priced."
 }

@@ -75,7 +75,7 @@
       "hub": "singapore",
       "laden_nm": 11136.9,
       "ballast_nm": 11136.9,
-      "eca_nm": 0,
+      "eca_nm": 0.0,
       "with_hormuz_war_risk": null,
       "bunkers_by_grade_usd": {
         "vlsfo": 2746359.54,
@@ -101,7 +101,8 @@
           "passes": [
             "Sunda Strait",
             "Cape of Good Hope"
-          ]
+          ],
+          "priced": true
         }
       ],
       "eca_share": 0.0,
@@ -111,6 +112,7 @@
         "waiting_days": 0.0,
         "canal_days": 0.0
       },
+      "load_turn_only": true,
       "vessel_label": "Baltic Standard Capesize (BCI182)",
       "hub_name": "Singapore",
       "label": "C3"
@@ -146,7 +148,7 @@
       "hub": "singapore",
       "laden_nm": 3573.7,
       "ballast_nm": 3573.7,
-      "eca_nm": 0,
+      "eca_nm": 0.0,
       "with_hormuz_war_risk": null,
       "bunkers_by_grade_usd": {
         "vlsfo": 881274.42,
@@ -171,7 +173,8 @@
           "laden_nm": 3573.7,
           "passes": [
             "Lombok Strait"
-          ]
+          ],
+          "priced": true
         }
       ],
       "eca_share": 0.0,
@@ -181,6 +184,7 @@
         "waiting_days": 0.0,
         "canal_days": 0.0
       },
+      "load_turn_only": true,
       "vessel_label": "Baltic Standard Capesize (BCI182)",
       "hub_name": "Singapore",
       "label": "C5"
@@ -244,7 +248,8 @@
           "passes": [
             "Panama Canal",
             "Yucatan Channel"
-          ]
+          ],
+          "priced": true
         },
         {
           "routing": "no_panama",
@@ -256,7 +261,8 @@
             "Strait of Gibraltar",
             "Strait of Malacca",
             "Florida Strait"
-          ]
+          ],
+          "priced": false
         },
         {
           "routing": "no_canals",
@@ -266,7 +272,8 @@
             "Sunda Strait",
             "Cape of Good Hope",
             "Florida Strait"
-          ]
+          ],
+          "priced": false
         }
       ],
       "eca_share": 0.044903,
@@ -276,6 +283,7 @@
         "waiting_days": 0.0,
         "canal_days": 0.0
       },
+      "load_turn_only": false,
       "vessel_label": "Baltic Standard Panamax (BPI82)",
       "hub_name": "Houston",
       "label": "P7"
@@ -336,7 +344,8 @@
           "passes": [
             "Dover Strait",
             "Florida Strait"
-          ]
+          ],
+          "priced": true
         }
       ],
       "eca_share": 0.237192,
@@ -346,6 +355,7 @@
         "waiting_days": 0.0,
         "canal_days": 0.0
       },
+      "load_turn_only": false,
       "vessel_label": "Baltic Standard Supramax (BSI63)",
       "hub_name": "Houston",
       "label": "S4A"
@@ -380,7 +390,7 @@
       "hub": "fujairah",
       "laden_nm": 5848.8,
       "ballast_nm": 5848.8,
-      "eca_nm": 0,
+      "eca_nm": 0.0,
       "with_hormuz_war_risk": {
         "premium_pct": 7.5,
         "hull_value_usd": 157000000.0,
@@ -414,7 +424,8 @@
           "passes": [
             "Strait of Hormuz",
             "Strait of Malacca"
-          ]
+          ],
+          "priced": true
         }
       ],
       "eca_share": 0.0,
@@ -424,6 +435,7 @@
         "waiting_days": 2,
         "canal_days": 0.0
       },
+      "load_turn_only": false,
       "vessel_label": "Baltic Standard VLCC (VLCC300)",
       "hub_name": "Fujairah",
       "label": "TD3C"
@@ -433,11 +445,11 @@
       "name": "US Gulf to China",
       "segment": "dirty",
       "contract": "voyage",
-      "days": 110.546875,
-      "total_usd": 3945098.69875,
-      "per_day_usd": 35687.111904,
+      "days": 111.141202,
+      "total_usd": 3969107.426298,
+      "per_day_usd": 35712.295329,
       "costs_usd": {
-        "bunkers": 3945098.69875,
+        "bunkers": 3969107.426298,
         "ports": 0.0,
         "canals": 0.0,
         "ets": 0.0,
@@ -453,19 +465,19 @@
       "excluded": [
         "port charges at Galveston and Ningbo (no public per call figure)"
       ],
-      "excluded_block_per_day_usd": 904.59364,
+      "excluded_block_per_day_usd": 899.75633,
       "hub": "houston",
-      "laden_nm": 15054.0,
+      "laden_nm": 15230.6,
       "ballast_nm": 15054.0,
       "eca_nm": 1658.0,
       "with_hormuz_war_risk": null,
       "bunkers_by_grade_usd": {
-        "vlsfo": 3533211.795373,
+        "vlsfo": 3557220.522921,
         "hsfo": 0.0,
         "mgo": 411886.903377
       },
       "fuel_t": {
-        "vlsfo": 5011.647937,
+        "vlsfo": 5045.702869,
         "hsfo": 0.0,
         "mgo": 329.246126
       },
@@ -477,13 +489,25 @@
       "page": 86,
       "by_routing": [
         {
+          "routing": "no_canals_no_sunda",
+          "label": "Suez, Panama and the Sunda Strait avoided",
+          "laden_nm": 15230.6,
+          "passes": [
+            "Strait of Malacca",
+            "Cape of Good Hope",
+            "Florida Strait"
+          ],
+          "priced": true
+        },
+        {
           "routing": "direct",
           "label": "shortest route, canals open",
           "laden_nm": 10225.4,
           "passes": [
             "Panama Canal",
             "Yucatan Channel"
-          ]
+          ],
+          "priced": false
         },
         {
           "routing": "no_panama",
@@ -495,7 +519,8 @@
             "Strait of Gibraltar",
             "Strait of Malacca",
             "Florida Strait"
-          ]
+          ],
+          "priced": false
         },
         {
           "routing": "no_canals",
@@ -505,16 +530,18 @@
             "Sunda Strait",
             "Cape of Good Hope",
             "Florida Strait"
-          ]
+          ],
+          "priced": false
         }
       ],
-      "eca_share": 0.055068,
+      "eca_share": 0.054747,
       "port_days": {
         "load_days": 2,
         "discharge_days": 2,
         "waiting_days": 1,
         "canal_days": 0.0
       },
+      "load_turn_only": false,
       "vessel_label": "Baltic Standard VLCC (VLCC300)",
       "hub_name": "Houston",
       "label": "TD22"
@@ -573,7 +600,8 @@
           "laden_nm": 4466.5,
           "passes": [
             "Dover Strait"
-          ]
+          ],
+          "priced": true
         }
       ],
       "eca_share": 0.094011,
@@ -583,6 +611,7 @@
         "waiting_days": 1,
         "canal_days": 0.0
       },
+      "load_turn_only": false,
       "vessel_label": "Baltic Standard Suezmax (SUEZ160)",
       "hub_name": "Rotterdam",
       "label": "TD20"
@@ -642,7 +671,8 @@
           "passes": [
             "Dover Strait",
             "Florida Strait"
-          ]
+          ],
+          "priced": true
         }
       ],
       "eca_share": 0.261694,
@@ -652,6 +682,7 @@
         "waiting_days": 0.5,
         "canal_days": 0.0
       },
+      "load_turn_only": false,
       "vessel_label": "Baltic Standard Aframax (AFRA115)",
       "hub_name": "Houston",
       "label": "TD25"
@@ -710,7 +741,8 @@
           "laden_nm": 3322.3,
           "passes": [
             "Dover Strait"
-          ]
+          ],
+          "priced": true
         }
       ],
       "eca_share": 0.490714,
@@ -720,6 +752,7 @@
         "waiting_days": 1,
         "canal_days": 0.0
       },
+      "load_turn_only": false,
       "vessel_label": "Baltic Standard MR (MR50)",
       "hub_name": "Rotterdam",
       "label": "TC2"
@@ -779,7 +812,8 @@
           "passes": [
             "Dover Strait",
             "Florida Strait"
-          ]
+          ],
+          "priced": true
         }
       ],
       "eca_share": 0.266787,
@@ -789,6 +823,7 @@
         "waiting_days": 1,
         "canal_days": 0.0
       },
+      "load_turn_only": false,
       "vessel_label": "Baltic Standard MR (MR50)",
       "hub_name": "Houston",
       "label": "TC14"
@@ -823,7 +858,7 @@
       "hub": "fujairah",
       "laden_nm": 6690.0,
       "ballast_nm": 6690.0,
-      "eca_nm": 0,
+      "eca_nm": 0.0,
       "with_hormuz_war_risk": {
         "premium_pct": 7.5,
         "hull_value_usd": 85000000.0,
@@ -857,7 +892,8 @@
           "passes": [
             "Strait of Hormuz",
             "Strait of Malacca"
-          ]
+          ],
+          "priced": true
         }
       ],
       "eca_share": 0.0,
@@ -867,6 +903,7 @@
         "waiting_days": 0.5,
         "canal_days": 0.0
       },
+      "load_turn_only": false,
       "vessel_label": "Baltic Standard LR2 (LR2-115)",
       "hub_name": "Fujairah",
       "label": "TC1"
@@ -901,7 +938,7 @@
       "hub": "fujairah",
       "laden_nm": 6690.0,
       "ballast_nm": 6690.0,
-      "eca_nm": 0,
+      "eca_nm": 0.0,
       "with_hormuz_war_risk": {
         "premium_pct": 7.5,
         "hull_value_usd": null,
@@ -931,7 +968,8 @@
           "passes": [
             "Strait of Hormuz",
             "Strait of Malacca"
-          ]
+          ],
+          "priced": true
         }
       ],
       "eca_share": 0.0,
@@ -941,6 +979,7 @@
         "waiting_days": 1,
         "canal_days": 0.0
       },
+      "load_turn_only": false,
       "vessel_label": "Baltic Standard LR1 (LR1-75)",
       "hub_name": "Fujairah",
       "label": "TC5"
@@ -960,7 +999,7 @@
         "published_nm": 3701,
         "parts": [
           {
-            "entry": "SINGAPORE",
+            "entry": "Singapore",
             "line": "Ras Tannurah, Saudi Arabia",
             "nm": 3701,
             "page": 104
@@ -971,7 +1010,8 @@
         "searoute_nm": 3754.9,
         "error": 0.014564,
         "within_tolerance": true,
-        "note": ""
+        "note": "",
+        "pair_words": "Singapore to Ras Tanura"
       },
       {
         "id": "singapore_qingdao",
@@ -983,7 +1023,7 @@
         "published_nm": 2466,
         "parts": [
           {
-            "entry": "SINGAPORE",
+            "entry": "Singapore",
             "line": "Qingdao, China",
             "nm": 2466,
             "page": 104
@@ -994,7 +1034,8 @@
         "searoute_nm": 2477.9,
         "error": 0.004826,
         "within_tolerance": true,
-        "note": ""
+        "note": "",
+        "pair_words": "Singapore to Qingdao"
       },
       {
         "id": "singapore_yokohama",
@@ -1006,7 +1047,7 @@
         "published_nm": 2889,
         "parts": [
           {
-            "entry": "SINGAPORE",
+            "entry": "Singapore",
             "line": "Yokohama, Japan",
             "nm": 2889,
             "page": 104
@@ -1017,7 +1058,8 @@
         "searoute_nm": 2940.9,
         "error": 0.017965,
         "within_tolerance": true,
-        "note": ""
+        "note": "",
+        "pair_words": "Singapore to Yokohama"
       },
       {
         "id": "singapore_shanghai",
@@ -1029,7 +1071,7 @@
         "published_nm": 2207,
         "parts": [
           {
-            "entry": "SINGAPORE",
+            "entry": "Singapore",
             "line": "Shanghai, China",
             "nm": 2207,
             "page": 104
@@ -1040,7 +1082,8 @@
         "searoute_nm": 2213.5,
         "error": 0.002945,
         "within_tolerance": true,
-        "note": ""
+        "note": "",
+        "pair_words": "Singapore to Shanghai"
       },
       {
         "id": "singapore_mina_al_ahmadi",
@@ -1052,7 +1095,7 @@
         "published_nm": 3825,
         "parts": [
           {
-            "entry": "SINGAPORE",
+            "entry": "Singapore",
             "line": "Mina al Ahmadi, Kuwait",
             "nm": 3825,
             "page": 104
@@ -1063,7 +1106,8 @@
         "searoute_nm": 3895.8,
         "error": 0.01851,
         "within_tolerance": true,
-        "note": ""
+        "note": "",
+        "pair_words": "Singapore to Mina al Ahmadi"
       },
       {
         "id": "port_said_ras_tanura",
@@ -1075,7 +1119,7 @@
         "published_nm": 3162,
         "parts": [
           {
-            "entry": "PORT SAID, EGYPT",
+            "entry": "Port Said, Egypt",
             "line": "Ras Tannurah, Saudi Arabia",
             "nm": 3162,
             "page": 86
@@ -1086,7 +1130,8 @@
         "searoute_nm": 3222.7,
         "error": 0.019197,
         "within_tolerance": true,
-        "note": ""
+        "note": "",
+        "pair_words": "Port Said to Ras Tanura"
       },
       {
         "id": "jubail_port_said",
@@ -1098,7 +1143,7 @@
         "published_nm": 3164,
         "parts": [
           {
-            "entry": "AL JUBAYL, SAUDI ARABIA",
+            "entry": "Al Jubayl, Saudi Arabia",
             "line": "Port Said, Egypt",
             "nm": 3164,
             "page": 2
@@ -1109,7 +1154,8 @@
         "searoute_nm": 3246.5,
         "error": 0.026075,
         "within_tolerance": false,
-        "note": ""
+        "note": "",
+        "pair_words": "Al Jubayl to Port Said"
       },
       {
         "id": "jubail_singapore",
@@ -1121,7 +1167,7 @@
         "published_nm": 3723,
         "parts": [
           {
-            "entry": "AL JUBAYL, SAUDI ARABIA",
+            "entry": "Al Jubayl, Saudi Arabia",
             "line": "Singapore",
             "nm": 3723,
             "page": 2
@@ -1132,7 +1178,8 @@
         "searoute_nm": 3778.8,
         "error": 0.014988,
         "within_tolerance": true,
-        "note": ""
+        "note": "",
+        "pair_words": "Al Jubayl to Singapore"
       },
       {
         "id": "fujairah_singapore",
@@ -1144,7 +1191,7 @@
         "published_nm": 3356,
         "parts": [
           {
-            "entry": "FUJAYRAH, UNITED ARAB EMIRATES",
+            "entry": "Fujayrah, United Arab Emirates",
             "line": "Singapore",
             "nm": 3356,
             "page": 35
@@ -1155,7 +1202,8 @@
         "searoute_nm": 3362.8,
         "error": 0.002026,
         "within_tolerance": true,
-        "note": ""
+        "note": "",
+        "pair_words": "Fujayrah to Singapore"
       },
       {
         "id": "galveston_panama",
@@ -1167,7 +1215,7 @@
         "published_nm": 1536,
         "parts": [
           {
-            "entry": "GALVESTON, TEXAS, U.S.A.",
+            "entry": "Galveston, Texas, U.S.A.",
             "line": "Panama, Panama",
             "nm": 1536,
             "page": 36
@@ -1178,7 +1226,8 @@
         "searoute_nm": 1531.8,
         "error": -0.002734,
         "within_tolerance": true,
-        "note": ""
+        "note": "",
+        "pair_words": "Galveston to Panama"
       },
       {
         "id": "new_orleans_panama",
@@ -1190,7 +1239,7 @@
         "published_nm": 1433,
         "parts": [
           {
-            "entry": "NEW ORLEANS, LOUISIANA, U.S.A.",
+            "entry": "New Orleans, Louisiana, U.S.A.",
             "line": "Panama, Panama (via South Pass)",
             "nm": 1433,
             "page": 69
@@ -1201,7 +1250,8 @@
         "searoute_nm": 1431.2,
         "error": -0.001256,
         "within_tolerance": true,
-        "note": ""
+        "note": "",
+        "pair_words": "New Orleans to Panama"
       },
       {
         "id": "qingdao_panama",
@@ -1213,7 +1263,7 @@
         "published_nm": 8575,
         "parts": [
           {
-            "entry": "QINGDAO, CHINA",
+            "entry": "Qingdao, China",
             "line": "Panama, Panama",
             "nm": 8575,
             "page": 90
@@ -1224,7 +1274,8 @@
         "searoute_nm": 8652.8,
         "error": 0.009073,
         "within_tolerance": true,
-        "note": ""
+        "note": "",
+        "pair_words": "Qingdao to Panama"
       },
       {
         "id": "port_hedland_busan",
@@ -1236,7 +1287,7 @@
         "published_nm": 3484,
         "parts": [
           {
-            "entry": "PORT HEDLAND, AUSTRALIA",
+            "entry": "Port Hedland, Australia",
             "line": "Busan, South Korea (via west of Timor and Korea Strait)",
             "nm": 3484,
             "page": 84
@@ -1247,7 +1298,8 @@
         "searoute_nm": 3631.3,
         "error": 0.042279,
         "within_tolerance": false,
-        "note": ""
+        "note": "",
+        "pair_words": "Port Hedland to Busan"
       },
       {
         "id": "rio_cape",
@@ -1259,7 +1311,7 @@
         "published_nm": 3323,
         "parts": [
           {
-            "entry": "CAPE OF GOOD HOPE, SOUTH AFRICA",
+            "entry": "Cape of Good Hope, South Africa",
             "line": "Rio de Janeiro, Brazil",
             "nm": 3323,
             "page": 22
@@ -1270,7 +1322,8 @@
         "searoute_nm": 3367.2,
         "error": 0.013301,
         "within_tolerance": true,
-        "note": ""
+        "note": "",
+        "pair_words": "Rio de Janeiro to Cape of Good Hope"
       },
       {
         "id": "ras_tanura_cape",
@@ -1282,7 +1335,7 @@
         "published_nm": 4980,
         "parts": [
           {
-            "entry": "CAPE OF GOOD HOPE, SOUTH AFRICA",
+            "entry": "Cape of Good Hope, South Africa",
             "line": "Ras Tannurah, Saudi Arabia",
             "nm": 4980,
             "page": 22
@@ -1293,7 +1346,8 @@
         "searoute_nm": 5157.7,
         "error": 0.035683,
         "within_tolerance": false,
-        "note": ""
+        "note": "",
+        "pair_words": "Ras Tanura to Cape of Good Hope"
       },
       {
         "id": "new_york_rotterdam",
@@ -1305,13 +1359,13 @@
         "published_nm": 3391,
         "parts": [
           {
-            "entry": "NEW YORK, NEW YORK, U.S.A.",
+            "entry": "New York, New York, U.S.A.",
             "line": "Bishop Rock, England",
             "nm": 2937,
             "page": 70
           },
           {
-            "entry": "ROTTERDAM, NETHERLANDS",
+            "entry": "Rotterdam, Netherlands",
             "line": "Bishop Rock, England",
             "nm": 454,
             "page": 94
@@ -1322,7 +1376,8 @@
         "searoute_nm": 3322.3,
         "error": -0.02026,
         "within_tolerance": false,
-        "note": "through the junction point Bishop Rock, the TC2 route"
+        "note": "through the junction point Bishop Rock, the TC2 route",
+        "pair_words": "New York to Rotterdam"
       },
       {
         "id": "galveston_rotterdam",
@@ -1334,19 +1389,19 @@
         "published_nm": 5011,
         "parts": [
           {
-            "entry": "GALVESTON, TEXAS, U.S.A.",
+            "entry": "Galveston, Texas, U.S.A.",
             "line": "Straits of Florida",
             "nm": 698,
             "page": 36
           },
           {
-            "entry": "BISHOP ROCK, ENGLAND",
+            "entry": "Bishop Rock, England",
             "line": "Straits of Florida",
             "nm": 3859,
             "page": 14
           },
           {
-            "entry": "BISHOP ROCK, ENGLAND",
+            "entry": "Bishop Rock, England",
             "line": "Rotterdam, Netherlands",
             "nm": 454,
             "page": 14
@@ -1357,7 +1412,8 @@
         "searoute_nm": 5028.9,
         "error": 0.003572,
         "within_tolerance": true,
-        "note": "through the Straits of Florida and Bishop Rock, the US Gulf to Continent routes"
+        "note": "through the Straits of Florida and Bishop Rock, the US Gulf to Continent routes",
+        "pair_words": "Galveston to Rotterdam"
       },
       {
         "id": "houston_rotterdam",
@@ -1369,19 +1425,19 @@
         "published_nm": 5058,
         "parts": [
           {
-            "entry": "GALVESTON, TEXAS, U.S.A.",
+            "entry": "Galveston, Texas, U.S.A.",
             "line": "Straits of Florida",
             "nm": 698,
             "page": 36
           },
           {
-            "entry": "BISHOP ROCK, ENGLAND",
+            "entry": "Bishop Rock, England",
             "line": "Straits of Florida",
             "nm": 3859,
             "page": 14
           },
           {
-            "entry": "BISHOP ROCK, ENGLAND",
+            "entry": "Bishop Rock, England",
             "line": "Rotterdam, Netherlands",
             "nm": 454,
             "page": 14
@@ -1392,7 +1448,8 @@
         "searoute_nm": 5062.4,
         "error": 0.00087,
         "within_tolerance": true,
-        "note": "Galveston's route plus 47 miles, the rule Pub. 151 prints for Houston on p. 44 (TD25)"
+        "note": "Galveston's route plus 47 miles, the rule Pub. 151 prints for Houston on p. 44 (TD25)",
+        "pair_words": "Houston to Rotterdam"
       },
       {
         "id": "houston_amsterdam",
@@ -1404,19 +1461,19 @@
         "published_nm": 5085,
         "parts": [
           {
-            "entry": "GALVESTON, TEXAS, U.S.A.",
+            "entry": "Galveston, Texas, U.S.A.",
             "line": "Straits of Florida",
             "nm": 698,
             "page": 36
           },
           {
-            "entry": "BISHOP ROCK, ENGLAND",
+            "entry": "Bishop Rock, England",
             "line": "Straits of Florida",
             "nm": 3859,
             "page": 14
           },
           {
-            "entry": "BISHOP ROCK, ENGLAND",
+            "entry": "Bishop Rock, England",
             "line": "Amsterdam, Netherlands",
             "nm": 481,
             "page": 14
@@ -1427,7 +1484,8 @@
         "searoute_nm": 5097.3,
         "error": 0.002419,
         "within_tolerance": true,
-        "note": "Galveston's route plus 47 miles, the rule Pub. 151 prints for Houston on p. 44 (TC14)"
+        "note": "Galveston's route plus 47 miles, the rule Pub. 151 prints for Houston on p. 44 (TC14)",
+        "pair_words": "Houston to Amsterdam"
       },
       {
         "id": "amsterdam_le_havre",
@@ -1439,7 +1497,7 @@
         "published_nm": 273,
         "parts": [
           {
-            "entry": "AMSTERDAM, NETHERLANDS",
+            "entry": "Amsterdam, Netherlands",
             "line": "Le Havre, France",
             "nm": 273,
             "page": 4
@@ -1450,7 +1508,8 @@
         "searoute_nm": 281.1,
         "error": 0.02967,
         "within_tolerance": false,
-        "note": "the TC23 route"
+        "note": "the TC23 route",
+        "pair_words": "Amsterdam to Le Havre"
       },
       {
         "id": "galveston_shanghai_cape",
@@ -1462,25 +1521,25 @@
         "published_nm": 15167,
         "parts": [
           {
-            "entry": "GALVESTON, TEXAS, U.S.A.",
+            "entry": "Galveston, Texas, U.S.A.",
             "line": "Straits of Florida",
             "nm": 698,
             "page": 36
           },
           {
-            "entry": "CAPE OF GOOD HOPE, SOUTH AFRICA",
+            "entry": "Cape of Good Hope, South Africa",
             "line": "Straits of Florida",
             "nm": 6770,
             "page": 21
           },
           {
-            "entry": "CAPE OF GOOD HOPE, SOUTH AFRICA",
+            "entry": "Cape of Good Hope, South Africa",
             "line": "Selat Sunda, Indonesia",
             "nm": 5164,
             "page": 21
           },
           {
-            "entry": "SELAT SUNDA, INDONESIA",
+            "entry": "Selat Sunda, Indonesia",
             "line": "Shanghai, China",
             "nm": 2535,
             "page": 101
@@ -1491,7 +1550,8 @@
         "searoute_nm": 15167.9,
         "error": 5.9e-05,
         "within_tolerance": true,
-        "note": "through the Straits of Florida, the Cape of Good Hope and Selat Sunda, the TD22 route"
+        "note": "through the Straits of Florida, the Cape of Good Hope and Selat Sunda, the TD22 route",
+        "pair_words": "Galveston to Shanghai"
       },
       {
         "id": "port_hedland_lombok",
@@ -1503,7 +1563,7 @@
         "published_nm": 715,
         "parts": [
           {
-            "entry": "PORT HEDLAND, AUSTRALIA",
+            "entry": "Port Hedland, Australia",
             "line": "Selat Lombok, Indonesia",
             "nm": 715,
             "page": 84
@@ -1514,7 +1574,8 @@
         "searoute_nm": 724.9,
         "error": 0.013846,
         "within_tolerance": true,
-        "note": "the first stretch of the C5 route, from the port"
+        "note": "the first stretch of the C5 route, from the port",
+        "pair_words": "Port Hedland to Selat Lombok"
       },
       {
         "id": "bonny_rotterdam",
@@ -1526,13 +1587,13 @@
         "published_nm": 4390,
         "parts": [
           {
-            "entry": "PORT HARCOURT, NIGERIA",
+            "entry": "Port Harcourt, Nigeria",
             "line": "Ile d'Ouessant, France",
             "nm": 3974,
             "page": 84
           },
           {
-            "entry": "ROTTERDAM, NETHERLANDS",
+            "entry": "Rotterdam, Netherlands",
             "line": "Ile d'Ouessant, France",
             "nm": 444,
             "page": 94
@@ -1543,7 +1604,8 @@
         "searoute_nm": 4466.5,
         "error": 0.017426,
         "within_tolerance": true,
-        "note": "Port Harcourt's route less 28 miles, the rule Pub. 151 prints for Bonny on p. 15 (TD20)"
+        "note": "Port Harcourt's route less 28 miles, the rule Pub. 151 prints for Bonny on p. 15 (TD20)",
+        "pair_words": "Bonny to Rotterdam"
       },
       {
         "id": "jubail_rotterdam_suez",
@@ -1555,25 +1617,25 @@
         "published_nm": 6469,
         "parts": [
           {
-            "entry": "AL JUBAYL, SAUDI ARABIA",
+            "entry": "Al Jubayl, Saudi Arabia",
             "line": "Port Said, Egypt",
             "nm": 3164,
             "page": 2
           },
           {
-            "entry": "PORT SAID, EGYPT",
+            "entry": "Port Said, Egypt",
             "line": "Strait of Gibraltar",
             "nm": 1943,
             "page": 85
           },
           {
-            "entry": "STRAIT OF GIBRALTAR",
+            "entry": "Strait of Gibraltar",
             "line": "Ile d'Ouessant, France",
             "nm": 918,
             "page": 108
           },
           {
-            "entry": "ROTTERDAM, NETHERLANDS",
+            "entry": "Rotterdam, Netherlands",
             "line": "Ile d'Ouessant, France",
             "nm": 444,
             "page": 94
@@ -1584,7 +1646,8 @@
         "searoute_nm": 6555.0,
         "error": 0.013294,
         "within_tolerance": true,
-        "note": "through Port Said, Gibraltar and Ushant, the TC20 route by Suez"
+        "note": "through Port Said, Gibraltar and Ushant, the TC20 route by Suez",
+        "pair_words": "Al Jubayl to Rotterdam, shortest route, canals open"
       },
       {
         "id": "jubail_rotterdam_cape",
@@ -1596,19 +1659,19 @@
         "published_nm": 11299,
         "parts": [
           {
-            "entry": "AL JUBAYL, SAUDI ARABIA",
+            "entry": "Al Jubayl, Saudi Arabia",
             "line": "Cape of Good Hope, South Africa",
             "nm": 5109,
             "page": 2
           },
           {
-            "entry": "CAPE OF GOOD HOPE, SOUTH AFRICA",
+            "entry": "Cape of Good Hope, South Africa",
             "line": "Ile d'Ouessant, France",
             "nm": 5746,
             "page": 21
           },
           {
-            "entry": "ROTTERDAM, NETHERLANDS",
+            "entry": "Rotterdam, Netherlands",
             "line": "Ile d'Ouessant, France",
             "nm": 444,
             "page": 94
@@ -1619,7 +1682,8 @@
         "searoute_nm": 11338.1,
         "error": 0.00346,
         "within_tolerance": true,
-        "note": "through the Cape of Good Hope and Ushant, the TC20 route round the Cape"
+        "note": "through the Cape of Good Hope and Ushant, the TC20 route round the Cape",
+        "pair_words": "Al Jubayl to Rotterdam, Suez Canal and Red Sea avoided"
       }
     ]
   },
@@ -1663,20 +1727,32 @@
         "field": "ets_share.max",
         "suffix": " percent"
       },
-      " of them; a Hormuz war risk premium at the latest dated rate, ",
+      " of them; a Hormuz war risk premium at the low end of the latest dated range, ",
       {
         "value": 7.5,
         "format": "percent",
-        "field": "hormuz.premium_pct",
+        "field": "hormuz.premium_pct"
+      },
+      " to ",
+      {
+        "value": 10.0,
+        "format": "percent",
+        "field": "hormuz.premium_pct_high",
         "suffix": " percent"
       },
-      " of hull value, would cost the charterer of a TD3C cargo ",
+      " of hull value (Marsh, 22 July 2026), would cost the charterer of a TD3C cargo ",
       {
         "value": 6.480475,
         "format": "exponent",
         "field": "hormuz.premium_to_bunkers"
       },
-      " times the voyage's fuel bill."
+      " times the voyage's fuel bill, ",
+      {
+        "value": 8.640633,
+        "format": "exponent",
+        "field": "hormuz.premium_to_bunkers_high"
+      },
+      " times at the top of the range."
     ],
     "baltic_map": {
       "before": "Each route is defined by the Baltic Exchange (Guide to Market Benchmarks v8.8, September 2026) and drawn on ",
@@ -1708,6 +1784,7 @@
         " routes that do not touch the EEA they are bunkers alone, since port charges and canal tolls have no public figure."
       ],
       "axis": "Sourced voyage costs, USD a day of the round voyage",
+      "note": "S4A is a trip time charter: its bar holds the charterer's trip costs and the owner's ballast leg back to the US Gulf.",
       "desc": "One bar a route, grouped by segment, split into bunkers and EU allowances; port charges and canal tolls have no public figure and are left out of every bar. S4A is a trip time charter: its bar holds the charterer's trip costs and the owner's ballast leg back to the US Gulf.",
       "source": [
         "Engine output at the common market, August 2026: Ship & Bunker's August 2026 averages where it publishes them (Singapore VLSFO and HSFO; Fujairah VLSFO) and its third quarter averages, July to September, for the other hub prices (Singapore MGO; Fujairah HSFO and MGO; Rotterdam VLSFO, HSFO and MGO; Houston VLSFO, HSFO and MGO), at each route's bunker hub; EU allowances at EUR ",
@@ -1741,7 +1818,9 @@
         }
       ]
     },
-    "table_caption": "Every route: the Baltic's ship and cargo, distances by routing, the share of the miles inside emission control areas, port days and sourced voyage costs at August 2026 prices.",
+    "table_caption": "Every route: the Baltic's ship and cargo, distances by routing (the one each route is priced on marked), the share of the miles inside emission control areas, port days and sourced voyage costs at August 2026 prices.",
+    "priced_mark": "(priced)",
+    "turn_time_mark": "(turn time only: loading at the port's scale has no published rate)",
     "hormuz": {
       "title": "The Gulf loadings with the Hormuz premium",
       "caption": "Each Gulf loading at the common market with the latest dated Hormuz premium for each seven days or part of them it spends inside the Gulf, on its hull value. On the usual spot terms the premium is the charterer's, so it is set beside the voyage costs, not in them; the LR1 of TC5 has no dated public hull value.",
@@ -1797,14 +1876,14 @@
       }
     ],
     "method": [
-      "Distances are searoute 1.6.0 over Eurostat's SeaRoute network, the line the map draws. Each route has a routing for each leg (the shortest with the canals open, or Suez, Panama or both avoided) and the table lists every routing that changes the distance. The laden leg runs from the load port to the discharge port; the ballast leg back from the discharge port, the Baltic's TCE delivery point. TD22 sails round the Cape of Good Hope and through the Sunda Strait, as NGA Pub. 151's route to Shanghai does; the Baltic measures its distances on AtoBviaC tables, which are not published.",
+      "Distances are searoute 1.6.0 over Eurostat's SeaRoute network, the line the map draws. Each route has a routing for each leg (the shortest with the canals open, or Suez, Panama or both avoided) and the table lists every routing that changes the distance. The laden leg runs from the load port to the discharge port; the ballast leg back from the discharge port, the Baltic's TCE delivery point. TD22's laden VLCC goes round the Cape of Good Hope and through the Strait of Malacca, as the Baltic's own TD3C calculation routes the same laden ship (5,897 nm, July 2017), not through the shallower Sunda Strait of the shortest network line (176.6 nm shorter), which its ballast leg takes. The Baltic measures its distances on AtoBviaC tables, which are not published.",
       "Each line starts at the network's node nearest its port. Amsterdam's nearest node lies in the IJmeer, behind the lakes, so its legs are asked from IJmuiden and the 14 miles of the North Sea Canal are added (Pub. 151 page 44); the stretch from the port is added at Port Hedland (43 nm of open water) and Jubail (12 nm). Elsewhere it is left out: under 10 nm at most ports, up a river or ship channel the network does not draw at Ningbo and Houston, and about 21.5 nm a leg at Tubarao, where the node lies off the way the line runs.",
-      "Miles inside emission control areas are measured on the same line against polygons built from MARPOL Annex VI Appendix VII and the area regulations, with the Mediterranean ECA from 1 May 2025 and the Canadian Arctic and Norwegian Sea ECAs from 1 March 2027. Inside them a ship without a scrubber burns MGO at 0.10 percent sulphur; outside, VLSFO at 0.50 percent.",
+      "Miles inside emission control areas are measured on the same line against polygons built from MARPOL Annex VI Appendix VII and the area regulations, with the Mediterranean ECA from 1 May 2025. The Canadian Arctic and Norwegian Sea ECAs (0.10 percent from 1 March 2027) are listed with their dates but not drawn: no study route enters them. Inside an ECA a ship without a scrubber burns MGO at 0.10 percent sulphur; outside, VLSFO at 0.50 percent.",
       "Bunkers are priced at the hub nearest the load port among the four with public prices for every grade (Singapore, Fujairah, Rotterdam, Houston), the rule the Baltic applies to its tanker TCEs (Guide to Market Benchmarks v8.8, Appendix 3, page 98), applied to every route except C3, priced at Singapore: the hub nearest Tubarao, Rotterdam, lies over 4,000 nm off the voyage, while the round voyage leaves Qingdao in ballast and passes about 270 nm from Singapore, the waypoint a ship leaving China takes for orders (special report on TCE earnings, April 2015, page 2); the guide leaves dry bunker prices to its panellists (section 7.4.2, page 35). The common market is August 2026: Ship & Bunker's August 2026 averages where it publishes them (Singapore VLSFO and HSFO; Fujairah VLSFO) and its third quarter averages, July to September, for the other hub prices (Singapore MGO; Fujairah HSFO and MGO; Rotterdam VLSFO, HSFO and MGO; Houston VLSFO, HSFO and MGO); the allowance price and the dollar rate are August 2026 averages."
     ],
     "assumptions": [
       "Port charges have no public per call figure for any study port (the Baltic uses Cory Brothers' estimates, which are not published), so every TCE leaves them out and reads high by their amount.",
-      "Canal tolls depend on each ship's own canal tonnage, which is not published for the Baltic's standard ships; a routing through a canal leaves its toll out and says so. The guide's dry route terms set no time at a canal, so P7 also leaves out its transit and any wait at Panama, where unbooked waits of Unbooked first come, first served waits of 18 to 30 days were common in April 2026, according to a Panama based agent were reported in April 2026.",
+      "Canal tolls depend on each ship's own canal tonnage, which is not published for the Baltic's standard ships; a routing through a canal leaves its toll out and says so. The guide's dry route terms set no time at a canal, so P7 also leaves out its transit and any wait at Panama. Unbooked first come, first served waits of 18 to 30 days were common in April 2026, according to a Panama based agent.",
       "Tankers sail at the laden and ballast speeds their descriptions name, at which the Baltic prices its TCEs. The dry routes name no speed, so the study prices bulk carriers at the fastest pair the guide prints for each ship, its own choice; the calculator shows the TCE at every speed.",
       "Dry laytime becomes calendar days by the route's terms: Saturdays and Sundays excepted terms count five working days in seven, Sundays and holidays included terms count every day, and the turn time is added. Capesize loading on the port's scale has no published rate and is left out.",
       "S4A is a trip time charter: the charterer pays the trip's bunkers, ports and allowances, and the owner's TCE counts the ballast back to the US Gulf, the guide's way of setting a time charter's ballast time against its hire (section 7.4.3)."

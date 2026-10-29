@@ -245,29 +245,42 @@ export function fueleu(fuelResult, inputs) {
   };
 }
 
-/** The additional war risk premium by listed area: days inside, seven day periods, dollars. */
+/** The additional war risk premium by listed area: days inside, seven day periods, dollars.
+ * The charter's periods follow the payer; each ballast transit is one period, the owner's. */
 export function war_risk(inputs) {
   const k = need();
   const war = inputs.war_risk;
   const margin = inputs.sea_margin;
   const port = inputs.port;
   const areas = {};
-  let premium = 0.0;
+  let charter = 0.0;
+  let ballast = 0.0;
   for (const name of k.WAR_RISK_AREAS) {
     const area = war.areas[name];
-    if (area.entries <= 0) {
-      areas[name] = { days: 0.0, periods: 0.0, usd: 0.0 };
-      continue;
+    const rate = area.premium_pct / k.PERCENT * war.hull_value_usd;
+    let inside = 0.0;
+    let periods = 0.0;
+    if (area.entries > 0) {
+      inside = sea_days(area.laden_nm, inputs.laden.speed_kn, margin)
+        + sea_days(area.ballast_nm, inputs.ballast.speed_kn, margin)
+        + sum(area.port_activities.map((activity) => port[activity + "_days"]));
+      periods = Math.max(area.entries, Math.ceil(inside / k.WAR_RISK_PERIOD_DAYS));
     }
-    const inside = sea_days(area.laden_nm, inputs.laden.speed_kn, margin)
-      + sea_days(area.ballast_nm, inputs.ballast.speed_kn, margin)
-      + sum(area.port_activities.map((activity) => port[activity + "_days"]));
-    const periods = Math.max(area.entries, Math.ceil(inside / k.WAR_RISK_PERIOD_DAYS));
-    const usd = area.premium_pct / k.PERCENT * war.hull_value_usd * periods;
-    areas[name] = { days: inside, periods, usd };
-    premium += usd;
+    const transits = area.ballast_transits;
+    const usd = rate * periods;
+    const transit_usd = rate * transits;
+    areas[name] = { days: inside, periods, usd, ballast_periods: transits, ballast_usd: transit_usd };
+    charter += usd;
+    ballast += transit_usd;
   }
-  return { areas, premium_usd: premium, total_usd: premium + war.crew_bonus_usd };
+  const crew = war.crew_bonus_usd;
+  return {
+    areas,
+    charter_usd: charter + crew,
+    ballast_usd: ballast,
+    premium_usd: charter + ballast,
+    total_usd: charter + ballast + crew,
+  };
 }
 
 const TRIP_ACTIVITIES = ["laden", "load", "discharge", "waiting", "canal", "delay", "sts"];
@@ -295,7 +308,6 @@ export function evaluate(inputs) {
 
   const costs = inputs.costs;
   const war = war_risk(inputs);
-  const war_risk_usd = war.total_usd;
   const port_usd = costs.port_load_usd + costs.port_discharge_usd;
   const canal_usd = costs.canal_laden_usd + costs.canal_ballast_usd;
   const other_usd = costs.other_usd + costs.sts_usd;
@@ -314,20 +326,20 @@ export function evaluate(inputs) {
       + (ets_all - owner_ets)
       + port_usd
       + costs.canal_laden_usd
-      + war_risk_usd
+      + war.charter_usd
       + other_usd
       + (fueleu_usd - owner_fueleu);
-    lines = { bunkers: owner_bunkers, ports: 0.0, canals: owner_canal, ets: owner_ets, war_risk: 0.0, other: 0.0, fueleu: owner_fueleu };
+    lines = { bunkers: owner_bunkers, ports: 0.0, canals: owner_canal, ets: owner_ets, war_risk: war.ballast_usd, other: 0.0, fueleu: owner_fueleu };
     gross = inputs.freight_value * d.trip;
   } else {
     const charterer_pays_war = inputs.war_risk.payer === "charterer";
-    charterer_costs = charterer_pays_war ? war_risk_usd : 0.0;
+    charterer_costs = charterer_pays_war ? war.charter_usd : 0.0;
     lines = {
       bunkers: sum(Object.values(bunkers_by_activity)),
       ports: port_usd,
       canals: canal_usd,
       ets: ets_all,
-      war_risk: charterer_pays_war ? 0.0 : war_risk_usd,
+      war_risk: war.ballast_usd + (charterer_pays_war ? 0.0 : war.charter_usd),
       other: other_usd,
       fueleu: fueleu_usd,
     };

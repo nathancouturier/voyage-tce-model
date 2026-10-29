@@ -11,7 +11,7 @@ which is how the composite checks below are built.
 Each check measures searoute between the two positions Pub. 151 prints (the
 World Port Index's where Pub. 151 prints none, for ports that appear only as
 destinations), under the routing that matches the published path, and the
-study requires agreement within two percent (brief section 4). Positions at
+study requires agreement within two percent. Positions at
 a study port are measured with the study's own port rules (STUDY_PORTS). The
 published figures are typed here from the pages named; tests/test_distances.py
 reads those pages of the committed PDF again and finds each one.
@@ -19,6 +19,7 @@ reads those pages of the committed PDF again and finds each one.
 
 from __future__ import annotations
 
+import math
 from collections.abc import Sequence
 from dataclasses import dataclass
 
@@ -85,7 +86,7 @@ class Check:
 
     @property
     def published_nm(self) -> int:
-        return sum(part.nm for part in self.parts) + self.adjustment_nm
+        return math.fsum(part.nm for part in self.parts) + self.adjustment_nm
 
     @property
     def composite(self) -> bool:
@@ -238,7 +239,8 @@ CHECKS: Sequence[Check] = (
             Part("CAPE OF GOOD HOPE, SOUTH AFRICA", "Selat Sunda, Indonesia", 5164, 21),
             Part("SELAT SUNDA, INDONESIA", "Shanghai, China", 2535, 101),
         ),
-        note="through the Straits of Florida, the Cape of Good Hope and Selat Sunda, the TD22 route",
+        note="through the Straits of Florida, the Cape of Good Hope and Selat Sunda: the network line, whose "
+        "Sunda Strait TD22's laden leg leaves for the Strait of Malacca",
     ),
     Check(
         "port_hedland_lombok",
@@ -287,5 +289,5 @@ CHECKS: Sequence[Check] = (
     ),
 )
 
-#: The brief's bar: searoute within two percent of the published figure.
+#: The study's bar: searoute within two percent of the published figure.
 TOLERANCE = 0.02

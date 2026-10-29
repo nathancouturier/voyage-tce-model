@@ -23,10 +23,9 @@ Three facts do not come from v8.8 itself, each recorded with its source:
   sibling repository baltic-freight-routes (docs/research/r2-capesize-voyage.md,
   read in a browser on 2026-08-18). v8.8 itself prints the derived value
   C5TC(180) = C5TC(182) - 3,503 on page 77.
-* The superseded BCI180 vessel's speeds and consumptions, which v8.8 no longer
-  prints: 14 knots laden and 15 knots ballast on 62 t, 12 and 13 knots on 43 t,
-  as the study brief states them; the sibling record gives the first pair
-  ("14/15kn on 62mt FO 380cst") from the BMTI route guide.
+* The superseded BCI180 vessel is not defined here: v8.8 no longer prints its
+  speeds and consumptions, and no public source found gives them in full. The
+  study prices no Capesize voyage before 2 January 2026, so none needs it.
 * The tanker commission convention: every tanker route moved to 3.75 percent
   total commission from 2.5 percent under Baltic circular 27/21, as the guide's
   own document history records (version 4.7, February 2023, page 2).
@@ -102,19 +101,6 @@ VESSELS: Mapping[str, Vessel] = {
         beam_m=45,
         valid="reported from 2 January 2025, the Baltic standard Capesize from 2 January 2026",
         note="182,000 t dwt on 18.2 m SSW draft, TPC 123, 199,500 cbm grain, non-scrubber, MFO, no diesel at sea",
-    ),
-    "BCI180": Vessel(
-        "BCI180",
-        "Previous Baltic Capesize (BCI180)",
-        "dry",
-        180000,
-        0,
-        laden=((14, 62), (12, 43)),
-        ballast=((15, 62), (13, 43)),
-        reference_laden_kn=14,
-        reference_ballast_kn=15,
-        valid="the Baltic standard Capesize until 24 December 2025",
-        note="speeds and consumptions as the study brief states them; GMB v8.8 no longer prints this vessel",
     ),
     "BPI82": Vessel(
         "BPI82",
@@ -519,11 +505,14 @@ ROUTES: Mapping[str, Route] = {
         tce_basis="Baltic VLCC (VLCC300), delivery Ningbo for a round voyage loading Galveston Offshore TSA1: "
         "2 days load, 2 days discharge, 1 day waiting",
         also_usd_t="TD22$, page 86",
-        laden_routing="no_canals",
+        laden_routing="no_canals_no_sunda",
         ballast_routing="no_canals",
         notes=(
-            "A laden VLCC fits neither canal, so the laden leg goes round the Cape of Good Hope; the ballast "
-            "leg is priced round the Cape as well, with Suez in ballast as the alternative.",
+            "A laden VLCC fits neither canal, so the laden leg goes round the Cape of Good Hope and through the "
+            "Strait of Malacca, as the Baltic's own TD3C calculation routes the same laden ship (5,897 nm, TD3C TCE "
+            "Calculation Process, July 2017), rather than through the shallower Sunda Strait of the shortest "
+            "network line; the ballast leg is priced round the Cape as well, with Suez in ballast as the "
+            "alternative.",
         ),
     ),
     "TD20": Route(
@@ -724,7 +713,7 @@ ROUTES: Mapping[str, Route] = {
     ),
 }
 
-#: The routes the brief names, in the order the site lists them.
+#: The study's routes, in the order the site lists them.
 STUDY_ROUTES: tuple[str, ...] = (
     "C3",
     "C5",
@@ -757,9 +746,17 @@ BCI182_REPORTED_FROM = "2025-01-02"
 
 
 def vessel_for(route: Route, on_date: str | None = None) -> Vessel:
-    """The vessel a route is priced with on a date: the BCI180 for Capesize routes before 2 January 2026."""
+    """The vessel a route is priced with on a date.
+
+    The BCI182 has been the Baltic's standard Capesize since 2 January 2026; the
+    BCI180 before it is not defined here (v8.8 no longer prints its
+    consumptions), so a Capesize voyage dated earlier is refused, not priced on
+    the wrong ship.
+    """
     if route.vessel == "BCI182" and on_date is not None and on_date < BCI182_STANDARD_FROM:
-        return VESSELS["BCI180"]
+        raise ValueError(
+            "no sourced Capesize vessel before %s: the BCI180's consumptions are not in GMB v8.8" % BCI182_STANDARD_FROM
+        )
     return VESSELS[route.vessel]
 
 

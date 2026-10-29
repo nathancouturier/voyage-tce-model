@@ -70,47 +70,6 @@
       "valid": "reported from 2 January 2025, the Baltic standard Capesize from 2 January 2026",
       "note": "182,000 t dwt on 18.2 m SSW draft, TPC 123, 199,500 cbm grain, non-scrubber, MFO, no diesel at sea"
     },
-    "BCI180": {
-      "id": "BCI180",
-      "label": "Previous Baltic Capesize (BCI180)",
-      "segment": "dry",
-      "dwt_t": 180000,
-      "page": 0,
-      "laden": [
-        [
-          14,
-          62
-        ],
-        [
-          12,
-          43
-        ]
-      ],
-      "ballast": [
-        [
-          15,
-          62
-        ],
-        [
-          13,
-          43
-        ]
-      ],
-      "reference_laden_kn": 14,
-      "reference_ballast_kn": 15,
-      "fuel_at_sea": "MFO",
-      "mgo_at_sea_tpd": 0.0,
-      "port_load_tpd": null,
-      "port_discharge_tpd": null,
-      "port_waiting_tpd": null,
-      "port_heating_tpd": null,
-      "scrubber": false,
-      "draft_m": null,
-      "loa_m": null,
-      "beam_m": null,
-      "valid": "the Baltic standard Capesize until 24 December 2025",
-      "note": "speeds and consumptions as the study brief states them; GMB v8.8 no longer prints this vessel"
-    },
     "BPI82": {
       "id": "BPI82",
       "label": "Baltic Standard Panamax (BPI82)",
@@ -796,12 +755,12 @@
       "load_turn_h": null,
       "discharge_turn_h": null,
       "also_usd_t": "TD22$, page 86",
-      "laden_routing": "no_canals",
+      "laden_routing": "no_canals_no_sunda",
       "ballast_routing": "no_canals",
       "trip_days": null,
       "in_basket": "",
       "notes": [
-        "A laden VLCC fits neither canal, so the laden leg goes round the Cape of Good Hope; the ballast leg is priced round the Cape as well, with Suez in ballast as the alternative."
+        "A laden VLCC fits neither canal, so the laden leg goes round the Cape of Good Hope and through the Strait of Malacca, as the Baltic's own TD3C calculation routes the same laden ship (5,897 nm, TD3C TCE Calculation Process, July 2017), rather than through the shallower Sunda Strait of the shortest network line; the ballast leg is priced round the Cape as well, with Suez in ballast as the alternative."
       ],
       "bunker_hub": "",
       "bunker_hub_why": ""

@@ -990,6 +990,33 @@
       }
     ]
   },
+  "implied_flat_rates": {
+    "about": "A flat rate no public source states, implied by one assessment printed both in Worldscale points and in dollars a tonne (dollars a tonne = points / 100 x flat rate). It checks the Baltic's TD3C TCEs of the same year; it is never a calculator default, since the source names no ports.",
+    "items": [
+      {
+        "id": "platts_pg_china_2026",
+        "applies_to": "TD3C",
+        "year": 2026,
+        "effective_from": "2026-01-02",
+        "route": "Platts' Persian Gulf-China benchmark, 270,000 t; its ports are not stated",
+        "pairs": [
+          {
+            "date": "2026-01-02",
+            "ws": 53.5,
+            "usd_t": 11.07
+          },
+          {
+            "date": "2026-01-13",
+            "ws": 93.0,
+            "usd_t": 19.24
+          }
+        ],
+        "raw_key": "tanker_hsn_platts_vlcc_rates_rebound_h1_jan_pub2026_01_17_html",
+        "quote": "The Persian Gulf-China benchmark freight rate rose 73.8% to w93 or $19.24/mt by Jan. 13, up from w53.5 or $11.07/mt on Jan. 2, according to Platts data.",
+        "source": "Platts, as reported by Hellenic Shipping News on 17 January 2026"
+      }
+    ]
+  },
   "dry_weekly": {
     "about": "Capesize, Panamax and Supramax rates and time charter averages from the brokers' weekly reports.",
     "weeks": [

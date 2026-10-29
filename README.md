@@ -15,8 +15,7 @@ freight does it need, which costs decide the answer, and is fixing the cargo
 physically better than hedging the same exposure on paper? The study answers
 for the dry, dirty and clean routes the Baltic Exchange defines in its Guide to
 Market Benchmarks v8.8 (September 2026), from public data only, and checks the
-engine against every TCE the Baltic published that a public figure can
-reproduce.
+engine against every TCE the Baltic published that a public figure can price.
 
 ---
 
@@ -32,17 +31,27 @@ Read this part first.
   figure for the Baltic's standard ships (the Baltic itself uses Cory Brothers'
   estimates, which are not published), so the field is empty, counts as zero
   and the result names it. Each USD 100,000 of port charges is USD 1,307 a day
-  on C3, USD 3,419 on C5 and USD 905 on TD22. They are one reason the engine
-  reads above the Baltic's own TCE in the weeks it can be checked (3.2 to 5.2
-  percent with bunker prices of the same week, the two weeks after the closure
-  of Hormuz aside), but not the only one: the gap grows with freight, from USD
-  4,867 a day on TD22 at a USD 13.68 million lump sum to USD 15,387 at USD
-  79.61 million, which a fixed charge cannot do.
+  on C3, USD 3,419 on C5 and USD 900 on TD22. They are one reason the engine
+  reads above the Baltic's own TCE in the weeks it can be checked (2.6 to 4.5
+  percent with bunker prices first printed that week, 1.8 to 4.7 percent with
+  prices up to a week old, the two weeks after the closure of Hormuz aside), but
+  not the only one: the gap grows with freight, from USD 4,213 a day on TD22 at
+  a USD 13.68 million lump sum (23 January 2026) to USD 11,653 at USD 79.61
+  million (9 October 2026), which a fixed charge cannot do.
 - **A rate in Worldscale points cannot be priced without the reader's flat
   rate.** Flat rates are licensed by the Worldscale Association and no public
-  source states a route's flat rate for 2025 or 2026. The calculator takes the
-  flat rate as an input with no default, and the 64 Worldscale anchors are
-  recorded as not reproducible rather than forced.
+  source states a study route's flat rate for 2025 or 2026, so the calculator
+  takes the flat rate as an input with no default. One check is possible:
+  Platts printed its Persian Gulf to China benchmark in points and in dollars
+  together in January 2026, which implies USD 20.69 a tonne for its own route,
+  whose ports it does not state. At that rate the Baltic's TD3C weeks of 2026
+  read from 1.9 percent below to 10.9 percent above its TCE. The other 52
+  Worldscale anchors are recorded as not reproducible rather than forced.
+- **No fully worked voyage estimate with prices could be checked.** The
+  training material that holds such examples could not be downloaded (the hosts
+  are listed in [`data/AUDIT.md`](data/AUDIT.md)). The Baltic's own TD3C
+  calculation of July 2017 is reproduced line by line, but it prints days and
+  fuel and no prices, so no dollar figure is checked against a worked example.
 - **Canal tolls are not computed.** Suez and Panama charge on each ship's own
   canal tonnage, which is not published for the Baltic's standard ships, and
   the Panama Canal Authority's tariff could not be reached. A routing through a
@@ -52,31 +61,46 @@ Read this part first.
 - **Bunker prices are dated public averages**, monthly or weekly, at four hubs
   (Singapore, Fujairah, Rotterdam, Houston), never a price a ship paid, and
   never a redistributed price history. Two brokers can print very different
-  prices for the same day: for 6 March 2026 Intermodal's Houston VLSFO stood 18
-  percent above Star Asia's, which moves that week's TD22 comparison from 4.3 to
-  1.7 percent. Star Asia sometimes reprints a week's table unchanged, so a
-  reprinted row is dated by its first printing. In the two weeks after Hormuz
-  closed on 2 March 2026 the engine reads 18.1 and 10.0 percent above the Baltic
-  with the tables of those weeks, and why is not established.
+  prices for the same day: for 6 March 2026 Intermodal's Houston VLSFO (USD
+  689.30) stood 18 percent above Star Asia's (USD 584), which moves that week's
+  TD22 comparison from 3.7 to 1.0 percent. Star Asia sometimes reprints a
+  week's table unchanged, so a reprinted row is dated by its first printing. In
+  the two weeks after Hormuz closed on 2 March 2026 the engine reads 17.3 and
+  9.3 percent above the Baltic on TD22 with the tables of those weeks, and why
+  is not established; TD3C, priced at Fujairah, shows no such jump, which points
+  to the Houston prices rather than the method.
 - **Paper is two public dry curves.** FFA levels are licensed; the study holds
   Banchero Costa's published Capesize, Panamax and Supramax assessments for
-  weeks 27 and 43 of 2026, whose vessel basis and dates are partly unstated (the
-  Paper view sets them out). No public tanker FFA quote in dollars a tonne was
-  found, so no tanker basis is computed; Drewry's February conversion of the
-  TD3C curve is set beside the Baltic's later TCEs.
-- **War risk premiums are left out of the TCE, as the Baltic leaves them out.**
-  On the usual spot terms they are the charterer's, so the study shows them
-  beside the owner's TCE and counts seven day periods from the days a voyage
-  spends inside the Gulf, the listed area taken to end at the strait: a lower
-  bound. The latest dated rates found are July 2026's.
+  weeks 27 and 43 of 2026 and its Capesize curve of week 26, whose vessel basis
+  and dates are partly unstated, and the publisher printed the 29 June curve
+  twice with different
+  values (July USD 31,367, then 36,232), so the July basis is given on both
+  prints. No public tanker FFA quote, and no C3 or C5 route FFA quote, in
+  dollars a tonne was found: the Paper view takes a route FFA as an input and
+  turns it into a TCE with the engine, and no tanker basis is computed; Drewry's
+  February conversion of the TD3C curve is set beside the Baltic's later TCEs.
+- **War risk premiums are priced by who pays them.** On the usual spot terms
+  the premium for the laden voyage and the stay in the loading area is the
+  charterer's and the Baltic's TCEs leave it out, so the study shows it beside
+  the owner's TCE; the premium for a ballast leg's approach to the next loading
+  is the owner's unless a charter puts it on the charterer (Gard, 21 March
+  2026), so it comes off the owner's TCE. Periods are seven days or part of
+  them inside a listed area, counted from the days a voyage spends inside the
+  Gulf, the area taken to end at the strait: a lower bound. The latest dated
+  rates found are July 2026's.
+- **The 5 percent weather margin on the dry routes is the study's choice.** The
+  guide sets it for tanker TCEs (Appendix 3) and leaves a dry route's
+  allowances to its panellists (section 7.4.2); without it the Capesize TCEs
+  here read 6 to 11 percent higher.
 - **The Baltic's tanker curves have two points.** Speed and consumption come as
   two pairs for each tanker, so the power law fitted to them is flat (laden
   exponents of 1.5 to 2.3, against the 3 of the textbook) and at 2026 freight
-  the best tanker speed sits at the top of the range searched; the curves
-  cannot say whether that speed is reachable.
+  the best tanker speed sits at the top of the range searched except at the
+  lowest freight; the curves cannot say whether that speed is reachable.
 - **The allowance price after June 2025 is a proxy**: DEHSt's monthly average
-  of Germany's auctions on EEX, 0.13 EUR a tonne above the common auction
-  platform's on average over January 2013 to June 2025.
+  of Germany's auctions on EEX, which sat EUR 0.25 a tonne above the common
+  auction platform's on average over the 30 months both cover here, January
+  2023 to June 2025 (from 1.58 below to 1.67 above).
 - **The body face is not the portfolio's.** The portfolio sets Satoshi, whose
   licence forbids serving it from a repository; this site sets Figtree, the
   openly licensed face closest to it.
@@ -92,7 +116,7 @@ Read this part first.
   dollars a tonne, Worldscale points with a flat rate, a lump sum, or hire on a
   trip charter; commission at 5 percent on dry routes and 3.75 percent on
   tankers, address commission and brokerage together.
-- **Every voyage cost the brief names.** Bunkers by grade and zone, MGO inside
+- **Every voyage cost a desk prices.** Bunkers by grade and zone, MGO inside
   emission control areas measured on the route line against polygons built from
   MARPOL Annex VI Appendix VII, with the Mediterranean ECA from 1 May 2025; EU
   allowances by coverage (50 percent into or out of the EEA, 100 percent
@@ -100,30 +124,36 @@ Read this part first.
   percent for 2024, 2025 and 2026), with methane and nitrous oxide from 2026;
   FuelEU Maritime's penalty for one voyage's share, shown and kept out of the
   TCE; war risk premiums as a share of hull value for each seven days or part
-  of them inside a listed area, the charterer's unless the fixture puts them in
-  the freight; port and canal costs as dated lump sums where a public source
-  exists.
+  of them inside a listed area, split between the charter and the owner's
+  ballast approach; port and canal costs as dated lump sums where a public
+  source exists.
 - **The freight a voyage needs** for any target TCE, in dollars a tonne,
   Worldscale points and a lump sum; the speed that maximises the TCE on a 0.01
   knot grid, consumption interpolated between published pairs and extended by
   a fitted power law outside them; and the sensitivities of the TCE to each
   input.
-- **Fourteen routes and the detours that matter in 2026.** C3, C5, P7 and S4A
-  for dry bulk; TD3C, TD22, TD20, TD25 and TD34 for dirty tankers; TC2, TC14,
-  TC1, TC5 and TC20 for clean. Suez against the Cape for an LR2, and Suez,
-  Panama and the Cape for a Panamax one way against the P4 trip hire, from Asia
-  to Europe; the Hormuz scenarios for a VLCC: war risk and waiting inside the
-  Gulf, with the transfer chain off Fujairah and the Baltic's Gulf of Oman route
-  set beside them.
+- **Fourteen routes and three detours.** C3, C5, P7 and S4A for dry bulk; TD3C,
+  TD22, TD20, TD25 and TD34 for dirty tankers; TC2, TC14, TC1, TC5 and TC20 for
+  clean; with TC23 for the intra-EEA carbon case and the P4 trip's hire as the
+  Panamax detour's target. The detours: Suez or the Cape for an LR2 on TC20;
+  Suez, Panama or the Cape for a Panamax one way from Qingdao to Rotterdam; and
+  Hormuz for a VLCC on TD3C, war risk and waiting inside the Gulf, with the
+  transfer chain off Fujairah and the Baltic's Gulf of Oman route (TD34) set
+  beside them. In the calculator a route with another routing (round the Cape
+  instead of Suez, say) can be priced on it, with the inputs that change and
+  their sources.
 - **Physical against paper.** Each anchor week's voyage TCE, grossed up by its
   commission as the guide does before setting a voyage against time charter
   rates, against the 5TC FFA over the voyage's days (each day at its month's
-  FFA), the freight that would earn the FFA, the hedge in 5TC days by month or
-  route FFA tonnes, and the basis and timing basis.
+  FFA, on the latest curve tradable on the fixture date), the freight that
+  would earn the FFA, the hedge in 5TC days by month or route FFA tonnes, and
+  the basis and timing basis.
 - **Validation in the open.** The Baltic's TD22 and TC20 lump sums priced in 13
-  weeks against its published TCEs; its own worked TD3C calculation of July 2017
-  reproduced line by line; early March 2026 rates priced through the engine;
-  distances checked against NGA Pub. 151.
+  weeks against its published TCEs; its TD3C weeks of 2026 at the flat rate
+  Platts' January prints imply; its own TD3C calculation of July 2017
+  reproduced line by line for days and fuel; early March 2026 rates priced
+  through the engine; the dry weeks against the Capesize 5TC; 25 distances
+  checked against NGA Pub. 151.
 - **A calculator that is the engine.** `src/engine.js` mirrors
   `src/voyage/engine.py` and is held to it within one part in a billion on 283
   cases, every anchor among them; every input starts from its source or says
@@ -180,7 +210,9 @@ the repository at the subpath the live site uses, answering 404 everywhere
 else, so a path that would break the deploy breaks here first.
 
 For the pipeline and the checks, install the pinned dependencies once (Python
-3.11 or later; the lock is Python 3.13's), then run the gate:
+3.11.5 or later: the lock pins the versions the committed files were built
+with on Python 3.13, and on Python 3.11 the same pins rebuild every file byte
+for byte), then run the gate:
 
 ```bash
 make setup
@@ -192,11 +224,13 @@ make all
 
 `make all` rebuilds every derived file from the committed data (the Baltic
 seed from its module, the engine's test cases, the JSON and CSV files the site
-reads, the content hashes in `index.html` and the research note) and then runs
-the gate, which fails if any rebuilt byte differs from the commit. `make gate`
-runs the checks alone; `make help` prints each target as the single command it
-stands for, for a machine without `make`. The note is set in the Liberation
-fonts, read from `/usr/share/fonts/truetype/liberation` (on Debian and Ubuntu,
+reads, the content hashes in `index.html` and the research note), runs the
+gate, and then fails if a rebuilt seed, test case, site file or content hash
+differs from the commit. The note is rebuilt but not compared, since its bytes
+depend on the fonts installed. `make gate` runs the checks alone; `make help`
+prints each target as the single command it stands for, for a machine without
+`make`. The note is set in the Liberation fonts, read from
+`/usr/share/fonts/truetype/liberation` (on Debian and Ubuntu,
 `apt install fonts-liberation`).
 
 | Command | What it does |
@@ -204,7 +238,7 @@ fonts, read from `/usr/share/fonts/truetype/liberation` (on Debian and Ubuntu,
 | `python scripts/refresh.py --offline` | Checks the committed caches against their rules and their raw files, no network. |
 | `python scripts/seeds.py --check` | The Baltic seed against `src/voyage/baltic.py`, where every figure carries its page in the guide. |
 | `python scripts/gen_fixtures.py --check` | The engine's 283 parity cases against the Python engine. |
-| `python -m pytest tests` | Formulas with hand checked numbers, the ETS phase in boundaries, the Mediterranean ECA start, Worldscale, war risk periods, the anchors, every Pub. 151 figure found on its page, every seed quote found in its document, the note. |
+| `python -m pytest tests` | Formulas with hand checked numbers, the ETS phase in boundaries, the Mediterranean ECA start, Worldscale, war risk periods and payers, the anchors, every Pub. 151 figure found on its page, the allowance proxy's gap, the note; and every seed quote found in its document where the licensed documents are on disk (a clean clone skips that test). |
 | `python scripts/export.py --check` | Every JSON file and CSV the site reads, and the content hashes in `index.html`, against a rebuild. |
 | `node tools/validate-data.mjs` | Every cited document in the raw manifest, every committed file at its hash, caches running forward. |
 | `node tools/validate-engine.mjs` | `src/engine.js` against the Python, case by case, to 1e-9. |
@@ -257,10 +291,10 @@ the allowance price and the dollar rate of August.
 | Input | Publisher | Terms | In this repository |
 |---|---|---|---|
 | Routes, vessels, speed and consumption pairs, TCE method, FFA settlement units (bulk carrier speeds are the study's choice of the pairs printed) | Baltic Exchange, Guide to Market Benchmarks v8.8 (September 2026); TD3C TCE calculation process (July 2017) | Baltic copyright | figures with their page in `src/voyage/baltic.py`; the documents are not committed |
-| Weekly tanker rates and TCEs, December 2025 to October 2026 | Baltic Exchange weekly tanker reports, as republished by Hellenic Shipping News | publishers' terms | figures with links, `data/seed/anchors.json` |
+| Weekly tanker rates and TCEs, December 2025 to October 2026 | Baltic Exchange weekly tanker reports, as republished by Hellenic Shipping News; Platts, Argus and Oilprice for the Gulf to China rates in dollars a tonne | publishers' terms | figures with links, `data/seed/anchors.json` |
 | Bunker prices | Ship & Bunker monthly analyses and quarterly tables; Star Asia Shipbroking and Banchero Costa weekly tables; Intermodal as a cross-check | publishers' terms | figures with links, `data/seed/market.json` |
-| Dry freight, FFA assessments and fixtures | Signal Group, Banchero Costa, Xclusiv Shipbrokers, Drewry, as published or republished | publishers' terms | figures with links, `data/seed/anchors.json`, `data/seed/ffa.json` |
-| War risk premiums, who pays them, the Hormuz shuttle, hull values, events | Marsh, S&P Global Platts, Gard, Windward, Kpler and The Wall Street Journal as republished; Xclusiv; EIA; IMO | publishers' terms; EIA public domain | figures with links, `data/seed/market.json`, `data/seed/events.json`, `data/seed/conventions.json` |
+| Dry freight, FFA assessments and fixtures, FFA settlement rules | Signal Group, Banchero Costa and Drewry, as republished by Hellenic Shipping News; EEX and ICE contract rules | publishers' terms | figures with links, `data/seed/anchors.json`, `data/seed/ffa.json` |
+| War risk premiums, who pays them, the Hormuz shuttle, hull values, events | Marsh, S&P Global Platts, Gard, Windward, Kpler and The Wall Street Journal as republished; Xclusiv Shipbrokers for hull values; EIA; IMO | publishers' terms; EIA public domain | figures with links, `data/seed/market.json`, `data/seed/events.json`, `data/seed/conventions.json` |
 | EU allowance price, monthly | European Commission auction reports; DEHSt German auctions, through the sibling study's cache | CC BY 4.0; CC BY-NC-ND 4.0 | yes, `data/cache/eua_monthly.csv` |
 | US dollars per euro, daily | Federal Reserve Board, H.10 | US public domain | yes, `data/cache/usd_per_eur_daily.csv` |
 | Port positions | NGA World Port Index (Pub. 150) | US public domain | yes |
@@ -276,7 +310,8 @@ its URL, retrieval time, sha256 and licence. Four public ones are committed
 months); the larger public files are fetched again from their URL, and
 licensed documents are cited, never redistributed.
 [`data/AUDIT.md`](data/AUDIT.md) gives each source's endpoint, coverage, units,
-terms and a sample, and every input left empty with the reason.
+terms and a sample, every input left empty with the reason, and the hosts that
+could not be reached.
 
 ---
 
@@ -287,10 +322,15 @@ terms and a sample, and every input left empty with the reason.
   (0.0 percent); the largest misses are Port Hedland to Busan (+4.2 percent),
   Ras Tanura to the Cape of Good Hope (+3.6) and Amsterdam to Le Havre (+3.0).
   Each line starts at the network's node nearest its port. Amsterdam's nearest
-  node lies behind the IJsselmeer, so its legs are routed from IJmuiden with the
-  14 miles of the North Sea Canal that Pub. 151 prints (page 44); the stretch
-  from the port is added at Port Hedland (43 nm) and Jubail (12 nm) and left out
-  elsewhere (about 21.5 nm a leg at Tubarao).
+  node lies in the IJmeer, behind the lakes, so its legs are routed from
+  IJmuiden with the 14 miles of the North Sea Canal that Pub. 151 prints (page
+  44); the stretch from the port is added at Port Hedland (43 nm) and Jubail
+  (12 nm) and left out elsewhere (about 21.5 nm a leg at Tubarao).
+- **TD22's laden leg goes through the Strait of Malacca**, as the Baltic's own
+  TD3C calculation routes the same laden ship (5,897 nm, July 2017), not through
+  the shallower Sunda Strait of the network's shortest line, which is 176.6
+  miles shorter and which the ballast leg takes. The guide itself names no
+  strait for TD22.
 - **TD25 is priced on the Baltic's Aframax of 115,000 tonnes.** Its TCE
   description names an AFRA105 the guide never describes.
 - **Dry laytime becomes calendar days by rule**: Saturdays and Sundays excepted
@@ -307,8 +347,8 @@ terms and a sample, and every input left empty with the reason.
 - **The week 27 spot 5TC, USD 33,678, is the 180,000 t basis**, as the BCI and
   BDI printed that day show: the 182,000 t ship is set against USD 37,181. The
   July FFA curve does not state its basis and is printed one trading day after
-  the physical rates, so the voyage is set against the curve of 29 June, which
-  the week 26 issue printed with other values.
+  the physical rates, so the voyage is set against the curve of 29 June, on
+  both of the publisher's prints of it.
 - **A ship to ship transfer's own cost has no public figure**; the shuttle
   through Hormuz was reported at USD 16 to 20 a barrel and USD 50 million a
   transit, figures set beside the export voyage, not priced into it.
@@ -326,7 +366,8 @@ terms and a sample, and every input left empty with the reason.
 index.html                       the page; seven views behind a hash router
 src/*.js                         the views, the browser engine (engine.js) and their helpers
 src/voyage/                      the Python package: engine, cases, anchors, analysis, export, maps, words
-src/voyage/sources/              the adapters: EU allowances, the dollar rate, ports, bunkers, the raw manifest
+src/voyage/sources/              the adapters: the Baltic guide, EU allowances, the dollar rate, IMO texts,
+                                 NGA ports and distances, and the raw manifest (base)
 styles/                          the portfolio's tokens, layout and components, and this study's data palette
 data/seed/                       every dated figure read by hand, with its document and passage
 data/cache/                      the two series a script refreshes
