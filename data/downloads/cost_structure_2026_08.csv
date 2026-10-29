@@ -1,0 +1,13 @@
+route,days,bunkers_usd,ports_usd,canals_usd,ets_usd,war_risk_usd,total_usd,hub,excluded
+C3,76.522292,2238516.900000,0.000000,0.000000,0.000000,0.000000,2238516.900000,rotterdam,"loading time at Tubarao (the Baltic's terms load at the port's scale, which is not published); fuel burnt in port (the Baltic prints no port consumption for bulk carriers); port charges at Tubarao and Qingdao (no public per call figure)"
+C5,28.983542,870670.620000,0.000000,0.000000,0.000000,0.000000,870670.620000,singapore,"loading time at Port Hedland (the Baltic's terms load at the port's scale, which is not published); fuel burnt in port (the Baltic prints no port consumption for bulk carriers); port charges at Port Hedland and Qingdao (no public per call figure)"
+P7,86.982130,1483467.452917,0.000000,0.000000,0.000000,0.000000,1483467.452917,houston,fuel burnt in port (the Baltic prints no port consumption for bulk carriers); port charges at New Orleans and Qingdao (no public per call figure); the Panama Canal toll on the laden leg (no public toll for this ship); the Panama Canal toll on the ballast leg (no public toll for this ship)
+S4A_63,42.632812,681935.304375,0.000000,0.000000,124180.610864,0.000000,806115.915239,houston,fuel burnt in port (the Baltic prints no port consumption for bulk carriers); port charges at New Orleans and Rotterdam (no public per call figure)
+TD3C,47.007212,1816996.505457,0.000000,0.000000,0.000000,0.000000,1816996.505457,fujairah,port charges at Ras Tanura and Ningbo (no public per call figure)
+TD22,110.546875,3945098.698750,0.000000,0.000000,0.000000,0.000000,3945098.698750,houston,port charges at Galveston and Ningbo (no public per call figure)
+TD20,36.315605,950546.417323,0.000000,0.000000,200058.941082,0.000000,1150605.358405,rotterdam,port charges at Bonny and Rotterdam (no public per call figure)
+TD25,39.993590,1071601.371154,0.000000,0.000000,196635.310320,0.000000,1268236.681473,houston,port charges at Houston and Rotterdam (no public per call figure)
+TC2_37,28.293369,529299.206209,0.000000,0.000000,76058.415571,0.000000,605357.621779,rotterdam,port charges at Rotterdam and New York (no public per call figure)
+TC14,41.188401,701324.267214,0.000000,0.000000,125772.786581,0.000000,827097.053795,houston,port charges at Houston and Amsterdam (no public per call figure)
+TC1,51.405048,1221619.872296,0.000000,0.000000,0.000000,0.000000,1221619.872296,fujairah,port charges at Ras Tanura and Yokohama (no public per call figure)
+TC5,51.905048,1100832.624700,0.000000,0.000000,0.000000,0.000000,1100832.624700,fujairah,port charges at Ras Tanura and Yokohama (no public per call figure)

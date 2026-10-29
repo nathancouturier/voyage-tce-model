@@ -1,0 +1,947 @@
+{
+  "artifact": "speed",
+  "schema_version": 1,
+  "conventions": {
+    "decimals": {
+      "usd_day": 0,
+      "usd": 0,
+      "usd_m": 2,
+      "usd_t": 2,
+      "usd_bbl": 2,
+      "ws": 2,
+      "days": 1,
+      "days_2": 2,
+      "nm": 0,
+      "knots": 1,
+      "knots_2": 2,
+      "t": 0,
+      "tpd": 1,
+      "percent": 1,
+      "percent_0": 0,
+      "percent_2": 2,
+      "eur_t": 2,
+      "usd_per_eur": 4,
+      "tco2": 0,
+      "share": 3,
+      "exponent": 2,
+      "count": 0,
+      "year": 0,
+      "error_percent": 1,
+      "g_mj": 2,
+      "tonne_miles_bn": 2,
+      "days_4": 4,
+      "t_2": 2,
+      "mj": 0,
+      "eur": 0
+    },
+    "scale": {
+      "percent": 100.0,
+      "million": 1000000.0
+    }
+  },
+  "margin_kn": 1.0,
+  "step_kn": 0.01,
+  "textbook": [
+    {
+      "route": "C5",
+      "freight_pushes_speed_up": true,
+      "bunkers_push_speed_down": true
+    },
+    {
+      "route": "C3",
+      "freight_pushes_speed_up": true,
+      "bunkers_push_speed_down": true
+    },
+    {
+      "route": "TD22",
+      "freight_pushes_speed_up": true,
+      "bunkers_push_speed_down": true
+    },
+    {
+      "route": "TC20",
+      "freight_pushes_speed_up": true,
+      "bunkers_push_speed_down": true
+    }
+  ],
+  "lead": [
+    "On ",
+    {
+      "value": 4,
+      "format": "count",
+      "field": "textbook.held"
+    },
+    " of the ",
+    {
+      "value": 4,
+      "format": "count",
+      "field": "textbook.routes"
+    },
+    " routes with a public freight rate in dollars, a higher rate never lowers the best speed and dearer bunkers never raise it: the textbook result holds. It holds weakly for the tankers: with only two published consumption pairs their fitted exponents are low, so faster steaming looks cheap and in ",
+    {
+      "value": 58.333333,
+      "format": "percent_0",
+      "field": "textbook.bound_share",
+      "suffix": " percent"
+    },
+    " of the cases the best speed is at the top of the range searched."
+  ],
+  "bound_mark": "(top of the range)",
+  "note": "The range searched runs one knot either side of the published consumption pairs, the only speeds the guide's data support. Linear interpolation between pairs puts kinks at the published speeds, so best speeds often fall exactly on one of them.",
+  "routes": [
+    {
+      "route": "C5",
+      "vessel": "BCI182",
+      "basis": "usd_t",
+      "rates_observed": [
+        12.25,
+        14.1
+      ],
+      "freight": {
+        "low": 12.25,
+        "mid": 13.175,
+        "high": 14.1
+      },
+      "hub": "singapore",
+      "search_kn": [
+        10.0,
+        15.0
+      ],
+      "published_kn": [
+        11,
+        12,
+        13,
+        14
+      ],
+      "power_fit_laden": {
+        "a": 0.085402,
+        "b": 2.431669,
+        "r2": 0.999475
+      },
+      "power_fit_ballast": {
+        "a": 0.036247,
+        "b": 2.690653,
+        "r2": 0.999985
+      },
+      "grid": [
+        {
+          "freight_level": "low",
+          "freight_value": 12.25,
+          "bunker_level": "low",
+          "bunker_as_of": "2026-02-27",
+          "vlsfo_usd_t": 495.0,
+          "optimal_laden_kn": 15.0,
+          "at_bound": true,
+          "optimal_tce_usd_day": 50698.969984,
+          "reference_laden_kn": 14,
+          "reference_tce_usd_day": 50168.680789,
+          "freight_words": "Low, USD 12.25 a tonne",
+          "bunker_words": "Low, 27 February 2026"
+        },
+        {
+          "freight_level": "low",
+          "freight_value": 12.25,
+          "bunker_level": "mid",
+          "bunker_as_of": "2026-08",
+          "vlsfo_usd_t": 822.0,
+          "optimal_laden_kn": 12.0,
+          "at_bound": false,
+          "optimal_tce_usd_day": 39514.763131,
+          "reference_laden_kn": 14,
+          "reference_tce_usd_day": 38218.392795,
+          "freight_words": "Low, USD 12.25 a tonne",
+          "bunker_words": "Middle, August 2026"
+        },
+        {
+          "freight_level": "low",
+          "freight_value": 12.25,
+          "bunker_level": "high",
+          "bunker_as_of": "2026-10-23",
+          "vlsfo_usd_t": 940.0,
+          "optimal_laden_kn": 10.9,
+          "at_bound": false,
+          "optimal_tce_usd_day": 36914.900308,
+          "reference_laden_kn": 14,
+          "reference_tce_usd_day": 33906.056454,
+          "freight_words": "Low, USD 12.25 a tonne",
+          "bunker_words": "High, 23 October 2026"
+        },
+        {
+          "freight_level": "mid",
+          "freight_value": 13.175,
+          "bunker_level": "low",
+          "bunker_as_of": "2026-02-27",
+          "vlsfo_usd_t": 495.0,
+          "optimal_laden_kn": 15.0,
+          "at_bound": true,
+          "optimal_tce_usd_day": 56128.791065,
+          "reference_laden_kn": 14,
+          "reference_tce_usd_day": 55322.899059,
+          "freight_words": "Middle, USD 13.18 a tonne",
+          "bunker_words": "Low, 27 February 2026"
+        },
+        {
+          "freight_level": "mid",
+          "freight_value": 13.175,
+          "bunker_level": "mid",
+          "bunker_as_of": "2026-08",
+          "vlsfo_usd_t": 822.0,
+          "optimal_laden_kn": 12.0,
+          "at_bound": false,
+          "optimal_tce_usd_day": 44088.593697,
+          "reference_laden_kn": 14,
+          "reference_tce_usd_day": 43372.611065,
+          "freight_words": "Middle, USD 13.18 a tonne",
+          "bunker_words": "Middle, August 2026"
+        },
+        {
+          "freight_level": "mid",
+          "freight_value": 13.175,
+          "bunker_level": "high",
+          "bunker_as_of": "2026-10-23",
+          "vlsfo_usd_t": 940.0,
+          "optimal_laden_kn": 11.0,
+          "at_bound": false,
+          "optimal_tce_usd_day": 41179.686012,
+          "reference_laden_kn": 14,
+          "reference_tce_usd_day": 39060.274725,
+          "freight_words": "Middle, USD 13.18 a tonne",
+          "bunker_words": "High, 23 October 2026"
+        },
+        {
+          "freight_level": "high",
+          "freight_value": 14.1,
+          "bunker_level": "low",
+          "bunker_as_of": "2026-02-27",
+          "vlsfo_usd_t": 495.0,
+          "optimal_laden_kn": 15.0,
+          "at_bound": true,
+          "optimal_tce_usd_day": 61558.612146,
+          "reference_laden_kn": 14,
+          "reference_tce_usd_day": 60477.11733,
+          "freight_words": "High, USD 14.10 a tonne",
+          "bunker_words": "Low, 27 February 2026"
+        },
+        {
+          "freight_level": "high",
+          "freight_value": 14.1,
+          "bunker_level": "mid",
+          "bunker_as_of": "2026-08",
+          "vlsfo_usd_t": 822.0,
+          "optimal_laden_kn": 13.0,
+          "at_bound": false,
+          "optimal_tce_usd_day": 48752.623555,
+          "reference_laden_kn": 14,
+          "reference_tce_usd_day": 48526.829336,
+          "freight_words": "High, USD 14.10 a tonne",
+          "bunker_words": "Middle, August 2026"
+        },
+        {
+          "freight_level": "high",
+          "freight_value": 14.1,
+          "bunker_level": "high",
+          "bunker_as_of": "2026-10-23",
+          "vlsfo_usd_t": 940.0,
+          "optimal_laden_kn": 12.0,
+          "at_bound": false,
+          "optimal_tce_usd_day": 45639.558889,
+          "reference_laden_kn": 14,
+          "reference_tce_usd_day": 44214.492995,
+          "freight_words": "High, USD 14.10 a tonne",
+          "bunker_words": "High, 23 October 2026"
+        }
+      ],
+      "caption": [
+        "C5, West Australia to Qingdao, BCI182: freight from ",
+        {
+          "value": 12.25,
+          "format": "usd_t",
+          "field": "freight.low",
+          "prefix": "USD ",
+          "suffix": " a tonne"
+        },
+        " to ",
+        {
+          "value": 14.1,
+          "format": "usd_t",
+          "field": "freight.high",
+          "prefix": "USD ",
+          "suffix": " a tonne"
+        },
+        ", the lowest and highest public rates, median ",
+        {
+          "value": 13.175,
+          "format": "usd_t",
+          "field": "freight.mid",
+          "prefix": "USD ",
+          "suffix": " a tonne"
+        },
+        "; bunkers at Singapore; speeds searched from ",
+        {
+          "value": 10.0,
+          "format": "knots",
+          "field": "search_kn.low"
+        },
+        " to ",
+        {
+          "value": 15.0,
+          "format": "knots",
+          "field": "search_kn.high",
+          "suffix": " knots"
+        },
+        ", consumption exponent fitted to the published pairs ",
+        {
+          "value": 2.431669,
+          "format": "exponent",
+          "field": "power_fit_laden.b"
+        },
+        "."
+      ]
+    },
+    {
+      "route": "C3",
+      "vessel": "BCI182",
+      "basis": "usd_t",
+      "rates_observed": [
+        30.11,
+        33.87,
+        41.55
+      ],
+      "freight": {
+        "low": 30.11,
+        "mid": 33.87,
+        "high": 41.55
+      },
+      "hub": "rotterdam",
+      "search_kn": [
+        10.0,
+        15.0
+      ],
+      "published_kn": [
+        11,
+        12,
+        13,
+        14
+      ],
+      "power_fit_laden": {
+        "a": 0.085402,
+        "b": 2.431669,
+        "r2": 0.999475
+      },
+      "power_fit_ballast": {
+        "a": 0.036247,
+        "b": 2.690653,
+        "r2": 0.999985
+      },
+      "grid": [
+        {
+          "freight_level": "low",
+          "freight_value": 30.11,
+          "bunker_level": "low",
+          "bunker_as_of": "2026-02-27",
+          "vlsfo_usd_t": 461.0,
+          "optimal_laden_kn": 15.0,
+          "at_bound": true,
+          "optimal_tce_usd_day": 43802.108548,
+          "reference_laden_kn": 14,
+          "reference_tce_usd_day": 43419.13523,
+          "freight_words": "Low, USD 30.11 a tonne",
+          "bunker_words": "Low, 27 February 2026"
+        },
+        {
+          "freight_level": "low",
+          "freight_value": 30.11,
+          "bunker_level": "mid",
+          "bunker_as_of": "2026-08",
+          "vlsfo_usd_t": 670.0,
+          "optimal_laden_kn": 12.0,
+          "at_bound": false,
+          "optimal_tce_usd_day": 35115.50962,
+          "reference_laden_kn": 14,
+          "reference_tce_usd_day": 34293.903683,
+          "freight_words": "Low, USD 30.11 a tonne",
+          "bunker_words": "Middle, August 2026"
+        },
+        {
+          "freight_level": "low",
+          "freight_value": 30.11,
+          "bunker_level": "high",
+          "bunker_as_of": "2026-10-23",
+          "vlsfo_usd_t": 761.0,
+          "optimal_laden_kn": 11.0,
+          "at_bound": false,
+          "optimal_tce_usd_day": 32562.928927,
+          "reference_laden_kn": 14,
+          "reference_tce_usd_day": 30320.716741,
+          "freight_words": "Low, USD 30.11 a tonne",
+          "bunker_words": "High, 23 October 2026"
+        },
+        {
+          "freight_level": "mid",
+          "freight_value": 33.87,
+          "bunker_level": "low",
+          "bunker_as_of": "2026-02-27",
+          "vlsfo_usd_t": 461.0,
+          "optimal_laden_kn": 15.0,
+          "at_bound": true,
+          "optimal_tce_usd_day": 52249.852128,
+          "reference_laden_kn": 14,
+          "reference_tce_usd_day": 51354.600658,
+          "freight_words": "Middle, USD 33.87 a tonne",
+          "bunker_words": "Low, 27 February 2026"
+        },
+        {
+          "freight_level": "mid",
+          "freight_value": 33.87,
+          "bunker_level": "mid",
+          "bunker_as_of": "2026-08",
+          "vlsfo_usd_t": 670.0,
+          "optimal_laden_kn": 13.0,
+          "at_bound": false,
+          "optimal_tce_usd_day": 42271.916804,
+          "reference_laden_kn": 14,
+          "reference_tce_usd_day": 42229.369111,
+          "freight_words": "Middle, USD 33.87 a tonne",
+          "bunker_words": "Middle, August 2026"
+        },
+        {
+          "freight_level": "mid",
+          "freight_value": 33.87,
+          "bunker_level": "high",
+          "bunker_as_of": "2026-10-23",
+          "vlsfo_usd_t": 761.0,
+          "optimal_laden_kn": 12.0,
+          "at_bound": false,
+          "optimal_tce_usd_day": 39280.944715,
+          "reference_laden_kn": 14,
+          "reference_tce_usd_day": 38256.182169,
+          "freight_words": "Middle, USD 33.87 a tonne",
+          "bunker_words": "High, 23 October 2026"
+        },
+        {
+          "freight_level": "high",
+          "freight_value": 41.55,
+          "bunker_level": "low",
+          "bunker_as_of": "2026-02-27",
+          "vlsfo_usd_t": 461.0,
+          "optimal_laden_kn": 15.0,
+          "at_bound": true,
+          "optimal_tce_usd_day": 69504.817737,
+          "reference_laden_kn": 14,
+          "reference_tce_usd_day": 67563.210894,
+          "freight_words": "High, USD 41.55 a tonne",
+          "bunker_words": "Low, 27 February 2026"
+        },
+        {
+          "freight_level": "high",
+          "freight_value": 41.55,
+          "bunker_level": "mid",
+          "bunker_as_of": "2026-08",
+          "vlsfo_usd_t": 670.0,
+          "optimal_laden_kn": 14.92,
+          "at_bound": false,
+          "optimal_tce_usd_day": 58695.303656,
+          "reference_laden_kn": 14,
+          "reference_tce_usd_day": 58437.979347,
+          "freight_words": "High, USD 41.55 a tonne",
+          "bunker_words": "Middle, August 2026"
+        },
+        {
+          "freight_level": "high",
+          "freight_value": 41.55,
+          "bunker_level": "high",
+          "bunker_as_of": "2026-10-23",
+          "vlsfo_usd_t": 761.0,
+          "optimal_laden_kn": 14.0,
+          "at_bound": false,
+          "optimal_tce_usd_day": 54464.792405,
+          "reference_laden_kn": 14,
+          "reference_tce_usd_day": 54464.792405,
+          "freight_words": "High, USD 41.55 a tonne",
+          "bunker_words": "High, 23 October 2026"
+        }
+      ],
+      "caption": [
+        "C3, Tubarao to Qingdao, BCI182: freight from ",
+        {
+          "value": 30.11,
+          "format": "usd_t",
+          "field": "freight.low",
+          "prefix": "USD ",
+          "suffix": " a tonne"
+        },
+        " to ",
+        {
+          "value": 41.55,
+          "format": "usd_t",
+          "field": "freight.high",
+          "prefix": "USD ",
+          "suffix": " a tonne"
+        },
+        ", the lowest and highest public rates, median ",
+        {
+          "value": 33.87,
+          "format": "usd_t",
+          "field": "freight.mid",
+          "prefix": "USD ",
+          "suffix": " a tonne"
+        },
+        "; bunkers at Rotterdam; speeds searched from ",
+        {
+          "value": 10.0,
+          "format": "knots",
+          "field": "search_kn.low"
+        },
+        " to ",
+        {
+          "value": 15.0,
+          "format": "knots",
+          "field": "search_kn.high",
+          "suffix": " knots"
+        },
+        ", consumption exponent fitted to the published pairs ",
+        {
+          "value": 2.431669,
+          "format": "exponent",
+          "field": "power_fit_laden.b"
+        },
+        "."
+      ]
+    },
+    {
+      "route": "TD22",
+      "vessel": "VLCC300",
+      "basis": "lump_sum",
+      "rates_observed": [
+        13675000,
+        13722222,
+        14680000,
+        16550000,
+        17300000,
+        21244444,
+        21361111,
+        22217222,
+        22760556,
+        28588889,
+        35110000,
+        58220000,
+        79611111
+      ],
+      "freight": {
+        "low": 13675000,
+        "mid": 21361111,
+        "high": 79611111
+      },
+      "hub": "houston",
+      "search_kn": [
+        10.0,
+        14.0
+      ],
+      "published_kn": [
+        11,
+        13
+      ],
+      "power_fit_laden": {
+        "a": 0.21284,
+        "b": 2.181531,
+        "r2": 1.0
+      },
+      "power_fit_ballast": {
+        "a": 0.003535,
+        "b": 3.751194,
+        "r2": 1.0
+      },
+      "grid": [
+        {
+          "freight_level": "low",
+          "freight_value": 13675000,
+          "bunker_level": "low",
+          "bunker_as_of": "2026-02-27",
+          "vlsfo_usd_t": 466.0,
+          "optimal_laden_kn": 14.0,
+          "at_bound": true,
+          "optimal_tce_usd_day": 99587.451212,
+          "reference_laden_kn": 13,
+          "reference_tce_usd_day": 95972.474287,
+          "freight_words": "Low, USD 13.68 million",
+          "bunker_words": "Low, 27 February 2026"
+        },
+        {
+          "freight_level": "low",
+          "freight_value": 13675000,
+          "bunker_level": "mid",
+          "bunker_as_of": "2026-08",
+          "vlsfo_usd_t": 705.0,
+          "optimal_laden_kn": 13.95,
+          "at_bound": false,
+          "optimal_tce_usd_day": 84020.440196,
+          "reference_laden_kn": 13,
+          "reference_tce_usd_day": 83377.19905,
+          "freight_words": "Low, USD 13.68 million",
+          "bunker_words": "Middle, August 2026"
+        },
+        {
+          "freight_level": "low",
+          "freight_value": 13675000,
+          "bunker_level": "high",
+          "bunker_as_of": "2026-10-23",
+          "vlsfo_usd_t": 800.0,
+          "optimal_laden_kn": 13.18,
+          "at_bound": false,
+          "optimal_tce_usd_day": 78561.914143,
+          "reference_laden_kn": 13,
+          "reference_tce_usd_day": 78537.246672,
+          "freight_words": "Low, USD 13.68 million",
+          "bunker_words": "High, 23 October 2026"
+        },
+        {
+          "freight_level": "mid",
+          "freight_value": 21361111,
+          "bunker_level": "low",
+          "bunker_as_of": "2026-02-27",
+          "vlsfo_usd_t": 466.0,
+          "optimal_laden_kn": 14.0,
+          "at_bound": true,
+          "optimal_tce_usd_day": 171616.970715,
+          "reference_laden_kn": 13,
+          "reference_tce_usd_day": 162893.242853,
+          "freight_words": "Middle, USD 21.36 million",
+          "bunker_words": "Low, 27 February 2026"
+        },
+        {
+          "freight_level": "mid",
+          "freight_value": 21361111,
+          "bunker_level": "mid",
+          "bunker_as_of": "2026-08",
+          "vlsfo_usd_t": 705.0,
+          "optimal_laden_kn": 14.0,
+          "at_bound": true,
+          "optimal_tce_usd_day": 156048.317547,
+          "reference_laden_kn": 13,
+          "reference_tce_usd_day": 150297.967616,
+          "freight_words": "Middle, USD 21.36 million",
+          "bunker_words": "Middle, August 2026"
+        },
+        {
+          "freight_level": "mid",
+          "freight_value": 21361111,
+          "bunker_level": "high",
+          "bunker_as_of": "2026-10-23",
+          "vlsfo_usd_t": 800.0,
+          "optimal_laden_kn": 14.0,
+          "at_bound": true,
+          "optimal_tce_usd_day": 150063.167783,
+          "reference_laden_kn": 13,
+          "reference_tce_usd_day": 145458.015238,
+          "freight_words": "Middle, USD 21.36 million",
+          "bunker_words": "High, 23 October 2026"
+        },
+        {
+          "freight_level": "high",
+          "freight_value": 79611111,
+          "bunker_level": "low",
+          "bunker_as_of": "2026-02-27",
+          "vlsfo_usd_t": 466.0,
+          "optimal_laden_kn": 14.0,
+          "at_bound": true,
+          "optimal_tce_usd_day": 717500.254352,
+          "reference_laden_kn": 13,
+          "reference_tce_usd_day": 670059.320591,
+          "freight_words": "High, USD 79.61 million",
+          "bunker_words": "Low, 27 February 2026"
+        },
+        {
+          "freight_level": "high",
+          "freight_value": 79611111,
+          "bunker_level": "mid",
+          "bunker_as_of": "2026-08",
+          "vlsfo_usd_t": 705.0,
+          "optimal_laden_kn": 14.0,
+          "at_bound": true,
+          "optimal_tce_usd_day": 701931.601184,
+          "reference_laden_kn": 13,
+          "reference_tce_usd_day": 657464.045354,
+          "freight_words": "High, USD 79.61 million",
+          "bunker_words": "Middle, August 2026"
+        },
+        {
+          "freight_level": "high",
+          "freight_value": 79611111,
+          "bunker_level": "high",
+          "bunker_as_of": "2026-10-23",
+          "vlsfo_usd_t": 800.0,
+          "optimal_laden_kn": 14.0,
+          "at_bound": true,
+          "optimal_tce_usd_day": 695946.45142,
+          "reference_laden_kn": 13,
+          "reference_tce_usd_day": 652624.092976,
+          "freight_words": "High, USD 79.61 million",
+          "bunker_words": "High, 23 October 2026"
+        }
+      ],
+      "caption": [
+        "TD22, US Gulf to China, VLCC300: freight from ",
+        {
+          "value": 13.675,
+          "format": "usd_m",
+          "field": "freight.low",
+          "prefix": "USD ",
+          "suffix": " million"
+        },
+        " to ",
+        {
+          "value": 79.611111,
+          "format": "usd_m",
+          "field": "freight.high",
+          "prefix": "USD ",
+          "suffix": " million"
+        },
+        ", the lowest and highest public rates, median ",
+        {
+          "value": 21.361111,
+          "format": "usd_m",
+          "field": "freight.mid",
+          "prefix": "USD ",
+          "suffix": " million"
+        },
+        "; bunkers at Houston; speeds searched from ",
+        {
+          "value": 10.0,
+          "format": "knots",
+          "field": "search_kn.low"
+        },
+        " to ",
+        {
+          "value": 14.0,
+          "format": "knots",
+          "field": "search_kn.high",
+          "suffix": " knots"
+        },
+        ", consumption exponent fitted to the published pairs ",
+        {
+          "value": 2.181531,
+          "format": "exponent",
+          "field": "power_fit_laden.b"
+        },
+        "."
+      ]
+    },
+    {
+      "route": "TC20",
+      "vessel": "LR2-115",
+      "basis": "lump_sum",
+      "rates_observed": [
+        4000000,
+        4000000,
+        4550000,
+        4700000,
+        7290000,
+        7320000,
+        7450000,
+        8510000,
+        9930000,
+        10200000,
+        16500000,
+        18400000,
+        21510000
+      ],
+      "freight": {
+        "low": 4000000,
+        "mid": 7450000,
+        "high": 21510000
+      },
+      "hub": "fujairah",
+      "search_kn": [
+        10.0,
+        14.0
+      ],
+      "published_kn": [
+        11,
+        13
+      ],
+      "power_fit_laden": {
+        "a": 0.575971,
+        "b": 1.604547,
+        "r2": 1.0
+      },
+      "power_fit_ballast": {
+        "a": 0.123797,
+        "b": 2.140892,
+        "r2": 1.0
+      },
+      "grid": [
+        {
+          "freight_level": "low",
+          "freight_value": 4000000,
+          "bunker_level": "low",
+          "bunker_as_of": "2026-02-27",
+          "vlsfo_usd_t": 489.0,
+          "optimal_laden_kn": 14.0,
+          "at_bound": true,
+          "optimal_tce_usd_day": 54196.572035,
+          "reference_laden_kn": 13,
+          "reference_tce_usd_day": 51976.176492,
+          "freight_words": "Low, USD 4.00 million",
+          "bunker_words": "Low, 27 February 2026"
+        },
+        {
+          "freight_level": "low",
+          "freight_value": 4000000,
+          "bunker_level": "mid",
+          "bunker_as_of": "2026-08",
+          "vlsfo_usd_t": 807.5,
+          "optimal_laden_kn": 14.0,
+          "at_bound": true,
+          "optimal_tce_usd_day": 38879.617861,
+          "reference_laden_kn": 13,
+          "reference_tce_usd_day": 38467.454787,
+          "freight_words": "Low, USD 4.00 million",
+          "bunker_words": "Middle, August 2026"
+        },
+        {
+          "freight_level": "low",
+          "freight_value": 4000000,
+          "bunker_level": "high",
+          "bunker_as_of": "2026-06-26",
+          "vlsfo_usd_t": 1203.0,
+          "optimal_laden_kn": 12.0,
+          "at_bound": false,
+          "optimal_tce_usd_day": 32076.168259,
+          "reference_laden_kn": 13,
+          "reference_tce_usd_day": 32043.547432,
+          "freight_words": "Low, USD 4.00 million",
+          "bunker_words": "High, 26 June 2026"
+        },
+        {
+          "freight_level": "mid",
+          "freight_value": 7450000,
+          "bunker_level": "low",
+          "bunker_as_of": "2026-02-27",
+          "vlsfo_usd_t": 489.0,
+          "optimal_laden_kn": 14.0,
+          "at_bound": true,
+          "optimal_tce_usd_day": 121324.337742,
+          "reference_laden_kn": 13,
+          "reference_tce_usd_day": 114777.475968,
+          "freight_words": "Middle, USD 7.45 million",
+          "bunker_words": "Low, 27 February 2026"
+        },
+        {
+          "freight_level": "mid",
+          "freight_value": 7450000,
+          "bunker_level": "mid",
+          "bunker_as_of": "2026-08",
+          "vlsfo_usd_t": 807.5,
+          "optimal_laden_kn": 14.0,
+          "at_bound": true,
+          "optimal_tce_usd_day": 106007.383569,
+          "reference_laden_kn": 13,
+          "reference_tce_usd_day": 101268.754263,
+          "freight_words": "Middle, USD 7.45 million",
+          "bunker_words": "Middle, August 2026"
+        },
+        {
+          "freight_level": "mid",
+          "freight_value": 7450000,
+          "bunker_level": "high",
+          "bunker_as_of": "2026-06-26",
+          "vlsfo_usd_t": 1203.0,
+          "optimal_laden_kn": 14.0,
+          "at_bound": true,
+          "optimal_tce_usd_day": 98688.250353,
+          "reference_laden_kn": 13,
+          "reference_tce_usd_day": 94844.846908,
+          "freight_words": "Middle, USD 7.45 million",
+          "bunker_words": "High, 26 June 2026"
+        },
+        {
+          "freight_level": "high",
+          "freight_value": 21510000,
+          "bunker_level": "low",
+          "bunker_as_of": "2026-02-27",
+          "vlsfo_usd_t": 489.0,
+          "optimal_laden_kn": 14.0,
+          "at_bound": true,
+          "optimal_tce_usd_day": 394894.304654,
+          "reference_laden_kn": 13,
+          "reference_tce_usd_day": 370715.525428,
+          "freight_words": "High, USD 21.51 million",
+          "bunker_words": "Low, 27 February 2026"
+        },
+        {
+          "freight_level": "high",
+          "freight_value": 21510000,
+          "bunker_level": "mid",
+          "bunker_as_of": "2026-08",
+          "vlsfo_usd_t": 807.5,
+          "optimal_laden_kn": 14.0,
+          "at_bound": true,
+          "optimal_tce_usd_day": 379577.350481,
+          "reference_laden_kn": 13,
+          "reference_tce_usd_day": 357206.803723,
+          "freight_words": "High, USD 21.51 million",
+          "bunker_words": "Middle, August 2026"
+        },
+        {
+          "freight_level": "high",
+          "freight_value": 21510000,
+          "bunker_level": "high",
+          "bunker_as_of": "2026-06-26",
+          "vlsfo_usd_t": 1203.0,
+          "optimal_laden_kn": 14.0,
+          "at_bound": true,
+          "optimal_tce_usd_day": 372258.217264,
+          "reference_laden_kn": 13,
+          "reference_tce_usd_day": 350782.896368,
+          "freight_words": "High, USD 21.51 million",
+          "bunker_words": "High, 26 June 2026"
+        }
+      ],
+      "caption": [
+        "TC20, Middle East Gulf to UK-Continent (LR2), LR2-115: freight from ",
+        {
+          "value": 4.0,
+          "format": "usd_m",
+          "field": "freight.low",
+          "prefix": "USD ",
+          "suffix": " million"
+        },
+        " to ",
+        {
+          "value": 21.51,
+          "format": "usd_m",
+          "field": "freight.high",
+          "prefix": "USD ",
+          "suffix": " million"
+        },
+        ", the lowest and highest public rates, median ",
+        {
+          "value": 7.45,
+          "format": "usd_m",
+          "field": "freight.mid",
+          "prefix": "USD ",
+          "suffix": " million"
+        },
+        "; bunkers at Fujairah; speeds searched from ",
+        {
+          "value": 10.0,
+          "format": "knots",
+          "field": "search_kn.low"
+        },
+        " to ",
+        {
+          "value": 14.0,
+          "format": "knots",
+          "field": "search_kn.high",
+          "suffix": " knots"
+        },
+        ", consumption exponent fitted to the published pairs ",
+        {
+          "value": 1.604547,
+          "format": "exponent",
+          "field": "power_fit_laden.b"
+        },
+        "."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1007 @@
+{
+  "artifact": "overview",
+  "schema_version": 1,
+  "conventions": {
+    "decimals": {
+      "usd_day": 0,
+      "usd": 0,
+      "usd_m": 2,
+      "usd_t": 2,
+      "usd_bbl": 2,
+      "ws": 2,
+      "days": 1,
+      "days_2": 2,
+      "nm": 0,
+      "knots": 1,
+      "knots_2": 2,
+      "t": 0,
+      "tpd": 1,
+      "percent": 1,
+      "percent_0": 0,
+      "percent_2": 2,
+      "eur_t": 2,
+      "usd_per_eur": 4,
+      "tco2": 0,
+      "share": 3,
+      "exponent": 2,
+      "count": 0,
+      "year": 0,
+      "error_percent": 1,
+      "g_mj": 2,
+      "tonne_miles_bn": 2,
+      "days_4": 4,
+      "t_2": 2,
+      "mj": 0,
+      "eur": 0
+    },
+    "scale": {
+      "percent": 100.0,
+      "million": 1000000.0
+    }
+  },
+  "featured": "anchor-td22-2026-10-23",
+  "route": "TD22",
+  "title": "What a VLCC earns from the US Gulf to China",
+  "verdict": [
+    "A VLCC fixed on TD22, Galveston to Ningbo, at the Baltic's ",
+    {
+      "value": 58.22,
+      "format": "usd_m",
+      "field": "inputs.freight_value",
+      "prefix": "USD ",
+      "suffix": " million"
+    },
+    " in the week to ",
+    {
+      "text": "23 October 2026",
+      "field": "date"
+    },
+    ", earns about ",
+    {
+      "value": 466377.812043,
+      "format": "usd_day",
+      "field": "result.tce_usd_day",
+      "prefix": "USD "
+    },
+    " a day over a ",
+    {
+      "value": 110.546875,
+      "format": "days",
+      "field": "result.days.total"
+    },
+    " day round voyage; ",
+    "freight of ",
+    {
+      "value": 17.239597,
+      "format": "usd_t",
+      "field": "breakeven.usd_t",
+      "prefix": "USD "
+    },
+    " a tonne would only cover its voyage costs."
+  ],
+  "dates": [
+    [
+      "Freight and the Baltic's TCE: Baltic Exchange weekly tanker report, week to ",
+      {
+        "text": "23 October 2026",
+        "field": "date"
+      },
+      ", as republished by Hellenic Shipping News."
+    ],
+    [
+      "Bunkers: Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026, priced at Houston, the hub with public prices nearest Galveston."
+    ],
+    [
+      "Ship, speeds and port days: Baltic Exchange Guide to Market Benchmarks v8.8 (September 2026), VLCC300."
+    ],
+    [
+      "Distances: searoute over Eurostat SeaRoute; emission control areas in force on ",
+      {
+        "text": "23 October 2026",
+        "field": "date"
+      },
+      "."
+    ]
+  ],
+  "facts": [
+    {
+      "id": "tce",
+      "label": "TCE, round voyage from Ningbo",
+      "value": {
+        "value": 466377.812043,
+        "format": "usd_day",
+        "field": "result.tce_usd_day"
+      },
+      "unit": "USD a day",
+      "as_of": "2026-10-23",
+      "note": [
+        "The Baltic published ",
+        {
+          "value": 451905,
+          "format": "usd_day",
+          "field": "published.tce_usd_day",
+          "prefix": "USD "
+        },
+        "; the engine reads ",
+        {
+          "value": 3.202623,
+          "format": "error_percent",
+          "field": "published.error",
+          "suffix": " percent"
+        },
+        " higher",
+        ", mostly the port charges it leaves out."
+      ]
+    },
+    {
+      "id": "breakeven",
+      "label": "Freight that covers voyage costs",
+      "value": {
+        "value": 17.239597,
+        "format": "usd_t",
+        "field": "breakeven.usd_t"
+      },
+      "unit": "USD a tonne",
+      "as_of": "2026-10-23",
+      "note": [
+        "A lump sum of ",
+        {
+          "value": 4.654691,
+          "format": "usd_m",
+          "field": "breakeven.lump_sum_usd",
+          "prefix": "USD ",
+          "suffix": " million"
+        },
+        "; the ",
+        {
+          "value": 58.22,
+          "format": "usd_m",
+          "field": "inputs.freight_value",
+          "prefix": "USD ",
+          "suffix": " million"
+        },
+        " fixed is ",
+        {
+          "value": 12.507811,
+          "format": "exponent",
+          "field": "breakeven.cover"
+        },
+        " times that."
+      ]
+    },
+    {
+      "id": "bunker_share",
+      "label": "Bunkers in voyage costs",
+      "value": {
+        "value": 100.0,
+        "format": "percent",
+        "field": "result.bunker_share"
+      },
+      "unit": "percent",
+      "as_of": "2026-10-23",
+      "note": [
+        "VLSFO at ",
+        {
+          "value": 800.0,
+          "format": "usd_t",
+          "field": "inputs.prices.vlsfo_usd_t",
+          "prefix": "USD "
+        },
+        " and MGO at ",
+        {
+          "value": 1430.0,
+          "format": "usd_t",
+          "field": "inputs.prices.mgo_usd_t",
+          "prefix": "USD "
+        },
+        " a tonne; port charges, the other voyage cost, have no public figure."
+      ]
+    }
+  ],
+  "bridge": {
+    "rows": [
+      {
+        "id": "gross",
+        "label": "Gross freight and other revenue",
+        "kind": "total",
+        "value_usd": 58220000.0,
+        "from_usd": 0.0,
+        "to_usd": 58220000.0,
+        "family": null,
+        "accent": false,
+        "detail": [
+          "Lump sum fixed, ",
+          {
+            "value": 58.22,
+            "format": "usd_m",
+            "field": "inputs.freight_value",
+            "prefix": "USD ",
+            "suffix": " million"
+          }
+        ],
+        "zero": null
+      },
+      {
+        "id": "commission",
+        "label": "Commission",
+        "kind": "deduction",
+        "value_usd": -2183250.0,
+        "from_usd": 58220000.0,
+        "to_usd": 56036750.0,
+        "family": null,
+        "accent": false,
+        "detail": [
+          {
+            "value": 3.75,
+            "format": "percent_2",
+            "field": "inputs.commission_pct",
+            "suffix": " percent"
+          },
+          " of gross freight and other revenue"
+        ],
+        "zero": null
+      },
+      {
+        "id": "bunkers",
+        "label": "Bunkers",
+        "kind": "cost",
+        "value_usd": -4480140.309255,
+        "from_usd": 56036750.0,
+        "to_usd": 51556609.690745,
+        "family": "bunkers",
+        "accent": false,
+        "detail": [
+          {
+            "value": 5011.647937,
+            "format": "t",
+            "field": "result.fuel_t.vlsfo",
+            "suffix": " t"
+          },
+          " of VLSFO",
+          " and ",
+          {
+            "value": 329.246126,
+            "format": "t",
+            "field": "result.fuel_t.mgo",
+            "suffix": " t"
+          },
+          " of MGO",
+          " at Houston prices"
+        ],
+        "zero": null
+      },
+      {
+        "id": "ports",
+        "label": "Port charges",
+        "kind": "cost",
+        "value_usd": 0.0,
+        "from_usd": 51556609.690745,
+        "to_usd": 51556609.690745,
+        "family": "ports",
+        "accent": false,
+        "detail": [
+          "Galveston and Ningbo"
+        ],
+        "zero": "Left out: no public per call figure"
+      },
+      {
+        "id": "canals",
+        "label": "Canal tolls",
+        "kind": "cost",
+        "value_usd": 0.0,
+        "from_usd": 51556609.690745,
+        "to_usd": 51556609.690745,
+        "family": "canals",
+        "accent": false,
+        "detail": [
+          "No canal on this routing"
+        ],
+        "zero": "None on this routing"
+      },
+      {
+        "id": "ets",
+        "label": "EU ETS allowances",
+        "kind": "cost",
+        "value_usd": 0.0,
+        "from_usd": 51556609.690745,
+        "to_usd": 51556609.690745,
+        "family": "ets",
+        "accent": false,
+        "detail": [
+          "No EEA port on either leg"
+        ],
+        "zero": "None: outside the EEA"
+      },
+      {
+        "id": "war_risk",
+        "label": "War risk premium",
+        "kind": "cost",
+        "value_usd": 0.0,
+        "from_usd": 51556609.690745,
+        "to_usd": 51556609.690745,
+        "family": "war",
+        "accent": false,
+        "detail": [
+          "No war risk area priced on this routing"
+        ],
+        "zero": "None in the base case"
+      },
+      {
+        "id": "result",
+        "label": "Voyage result",
+        "kind": "total",
+        "value_usd": 51556609.690745,
+        "from_usd": 0.0,
+        "to_usd": 51556609.690745,
+        "family": null,
+        "accent": true,
+        "detail": [
+          "Freight less commission and voyage costs"
+        ],
+        "zero": null
+      }
+    ],
+    "days": 110.546875,
+    "tce_usd_day": 466377.812043,
+    "result_line": [
+      "Over ",
+      {
+        "value": 110.546875,
+        "format": "days",
+        "field": "result.days.total",
+        "suffix": " days"
+      },
+      " (",
+      {
+        "value": 54.884375,
+        "format": "days",
+        "field": "result.days.ballast_sea"
+      },
+      " in ballast, ",
+      {
+        "value": 50.6625,
+        "format": "days",
+        "field": "result.days.laden_sea"
+      },
+      " laden and ",
+      {
+        "value": 5.0,
+        "format": "days",
+        "field": "result.days.port_total"
+      },
+      " in port), the result is a TCE of ",
+      {
+        "value": 466377.812043,
+        "format": "usd_day",
+        "field": "result.tce_usd_day",
+        "prefix": "USD ",
+        "accent": true
+      },
+      " a day."
+    ],
+    "title": [
+      "Of ",
+      {
+        "value": 58.22,
+        "format": "usd_m",
+        "field": "result.revenue.gross_usd",
+        "prefix": "USD ",
+        "suffix": " million"
+      },
+      " of freight, ",
+      {
+        "value": 51.55661,
+        "format": "usd_m",
+        "field": "result.result_usd",
+        "prefix": "USD ",
+        "suffix": " million"
+      },
+      " is left after commission and ",
+      {
+        "value": 4.48014,
+        "format": "usd_m",
+        "field": "result.costs.total_usd",
+        "prefix": "USD ",
+        "suffix": " million"
+      },
+      " of voyage costs, ",
+      "all of them bunkers."
+    ],
+    "source": [
+      "Engine output for TD22 in the week to ",
+      {
+        "text": "23 October 2026",
+        "field": "date"
+      },
+      ". Freight: Baltic Exchange via Hellenic Shipping News. Bunkers: Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026. ",
+      "A cost with no public figure is left out and named in its row."
+    ],
+    "caption": "The bridge from gross freight to the voyage result, in US dollars, one row per step."
+  },
+  "leaves_out": [
+    "The TCE leaves out port charges at Galveston and Ningbo (no public per call figure), so with them it would be lower; ",
+    "it is an estimate of what the voyage earns at these inputs, not a forecast."
+  ],
+  "map": {
+    "key": "TD22|no_canals|no_canals",
+    "title": [
+      "TD22 sails round the Cape of Good Hope, Galveston to Ningbo laden and back in ballast: ",
+      {
+        "value": 15054.0,
+        "format": "nm",
+        "field": "inputs.laden.distance_nm",
+        "suffix": " nautical miles"
+      },
+      " each way, ",
+      {
+        "value": 829.0,
+        "format": "nm",
+        "field": "inputs.laden.eca_nm"
+      },
+      " of them inside the North American and US Caribbean emission control areas."
+    ],
+    "legend": [
+      {
+        "kind": "laden",
+        "text": "Laden leg, Galveston to Ningbo"
+      },
+      {
+        "kind": "ballast",
+        "text": "Ballast leg, Ningbo to Galveston, drawn beside it"
+      },
+      {
+        "kind": "eca",
+        "text": "Inside an emission control area: 0.10 percent sulphur fuel (MGO)"
+      }
+    ],
+    "source": [
+      "Lines: searoute over Eurostat SeaRoute, the lines the distances are measured on. Emission control areas: MARPOL Annex VI, in force on ",
+      {
+        "text": "23 October 2026",
+        "field": "date"
+      },
+      ". Land: Natural Earth 1:110m."
+    ]
+  },
+  "sections": [
+    {
+      "id": "method",
+      "name": "Method",
+      "summary": [
+        "The Baltic's round voyage TCE: ballast from Ningbo, laden from Galveston, ",
+        {
+          "value": 5.0,
+          "format": "percent_0",
+          "field": "inputs.sea_margin",
+          "suffix": " percent"
+        },
+        " weather margin, and the engine against the Baltic in ",
+        {
+          "value": 7,
+          "format": "count",
+          "field": "comparison.count"
+        },
+        " weeks."
+      ]
+    },
+    {
+      "id": "assumptions",
+      "name": "Assumptions",
+      "summary": [
+        "What the TCE leaves out, the ship's speeds and consumptions, and the port days."
+      ]
+    },
+    {
+      "id": "data",
+      "name": "Data",
+      "summary": [
+        "Every input with its value, its status and its source."
+      ]
+    }
+  ],
+  "method": {
+    "paragraphs": [
+      [
+        "The TCE is the voyage's freight less commission and voyage costs, divided by the days of the whole round voyage. It follows the Baltic Exchange's tanker method (Guide to Market Benchmarks v8.8, Appendix 3): the ship is delivered at the discharge port, Ningbo, sails in ballast to Galveston, loads, sails laden back and discharges. Steaming days carry a ",
+        {
+          "value": 5.0,
+          "format": "percent_0",
+          "field": "inputs.sea_margin",
+          "suffix": " percent"
+        },
+        " weather margin; fuel is priced at the bunker port nearest the load port; port, waiting and canal days follow the route description."
+      ],
+      [
+        "Operating and capital costs are not voyage costs: a TCE is compared with them, never net of them. A TCE without the ballast leg is a different number; the one here includes it."
+      ]
+    ],
+    "formulas": [
+      "TCE = (gross freight + other revenue - commission - voyage costs) / total voyage days",
+      "Voyage days = ballast steaming + laden steaming (each with the weather margin) + port, waiting and canal days",
+      "Freight that covers voyage costs = voyage costs / (1 - commission share), the TCE set to zero"
+    ],
+    "comparison_title": [
+      "Against the Baltic's own TD22 TCE, the engine reads between ",
+      {
+        "value": 3.202623,
+        "format": "error_percent",
+        "field": "comparison.min_error",
+        "suffix": " percent"
+      },
+      " and ",
+      {
+        "value": 5.180652,
+        "format": "error_percent",
+        "field": "comparison.max_error",
+        "suffix": " percent"
+      },
+      " higher in weeks with a bunker table of the same week."
+    ],
+    "comparison_note": "Higher every week because the engine leaves out port charges (the Baltic uses Cory Brothers' estimates, which are not published). The week to 13 March 2026 is priced with the table of 6 March, before bunker prices jumped after the closure of the Strait of Hormuz, and reads furthest above."
+  },
+  "assumptions": {
+    "leaves_out": [
+      "port charges at Galveston and Ningbo (no public per call figure)"
+    ],
+    "vessel": [
+      "VLCC300: 300,000 t dwt, non-scrubber; 11 knots is the guide's eco speed. ",
+      "Laden ",
+      {
+        "value": 13,
+        "format": "knots",
+        "field": "inputs.laden.speed_kn",
+        "suffix": " knots"
+      },
+      ", ballast ",
+      {
+        "value": 12,
+        "format": "knots",
+        "field": "inputs.ballast.speed_kn",
+        "suffix": " knots"
+      },
+      ", the guide's description speeds. Consumption laden: 13 knots on 57.3 t a day, 11 knots on 39.8 t a day; ballast: 12 knots on 39.5 t a day, 11 knots on 28.5 t a day."
+    ],
+    "port": [
+      "Port days from the route description: ",
+      {
+        "value": 2,
+        "format": "days",
+        "field": "inputs.port.load_days"
+      },
+      " loading, ",
+      {
+        "value": 2,
+        "format": "days",
+        "field": "inputs.port.discharge_days"
+      },
+      " discharging and ",
+      {
+        "value": 1,
+        "format": "days",
+        "field": "inputs.port.waiting_days"
+      },
+      " waiting, burning ",
+      {
+        "value": 20,
+        "format": "tpd",
+        "field": "inputs.port.load_tpd"
+      },
+      ", ",
+      {
+        "value": 110,
+        "format": "tpd",
+        "field": "inputs.port.discharge_tpd"
+      },
+      " and ",
+      {
+        "value": 10,
+        "format": "tpd",
+        "field": "inputs.port.waiting_tpd"
+      },
+      " t a day."
+    ]
+  },
+  "data_caption": "Every input of the featured voyage, with its value, its status and its source.",
+  "inputs_table": [
+    {
+      "path": "laden.speed_kn",
+      "label": "Laden speed",
+      "value": 13.0,
+      "format": "knots_2",
+      "text": null,
+      "status": "sourced",
+      "status_words": "Sourced",
+      "source": "the guide's description speed, VLCC300"
+    },
+    {
+      "path": "ballast.speed_kn",
+      "label": "Ballast speed",
+      "value": 12.0,
+      "format": "knots_2",
+      "text": null,
+      "status": "sourced",
+      "status_words": "Sourced",
+      "source": "the guide's description speed, VLCC300"
+    },
+    {
+      "path": "laden_curve",
+      "label": "Laden speed and consumption",
+      "value": null,
+      "format": null,
+      "text": "13 knots on 57.3 t a day, 11 knots on 39.8 t a day",
+      "status": "sourced",
+      "status_words": "Sourced",
+      "source": "GMB v8.8 page 89, VLCC300"
+    },
+    {
+      "path": "ballast_curve",
+      "label": "Ballast speed and consumption",
+      "value": null,
+      "format": null,
+      "text": "12 knots on 39.5 t a day, 11 knots on 28.5 t a day",
+      "status": "sourced",
+      "status_words": "Sourced",
+      "source": "GMB v8.8 page 89, VLCC300"
+    },
+    {
+      "path": "laden.distance_nm",
+      "label": "Laden distance",
+      "value": 15054.0,
+      "format": "nm",
+      "text": null,
+      "status": "derived",
+      "status_words": "Derived",
+      "source": "searoute 1.6.0 over Eurostat SeaRoute, Suez and Panama avoided"
+    },
+    {
+      "path": "ballast.distance_nm",
+      "label": "Ballast distance",
+      "value": 15054.0,
+      "format": "nm",
+      "text": null,
+      "status": "derived",
+      "status_words": "Derived",
+      "source": "searoute 1.6.0 over Eurostat SeaRoute, Suez and Panama avoided"
+    },
+    {
+      "path": "laden.eca_nm",
+      "label": "Laden miles inside ECAs",
+      "value": 829.0,
+      "format": "nm",
+      "text": null,
+      "status": "derived",
+      "status_words": "Derived",
+      "source": "the laden line inside the emission control areas in force on 23 October 2026"
+    },
+    {
+      "path": "ballast.eca_nm",
+      "label": "Ballast miles inside ECAs",
+      "value": 829.0,
+      "format": "nm",
+      "text": null,
+      "status": "derived",
+      "status_words": "Derived",
+      "source": "the ballast line inside the emission control areas in force on 23 October 2026"
+    },
+    {
+      "path": "port.load_days",
+      "label": "Days loading",
+      "value": 2.0,
+      "format": "days_2",
+      "text": null,
+      "status": "sourced",
+      "status_words": "Sourced",
+      "source": "GMB v8.8 page 88, TD22 TCE description"
+    },
+    {
+      "path": "port.discharge_days",
+      "label": "Days discharging",
+      "value": 2.0,
+      "format": "days_2",
+      "text": null,
+      "status": "sourced",
+      "status_words": "Sourced",
+      "source": "GMB v8.8 page 88, TD22 TCE description"
+    },
+    {
+      "path": "port.waiting_days",
+      "label": "Days waiting",
+      "value": 1.0,
+      "format": "days_2",
+      "text": null,
+      "status": "sourced",
+      "status_words": "Sourced",
+      "source": "GMB v8.8 page 88, TD22 TCE description"
+    },
+    {
+      "path": "port.canal_days",
+      "label": "Days in canal transit",
+      "value": 0.0,
+      "format": "days_2",
+      "text": null,
+      "status": "sourced",
+      "status_words": "Sourced",
+      "source": "GMB v8.8 page 88, TD22 TCE description"
+    },
+    {
+      "path": "port.load_tpd",
+      "label": "Fuel at loading",
+      "value": 20.0,
+      "format": "tpd",
+      "text": null,
+      "status": "sourced",
+      "status_words": "Sourced",
+      "source": "GMB v8.8 page 89, VLCC300 vessel description"
+    },
+    {
+      "path": "port.discharge_tpd",
+      "label": "Fuel at discharge",
+      "value": 110.0,
+      "format": "tpd",
+      "text": null,
+      "status": "sourced",
+      "status_words": "Sourced",
+      "source": "GMB v8.8 page 89, VLCC300 vessel description"
+    },
+    {
+      "path": "port.waiting_tpd",
+      "label": "Fuel while waiting",
+      "value": 10.0,
+      "format": "tpd",
+      "text": null,
+      "status": "sourced",
+      "status_words": "Sourced",
+      "source": "GMB v8.8 page 89, VLCC300 vessel description"
+    },
+    {
+      "path": "freight_value",
+      "label": "Freight, USD lump sum",
+      "value": 58220000,
+      "format": "usd",
+      "text": null,
+      "status": "sourced",
+      "status_words": "Sourced",
+      "source": "Baltic Exchange weekly tanker report, week ending 23 October 2026"
+    },
+    {
+      "path": "flat_rate_usd_t",
+      "label": "Worldscale flat rate",
+      "value": null,
+      "format": "usd_t",
+      "text": null,
+      "status": "empty",
+      "status_words": "No public figure",
+      "source": "Worldscale flat rates are licensed by the Worldscale Association and no dated public source states this route's flat rate for the year"
+    },
+    {
+      "path": "cargo_t",
+      "label": "Cargo",
+      "value": 270000.0,
+      "format": "t",
+      "text": null,
+      "status": "sourced",
+      "status_words": "Sourced",
+      "source": "GMB v8.8 page 86 route description"
+    },
+    {
+      "path": "commission_pct",
+      "label": "Total commission",
+      "value": 3.75,
+      "format": "percent_2",
+      "text": null,
+      "status": "sourced",
+      "status_words": "Sourced",
+      "source": "GMB v8.8 page 86 route description"
+    },
+    {
+      "path": "sea_margin",
+      "label": "Weather margin on steaming time",
+      "value": 5.0,
+      "format": "percent_0",
+      "text": null,
+      "status": "sourced",
+      "status_words": "Sourced",
+      "source": "GMB v8.8 Appendix 3, page 99: 5% weather allowance on steaming time"
+    },
+    {
+      "path": "prices.vlsfo_usd_t",
+      "label": "VLSFO price",
+      "value": 800.0,
+      "format": "usd_t",
+      "text": null,
+      "status": "sourced",
+      "status_words": "Sourced",
+      "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+    },
+    {
+      "path": "prices.hsfo_usd_t",
+      "label": "HSFO price",
+      "value": 593.0,
+      "format": "usd_t",
+      "text": null,
+      "status": "sourced",
+      "status_words": "Sourced",
+      "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+    },
+    {
+      "path": "prices.mgo_usd_t",
+      "label": "MGO price",
+      "value": 1430.0,
+      "format": "usd_t",
+      "text": null,
+      "status": "sourced",
+      "status_words": "Sourced",
+      "source": "Star Asia Shipbroking, weekly market report, week 43, 2026, 23 October 2026"
+    },
+    {
+      "path": "ets.eua_eur_t",
+      "label": "EU allowance price",
+      "value": 82.31,
+      "format": "eur_t",
+      "text": null,
+      "status": "sourced",
+      "status_words": "Sourced",
+      "source": "DEHSt (German auctions, proxy), monthly average for August 2026"
+    },
+    {
+      "path": "ets.usd_per_eur",
+      "label": "Dollars per euro",
+      "value": 1.121006,
+      "format": "usd_per_eur",
+      "text": null,
+      "status": "sourced",
+      "status_words": "Sourced",
+      "source": "Federal Reserve H.10, mean of the 16 published days of October 2026"
+    },
+    {
+      "path": "ets.phase_in",
+      "label": "EU ETS phase in",
+      "value": 100.0,
+      "format": "percent_0",
+      "text": null,
+      "status": "sourced",
+      "status_words": "Sourced",
+      "source": "Directive 2003/87/EC Article 3gb: 100% of 2026 emissions"
+    },
+    {
+      "path": "vlsfo_class",
+      "label": "VLSFO emission class",
+      "value": null,
+      "format": null,
+      "text": "HFO, ISO 8217 RME to RMK",
+      "status": "sourced",
+      "status_words": "Sourced",
+      "source": "IMO MEPC.391(81): VLSFO is an ISO 8217 residual grade (RME, RMG, RMK)"
+    },
+    {
+      "path": "costs.port_load_usd",
+      "label": "Port charges at loading",
+      "value": null,
+      "format": "usd",
+      "text": null,
+      "status": "empty",
+      "status_words": "No public figure",
+      "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+    },
+    {
+      "path": "costs.port_discharge_usd",
+      "label": "Port charges at discharge",
+      "value": null,
+      "format": "usd",
+      "text": null,
+      "status": "empty",
+      "status_words": "No public figure",
+      "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+    },
+    {
+      "path": "war_risk.premium_pct",
+      "label": "War risk premium, percent of hull value",
+      "value": 0.0,
+      "format": "percent_2",
+      "text": null,
+      "status": "sourced",
+      "status_words": "Sourced",
+      "source": "no war risk area on this routing in the base case"
+    },
+    {
+      "path": "war_risk.hull_value_usd",
+      "label": "Hull value",
+      "value": 157000000.0,
+      "format": "usd",
+      "text": null,
+      "status": "sourced",
+      "status_words": "Sourced",
+      "source": "Xclusiv Shipbrokers, 7 September 2026, VLCC, 5 Year"
+    },
+    {
+      "path": "war_risk.crew_bonus_usd",
+      "label": "Crew war bonus",
+      "value": null,
+      "format": "usd",
+      "text": null,
+      "status": "empty",
+      "status_words": "No public figure",
+      "source": "The International Bargaining Forum designated the Strait of Hormuz, the Gulf of Oman and the Persian Gulf a Warlike Operations Area from 6 March 2026, with a bonus equal to 100 percent of basic wage for a minimum of five days; the bonus in dollars needs the crew's wage bill, which has no public source for these ships."
+    }
+  ],
+  "comparison": [
+    {
+      "week_ending": "2026-02-27",
+      "rate_usd": 17300000,
+      "published_tce_usd_day": 121500,
+      "qualifier": "just over",
+      "engine_tce_usd_day": 127534.311743,
+      "error": 0.049665,
+      "bunkers": "week of 2026-02-27",
+      "error_pct": 4.966512,
+      "bunkers_words": "Same week"
+    },
+    {
+      "week_ending": "2026-03-06",
+      "rate_usd": 28588889,
+      "published_tce_usd_day": 210613,
+      "qualifier": "exact",
+      "engine_tce_usd_day": 219678.684801,
+      "error": 0.043044,
+      "bunkers": "week of 2026-03-06",
+      "error_pct": 4.304428,
+      "bunkers_words": "Same week"
+    },
+    {
+      "week_ending": "2026-03-13",
+      "rate_usd": 21244444,
+      "published_tce_usd_day": 126000,
+      "qualifier": "just over",
+      "engine_tce_usd_day": 155732.704306,
+      "error": 0.235974,
+      "bunkers": "week of 2026-03-06",
+      "error_pct": 23.597384,
+      "bunkers_words": "Week of 6 March 2026, the latest table before it"
+    },
+    {
+      "week_ending": "2026-06-26",
+      "rate_usd": 21361111,
+      "published_tce_usd_day": 146600,
+      "qualifier": "just over",
+      "engine_tce_usd_day": 154194.836071,
+      "error": 0.051807,
+      "bunkers": "week of 2026-06-26",
+      "error_pct": 5.180652,
+      "bunkers_words": "Same week"
+    },
+    {
+      "week_ending": "2026-09-11",
+      "rate_usd": 35110000,
+      "published_tce_usd_day": 257000,
+      "qualifier": "just over",
+      "engine_tce_usd_day": 270679.677992,
+      "error": 0.053228,
+      "bunkers": "week of 2026-09-04",
+      "error_pct": 5.322832,
+      "bunkers_words": "Week of 4 September 2026, the latest table before it"
+    },
+    {
+      "week_ending": "2026-10-09",
+      "rate_usd": 79611111,
+      "published_tce_usd_day": 637675,
+      "qualifier": "exact",
+      "engine_tce_usd_day": 653061.553291,
+      "error": 0.024129,
+      "bunkers": "week of 2026-10-02",
+      "error_pct": 2.412915,
+      "bunkers_words": "Week of 2 October 2026, the latest table before it"
+    },
+    {
+      "week_ending": "2026-10-23",
+      "rate_usd": 58220000,
+      "published_tce_usd_day": 451905,
+      "qualifier": "exact",
+      "engine_tce_usd_day": 466377.812043,
+      "error": 0.032026,
+      "bunkers": "week of 2026-10-23",
+      "error_pct": 3.202623,
+      "bunkers_words": "Same week"
+    }
+  ],
+  "plain_verdict": "A VLCC fixed on TD22, Galveston to Ningbo, at the Baltic's USD 58.22 million in the week to 23 October 2026, earns about USD 466,378 a day over a 110.5 day round voyage; freight of USD 17.24 a tonne would only cover its voyage costs."
+}

@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#FBFAF8">
+<title>Overview, Voyage economics and TCE</title>
+<meta name="description" content="What a dry bulk or tanker voyage earns per day, the freight it needs, which costs decide it, and how a physical fixture compares with the FFA: a voyage and time charter equivalent model on Baltic Exchange routes, with Worldscale, bunkers by sulphur zone, EU ETS, canals, war risk and the ballast leg.">
+
+<!-- Every path on this page is relative. The site is served from the subpath
+     /voyage-tce-model/, never from a domain root, so a leading slash breaks the
+     deploy. tools/check-paths.mjs fails on one, and scripts/serve.py reproduces
+     the subpath locally. -->
+
+<!-- An empty data URI, so the browser does not ask the origin root for a
+     favicon, which on a project page is somebody else's file. -->
+<link rel="icon" href="data:,">
+
+<!-- The theme, set before the first paint. It reads the key nc-theme, which
+     the portfolio shares because both sites live on the same origin. A blocked
+     store falls back to light, the value the html element ships with.
+     src/theme.js owns the toggle after load. -->
+<script>
+  (function () {
+    try {
+      if (localStorage.getItem("nc-theme") === "dark") {
+        document.documentElement.setAttribute("data-theme", "dark");
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute("content", "#17181C");
+      }
+    } catch (error) {
+      /* storage blocked: stay light */
+    }
+  })();
+</script>
+
+<!-- Content hashes, so a deploy changes the URL of every file whose bytes
+     changed and a cache cannot hand this page yesterday's module beside
+     today's data. src/voyage/versions.py writes the import map below from the
+     bytes on disk, and the ?v= on the stylesheets and the entry module. The map
+     must come before the first module script. -->
+<!-- build:versions, written by voyage.versions from the bytes on disk; do not edit by hand -->
+<script type="importmap">
+{
+  "imports": {
+    "./data/calculator.json": "./data/calculator.json?v=719d75a0e472",
+    "./data/carbon.json": "./data/carbon.json?v=9bae4d0a5c78",
+    "./data/detours.json": "./data/detours.json?v=205314fd7d18",
+    "./data/engine.json": "./data/engine.json?v=b56846c319c2",
+    "./data/manifest.json": "./data/manifest.json?v=e651ab0e6a4b",
+    "./data/map.json": "./data/map.json?v=221d78ea358c",
+    "./data/method.json": "./data/method.json?v=598a7ed455a1",
+    "./data/overview.json": "./data/overview.json?v=bb44dd626db1",
+    "./data/paper.json": "./data/paper.json?v=6e7a824ebc2f",
+    "./data/routes.json": "./data/routes.json?v=21dc623b303e",
+    "./data/speed.json": "./data/speed.json?v=d4be06326fd9",
+    "./src/bridge.js": "./src/bridge.js?v=1f928167d56b",
+    "./src/calculator.js": "./src/calculator.js?v=ce90bc48844e",
+    "./src/carbon.js": "./src/carbon.js?v=6ec8f3797028",
+    "./src/charts.js": "./src/charts.js?v=d3ab6f16353c",
+    "./src/detours.js": "./src/detours.js?v=a0966fbe99b8",
+    "./src/dom.js": "./src/dom.js?v=8beed4452636",
+    "./src/engine.js": "./src/engine.js?v=0e6106cfd51a",
+    "./src/figure.js": "./src/figure.js?v=fc5eb19845a1",
+    "./src/format.js": "./src/format.js?v=a8850ca31ab1",
+    "./src/map.js": "./src/map.js?v=097f1cc962c9",
+    "./src/method.js": "./src/method.js?v=530d57460099",
+    "./src/overview.js": "./src/overview.js?v=57c63260d75d",
+    "./src/paper.js": "./src/paper.js?v=ceddbee8afff",
+    "./src/router.js": "./src/router.js?v=afd8c466a765",
+    "./src/routes.js": "./src/routes.js?v=224248942f1c",
+    "./src/sections.js": "./src/sections.js?v=a8e2c0424957",
+    "./src/state.js": "./src/state.js?v=ffbd1316ca2c",
+    "./src/theme.js": "./src/theme.js?v=56b0dd101ec1",
+    "./src/ui.js": "./src/ui.js?v=999cf7c5582b"
+  }
+}
+</script>
+<!-- /build:versions -->
+
+<link rel="preload" href="vendor/figtree/figtree.v2.002.latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="vendor/fraunces/fraunces.v1.000.latin.woff2" as="font" type="font/woff2" crossorigin>
+
+<link rel="stylesheet" href="styles/tokens.css?v=4c369aecebf0">
+<link rel="stylesheet" href="styles/layout.css?v=47822d5b41eb">
+<link rel="stylesheet" href="styles/components.css?v=7c6cbcfe404e">
+</head>
+<body>
+
+<!-- The skip link goes to the view's h1. src/ui.js moves focus there itself so
+     the address keeps the route; without script the fragment still scrolls. -->
+<a class="skip-link" href="#view-title" data-skip>Skip to the content</a>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-name" href="#/overview">Voyage economics and TCE</a>
+    <!-- One link per view: src/ui.js builds this list from its route table. -->
+    <nav class="site-nav" aria-label="Views">
+      <ul class="site-nav__list" id="site-nav-list"></ul>
+    </nav>
+    <div class="site-header__tools">
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" title="Press T to toggle" aria-pressed="false"><span id="theme-icon" aria-hidden="true">&#x263E;&#xFE0E;</span></button>
+    </div>
+  </div>
+</header>
+
+<!-- Short summaries a view announces, kept outside the view so the region is
+     already there when its words change. -->
+<p id="view-status" class="visually-hidden" role="status" aria-live="polite"></p>
+
+<main id="view" class="view">
+  <p class="state-message">Loading the study. Every figure on this page is read from a JSON file in data/.</p>
+</main>
+
+<noscript>
+  <div class="view">
+    <p class="state-message">This page builds itself from the JSON files in data/, so with JavaScript turned off nothing is drawn. The figures are not hidden: every view's numbers are in data/overview.json and the files beside it, readable as text in this repository, and the research note is Voyage-Economics-TCE-Research-Note.pdf.</p>
+  </div>
+</noscript>
+
+<footer class="site-footer">
+  <div class="site-footer__inner" id="site-footer">
+    <p><a class="text-link" href="https://nathancouturier.github.io">Nathan Couturier</a></p>
+  </div>
+</footer>
+
+<!-- If a module cannot load or run before src/ui.js marks the page started,
+     say so instead of loading for ever. A failed module fires an error on the
+     window, caught here in the capture phase. -->
+<script>
+  window.addEventListener("error", function () {
+    if (document.documentElement.hasAttribute("data-started")) return;
+    var view = document.getElementById("view");
+    if (!view) return;
+    var said = document.createElement("p");
+    said.className = "state-message";
+    said.setAttribute("role", "alert");
+    said.textContent = "The page's code could not load or run, so nothing can be drawn. Reload the page; if it fails again, the figures are still readable as text in data/overview.json.";
+    view.replaceChildren(said);
+  }, true);
+</script>
+
+<script type="module" src="src/ui.js?v=999cf7c5582b"></script>
+
+</body>
+</html>

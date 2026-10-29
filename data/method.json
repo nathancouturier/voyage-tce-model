@@ -1,0 +1,3281 @@
+{
+  "artifact": "method",
+  "schema_version": 1,
+  "conventions": {
+    "decimals": {
+      "usd_day": 0,
+      "usd": 0,
+      "usd_m": 2,
+      "usd_t": 2,
+      "usd_bbl": 2,
+      "ws": 2,
+      "days": 1,
+      "days_2": 2,
+      "nm": 0,
+      "knots": 1,
+      "knots_2": 2,
+      "t": 0,
+      "tpd": 1,
+      "percent": 1,
+      "percent_0": 0,
+      "percent_2": 2,
+      "eur_t": 2,
+      "usd_per_eur": 4,
+      "tco2": 0,
+      "share": 3,
+      "exponent": 2,
+      "count": 0,
+      "year": 0,
+      "error_percent": 1,
+      "g_mj": 2,
+      "tonne_miles_bn": 2,
+      "days_4": 4,
+      "t_2": 2,
+      "mj": 0,
+      "eur": 0
+    },
+    "scale": {
+      "percent": 100.0,
+      "million": 1000000.0
+    }
+  },
+  "convention_items": [
+    {
+      "id": "tce",
+      "topic": "TCE",
+      "rule": "TCE = (gross freight + other revenue - commissions - voyage costs) / total voyage days, net of commissions; voyage costs are bunkers, port charges, canal tolls, ETS allowances, war risk premiums and other voyage specific costs, never operating or capital costs.",
+      "source": "Baltic Exchange, Guide to Market Benchmarks v8.8, Appendix 3, page 98",
+      "raw_key": "baltic_gmb",
+      "quote": [
+        "The Baltic publishes Time Charter Equivalent values for various voyage route assessments. These are published as a net value.",
+        "Additional expenses particular to the trade, such as but not limited to, additional insurance, cleaning costs, security guards and emission costs."
+      ],
+      "url": "https://www.balticexchange.com/content/dam/balticexchange/consumer/documents/data-services/documentation/ocean-bulk-guides-policies/GMB.pdf"
+    },
+    {
+      "id": "days",
+      "topic": "Voyage days",
+      "rule": "Sea days = distance x (1 + 5 percent weather margin) / (speed x 24), laden and ballast; plus port, waiting and canal days from the TCE route description. The ballast leg runs from the TCE delivery port (the discharge port) back to the load port.",
+      "source": "GMB v8.8 Appendix 3, pages 98 and 99",
+      "raw_key": "baltic_gmb",
+      "quote": [
+        "5% weather allowance",
+        "Distance from the starting place named in the TCE description to the Load port."
+      ],
+      "url": "https://www.balticexchange.com/content/dam/balticexchange/consumer/documents/data-services/documentation/ocean-bulk-guides-policies/GMB.pdf"
+    },
+    {
+      "id": "fuel_price",
+      "topic": "Bunker price",
+      "rule": "Fuel is priced at the main bunkering port closest to the load port, in the grade the activity burns.",
+      "source": "GMB v8.8 Appendix 3, page 98",
+      "raw_key": "baltic_gmb",
+      "quote": "The cost of the fuel at the main bunkering port closest to the load port.",
+      "url": "https://www.balticexchange.com/content/dam/balticexchange/consumer/documents/data-services/documentation/ocean-bulk-guides-policies/GMB.pdf"
+    },
+    {
+      "id": "port_costs",
+      "topic": "Port costs",
+      "rule": "The Baltic's tanker TCEs include port and canal costs supplied by Cory Brothers, which are not published; the study takes them as lump sum inputs.",
+      "source": "GMB v8.8 Appendix 3, page 98",
+      "raw_key": "baltic_gmb",
+      "quote": "Port costs supplied by Cory Brothers Shipping",
+      "url": "https://www.balticexchange.com/content/dam/balticexchange/consumer/documents/data-services/documentation/ocean-bulk-guides-policies/GMB.pdf"
+    },
+    {
+      "id": "worldscale",
+      "topic": "Worldscale",
+      "rule": "USD/t = WS / 100 x flat rate (the route's flat rate for the year, set by the Worldscale Association and licensed); a lump sum is divided by the cargo.",
+      "source": "GMB v8.8 Appendix 3, page 98",
+      "raw_key": "baltic_gmb",
+      "quote": [
+        "Worldscale assessment would be converted to $/mt by applying the applicable flat rate.",
+        "A lumpsum assessment would be divided by the loaded cargo quantity."
+      ],
+      "url": "https://www.balticexchange.com/content/dam/balticexchange/consumer/documents/data-services/documentation/ocean-bulk-guides-policies/GMB.pdf"
+    },
+    {
+      "id": "commission_tanker",
+      "topic": "Tanker commission",
+      "rule": "Baltic tanker routes are assessed on 3.75 percent total commission (address commission plus brokerage), since circular 27/21.",
+      "source": "GMB v8.8, document history, version 4.7",
+      "raw_key": "baltic_gmb",
+      "quote": "As per Circular 27/21 all tanker routes were changed to standard commission at 3.75% (from 2.5%)",
+      "url": "https://www.balticexchange.com/content/dam/balticexchange/consumer/documents/data-services/documentation/ocean-bulk-guides-policies/GMB.pdf"
+    },
+    {
+      "id": "commission_dry",
+      "topic": "Dry commission",
+      "rule": "Baltic dry voyage routes and trips are assessed on 5 percent total commission.",
+      "source": "GMB v8.8 Appendix 2, route descriptions (C3, page 77)",
+      "raw_key": "baltic_gmb",
+      "quote": "6 hrs turn time at loading port, 24 hrs turn time at discharge port. Age max 18 yrs. 5% total commission.",
+      "url": "https://www.balticexchange.com/content/dam/balticexchange/consumer/documents/data-services/documentation/ocean-bulk-guides-policies/GMB.pdf"
+    },
+    {
+      "id": "sulphur",
+      "topic": "Sulphur",
+      "rule": "0.50 percent sulphur worldwide and 0.10 percent inside an emission control area.",
+      "source": "MARPOL Annex VI regulation 14.1 and 14.4, resolution MEPC.328(76)",
+      "raw_key": "law_imo_mepc_328_76_2021_revised_marpol_annexvi_pdf",
+      "quote": [
+        "The sulphur content of fuel oil used or carried for use on board a ship shall not exceed 0.50% m/m.",
+        "While a ship is operating within an emission control area, the sulphur content of fuel oil used on board that ship shall not exceed 0.10% m/m."
+      ],
+      "url": "https://wwwcdn.imo.org/localresources/en/KnowledgeCentre/IndexofIMOResolutions/MEPCDocuments/MEPC.328(76"
+    },
+    {
+      "id": "med_eca",
+      "topic": "Mediterranean ECA",
+      "rule": "In force 1 May 2024; under regulation 14.7 ships are exempt for twelve months, so the 0.10 percent limit applies from 1 May 2025.",
+      "source": "Resolution MEPC.361(79)",
+      "raw_key": "law_imo_mepc_361_79_mediterranean_sox_eca_pdf",
+      "quote": "the said amendments shall enter into force on 1 May 2024 upon their acceptance",
+      "url": "https://wwwcdn.imo.org/localresources/en/KnowledgeCentre/IndexofIMOResolutions/MEPCDocuments/MEPC.361(79"
+    },
+    {
+      "id": "berth",
+      "topic": "At berth in the EU",
+      "rule": "Ships at berth in EU ports burn fuel of at most 0.10 percent sulphur.",
+      "source": "Directive (EU) 2016/802, Article 7",
+      "raw_key": "law_eu_2016_802_sulphur_directive_oj_en_pdf",
+      "quote": "Member States shall take all necessary measures to ensure that ships at berth in Union ports do not use marine fuels with a sulphur content exceeding 0,10% by mass",
+      "url": "http://publications.europa.eu/resource/celex/32016L0802"
+    },
+    {
+      "id": "emission_factors",
+      "topic": "Emission factors",
+      "rule": "Tonnes of CO2 per tonne of fuel: HFO (ISO 8217 RME to RMK) 3.114, LFO (RMA to RMD) 3.151, MDO and MGO (DMX to DMB) 3.206; CH4 0.00005 and N2O 0.00018 g per g.",
+      "source": "Regulation (EU) 2015/757 Annex I as replaced by Delegated Regulation (EU) 2023/2776",
+      "raw_key": "law_eu_2023_2776_mrv_delegatedreg_oj_en_xhtml",
+      "quote": "HFO ISO 8217 Grades RME to RMK 3,114 0,00005 0,00018 - LFO ISO 8217 Grades RMA to RMD 3,151 0,00005 0,00018 - MDO MGO ISO 8217 Grades DMX to DMB 3,206 0,00005 0,00018",
+      "url": "http://publications.europa.eu/resource/celex/32023R2776"
+    },
+    {
+      "id": "gwp_ets",
+      "topic": "Global warming potentials (ETS, MRV)",
+      "rule": "CH4 28 and N2O 265.",
+      "source": "Delegated Regulation (EU) 2020/1044, Annex",
+      "raw_key": "law_eu_2020_1044_gwp_delegatedreg_oj_en_pdf",
+      "quote": "Methane (CH) 28 4 Nitrous oxide (N O) 265",
+      "url": "http://publications.europa.eu/resource/celex/32020R1044"
+    },
+    {
+      "id": "vlsfo_grade",
+      "topic": "VLSFO class",
+      "rule": "VLSFO is classed as HFO (ISO 8217 residual grades RME, RMG and RMK) for its emission factor.",
+      "source": "IMO resolution MEPC.391(81), 2024 LCA guidelines, Appendix 1",
+      "raw_key": "law_imo_mepc_391_81_2024_lca_guidelines_pdf",
+      "quote": "(ISO 8217 Grades RME, RMG and RMK, 0.10 < S",
+      "url": "https://wwwcdn.imo.org/localresources/en/KnowledgeCentre/IndexofIMOResolutions/MEPCDocuments/MEPC.391(81"
+    },
+    {
+      "id": "ets_scope",
+      "topic": "EU ETS coverage",
+      "rule": "50 percent of emissions on voyages into or out of an EU port, 100 percent between EU ports and within a port of call.",
+      "source": "Directive 2003/87/EC Article 3ga, inserted by Directive (EU) 2023/959",
+      "raw_key": "law_eu_2023_959_ets_amending_directive_oj_en_pdf",
+      "quote": "fifty percent (50%) of the emissions from ships performing voyages departing from a port of call under the jurisdiction of a Member State and arriving at a port of call outside the jurisdiction of a Member State",
+      "url": "http://publications.europa.eu/resource/celex/32023L0959"
+    },
+    {
+      "id": "ets_phase_in",
+      "topic": "EU ETS phase-in",
+      "rule": "Allowances for 40 percent of 2024 emissions, 70 percent of 2025 and 100 percent from 2026; methane and nitrous oxide covered from 2026.",
+      "source": "Directive 2003/87/EC Article 3gb",
+      "raw_key": "law_eu_2023_959_ets_amending_directive_oj_en_pdf",
+      "quote": "(a) 40% of verified emissions reported for 2024 that would be subject to surrender requirements in accordance with Article 12; (b) 70% of verified emissions reported for 2025",
+      "url": "http://publications.europa.eu/resource/celex/32023L0959"
+    },
+    {
+      "id": "bimco_etsa",
+      "topic": "ETS on a time charter",
+      "rule": "The charterer provides and pays for the allowances for the ship's emissions during the charter: on a trip time charter the trip's allowances are the charterer's.",
+      "source": "BIMCO ETS Allowances Clause for Time Charter Parties 2022, clause (c)(i)",
+      "raw_key": "law_bimco_etsa_clause_timecharter_2022_page_html",
+      "quote": [
+        "Throughout the Charter Party period the Charterers shall provide and pay for the Emission Allowances corresponding to the Vessel's emissions under the scope of the applicable Emission Scheme",
+        "the party providing and paying for the fuel under the time charter is the party that is responsible for providing and paying for emissions trading allowances"
+      ],
+      "url": "https://www.bimco.org/contractual-affairs/bimco-clauses/current-clauses/etsa_clause/"
+    },
+    {
+      "id": "fueleu",
+      "topic": "FuelEU Maritime",
+      "rule": "Limit 91.16 gCO2e/MJ less 2 percent from 2025; penalty = |compliance balance| / (GHG intensity x 41,000) x 2,400 EUR; assessed on the ship's yearly average, so the study shows one voyage's share and keeps it out of the TCE unless chosen.",
+      "source": "Regulation (EU) 2023/1805, Article 4(2) and Annex IV Part B; Annex II factors",
+      "raw_key": "law_eu_2023_1805_fueleu_maritime_reg_oj_en_xhtml",
+      "quote": [
+        "reducing the reference value of 91,16 grams of CO 2 equivalent per MJ by the following percentage: - 2% from 1 January 2025",
+        "Is 1 metric ton of VLSFO that is equivalent to 41 000 MJ 7. 2 400",
+        "HFO ISO 8217 Grades RME to RMK 0,0405 13,5 ALL ICEs 3,114 0,00005 0,00018"
+      ],
+      "url": "http://publications.europa.eu/resource/celex/32023R1805"
+    },
+    {
+      "id": "gwp_fueleu",
+      "topic": "Global warming potentials (FuelEU)",
+      "rule": "FuelEU takes CH4 25 and N2O 298, the values of the Renewable Energy Directive, not the ETS's 28 and 265.",
+      "source": "Directive (EU) 2018/2001 Annex V Part C point 4",
+      "raw_key": "law_eu_2018_2001_red_ii_directive_oj_en_pdf",
+      "quote": "those gases shall be valued as follows: 2 CO: 1 2 N O: 298 2 CH: 25",
+      "url": "http://publications.europa.eu/resource/celex/32018L2001"
+    }
+  ],
+  "validation": {
+    "tanker": [
+      {
+        "week_ending": "2025-12-12",
+        "published": "15 December 2025",
+        "route": "TC20",
+        "rate_basis": "lump_sum_usd",
+        "rate_value": 4000000,
+        "published_tce_usd_day": null,
+        "tce_qualifier": "rate only",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2025_12_15_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "a rate only: the report gives no TCE for this route that week",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-steadied-last-week/"
+      },
+      {
+        "week_ending": "2025-12-12",
+        "published": "15 December 2025",
+        "route": "TD3C",
+        "rate_basis": "ws",
+        "rate_value": 125.78,
+        "published_tce_usd_day": 122676,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2025_12_15_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2025 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-steadied-last-week/"
+      },
+      {
+        "week_ending": "2025-12-12",
+        "published": "15 December 2025",
+        "route": "TD22",
+        "rate_basis": "lump_sum_usd",
+        "rate_value": 13722222,
+        "published_tce_usd_day": 94300,
+        "tce_qualifier": "a little over",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2025_12_15_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "no public bunker table within a week before the assessment",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-steadied-last-week/"
+      },
+      {
+        "week_ending": "2025-12-12",
+        "published": "15 December 2025",
+        "route": "TD20",
+        "rate_basis": "ws",
+        "rate_value": 126,
+        "published_tce_usd_day": 61400,
+        "tce_qualifier": "about",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2025_12_15_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2025 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-steadied-last-week/"
+      },
+      {
+        "week_ending": "2025-12-12",
+        "published": "15 December 2025",
+        "route": "TD25",
+        "rate_basis": "ws",
+        "rate_value": 197.78,
+        "published_tce_usd_day": 55200,
+        "tce_qualifier": "around",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2025_12_15_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2025 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-steadied-last-week/"
+      },
+      {
+        "week_ending": "2025-12-12",
+        "published": "15 December 2025",
+        "route": "TC14",
+        "rate_basis": "ws",
+        "rate_value": 166,
+        "published_tce_usd_day": 21600,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2025_12_15_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2025 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-steadied-last-week/"
+      },
+      {
+        "week_ending": "2026-01-23",
+        "published": "26 January 2026",
+        "route": "TC20",
+        "rate_basis": "lump_sum_usd",
+        "rate_value": 4550000,
+        "published_tce_usd_day": null,
+        "tce_qualifier": "rate only",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_01_26_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "a rate only: the report gives no TCE for this route that week",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tanker-report-vlcc-market-remained-firm/"
+      },
+      {
+        "week_ending": "2026-01-23",
+        "published": "26 January 2026",
+        "route": "TD3C",
+        "rate_basis": "ws",
+        "rate_value": 126.5,
+        "published_tce_usd_day": 112394,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_01_26_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tanker-report-vlcc-market-remained-firm/"
+      },
+      {
+        "week_ending": "2026-01-23",
+        "published": "26 January 2026",
+        "route": "TD22",
+        "rate_basis": "lump_sum_usd",
+        "rate_value": 13675000,
+        "published_tce_usd_day": 93500,
+        "tce_qualifier": "just under",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_01_26_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "no public bunker table within a week before the assessment",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tanker-report-vlcc-market-remained-firm/"
+      },
+      {
+        "week_ending": "2026-01-23",
+        "published": "26 January 2026",
+        "route": "TD20",
+        "rate_basis": "ws",
+        "rate_value": 149.72,
+        "published_tce_usd_day": 66725,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_01_26_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tanker-report-vlcc-market-remained-firm/"
+      },
+      {
+        "week_ending": "2026-01-23",
+        "published": "26 January 2026",
+        "route": "TD25",
+        "rate_basis": "ws",
+        "rate_value": 280,
+        "published_tce_usd_day": 77200,
+        "tce_qualifier": "almost",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_01_26_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tanker-report-vlcc-market-remained-firm/"
+      },
+      {
+        "week_ending": "2026-01-23",
+        "published": "26 January 2026",
+        "route": "TC14",
+        "rate_basis": "ws",
+        "rate_value": 152,
+        "published_tce_usd_day": 14000,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_01_26_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tanker-report-vlcc-market-remained-firm/"
+      },
+      {
+        "week_ending": "2026-02-20",
+        "published": "23 February 2026",
+        "route": "TC20",
+        "rate_basis": "lump_sum_usd",
+        "rate_value": 4000000,
+        "published_tce_usd_day": null,
+        "tce_qualifier": "rate only",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_02_23_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "a rate only: the report gives no TCE for this route that week",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tankers-vlccs-recovered-last-week/"
+      },
+      {
+        "week_ending": "2026-02-20",
+        "published": "23 February 2026",
+        "route": "TD3C",
+        "rate_basis": "ws",
+        "rate_value": 163.28,
+        "published_tce_usd_day": 151208,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_02_23_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tankers-vlccs-recovered-last-week/"
+      },
+      {
+        "week_ending": "2026-02-20",
+        "published": "23 February 2026",
+        "route": "TD22",
+        "rate_basis": "lump_sum_usd",
+        "rate_value": 14680000,
+        "published_tce_usd_day": 100000,
+        "tce_qualifier": "just under",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_02_23_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "no public bunker table within a week before the assessment",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tankers-vlccs-recovered-last-week/"
+      },
+      {
+        "week_ending": "2026-02-20",
+        "published": "23 February 2026",
+        "route": "TD20",
+        "rate_basis": "ws",
+        "rate_value": 163.61,
+        "published_tce_usd_day": 73400,
+        "tce_qualifier": "just over",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_02_23_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tankers-vlccs-recovered-last-week/"
+      },
+      {
+        "week_ending": "2026-02-20",
+        "published": "23 February 2026",
+        "route": "TD25",
+        "rate_basis": "ws",
+        "rate_value": 285,
+        "published_tce_usd_day": 77200,
+        "tce_qualifier": "just over",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_02_23_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tankers-vlccs-recovered-last-week/"
+      },
+      {
+        "week_ending": "2026-02-20",
+        "published": "23 February 2026",
+        "route": "TC1",
+        "rate_basis": "ws",
+        "rate_value": 165,
+        "published_tce_usd_day": 36000,
+        "tce_qualifier": "just over",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_02_23_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tankers-vlccs-recovered-last-week/"
+      },
+      {
+        "week_ending": "2026-02-20",
+        "published": "23 February 2026",
+        "route": "TC2_37",
+        "rate_basis": "ws",
+        "rate_value": 125,
+        "published_tce_usd_day": 6700,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_02_23_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tankers-vlccs-recovered-last-week/"
+      },
+      {
+        "week_ending": "2026-02-27",
+        "published": "2 March 2026",
+        "route": "TC20",
+        "rate_basis": "lump_sum_usd",
+        "rate_value": 4700000,
+        "published_tce_usd_day": null,
+        "tce_qualifier": "rate only",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_02_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "a rate only: the report gives no TCE for this route that week",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-skyrocketing/"
+      },
+      {
+        "week_ending": "2026-02-27",
+        "published": "2 March 2026",
+        "route": "TD3C",
+        "rate_basis": "ws",
+        "rate_value": 216.89,
+        "published_tce_usd_day": 209550,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_02_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-skyrocketing/"
+      },
+      {
+        "week_ending": "2026-02-27",
+        "published": "2 March 2026",
+        "route": "TD22",
+        "rate_basis": "lump_sum_usd",
+        "rate_value": 17300000,
+        "published_tce_usd_day": 121500,
+        "tce_qualifier": "just over",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_02_html",
+        "reproducible": true,
+        "engine_tce_usd_day": 127534.311743,
+        "error": 0.049665,
+        "reason": "",
+        "bunkers": "week of 2026-02-27",
+        "excluded": [
+          "port charges at Galveston and Ningbo (no public per call figure)"
+        ],
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-skyrocketing/"
+      },
+      {
+        "week_ending": "2026-02-27",
+        "published": "2 March 2026",
+        "route": "TD20",
+        "rate_basis": "ws",
+        "rate_value": 211.11,
+        "published_tce_usd_day": 101600,
+        "tce_qualifier": "over",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_02_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-skyrocketing/"
+      },
+      {
+        "week_ending": "2026-02-27",
+        "published": "2 March 2026",
+        "route": "TD25",
+        "rate_basis": "ws",
+        "rate_value": 293.61,
+        "published_tce_usd_day": 79600,
+        "tce_qualifier": "just over",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_02_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-skyrocketing/"
+      },
+      {
+        "week_ending": "2026-02-27",
+        "published": "2 March 2026",
+        "route": "TC1",
+        "rate_basis": "ws",
+        "rate_value": 197,
+        "published_tce_usd_day": 45800,
+        "tce_qualifier": "just under",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_02_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-skyrocketing/"
+      },
+      {
+        "week_ending": "2026-02-27",
+        "published": "2 March 2026",
+        "route": "TC2_37",
+        "rate_basis": "ws",
+        "rate_value": 127,
+        "published_tce_usd_day": 6500,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_02_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-skyrocketing/"
+      },
+      {
+        "week_ending": "2026-03-06",
+        "published": "9 March 2026",
+        "route": "TC20",
+        "rate_basis": "lump_sum_usd",
+        "rate_value": 8510000,
+        "published_tce_usd_day": null,
+        "tce_qualifier": "rate only",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_09_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "a rate only: the report gives no TCE for this route that week",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tanker-shipping-rates-post-strong-gains-on-middle-east-worries/"
+      },
+      {
+        "week_ending": "2026-03-06",
+        "published": "9 March 2026",
+        "route": "TD3C",
+        "rate_basis": "ws",
+        "rate_value": 473.33,
+        "published_tce_usd_day": 485959,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_09_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tanker-shipping-rates-post-strong-gains-on-middle-east-worries/"
+      },
+      {
+        "week_ending": "2026-03-06",
+        "published": "9 March 2026",
+        "route": "TD22",
+        "rate_basis": "lump_sum_usd",
+        "rate_value": 28588889,
+        "published_tce_usd_day": 210613,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_09_html",
+        "reproducible": true,
+        "engine_tce_usd_day": 219678.684801,
+        "error": 0.043044,
+        "reason": "",
+        "bunkers": "week of 2026-03-06",
+        "excluded": [
+          "port charges at Galveston and Ningbo (no public per call figure)"
+        ],
+        "url": "https://www.hellenicshippingnews.com/tanker-shipping-rates-post-strong-gains-on-middle-east-worries/"
+      },
+      {
+        "week_ending": "2026-03-06",
+        "published": "9 March 2026",
+        "route": "TD20",
+        "rate_basis": "ws",
+        "rate_value": 329.44,
+        "published_tce_usd_day": 170000,
+        "tce_qualifier": "just shy of",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_09_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tanker-shipping-rates-post-strong-gains-on-middle-east-worries/"
+      },
+      {
+        "week_ending": "2026-03-06",
+        "published": "9 March 2026",
+        "route": "TD25",
+        "rate_basis": "ws",
+        "rate_value": 393.06,
+        "published_tce_usd_day": 111600,
+        "tce_qualifier": "almost",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_09_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tanker-shipping-rates-post-strong-gains-on-middle-east-worries/"
+      },
+      {
+        "week_ending": "2026-03-06",
+        "published": "9 March 2026",
+        "route": "TC1",
+        "rate_basis": "ws",
+        "rate_value": 446,
+        "published_tce_usd_day": 120000,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_09_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tanker-shipping-rates-post-strong-gains-on-middle-east-worries/"
+      },
+      {
+        "week_ending": "2026-03-06",
+        "published": "9 March 2026",
+        "route": "TC2_37",
+        "rate_basis": "ws",
+        "rate_value": 236,
+        "published_tce_usd_day": 24800,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_09_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tanker-shipping-rates-post-strong-gains-on-middle-east-worries/"
+      },
+      {
+        "week_ending": "2026-03-13",
+        "published": "16 March 2026",
+        "route": "TC20",
+        "rate_basis": "lump_sum_usd",
+        "rate_value": 7450000,
+        "published_tce_usd_day": null,
+        "tce_qualifier": "rate only",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_16_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "a rate only: the report gives no TCE for this route that week",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-becoming-harder-to-price-as-risks-grow/"
+      },
+      {
+        "week_ending": "2026-03-13",
+        "published": "16 March 2026",
+        "route": "TD3C",
+        "rate_basis": "ws",
+        "rate_value": 348.89,
+        "published_tce_usd_day": 326198,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_16_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-becoming-harder-to-price-as-risks-grow/"
+      },
+      {
+        "week_ending": "2026-03-13",
+        "published": "16 March 2026",
+        "route": "TD22",
+        "rate_basis": "lump_sum_usd",
+        "rate_value": 21244444,
+        "published_tce_usd_day": 126000,
+        "tce_qualifier": "just over",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_16_html",
+        "reproducible": true,
+        "engine_tce_usd_day": 155732.704306,
+        "error": 0.235974,
+        "reason": "",
+        "bunkers": "week of 2026-03-06",
+        "excluded": [
+          "port charges at Galveston and Ningbo (no public per call figure)"
+        ],
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-becoming-harder-to-price-as-risks-grow/"
+      },
+      {
+        "week_ending": "2026-03-13",
+        "published": "16 March 2026",
+        "route": "TD20",
+        "rate_basis": "ws",
+        "rate_value": 249.33,
+        "published_tce_usd_day": 123500,
+        "tce_qualifier": "about",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_16_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-becoming-harder-to-price-as-risks-grow/"
+      },
+      {
+        "week_ending": "2026-03-13",
+        "published": "16 March 2026",
+        "route": "TD25",
+        "rate_basis": "ws",
+        "rate_value": 289,
+        "published_tce_usd_day": 55900,
+        "tce_qualifier": "almost",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_16_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-becoming-harder-to-price-as-risks-grow/"
+      },
+      {
+        "week_ending": "2026-03-13",
+        "published": "16 March 2026",
+        "route": "TC1",
+        "rate_basis": "ws",
+        "rate_value": 358,
+        "published_tce_usd_day": 80200,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_16_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-becoming-harder-to-price-as-risks-grow/"
+      },
+      {
+        "week_ending": "2026-03-13",
+        "published": "16 March 2026",
+        "route": "TC2_37",
+        "rate_basis": "ws",
+        "rate_value": 220,
+        "published_tce_usd_day": 19300,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_16_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-becoming-harder-to-price-as-risks-grow/"
+      },
+      {
+        "week_ending": "2026-03-20",
+        "published": "23 March 2026",
+        "route": "TC20",
+        "rate_basis": "lump_sum_usd",
+        "rate_value": 7290000,
+        "published_tce_usd_day": null,
+        "tce_qualifier": "rate only",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_23_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "a rate only: the report gives no TCE for this route that week",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-facing-new-questions-regarding-direction/"
+      },
+      {
+        "week_ending": "2026-03-20",
+        "published": "23 March 2026",
+        "route": "TD3C",
+        "rate_basis": "ws",
+        "rate_value": 413.89,
+        "published_tce_usd_day": 400928,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_23_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-facing-new-questions-regarding-direction/"
+      },
+      {
+        "week_ending": "2026-03-20",
+        "published": "23 March 2026",
+        "route": "TD22",
+        "rate_basis": "lump_sum_usd",
+        "rate_value": 22217222,
+        "published_tce_usd_day": 137200,
+        "tce_qualifier": "about",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_23_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "no public bunker table within a week before the assessment",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-facing-new-questions-regarding-direction/"
+      },
+      {
+        "week_ending": "2026-03-20",
+        "published": "23 March 2026",
+        "route": "TD20",
+        "rate_basis": "ws",
+        "rate_value": 256.67,
+        "published_tce_usd_day": 118650,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_23_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-facing-new-questions-regarding-direction/"
+      },
+      {
+        "week_ending": "2026-03-20",
+        "published": "23 March 2026",
+        "route": "TD25",
+        "rate_basis": "ws",
+        "rate_value": 433,
+        "published_tce_usd_day": 120100,
+        "tce_qualifier": "over",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_23_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-facing-new-questions-regarding-direction/"
+      },
+      {
+        "week_ending": "2026-03-20",
+        "published": "23 March 2026",
+        "route": "TC2_37",
+        "rate_basis": "ws",
+        "rate_value": 230,
+        "published_tce_usd_day": 19700,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_23_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-facing-new-questions-regarding-direction/"
+      },
+      {
+        "week_ending": "2026-03-27",
+        "published": "30 March 2026",
+        "route": "TC20",
+        "rate_basis": "lump_sum_usd",
+        "rate_value": 7320000,
+        "published_tce_usd_day": null,
+        "tce_qualifier": "rate only",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_30_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "a rate only: the report gives no TCE for this route that week",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-still-elevated/"
+      },
+      {
+        "week_ending": "2026-03-27",
+        "published": "30 March 2026",
+        "route": "TD3C",
+        "rate_basis": "ws",
+        "rate_value": 366,
+        "published_tce_usd_day": 356483,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_30_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-still-elevated/"
+      },
+      {
+        "week_ending": "2026-03-27",
+        "published": "30 March 2026",
+        "route": "TD22",
+        "rate_basis": "lump_sum_usd",
+        "rate_value": 22760556,
+        "published_tce_usd_day": 150500,
+        "tce_qualifier": "nearly",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_30_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "no public bunker table within a week before the assessment",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-still-elevated/"
+      },
+      {
+        "week_ending": "2026-03-27",
+        "published": "30 March 2026",
+        "route": "TD20",
+        "rate_basis": "ws",
+        "rate_value": 412.78,
+        "published_tce_usd_day": 215300,
+        "tce_qualifier": "about",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_30_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-still-elevated/"
+      },
+      {
+        "week_ending": "2026-03-27",
+        "published": "30 March 2026",
+        "route": "TD25",
+        "rate_basis": "ws",
+        "rate_value": 760,
+        "published_tce_usd_day": 238500,
+        "tce_qualifier": "a little over",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_30_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-still-elevated/"
+      },
+      {
+        "week_ending": "2026-03-27",
+        "published": "30 March 2026",
+        "route": "TC2_37",
+        "rate_basis": "ws",
+        "rate_value": 300,
+        "published_tce_usd_day": 33900,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_30_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-still-elevated/"
+      },
+      {
+        "week_ending": "2026-04-17",
+        "published": "20 April 2026",
+        "route": "TC20",
+        "rate_basis": "lump_sum_usd",
+        "rate_value": 10200000,
+        "published_tce_usd_day": null,
+        "tce_qualifier": "rate only",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_04_20_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "a rate only: the report gives no TCE for this route that week",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-rates-in-mixed-mode/"
+      },
+      {
+        "week_ending": "2026-04-17",
+        "published": "20 April 2026",
+        "route": "TD3C",
+        "rate_basis": "ws",
+        "rate_value": 467.22,
+        "published_tce_usd_day": 474000,
+        "tce_qualifier": "almost",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_04_20_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-rates-in-mixed-mode/"
+      },
+      {
+        "week_ending": "2026-04-17",
+        "published": "20 April 2026",
+        "route": "TD22",
+        "rate_basis": "lump_sum_usd",
+        "rate_value": 16550000,
+        "published_tce_usd_day": 102250,
+        "tce_qualifier": "nearly",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_04_20_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "no public bunker table within a week before the assessment",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-rates-in-mixed-mode/"
+      },
+      {
+        "week_ending": "2026-04-17",
+        "published": "20 April 2026",
+        "route": "TD20",
+        "rate_basis": "ws",
+        "rate_value": 192.11,
+        "published_tce_usd_day": 82600,
+        "tce_qualifier": "over",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_04_20_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-rates-in-mixed-mode/"
+      },
+      {
+        "week_ending": "2026-04-17",
+        "published": "20 April 2026",
+        "route": "TD25",
+        "rate_basis": "ws",
+        "rate_value": 346.11,
+        "published_tce_usd_day": 91500,
+        "tce_qualifier": "about",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_04_20_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-rates-in-mixed-mode/"
+      },
+      {
+        "week_ending": "2026-04-17",
+        "published": "20 April 2026",
+        "route": "TC2_37",
+        "rate_basis": "ws",
+        "rate_value": 279,
+        "published_tce_usd_day": 30000,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_04_20_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-rates-in-mixed-mode/"
+      },
+      {
+        "week_ending": "2026-06-26",
+        "published": "29 June 2026",
+        "route": "TC20",
+        "rate_basis": "lump_sum_usd",
+        "rate_value": 9930000,
+        "published_tce_usd_day": null,
+        "tce_qualifier": "rate only",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_06_29_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "a rate only: the report gives no TCE for this route that week",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/vlccs-down-last-week/"
+      },
+      {
+        "week_ending": "2026-06-26",
+        "published": "29 June 2026",
+        "route": "TD3C",
+        "rate_basis": "ws",
+        "rate_value": 318.89,
+        "published_tce_usd_day": 313000,
+        "tce_qualifier": "close to",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_06_29_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/vlccs-down-last-week/"
+      },
+      {
+        "week_ending": "2026-06-26",
+        "published": "29 June 2026",
+        "route": "TD22",
+        "rate_basis": "lump_sum_usd",
+        "rate_value": 21361111,
+        "published_tce_usd_day": 146600,
+        "tce_qualifier": "just over",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_06_29_html",
+        "reproducible": true,
+        "engine_tce_usd_day": 154194.836071,
+        "error": 0.051807,
+        "reason": "",
+        "bunkers": "week of 2026-06-26",
+        "excluded": [
+          "port charges at Galveston and Ningbo (no public per call figure)"
+        ],
+        "url": "https://www.hellenicshippingnews.com/vlccs-down-last-week/"
+      },
+      {
+        "week_ending": "2026-06-26",
+        "published": "29 June 2026",
+        "route": "TD20",
+        "rate_basis": "ws",
+        "rate_value": 238.61,
+        "published_tce_usd_day": 115400,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_06_29_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/vlccs-down-last-week/"
+      },
+      {
+        "week_ending": "2026-06-26",
+        "published": "29 June 2026",
+        "route": "TD25",
+        "rate_basis": "ws",
+        "rate_value": 191.94,
+        "published_tce_usd_day": 40513,
+        "tce_qualifier": "just over",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_06_29_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/vlccs-down-last-week/"
+      },
+      {
+        "week_ending": "2026-06-26",
+        "published": "29 June 2026",
+        "route": "TC2_37",
+        "rate_basis": "ws",
+        "rate_value": 125.31,
+        "published_tce_usd_day": 4355,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_06_29_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/vlccs-down-last-week/"
+      },
+      {
+        "week_ending": "2026-09-11",
+        "published": "14 September 2026",
+        "route": "TC20",
+        "rate_basis": "lump_sum_usd",
+        "rate_value": 16500000,
+        "published_tce_usd_day": null,
+        "tce_qualifier": "rate only",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_09_14_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "a rate only: the report gives no TCE for this route that week",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-on-the-rise/"
+      },
+      {
+        "week_ending": "2026-09-11",
+        "published": "14 September 2026",
+        "route": "TD3C",
+        "rate_basis": "ws",
+        "rate_value": 821.11,
+        "published_tce_usd_day": 862150,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_09_14_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-on-the-rise/"
+      },
+      {
+        "week_ending": "2026-09-11",
+        "published": "14 September 2026",
+        "route": "TD34",
+        "rate_basis": "ws",
+        "rate_value": 450.71,
+        "published_tce_usd_day": 465764,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_09_14_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-on-the-rise/"
+      },
+      {
+        "week_ending": "2026-09-11",
+        "published": "14 September 2026",
+        "route": "TD22",
+        "rate_basis": "lump_sum_usd",
+        "rate_value": 35110000,
+        "published_tce_usd_day": 257000,
+        "tce_qualifier": "just over",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_09_14_html",
+        "reproducible": true,
+        "engine_tce_usd_day": 270679.677992,
+        "error": 0.053228,
+        "reason": "",
+        "bunkers": "week of 2026-09-04",
+        "excluded": [
+          "port charges at Galveston and Ningbo (no public per call figure)"
+        ],
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-on-the-rise/"
+      },
+      {
+        "week_ending": "2026-09-11",
+        "published": "14 September 2026",
+        "route": "TD20",
+        "rate_basis": "ws",
+        "rate_value": 326.67,
+        "published_tce_usd_day": 162200,
+        "tce_qualifier": "about",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_09_14_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-on-the-rise/"
+      },
+      {
+        "week_ending": "2026-09-11",
+        "published": "14 September 2026",
+        "route": "TD25",
+        "rate_basis": "ws",
+        "rate_value": 375,
+        "published_tce_usd_day": 99400,
+        "tce_qualifier": "almost",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_09_14_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-on-the-rise/"
+      },
+      {
+        "week_ending": "2026-09-11",
+        "published": "14 September 2026",
+        "route": "TC1",
+        "rate_basis": "ws",
+        "rate_value": 785,
+        "published_tce_usd_day": 232000,
+        "tce_qualifier": "around",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_09_14_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-on-the-rise/"
+      },
+      {
+        "week_ending": "2026-09-11",
+        "published": "14 September 2026",
+        "route": "TC2_37",
+        "rate_basis": "ws",
+        "rate_value": 100,
+        "published_tce_usd_day": -6400,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_09_14_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/tankers-vlcc-market-on-the-rise/"
+      },
+      {
+        "week_ending": "2026-10-09",
+        "published": "12 October 2026",
+        "route": "TD3C",
+        "rate_basis": "ws",
+        "rate_value": 1318.75,
+        "published_tce_usd_day": 1412594,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_12_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/vlccs-climbing-the-record-charts/"
+      },
+      {
+        "week_ending": "2026-10-09",
+        "published": "12 October 2026",
+        "route": "TD34",
+        "rate_basis": "ws",
+        "rate_value": 841.07,
+        "published_tce_usd_day": 912660,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_12_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/vlccs-climbing-the-record-charts/"
+      },
+      {
+        "week_ending": "2026-10-09",
+        "published": "12 October 2026",
+        "route": "TD22",
+        "rate_basis": "lump_sum_usd",
+        "rate_value": 79611111,
+        "published_tce_usd_day": 637675,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_12_html",
+        "reproducible": true,
+        "engine_tce_usd_day": 653061.553291,
+        "error": 0.024129,
+        "reason": "",
+        "bunkers": "week of 2026-10-02",
+        "excluded": [
+          "port charges at Galveston and Ningbo (no public per call figure)"
+        ],
+        "url": "https://www.hellenicshippingnews.com/vlccs-climbing-the-record-charts/"
+      },
+      {
+        "week_ending": "2026-10-09",
+        "published": "12 October 2026",
+        "route": "TD20",
+        "rate_basis": "ws",
+        "rate_value": 981.11,
+        "published_tce_usd_day": 561600,
+        "tce_qualifier": "about",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_12_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/vlccs-climbing-the-record-charts/"
+      },
+      {
+        "week_ending": "2026-10-09",
+        "published": "12 October 2026",
+        "route": "TD25",
+        "rate_basis": "ws",
+        "rate_value": 955,
+        "published_tce_usd_day": 308200,
+        "tce_qualifier": "almost",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_12_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/vlccs-climbing-the-record-charts/"
+      },
+      {
+        "week_ending": "2026-10-09",
+        "published": "12 October 2026",
+        "route": "TC20",
+        "rate_basis": "lump_sum_usd",
+        "rate_value": 18400000,
+        "published_tce_usd_day": 281800,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_12_html",
+        "reproducible": true,
+        "engine_tce_usd_day": 294179.22747,
+        "error": 0.043929,
+        "reason": "",
+        "bunkers": "week of 2026-10-02",
+        "excluded": [
+          "port charges at Jubail and Rotterdam (no public per call figure)",
+          "the Suez Canal toll on the laden leg (no public toll for this ship)",
+          "the Suez Canal toll on the ballast leg (no public toll for this ship)"
+        ],
+        "url": "https://www.hellenicshippingnews.com/vlccs-climbing-the-record-charts/"
+      },
+      {
+        "week_ending": "2026-10-09",
+        "published": "12 October 2026",
+        "route": "TC5",
+        "rate_basis": "ws",
+        "rate_value": 940,
+        "published_tce_usd_day": 192900,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_12_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/vlccs-climbing-the-record-charts/"
+      },
+      {
+        "week_ending": "2026-10-09",
+        "published": "12 October 2026",
+        "route": "TC14",
+        "rate_basis": "ws",
+        "rate_value": 285,
+        "published_tce_usd_day": 32600,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_12_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/vlccs-climbing-the-record-charts/"
+      },
+      {
+        "week_ending": "2026-10-23",
+        "published": "26 October 2026",
+        "route": "TD3C",
+        "rate_basis": "ws",
+        "rate_value": 1208.13,
+        "published_tce_usd_day": 1287851,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_26_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-giving-up-past-gains/"
+      },
+      {
+        "week_ending": "2026-10-23",
+        "published": "26 October 2026",
+        "route": "TD34",
+        "rate_basis": "ws",
+        "rate_value": 620,
+        "published_tce_usd_day": 656587,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_26_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-giving-up-past-gains/"
+      },
+      {
+        "week_ending": "2026-10-23",
+        "published": "26 October 2026",
+        "route": "TD22",
+        "rate_basis": "lump_sum_usd",
+        "rate_value": 58220000,
+        "published_tce_usd_day": 451905,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_26_html",
+        "reproducible": true,
+        "engine_tce_usd_day": 466377.812043,
+        "error": 0.032026,
+        "reason": "",
+        "bunkers": "week of 2026-10-23",
+        "excluded": [
+          "port charges at Galveston and Ningbo (no public per call figure)"
+        ],
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-giving-up-past-gains/"
+      },
+      {
+        "week_ending": "2026-10-23",
+        "published": "26 October 2026",
+        "route": "TD20",
+        "rate_basis": "ws",
+        "rate_value": 731.11,
+        "published_tce_usd_day": 406769,
+        "tce_qualifier": "about",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_26_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-giving-up-past-gains/"
+      },
+      {
+        "week_ending": "2026-10-23",
+        "published": "26 October 2026",
+        "route": "TD25",
+        "rate_basis": "ws",
+        "rate_value": 651,
+        "published_tce_usd_day": 197000,
+        "tce_qualifier": "just under",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_26_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-giving-up-past-gains/"
+      },
+      {
+        "week_ending": "2026-10-23",
+        "published": "26 October 2026",
+        "route": "TC1",
+        "rate_basis": "ws",
+        "rate_value": 1075,
+        "published_tce_usd_day": 313200,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_26_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-giving-up-past-gains/"
+      },
+      {
+        "week_ending": "2026-10-23",
+        "published": "26 October 2026",
+        "route": "TC20",
+        "rate_basis": "lump_sum_usd",
+        "rate_value": 21510000,
+        "published_tce_usd_day": 336400,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_26_html",
+        "reproducible": true,
+        "engine_tce_usd_day": 351004.923456,
+        "error": 0.043415,
+        "reason": "",
+        "bunkers": "week of 2026-10-23",
+        "excluded": [
+          "port charges at Jubail and Rotterdam (no public per call figure)",
+          "the Suez Canal toll on the laden leg (no public toll for this ship)",
+          "the Suez Canal toll on the ballast leg (no public toll for this ship)"
+        ],
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-giving-up-past-gains/"
+      },
+      {
+        "week_ending": "2026-10-23",
+        "published": "26 October 2026",
+        "route": "TC5",
+        "rate_basis": "ws",
+        "rate_value": 1105,
+        "published_tce_usd_day": 229900,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_26_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-giving-up-past-gains/"
+      },
+      {
+        "week_ending": "2026-10-23",
+        "published": "26 October 2026",
+        "route": "TC2_37",
+        "rate_basis": "ws",
+        "rate_value": 207,
+        "published_tce_usd_day": 12900,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_26_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-giving-up-past-gains/"
+      },
+      {
+        "week_ending": "2026-10-23",
+        "published": "26 October 2026",
+        "route": "TC14",
+        "rate_basis": "ws",
+        "rate_value": 399,
+        "published_tce_usd_day": 53900,
+        "tce_qualifier": "exact",
+        "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_26_html",
+        "reproducible": false,
+        "engine_tce_usd_day": null,
+        "error": null,
+        "reason": "Worldscale rate: the 2026 flat rate is licensed and no public source states it",
+        "bunkers": "",
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-giving-up-past-gains/"
+      }
+    ],
+    "early_march": [
+      {
+        "id": "platts_pg_china_2025_12_12",
+        "date": "2025-12-12",
+        "freight_usd_t": 27.84,
+        "source": "Platts, as reported by Hellenic Shipping News on 17 January 2026",
+        "primary": true,
+        "bunkers": "2025-Q4 average",
+        "engine_tce_usd_day": 132513.768325,
+        "days": 47.007212,
+        "bunkers_words": "Q4 2025 average"
+      },
+      {
+        "id": "platts_pg_china_2026_03_02",
+        "date": "2026-03-02",
+        "freight_usd_t": 62.07,
+        "source": "Platts, part of S&P Global Energy, as reported by Hellenic Shipping News on 4 March 2026",
+        "primary": true,
+        "bunkers": "week of 2026-02-27",
+        "engine_tce_usd_day": 319740.677605,
+        "days": 47.007212,
+        "engine_tce_with_war_risk_usd_day": 255920.682718,
+        "war_risk_usd": 3000000.0,
+        "bunkers_words": "week of 27 February 2026"
+      },
+      {
+        "id": "oilprice_gulf_china_2026_03_03",
+        "date": "2026-03-03",
+        "freight_usd_t": 89.0,
+        "source": "Oilprice.com (Tom Kool), republished by Yahoo Finance on 3 March 2026",
+        "primary": false,
+        "bunkers": "week of 2026-02-27",
+        "engine_tce_usd_day": 468620.67965,
+        "days": 47.007212,
+        "engine_tce_with_war_risk_usd_day": 404800.684764,
+        "war_risk_usd": 3000000.0,
+        "bunkers_words": "week of 27 February 2026"
+      }
+    ],
+    "dry": [
+      {
+        "date": "2026-07-03",
+        "route": "C3",
+        "freight_usd_t": 30.11,
+        "engine_tce_usd_day": 38791.027364,
+        "benchmark": "C5TC_usd_day",
+        "benchmark_usd_day": 33678,
+        "gap_usd_day": 5113.027364,
+        "bunkers": "week of 2026-07-03",
+        "excluded": [
+          "loading time at Tubarao (the Baltic's terms load at the port's scale, which is not published)",
+          "fuel burnt in port (the Baltic prints no port consumption for bulk carriers)",
+          "port charges at Tubarao and Qingdao (no public per call figure)"
+        ],
+        "days": 76.522292,
+        "ballast_days": 34.802813,
+        "source": "Banchero Costa, weekly market report, week 27, 2026"
+      },
+      {
+        "date": "2026-07-03",
+        "route": "C5",
+        "freight_usd_t": 12.25,
+        "engine_tce_usd_day": 44723.442528,
+        "benchmark": "C5TC_usd_day",
+        "benchmark_usd_day": 33678,
+        "gap_usd_day": 11045.442528,
+        "bunkers": "week of 2026-07-03",
+        "excluded": [
+          "loading time at Port Hedland (the Baltic's terms load at the port's scale, which is not published)",
+          "fuel burnt in port (the Baltic prints no port consumption for bulk carriers)",
+          "port charges at Port Hedland and Qingdao (no public per call figure)"
+        ],
+        "days": 28.983542,
+        "ballast_days": 11.033437,
+        "source": "Banchero Costa, weekly market report, week 27, 2026"
+      },
+      {
+        "date": "2026-10-23",
+        "route": "C3",
+        "freight_usd_t": 33.87,
+        "engine_tce_usd_day": 38256.182169,
+        "benchmark": "C5TC_182_usd_day",
+        "benchmark_usd_day": 34380,
+        "gap_usd_day": 3876.182169,
+        "bunkers": "week of 2026-10-23",
+        "excluded": [
+          "loading time at Tubarao (the Baltic's terms load at the port's scale, which is not published)",
+          "fuel burnt in port (the Baltic prints no port consumption for bulk carriers)",
+          "port charges at Tubarao and Qingdao (no public per call figure)"
+        ],
+        "days": 76.522292,
+        "ballast_days": 34.802813,
+        "source": "Banchero Costa, weekly market report, week 43, 2026"
+      },
+      {
+        "date": "2026-10-23",
+        "route": "C5",
+        "freight_usd_t": 14.1,
+        "engine_tce_usd_day": 44214.492995,
+        "benchmark": "C5TC_182_usd_day",
+        "benchmark_usd_day": 34380,
+        "gap_usd_day": 9834.492995,
+        "bunkers": "week of 2026-10-23",
+        "excluded": [
+          "loading time at Port Hedland (the Baltic's terms load at the port's scale, which is not published)",
+          "fuel burnt in port (the Baltic prints no port consumption for bulk carriers)",
+          "port charges at Port Hedland and Qingdao (no public per call figure)"
+        ],
+        "days": 28.983542,
+        "ballast_days": 11.033437,
+        "source": "Banchero Costa, weekly market report, week 43, 2026"
+      },
+      {
+        "date": "2026-09-11",
+        "route": "P7",
+        "freight_usd_t": 76.29,
+        "engine_tce_usd_day": 38282.682161,
+        "benchmark": "P5TC_usd_day",
+        "benchmark_usd_day": 21662,
+        "gap_usd_day": 16620.682161,
+        "bunkers": "week of 2026-09-04",
+        "excluded": [
+          "fuel burnt in port (the Baltic prints no port consumption for bulk carriers)",
+          "port charges at New Orleans and Qingdao (no public per call figure)",
+          "the Panama Canal toll on the laden leg (no public toll for this ship)",
+          "the Panama Canal toll on the ballast leg (no public toll for this ship)"
+        ],
+        "days": 86.98213,
+        "ballast_days": 31.5125,
+        "source": "Signal Group, Panamax in focus, republished by Hellenic Shipping News on 18 September 2026"
+      }
+    ],
+    "baltic_2017": {
+      "computed": {
+        "laden_days": 19.845673,
+        "ballast_days": 20.6395,
+        "total_days": 46.485173,
+        "laden_fuel_t": 1389.197115,
+        "ballast_fuel_t": 1093.8935,
+        "waiting_fuel_t": 10,
+        "load_fuel_t": 40,
+        "discharge_fuel_t": 330
+      },
+      "published": {
+        "laden_days": 19.8457,
+        "ballast_days": 20.6395,
+        "total_days": 46.4852,
+        "laden_fuel_t": 1389.2,
+        "ballast_fuel_t": 1093.89,
+        "waiting_fuel_t": 10,
+        "load_fuel_t": 40,
+        "discharge_fuel_t": 330
+      }
+    },
+    "distances": {
+      "source": "NGA Pub. 151, Distances Between Ports, 11th edition, 2001",
+      "tolerance": 0.02,
+      "checks": [
+        {
+          "id": "singapore_ras_tanura",
+          "from": "Singapore",
+          "to": "Ras Tanura",
+          "from_position": "Pub. 151 p. 103",
+          "to_position": "WPI 48340",
+          "routing": "direct",
+          "published_nm": 3701,
+          "parts": [
+            {
+              "entry": "SINGAPORE",
+              "line": "Ras Tannurah, Saudi Arabia",
+              "nm": 3701,
+              "page": 104
+            }
+          ],
+          "adjustment_nm": 0,
+          "composite": false,
+          "searoute_nm": 3754.9,
+          "error": 0.014564,
+          "within_tolerance": true,
+          "note": ""
+        },
+        {
+          "id": "singapore_qingdao",
+          "from": "Singapore",
+          "to": "Qingdao",
+          "from_position": "Pub. 151 p. 103",
+          "to_position": "Pub. 151 p. 90",
+          "routing": "direct",
+          "published_nm": 2466,
+          "parts": [
+            {
+              "entry": "SINGAPORE",
+              "line": "Qingdao, China",
+              "nm": 2466,
+              "page": 104
+            }
+          ],
+          "adjustment_nm": 0,
+          "composite": false,
+          "searoute_nm": 2477.9,
+          "error": 0.004826,
+          "within_tolerance": true,
+          "note": ""
+        },
+        {
+          "id": "singapore_yokohama",
+          "from": "Singapore",
+          "to": "Yokohama",
+          "from_position": "Pub. 151 p. 103",
+          "to_position": "Pub. 151 p. 125",
+          "routing": "direct",
+          "published_nm": 2889,
+          "parts": [
+            {
+              "entry": "SINGAPORE",
+              "line": "Yokohama, Japan",
+              "nm": 2889,
+              "page": 104
+            }
+          ],
+          "adjustment_nm": 0,
+          "composite": false,
+          "searoute_nm": 2940.9,
+          "error": 0.017965,
+          "within_tolerance": true,
+          "note": ""
+        },
+        {
+          "id": "singapore_shanghai",
+          "from": "Singapore",
+          "to": "Shanghai",
+          "from_position": "Pub. 151 p. 103",
+          "to_position": "Pub. 151 p. 102",
+          "routing": "direct",
+          "published_nm": 2207,
+          "parts": [
+            {
+              "entry": "SINGAPORE",
+              "line": "Shanghai, China",
+              "nm": 2207,
+              "page": 104
+            }
+          ],
+          "adjustment_nm": 0,
+          "composite": false,
+          "searoute_nm": 2213.5,
+          "error": 0.002945,
+          "within_tolerance": true,
+          "note": ""
+        },
+        {
+          "id": "singapore_mina_al_ahmadi",
+          "from": "Singapore",
+          "to": "Mina al Ahmadi",
+          "from_position": "Pub. 151 p. 103",
+          "to_position": "WPI 48361",
+          "routing": "direct",
+          "published_nm": 3825,
+          "parts": [
+            {
+              "entry": "SINGAPORE",
+              "line": "Mina al Ahmadi, Kuwait",
+              "nm": 3825,
+              "page": 104
+            }
+          ],
+          "adjustment_nm": 0,
+          "composite": false,
+          "searoute_nm": 3895.8,
+          "error": 0.01851,
+          "within_tolerance": true,
+          "note": ""
+        },
+        {
+          "id": "port_said_ras_tanura",
+          "from": "Port Said",
+          "to": "Ras Tanura",
+          "from_position": "Pub. 151 p. 85",
+          "to_position": "WPI 48340",
+          "routing": "direct",
+          "published_nm": 3162,
+          "parts": [
+            {
+              "entry": "PORT SAID, EGYPT",
+              "line": "Ras Tannurah, Saudi Arabia",
+              "nm": 3162,
+              "page": 86
+            }
+          ],
+          "adjustment_nm": 0,
+          "composite": false,
+          "searoute_nm": 3222.7,
+          "error": 0.019197,
+          "within_tolerance": true,
+          "note": ""
+        },
+        {
+          "id": "jubail_port_said",
+          "from": "Al Jubayl",
+          "to": "Port Said",
+          "from_position": "Pub. 151 p. 2",
+          "to_position": "Pub. 151 p. 85",
+          "routing": "direct",
+          "published_nm": 3164,
+          "parts": [
+            {
+              "entry": "AL JUBAYL, SAUDI ARABIA",
+              "line": "Port Said, Egypt",
+              "nm": 3164,
+              "page": 2
+            }
+          ],
+          "adjustment_nm": 0,
+          "composite": false,
+          "searoute_nm": 3234.6,
+          "error": 0.022314,
+          "within_tolerance": false,
+          "note": ""
+        },
+        {
+          "id": "jubail_singapore",
+          "from": "Al Jubayl",
+          "to": "Singapore",
+          "from_position": "Pub. 151 p. 2",
+          "to_position": "Pub. 151 p. 103",
+          "routing": "direct",
+          "published_nm": 3723,
+          "parts": [
+            {
+              "entry": "AL JUBAYL, SAUDI ARABIA",
+              "line": "Singapore",
+              "nm": 3723,
+              "page": 2
+            }
+          ],
+          "adjustment_nm": 0,
+          "composite": false,
+          "searoute_nm": 3766.9,
+          "error": 0.011792,
+          "within_tolerance": true,
+          "note": ""
+        },
+        {
+          "id": "fujairah_singapore",
+          "from": "Fujayrah",
+          "to": "Singapore",
+          "from_position": "Pub. 151 p. 35",
+          "to_position": "Pub. 151 p. 103",
+          "routing": "direct",
+          "published_nm": 3356,
+          "parts": [
+            {
+              "entry": "FUJAYRAH, UNITED ARAB EMIRATES",
+              "line": "Singapore",
+              "nm": 3356,
+              "page": 35
+            }
+          ],
+          "adjustment_nm": 0,
+          "composite": false,
+          "searoute_nm": 3362.8,
+          "error": 0.002026,
+          "within_tolerance": true,
+          "note": ""
+        },
+        {
+          "id": "galveston_panama",
+          "from": "Galveston",
+          "to": "Panama",
+          "from_position": "Pub. 151 p. 36",
+          "to_position": "Pub. 151 p. 76",
+          "routing": "direct",
+          "published_nm": 1536,
+          "parts": [
+            {
+              "entry": "GALVESTON, TEXAS, U.S.A.",
+              "line": "Panama, Panama",
+              "nm": 1536,
+              "page": 36
+            }
+          ],
+          "adjustment_nm": 0,
+          "composite": false,
+          "searoute_nm": 1531.8,
+          "error": -0.002734,
+          "within_tolerance": true,
+          "note": ""
+        },
+        {
+          "id": "new_orleans_panama",
+          "from": "New Orleans",
+          "to": "Panama",
+          "from_position": "Pub. 151 p. 69",
+          "to_position": "Pub. 151 p. 76",
+          "routing": "direct",
+          "published_nm": 1433,
+          "parts": [
+            {
+              "entry": "NEW ORLEANS, LOUISIANA, U.S.A.",
+              "line": "Panama, Panama (via South Pass)",
+              "nm": 1433,
+              "page": 69
+            }
+          ],
+          "adjustment_nm": 0,
+          "composite": false,
+          "searoute_nm": 1431.2,
+          "error": -0.001256,
+          "within_tolerance": true,
+          "note": ""
+        },
+        {
+          "id": "qingdao_panama",
+          "from": "Qingdao",
+          "to": "Panama",
+          "from_position": "Pub. 151 p. 90",
+          "to_position": "Pub. 151 p. 76",
+          "routing": "direct",
+          "published_nm": 8575,
+          "parts": [
+            {
+              "entry": "QINGDAO, CHINA",
+              "line": "Panama, Panama",
+              "nm": 8575,
+              "page": 90
+            }
+          ],
+          "adjustment_nm": 0,
+          "composite": false,
+          "searoute_nm": 8652.8,
+          "error": 0.009073,
+          "within_tolerance": true,
+          "note": ""
+        },
+        {
+          "id": "port_hedland_busan",
+          "from": "Port Hedland",
+          "to": "Busan",
+          "from_position": "Pub. 151 p. 84",
+          "to_position": "Pub. 151 p. 18",
+          "routing": "direct",
+          "published_nm": 3484,
+          "parts": [
+            {
+              "entry": "PORT HEDLAND, AUSTRALIA",
+              "line": "Busan, South Korea (via west of Timor and Korea Strait)",
+              "nm": 3484,
+              "page": 84
+            }
+          ],
+          "adjustment_nm": 0,
+          "composite": false,
+          "searoute_nm": 3589.5,
+          "error": 0.030281,
+          "within_tolerance": false,
+          "note": ""
+        },
+        {
+          "id": "rio_cape",
+          "from": "Rio de Janeiro",
+          "to": "Cape of Good Hope",
+          "from_position": "Pub. 151 p. 93",
+          "to_position": "Pub. 151 p. 21",
+          "routing": "direct",
+          "published_nm": 3323,
+          "parts": [
+            {
+              "entry": "CAPE OF GOOD HOPE, SOUTH AFRICA",
+              "line": "Rio de Janeiro, Brazil",
+              "nm": 3323,
+              "page": 22
+            }
+          ],
+          "adjustment_nm": 0,
+          "composite": false,
+          "searoute_nm": 3367.2,
+          "error": 0.013301,
+          "within_tolerance": true,
+          "note": ""
+        },
+        {
+          "id": "ras_tanura_cape",
+          "from": "Ras Tanura",
+          "to": "Cape of Good Hope",
+          "from_position": "WPI 48340",
+          "to_position": "Pub. 151 p. 21",
+          "routing": "direct",
+          "published_nm": 4980,
+          "parts": [
+            {
+              "entry": "CAPE OF GOOD HOPE, SOUTH AFRICA",
+              "line": "Ras Tannurah, Saudi Arabia",
+              "nm": 4980,
+              "page": 22
+            }
+          ],
+          "adjustment_nm": 0,
+          "composite": false,
+          "searoute_nm": 5157.7,
+          "error": 0.035683,
+          "within_tolerance": false,
+          "note": ""
+        },
+        {
+          "id": "new_york_rotterdam",
+          "from": "New York",
+          "to": "Rotterdam",
+          "from_position": "Pub. 151 p. 69",
+          "to_position": "Pub. 151 p. 94",
+          "routing": "direct",
+          "published_nm": 3391,
+          "parts": [
+            {
+              "entry": "NEW YORK, NEW YORK, U.S.A.",
+              "line": "Bishop Rock, England",
+              "nm": 2937,
+              "page": 70
+            },
+            {
+              "entry": "ROTTERDAM, NETHERLANDS",
+              "line": "Bishop Rock, England",
+              "nm": 454,
+              "page": 94
+            }
+          ],
+          "adjustment_nm": 0,
+          "composite": true,
+          "searoute_nm": 3322.3,
+          "error": -0.02026,
+          "within_tolerance": false,
+          "note": "through the junction point Bishop Rock, the TC2 route"
+        },
+        {
+          "id": "galveston_rotterdam",
+          "from": "Galveston",
+          "to": "Rotterdam",
+          "from_position": "Pub. 151 p. 36",
+          "to_position": "Pub. 151 p. 94",
+          "routing": "direct",
+          "published_nm": 5011,
+          "parts": [
+            {
+              "entry": "GALVESTON, TEXAS, U.S.A.",
+              "line": "Straits of Florida",
+              "nm": 698,
+              "page": 36
+            },
+            {
+              "entry": "BISHOP ROCK, ENGLAND",
+              "line": "Straits of Florida",
+              "nm": 3859,
+              "page": 14
+            },
+            {
+              "entry": "BISHOP ROCK, ENGLAND",
+              "line": "Rotterdam, Netherlands",
+              "nm": 454,
+              "page": 14
+            }
+          ],
+          "adjustment_nm": 0,
+          "composite": true,
+          "searoute_nm": 5028.9,
+          "error": 0.003572,
+          "within_tolerance": true,
+          "note": "through the Straits of Florida and Bishop Rock, the US Gulf to Continent routes"
+        },
+        {
+          "id": "houston_rotterdam",
+          "from": "Houston",
+          "to": "Rotterdam",
+          "from_position": "Pub. 151 p. 44",
+          "to_position": "Pub. 151 p. 94",
+          "routing": "direct",
+          "published_nm": 5058,
+          "parts": [
+            {
+              "entry": "GALVESTON, TEXAS, U.S.A.",
+              "line": "Straits of Florida",
+              "nm": 698,
+              "page": 36
+            },
+            {
+              "entry": "BISHOP ROCK, ENGLAND",
+              "line": "Straits of Florida",
+              "nm": 3859,
+              "page": 14
+            },
+            {
+              "entry": "BISHOP ROCK, ENGLAND",
+              "line": "Rotterdam, Netherlands",
+              "nm": 454,
+              "page": 14
+            }
+          ],
+          "adjustment_nm": 47,
+          "composite": true,
+          "searoute_nm": 5062.4,
+          "error": 0.00087,
+          "within_tolerance": true,
+          "note": "Galveston's route plus 47 miles, the rule Pub. 151 prints for Houston on p. 44 (TD25)"
+        },
+        {
+          "id": "bonny_rotterdam",
+          "from": "Bonny",
+          "to": "Rotterdam",
+          "from_position": "Pub. 151 p. 15",
+          "to_position": "Pub. 151 p. 94",
+          "routing": "direct",
+          "published_nm": 4390,
+          "parts": [
+            {
+              "entry": "PORT HARCOURT, NIGERIA",
+              "line": "Ile d'Ouessant, France",
+              "nm": 3974,
+              "page": 84
+            },
+            {
+              "entry": "ROTTERDAM, NETHERLANDS",
+              "line": "Ile d'Ouessant, France",
+              "nm": 444,
+              "page": 94
+            }
+          ],
+          "adjustment_nm": -28,
+          "composite": true,
+          "searoute_nm": 4466.5,
+          "error": 0.017426,
+          "within_tolerance": true,
+          "note": "Port Harcourt's route less 28 miles, the rule Pub. 151 prints for Bonny on p. 15 (TD20)"
+        },
+        {
+          "id": "jubail_rotterdam_suez",
+          "from": "Al Jubayl",
+          "to": "Rotterdam",
+          "from_position": "Pub. 151 p. 2",
+          "to_position": "Pub. 151 p. 94",
+          "routing": "direct",
+          "published_nm": 6469,
+          "parts": [
+            {
+              "entry": "AL JUBAYL, SAUDI ARABIA",
+              "line": "Port Said, Egypt",
+              "nm": 3164,
+              "page": 2
+            },
+            {
+              "entry": "PORT SAID, EGYPT",
+              "line": "Strait of Gibraltar",
+              "nm": 1943,
+              "page": 85
+            },
+            {
+              "entry": "STRAIT OF GIBRALTAR",
+              "line": "Ile d'Ouessant, France",
+              "nm": 918,
+              "page": 108
+            },
+            {
+              "entry": "ROTTERDAM, NETHERLANDS",
+              "line": "Ile d'Ouessant, France",
+              "nm": 444,
+              "page": 94
+            }
+          ],
+          "adjustment_nm": 0,
+          "composite": true,
+          "searoute_nm": 6543.1,
+          "error": 0.011455,
+          "within_tolerance": true,
+          "note": "through Port Said, Gibraltar and Ushant, the TC20 route by Suez"
+        },
+        {
+          "id": "jubail_rotterdam_cape",
+          "from": "Al Jubayl",
+          "to": "Rotterdam",
+          "from_position": "Pub. 151 p. 2",
+          "to_position": "Pub. 151 p. 94",
+          "routing": "no_suez",
+          "published_nm": 11299,
+          "parts": [
+            {
+              "entry": "AL JUBAYL, SAUDI ARABIA",
+              "line": "Cape of Good Hope, South Africa",
+              "nm": 5109,
+              "page": 2
+            },
+            {
+              "entry": "CAPE OF GOOD HOPE, SOUTH AFRICA",
+              "line": "Ile d'Ouessant, France",
+              "nm": 5746,
+              "page": 21
+            },
+            {
+              "entry": "ROTTERDAM, NETHERLANDS",
+              "line": "Ile d'Ouessant, France",
+              "nm": 444,
+              "page": 94
+            }
+          ],
+          "adjustment_nm": 0,
+          "composite": true,
+          "searoute_nm": 11326.2,
+          "error": 0.002407,
+          "within_tolerance": true,
+          "note": "through the Cape of Good Hope and Ushant, the TC20 route round the Cape"
+        }
+      ]
+    }
+  },
+  "market": {
+    "schema": "voyage-tce-model seed: dated market inputs",
+    "note": "Every figure is copied from the document named by raw_key (data/raw/manifest.json gives its URL, retrieval time and sha256); quote is the text it was read from. None of these documents is redistributed. tests/test_provenance.py finds every quote in its document wherever the raw file is present.",
+    "bunker_rule": {
+      "text": "Fuel is priced at the bunker hub nearest the load port by sea, the rule the Baltic Exchange applies to its tanker TCEs (Guide to Market Benchmarks v8.8, Appendix 3, page 98: the cost of the fuel at the main bunkering port closest to the load port, the grade related to the activity performed). The study applies it to every route, choosing among the four hubs for which dated public prices exist for all three grades.",
+      "hubs": [
+        "singapore",
+        "fujairah",
+        "rotterdam",
+        "houston"
+      ],
+      "grades": {
+        "vlsfo": "very low sulphur fuel oil, 0.50 percent sulphur, burnt outside emission control areas by a ship without a scrubber",
+        "hsfo": "high sulphur fuel oil, 3.5 percent sulphur (IFO380), burnt only behind a scrubber",
+        "mgo": "marine gas oil, 0.10 percent sulphur (LSMGO), burnt inside emission control areas and at berth in EU ports"
+      }
+    },
+    "common_market": {
+      "label": "August 2026",
+      "month": "2026-08",
+      "why": "The latest month for which dated public bunker prices and an EU allowance price both exist: Ship & Bunker's August averages for Singapore and Fujairah, and DEHSt's August auction average; September has no published allowance average yet.",
+      "eua": {
+        "series": "data/cache/eua_monthly.csv",
+        "month": "2026-08"
+      },
+      "usd_per_eur": {
+        "series": "data/cache/usd_per_eur_daily.csv",
+        "month": "2026-08",
+        "transform": "mean of the month's published days"
+      },
+      "bunkers_usd_t": {
+        "singapore": {
+          "vlsfo": {
+            "value": 822.0,
+            "period": "August 2026 average",
+            "raw_key": "bunkers_sb_537117_singapore_sales_aug2026_html",
+            "quote": "Singapore's average VLSFO price in August was $822/mt, according to Ship & Bunker data"
+          },
+          "hsfo": {
+            "value": 629.0,
+            "period": "August 2026 average",
+            "raw_key": "bunkers_sb_537117_singapore_sales_aug2026_html",
+            "quote": "the average HSFO price rose to $629/mt from $538/mt in July"
+          },
+          "mgo": {
+            "value": 1201.5,
+            "period": "Q3 2026 average, the published figure nearest August",
+            "raw_key": "bunkers_sb_prices_singapore_20261028_redacted_html",
+            "quote": "Quarterly Averages (Distillates) Quarter LSMGO MGO Q4 2026 1,296.00 1,296.00 Q3 2026 1,201.50 1,201.50"
+          }
+        },
+        "fujairah": {
+          "vlsfo": {
+            "value": 807.5,
+            "period": "August 2026 average",
+            "raw_key": "bunkers_sb_764284_fujairah_sales_aug2026_html",
+            "quote": "average VLSFO price in August was $807.5/mt, up from $762.5/mt in July"
+          },
+          "hsfo": {
+            "value": 624.0,
+            "period": "Q3 2026 average, the published figure nearest August",
+            "raw_key": "bunkers_sb_prices_fujairah_20261028_redacted_html",
+            "quote": "Quarter VLSFO HSFO LSMGO MGO Scrubber Spread Q4 2026 976.50 729.00 1,707.00 1,707.00 247.50 Q3 2026 837.00 624.00 1,435.50 1,435.50 213.50"
+          },
+          "mgo": {
+            "value": 1435.5,
+            "period": "Q3 2026 average, the published figure nearest August",
+            "raw_key": "bunkers_sb_prices_fujairah_20261028_redacted_html",
+            "quote": "Quarter LSMGO MGO Q4 2026 1,707.00 1,707.00 Q3 2026 1,435.50 1,435.50"
+          }
+        },
+        "rotterdam": {
+          "vlsfo": {
+            "value": 670.0,
+            "period": "Q3 2026 average, the published figure nearest August",
+            "raw_key": "bunkers_sb_prices_rotterdam_20261028_redacted_html",
+            "quote": "Quarter VLSFO HSFO LSMGO MGO Scrubber Spread Q4 2026 735.00 662.00 1,403.00 1,403.00 73.00 Q3 2026 670.00 551.50 1,259.50 1,259.50 119.00"
+          },
+          "hsfo": {
+            "value": 551.5,
+            "period": "Q3 2026 average, the published figure nearest August",
+            "raw_key": "bunkers_sb_prices_rotterdam_20261028_redacted_html",
+            "quote": "Q3 2026 670.00 551.50 1,259.50 1,259.50 119.00"
+          },
+          "mgo": {
+            "value": 1259.5,
+            "period": "Q3 2026 average, the published figure nearest August",
+            "raw_key": "bunkers_sb_prices_rotterdam_20261028_redacted_html",
+            "quote": "Quarter LSMGO MGO Q4 2026 1,403.00 1,403.00 Q3 2026 1,259.50 1,259.50"
+          }
+        },
+        "houston": {
+          "vlsfo": {
+            "value": 705.0,
+            "period": "Q3 2026 average, the published figure nearest August",
+            "raw_key": "bunkers_sb_prices_houston_20261028_redacted_html",
+            "quote": "Quarter VLSFO HSFO LSMGO MGO Scrubber Spread Q4 2026 777.50 578.00 1,404.50 1,404.50 199.50 Q3 2026 705.00 503.50 1,251.00 1,251.00 201.50"
+          },
+          "hsfo": {
+            "value": 503.5,
+            "period": "Q3 2026 average, the published figure nearest August",
+            "raw_key": "bunkers_sb_prices_houston_20261028_redacted_html",
+            "quote": "Q3 2026 705.00 503.50 1,251.00 1,251.00 201.50"
+          },
+          "mgo": {
+            "value": 1251.0,
+            "period": "Q3 2026 average, the published figure nearest August",
+            "raw_key": "bunkers_sb_prices_houston_20261028_redacted_html",
+            "quote": "Quarter LSMGO MGO Q4 2026 1,404.50 1,404.50 Q3 2026 1,251.00 1,251.00"
+          }
+        }
+      }
+    },
+    "weekly_bunkers_usd_t": {
+      "note": "Brokers' weekly tables of VLSFO, HSFO and MGO by port, used to price each anchor week. Order of the values: vlsfo, hsfo, mgo.",
+      "weeks": [
+        {
+          "date": "2026-02-27",
+          "source": "Star Asia Shipbroking, weekly market report, week 9, 2026",
+          "raw_key": "bunkers_starasia_market_report_week09_2026_pdf",
+          "quote": "PORTS VLSFO (0.5%) HSFO (3.5%) MGO (0.1%) SINGAPORE 495 448 680 HONG KONG 509 493 709 FUJAIRAH 489 432 753 ROTTERDAM 461 404 679 HOUSTON 466 371 660",
+          "prices": {
+            "singapore": [
+              495,
+              448,
+              680
+            ],
+            "fujairah": [
+              489,
+              432,
+              753
+            ],
+            "rotterdam": [
+              461,
+              404,
+              679
+            ],
+            "houston": [
+              466,
+              371,
+              660
+            ]
+          }
+        },
+        {
+          "date": "2026-03-06",
+          "source": "Star Asia Shipbroking, weekly market report, week 10, 2026",
+          "raw_key": "bunkers_starasia_market_report_week10_2026_pdf",
+          "quote": "PORTS VLSFO (0.5%) HSFO (3.5%) MGO (0.1%) SINGAPORE 656 586 1030 HONG KONG 649 620 1038 FUJAIRAH 666 579 1086 ROTTERDAM 609 543 965 HOUSTON 584 475 927",
+          "prices": {
+            "singapore": [
+              656,
+              586,
+              1030
+            ],
+            "fujairah": [
+              666,
+              579,
+              1086
+            ],
+            "rotterdam": [
+              609,
+              543,
+              965
+            ],
+            "houston": [
+              584,
+              475,
+              927
+            ]
+          }
+        },
+        {
+          "date": "2026-06-26",
+          "source": "Star Asia Shipbroking, weekly market report, week 26, 2026",
+          "raw_key": "bunkers_starasia_market_report_week26_2026_pdf",
+          "quote": "PORT VLSFO (0.5%) HSFO (3.5%) MGO (0.1%) SINGAPORE $681 $473 $901 HONG KONG $674 $490 $875 FUJAIRAH $1,203 $603 $1,424 ROTTERDAM $584 $490 $884 HOUSTON $640 $503 $932",
+          "prices": {
+            "singapore": [
+              681,
+              473,
+              901
+            ],
+            "fujairah": [
+              1203,
+              603,
+              1424
+            ],
+            "rotterdam": [
+              584,
+              490,
+              884
+            ],
+            "houston": [
+              640,
+              503,
+              932
+            ]
+          }
+        },
+        {
+          "date": "2026-07-03",
+          "source": "Banchero Costa, weekly market report, week 27, 2026 (IFO380, VLSFO and LSMGO tables; no Houston row)",
+          "raw_key": "dry_bancosta_weekly_2026_wk27_pdf",
+          "quote": [
+            "usd/t 435.3 455.8",
+            "Fujairah usd/t 479.8 512.8",
+            "Singapore usd/t 429.0 451.8",
+            "usd/t 567.0 577.8",
+            "Fujairah usd/t 730.0 925.0",
+            "Singapore usd/t 644.0 690.0",
+            "usd/t 910.0 870.3",
+            "Fujairah usd/t 1270.0 1346.3",
+            "Singapore usd/t 886.8 885.8"
+          ],
+          "quote_note": "The PDF's text layer garbles the word Rotterdam, so its rows are quoted by their figures; the three groups are IFO380, VLSFO and LSMGO, each listing Rotterdam, Fujairah and Singapore.",
+          "prices": {
+            "singapore": [
+              644.0,
+              429.0,
+              886.8
+            ],
+            "fujairah": [
+              730.0,
+              479.8,
+              1270.0
+            ],
+            "rotterdam": [
+              567.0,
+              435.3,
+              910.0
+            ]
+          }
+        },
+        {
+          "date": "2026-07-10",
+          "source": "Star Asia Shipbroking, weekly market report, week 28, 2026",
+          "raw_key": "bunkers_starasia_market_report_week28_2026_pdf",
+          "quote": "PORT VLSFO (0.5%) HSFO (3.5%) MGO (0.1%) SINGAPORE $671 $476 $937 HONG KONG $696 $529 $1001 FUJAIRAH $701 $500 $1,226 ROTTERDAM $615 $476 $944 HOUSTON $612 $470 $988",
+          "prices": {
+            "singapore": [
+              671,
+              476,
+              937
+            ],
+            "fujairah": [
+              701,
+              500,
+              1226
+            ],
+            "rotterdam": [
+              615,
+              476,
+              944
+            ],
+            "houston": [
+              612,
+              470,
+              988
+            ]
+          }
+        },
+        {
+          "date": "2026-08-01",
+          "source": "Star Asia Shipbroking, weekly market report, week 31, 2026",
+          "raw_key": "bunkers_starasia_market_report_week31_2026_pdf",
+          "quote": "PORT VLSFO (0.5%) HSFO (3.5%) MGO (0.1%) SINGAPORE $797 $588 $1225 HONG KONG $780 $607 $1195 FUJAIRAH $789 $607 $1349 ROTTERDAM $680 $550 $1280 HOUSTON $725 $527 $1242",
+          "prices": {
+            "singapore": [
+              797,
+              588,
+              1225
+            ],
+            "fujairah": [
+              789,
+              607,
+              1349
+            ],
+            "rotterdam": [
+              680,
+              550,
+              1280
+            ],
+            "houston": [
+              725,
+              527,
+              1242
+            ]
+          }
+        },
+        {
+          "date": "2026-09-04",
+          "source": "Star Asia Shipbroking, weekly market report, week 36, 2026",
+          "raw_key": "bunkers_starasia_market_report_week36_2026_pdf",
+          "quote": "PORT VLSFO (0.5%) HSFO (3.5%) MGO (0.1%) SINGAPORE $777 $634 $1134 HONG KONG $799 $669 $1156 FUJAIRAH $780 $621 $1388 ROTTERDAM $662 $530 $1299 HOUSTON $690 $472 $1253",
+          "prices": {
+            "singapore": [
+              777,
+              634,
+              1134
+            ],
+            "fujairah": [
+              780,
+              621,
+              1388
+            ],
+            "rotterdam": [
+              662,
+              530,
+              1299
+            ],
+            "houston": [
+              690,
+              472,
+              1253
+            ]
+          }
+        },
+        {
+          "date": "2026-10-02",
+          "source": "Star Asia Shipbroking, weekly market report, week 40, 2026",
+          "raw_key": "bunkers_starasia_market_report_week40_2026_pdf",
+          "quote": "PORT VLSFO (0.5%) HSFO (3.5%) MGO (0.1%) SINGAPORE $906 $741 $1445 HONG KONG $921 $788 $1445 FUJAIRAH $1014 $749 $1707 ROTTERDAM $717 $622 $1500 HOUSTON $787 $530 $1481",
+          "prices": {
+            "singapore": [
+              906,
+              741,
+              1445
+            ],
+            "fujairah": [
+              1014,
+              749,
+              1707
+            ],
+            "rotterdam": [
+              717,
+              622,
+              1500
+            ],
+            "houston": [
+              787,
+              530,
+              1481
+            ]
+          }
+        },
+        {
+          "date": "2026-10-23",
+          "source": "Star Asia Shipbroking, weekly market report, week 43, 2026",
+          "raw_key": "bunkers_starasia_market_report_week43_2026_pdf",
+          "quote": "PORT VLSFO (0.5%) HSFO (3.5%) MGO (0.1%) SINGAPORE $940 $879 $1334 HONG KONG $963 $952 $1349 FUJAIRAH $974 $748 $1750 ROTTERDAM $761 $677 $1437 HOUSTON $800 $593 $1430",
+          "prices": {
+            "singapore": [
+              940,
+              879,
+              1334
+            ],
+            "fujairah": [
+              974,
+              748,
+              1750
+            ],
+            "rotterdam": [
+              761,
+              677,
+              1437
+            ],
+            "houston": [
+              800,
+              593,
+              1430
+            ]
+          }
+        }
+      ]
+    },
+    "war_risk": {
+      "convention": "An additional war risk premium (AWRP) is quoted as a percentage of the hull and machinery value for a period in a listed area, usually seven days, and is paid by the owner and recovered from the charterer on most tanker forms; the study prices it per transit period, times a hull value.",
+      "rates_pct": [
+        {
+          "id": "red_sea_2024",
+          "area": "Red Sea and Bab el Mandeb",
+          "as_of": "2024",
+          "low": 0.4,
+          "high": 0.7,
+          "raw_key": "risk_hsn_2026_04_01_war_risk_cost_off_highs_persian_gulf_html",
+          "quote": "Even during the attacks by the Houthis rebels in Yemen on ships in the Red Sea and the Bab al-Mandab Strait, in 2024, the AWRP rarely reached 1% of the H&M value. Most of the time, it remained between 0.4% and 0.7%",
+          "reported": "Platts, quoting two maritime insurance brokers, republished by Hellenic Shipping News on 1 April 2026"
+        },
+        {
+          "id": "bab_el_mandeb_2026_07",
+          "area": "Bab el Mandeb",
+          "as_of": "2026-07-22",
+          "low": 0.5,
+          "high": 0.5,
+          "raw_key": "risk_hsn_2026_07_24_marsh_middle_east_insurance_costs_rise_html",
+          "quote": "Premiums for vessels transiting the Bab al-Mandab Strait currently stand at 0.5% of hull value, according to Baker",
+          "reported": "Marsh (Marcus Baker) to Platts, 22 July 2026, republished by Hellenic Shipping News on 24 July 2026"
+        },
+        {
+          "id": "hormuz_prewar",
+          "area": "Strait of Hormuz and Persian Gulf",
+          "as_of": "2026-02",
+          "low": 0.1,
+          "high": 0.15,
+          "raw_key": "risk_hsn_2026_04_01_war_risk_cost_off_highs_persian_gulf_html",
+          "quote": "in the pre-war period, when the value was around 0.1%-0.15%, or even lower, two maritime insurers said",
+          "reported": "Platts, 1 April 2026"
+        },
+        {
+          "id": "hormuz_2026_03_early",
+          "area": "Persian Gulf",
+          "as_of": "2026-03",
+          "low": 2.5,
+          "high": 2.5,
+          "raw_key": "risk_hsn_2026_04_01_war_risk_cost_off_highs_persian_gulf_html",
+          "quote": "The AWRP had reached around 2.5% of the Hull and Machinery value of ships per seven-day period in the Persian Gulf earlier in March, but it is now close to 1%",
+          "reported": "Platts, quoting maritime insurance executives, 1 April 2026"
+        },
+        {
+          "id": "hormuz_2026_06_15",
+          "area": "Strait of Hormuz",
+          "as_of": "2026-06-15",
+          "low": 5.0,
+          "high": 5.75,
+          "raw_key": "risk_hsn_2026_06_18_hormuz_insurance_deters_clean_tankers_html",
+          "quote": "European tanker sources put the figure closer to 7%-9% for clean tankers and 5%-5.75% for crude tankers",
+          "reported": "Platts, 18 June 2026; the 5 to 5.75 percent range is for crude tankers, 7 to 9 percent for clean tankers"
+        },
+        {
+          "id": "hormuz_2026_06_post_deal",
+          "area": "Strait of Hormuz",
+          "as_of": "2026-06-25",
+          "low": 3.0,
+          "high": 4.0,
+          "raw_key": "risk_hsn_2026_06_25_war_cover_available_hormuz_insurers_html",
+          "quote": "The additional war-risk premium was around 3%-4% of hull value after the peace deal was signed, down from 4.5%-6% before, according to Marcus Baker, global head of marine, cargo and logistics at Marsh. This compared with the prewar level of 0.25%.",
+          "reported": "Marsh to Platts, Hellenic Shipping News 25 June 2026"
+        },
+        {
+          "id": "hormuz_2026_07_22",
+          "area": "Strait of Hormuz and the region",
+          "as_of": "2026-07-22",
+          "low": 7.5,
+          "high": 10.0,
+          "raw_key": "risk_hsn_2026_07_24_marsh_middle_east_insurance_costs_rise_html",
+          "quote": "Additional war risk premiums in the region have jumped from 1%-3% of hull value weeks ago to 7.5%-10% currently",
+          "reported": "Marsh (Marcus Baker) to Platts, 22 July 2026, Hellenic Shipping News 24 July 2026; the latest dated percentage for Hormuz found"
+        }
+      ],
+      "latest_note": {
+        "raw_key": "risk_hsn_2026_10_05_war_risk_costs_rise_sanctions_casualty_html",
+        "quote": "tanker operators and charterers have faced a more than 40-fold increase in headline AWRP rates, calculated as a percentage of hull value, for transiting the Strait of Hormuz",
+        "use": "context only: a multiple, not a rate"
+      },
+      "crew_bonus": {
+        "value": null,
+        "unit": "USD per voyage",
+        "why_empty": "The International Bargaining Forum designated the Strait of Hormuz, the Gulf of Oman and the Persian Gulf a Warlike Operations Area from 6 March 2026, with a bonus equal to 100 percent of basic wage for a minimum of five days; the bonus in dollars needs the crew's wage bill, which has no public source for these ships.",
+        "raw_key": "risk_hsn_2026_03_06_joint_itf_jng_statement_hormuz_woa_html",
+        "quote": "A bonus equal to 100% of basic wage, payable for a minimum of five days, and for each additional day a vessel remains in the area."
+      }
+    },
+    "hull_values_usd": {
+      "source": "Xclusiv Shipbrokers, weekly report of 7 September 2026, second-hand prices for 5 year old Japanese built ships, September 2026 column (dry, page 5; tankers, page 6)",
+      "raw_key": "dry_xclusiv_weekly_2026_09_07_pdf",
+      "read_from": "the rendered tables on pages 5 and 6: the PDF's text layer for these tables is rotated and cannot be quoted",
+      "use": "the hull and machinery value a war risk premium is applied to; the user can replace it with an insured value",
+      "values": {
+        "BCI182": {
+          "value": 74000000,
+          "row": "Capesize, 5 Year"
+        },
+        "BPI82": {
+          "value": 40500000,
+          "row": "Kamsarmax, 5 Year"
+        },
+        "BSI63": {
+          "value": 39000000,
+          "row": "Ultramax and Supramax, 5 Year"
+        },
+        "VLCC300": {
+          "value": 157000000,
+          "row": "VLCC, 5 Year"
+        },
+        "SUEZ160": {
+          "value": 108000000,
+          "row": "Suezmax, 5 Year"
+        },
+        "AFRA115": {
+          "value": 85000000,
+          "row": "Aframax, 5 Year"
+        },
+        "LR2-115": {
+          "value": 85000000,
+          "row": "Aframax, 5 Year: the table has no LR2 row, and an LR2 is an Aframax sized product tanker"
+        },
+        "MR50": {
+          "value": 50000000,
+          "row": "MR2, 5 Year"
+        },
+        "LR1-75": {
+          "value": null,
+          "row": "none",
+          "why_empty": "the table has no LR1 (Panamax tanker) row"
+        },
+        "HANDC37": {
+          "value": null,
+          "row": "none",
+          "why_empty": "the table has no Handy tanker row"
+        },
+        "BCI180": {
+          "value": 74000000,
+          "row": "Capesize, 5 Year"
+        }
+      },
+      "march_2026_vlcc": {
+        "value": 120000000,
+        "bound": "lower",
+        "raw_key": "risk_hsn_2026_03_02_vlcc_secondhand_prices_decade_highs_html",
+        "quote": "In February 2023, a five-year-old VLCC was valued at approximately USD 98 million. Today, it is indicated above USD 120 million",
+        "source": "Signal Group via Hellenic Shipping News, 2 March 2026: a five year old VLCC indicated above USD 120 million",
+        "use": "the hull value for the early March 2026 war risk variant, a lower bound"
+      }
+    },
+    "quarterly_bunkers_usd_t": {
+      "note": "Ship & Bunker's quarterly averages, used for an anchor date with no weekly table: VLSFO, HSFO and LSMGO.",
+      "quarters": [
+        {
+          "quarter": "2025-Q4",
+          "source": "Ship & Bunker port price pages, quarterly averages, Q4 2025",
+          "prices": {
+            "singapore": {
+              "values": [
+                450.5,
+                375.0,
+                681.5
+              ],
+              "raw_key": "bunkers_sb_prices_singapore_20261028_redacted_html",
+              "quote": "Q4 2025 450.50 375.00 681.50 681.50 76.00"
+            },
+            "fujairah": {
+              "values": [
+                447.0,
+                354.5,
+                728.5
+              ],
+              "raw_key": "bunkers_sb_prices_fujairah_20261028_redacted_html",
+              "quote": "Q4 2025 447.00 354.50 728.50 728.50 92.50"
+            },
+            "rotterdam": {
+              "values": [
+                420.0,
+                378.5,
+                664.5
+              ],
+              "raw_key": "bunkers_sb_prices_rotterdam_20261028_redacted_html",
+              "quote": "Q4 2025 420.00 378.50 664.50 664.50 41.50"
+            },
+            "houston": {
+              "values": [
+                436.5,
+                381.0,
+                658.5
+              ],
+              "raw_key": "bunkers_sb_prices_houston_20261028_redacted_html",
+              "quote": "Q4 2025 436.50 381.00 658.50 658.50 56.00"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "events": [
+    {
+      "date": "2023-11",
+      "area": "Red Sea",
+      "text": "Houthi attacks on merchant ships in the Red Sea begin; ships start to avoid Bab el Mandeb and route round the Cape of Good Hope.",
+      "raw_key": "risk_eia_tie_61363_2024_02_01_red_sea_attacks_shipping_times_html",
+      "quote": "After Yemen-based Houthi militia attacks on commercial ships transiting the Red Sea started in November 2023, some vessels began opting to avoid the Bab el-Mandeb chokepoint"
+    },
+    {
+      "date": "2024",
+      "area": "Red Sea",
+      "text": "War risk premiums for the Red Sea mostly between 0.4 and 0.7 percent of hull value through 2024.",
+      "raw_key": "risk_hsn_2026_04_01_war_risk_cost_off_highs_persian_gulf_html",
+      "quote": "Most of the time, it remained between 0.4% and 0.7%"
+    },
+    {
+      "date": "2026-02-28",
+      "area": "Strait of Hormuz",
+      "text": "War in the Middle East begins; 91 ships transit the Strait of Hormuz on 28 February and four on 8 March.",
+      "raw_key": "risk_hsn_2026_03_11_tankers_await_passage_cas_html",
+      "quote": "falling to just four ships on March 8 from 91 seen on Feb. 28, according to S&P Global Commodities at Sea"
+    },
+    {
+      "date": "2026-03-02",
+      "area": "Strait of Hormuz",
+      "text": "Iran closes the Strait of Hormuz; Middle East to Asia VLCC rates reach their highest since at least November 2005.",
+      "raw_key": "risk_eia_tie_67386_html",
+      "quote": "In March 2026, tanker rates for Very Large Crude Carriers (VLCCs) leaving the Middle East to Asia were the highest since at least November 2005, when data were first recorded. The price increase followed Iran's closure of the Strait of Hormuz on March 2."
+    },
+    {
+      "date": "2026-03-06",
+      "area": "Strait of Hormuz",
+      "text": "The Strait of Hormuz, the Gulf of Oman and the Persian Gulf are designated a Warlike Operations Area for seafarers.",
+      "raw_key": "risk_hsn_2026_03_06_joint_itf_jng_statement_hormuz_woa_html",
+      "quote": "agree to designate the Strait of Hormuz, Gulf of Oman and Persian Gulf as a Warlike Operations Area (WOA)"
+    },
+    {
+      "date": "2026-03-27",
+      "area": "Gulf of Oman",
+      "text": "The Baltic Exchange starts TD34, Gulf of Oman to China, as an emergency alternative to TD3C.",
+      "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_03_30_html",
+      "quote": "Baltic Exchange has started an alternative to the TD3C route, which is on public trial currently. This emergency route is titled TD34 and is basis 270,000mt Gulf of Oman to China."
+    },
+    {
+      "date": "2026-04-09",
+      "area": "Strait of Hormuz",
+      "text": "Iran shuts the strait again on the first day of a two week ceasefire.",
+      "raw_key": "risk_hsn_2026_04_09_iran_hormuz_closure_ceasefire_uncertainty_html",
+      "quote": "Iran has once again shut the Strait of Hormuz in response to Israeli strikes on Lebanon, casting serious doubt on the already fragile two-week Middle East ceasefire."
+    },
+    {
+      "date": "2026-06-18",
+      "area": "Strait of Hormuz",
+      "text": "Iran and the United States sign a preliminary peace agreement to restore flows through Hormuz after 30 days of demining.",
+      "raw_key": "risk_hsn_2026_06_25_war_cover_available_hormuz_insurers_html",
+      "quote": "On June 18, Iran and the US signed a preliminary peace agreement aiming to restore cargo flows via Hormuz"
+    },
+    {
+      "date": "2026-07-08",
+      "area": "Strait of Hormuz",
+      "text": "The ceasefire collapses after attacks on three merchant ships; transits fall to five in a night.",
+      "raw_key": "risk_hsn_2026_07_13_ceasefire_collapses_80_strikes_html",
+      "quote": "Overnight into July 8, U.S. Central Command struck more than 80 targets inside Iran in direct response to Iranian attacks on three commercial vessels transiting the Strait."
+    },
+    {
+      "date": "2026-07-20",
+      "area": "Red Sea",
+      "text": "Yemen based militants declare a maritime embargo on Saudi shipping; the Bab el Mandeb war risk premium rises from 0.3 to 0.5 percent.",
+      "raw_key": "risk_hsn_2026_07_24_marsh_middle_east_insurance_costs_rise_html",
+      "quote": "Reuters reported the premium level at 0.3% before the Yemen-based militants declared a maritime embargo on Saudi shipping July 20."
+    },
+    {
+      "date": "2026-10-09",
+      "area": "Strait of Hormuz",
+      "text": "TD3C reaches WS1,318.75, a Baltic round trip TCE of USD 1,412,594 a day.",
+      "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_12_html",
+      "quote": "climbed 115 points to WS1,318.75, which gives a daily round-trip TCE of $1,412,594"
+    },
+    {
+      "date": "2026-10-25",
+      "area": "Strait of Hormuz",
+      "text": "Hormuz traffic steady at 17 ships a day, with six VLCC transits on 25 October.",
+      "raw_key": "risk_hsn_2026_10_28_vlcc_transits_climb_hormuz_html",
+      "quote": "The Strait of Hormuz had six VLCC transits on Oct. 25, the most since Oct. 17"
+    },
+    {
+      "date": "2026-10-22",
+      "area": "Suez Canal",
+      "text": "Maersk expects all its services back through the Suez Canal by March 2027.",
+      "raw_key": "risk_hsn_2026_10_22_maersk_full_return_suez_march_2027_html",
+      "quote": "A.P. Moller-Maersk expects all its shipping services to return to the Suez Canal by March 2027, according to a statement from the Suez Canal Authority (SCA)."
+    }
+  ],
+  "page": {
+    "title": "Method and data",
+    "takeaway": [
+      "With bunker prices of the same week the engine reproduces the Baltic's TCE for TD22 and TC20 within ",
+      {
+        "value": 3.202623,
+        "format": "error_percent",
+        "field": "validation.min_error"
+      },
+      " to ",
+      {
+        "value": 5.180652,
+        "format": "error_percent",
+        "field": "validation.max_error",
+        "suffix": " percent"
+      },
+      ", always above it by about the port charges it leaves out; ",
+      {
+        "value": 64,
+        "format": "count",
+        "field": "validation.ws_count"
+      },
+      " Worldscale anchors cannot be reproduced without a licensed flat rate, and ",
+      {
+        "value": 17,
+        "format": "count",
+        "field": "distances.within"
+      },
+      " of ",
+      {
+        "value": 21,
+        "format": "count",
+        "field": "distances.count"
+      },
+      " distances fall within 2 percent of NGA Pub. 151."
+    ],
+    "chart": {
+      "title": [
+        "The engine reads above the Baltic's TCE every week, by ",
+        {
+          "value": 2.412915,
+          "format": "error_percent",
+          "field": "chart.min_error"
+        },
+        " to ",
+        {
+          "value": 5.322832,
+          "format": "error_percent",
+          "field": "chart.max_error",
+          "suffix": " percent"
+        },
+        ", except the week to ",
+        {
+          "text": "13 March 2026",
+          "field": "chart.outlier.week_ending"
+        },
+        " (",
+        {
+          "value": 23.597384,
+          "format": "error_percent",
+          "field": "chart.outlier.error",
+          "suffix": " percent"
+        },
+        "), priced with the bunker table of the week before prices jumped after the closure of Hormuz."
+      ],
+      "axis": "Engine above the Baltic, percent",
+      "desc": "One dot a week for TD22 and TC20, the two tanker routes whose Baltic rate is a lump sum and so converts to dollars without a licensed flat rate. A ringed dot is priced with a bunker table up to a week older than the fixture.",
+      "legend": [
+        {
+          "kind": "ink",
+          "text": "Bunker table of the same week"
+        },
+        {
+          "kind": "ring",
+          "text": "Bunker table up to a week older"
+        }
+      ],
+      "source": [
+        "Baltic Exchange weekly tanker reports as republished by Hellenic Shipping News; bunkers: Star Asia Shipbroking and Banchero Costa weekly tables; engine output."
+      ]
+    },
+    "sections": [
+      {
+        "id": "conventions",
+        "name": "Conventions",
+        "summary": [
+          "Every market convention the engine applies, with the text it is read from."
+        ]
+      },
+      {
+        "id": "formulas",
+        "name": "Formulas",
+        "summary": [
+          "The TCE, the days, the fuel, the carbon and the freight that earns a target."
+        ]
+      },
+      {
+        "id": "validation",
+        "name": "Validation",
+        "summary": [
+          "Every published figure the engine was checked against, reproduced or not, and why."
+        ]
+      },
+      {
+        "id": "sources",
+        "name": "Sources",
+        "summary": [
+          "Every source with its as of date, its retrieval and its licence."
+        ]
+      },
+      {
+        "id": "limitations",
+        "name": "Limitations",
+        "summary": [
+          "What the study cannot do, and the hosts this environment could not reach."
+        ]
+      },
+      {
+        "id": "downloads",
+        "name": "Downloads",
+        "summary": [
+          "The CSV files and the research note."
+        ]
+      }
+    ],
+    "formulas": [
+      "TCE = (gross freight + other revenue - commission - voyage costs) / voyage days",
+      "Gross freight = USD a tonne x cargo, or the lump sum, or WS / 100 x flat rate x cargo; on a trip, hire x trip days",
+      "Commission = commission share x (gross freight + other revenue)",
+      "Voyage costs = bunkers + port charges + canal tolls + EU allowances + war risk premium + other costs",
+      "Steaming days = distance x (1 + weather margin) / (24 x speed)",
+      "Voyage days = ballast and laden steaming days + loading, discharging, waiting, canal, delay and transfer days",
+      "Fuel at sea = steaming days x consumption at the speed, by zone: MGO inside an ECA, VLSFO outside (HSFO behind a scrubber)",
+      "Consumption = linear between published pairs; outside them c = a v^b, fitted by least squares on the logs of the pairs",
+      "EU allowances = (CO2 + 28 CH4 + 265 N2O from 2026) x coverage share x phase in x EUA price x USD per EUR",
+      "War risk = premium x hull value x periods + crew bonus",
+      "Freight for a target TCE = (target x voyage days + voyage costs) / (1 - commission share) - other revenue",
+      "Best speed = the laden speed on a 0.01 knot grid that maximises the TCE, the ballast leg keeping its gap"
+    ],
+    "limitations_heading": "What the study cannot do",
+    "blocked_heading": "Hosts this environment could not reach, and what each would have added",
+    "early_march_caption": "Early March 2026: the Middle East Gulf to China VLCC rates reported in dollars a tonne, priced as TD3C. Platts printed USD 62.07 on 2 March; the USD 89 a tonne reported on 3 March names no primary assessment and is not Platts', whose year to date rise to USD 62.07 was 461 percent. The Baltic's TD3C TCE was USD 209,550 a day in the week to 27 February and USD 485,959 in the week to 6 March.",
+    "baltic_2017_head": "Baltic, 2017",
+    "baltic_2017_caption": "The Baltic's own worked TD3C TCE calculation (July 2017), the one fully worked public example found: its days and fuel reproduced line by line. It prints no prices, so no dollar figure can be checked against it.",
+    "baltic_2017_labels": {
+      "laden_days": "Laden days",
+      "ballast_days": "Ballast days",
+      "total_days": "Total days",
+      "laden_fuel_t": "Fuel laden, t",
+      "ballast_fuel_t": "Fuel in ballast, t",
+      "waiting_fuel_t": "Fuel waiting, t",
+      "load_fuel_t": "Fuel loading, t",
+      "discharge_fuel_t": "Fuel discharging, t"
+    },
+    "limitations": [
+      "Port charges have no public per call figure: every TCE leaves them out and reads high by their amount, USD 1,307 a day on C3 and USD 3,450 a day on C5 for each USD 100,000 of charges.",
+      "Worldscale flat rates are licensed and none is public for 2025 or 2026, so a rate in Worldscale points cannot be priced without the visitor's own flat rate, and those anchors are not reproduced.",
+      "Suez and Panama tolls depend on each ship's own canal tonnage and are left out; the detours report the toll each routing could bear instead.",
+      "Bunker prices are dated public averages or weekly broker tables at four hubs, not the price a ship actually paid; the week of the closure of Hormuz shows how fast they moved.",
+      "FFA levels are dated public assessments, two dry curves; no public tanker FFA quote in dollars a tonne was found.",
+      "The Baltic's tanker speeds and consumptions come as two pairs, so the fitted exponent is low and the best speed often sits at the top of the range searched.",
+      "A TCE is an estimate of what a voyage earns at stated inputs, not a forecast, and it is compared with operating and capital costs, never net of them."
+    ],
+    "blocked": [
+      "pancanal.com and micanaldepanama.com: the Panama Canal tariff and its toll calculator, which would have given dated Panama tolls by vessel class.",
+      "worldscale.co.uk: the flat rate schedule, which is licensed in any case; a public statement of a 2026 flat rate would have made the Worldscale anchors reproducible.",
+      "dehst.de: the German auction reports, read instead from the copy the sibling study jkm-ttf-arbitrage publishes.",
+      "ecfr.gov, nauticalcharts.noaa.gov and marinecadastre.gov: the North American ECA coordinates in US regulation, read instead from MARPOL Annex VI Appendix VII.",
+      "web.archive.org, tradewindsnews.com, reuters.com, gcaptain.com, freightinvestorservices.com and sgx.com: trade press and exchange pages with more dated freight, bunker and FFA quotes.",
+      "balticexchange.com pages behind a script challenge: the circulars and weekly roundups, read instead as republished; the Guide to Market Benchmarks itself was read as a PDF."
+    ],
+    "downloads": [
+      {
+        "file": "data/downloads/anchors_tanker.csv",
+        "text": "Tanker anchors: every published rate and TCE, reproduced or not"
+      },
+      {
+        "file": "data/downloads/anchors_dry.csv",
+        "text": "Dry anchors: route rates and the engine's TCE against the time charter averages"
+      },
+      {
+        "file": "data/downloads/cost_structure_2026_08.csv",
+        "text": "Voyage costs by route at the August 2026 market"
+      },
+      {
+        "file": "data/downloads/detours_hormuz.csv",
+        "text": "The Hormuz scenarios at three dated TCE levels"
+      },
+      {
+        "file": "data/downloads/carbon_ets.csv",
+        "text": "EU ETS cost by voyage and year"
+      },
+      {
+        "file": "data/downloads/eua_monthly.csv",
+        "text": "EU allowance price, monthly"
+      },
+      {
+        "file": "data/downloads/sea_routes.csv",
+        "text": "Every leg's distance and the passages it uses"
+      },
+      {
+        "file": "Voyage-Economics-TCE-Research-Note.pdf",
+        "text": "The research note (PDF)"
+      }
+    ]
+  }
+}

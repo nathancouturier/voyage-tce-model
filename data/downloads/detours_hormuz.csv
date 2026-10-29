@@ -1,0 +1,9 @@
+scenario,label,days,extra_days,laden_nm,war_risk_usd,extra_freight_usd_t_at_2025-12-12,extra_freight_usd_t_at_2026-03-06,extra_freight_usd_t_at_2026-10-23
+base,"No war risk, no waiting",47.007212,0.000000,5848.800000,0.000000,0.000000,0.000000,0.000000
+war_low,"War risk 7.5% of hull value, one transit period",47.007212,0.000000,5848.800000,11775000.000000,45.310245,45.310245,45.310245
+war_high,"War risk 10.0% of hull value, one transit period",47.007212,0.000000,5848.800000,15700000.000000,60.413660,60.413660,60.413660
+wait_5,War risk 7.5% and 5 days waiting to transit,52.007212,5.000000,5848.800000,11775000.000000,47.857932,54.847504,70.275921
+wait_10,War risk 7.5% and 10 days waiting to transit,57.007212,10.000000,5848.800000,11775000.000000,50.405618,64.384762,95.241597
+wait_20,War risk 7.5% and 20 days waiting to transit,67.007212,20.000000,5848.800000,11775000.000000,55.500991,83.459278,145.172949
+sts,"Loading by ship to ship transfer off Fujairah, no Hormuz transit",44.257412,-2.749800,5456.600000,0.000000,-1.793212,-5.637196,-14.122208
+td34,"TD34, loading at Mina Al Fahal outside the strait",42.219050,-4.788161,5308.500000,0.000000,-2.979890,-9.673329,-24.448079

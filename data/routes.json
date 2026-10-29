@@ -1,0 +1,1698 @@
+{
+  "artifact": "routes",
+  "schema_version": 1,
+  "conventions": {
+    "decimals": {
+      "usd_day": 0,
+      "usd": 0,
+      "usd_m": 2,
+      "usd_t": 2,
+      "usd_bbl": 2,
+      "ws": 2,
+      "days": 1,
+      "days_2": 2,
+      "nm": 0,
+      "knots": 1,
+      "knots_2": 2,
+      "t": 0,
+      "tpd": 1,
+      "percent": 1,
+      "percent_0": 0,
+      "percent_2": 2,
+      "eur_t": 2,
+      "usd_per_eur": 4,
+      "tco2": 0,
+      "share": 3,
+      "exponent": 2,
+      "count": 0,
+      "year": 0,
+      "error_percent": 1,
+      "g_mj": 2,
+      "tonne_miles_bn": 2,
+      "days_4": 4,
+      "t_2": 2,
+      "mj": 0,
+      "eur": 0
+    },
+    "scale": {
+      "percent": 100.0,
+      "million": 1000000.0
+    }
+  },
+  "market": "August 2026",
+  "eua_eur_t": 82.31,
+  "usd_per_eur": 1.159362,
+  "rows": [
+    {
+      "route": "C3",
+      "name": "Tubarao to Qingdao",
+      "segment": "dry",
+      "contract": "voyage",
+      "days": 76.522292,
+      "total_usd": 2238516.9,
+      "per_day_usd": 29253.134626,
+      "costs_usd": {
+        "bunkers": 2238516.9,
+        "ports": 0.0,
+        "canals": 0.0,
+        "ets": 0.0,
+        "war_risk": 0.0
+      },
+      "shares": {
+        "bunkers": 1.0,
+        "ports": 0.0,
+        "canals": 0.0,
+        "ets": 0.0,
+        "war_risk": 0.0
+      },
+      "excluded": [
+        "loading time at Tubarao (the Baltic's terms load at the port's scale, which is not published)",
+        "fuel burnt in port (the Baltic prints no port consumption for bulk carriers)",
+        "port charges at Tubarao and Qingdao (no public per call figure)"
+      ],
+      "excluded_block_per_day_usd": 1306.808746,
+      "hub": "rotterdam",
+      "laden_nm": 11136.9,
+      "ballast_nm": 11136.9,
+      "eca_nm": 0,
+      "with_hormuz_war_risk": null,
+      "bunkers_by_grade_usd": {
+        "vlsfo": 2238516.9,
+        "hsfo": 0.0,
+        "mgo": 0.0
+      },
+      "fuel_t": {
+        "vlsfo": 3341.07,
+        "hsfo": 0.0,
+        "mgo": 0.0
+      },
+      "vessel": "BCI182",
+      "cargo_t": 170000,
+      "commission_pct": 5.0,
+      "load": "Tubarao",
+      "discharge": "Qingdao",
+      "page": 77,
+      "by_routing": [
+        {
+          "routing": "direct",
+          "label": "shortest route, canals open",
+          "laden_nm": 11136.9,
+          "passes": [
+            "Sunda Strait",
+            "Cape of Good Hope"
+          ]
+        }
+      ],
+      "eca_share": 0.0,
+      "port_days": {
+        "load_days": 0.25,
+        "discharge_days": 6.666667,
+        "waiting_days": 0.0,
+        "canal_days": 0.0
+      },
+      "vessel_label": "Baltic Standard Capesize (BCI182)",
+      "hub_name": "Rotterdam",
+      "label": "C3"
+    },
+    {
+      "route": "C5",
+      "name": "West Australia to Qingdao",
+      "segment": "dry",
+      "contract": "voyage",
+      "days": 28.983542,
+      "total_usd": 870670.62,
+      "per_day_usd": 30040.173489,
+      "costs_usd": {
+        "bunkers": 870670.62,
+        "ports": 0.0,
+        "canals": 0.0,
+        "ets": 0.0,
+        "war_risk": 0.0
+      },
+      "shares": {
+        "bunkers": 1.0,
+        "ports": 0.0,
+        "canals": 0.0,
+        "ets": 0.0,
+        "war_risk": 0.0
+      },
+      "excluded": [
+        "loading time at Port Hedland (the Baltic's terms load at the port's scale, which is not published)",
+        "fuel burnt in port (the Baltic prints no port consumption for bulk carriers)",
+        "port charges at Port Hedland and Qingdao (no public per call figure)"
+      ],
+      "excluded_block_per_day_usd": 3450.233969,
+      "hub": "singapore",
+      "laden_nm": 3530.7,
+      "ballast_nm": 3530.7,
+      "eca_nm": 0,
+      "with_hormuz_war_risk": null,
+      "bunkers_by_grade_usd": {
+        "vlsfo": 870670.62,
+        "hsfo": 0.0,
+        "mgo": 0.0
+      },
+      "fuel_t": {
+        "vlsfo": 1059.21,
+        "hsfo": 0.0,
+        "mgo": 0.0
+      },
+      "vessel": "BCI182",
+      "cargo_t": 170000,
+      "commission_pct": 5.0,
+      "load": "Port Hedland",
+      "discharge": "Qingdao",
+      "page": 77,
+      "by_routing": [
+        {
+          "routing": "direct",
+          "label": "shortest route, canals open",
+          "laden_nm": 3530.7,
+          "passes": [
+            "Lombok Strait"
+          ]
+        }
+      ],
+      "eca_share": 0.0,
+      "port_days": {
+        "load_days": 0.25,
+        "discharge_days": 6.666667,
+        "waiting_days": 0.0,
+        "canal_days": 0.0
+      },
+      "vessel_label": "Baltic Standard Capesize (BCI182)",
+      "hub_name": "Singapore",
+      "label": "C5"
+    },
+    {
+      "route": "P7",
+      "name": "US Gulf to Qingdao grain",
+      "segment": "dry",
+      "contract": "voyage",
+      "days": 86.98213,
+      "total_usd": 1483467.452917,
+      "per_day_usd": 17054.853212,
+      "costs_usd": {
+        "bunkers": 1483467.452917,
+        "ports": 0.0,
+        "canals": 0.0,
+        "ets": 0.0,
+        "war_risk": 0.0
+      },
+      "shares": {
+        "bunkers": 1.0,
+        "ports": 0.0,
+        "canals": 0.0,
+        "ets": 0.0,
+        "war_risk": 0.0
+      },
+      "excluded": [
+        "fuel burnt in port (the Baltic prints no port consumption for bulk carriers)",
+        "port charges at New Orleans and Qingdao (no public per call figure)",
+        "the Panama Canal toll on the laden leg (no public toll for this ship)",
+        "the Panama Canal toll on the ballast leg (no public toll for this ship)"
+      ],
+      "excluded_block_per_day_usd": 1149.661435,
+      "hub": "houston",
+      "laden_nm": 10084.0,
+      "ballast_nm": 10084.0,
+      "eca_nm": 452.8,
+      "with_hormuz_war_risk": null,
+      "bunkers_by_grade_usd": {
+        "vlsfo": 1414858.0375,
+        "hsfo": 0.0,
+        "mgo": 68609.415417
+      },
+      "fuel_t": {
+        "vlsfo": 2006.890833,
+        "hsfo": 0.0,
+        "mgo": 54.843657
+      },
+      "vessel": "BPI82",
+      "cargo_t": 66000,
+      "commission_pct": 5.0,
+      "load": "New Orleans",
+      "discharge": "Qingdao",
+      "page": 80,
+      "by_routing": [
+        {
+          "routing": "direct",
+          "label": "shortest route, canals open",
+          "laden_nm": 10084.0,
+          "passes": [
+            "Panama Canal",
+            "Yucatan Channel"
+          ]
+        },
+        {
+          "routing": "no_panama",
+          "label": "Panama Canal avoided",
+          "laden_nm": 14017.7,
+          "passes": [
+            "Bab el Mandeb",
+            "Suez Canal",
+            "Strait of Gibraltar",
+            "Strait of Malacca",
+            "Florida Strait"
+          ]
+        },
+        {
+          "routing": "no_canals",
+          "label": "Suez and Panama avoided",
+          "laden_nm": 15250.7,
+          "passes": [
+            "Sunda Strait",
+            "Cape of Good Hope",
+            "Florida Strait"
+          ]
+        }
+      ],
+      "eca_share": 0.022451,
+      "port_days": {
+        "load_days": 10.24,
+        "discharge_days": 12.55,
+        "waiting_days": 0.0,
+        "canal_days": 0.0
+      },
+      "vessel_label": "Baltic Standard Panamax (BPI82)",
+      "hub_name": "Houston",
+      "label": "P7"
+    },
+    {
+      "route": "S4A_63",
+      "name": "US Gulf trip to Skaw-Passero",
+      "segment": "dry",
+      "contract": "trip",
+      "days": 42.632812,
+      "total_usd": 806115.915239,
+      "per_day_usd": 18908.344722,
+      "costs_usd": {
+        "bunkers": 681935.304375,
+        "ports": 0.0,
+        "canals": 0.0,
+        "ets": 124180.610864,
+        "war_risk": 0.0
+      },
+      "shares": {
+        "bunkers": 0.845952,
+        "ports": 0.0,
+        "canals": 0.0,
+        "ets": 0.154048,
+        "war_risk": 0.0
+      },
+      "excluded": [
+        "fuel burnt in port (the Baltic prints no port consumption for bulk carriers)",
+        "port charges at New Orleans and Rotterdam (no public per call figure)"
+      ],
+      "excluded_block_per_day_usd": 2345.611142,
+      "hub": "houston",
+      "laden_nm": 4842.5,
+      "ballast_nm": 4842.5,
+      "eca_nm": 2297.2,
+      "with_hormuz_war_risk": null,
+      "bunkers_by_grade_usd": {
+        "vlsfo": 439458.665625,
+        "hsfo": 0.0,
+        "mgo": 242476.63875
+      },
+      "fuel_t": {
+        "vlsfo": 623.345625,
+        "hsfo": 0.0,
+        "mgo": 193.82625
+      },
+      "vessel": "BSI63",
+      "cargo_t": null,
+      "commission_pct": 5.0,
+      "load": "New Orleans",
+      "discharge": "Rotterdam",
+      "page": 81,
+      "by_routing": [
+        {
+          "routing": "direct",
+          "label": "shortest route, canals open",
+          "laden_nm": 4842.5,
+          "passes": [
+            "Dover Strait",
+            "Florida Strait"
+          ]
+        }
+      ],
+      "eca_share": 0.237192,
+      "port_days": {
+        "load_days": 6.183594,
+        "discharge_days": 6.183594,
+        "waiting_days": 0.0,
+        "canal_days": 0.0
+      },
+      "vessel_label": "Baltic Standard Supramax (BSI63)",
+      "hub_name": "Houston",
+      "label": "S4A"
+    },
+    {
+      "route": "TD3C",
+      "name": "Middle East Gulf to China",
+      "segment": "dirty",
+      "contract": "voyage",
+      "days": 47.007212,
+      "total_usd": 1816996.505457,
+      "per_day_usd": 38653.569229,
+      "costs_usd": {
+        "bunkers": 1816996.505457,
+        "ports": 0.0,
+        "canals": 0.0,
+        "ets": 0.0,
+        "war_risk": 0.0
+      },
+      "shares": {
+        "bunkers": 1.0,
+        "ports": 0.0,
+        "canals": 0.0,
+        "ets": 0.0,
+        "war_risk": 0.0
+      },
+      "excluded": [
+        "port charges at Ras Tanura and Ningbo (no public per call figure)"
+      ],
+      "excluded_block_per_day_usd": 2127.333163,
+      "hub": "fujairah",
+      "laden_nm": 5848.8,
+      "ballast_nm": 5848.8,
+      "eca_nm": 0,
+      "with_hormuz_war_risk": {
+        "premium_pct": 7.5,
+        "hull_value_usd": 157000000.0,
+        "costs_usd": {
+          "bunkers": 1816996.505457,
+          "ports": 0.0,
+          "canals": 0.0,
+          "ets": 0.0,
+          "war_risk": 11775000.0
+        },
+        "total_usd": 13591996.505457,
+        "shares": {
+          "bunkers": 0.133681,
+          "ports": 0.0,
+          "canals": 0.0,
+          "ets": 0.0,
+          "war_risk": 0.866319
+        },
+        "war_risk_to_bunkers": 6.480475
+      },
+      "bunkers_by_grade_usd": {
+        "vlsfo": 1816996.505457,
+        "hsfo": 0.0,
+        "mgo": 0.0
+      },
+      "fuel_t": {
+        "vlsfo": 2250.150471,
+        "hsfo": 0.0,
+        "mgo": 0.0
+      },
+      "vessel": "VLCC300",
+      "cargo_t": 270000,
+      "commission_pct": 3.75,
+      "load": "Ras Tanura",
+      "discharge": "Ningbo",
+      "page": 84,
+      "by_routing": [
+        {
+          "routing": "direct",
+          "label": "shortest route, canals open",
+          "laden_nm": 5848.8,
+          "passes": [
+            "Strait of Hormuz",
+            "Strait of Malacca"
+          ]
+        }
+      ],
+      "eca_share": 0.0,
+      "port_days": {
+        "load_days": 2,
+        "discharge_days": 2,
+        "waiting_days": 2,
+        "canal_days": 0.0
+      },
+      "vessel_label": "Baltic Standard VLCC (VLCC300)",
+      "hub_name": "Fujairah",
+      "label": "TD3C"
+    },
+    {
+      "route": "TD22",
+      "name": "US Gulf to China",
+      "segment": "dirty",
+      "contract": "voyage",
+      "days": 110.546875,
+      "total_usd": 3945098.69875,
+      "per_day_usd": 35687.111904,
+      "costs_usd": {
+        "bunkers": 3945098.69875,
+        "ports": 0.0,
+        "canals": 0.0,
+        "ets": 0.0,
+        "war_risk": 0.0
+      },
+      "shares": {
+        "bunkers": 1.0,
+        "ports": 0.0,
+        "canals": 0.0,
+        "ets": 0.0,
+        "war_risk": 0.0
+      },
+      "excluded": [
+        "port charges at Galveston and Ningbo (no public per call figure)"
+      ],
+      "excluded_block_per_day_usd": 904.59364,
+      "hub": "houston",
+      "laden_nm": 15054.0,
+      "ballast_nm": 15054.0,
+      "eca_nm": 1658.0,
+      "with_hormuz_war_risk": null,
+      "bunkers_by_grade_usd": {
+        "vlsfo": 3533211.795373,
+        "hsfo": 0.0,
+        "mgo": 411886.903377
+      },
+      "fuel_t": {
+        "vlsfo": 5011.647937,
+        "hsfo": 0.0,
+        "mgo": 329.246126
+      },
+      "vessel": "VLCC300",
+      "cargo_t": 270000,
+      "commission_pct": 3.75,
+      "load": "Galveston",
+      "discharge": "Ningbo",
+      "page": 86,
+      "by_routing": [
+        {
+          "routing": "direct",
+          "label": "shortest route, canals open",
+          "laden_nm": 10225.4,
+          "passes": [
+            "Panama Canal",
+            "Yucatan Channel"
+          ]
+        },
+        {
+          "routing": "no_panama",
+          "label": "Panama Canal avoided",
+          "laden_nm": 13825.8,
+          "passes": [
+            "Bab el Mandeb",
+            "Suez Canal",
+            "Strait of Gibraltar",
+            "Strait of Malacca",
+            "Florida Strait"
+          ]
+        },
+        {
+          "routing": "no_canals",
+          "label": "Suez and Panama avoided",
+          "laden_nm": 15054.0,
+          "passes": [
+            "Sunda Strait",
+            "Cape of Good Hope",
+            "Florida Strait"
+          ]
+        }
+      ],
+      "eca_share": 0.055068,
+      "port_days": {
+        "load_days": 2,
+        "discharge_days": 2,
+        "waiting_days": 1,
+        "canal_days": 0.0
+      },
+      "vessel_label": "Baltic Standard VLCC (VLCC300)",
+      "hub_name": "Houston",
+      "label": "TD22"
+    },
+    {
+      "route": "TD20",
+      "name": "West Africa to UK-Continent",
+      "segment": "dirty",
+      "contract": "voyage",
+      "days": 36.315605,
+      "total_usd": 1150605.358405,
+      "per_day_usd": 31683.496927,
+      "costs_usd": {
+        "bunkers": 950546.417323,
+        "ports": 0.0,
+        "canals": 0.0,
+        "ets": 200058.941082,
+        "war_risk": 0.0
+      },
+      "shares": {
+        "bunkers": 0.826127,
+        "ports": 0.0,
+        "canals": 0.0,
+        "ets": 0.173873,
+        "war_risk": 0.0
+      },
+      "excluded": [
+        "port charges at Bonny and Rotterdam (no public per call figure)"
+      ],
+      "excluded_block_per_day_usd": 2753.637179,
+      "hub": "rotterdam",
+      "laden_nm": 4466.5,
+      "ballast_nm": 4466.5,
+      "eca_nm": 839.8,
+      "with_hormuz_war_risk": null,
+      "bunkers_by_grade_usd": {
+        "vlsfo": 655778.646034,
+        "hsfo": 0.0,
+        "mgo": 294767.771289
+      },
+      "fuel_t": {
+        "vlsfo": 978.774099,
+        "hsfo": 0.0,
+        "mgo": 234.035547
+      },
+      "vessel": "SUEZ160",
+      "cargo_t": 130000,
+      "commission_pct": 3.75,
+      "load": "Bonny",
+      "discharge": "Rotterdam",
+      "page": 86,
+      "by_routing": [
+        {
+          "routing": "direct",
+          "label": "shortest route, canals open",
+          "laden_nm": 4466.5,
+          "passes": [
+            "Dover Strait"
+          ]
+        }
+      ],
+      "eca_share": 0.094011,
+      "port_days": {
+        "load_days": 2,
+        "discharge_days": 2,
+        "waiting_days": 1,
+        "canal_days": 0.0
+      },
+      "vessel_label": "Baltic Standard Suezmax (SUEZ160)",
+      "hub_name": "Rotterdam",
+      "label": "TD20"
+    },
+    {
+      "route": "TD25",
+      "name": "US Gulf to UK-Continent",
+      "segment": "dirty",
+      "contract": "voyage",
+      "days": 39.99359,
+      "total_usd": 1268236.681473,
+      "per_day_usd": 31710.998928,
+      "costs_usd": {
+        "bunkers": 1071601.371154,
+        "ports": 0.0,
+        "canals": 0.0,
+        "ets": 196635.31032,
+        "war_risk": 0.0
+      },
+      "shares": {
+        "bunkers": 0.844954,
+        "ports": 0.0,
+        "canals": 0.0,
+        "ets": 0.155046,
+        "war_risk": 0.0
+      },
+      "excluded": [
+        "port charges at Houston and Rotterdam (no public per call figure)"
+      ],
+      "excluded_block_per_day_usd": 2500.400705,
+      "hub": "houston",
+      "laden_nm": 5062.4,
+      "ballast_nm": 5062.4,
+      "eca_nm": 2649.6,
+      "with_hormuz_war_risk": null,
+      "bunkers_by_grade_usd": {
+        "vlsfo": 556085.923077,
+        "hsfo": 0.0,
+        "mgo": 515515.448077
+      },
+      "fuel_t": {
+        "vlsfo": 788.774359,
+        "hsfo": 0.0,
+        "mgo": 412.082692
+      },
+      "vessel": "AFRA115",
+      "cargo_t": 70000,
+      "commission_pct": 3.75,
+      "load": "Houston",
+      "discharge": "Rotterdam",
+      "page": 86,
+      "by_routing": [
+        {
+          "routing": "direct",
+          "label": "shortest route, canals open",
+          "laden_nm": 5062.4,
+          "passes": [
+            "Dover Strait",
+            "Florida Strait"
+          ]
+        }
+      ],
+      "eca_share": 0.261694,
+      "port_days": {
+        "load_days": 2,
+        "discharge_days": 2,
+        "waiting_days": 0.5,
+        "canal_days": 0.0
+      },
+      "vessel_label": "Baltic Standard Aframax (AFRA115)",
+      "hub_name": "Houston",
+      "label": "TD25"
+    },
+    {
+      "route": "TC2_37",
+      "name": "Continent to US Atlantic coast",
+      "segment": "clean",
+      "contract": "voyage",
+      "days": 28.293369,
+      "total_usd": 605357.621779,
+      "per_day_usd": 21395.741646,
+      "costs_usd": {
+        "bunkers": 529299.206209,
+        "ports": 0.0,
+        "canals": 0.0,
+        "ets": 76058.415571,
+        "war_risk": 0.0
+      },
+      "shares": {
+        "bunkers": 0.874358,
+        "ports": 0.0,
+        "canals": 0.0,
+        "ets": 0.125642,
+        "war_risk": 0.0
+      },
+      "excluded": [
+        "port charges at Rotterdam and New York (no public per call figure)"
+      ],
+      "excluded_block_per_day_usd": 3534.397004,
+      "hub": "rotterdam",
+      "laden_nm": 3322.3,
+      "ballast_nm": 3322.3,
+      "eca_nm": 3260.6,
+      "with_hormuz_war_risk": null,
+      "bunkers_by_grade_usd": {
+        "vlsfo": 159154.699038,
+        "hsfo": 0.0,
+        "mgo": 370144.50717
+      },
+      "fuel_t": {
+        "vlsfo": 237.544327,
+        "hsfo": 0.0,
+        "mgo": 293.882102
+      },
+      "vessel": "MR50",
+      "cargo_t": 37000,
+      "commission_pct": 3.75,
+      "load": "Rotterdam",
+      "discharge": "New York",
+      "page": 90,
+      "by_routing": [
+        {
+          "routing": "direct",
+          "label": "shortest route, canals open",
+          "laden_nm": 3322.3,
+          "passes": [
+            "Dover Strait"
+          ]
+        }
+      ],
+      "eca_share": 0.490714,
+      "port_days": {
+        "load_days": 2,
+        "discharge_days": 2,
+        "waiting_days": 1,
+        "canal_days": 0.0
+      },
+      "vessel_label": "Baltic Standard MR (MR50)",
+      "hub_name": "Rotterdam",
+      "label": "TC2"
+    },
+    {
+      "route": "TC14",
+      "name": "US Gulf to Continent",
+      "segment": "clean",
+      "contract": "voyage",
+      "days": 41.188401,
+      "total_usd": 827097.053795,
+      "per_day_usd": 20080.82433,
+      "costs_usd": {
+        "bunkers": 701324.267214,
+        "ports": 0.0,
+        "canals": 0.0,
+        "ets": 125772.786581,
+        "war_risk": 0.0
+      },
+      "shares": {
+        "bunkers": 0.847935,
+        "ports": 0.0,
+        "canals": 0.0,
+        "ets": 0.152065,
+        "war_risk": 0.0
+      },
+      "excluded": [
+        "port charges at Houston and Amsterdam (no public per call figure)"
+      ],
+      "excluded_block_per_day_usd": 2427.867955,
+      "hub": "houston",
+      "laden_nm": 5161.5,
+      "ballast_nm": 5161.5,
+      "eca_nm": 2847.6,
+      "with_hormuz_war_risk": null,
+      "bunkers_by_grade_usd": {
+        "vlsfo": 369945.596142,
+        "hsfo": 0.0,
+        "mgo": 331378.671072
+      },
+      "fuel_t": {
+        "vlsfo": 524.745526,
+        "hsfo": 0.0,
+        "mgo": 264.891024
+      },
+      "vessel": "MR50",
+      "cargo_t": 38000,
+      "commission_pct": 3.75,
+      "load": "Houston",
+      "discharge": "Amsterdam",
+      "page": 91,
+      "by_routing": [
+        {
+          "routing": "direct",
+          "label": "shortest route, canals open",
+          "laden_nm": 5161.5,
+          "passes": [
+            "Dover Strait",
+            "Florida Strait"
+          ]
+        }
+      ],
+      "eca_share": 0.27585,
+      "port_days": {
+        "load_days": 2,
+        "discharge_days": 2,
+        "waiting_days": 1,
+        "canal_days": 0.0
+      },
+      "vessel_label": "Baltic Standard MR (MR50)",
+      "hub_name": "Houston",
+      "label": "TC14"
+    },
+    {
+      "route": "TC1",
+      "name": "Middle East Gulf to Japan (LR2)",
+      "segment": "clean",
+      "contract": "voyage",
+      "days": 51.405048,
+      "total_usd": 1221619.872296,
+      "per_day_usd": 23764.589627,
+      "costs_usd": {
+        "bunkers": 1221619.872296,
+        "ports": 0.0,
+        "canals": 0.0,
+        "ets": 0.0,
+        "war_risk": 0.0
+      },
+      "shares": {
+        "bunkers": 1.0,
+        "ports": 0.0,
+        "canals": 0.0,
+        "ets": 0.0,
+        "war_risk": 0.0
+      },
+      "excluded": [
+        "port charges at Ras Tanura and Yokohama (no public per call figure)"
+      ],
+      "excluded_block_per_day_usd": 1945.334237,
+      "hub": "fujairah",
+      "laden_nm": 6690.0,
+      "ballast_nm": 6690.0,
+      "eca_nm": 0,
+      "with_hormuz_war_risk": {
+        "premium_pct": 7.5,
+        "hull_value_usd": 85000000.0,
+        "costs_usd": {
+          "bunkers": 1221619.872296,
+          "ports": 0.0,
+          "canals": 0.0,
+          "ets": 0.0,
+          "war_risk": 6375000.0
+        },
+        "total_usd": 7596619.872296,
+        "shares": {
+          "bunkers": 0.160811,
+          "ports": 0.0,
+          "canals": 0.0,
+          "ets": 0.0,
+          "war_risk": 0.839189
+        },
+        "war_risk_to_bunkers": 5.218481
+      },
+      "bunkers_by_grade_usd": {
+        "vlsfo": 1221619.872296,
+        "hsfo": 0.0,
+        "mgo": 0.0
+      },
+      "fuel_t": {
+        "vlsfo": 1512.841947,
+        "hsfo": 0.0,
+        "mgo": 0.0
+      },
+      "vessel": "LR2-115",
+      "cargo_t": 75000,
+      "commission_pct": 3.75,
+      "load": "Ras Tanura",
+      "discharge": "Yokohama",
+      "page": 89,
+      "by_routing": [
+        {
+          "routing": "direct",
+          "label": "shortest route, canals open",
+          "laden_nm": 6690.0,
+          "passes": [
+            "Strait of Hormuz",
+            "Strait of Malacca"
+          ]
+        }
+      ],
+      "eca_share": 0.0,
+      "port_days": {
+        "load_days": 2,
+        "discharge_days": 2,
+        "waiting_days": 0.5,
+        "canal_days": 0.0
+      },
+      "vessel_label": "Baltic Standard LR2 (LR2-115)",
+      "hub_name": "Fujairah",
+      "label": "TC1"
+    },
+    {
+      "route": "TC5",
+      "name": "Middle East Gulf to Japan (LR1)",
+      "segment": "clean",
+      "contract": "voyage",
+      "days": 51.905048,
+      "total_usd": 1100832.6247,
+      "per_day_usd": 21208.585012,
+      "costs_usd": {
+        "bunkers": 1100832.6247,
+        "ports": 0.0,
+        "canals": 0.0,
+        "ets": 0.0,
+        "war_risk": 0.0
+      },
+      "shares": {
+        "bunkers": 1.0,
+        "ports": 0.0,
+        "canals": 0.0,
+        "ets": 0.0,
+        "war_risk": 0.0
+      },
+      "excluded": [
+        "port charges at Ras Tanura and Yokohama (no public per call figure)"
+      ],
+      "excluded_block_per_day_usd": 1926.594882,
+      "hub": "fujairah",
+      "laden_nm": 6690.0,
+      "ballast_nm": 6690.0,
+      "eca_nm": 0,
+      "with_hormuz_war_risk": {
+        "premium_pct": 7.5,
+        "hull_value_usd": null,
+        "why_empty": "no dated public hull value for this ship"
+      },
+      "bunkers_by_grade_usd": {
+        "vlsfo": 1100832.6247,
+        "hsfo": 0.0,
+        "mgo": 0.0
+      },
+      "fuel_t": {
+        "vlsfo": 1363.260216,
+        "hsfo": 0.0,
+        "mgo": 0.0
+      },
+      "vessel": "LR1-75",
+      "cargo_t": 55000,
+      "commission_pct": 3.75,
+      "load": "Ras Tanura",
+      "discharge": "Yokohama",
+      "page": 90,
+      "by_routing": [
+        {
+          "routing": "direct",
+          "label": "shortest route, canals open",
+          "laden_nm": 6690.0,
+          "passes": [
+            "Strait of Hormuz",
+            "Strait of Malacca"
+          ]
+        }
+      ],
+      "eca_share": 0.0,
+      "port_days": {
+        "load_days": 2,
+        "discharge_days": 2,
+        "waiting_days": 1,
+        "canal_days": 0.0
+      },
+      "vessel_label": "Baltic Standard LR1 (LR1-75)",
+      "hub_name": "Fujairah",
+      "label": "TC5"
+    }
+  ],
+  "pub151": {
+    "source": "NGA Pub. 151, Distances Between Ports, 11th edition, 2001",
+    "tolerance": 0.02,
+    "checks": [
+      {
+        "id": "singapore_ras_tanura",
+        "from": "Singapore",
+        "to": "Ras Tanura",
+        "from_position": "Pub. 151 p. 103",
+        "to_position": "WPI 48340",
+        "routing": "direct",
+        "published_nm": 3701,
+        "parts": [
+          {
+            "entry": "SINGAPORE",
+            "line": "Ras Tannurah, Saudi Arabia",
+            "nm": 3701,
+            "page": 104
+          }
+        ],
+        "adjustment_nm": 0,
+        "composite": false,
+        "searoute_nm": 3754.9,
+        "error": 0.014564,
+        "within_tolerance": true,
+        "note": ""
+      },
+      {
+        "id": "singapore_qingdao",
+        "from": "Singapore",
+        "to": "Qingdao",
+        "from_position": "Pub. 151 p. 103",
+        "to_position": "Pub. 151 p. 90",
+        "routing": "direct",
+        "published_nm": 2466,
+        "parts": [
+          {
+            "entry": "SINGAPORE",
+            "line": "Qingdao, China",
+            "nm": 2466,
+            "page": 104
+          }
+        ],
+        "adjustment_nm": 0,
+        "composite": false,
+        "searoute_nm": 2477.9,
+        "error": 0.004826,
+        "within_tolerance": true,
+        "note": ""
+      },
+      {
+        "id": "singapore_yokohama",
+        "from": "Singapore",
+        "to": "Yokohama",
+        "from_position": "Pub. 151 p. 103",
+        "to_position": "Pub. 151 p. 125",
+        "routing": "direct",
+        "published_nm": 2889,
+        "parts": [
+          {
+            "entry": "SINGAPORE",
+            "line": "Yokohama, Japan",
+            "nm": 2889,
+            "page": 104
+          }
+        ],
+        "adjustment_nm": 0,
+        "composite": false,
+        "searoute_nm": 2940.9,
+        "error": 0.017965,
+        "within_tolerance": true,
+        "note": ""
+      },
+      {
+        "id": "singapore_shanghai",
+        "from": "Singapore",
+        "to": "Shanghai",
+        "from_position": "Pub. 151 p. 103",
+        "to_position": "Pub. 151 p. 102",
+        "routing": "direct",
+        "published_nm": 2207,
+        "parts": [
+          {
+            "entry": "SINGAPORE",
+            "line": "Shanghai, China",
+            "nm": 2207,
+            "page": 104
+          }
+        ],
+        "adjustment_nm": 0,
+        "composite": false,
+        "searoute_nm": 2213.5,
+        "error": 0.002945,
+        "within_tolerance": true,
+        "note": ""
+      },
+      {
+        "id": "singapore_mina_al_ahmadi",
+        "from": "Singapore",
+        "to": "Mina al Ahmadi",
+        "from_position": "Pub. 151 p. 103",
+        "to_position": "WPI 48361",
+        "routing": "direct",
+        "published_nm": 3825,
+        "parts": [
+          {
+            "entry": "SINGAPORE",
+            "line": "Mina al Ahmadi, Kuwait",
+            "nm": 3825,
+            "page": 104
+          }
+        ],
+        "adjustment_nm": 0,
+        "composite": false,
+        "searoute_nm": 3895.8,
+        "error": 0.01851,
+        "within_tolerance": true,
+        "note": ""
+      },
+      {
+        "id": "port_said_ras_tanura",
+        "from": "Port Said",
+        "to": "Ras Tanura",
+        "from_position": "Pub. 151 p. 85",
+        "to_position": "WPI 48340",
+        "routing": "direct",
+        "published_nm": 3162,
+        "parts": [
+          {
+            "entry": "PORT SAID, EGYPT",
+            "line": "Ras Tannurah, Saudi Arabia",
+            "nm": 3162,
+            "page": 86
+          }
+        ],
+        "adjustment_nm": 0,
+        "composite": false,
+        "searoute_nm": 3222.7,
+        "error": 0.019197,
+        "within_tolerance": true,
+        "note": ""
+      },
+      {
+        "id": "jubail_port_said",
+        "from": "Al Jubayl",
+        "to": "Port Said",
+        "from_position": "Pub. 151 p. 2",
+        "to_position": "Pub. 151 p. 85",
+        "routing": "direct",
+        "published_nm": 3164,
+        "parts": [
+          {
+            "entry": "AL JUBAYL, SAUDI ARABIA",
+            "line": "Port Said, Egypt",
+            "nm": 3164,
+            "page": 2
+          }
+        ],
+        "adjustment_nm": 0,
+        "composite": false,
+        "searoute_nm": 3234.6,
+        "error": 0.022314,
+        "within_tolerance": false,
+        "note": ""
+      },
+      {
+        "id": "jubail_singapore",
+        "from": "Al Jubayl",
+        "to": "Singapore",
+        "from_position": "Pub. 151 p. 2",
+        "to_position": "Pub. 151 p. 103",
+        "routing": "direct",
+        "published_nm": 3723,
+        "parts": [
+          {
+            "entry": "AL JUBAYL, SAUDI ARABIA",
+            "line": "Singapore",
+            "nm": 3723,
+            "page": 2
+          }
+        ],
+        "adjustment_nm": 0,
+        "composite": false,
+        "searoute_nm": 3766.9,
+        "error": 0.011792,
+        "within_tolerance": true,
+        "note": ""
+      },
+      {
+        "id": "fujairah_singapore",
+        "from": "Fujayrah",
+        "to": "Singapore",
+        "from_position": "Pub. 151 p. 35",
+        "to_position": "Pub. 151 p. 103",
+        "routing": "direct",
+        "published_nm": 3356,
+        "parts": [
+          {
+            "entry": "FUJAYRAH, UNITED ARAB EMIRATES",
+            "line": "Singapore",
+            "nm": 3356,
+            "page": 35
+          }
+        ],
+        "adjustment_nm": 0,
+        "composite": false,
+        "searoute_nm": 3362.8,
+        "error": 0.002026,
+        "within_tolerance": true,
+        "note": ""
+      },
+      {
+        "id": "galveston_panama",
+        "from": "Galveston",
+        "to": "Panama",
+        "from_position": "Pub. 151 p. 36",
+        "to_position": "Pub. 151 p. 76",
+        "routing": "direct",
+        "published_nm": 1536,
+        "parts": [
+          {
+            "entry": "GALVESTON, TEXAS, U.S.A.",
+            "line": "Panama, Panama",
+            "nm": 1536,
+            "page": 36
+          }
+        ],
+        "adjustment_nm": 0,
+        "composite": false,
+        "searoute_nm": 1531.8,
+        "error": -0.002734,
+        "within_tolerance": true,
+        "note": ""
+      },
+      {
+        "id": "new_orleans_panama",
+        "from": "New Orleans",
+        "to": "Panama",
+        "from_position": "Pub. 151 p. 69",
+        "to_position": "Pub. 151 p. 76",
+        "routing": "direct",
+        "published_nm": 1433,
+        "parts": [
+          {
+            "entry": "NEW ORLEANS, LOUISIANA, U.S.A.",
+            "line": "Panama, Panama (via South Pass)",
+            "nm": 1433,
+            "page": 69
+          }
+        ],
+        "adjustment_nm": 0,
+        "composite": false,
+        "searoute_nm": 1431.2,
+        "error": -0.001256,
+        "within_tolerance": true,
+        "note": ""
+      },
+      {
+        "id": "qingdao_panama",
+        "from": "Qingdao",
+        "to": "Panama",
+        "from_position": "Pub. 151 p. 90",
+        "to_position": "Pub. 151 p. 76",
+        "routing": "direct",
+        "published_nm": 8575,
+        "parts": [
+          {
+            "entry": "QINGDAO, CHINA",
+            "line": "Panama, Panama",
+            "nm": 8575,
+            "page": 90
+          }
+        ],
+        "adjustment_nm": 0,
+        "composite": false,
+        "searoute_nm": 8652.8,
+        "error": 0.009073,
+        "within_tolerance": true,
+        "note": ""
+      },
+      {
+        "id": "port_hedland_busan",
+        "from": "Port Hedland",
+        "to": "Busan",
+        "from_position": "Pub. 151 p. 84",
+        "to_position": "Pub. 151 p. 18",
+        "routing": "direct",
+        "published_nm": 3484,
+        "parts": [
+          {
+            "entry": "PORT HEDLAND, AUSTRALIA",
+            "line": "Busan, South Korea (via west of Timor and Korea Strait)",
+            "nm": 3484,
+            "page": 84
+          }
+        ],
+        "adjustment_nm": 0,
+        "composite": false,
+        "searoute_nm": 3589.5,
+        "error": 0.030281,
+        "within_tolerance": false,
+        "note": ""
+      },
+      {
+        "id": "rio_cape",
+        "from": "Rio de Janeiro",
+        "to": "Cape of Good Hope",
+        "from_position": "Pub. 151 p. 93",
+        "to_position": "Pub. 151 p. 21",
+        "routing": "direct",
+        "published_nm": 3323,
+        "parts": [
+          {
+            "entry": "CAPE OF GOOD HOPE, SOUTH AFRICA",
+            "line": "Rio de Janeiro, Brazil",
+            "nm": 3323,
+            "page": 22
+          }
+        ],
+        "adjustment_nm": 0,
+        "composite": false,
+        "searoute_nm": 3367.2,
+        "error": 0.013301,
+        "within_tolerance": true,
+        "note": ""
+      },
+      {
+        "id": "ras_tanura_cape",
+        "from": "Ras Tanura",
+        "to": "Cape of Good Hope",
+        "from_position": "WPI 48340",
+        "to_position": "Pub. 151 p. 21",
+        "routing": "direct",
+        "published_nm": 4980,
+        "parts": [
+          {
+            "entry": "CAPE OF GOOD HOPE, SOUTH AFRICA",
+            "line": "Ras Tannurah, Saudi Arabia",
+            "nm": 4980,
+            "page": 22
+          }
+        ],
+        "adjustment_nm": 0,
+        "composite": false,
+        "searoute_nm": 5157.7,
+        "error": 0.035683,
+        "within_tolerance": false,
+        "note": ""
+      },
+      {
+        "id": "new_york_rotterdam",
+        "from": "New York",
+        "to": "Rotterdam",
+        "from_position": "Pub. 151 p. 69",
+        "to_position": "Pub. 151 p. 94",
+        "routing": "direct",
+        "published_nm": 3391,
+        "parts": [
+          {
+            "entry": "NEW YORK, NEW YORK, U.S.A.",
+            "line": "Bishop Rock, England",
+            "nm": 2937,
+            "page": 70
+          },
+          {
+            "entry": "ROTTERDAM, NETHERLANDS",
+            "line": "Bishop Rock, England",
+            "nm": 454,
+            "page": 94
+          }
+        ],
+        "adjustment_nm": 0,
+        "composite": true,
+        "searoute_nm": 3322.3,
+        "error": -0.02026,
+        "within_tolerance": false,
+        "note": "through the junction point Bishop Rock, the TC2 route"
+      },
+      {
+        "id": "galveston_rotterdam",
+        "from": "Galveston",
+        "to": "Rotterdam",
+        "from_position": "Pub. 151 p. 36",
+        "to_position": "Pub. 151 p. 94",
+        "routing": "direct",
+        "published_nm": 5011,
+        "parts": [
+          {
+            "entry": "GALVESTON, TEXAS, U.S.A.",
+            "line": "Straits of Florida",
+            "nm": 698,
+            "page": 36
+          },
+          {
+            "entry": "BISHOP ROCK, ENGLAND",
+            "line": "Straits of Florida",
+            "nm": 3859,
+            "page": 14
+          },
+          {
+            "entry": "BISHOP ROCK, ENGLAND",
+            "line": "Rotterdam, Netherlands",
+            "nm": 454,
+            "page": 14
+          }
+        ],
+        "adjustment_nm": 0,
+        "composite": true,
+        "searoute_nm": 5028.9,
+        "error": 0.003572,
+        "within_tolerance": true,
+        "note": "through the Straits of Florida and Bishop Rock, the US Gulf to Continent routes"
+      },
+      {
+        "id": "houston_rotterdam",
+        "from": "Houston",
+        "to": "Rotterdam",
+        "from_position": "Pub. 151 p. 44",
+        "to_position": "Pub. 151 p. 94",
+        "routing": "direct",
+        "published_nm": 5058,
+        "parts": [
+          {
+            "entry": "GALVESTON, TEXAS, U.S.A.",
+            "line": "Straits of Florida",
+            "nm": 698,
+            "page": 36
+          },
+          {
+            "entry": "BISHOP ROCK, ENGLAND",
+            "line": "Straits of Florida",
+            "nm": 3859,
+            "page": 14
+          },
+          {
+            "entry": "BISHOP ROCK, ENGLAND",
+            "line": "Rotterdam, Netherlands",
+            "nm": 454,
+            "page": 14
+          }
+        ],
+        "adjustment_nm": 47,
+        "composite": true,
+        "searoute_nm": 5062.4,
+        "error": 0.00087,
+        "within_tolerance": true,
+        "note": "Galveston's route plus 47 miles, the rule Pub. 151 prints for Houston on p. 44 (TD25)"
+      },
+      {
+        "id": "bonny_rotterdam",
+        "from": "Bonny",
+        "to": "Rotterdam",
+        "from_position": "Pub. 151 p. 15",
+        "to_position": "Pub. 151 p. 94",
+        "routing": "direct",
+        "published_nm": 4390,
+        "parts": [
+          {
+            "entry": "PORT HARCOURT, NIGERIA",
+            "line": "Ile d'Ouessant, France",
+            "nm": 3974,
+            "page": 84
+          },
+          {
+            "entry": "ROTTERDAM, NETHERLANDS",
+            "line": "Ile d'Ouessant, France",
+            "nm": 444,
+            "page": 94
+          }
+        ],
+        "adjustment_nm": -28,
+        "composite": true,
+        "searoute_nm": 4466.5,
+        "error": 0.017426,
+        "within_tolerance": true,
+        "note": "Port Harcourt's route less 28 miles, the rule Pub. 151 prints for Bonny on p. 15 (TD20)"
+      },
+      {
+        "id": "jubail_rotterdam_suez",
+        "from": "Al Jubayl",
+        "to": "Rotterdam",
+        "from_position": "Pub. 151 p. 2",
+        "to_position": "Pub. 151 p. 94",
+        "routing": "direct",
+        "published_nm": 6469,
+        "parts": [
+          {
+            "entry": "AL JUBAYL, SAUDI ARABIA",
+            "line": "Port Said, Egypt",
+            "nm": 3164,
+            "page": 2
+          },
+          {
+            "entry": "PORT SAID, EGYPT",
+            "line": "Strait of Gibraltar",
+            "nm": 1943,
+            "page": 85
+          },
+          {
+            "entry": "STRAIT OF GIBRALTAR",
+            "line": "Ile d'Ouessant, France",
+            "nm": 918,
+            "page": 108
+          },
+          {
+            "entry": "ROTTERDAM, NETHERLANDS",
+            "line": "Ile d'Ouessant, France",
+            "nm": 444,
+            "page": 94
+          }
+        ],
+        "adjustment_nm": 0,
+        "composite": true,
+        "searoute_nm": 6543.1,
+        "error": 0.011455,
+        "within_tolerance": true,
+        "note": "through Port Said, Gibraltar and Ushant, the TC20 route by Suez"
+      },
+      {
+        "id": "jubail_rotterdam_cape",
+        "from": "Al Jubayl",
+        "to": "Rotterdam",
+        "from_position": "Pub. 151 p. 2",
+        "to_position": "Pub. 151 p. 94",
+        "routing": "no_suez",
+        "published_nm": 11299,
+        "parts": [
+          {
+            "entry": "AL JUBAYL, SAUDI ARABIA",
+            "line": "Cape of Good Hope, South Africa",
+            "nm": 5109,
+            "page": 2
+          },
+          {
+            "entry": "CAPE OF GOOD HOPE, SOUTH AFRICA",
+            "line": "Ile d'Ouessant, France",
+            "nm": 5746,
+            "page": 21
+          },
+          {
+            "entry": "ROTTERDAM, NETHERLANDS",
+            "line": "Ile d'Ouessant, France",
+            "nm": 444,
+            "page": 94
+          }
+        ],
+        "adjustment_nm": 0,
+        "composite": true,
+        "searoute_nm": 11326.2,
+        "error": 0.002407,
+        "within_tolerance": true,
+        "note": "through the Cape of Good Hope and Ushant, the TC20 route round the Cape"
+      }
+    ]
+  },
+  "baltic_map_url": "https://nathancouturier.github.io/baltic-freight-routes/",
+  "gmb": {
+    "version": "8.8",
+    "date": "September 2026",
+    "url": "https://www.balticexchange.com/content/dam/balticexchange/consumer/documents/data-services/documentation/ocean-bulk-guides-policies/GMB.pdf"
+  },
+  "page": {
+    "title": "The route library",
+    "takeaway": [
+      "At August 2026 prices bunkers are all of the sourced voyage costs on ",
+      {
+        "value": 7,
+        "format": "count",
+        "field": "bunkers_only.count"
+      },
+      " of the ",
+      {
+        "value": 12,
+        "format": "count",
+        "field": "rows.count"
+      },
+      " routes; on the ",
+      {
+        "value": 5,
+        "format": "count",
+        "field": "with_ets.count"
+      },
+      " that touch the EEA, EU allowances add ",
+      {
+        "value": 12.564212,
+        "format": "percent",
+        "field": "ets_share.min"
+      },
+      " to ",
+      {
+        "value": 17.387277,
+        "format": "percent",
+        "field": "ets_share.max",
+        "suffix": " percent"
+      },
+      ". A Hormuz war risk premium at the latest dated rate, ",
+      {
+        "value": 7.5,
+        "format": "percent",
+        "field": "hormuz.premium_pct",
+        "suffix": " percent"
+      },
+      " of hull value, would cost TD3C ",
+      {
+        "value": 6.480475,
+        "format": "exponent",
+        "field": "hormuz.war_risk_to_bunkers"
+      },
+      " times its fuel bill."
+    ],
+    "baltic_map": {
+      "before": "Each route is defined by the Baltic Exchange (Guide to Market Benchmarks v8.8, September 2026) and drawn on ",
+      "link": "the Baltic routes map",
+      "after": "."
+    },
+    "chart": {
+      "title": [
+        "Voyage costs run from ",
+        {
+          "value": 17054.853212,
+          "format": "usd_day",
+          "field": "per_day_usd.min",
+          "prefix": "USD "
+        },
+        " a day on P7 to ",
+        {
+          "value": 38653.569229,
+          "format": "usd_day",
+          "field": "per_day_usd.max",
+          "prefix": "USD "
+        },
+        " on TD3C; outside Europe they are bunkers alone."
+      ],
+      "axis": "Voyage costs, USD a day of the round voyage",
+      "desc": "One bar a route, grouped by segment, split into bunkers and EU allowances; port charges and canal tolls have no public figure and are left out of every bar.",
+      "source": [
+        "Engine output at the common market, August 2026: Ship & Bunker monthly and quarterly averages at the hub nearest each load port, EU allowances at EUR ",
+        {
+          "value": 82.31,
+          "format": "eur_t",
+          "field": "eua_eur_t"
+        },
+        " and ",
+        {
+          "value": 1.159362,
+          "format": "usd_per_eur",
+          "field": "usd_per_eur"
+        },
+        " dollars per euro. Ships, speeds and port days: Baltic Exchange Guide to Market Benchmarks v8.8."
+      ],
+      "legend": [
+        {
+          "family": "bunkers",
+          "text": "Bunkers"
+        },
+        {
+          "family": "ets",
+          "text": "EU ETS allowances"
+        }
+      ]
+    },
+    "table_caption": "Every route: the Baltic's ship and cargo, distances by routing, the share of the miles inside emission control areas, port days and voyage costs at August 2026 prices.",
+    "hormuz": {
+      "title": "The Gulf loadings with the Hormuz premium",
+      "caption": "Each Gulf loading at the common market with one transit period of the latest dated Hormuz premium, on its hull value; the LR1 of TC5 has no dated public hull value.",
+      "lead": [
+        "At ",
+        {
+          "value": 7.5,
+          "format": "percent",
+          "field": "hormuz.premium_pct",
+          "suffix": " percent"
+        },
+        " of hull value for one transit period (Marsh, 22 July 2026), the war risk premium becomes most of the voyage costs of every Gulf loading with a dated hull value."
+      ]
+    },
+    "segments": {
+      "dry": "Dry bulk",
+      "dirty": "Dirty tankers",
+      "clean": "Clean tankers"
+    },
+    "sections": [
+      {
+        "id": "method",
+        "name": "Method",
+        "summary": [
+          "How distances, miles inside ECAs, bunker hubs and the common market are set."
+        ]
+      },
+      {
+        "id": "assumptions",
+        "name": "Assumptions",
+        "summary": [
+          "What each route's TCE leaves out, and how laytime becomes port days."
+        ]
+      },
+      {
+        "id": "data",
+        "name": "Data",
+        "summary": [
+          "Distances against NGA Pub. 151, and the downloads."
+        ]
+      }
+    ],
+    "method": [
+      "Distances are searoute 1.6.0 over Eurostat's SeaRoute network, the line the map draws. Each route has a routing for each leg (the shortest with the canals open, or Suez, Panama or both avoided) and the table lists every routing that changes the distance. The laden leg runs from the load port to the discharge port; the ballast leg back from the discharge port, the Baltic's TCE delivery point.",
+      "Miles inside emission control areas are measured on the same line against polygons built from MARPOL Annex VI Appendix VII and the area regulations, with the Mediterranean ECA from 1 May 2025 and the Canadian Arctic and Norwegian Sea ECAs from 1 March 2027. Inside them a ship without a scrubber burns MGO at 0.10 percent sulphur; outside, VLSFO at 0.50 percent.",
+      "Bunkers are priced at the hub nearest the load port among the four with public prices for every grade (Singapore, Fujairah, Rotterdam, Houston), the Baltic's rule for its tanker TCEs applied to every route. The common market is the latest month with dated public bunker prices and an EU allowance price: August 2026."
+    ],
+    "assumptions": [
+      "Port charges have no public per call figure for any study port (the Baltic uses Cory Brothers' estimates, which are not published), so every TCE leaves them out and reads high by their amount.",
+      "Canal tolls depend on each ship's own canal tonnage, which is not published for the Baltic's standard ships; a routing through a canal leaves its toll out and says so.",
+      "Dry laytime becomes calendar days by the route's terms: Saturdays and Sundays excepted terms count five working days in seven, Sundays and holidays included terms count every day, and the turn time is added. Capesize loading on the port's scale has no published rate and is left out."
+    ],
+    "pub151": {
+      "published_head": "Pub. 151",
+      "within_head": "Within 2 percent",
+      "caption": "Searoute distances against NGA Pub. 151, Distances Between Ports (11th edition, 2001), for the port pairs the routes use; a composite figure adds Pub. 151's legs through the junction point named.",
+      "summary": []
+    },
+    "downloads_words": "Downloads",
+    "downloads": [
+      {
+        "file": "data/downloads/cost_structure_2026_08.csv",
+        "text": "Voyage costs by route at the August 2026 market, CSV"
+      },
+      {
+        "file": "data/downloads/sea_routes.csv",
+        "text": "Every leg's distance and the passages it uses, CSV"
+      }
+    ]
+  }
+}

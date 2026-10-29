@@ -1,0 +1,196 @@
+{
+  "artifact": "manifest",
+  "schema_version": 1,
+  "conventions": {
+    "decimals": {
+      "usd_day": 0,
+      "usd": 0,
+      "usd_m": 2,
+      "usd_t": 2,
+      "usd_bbl": 2,
+      "ws": 2,
+      "days": 1,
+      "days_2": 2,
+      "nm": 0,
+      "knots": 1,
+      "knots_2": 2,
+      "t": 0,
+      "tpd": 1,
+      "percent": 1,
+      "percent_0": 0,
+      "percent_2": 2,
+      "eur_t": 2,
+      "usd_per_eur": 4,
+      "tco2": 0,
+      "share": 3,
+      "exponent": 2,
+      "count": 0,
+      "year": 0,
+      "error_percent": 1,
+      "g_mj": 2,
+      "tonne_miles_bn": 2,
+      "days_4": 4,
+      "t_2": 2,
+      "mj": 0,
+      "eur": 0
+    },
+    "scale": {
+      "percent": 100.0,
+      "million": 1000000.0
+    }
+  },
+  "caption": "Every source the study reads: the date of its latest figure, when it was retrieved, its publisher and its licence. Licensed documents are cited with their figures and never redistributed.",
+  "series": [
+    {
+      "id": "gmb",
+      "what": "Baltic Exchange route and vessel definitions, Guide to Market Benchmarks v8.8",
+      "as_of": "2026-09",
+      "source": {
+        "url": "https://www.balticexchange.com/content/dam/balticexchange/consumer/documents/data-services/documentation/ocean-bulk-guides-policies/GMB.pdf",
+        "retrieved": "2026-10-29",
+        "publisher": "Baltic Exchange Information Services Ltd"
+      },
+      "licence": "Baltic copyright, cited with pages"
+    },
+    {
+      "id": "ports",
+      "what": "Port positions, NGA World Port Index (Pub. 150)",
+      "as_of": "2026-10-29",
+      "source": {
+        "url": "https://msi.nga.mil/api/publications/world-port-index?output=json",
+        "retrieved": "2026-10-29",
+        "publisher": "National Geospatial-Intelligence Agency, Maritime Safety Information"
+      },
+      "licence": "US Government work, public domain"
+    },
+    {
+      "id": "distances",
+      "what": "Sea routes, searoute 1.6.0 over Eurostat SeaRoute, checked against NGA Pub. 151",
+      "as_of": "2026-10-29",
+      "source": {
+        "url": "https://github.com/genthalili/searoute-py",
+        "retrieved": "2026-10-29",
+        "publisher": "searoute (Apache 2.0), Eurostat SeaRoute (EUPL 1.2)"
+      },
+      "licence": "Apache 2.0 and EUPL 1.2"
+    },
+    {
+      "id": "eca",
+      "what": "Emission control areas, MARPOL Annex VI Appendix VII and the area regulations",
+      "as_of": "2026-10-29",
+      "source": {
+        "url": "https://wwwcdn.imo.org/localresources/en/KnowledgeCentre/IndexofIMOResolutions/MEPCDocuments/MEPC.328(76).pdf",
+        "retrieved": "2026-10-29",
+        "publisher": "International Maritime Organization"
+      },
+      "licence": "IMO documents, cited"
+    },
+    {
+      "id": "eua",
+      "what": "EU allowance price, monthly: European Commission auction reports, then DEHSt",
+      "as_of": "2026-08",
+      "source": {
+        "url": "https://raw.githubusercontent.com/nathancouturier/jkm-ttf-arbitrage/cf42430bab2d22dc3c885bd48bc30badfdabbdc2/data/cache/dehst_eua_german_auction_monthly.csv",
+        "retrieved": "2026-10-29",
+        "publisher": "DEHSt (German Emissions Trading Authority), as cached by jkm-ttf-arbitrage"
+      },
+      "licence": "CC BY 4.0 (Commission), CC BY-NC-ND 4.0 (DEHSt)"
+    },
+    {
+      "id": "fx",
+      "what": "US dollars per euro, Federal Reserve H.10",
+      "as_of": "2026-10-23",
+      "source": {
+        "url": "https://www.federalreserve.gov/releases/h10/data/FRB_h10_xml.zip",
+        "retrieved": "2026-10-29",
+        "publisher": "Board of Governors of the Federal Reserve System, H.10"
+      },
+      "licence": "US Government work, public domain"
+    },
+    {
+      "id": "bunkers",
+      "what": "Bunker prices: Ship & Bunker monthly and quarterly averages; Star Asia and Banchero Costa weekly tables",
+      "as_of": "2026-10-23",
+      "source": {
+        "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/10/Market-Report-Week-43.pdf",
+        "retrieved": "2026-10-29",
+        "publisher": "Hellenic Shipping News Worldwide (republishing the named author)"
+      },
+      "licence": "Copyright of the publishers; figures cited"
+    },
+    {
+      "id": "tanker_rates",
+      "what": "Tanker rates and TCEs, Baltic Exchange weekly reports via Hellenic Shipping News",
+      "as_of": "2026-10-23",
+      "source": {
+        "url": "https://www.hellenicshippingnews.com/vlcc-tanker-market-giving-up-past-gains/",
+        "retrieved": "2026-10-29",
+        "publisher": "Hellenic Shipping News Worldwide (republishing the named author)"
+      },
+      "licence": "Copyright; figures cited"
+    },
+    {
+      "id": "dry_rates",
+      "what": "Dry rates and time charter averages, Signal Group and Banchero Costa",
+      "as_of": "2026-10-23",
+      "source": {
+        "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/10/Bancosta-Weekly-2026-43.pdf",
+        "retrieved": "2026-10-29",
+        "publisher": "Hellenic Shipping News Worldwide (republishing the named author)"
+      },
+      "licence": "Copyright; figures cited"
+    },
+    {
+      "id": "ffa",
+      "what": "Dry FFA assessments, Banchero Costa",
+      "as_of": "2026-10-25",
+      "source": {
+        "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/10/Bancosta-Weekly-2026-43.pdf",
+        "retrieved": "2026-10-29",
+        "publisher": "Hellenic Shipping News Worldwide (republishing the named author)"
+      },
+      "licence": "Copyright; figures cited"
+    },
+    {
+      "id": "war_risk",
+      "what": "War risk premiums, Platts and Marsh via Hellenic Shipping News",
+      "as_of": "2026-07-22",
+      "source": {
+        "url": "https://www.hellenicshippingnews.com/middle-east-shipping-insurance-costs-rise-on-hormuz-risks-marsh/",
+        "retrieved": "2026-10-29",
+        "publisher": "Hellenic Shipping News Worldwide (republishing the named author)"
+      },
+      "licence": "Copyright; figures cited"
+    },
+    {
+      "id": "hull_values",
+      "what": "Hull values, Xclusiv Shipbrokers weekly",
+      "as_of": "2026-09-07",
+      "source": {
+        "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/09/xclusiv-2026_09_07.pdf",
+        "retrieved": "2026-10-29",
+        "publisher": "Hellenic Shipping News Worldwide (republishing the named author)"
+      },
+      "licence": "Copyright; figures cited"
+    },
+    {
+      "id": "canals",
+      "what": "Suez Canal Authority surcharges",
+      "as_of": "2026-07-15",
+      "source": {
+        "url": "https://www.suezcanal.gov.eg/SCAAPI/api/values/GetUpdatedCircularsAndArticles?circularSPID=485&lang=English&publishingDate=06%2F07%2F2026",
+        "retrieved": "2026-10-29",
+        "publisher": "Suez Canal Authority"
+      },
+      "licence": "Cited"
+    }
+  ],
+  "raw_files": 346,
+  "raw_committed": 4,
+  "footer": {
+    "sources": "Data: Baltic Exchange route definitions and weekly reports as republished, Ship & Bunker, Star Asia and Banchero Costa bunker and FFA tables, the European Commission and DEHSt auction reports, the Federal Reserve, NGA, Eurostat SeaRoute, the IMO and EUR-Lex, each cited where it is used.",
+    "updated_words": "Latest market input dated",
+    "latest_input": "2026-10-25",
+    "method_words": "Every source with its date and licence"
+  }
+}

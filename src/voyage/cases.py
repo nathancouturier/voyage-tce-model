@@ -36,6 +36,7 @@ from typing import Any
 from . import baltic, eca, geo, jsonio, sea_routes
 from .ports import BUNKER_HUBS
 from .sources import base
+from .words import date_label
 
 SEA_MARGIN = baltic.TANKER_SEA_MARGIN
 GRADES = ("vlsfo", "hsfo", "mgo")
@@ -159,7 +160,7 @@ def _eua(month: str) -> tuple[float, str]:
     if not available:
         raise ValueError("no EUA price on or before %s" % month)
     row = rows[available[-1]]
-    return float(row["eua_eur_t"]), "%s, %s monthly average (%s)" % (row["source"], available[-1], row["report"])
+    return float(row["eua_eur_t"]), "%s, monthly average for %s" % (row["source"], date_label(available[-1]))
 
 
 def _fx(month: str) -> tuple[float, str]:
@@ -169,7 +170,7 @@ def _fx(month: str) -> tuple[float, str]:
     months = sorted({d[:7] for d, v in days if v is not None and d[:7] <= month})
     chosen = months[-1]
     value, count = frb_h10.monthly_mean(chosen)
-    return value, "Federal Reserve H.10, mean of %d published days of %s" % (count, chosen)
+    return value, "Federal Reserve H.10, mean of the %d published days of %s" % (count, date_label(chosen))
 
 
 @cache
@@ -218,7 +219,10 @@ def weekly_market(date: str, hub: str | None = None, max_lag_days: int = 7) -> M
     if best is None:
         raise ValueError("no weekly bunker table within %d days before %s" % (max_lag_days, date))
     bunkers = {
-        h: {grade: (float(values[i]), "%s, %s" % (best["source"], best["date"])) for i, grade in enumerate(GRADES)}
+        h: {
+            grade: (float(values[i]), "%s, %s" % (best["source"], date_label(best["date"])))
+            for i, grade in enumerate(GRADES)
+        }
         for h, values in best["prices"].items()
     }
     month = date[:7]
@@ -594,15 +598,25 @@ def build(
     src(
         "laden.distance_nm",
         "derived",
-        "searoute %s over Eurostat SeaRoute, %s routing" % (sea_routes.SEAROUTE_VERSION, laden_routing),
+        "searoute %s over Eurostat SeaRoute, %s"
+        % (sea_routes.SEAROUTE_VERSION, sea_routes.ROUTING_LABELS[laden_routing]),
     )
     src(
         "ballast.distance_nm",
         "derived",
-        "searoute %s over Eurostat SeaRoute, %s routing" % (sea_routes.SEAROUTE_VERSION, ballast_routing),
+        "searoute %s over Eurostat SeaRoute, %s"
+        % (sea_routes.SEAROUTE_VERSION, sea_routes.ROUTING_LABELS[ballast_routing]),
     )
-    src("laden.eca_nm", "derived", "the laden line inside the ECA polygons in force on %s" % on_date)
-    src("ballast.eca_nm", "derived", "the ballast line inside the ECA polygons in force on %s" % on_date)
+    src(
+        "laden.eca_nm",
+        "derived",
+        "the laden line inside the emission control areas in force on %s" % date_label(on_date),
+    )
+    src(
+        "ballast.eca_nm",
+        "derived",
+        "the ballast line inside the emission control areas in force on %s" % date_label(on_date),
+    )
     for grade in GRADES:
         src("prices.%s_usd_t" % grade, "sourced", market.bunkers[hub][grade][1])
     src("vlsfo_class", "sourced", "IMO MEPC.391(81): VLSFO is an ISO 8217 residual grade (RME, RMG, RMK)")

@@ -1,0 +1,107 @@
+{
+  "artifact": "engine",
+  "schema_version": 1,
+  "conventions": {
+    "decimals": {
+      "usd_day": 0,
+      "usd": 0,
+      "usd_m": 2,
+      "usd_t": 2,
+      "usd_bbl": 2,
+      "ws": 2,
+      "days": 1,
+      "days_2": 2,
+      "nm": 0,
+      "knots": 1,
+      "knots_2": 2,
+      "t": 0,
+      "tpd": 1,
+      "percent": 1,
+      "percent_0": 0,
+      "percent_2": 2,
+      "eur_t": 2,
+      "usd_per_eur": 4,
+      "tco2": 0,
+      "share": 3,
+      "exponent": 2,
+      "count": 0,
+      "year": 0,
+      "error_percent": 1,
+      "g_mj": 2,
+      "tonne_miles_bn": 2,
+      "days_4": 4,
+      "t_2": 2,
+      "mj": 0,
+      "eur": 0
+    },
+    "scale": {
+      "percent": 100.0,
+      "million": 1000000.0
+    }
+  },
+  "constants": {
+    "HOURS_PER_DAY": 24.0,
+    "PERCENT": 100.0,
+    "CO2_FACTOR": {
+      "HFO": 3.114,
+      "LFO": 3.151,
+      "MGO": 3.206
+    },
+    "CH4_FACTOR": {
+      "HFO": 5e-05,
+      "LFO": 5e-05,
+      "MGO": 5e-05
+    },
+    "N2O_FACTOR": {
+      "HFO": 0.00018,
+      "LFO": 0.00018,
+      "MGO": 0.00018
+    },
+    "GWP_CH4": 28.0,
+    "GWP_N2O": 265.0,
+    "FUELEU_LCV_MJ_G": {
+      "HFO": 0.0405,
+      "LFO": 0.041,
+      "MGO": 0.0427
+    },
+    "FUELEU_WTT_G_MJ": {
+      "HFO": 13.5,
+      "LFO": 13.2,
+      "MGO": 14.4
+    },
+    "FUELEU_GWP_CH4": 25.0,
+    "FUELEU_GWP_N2O": 298.0,
+    "FUELEU_REFERENCE_G_MJ": 91.16,
+    "FUELEU_PENALTY_EUR_PER_T": 2400.0,
+    "FUELEU_MJ_PER_T_VLSFO": 41000.0,
+    "GRAMS_PER_TONNE": 1000000.0,
+    "SPEED_STEP_KN": 0.01,
+    "SHOCKS": [
+      [
+        "freight",
+        0.9,
+        1.1
+      ],
+      [
+        "bunkers",
+        0.9,
+        1.1
+      ],
+      [
+        "speed",
+        -1.0,
+        1.0
+      ],
+      [
+        "port_days",
+        -1.0,
+        1.0
+      ],
+      [
+        "eua",
+        0.8,
+        1.2
+      ]
+    ]
+  }
+}

@@ -24,4 +24,6 @@ def test_every_cited_key_is_in_the_manifest(name):
 
 
 def test_normalise_plains_dashes_and_spacing():
-    assert provenance.normalise("US Gulf–Qingdao  at  $76.29/mt ,") == "US Gulf-Qingdao at $76.29/mt,"
+    # The en dash is built from its code point: no file of this repository carries the character itself.
+    en_dash = chr(0x2013)
+    assert provenance.normalise("US Gulf" + en_dash + "Qingdao  at  $76.29/mt ,") == "US Gulf-Qingdao at $76.29/mt,"

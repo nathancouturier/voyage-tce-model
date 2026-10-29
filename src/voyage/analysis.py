@@ -274,12 +274,20 @@ def suez_tanker() -> dict[str, Any]:
     # The largest toll at which Suez still earns the Cape's TCE: the Suez result less the Cape TCE over Suez days.
     break_even_toll = suez["result_usd"] - cape["tce_usd_day"] * suez["days"]
     cargo = baltic.ROUTES["TC20"].cargo_t or 0.0
+    # The freight that keeps the Suez TCE once the Red Sea premium is paid.
+    war_needed = engine.freight_for_tce(suez_war, suez_plain["tce_usd_day"])["usd_t"]
     return {
         "route": "TC20",
         "as_of": report["week_ending"],
         "rate_usd": entry["rate_value"],
+        "cargo_t": cargo,
         "options": [_strip(o) for o in (suez_plain, suez, cape)],
         "cape_vs_suez": _stand_still(cape, suez, cargo),
+        "red_sea_war_risk": {
+            "cost_usd": suez["war_risk_usd"],
+            "freight_needed_usd_t": war_needed,
+            "extra_freight_usd_t": war_needed - entry["rate_value"] / cargo,
+        },
         "break_even_suez_toll_usd": break_even_toll,
         "war_risk": {"premium_pct": red_sea["low"], "periods": 2, "source_id": red_sea["id"]},
         "toll_reference": "Suez Canal Authority: about USD 500,000 for a ship carrying one million barrels of crude",

@@ -1,0 +1,211 @@
+/* tokens.css
+ *
+ * Four things, in this order, and nothing that draws.
+ *
+ *   1  The portfolio's custom properties: the :root and [data-theme="dark"]
+ *      blocks of nathancouturier.github.io/styles.css, verbatim, as the sibling
+ *      studies carry them (two comments inside the block lost a middle dot and
+ *      an em dash, which no file of this repository carries; they became commas).
+ *   2  The three @font-face blocks and the one --ff-body override.
+ *   3  The named chart roles, so no chart rule names a raw palette token.
+ *   4  This study's data palette: the legs, the fuel zones and the cost
+ *      families, light then dark, validated in docs/design.md Part 2.
+ *
+ * WHAT THE TOKENS MAY NOT BE USED FOR (contrast on --bg, light then dark):
+ *   --text-dim        nothing. 2.54 and 3.47, fails text in both themes.
+ *   --accent-deep     nothing. 2.14 on --bg in dark.
+ *   --accent          text in light only (7.96); in dark a mark only (3.79), and
+ *                     dark accent text is --accent-bright (5.15).
+ *   --border          marks no value is read from: gridlines, hairlines.
+ *   --border-strong   decorative marks only.
+ *   --bg-card, --bg-tint
+ *                     nothing. A tinted block is the rounded card's relative.
+ *   --bg-elev         the field background of a form input, nothing else.
+ *   --shadow-sm, --shadow, --shadow-lg, --grain-opacity
+ *                     nothing.
+ * tools/check-styles.mjs fails on any rule that reads a banned token.
+ * Paths are relative to this file: the site is served from /voyage-tce-model/.
+ */
+
+/* ------------------------------------------ 1. the portfolio, verbatim --- */
+
+:root {
+  /* light, "encre neutre", paper-led (default) */
+  --bg:           #FBFAF8;  /* papier      */
+  --bg-elev:      #FFFFFF;
+  --bg-card:      #F5F3ED;
+  --bg-tint:      rgba(142, 43, 43, 0.045);
+  --border:       #E5E2DB;  /* filet       */
+  --border-strong:#D3CFC4;
+  --text:         #17181C;  /* encre       */
+  --text-muted:   #6A6E76;  /* gris texte  */
+  --text-dim:     #9C9FA6;
+  --accent:       #8E2B2B;  /* brique      */
+  --accent-bright:#A4332E;
+  --accent-deep:  #6B2020;
+  --shadow-sm: 0 1px 2px rgba(23,24,28,0.05);
+  --shadow:    0 8px 24px rgba(23,24,28,0.08);
+  --shadow-lg: 0 24px 64px rgba(23,24,28,0.12);
+  --grain-opacity: 0.03;
+
+  /* type scale */
+  --fs-display-xl: clamp(3.25rem, 9vw, 8rem);
+  --fs-display-l:  clamp(2.25rem, 5.2vw, 4.25rem);
+  --fs-display-m:  clamp(1.75rem, 3vw, 2.5rem);
+  --fs-display-s:  clamp(1.375rem, 2vw, 1.75rem);
+  --fs-body-l:     clamp(1.0625rem, 1.15vw, 1.1875rem);
+  --fs-body:       1rem;
+  --fs-body-s:     0.9375rem;
+  --fs-meta:       0.8125rem;
+  --fs-caption:    0.75rem;
+
+  /* spacing */
+  --container: 1280px;
+  --gutter: clamp(1.25rem, 4vw, 2.75rem);
+  --section-y: clamp(4.5rem, 10vw, 8.5rem);
+
+  /* type families */
+  --ff-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --ff-body:    "Satoshi", system-ui, -apple-system, Helvetica, sans-serif;
+  --ff-mono:    "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* easings */
+  --ease-out:   cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out:cubic-bezier(0.65, 0, 0.35, 1);
+  --t-fast: 200ms;
+  --t-base: 380ms;
+  --t-slow: 700ms;
+}
+
+[data-theme="dark"] {
+  /* dark, ink ground, brique brightened for contrast */
+  --bg:           #17181C;  /* encre       */
+  --bg-elev:      #202126;
+  --bg-card:      #1E1F24;
+  --bg-tint:      rgba(192, 80, 74, 0.05);
+  --border:       #2B2C31;
+  --border-strong:#3C3D43;
+  --text:         #FBFAF8;  /* papier      */
+  --text-muted:   #A6A9B0;
+  --text-dim:     #6A6E76;  /* gris texte  */
+  --accent:       #C0504A;
+  --accent-bright:#D66A62;
+  --accent-deep:  #8E2B2B;  /* true brique */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.4);
+  --shadow:    0 8px 24px rgba(0,0,0,0.45);
+  --shadow-lg: 0 24px 64px rgba(0,0,0,0.55);
+  --grain-opacity: 0.05;
+}
+
+/* ------------------------------------------------------------ 2. faces --- */
+
+/* Fraunces, display. Its default instance is Black at optical size 9, so every
+ * rule that names this family sets font-weight, and font-variation-settings is
+ * never written. No tnum, no up or down arrow. vendor/README.md. */
+@font-face {
+  font-family: "Fraunces";
+  src: url("../vendor/fraunces/fraunces.v1.000.latin.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* JetBrains Mono, figures in table cells and tick values on axes only. */
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("../vendor/jetbrains-mono/jetbrains-mono.v2.211.latin.woff2") format("woff2");
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Figtree, every word on the page. Default instance Light 300 with
+ * proportional digits: body sets weight 400 and any element that can hold a
+ * figure sets tabular-nums. */
+@font-face {
+  font-family: "Figtree";
+  src: url("../vendor/figtree/figtree.v2.002.latin.woff2") format("woff2");
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* THE ONE OVERRIDE OF THE VERBATIM BLOCK. The portfolio's body face is
+   * Satoshi, whose licence forbids a copy in a public repository, and this site
+   * loads nothing from a font service. Figtree is the openly licensed stand in
+   * the sibling sites use. The fallback stack after it is the portfolio's. */
+  --ff-body: "Figtree", system-ui, -apple-system, Helvetica, sans-serif;
+}
+
+/* ------------------------------------------------------ 3. chart roles --- */
+
+/* A chart rule names a role, never a palette token, so a theme change needs no
+ * redraw and a restricted token cannot reach a mark by accident. */
+:root {
+  /* series: every line and bar that carries a value. 17.01 / 17.01. The
+   * laden leg and the physical TCE wear this ink. */
+  --role-series: var(--text);
+
+  /* context marks that carry data: zero lines, reference rules, leaders, the
+   * ballast leg, the published figure an anchor is checked against. 4.90 / 7.54. */
+  --role-context: var(--text-muted);
+
+  /* decorative marks, never read alone: gridlines. */
+  --role-grid: var(--border);
+
+  /* decorative marks, never read alone: waterfall connectors, rules under
+   * table headers. Never a mark a value is read from. */
+  --role-decor: var(--border-strong);
+
+  /* the one accent MARK on a chart: the TCE bar of the bridge, the best speed.
+   * 7.96 / 3.79, both above 3.0 for a mark. Where it touches ink it gets
+   * --role-ring. */
+  --role-mark-accent: var(--accent);
+
+  /* accent TEXT: --accent in light, --accent-bright in dark (below). */
+  --role-text-accent: var(--accent);
+
+  /* the ring around an accent mark and the halo behind a label. */
+  --role-ring: var(--bg);
+
+  /* a flat span fill. No text is ever set on it. */
+  --role-span-fill: color-mix(in srgb, var(--text) 6%, var(--bg));
+}
+
+[data-theme="dark"] {
+  --role-text-accent: var(--accent-bright);
+}
+
+/* ------------------------------------------------- 4. the data palette --- */
+
+/* docs/design.md Part 2. Marks only: text never wears these colours. Each
+ * value is at least 3:1 on its theme's --bg, and the sets pass the dataviz
+ * validator (OKLab separation under protanopia and deuteranopia, adjacent
+ * pairs, target 8; normal vision floor 15). */
+:root {
+  --data-laden: var(--text);
+  --data-ballast: var(--text-muted);
+  --data-vlsfo: #487ec1;   /* 4.00 */
+  --data-mgo: #00a278;     /* 3.13, the ECA zone and MGO */
+  --data-hsfo: #954000;    /* 6.69 */
+  --data-bunkers: #487ec1; /* 4.00 */
+  --data-ets: #006f2f;     /* 6.07 */
+  --data-war: #9c8600;     /* 3.46 */
+  --data-canals: #614fb6;  /* 6.10 */
+  --data-ports: #c765ac;   /* 3.42 */
+  --data-eca-wash: color-mix(in srgb, var(--data-mgo) 10%, var(--bg));
+  --data-land: color-mix(in srgb, var(--text) 7%, var(--bg));
+}
+
+[data-theme="dark"] {
+  --data-vlsfo: #5187cb;   /* 4.80 */
+  --data-mgo: #0fab81;     /* 6.05 */
+  --data-hsfo: #a24c00;    /* 3.02 */
+  --data-bunkers: #5187cb; /* 4.80 */
+  --data-ets: #137837;     /* 3.18 */
+  --data-war: #a58f00;     /* 5.51 */
+  --data-canals: #6958c0;  /* 3.17 */
+  --data-ports: #cc69b1;   /* 5.26 */
+  --data-land: color-mix(in srgb, var(--text) 9%, var(--bg));
+}

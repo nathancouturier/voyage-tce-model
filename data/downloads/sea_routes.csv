@@ -1,0 +1,1225 @@
+leg,from,to,routing,distance_nm,passes
+tubarao__port_hedland__direct,tubarao,port_hedland,direct,8474.200000,Cape of Good Hope
+tubarao__port_hedland__no_suez,tubarao,port_hedland,no_suez,8474.200000,Cape of Good Hope
+tubarao__port_hedland__no_panama,tubarao,port_hedland,no_panama,8474.200000,Cape of Good Hope
+tubarao__port_hedland__no_canals,tubarao,port_hedland,no_canals,8474.200000,Cape of Good Hope
+tubarao__qingdao__direct,tubarao,qingdao,direct,11136.900000,Sunda Strait; Cape of Good Hope
+tubarao__qingdao__no_suez,tubarao,qingdao,no_suez,11136.900000,Sunda Strait; Cape of Good Hope
+tubarao__qingdao__no_panama,tubarao,qingdao,no_panama,11136.900000,Sunda Strait; Cape of Good Hope
+tubarao__qingdao__no_canals,tubarao,qingdao,no_canals,11136.900000,Sunda Strait; Cape of Good Hope
+tubarao__new_orleans__direct,tubarao,new_orleans,direct,4863.200000,Florida Strait
+tubarao__new_orleans__no_suez,tubarao,new_orleans,no_suez,4863.200000,Florida Strait
+tubarao__new_orleans__no_panama,tubarao,new_orleans,no_panama,4863.200000,Florida Strait
+tubarao__new_orleans__no_canals,tubarao,new_orleans,no_canals,4863.200000,Florida Strait
+tubarao__ras_tanura__direct,tubarao,ras_tanura,direct,8278.200000,Strait of Hormuz; Cape of Good Hope
+tubarao__ras_tanura__no_suez,tubarao,ras_tanura,no_suez,8278.200000,Strait of Hormuz; Cape of Good Hope
+tubarao__ras_tanura__no_panama,tubarao,ras_tanura,no_panama,8278.200000,Strait of Hormuz; Cape of Good Hope
+tubarao__ras_tanura__no_canals,tubarao,ras_tanura,no_canals,8278.200000,Strait of Hormuz; Cape of Good Hope
+tubarao__mina_al_fahal__direct,tubarao,mina_al_fahal,direct,7737.900000,Cape of Good Hope
+tubarao__mina_al_fahal__no_suez,tubarao,mina_al_fahal,no_suez,7737.900000,Cape of Good Hope
+tubarao__mina_al_fahal__no_panama,tubarao,mina_al_fahal,no_panama,7737.900000,Cape of Good Hope
+tubarao__mina_al_fahal__no_canals,tubarao,mina_al_fahal,no_canals,7737.900000,Cape of Good Hope
+tubarao__fujairah__direct,tubarao,fujairah,direct,7886.100000,Cape of Good Hope
+tubarao__fujairah__no_suez,tubarao,fujairah,no_suez,7886.100000,Cape of Good Hope
+tubarao__fujairah__no_panama,tubarao,fujairah,no_panama,7886.100000,Cape of Good Hope
+tubarao__fujairah__no_canals,tubarao,fujairah,no_canals,7886.100000,Cape of Good Hope
+tubarao__jubail__direct,tubarao,jubail,direct,8290.100000,Strait of Hormuz; Cape of Good Hope
+tubarao__jubail__no_suez,tubarao,jubail,no_suez,8290.100000,Strait of Hormuz; Cape of Good Hope
+tubarao__jubail__no_panama,tubarao,jubail,no_panama,8290.100000,Strait of Hormuz; Cape of Good Hope
+tubarao__jubail__no_canals,tubarao,jubail,no_canals,8290.100000,Strait of Hormuz; Cape of Good Hope
+tubarao__ningbo__direct,tubarao,ningbo,direct,10758.600000,Sunda Strait; Cape of Good Hope
+tubarao__ningbo__no_suez,tubarao,ningbo,no_suez,10758.600000,Sunda Strait; Cape of Good Hope
+tubarao__ningbo__no_panama,tubarao,ningbo,no_panama,10758.600000,Sunda Strait; Cape of Good Hope
+tubarao__ningbo__no_canals,tubarao,ningbo,no_canals,10758.600000,Sunda Strait; Cape of Good Hope
+tubarao__yokohama__direct,tubarao,yokohama,direct,11572.100000,Sunda Strait; Cape of Good Hope
+tubarao__yokohama__no_suez,tubarao,yokohama,no_suez,11572.100000,Sunda Strait; Cape of Good Hope
+tubarao__yokohama__no_panama,tubarao,yokohama,no_panama,11572.100000,Sunda Strait; Cape of Good Hope
+tubarao__yokohama__no_canals,tubarao,yokohama,no_canals,11572.100000,Sunda Strait; Cape of Good Hope
+tubarao__galveston__direct,tubarao,galveston,direct,5044.800000,Florida Strait
+tubarao__galveston__no_suez,tubarao,galveston,no_suez,5044.800000,Florida Strait
+tubarao__galveston__no_panama,tubarao,galveston,no_panama,5044.800000,Florida Strait
+tubarao__galveston__no_canals,tubarao,galveston,no_canals,5044.800000,Florida Strait
+tubarao__houston__direct,tubarao,houston,direct,5078.300000,Florida Strait
+tubarao__houston__no_suez,tubarao,houston,no_suez,5078.300000,Florida Strait
+tubarao__houston__no_panama,tubarao,houston,no_panama,5078.300000,Florida Strait
+tubarao__houston__no_canals,tubarao,houston,no_canals,5078.300000,Florida Strait
+tubarao__new_york__direct,tubarao,new_york,direct,4492.800000,
+tubarao__new_york__no_suez,tubarao,new_york,no_suez,4492.800000,
+tubarao__new_york__no_panama,tubarao,new_york,no_panama,4492.800000,
+tubarao__new_york__no_canals,tubarao,new_york,no_canals,4492.800000,
+tubarao__rotterdam__direct,tubarao,rotterdam,direct,4955.000000,Dover Strait
+tubarao__rotterdam__no_suez,tubarao,rotterdam,no_suez,4955.000000,Dover Strait
+tubarao__rotterdam__no_panama,tubarao,rotterdam,no_panama,4955.000000,Dover Strait
+tubarao__rotterdam__no_canals,tubarao,rotterdam,no_canals,4955.000000,Dover Strait
+tubarao__amsterdam__direct,tubarao,amsterdam,direct,5054.100000,Dover Strait
+tubarao__amsterdam__no_suez,tubarao,amsterdam,no_suez,5054.100000,Dover Strait
+tubarao__amsterdam__no_panama,tubarao,amsterdam,no_panama,5054.100000,Dover Strait
+tubarao__amsterdam__no_canals,tubarao,amsterdam,no_canals,5054.100000,Dover Strait
+tubarao__le_havre__direct,tubarao,le_havre,direct,4756.800000,
+tubarao__le_havre__no_suez,tubarao,le_havre,no_suez,4756.800000,
+tubarao__le_havre__no_panama,tubarao,le_havre,no_panama,4756.800000,
+tubarao__le_havre__no_canals,tubarao,le_havre,no_canals,4756.800000,
+tubarao__bonny__direct,tubarao,bonny,direct,3295.700000,
+tubarao__bonny__no_suez,tubarao,bonny,no_suez,3295.700000,
+tubarao__bonny__no_panama,tubarao,bonny,no_panama,3295.700000,
+tubarao__bonny__no_canals,tubarao,bonny,no_canals,3295.700000,
+tubarao__singapore__direct,tubarao,singapore,direct,8833.000000,Sunda Strait; Cape of Good Hope
+tubarao__singapore__no_suez,tubarao,singapore,no_suez,8833.000000,Sunda Strait; Cape of Good Hope
+tubarao__singapore__no_panama,tubarao,singapore,no_panama,8833.000000,Sunda Strait; Cape of Good Hope
+tubarao__singapore__no_canals,tubarao,singapore,no_canals,8833.000000,Sunda Strait; Cape of Good Hope
+port_hedland__tubarao__direct,port_hedland,tubarao,direct,8474.200000,Cape of Good Hope
+port_hedland__tubarao__no_suez,port_hedland,tubarao,no_suez,8474.200000,Cape of Good Hope
+port_hedland__tubarao__no_panama,port_hedland,tubarao,no_panama,8474.200000,Cape of Good Hope
+port_hedland__tubarao__no_canals,port_hedland,tubarao,no_canals,8474.200000,Cape of Good Hope
+port_hedland__qingdao__direct,port_hedland,qingdao,direct,3530.700000,Lombok Strait
+port_hedland__qingdao__no_suez,port_hedland,qingdao,no_suez,3530.700000,Lombok Strait
+port_hedland__qingdao__no_panama,port_hedland,qingdao,no_panama,3530.700000,Lombok Strait
+port_hedland__qingdao__no_canals,port_hedland,qingdao,no_canals,3530.700000,Lombok Strait
+port_hedland__new_orleans__direct,port_hedland,new_orleans,direct,11467.800000,Panama Canal; Yucatan Channel
+port_hedland__new_orleans__no_suez,port_hedland,new_orleans,no_suez,11467.800000,Panama Canal; Yucatan Channel
+port_hedland__new_orleans__no_panama,port_hedland,new_orleans,no_panama,12588.000000,Cape of Good Hope; Florida Strait
+port_hedland__new_orleans__no_canals,port_hedland,new_orleans,no_canals,12588.000000,Cape of Good Hope; Florida Strait
+port_hedland__ras_tanura__direct,port_hedland,ras_tanura,direct,5206.100000,Strait of Hormuz
+port_hedland__ras_tanura__no_suez,port_hedland,ras_tanura,no_suez,5206.100000,Strait of Hormuz
+port_hedland__ras_tanura__no_panama,port_hedland,ras_tanura,no_panama,5206.100000,Strait of Hormuz
+port_hedland__ras_tanura__no_canals,port_hedland,ras_tanura,no_canals,5206.100000,Strait of Hormuz
+port_hedland__mina_al_fahal__direct,port_hedland,mina_al_fahal,direct,4665.800000,
+port_hedland__mina_al_fahal__no_suez,port_hedland,mina_al_fahal,no_suez,4665.800000,
+port_hedland__mina_al_fahal__no_panama,port_hedland,mina_al_fahal,no_panama,4665.800000,
+port_hedland__mina_al_fahal__no_canals,port_hedland,mina_al_fahal,no_canals,4665.800000,
+port_hedland__fujairah__direct,port_hedland,fujairah,direct,4814.000000,
+port_hedland__fujairah__no_suez,port_hedland,fujairah,no_suez,4814.000000,
+port_hedland__fujairah__no_panama,port_hedland,fujairah,no_panama,4814.000000,
+port_hedland__fujairah__no_canals,port_hedland,fujairah,no_canals,4814.000000,
+port_hedland__jubail__direct,port_hedland,jubail,direct,5218.000000,Strait of Hormuz
+port_hedland__jubail__no_suez,port_hedland,jubail,no_suez,5218.000000,Strait of Hormuz
+port_hedland__jubail__no_panama,port_hedland,jubail,no_panama,5218.000000,Strait of Hormuz
+port_hedland__jubail__no_canals,port_hedland,jubail,no_canals,5218.000000,Strait of Hormuz
+port_hedland__ningbo__direct,port_hedland,ningbo,direct,3152.400000,Lombok Strait
+port_hedland__ningbo__no_suez,port_hedland,ningbo,no_suez,3152.400000,Lombok Strait
+port_hedland__ningbo__no_panama,port_hedland,ningbo,no_panama,3152.400000,Lombok Strait
+port_hedland__ningbo__no_canals,port_hedland,ningbo,no_canals,3152.400000,Lombok Strait
+port_hedland__yokohama__direct,port_hedland,yokohama,direct,3748.600000,
+port_hedland__yokohama__no_suez,port_hedland,yokohama,no_suez,3748.600000,
+port_hedland__yokohama__no_panama,port_hedland,yokohama,no_panama,3748.600000,
+port_hedland__yokohama__no_canals,port_hedland,yokohama,no_canals,3748.600000,
+port_hedland__galveston__direct,port_hedland,galveston,direct,11568.400000,Panama Canal; Yucatan Channel
+port_hedland__galveston__no_suez,port_hedland,galveston,no_suez,11568.400000,Panama Canal; Yucatan Channel
+port_hedland__galveston__no_panama,port_hedland,galveston,no_panama,12769.600000,Cape of Good Hope; Florida Strait
+port_hedland__galveston__no_canals,port_hedland,galveston,no_canals,12769.600000,Cape of Good Hope; Florida Strait
+port_hedland__houston__direct,port_hedland,houston,direct,11601.900000,Panama Canal; Yucatan Channel
+port_hedland__houston__no_suez,port_hedland,houston,no_suez,11601.900000,Panama Canal; Yucatan Channel
+port_hedland__houston__no_panama,port_hedland,houston,no_panama,12803.200000,Cape of Good Hope; Florida Strait
+port_hedland__houston__no_canals,port_hedland,houston,no_canals,12803.200000,Cape of Good Hope; Florida Strait
+port_hedland__new_york__direct,port_hedland,new_york,direct,11579.300000,Bab el Mandeb; Suez Canal; Strait of Gibraltar
+port_hedland__new_york__no_suez,port_hedland,new_york,no_suez,12074.000000,Panama Canal
+port_hedland__new_york__no_panama,port_hedland,new_york,no_panama,11579.300000,Bab el Mandeb; Suez Canal; Strait of Gibraltar
+port_hedland__new_york__no_canals,port_hedland,new_york,no_canals,12126.500000,Cape of Good Hope
+port_hedland__rotterdam__direct,port_hedland,rotterdam,direct,9775.800000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+port_hedland__rotterdam__no_suez,port_hedland,rotterdam,no_suez,11510.200000,Dover Strait; Cape of Good Hope
+port_hedland__rotterdam__no_panama,port_hedland,rotterdam,no_panama,9775.800000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+port_hedland__rotterdam__no_canals,port_hedland,rotterdam,no_canals,11510.200000,Dover Strait; Cape of Good Hope
+port_hedland__amsterdam__direct,port_hedland,amsterdam,direct,9874.900000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+port_hedland__amsterdam__no_suez,port_hedland,amsterdam,no_suez,11609.300000,Dover Strait; Cape of Good Hope
+port_hedland__amsterdam__no_panama,port_hedland,amsterdam,no_panama,9874.900000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+port_hedland__amsterdam__no_canals,port_hedland,amsterdam,no_canals,11609.300000,Dover Strait; Cape of Good Hope
+port_hedland__le_havre__direct,port_hedland,le_havre,direct,9577.600000,Bab el Mandeb; Suez Canal; Strait of Gibraltar
+port_hedland__le_havre__no_suez,port_hedland,le_havre,no_suez,11312.100000,Cape of Good Hope
+port_hedland__le_havre__no_panama,port_hedland,le_havre,no_panama,9577.600000,Bab el Mandeb; Suez Canal; Strait of Gibraltar
+port_hedland__le_havre__no_canals,port_hedland,le_havre,no_canals,11312.100000,Cape of Good Hope
+port_hedland__bonny__direct,port_hedland,bonny,direct,7823.200000,Cape of Good Hope
+port_hedland__bonny__no_suez,port_hedland,bonny,no_suez,7823.200000,Cape of Good Hope
+port_hedland__bonny__no_panama,port_hedland,bonny,no_panama,7823.200000,Cape of Good Hope
+port_hedland__bonny__no_canals,port_hedland,bonny,no_canals,7823.200000,Cape of Good Hope
+port_hedland__singapore__direct,port_hedland,singapore,direct,1687.700000,Lombok Strait
+port_hedland__singapore__no_suez,port_hedland,singapore,no_suez,1687.700000,Lombok Strait
+port_hedland__singapore__no_panama,port_hedland,singapore,no_panama,1687.700000,Lombok Strait
+port_hedland__singapore__no_canals,port_hedland,singapore,no_canals,1687.700000,Lombok Strait
+qingdao__tubarao__direct,qingdao,tubarao,direct,11136.900000,Sunda Strait; Cape of Good Hope
+qingdao__tubarao__no_suez,qingdao,tubarao,no_suez,11136.900000,Sunda Strait; Cape of Good Hope
+qingdao__tubarao__no_panama,qingdao,tubarao,no_panama,11136.900000,Sunda Strait; Cape of Good Hope
+qingdao__tubarao__no_canals,qingdao,tubarao,no_canals,11136.900000,Sunda Strait; Cape of Good Hope
+qingdao__port_hedland__direct,qingdao,port_hedland,direct,3530.700000,Lombok Strait
+qingdao__port_hedland__no_suez,qingdao,port_hedland,no_suez,3530.700000,Lombok Strait
+qingdao__port_hedland__no_panama,qingdao,port_hedland,no_panama,3530.700000,Lombok Strait
+qingdao__port_hedland__no_canals,qingdao,port_hedland,no_canals,3530.700000,Lombok Strait
+qingdao__new_orleans__direct,qingdao,new_orleans,direct,10084.000000,Panama Canal; Yucatan Channel
+qingdao__new_orleans__no_suez,qingdao,new_orleans,no_suez,10084.000000,Panama Canal; Yucatan Channel
+qingdao__new_orleans__no_panama,qingdao,new_orleans,no_panama,14017.700000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca; Florida Strait
+qingdao__new_orleans__no_canals,qingdao,new_orleans,no_canals,15250.700000,Sunda Strait; Cape of Good Hope; Florida Strait
+qingdao__ras_tanura__direct,qingdao,ras_tanura,direct,6227.000000,Strait of Hormuz; Strait of Malacca
+qingdao__ras_tanura__no_suez,qingdao,ras_tanura,no_suez,6227.000000,Strait of Hormuz; Strait of Malacca
+qingdao__ras_tanura__no_panama,qingdao,ras_tanura,no_panama,6227.000000,Strait of Hormuz; Strait of Malacca
+qingdao__ras_tanura__no_canals,qingdao,ras_tanura,no_canals,6227.000000,Strait of Hormuz; Strait of Malacca
+qingdao__mina_al_fahal__direct,qingdao,mina_al_fahal,direct,5686.800000,Strait of Malacca
+qingdao__mina_al_fahal__no_suez,qingdao,mina_al_fahal,no_suez,5686.800000,Strait of Malacca
+qingdao__mina_al_fahal__no_panama,qingdao,mina_al_fahal,no_panama,5686.800000,Strait of Malacca
+qingdao__mina_al_fahal__no_canals,qingdao,mina_al_fahal,no_canals,5686.800000,Strait of Malacca
+qingdao__fujairah__direct,qingdao,fujairah,direct,5834.900000,Strait of Malacca
+qingdao__fujairah__no_suez,qingdao,fujairah,no_suez,5834.900000,Strait of Malacca
+qingdao__fujairah__no_panama,qingdao,fujairah,no_panama,5834.900000,Strait of Malacca
+qingdao__fujairah__no_canals,qingdao,fujairah,no_canals,5834.900000,Strait of Malacca
+qingdao__jubail__direct,qingdao,jubail,direct,6239.000000,Strait of Hormuz; Strait of Malacca
+qingdao__jubail__no_suez,qingdao,jubail,no_suez,6239.000000,Strait of Hormuz; Strait of Malacca
+qingdao__jubail__no_panama,qingdao,jubail,no_panama,6239.000000,Strait of Hormuz; Strait of Malacca
+qingdao__jubail__no_canals,qingdao,jubail,no_canals,6239.000000,Strait of Hormuz; Strait of Malacca
+qingdao__ningbo__direct,qingdao,ningbo,direct,462.800000,
+qingdao__ningbo__no_suez,qingdao,ningbo,no_suez,462.800000,
+qingdao__ningbo__no_panama,qingdao,ningbo,no_panama,462.800000,
+qingdao__ningbo__no_canals,qingdao,ningbo,no_canals,462.800000,
+qingdao__yokohama__direct,qingdao,yokohama,direct,1101.400000,
+qingdao__yokohama__no_suez,qingdao,yokohama,no_suez,1101.400000,
+qingdao__yokohama__no_panama,qingdao,yokohama,no_panama,1101.400000,
+qingdao__yokohama__no_canals,qingdao,yokohama,no_canals,1101.400000,
+qingdao__galveston__direct,qingdao,galveston,direct,10184.600000,Panama Canal; Yucatan Channel
+qingdao__galveston__no_suez,qingdao,galveston,no_suez,10184.600000,Panama Canal; Yucatan Channel
+qingdao__galveston__no_panama,qingdao,galveston,no_panama,14204.000000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca; Florida Strait
+qingdao__galveston__no_canals,qingdao,galveston,no_canals,15432.300000,Sunda Strait; Cape of Good Hope; Florida Strait
+qingdao__houston__direct,qingdao,houston,direct,10218.200000,Panama Canal; Yucatan Channel
+qingdao__houston__no_suez,qingdao,houston,no_suez,10218.200000,Panama Canal; Yucatan Channel
+qingdao__houston__no_panama,qingdao,houston,no_panama,14237.600000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca; Florida Strait
+qingdao__houston__no_canals,qingdao,houston,no_canals,15465.900000,Sunda Strait; Cape of Good Hope; Florida Strait
+qingdao__new_york__direct,qingdao,new_york,direct,10690.200000,Panama Canal
+qingdao__new_york__no_suez,qingdao,new_york,no_suez,10690.200000,Panama Canal
+qingdao__new_york__no_panama,qingdao,new_york,no_panama,12656.500000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca
+qingdao__new_york__no_canals,qingdao,new_york,no_canals,14789.100000,Sunda Strait; Cape of Good Hope
+qingdao__rotterdam__direct,qingdao,rotterdam,direct,10853.000000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait; Strait of Malacca
+qingdao__rotterdam__no_suez,qingdao,rotterdam,no_suez,13520.300000,Dover Strait; Panama Canal
+qingdao__rotterdam__no_panama,qingdao,rotterdam,no_panama,10853.000000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait; Strait of Malacca
+qingdao__rotterdam__no_canals,qingdao,rotterdam,no_canals,14172.900000,Dover Strait; Sunda Strait; Cape of Good Hope
+qingdao__amsterdam__direct,qingdao,amsterdam,direct,10952.100000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait; Strait of Malacca
+qingdao__amsterdam__no_suez,qingdao,amsterdam,no_suez,13619.300000,Dover Strait; Panama Canal
+qingdao__amsterdam__no_panama,qingdao,amsterdam,no_panama,10952.100000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait; Strait of Malacca
+qingdao__amsterdam__no_canals,qingdao,amsterdam,no_canals,14272.000000,Dover Strait; Sunda Strait; Cape of Good Hope
+qingdao__le_havre__direct,qingdao,le_havre,direct,10654.800000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca
+qingdao__le_havre__no_suez,qingdao,le_havre,no_suez,13326.900000,Panama Canal
+qingdao__le_havre__no_panama,qingdao,le_havre,no_panama,10654.800000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca
+qingdao__le_havre__no_canals,qingdao,le_havre,no_canals,13974.700000,Sunda Strait; Cape of Good Hope
+qingdao__bonny__direct,qingdao,bonny,direct,10485.900000,Sunda Strait; Cape of Good Hope
+qingdao__bonny__no_suez,qingdao,bonny,no_suez,10485.900000,Sunda Strait; Cape of Good Hope
+qingdao__bonny__no_panama,qingdao,bonny,no_panama,10485.900000,Sunda Strait; Cape of Good Hope
+qingdao__bonny__no_canals,qingdao,bonny,no_canals,10485.900000,Sunda Strait; Cape of Good Hope
+qingdao__singapore__direct,qingdao,singapore,direct,2477.900000,
+qingdao__singapore__no_suez,qingdao,singapore,no_suez,2477.900000,
+qingdao__singapore__no_panama,qingdao,singapore,no_panama,2477.900000,
+qingdao__singapore__no_canals,qingdao,singapore,no_canals,2477.900000,
+new_orleans__tubarao__direct,new_orleans,tubarao,direct,4863.200000,Florida Strait
+new_orleans__tubarao__no_suez,new_orleans,tubarao,no_suez,4863.200000,Florida Strait
+new_orleans__tubarao__no_panama,new_orleans,tubarao,no_panama,4863.200000,Florida Strait
+new_orleans__tubarao__no_canals,new_orleans,tubarao,no_canals,4863.200000,Florida Strait
+new_orleans__port_hedland__direct,new_orleans,port_hedland,direct,11467.800000,Panama Canal; Yucatan Channel
+new_orleans__port_hedland__no_suez,new_orleans,port_hedland,no_suez,11467.800000,Panama Canal; Yucatan Channel
+new_orleans__port_hedland__no_panama,new_orleans,port_hedland,no_panama,12588.000000,Cape of Good Hope; Florida Strait
+new_orleans__port_hedland__no_canals,new_orleans,port_hedland,no_canals,12588.000000,Cape of Good Hope; Florida Strait
+new_orleans__qingdao__direct,new_orleans,qingdao,direct,10084.000000,Panama Canal; Yucatan Channel
+new_orleans__qingdao__no_suez,new_orleans,qingdao,no_suez,10084.000000,Panama Canal; Yucatan Channel
+new_orleans__qingdao__no_panama,new_orleans,qingdao,no_panama,14017.700000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca; Florida Strait
+new_orleans__qingdao__no_canals,new_orleans,qingdao,no_canals,15250.700000,Sunda Strait; Cape of Good Hope; Florida Strait
+new_orleans__ras_tanura__direct,new_orleans,ras_tanura,direct,9695.900000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+new_orleans__ras_tanura__no_suez,new_orleans,ras_tanura,no_suez,12392.100000,Strait of Hormuz; Cape of Good Hope; Florida Strait
+new_orleans__ras_tanura__no_panama,new_orleans,ras_tanura,no_panama,9695.900000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+new_orleans__ras_tanura__no_canals,new_orleans,ras_tanura,no_canals,12392.100000,Strait of Hormuz; Cape of Good Hope; Florida Strait
+new_orleans__mina_al_fahal__direct,new_orleans,mina_al_fahal,direct,9155.600000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+new_orleans__mina_al_fahal__no_suez,new_orleans,mina_al_fahal,no_suez,11851.800000,Cape of Good Hope; Florida Strait
+new_orleans__mina_al_fahal__no_panama,new_orleans,mina_al_fahal,no_panama,9155.600000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+new_orleans__mina_al_fahal__no_canals,new_orleans,mina_al_fahal,no_canals,11851.800000,Cape of Good Hope; Florida Strait
+new_orleans__fujairah__direct,new_orleans,fujairah,direct,9303.800000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+new_orleans__fujairah__no_suez,new_orleans,fujairah,no_suez,12000.000000,Cape of Good Hope; Florida Strait
+new_orleans__fujairah__no_panama,new_orleans,fujairah,no_panama,9303.800000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+new_orleans__fujairah__no_canals,new_orleans,fujairah,no_canals,12000.000000,Cape of Good Hope; Florida Strait
+new_orleans__jubail__direct,new_orleans,jubail,direct,9707.800000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+new_orleans__jubail__no_suez,new_orleans,jubail,no_suez,12404.000000,Strait of Hormuz; Cape of Good Hope; Florida Strait
+new_orleans__jubail__no_panama,new_orleans,jubail,no_panama,9707.800000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+new_orleans__jubail__no_canals,new_orleans,jubail,no_canals,12404.000000,Strait of Hormuz; Cape of Good Hope; Florida Strait
+new_orleans__ningbo__direct,new_orleans,ningbo,direct,10124.800000,Panama Canal; Yucatan Channel
+new_orleans__ningbo__no_suez,new_orleans,ningbo,no_suez,10124.800000,Panama Canal; Yucatan Channel
+new_orleans__ningbo__no_panama,new_orleans,ningbo,no_panama,13639.400000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca; Florida Strait
+new_orleans__ningbo__no_canals,new_orleans,ningbo,no_canals,14872.400000,Sunda Strait; Cape of Good Hope; Florida Strait
+new_orleans__yokohama__direct,new_orleans,yokohama,direct,9228.100000,Panama Canal; Yucatan Channel
+new_orleans__yokohama__no_suez,new_orleans,yokohama,no_suez,9228.100000,Panama Canal; Yucatan Channel
+new_orleans__yokohama__no_panama,new_orleans,yokohama,no_panama,14480.700000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca; Florida Strait
+new_orleans__yokohama__no_canals,new_orleans,yokohama,no_canals,15686.000000,Sunda Strait; Cape of Good Hope; Florida Strait
+new_orleans__galveston__direct,new_orleans,galveston,direct,411.300000,
+new_orleans__galveston__no_suez,new_orleans,galveston,no_suez,411.300000,
+new_orleans__galveston__no_panama,new_orleans,galveston,no_panama,411.300000,
+new_orleans__galveston__no_canals,new_orleans,galveston,no_canals,411.300000,
+new_orleans__houston__direct,new_orleans,houston,direct,444.800000,
+new_orleans__houston__no_suez,new_orleans,houston,no_suez,444.800000,
+new_orleans__houston__no_panama,new_orleans,houston,no_panama,444.800000,
+new_orleans__houston__no_canals,new_orleans,houston,no_canals,444.800000,
+new_orleans__new_york__direct,new_orleans,new_york,direct,1701.000000,Florida Strait
+new_orleans__new_york__no_suez,new_orleans,new_york,no_suez,1701.000000,Florida Strait
+new_orleans__new_york__no_panama,new_orleans,new_york,no_panama,1701.000000,Florida Strait
+new_orleans__new_york__no_canals,new_orleans,new_york,no_canals,1701.000000,Florida Strait
+new_orleans__rotterdam__direct,new_orleans,rotterdam,direct,4842.500000,Dover Strait; Florida Strait
+new_orleans__rotterdam__no_suez,new_orleans,rotterdam,no_suez,4842.500000,Dover Strait; Florida Strait
+new_orleans__rotterdam__no_panama,new_orleans,rotterdam,no_panama,4842.500000,Dover Strait; Florida Strait
+new_orleans__rotterdam__no_canals,new_orleans,rotterdam,no_canals,4842.500000,Dover Strait; Florida Strait
+new_orleans__amsterdam__direct,new_orleans,amsterdam,direct,4941.600000,Dover Strait; Florida Strait
+new_orleans__amsterdam__no_suez,new_orleans,amsterdam,no_suez,4941.600000,Dover Strait; Florida Strait
+new_orleans__amsterdam__no_panama,new_orleans,amsterdam,no_panama,4941.600000,Dover Strait; Florida Strait
+new_orleans__amsterdam__no_canals,new_orleans,amsterdam,no_canals,4941.600000,Dover Strait; Florida Strait
+new_orleans__le_havre__direct,new_orleans,le_havre,direct,4649.100000,Florida Strait
+new_orleans__le_havre__no_suez,new_orleans,le_havre,no_suez,4649.100000,Florida Strait
+new_orleans__le_havre__no_panama,new_orleans,le_havre,no_panama,4649.100000,Florida Strait
+new_orleans__le_havre__no_canals,new_orleans,le_havre,no_canals,4649.100000,Florida Strait
+new_orleans__bonny__direct,new_orleans,bonny,direct,6118.100000,Florida Strait
+new_orleans__bonny__no_suez,new_orleans,bonny,no_suez,6118.100000,Florida Strait
+new_orleans__bonny__no_panama,new_orleans,bonny,no_panama,6118.100000,Florida Strait
+new_orleans__bonny__no_canals,new_orleans,bonny,no_canals,6118.100000,Florida Strait
+new_orleans__singapore__direct,new_orleans,singapore,direct,11545.600000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca; Florida Strait
+new_orleans__singapore__no_suez,new_orleans,singapore,no_suez,12087.600000,Panama Canal; Yucatan Channel
+new_orleans__singapore__no_panama,new_orleans,singapore,no_panama,11545.600000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca; Florida Strait
+new_orleans__singapore__no_canals,new_orleans,singapore,no_canals,12946.900000,Sunda Strait; Cape of Good Hope; Florida Strait
+ras_tanura__tubarao__direct,ras_tanura,tubarao,direct,8278.200000,Strait of Hormuz; Cape of Good Hope
+ras_tanura__tubarao__no_suez,ras_tanura,tubarao,no_suez,8278.200000,Strait of Hormuz; Cape of Good Hope
+ras_tanura__tubarao__no_panama,ras_tanura,tubarao,no_panama,8278.200000,Strait of Hormuz; Cape of Good Hope
+ras_tanura__tubarao__no_canals,ras_tanura,tubarao,no_canals,8278.200000,Strait of Hormuz; Cape of Good Hope
+ras_tanura__port_hedland__direct,ras_tanura,port_hedland,direct,5206.100000,Strait of Hormuz
+ras_tanura__port_hedland__no_suez,ras_tanura,port_hedland,no_suez,5206.100000,Strait of Hormuz
+ras_tanura__port_hedland__no_panama,ras_tanura,port_hedland,no_panama,5206.100000,Strait of Hormuz
+ras_tanura__port_hedland__no_canals,ras_tanura,port_hedland,no_canals,5206.100000,Strait of Hormuz
+ras_tanura__qingdao__direct,ras_tanura,qingdao,direct,6227.000000,Strait of Hormuz; Strait of Malacca
+ras_tanura__qingdao__no_suez,ras_tanura,qingdao,no_suez,6227.000000,Strait of Hormuz; Strait of Malacca
+ras_tanura__qingdao__no_panama,ras_tanura,qingdao,no_panama,6227.000000,Strait of Hormuz; Strait of Malacca
+ras_tanura__qingdao__no_canals,ras_tanura,qingdao,no_canals,6227.000000,Strait of Hormuz; Strait of Malacca
+ras_tanura__new_orleans__direct,ras_tanura,new_orleans,direct,9695.900000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+ras_tanura__new_orleans__no_suez,ras_tanura,new_orleans,no_suez,12392.100000,Strait of Hormuz; Cape of Good Hope; Florida Strait
+ras_tanura__new_orleans__no_panama,ras_tanura,new_orleans,no_panama,9695.900000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+ras_tanura__new_orleans__no_canals,ras_tanura,new_orleans,no_canals,12392.100000,Strait of Hormuz; Cape of Good Hope; Florida Strait
+ras_tanura__mina_al_fahal__direct,ras_tanura,mina_al_fahal,direct,605.600000,Strait of Hormuz
+ras_tanura__mina_al_fahal__no_suez,ras_tanura,mina_al_fahal,no_suez,605.600000,Strait of Hormuz
+ras_tanura__mina_al_fahal__no_panama,ras_tanura,mina_al_fahal,no_panama,605.600000,Strait of Hormuz
+ras_tanura__mina_al_fahal__no_canals,ras_tanura,mina_al_fahal,no_canals,605.600000,Strait of Hormuz
+ras_tanura__fujairah__direct,ras_tanura,fujairah,direct,479.300000,Strait of Hormuz
+ras_tanura__fujairah__no_suez,ras_tanura,fujairah,no_suez,479.300000,Strait of Hormuz
+ras_tanura__fujairah__no_panama,ras_tanura,fujairah,no_panama,479.300000,Strait of Hormuz
+ras_tanura__fujairah__no_canals,ras_tanura,fujairah,no_canals,479.300000,Strait of Hormuz
+ras_tanura__jubail__direct,ras_tanura,jubail,direct,42.300000,
+ras_tanura__jubail__no_suez,ras_tanura,jubail,no_suez,42.300000,
+ras_tanura__jubail__no_panama,ras_tanura,jubail,no_panama,42.300000,
+ras_tanura__jubail__no_canals,ras_tanura,jubail,no_canals,42.300000,
+ras_tanura__ningbo__direct,ras_tanura,ningbo,direct,5848.800000,Strait of Hormuz; Strait of Malacca
+ras_tanura__ningbo__no_suez,ras_tanura,ningbo,no_suez,5848.800000,Strait of Hormuz; Strait of Malacca
+ras_tanura__ningbo__no_panama,ras_tanura,ningbo,no_panama,5848.800000,Strait of Hormuz; Strait of Malacca
+ras_tanura__ningbo__no_canals,ras_tanura,ningbo,no_canals,5848.800000,Strait of Hormuz; Strait of Malacca
+ras_tanura__yokohama__direct,ras_tanura,yokohama,direct,6690.000000,Strait of Hormuz; Strait of Malacca
+ras_tanura__yokohama__no_suez,ras_tanura,yokohama,no_suez,6690.000000,Strait of Hormuz; Strait of Malacca
+ras_tanura__yokohama__no_panama,ras_tanura,yokohama,no_panama,6690.000000,Strait of Hormuz; Strait of Malacca
+ras_tanura__yokohama__no_canals,ras_tanura,yokohama,no_canals,6690.000000,Strait of Hormuz; Strait of Malacca
+ras_tanura__galveston__direct,ras_tanura,galveston,direct,9882.300000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+ras_tanura__galveston__no_suez,ras_tanura,galveston,no_suez,12573.700000,Strait of Hormuz; Cape of Good Hope; Florida Strait
+ras_tanura__galveston__no_panama,ras_tanura,galveston,no_panama,9882.300000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+ras_tanura__galveston__no_canals,ras_tanura,galveston,no_canals,12573.700000,Strait of Hormuz; Cape of Good Hope; Florida Strait
+ras_tanura__houston__direct,ras_tanura,houston,direct,9915.800000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+ras_tanura__houston__no_suez,ras_tanura,houston,no_suez,12607.200000,Strait of Hormuz; Cape of Good Hope; Florida Strait
+ras_tanura__houston__no_panama,ras_tanura,houston,no_panama,9915.800000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+ras_tanura__houston__no_canals,ras_tanura,houston,no_canals,12607.200000,Strait of Hormuz; Cape of Good Hope; Florida Strait
+ras_tanura__new_york__direct,ras_tanura,new_york,direct,8334.800000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar
+ras_tanura__new_york__no_suez,ras_tanura,new_york,no_suez,11930.500000,Strait of Hormuz; Cape of Good Hope
+ras_tanura__new_york__no_panama,ras_tanura,new_york,no_panama,8334.800000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar
+ras_tanura__new_york__no_canals,ras_tanura,new_york,no_canals,11930.500000,Strait of Hormuz; Cape of Good Hope
+ras_tanura__rotterdam__direct,ras_tanura,rotterdam,direct,6531.200000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+ras_tanura__rotterdam__no_suez,ras_tanura,rotterdam,no_suez,11314.300000,Strait of Hormuz; Dover Strait; Cape of Good Hope
+ras_tanura__rotterdam__no_panama,ras_tanura,rotterdam,no_panama,6531.200000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+ras_tanura__rotterdam__no_canals,ras_tanura,rotterdam,no_canals,11314.300000,Strait of Hormuz; Dover Strait; Cape of Good Hope
+ras_tanura__amsterdam__direct,ras_tanura,amsterdam,direct,6630.300000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+ras_tanura__amsterdam__no_suez,ras_tanura,amsterdam,no_suez,11413.300000,Strait of Hormuz; Dover Strait; Cape of Good Hope
+ras_tanura__amsterdam__no_panama,ras_tanura,amsterdam,no_panama,6630.300000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+ras_tanura__amsterdam__no_canals,ras_tanura,amsterdam,no_canals,11413.300000,Strait of Hormuz; Dover Strait; Cape of Good Hope
+ras_tanura__le_havre__direct,ras_tanura,le_havre,direct,6333.100000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar
+ras_tanura__le_havre__no_suez,ras_tanura,le_havre,no_suez,11116.100000,Strait of Hormuz; Cape of Good Hope
+ras_tanura__le_havre__no_panama,ras_tanura,le_havre,no_panama,6333.100000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar
+ras_tanura__le_havre__no_canals,ras_tanura,le_havre,no_canals,11116.100000,Strait of Hormuz; Cape of Good Hope
+ras_tanura__bonny__direct,ras_tanura,bonny,direct,7627.200000,Strait of Hormuz; Cape of Good Hope
+ras_tanura__bonny__no_suez,ras_tanura,bonny,no_suez,7627.200000,Strait of Hormuz; Cape of Good Hope
+ras_tanura__bonny__no_panama,ras_tanura,bonny,no_panama,7627.200000,Strait of Hormuz; Cape of Good Hope
+ras_tanura__bonny__no_canals,ras_tanura,bonny,no_canals,7627.200000,Strait of Hormuz; Cape of Good Hope
+ras_tanura__singapore__direct,ras_tanura,singapore,direct,3754.900000,Strait of Hormuz; Strait of Malacca
+ras_tanura__singapore__no_suez,ras_tanura,singapore,no_suez,3754.900000,Strait of Hormuz; Strait of Malacca
+ras_tanura__singapore__no_panama,ras_tanura,singapore,no_panama,3754.900000,Strait of Hormuz; Strait of Malacca
+ras_tanura__singapore__no_canals,ras_tanura,singapore,no_canals,3754.900000,Strait of Hormuz; Strait of Malacca
+mina_al_fahal__tubarao__direct,mina_al_fahal,tubarao,direct,7737.900000,Cape of Good Hope
+mina_al_fahal__tubarao__no_suez,mina_al_fahal,tubarao,no_suez,7737.900000,Cape of Good Hope
+mina_al_fahal__tubarao__no_panama,mina_al_fahal,tubarao,no_panama,7737.900000,Cape of Good Hope
+mina_al_fahal__tubarao__no_canals,mina_al_fahal,tubarao,no_canals,7737.900000,Cape of Good Hope
+mina_al_fahal__port_hedland__direct,mina_al_fahal,port_hedland,direct,4665.800000,
+mina_al_fahal__port_hedland__no_suez,mina_al_fahal,port_hedland,no_suez,4665.800000,
+mina_al_fahal__port_hedland__no_panama,mina_al_fahal,port_hedland,no_panama,4665.800000,
+mina_al_fahal__port_hedland__no_canals,mina_al_fahal,port_hedland,no_canals,4665.800000,
+mina_al_fahal__qingdao__direct,mina_al_fahal,qingdao,direct,5686.800000,Strait of Malacca
+mina_al_fahal__qingdao__no_suez,mina_al_fahal,qingdao,no_suez,5686.800000,Strait of Malacca
+mina_al_fahal__qingdao__no_panama,mina_al_fahal,qingdao,no_panama,5686.800000,Strait of Malacca
+mina_al_fahal__qingdao__no_canals,mina_al_fahal,qingdao,no_canals,5686.800000,Strait of Malacca
+mina_al_fahal__new_orleans__direct,mina_al_fahal,new_orleans,direct,9155.600000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+mina_al_fahal__new_orleans__no_suez,mina_al_fahal,new_orleans,no_suez,11851.800000,Cape of Good Hope; Florida Strait
+mina_al_fahal__new_orleans__no_panama,mina_al_fahal,new_orleans,no_panama,9155.600000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+mina_al_fahal__new_orleans__no_canals,mina_al_fahal,new_orleans,no_canals,11851.800000,Cape of Good Hope; Florida Strait
+mina_al_fahal__ras_tanura__direct,mina_al_fahal,ras_tanura,direct,605.600000,Strait of Hormuz
+mina_al_fahal__ras_tanura__no_suez,mina_al_fahal,ras_tanura,no_suez,605.600000,Strait of Hormuz
+mina_al_fahal__ras_tanura__no_panama,mina_al_fahal,ras_tanura,no_panama,605.600000,Strait of Hormuz
+mina_al_fahal__ras_tanura__no_canals,mina_al_fahal,ras_tanura,no_canals,605.600000,Strait of Hormuz
+mina_al_fahal__fujairah__direct,mina_al_fahal,fujairah,direct,213.500000,
+mina_al_fahal__fujairah__no_suez,mina_al_fahal,fujairah,no_suez,213.500000,
+mina_al_fahal__fujairah__no_panama,mina_al_fahal,fujairah,no_panama,213.500000,
+mina_al_fahal__fujairah__no_canals,mina_al_fahal,fujairah,no_canals,213.500000,
+mina_al_fahal__jubail__direct,mina_al_fahal,jubail,direct,617.600000,Strait of Hormuz
+mina_al_fahal__jubail__no_suez,mina_al_fahal,jubail,no_suez,617.600000,Strait of Hormuz
+mina_al_fahal__jubail__no_panama,mina_al_fahal,jubail,no_panama,617.600000,Strait of Hormuz
+mina_al_fahal__jubail__no_canals,mina_al_fahal,jubail,no_canals,617.600000,Strait of Hormuz
+mina_al_fahal__ningbo__direct,mina_al_fahal,ningbo,direct,5308.500000,Strait of Malacca
+mina_al_fahal__ningbo__no_suez,mina_al_fahal,ningbo,no_suez,5308.500000,Strait of Malacca
+mina_al_fahal__ningbo__no_panama,mina_al_fahal,ningbo,no_panama,5308.500000,Strait of Malacca
+mina_al_fahal__ningbo__no_canals,mina_al_fahal,ningbo,no_canals,5308.500000,Strait of Malacca
+mina_al_fahal__yokohama__direct,mina_al_fahal,yokohama,direct,6149.700000,Strait of Malacca
+mina_al_fahal__yokohama__no_suez,mina_al_fahal,yokohama,no_suez,6149.700000,Strait of Malacca
+mina_al_fahal__yokohama__no_panama,mina_al_fahal,yokohama,no_panama,6149.700000,Strait of Malacca
+mina_al_fahal__yokohama__no_canals,mina_al_fahal,yokohama,no_canals,6149.700000,Strait of Malacca
+mina_al_fahal__galveston__direct,mina_al_fahal,galveston,direct,9342.000000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+mina_al_fahal__galveston__no_suez,mina_al_fahal,galveston,no_suez,12033.400000,Cape of Good Hope; Florida Strait
+mina_al_fahal__galveston__no_panama,mina_al_fahal,galveston,no_panama,9342.000000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+mina_al_fahal__galveston__no_canals,mina_al_fahal,galveston,no_canals,12033.400000,Cape of Good Hope; Florida Strait
+mina_al_fahal__houston__direct,mina_al_fahal,houston,direct,9375.500000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+mina_al_fahal__houston__no_suez,mina_al_fahal,houston,no_suez,12066.900000,Cape of Good Hope; Florida Strait
+mina_al_fahal__houston__no_panama,mina_al_fahal,houston,no_panama,9375.500000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+mina_al_fahal__houston__no_canals,mina_al_fahal,houston,no_canals,12066.900000,Cape of Good Hope; Florida Strait
+mina_al_fahal__new_york__direct,mina_al_fahal,new_york,direct,7794.500000,Bab el Mandeb; Suez Canal; Strait of Gibraltar
+mina_al_fahal__new_york__no_suez,mina_al_fahal,new_york,no_suez,11390.200000,Cape of Good Hope
+mina_al_fahal__new_york__no_panama,mina_al_fahal,new_york,no_panama,7794.500000,Bab el Mandeb; Suez Canal; Strait of Gibraltar
+mina_al_fahal__new_york__no_canals,mina_al_fahal,new_york,no_canals,11390.200000,Cape of Good Hope
+mina_al_fahal__rotterdam__direct,mina_al_fahal,rotterdam,direct,5990.900000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+mina_al_fahal__rotterdam__no_suez,mina_al_fahal,rotterdam,no_suez,10774.000000,Dover Strait; Cape of Good Hope
+mina_al_fahal__rotterdam__no_panama,mina_al_fahal,rotterdam,no_panama,5990.900000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+mina_al_fahal__rotterdam__no_canals,mina_al_fahal,rotterdam,no_canals,10774.000000,Dover Strait; Cape of Good Hope
+mina_al_fahal__amsterdam__direct,mina_al_fahal,amsterdam,direct,6090.000000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+mina_al_fahal__amsterdam__no_suez,mina_al_fahal,amsterdam,no_suez,10873.100000,Dover Strait; Cape of Good Hope
+mina_al_fahal__amsterdam__no_panama,mina_al_fahal,amsterdam,no_panama,6090.000000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+mina_al_fahal__amsterdam__no_canals,mina_al_fahal,amsterdam,no_canals,10873.100000,Dover Strait; Cape of Good Hope
+mina_al_fahal__le_havre__direct,mina_al_fahal,le_havre,direct,5792.800000,Bab el Mandeb; Suez Canal; Strait of Gibraltar
+mina_al_fahal__le_havre__no_suez,mina_al_fahal,le_havre,no_suez,10575.800000,Cape of Good Hope
+mina_al_fahal__le_havre__no_panama,mina_al_fahal,le_havre,no_panama,5792.800000,Bab el Mandeb; Suez Canal; Strait of Gibraltar
+mina_al_fahal__le_havre__no_canals,mina_al_fahal,le_havre,no_canals,10575.800000,Cape of Good Hope
+mina_al_fahal__bonny__direct,mina_al_fahal,bonny,direct,7087.000000,Cape of Good Hope
+mina_al_fahal__bonny__no_suez,mina_al_fahal,bonny,no_suez,7087.000000,Cape of Good Hope
+mina_al_fahal__bonny__no_panama,mina_al_fahal,bonny,no_panama,7087.000000,Cape of Good Hope
+mina_al_fahal__bonny__no_canals,mina_al_fahal,bonny,no_canals,7087.000000,Cape of Good Hope
+mina_al_fahal__singapore__direct,mina_al_fahal,singapore,direct,3214.700000,Strait of Malacca
+mina_al_fahal__singapore__no_suez,mina_al_fahal,singapore,no_suez,3214.700000,Strait of Malacca
+mina_al_fahal__singapore__no_panama,mina_al_fahal,singapore,no_panama,3214.700000,Strait of Malacca
+mina_al_fahal__singapore__no_canals,mina_al_fahal,singapore,no_canals,3214.700000,Strait of Malacca
+fujairah__tubarao__direct,fujairah,tubarao,direct,7886.100000,Cape of Good Hope
+fujairah__tubarao__no_suez,fujairah,tubarao,no_suez,7886.100000,Cape of Good Hope
+fujairah__tubarao__no_panama,fujairah,tubarao,no_panama,7886.100000,Cape of Good Hope
+fujairah__tubarao__no_canals,fujairah,tubarao,no_canals,7886.100000,Cape of Good Hope
+fujairah__port_hedland__direct,fujairah,port_hedland,direct,4814.000000,
+fujairah__port_hedland__no_suez,fujairah,port_hedland,no_suez,4814.000000,
+fujairah__port_hedland__no_panama,fujairah,port_hedland,no_panama,4814.000000,
+fujairah__port_hedland__no_canals,fujairah,port_hedland,no_canals,4814.000000,
+fujairah__qingdao__direct,fujairah,qingdao,direct,5834.900000,Strait of Malacca
+fujairah__qingdao__no_suez,fujairah,qingdao,no_suez,5834.900000,Strait of Malacca
+fujairah__qingdao__no_panama,fujairah,qingdao,no_panama,5834.900000,Strait of Malacca
+fujairah__qingdao__no_canals,fujairah,qingdao,no_canals,5834.900000,Strait of Malacca
+fujairah__new_orleans__direct,fujairah,new_orleans,direct,9303.800000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+fujairah__new_orleans__no_suez,fujairah,new_orleans,no_suez,12000.000000,Cape of Good Hope; Florida Strait
+fujairah__new_orleans__no_panama,fujairah,new_orleans,no_panama,9303.800000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+fujairah__new_orleans__no_canals,fujairah,new_orleans,no_canals,12000.000000,Cape of Good Hope; Florida Strait
+fujairah__ras_tanura__direct,fujairah,ras_tanura,direct,479.300000,Strait of Hormuz
+fujairah__ras_tanura__no_suez,fujairah,ras_tanura,no_suez,479.300000,Strait of Hormuz
+fujairah__ras_tanura__no_panama,fujairah,ras_tanura,no_panama,479.300000,Strait of Hormuz
+fujairah__ras_tanura__no_canals,fujairah,ras_tanura,no_canals,479.300000,Strait of Hormuz
+fujairah__mina_al_fahal__direct,fujairah,mina_al_fahal,direct,213.500000,
+fujairah__mina_al_fahal__no_suez,fujairah,mina_al_fahal,no_suez,213.500000,
+fujairah__mina_al_fahal__no_panama,fujairah,mina_al_fahal,no_panama,213.500000,
+fujairah__mina_al_fahal__no_canals,fujairah,mina_al_fahal,no_canals,213.500000,
+fujairah__jubail__direct,fujairah,jubail,direct,491.200000,Strait of Hormuz
+fujairah__jubail__no_suez,fujairah,jubail,no_suez,491.200000,Strait of Hormuz
+fujairah__jubail__no_panama,fujairah,jubail,no_panama,491.200000,Strait of Hormuz
+fujairah__jubail__no_canals,fujairah,jubail,no_canals,491.200000,Strait of Hormuz
+fujairah__ningbo__direct,fujairah,ningbo,direct,5456.600000,Strait of Malacca
+fujairah__ningbo__no_suez,fujairah,ningbo,no_suez,5456.600000,Strait of Malacca
+fujairah__ningbo__no_panama,fujairah,ningbo,no_panama,5456.600000,Strait of Malacca
+fujairah__ningbo__no_canals,fujairah,ningbo,no_canals,5456.600000,Strait of Malacca
+fujairah__yokohama__direct,fujairah,yokohama,direct,6297.900000,Strait of Malacca
+fujairah__yokohama__no_suez,fujairah,yokohama,no_suez,6297.900000,Strait of Malacca
+fujairah__yokohama__no_panama,fujairah,yokohama,no_panama,6297.900000,Strait of Malacca
+fujairah__yokohama__no_canals,fujairah,yokohama,no_canals,6297.900000,Strait of Malacca
+fujairah__galveston__direct,fujairah,galveston,direct,9490.200000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+fujairah__galveston__no_suez,fujairah,galveston,no_suez,12181.600000,Cape of Good Hope; Florida Strait
+fujairah__galveston__no_panama,fujairah,galveston,no_panama,9490.200000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+fujairah__galveston__no_canals,fujairah,galveston,no_canals,12181.600000,Cape of Good Hope; Florida Strait
+fujairah__houston__direct,fujairah,houston,direct,9523.700000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+fujairah__houston__no_suez,fujairah,houston,no_suez,12215.100000,Cape of Good Hope; Florida Strait
+fujairah__houston__no_panama,fujairah,houston,no_panama,9523.700000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+fujairah__houston__no_canals,fujairah,houston,no_canals,12215.100000,Cape of Good Hope; Florida Strait
+fujairah__new_york__direct,fujairah,new_york,direct,7942.600000,Bab el Mandeb; Suez Canal; Strait of Gibraltar
+fujairah__new_york__no_suez,fujairah,new_york,no_suez,11538.400000,Cape of Good Hope
+fujairah__new_york__no_panama,fujairah,new_york,no_panama,7942.600000,Bab el Mandeb; Suez Canal; Strait of Gibraltar
+fujairah__new_york__no_canals,fujairah,new_york,no_canals,11538.400000,Cape of Good Hope
+fujairah__rotterdam__direct,fujairah,rotterdam,direct,6139.100000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+fujairah__rotterdam__no_suez,fujairah,rotterdam,no_suez,10922.200000,Dover Strait; Cape of Good Hope
+fujairah__rotterdam__no_panama,fujairah,rotterdam,no_panama,6139.100000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+fujairah__rotterdam__no_canals,fujairah,rotterdam,no_canals,10922.200000,Dover Strait; Cape of Good Hope
+fujairah__amsterdam__direct,fujairah,amsterdam,direct,6238.200000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+fujairah__amsterdam__no_suez,fujairah,amsterdam,no_suez,11021.200000,Dover Strait; Cape of Good Hope
+fujairah__amsterdam__no_panama,fujairah,amsterdam,no_panama,6238.200000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+fujairah__amsterdam__no_canals,fujairah,amsterdam,no_canals,11021.200000,Dover Strait; Cape of Good Hope
+fujairah__le_havre__direct,fujairah,le_havre,direct,5941.000000,Bab el Mandeb; Suez Canal; Strait of Gibraltar
+fujairah__le_havre__no_suez,fujairah,le_havre,no_suez,10724.000000,Cape of Good Hope
+fujairah__le_havre__no_panama,fujairah,le_havre,no_panama,5941.000000,Bab el Mandeb; Suez Canal; Strait of Gibraltar
+fujairah__le_havre__no_canals,fujairah,le_havre,no_canals,10724.000000,Cape of Good Hope
+fujairah__bonny__direct,fujairah,bonny,direct,7235.100000,Cape of Good Hope
+fujairah__bonny__no_suez,fujairah,bonny,no_suez,7235.100000,Cape of Good Hope
+fujairah__bonny__no_panama,fujairah,bonny,no_panama,7235.100000,Cape of Good Hope
+fujairah__bonny__no_canals,fujairah,bonny,no_canals,7235.100000,Cape of Good Hope
+fujairah__singapore__direct,fujairah,singapore,direct,3362.800000,Strait of Malacca
+fujairah__singapore__no_suez,fujairah,singapore,no_suez,3362.800000,Strait of Malacca
+fujairah__singapore__no_panama,fujairah,singapore,no_panama,3362.800000,Strait of Malacca
+fujairah__singapore__no_canals,fujairah,singapore,no_canals,3362.800000,Strait of Malacca
+jubail__tubarao__direct,jubail,tubarao,direct,8290.100000,Strait of Hormuz; Cape of Good Hope
+jubail__tubarao__no_suez,jubail,tubarao,no_suez,8290.100000,Strait of Hormuz; Cape of Good Hope
+jubail__tubarao__no_panama,jubail,tubarao,no_panama,8290.100000,Strait of Hormuz; Cape of Good Hope
+jubail__tubarao__no_canals,jubail,tubarao,no_canals,8290.100000,Strait of Hormuz; Cape of Good Hope
+jubail__port_hedland__direct,jubail,port_hedland,direct,5218.000000,Strait of Hormuz
+jubail__port_hedland__no_suez,jubail,port_hedland,no_suez,5218.000000,Strait of Hormuz
+jubail__port_hedland__no_panama,jubail,port_hedland,no_panama,5218.000000,Strait of Hormuz
+jubail__port_hedland__no_canals,jubail,port_hedland,no_canals,5218.000000,Strait of Hormuz
+jubail__qingdao__direct,jubail,qingdao,direct,6239.000000,Strait of Hormuz; Strait of Malacca
+jubail__qingdao__no_suez,jubail,qingdao,no_suez,6239.000000,Strait of Hormuz; Strait of Malacca
+jubail__qingdao__no_panama,jubail,qingdao,no_panama,6239.000000,Strait of Hormuz; Strait of Malacca
+jubail__qingdao__no_canals,jubail,qingdao,no_canals,6239.000000,Strait of Hormuz; Strait of Malacca
+jubail__new_orleans__direct,jubail,new_orleans,direct,9707.800000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+jubail__new_orleans__no_suez,jubail,new_orleans,no_suez,12404.000000,Strait of Hormuz; Cape of Good Hope; Florida Strait
+jubail__new_orleans__no_panama,jubail,new_orleans,no_panama,9707.800000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+jubail__new_orleans__no_canals,jubail,new_orleans,no_canals,12404.000000,Strait of Hormuz; Cape of Good Hope; Florida Strait
+jubail__ras_tanura__direct,jubail,ras_tanura,direct,42.300000,
+jubail__ras_tanura__no_suez,jubail,ras_tanura,no_suez,42.300000,
+jubail__ras_tanura__no_panama,jubail,ras_tanura,no_panama,42.300000,
+jubail__ras_tanura__no_canals,jubail,ras_tanura,no_canals,42.300000,
+jubail__mina_al_fahal__direct,jubail,mina_al_fahal,direct,617.600000,Strait of Hormuz
+jubail__mina_al_fahal__no_suez,jubail,mina_al_fahal,no_suez,617.600000,Strait of Hormuz
+jubail__mina_al_fahal__no_panama,jubail,mina_al_fahal,no_panama,617.600000,Strait of Hormuz
+jubail__mina_al_fahal__no_canals,jubail,mina_al_fahal,no_canals,617.600000,Strait of Hormuz
+jubail__fujairah__direct,jubail,fujairah,direct,491.200000,Strait of Hormuz
+jubail__fujairah__no_suez,jubail,fujairah,no_suez,491.200000,Strait of Hormuz
+jubail__fujairah__no_panama,jubail,fujairah,no_panama,491.200000,Strait of Hormuz
+jubail__fujairah__no_canals,jubail,fujairah,no_canals,491.200000,Strait of Hormuz
+jubail__ningbo__direct,jubail,ningbo,direct,5860.700000,Strait of Hormuz; Strait of Malacca
+jubail__ningbo__no_suez,jubail,ningbo,no_suez,5860.700000,Strait of Hormuz; Strait of Malacca
+jubail__ningbo__no_panama,jubail,ningbo,no_panama,5860.700000,Strait of Hormuz; Strait of Malacca
+jubail__ningbo__no_canals,jubail,ningbo,no_canals,5860.700000,Strait of Hormuz; Strait of Malacca
+jubail__yokohama__direct,jubail,yokohama,direct,6701.900000,Strait of Hormuz; Strait of Malacca
+jubail__yokohama__no_suez,jubail,yokohama,no_suez,6701.900000,Strait of Hormuz; Strait of Malacca
+jubail__yokohama__no_panama,jubail,yokohama,no_panama,6701.900000,Strait of Hormuz; Strait of Malacca
+jubail__yokohama__no_canals,jubail,yokohama,no_canals,6701.900000,Strait of Hormuz; Strait of Malacca
+jubail__galveston__direct,jubail,galveston,direct,9894.200000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+jubail__galveston__no_suez,jubail,galveston,no_suez,12585.600000,Strait of Hormuz; Cape of Good Hope; Florida Strait
+jubail__galveston__no_panama,jubail,galveston,no_panama,9894.200000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+jubail__galveston__no_canals,jubail,galveston,no_canals,12585.600000,Strait of Hormuz; Cape of Good Hope; Florida Strait
+jubail__houston__direct,jubail,houston,direct,9927.700000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+jubail__houston__no_suez,jubail,houston,no_suez,12619.100000,Strait of Hormuz; Cape of Good Hope; Florida Strait
+jubail__houston__no_panama,jubail,houston,no_panama,9927.700000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+jubail__houston__no_canals,jubail,houston,no_canals,12619.100000,Strait of Hormuz; Cape of Good Hope; Florida Strait
+jubail__new_york__direct,jubail,new_york,direct,8346.700000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar
+jubail__new_york__no_suez,jubail,new_york,no_suez,11942.400000,Strait of Hormuz; Cape of Good Hope
+jubail__new_york__no_panama,jubail,new_york,no_panama,8346.700000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar
+jubail__new_york__no_canals,jubail,new_york,no_canals,11942.400000,Strait of Hormuz; Cape of Good Hope
+jubail__rotterdam__direct,jubail,rotterdam,direct,6543.100000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+jubail__rotterdam__no_suez,jubail,rotterdam,no_suez,11326.200000,Strait of Hormuz; Dover Strait; Cape of Good Hope
+jubail__rotterdam__no_panama,jubail,rotterdam,no_panama,6543.100000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+jubail__rotterdam__no_canals,jubail,rotterdam,no_canals,11326.200000,Strait of Hormuz; Dover Strait; Cape of Good Hope
+jubail__amsterdam__direct,jubail,amsterdam,direct,6642.200000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+jubail__amsterdam__no_suez,jubail,amsterdam,no_suez,11425.300000,Strait of Hormuz; Dover Strait; Cape of Good Hope
+jubail__amsterdam__no_panama,jubail,amsterdam,no_panama,6642.200000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+jubail__amsterdam__no_canals,jubail,amsterdam,no_canals,11425.300000,Strait of Hormuz; Dover Strait; Cape of Good Hope
+jubail__le_havre__direct,jubail,le_havre,direct,6345.000000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar
+jubail__le_havre__no_suez,jubail,le_havre,no_suez,11128.000000,Strait of Hormuz; Cape of Good Hope
+jubail__le_havre__no_panama,jubail,le_havre,no_panama,6345.000000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar
+jubail__le_havre__no_canals,jubail,le_havre,no_canals,11128.000000,Strait of Hormuz; Cape of Good Hope
+jubail__bonny__direct,jubail,bonny,direct,7639.200000,Strait of Hormuz; Cape of Good Hope
+jubail__bonny__no_suez,jubail,bonny,no_suez,7639.200000,Strait of Hormuz; Cape of Good Hope
+jubail__bonny__no_panama,jubail,bonny,no_panama,7639.200000,Strait of Hormuz; Cape of Good Hope
+jubail__bonny__no_canals,jubail,bonny,no_canals,7639.200000,Strait of Hormuz; Cape of Good Hope
+jubail__singapore__direct,jubail,singapore,direct,3766.900000,Strait of Hormuz; Strait of Malacca
+jubail__singapore__no_suez,jubail,singapore,no_suez,3766.900000,Strait of Hormuz; Strait of Malacca
+jubail__singapore__no_panama,jubail,singapore,no_panama,3766.900000,Strait of Hormuz; Strait of Malacca
+jubail__singapore__no_canals,jubail,singapore,no_canals,3766.900000,Strait of Hormuz; Strait of Malacca
+ningbo__tubarao__direct,ningbo,tubarao,direct,10758.600000,Sunda Strait; Cape of Good Hope
+ningbo__tubarao__no_suez,ningbo,tubarao,no_suez,10758.600000,Sunda Strait; Cape of Good Hope
+ningbo__tubarao__no_panama,ningbo,tubarao,no_panama,10758.600000,Sunda Strait; Cape of Good Hope
+ningbo__tubarao__no_canals,ningbo,tubarao,no_canals,10758.600000,Sunda Strait; Cape of Good Hope
+ningbo__port_hedland__direct,ningbo,port_hedland,direct,3152.400000,Lombok Strait
+ningbo__port_hedland__no_suez,ningbo,port_hedland,no_suez,3152.400000,Lombok Strait
+ningbo__port_hedland__no_panama,ningbo,port_hedland,no_panama,3152.400000,Lombok Strait
+ningbo__port_hedland__no_canals,ningbo,port_hedland,no_canals,3152.400000,Lombok Strait
+ningbo__qingdao__direct,ningbo,qingdao,direct,462.800000,
+ningbo__qingdao__no_suez,ningbo,qingdao,no_suez,462.800000,
+ningbo__qingdao__no_panama,ningbo,qingdao,no_panama,462.800000,
+ningbo__qingdao__no_canals,ningbo,qingdao,no_canals,462.800000,
+ningbo__new_orleans__direct,ningbo,new_orleans,direct,10124.800000,Panama Canal; Yucatan Channel
+ningbo__new_orleans__no_suez,ningbo,new_orleans,no_suez,10124.800000,Panama Canal; Yucatan Channel
+ningbo__new_orleans__no_panama,ningbo,new_orleans,no_panama,13639.400000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca; Florida Strait
+ningbo__new_orleans__no_canals,ningbo,new_orleans,no_canals,14872.400000,Sunda Strait; Cape of Good Hope; Florida Strait
+ningbo__ras_tanura__direct,ningbo,ras_tanura,direct,5848.800000,Strait of Hormuz; Strait of Malacca
+ningbo__ras_tanura__no_suez,ningbo,ras_tanura,no_suez,5848.800000,Strait of Hormuz; Strait of Malacca
+ningbo__ras_tanura__no_panama,ningbo,ras_tanura,no_panama,5848.800000,Strait of Hormuz; Strait of Malacca
+ningbo__ras_tanura__no_canals,ningbo,ras_tanura,no_canals,5848.800000,Strait of Hormuz; Strait of Malacca
+ningbo__mina_al_fahal__direct,ningbo,mina_al_fahal,direct,5308.500000,Strait of Malacca
+ningbo__mina_al_fahal__no_suez,ningbo,mina_al_fahal,no_suez,5308.500000,Strait of Malacca
+ningbo__mina_al_fahal__no_panama,ningbo,mina_al_fahal,no_panama,5308.500000,Strait of Malacca
+ningbo__mina_al_fahal__no_canals,ningbo,mina_al_fahal,no_canals,5308.500000,Strait of Malacca
+ningbo__fujairah__direct,ningbo,fujairah,direct,5456.600000,Strait of Malacca
+ningbo__fujairah__no_suez,ningbo,fujairah,no_suez,5456.600000,Strait of Malacca
+ningbo__fujairah__no_panama,ningbo,fujairah,no_panama,5456.600000,Strait of Malacca
+ningbo__fujairah__no_canals,ningbo,fujairah,no_canals,5456.600000,Strait of Malacca
+ningbo__jubail__direct,ningbo,jubail,direct,5860.700000,Strait of Hormuz; Strait of Malacca
+ningbo__jubail__no_suez,ningbo,jubail,no_suez,5860.700000,Strait of Hormuz; Strait of Malacca
+ningbo__jubail__no_panama,ningbo,jubail,no_panama,5860.700000,Strait of Hormuz; Strait of Malacca
+ningbo__jubail__no_canals,ningbo,jubail,no_canals,5860.700000,Strait of Hormuz; Strait of Malacca
+ningbo__yokohama__direct,ningbo,yokohama,direct,1063.600000,
+ningbo__yokohama__no_suez,ningbo,yokohama,no_suez,1063.600000,
+ningbo__yokohama__no_panama,ningbo,yokohama,no_panama,1063.600000,
+ningbo__yokohama__no_canals,ningbo,yokohama,no_canals,1063.600000,
+ningbo__galveston__direct,ningbo,galveston,direct,10225.400000,Panama Canal; Yucatan Channel
+ningbo__galveston__no_suez,ningbo,galveston,no_suez,10225.400000,Panama Canal; Yucatan Channel
+ningbo__galveston__no_panama,ningbo,galveston,no_panama,13825.800000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca; Florida Strait
+ningbo__galveston__no_canals,ningbo,galveston,no_canals,15054.000000,Sunda Strait; Cape of Good Hope; Florida Strait
+ningbo__houston__direct,ningbo,houston,direct,10259.000000,Panama Canal; Yucatan Channel
+ningbo__houston__no_suez,ningbo,houston,no_suez,10259.000000,Panama Canal; Yucatan Channel
+ningbo__houston__no_panama,ningbo,houston,no_panama,13859.300000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca; Florida Strait
+ningbo__houston__no_canals,ningbo,houston,no_canals,15087.600000,Sunda Strait; Cape of Good Hope; Florida Strait
+ningbo__new_york__direct,ningbo,new_york,direct,10731.000000,Panama Canal
+ningbo__new_york__no_suez,ningbo,new_york,no_suez,10731.000000,Panama Canal
+ningbo__new_york__no_panama,ningbo,new_york,no_panama,12278.200000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca
+ningbo__new_york__no_canals,ningbo,new_york,no_canals,14410.800000,Sunda Strait; Cape of Good Hope
+ningbo__rotterdam__direct,ningbo,rotterdam,direct,10474.700000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait; Strait of Malacca
+ningbo__rotterdam__no_suez,ningbo,rotterdam,no_suez,13561.100000,Dover Strait; Panama Canal
+ningbo__rotterdam__no_panama,ningbo,rotterdam,no_panama,10474.700000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait; Strait of Malacca
+ningbo__rotterdam__no_canals,ningbo,rotterdam,no_canals,13794.600000,Dover Strait; Sunda Strait; Cape of Good Hope
+ningbo__amsterdam__direct,ningbo,amsterdam,direct,10573.800000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait; Strait of Malacca
+ningbo__amsterdam__no_suez,ningbo,amsterdam,no_suez,13660.100000,Dover Strait; Panama Canal
+ningbo__amsterdam__no_panama,ningbo,amsterdam,no_panama,10573.800000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait; Strait of Malacca
+ningbo__amsterdam__no_canals,ningbo,amsterdam,no_canals,13893.700000,Dover Strait; Sunda Strait; Cape of Good Hope
+ningbo__le_havre__direct,ningbo,le_havre,direct,10276.500000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca
+ningbo__le_havre__no_suez,ningbo,le_havre,no_suez,13367.700000,Panama Canal
+ningbo__le_havre__no_panama,ningbo,le_havre,no_panama,10276.500000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca
+ningbo__le_havre__no_canals,ningbo,le_havre,no_canals,13596.500000,Sunda Strait; Cape of Good Hope
+ningbo__bonny__direct,ningbo,bonny,direct,10107.600000,Sunda Strait; Cape of Good Hope
+ningbo__bonny__no_suez,ningbo,bonny,no_suez,10107.600000,Sunda Strait; Cape of Good Hope
+ningbo__bonny__no_panama,ningbo,bonny,no_panama,10107.600000,Sunda Strait; Cape of Good Hope
+ningbo__bonny__no_canals,ningbo,bonny,no_canals,10107.600000,Sunda Strait; Cape of Good Hope
+ningbo__singapore__direct,ningbo,singapore,direct,2099.600000,
+ningbo__singapore__no_suez,ningbo,singapore,no_suez,2099.600000,
+ningbo__singapore__no_panama,ningbo,singapore,no_panama,2099.600000,
+ningbo__singapore__no_canals,ningbo,singapore,no_canals,2099.600000,
+yokohama__tubarao__direct,yokohama,tubarao,direct,11572.100000,Sunda Strait; Cape of Good Hope
+yokohama__tubarao__no_suez,yokohama,tubarao,no_suez,11572.100000,Sunda Strait; Cape of Good Hope
+yokohama__tubarao__no_panama,yokohama,tubarao,no_panama,11572.100000,Sunda Strait; Cape of Good Hope
+yokohama__tubarao__no_canals,yokohama,tubarao,no_canals,11572.100000,Sunda Strait; Cape of Good Hope
+yokohama__port_hedland__direct,yokohama,port_hedland,direct,3748.600000,
+yokohama__port_hedland__no_suez,yokohama,port_hedland,no_suez,3748.600000,
+yokohama__port_hedland__no_panama,yokohama,port_hedland,no_panama,3748.600000,
+yokohama__port_hedland__no_canals,yokohama,port_hedland,no_canals,3748.600000,
+yokohama__qingdao__direct,yokohama,qingdao,direct,1101.400000,
+yokohama__qingdao__no_suez,yokohama,qingdao,no_suez,1101.400000,
+yokohama__qingdao__no_panama,yokohama,qingdao,no_panama,1101.400000,
+yokohama__qingdao__no_canals,yokohama,qingdao,no_canals,1101.400000,
+yokohama__new_orleans__direct,yokohama,new_orleans,direct,9228.100000,Panama Canal; Yucatan Channel
+yokohama__new_orleans__no_suez,yokohama,new_orleans,no_suez,9228.100000,Panama Canal; Yucatan Channel
+yokohama__new_orleans__no_panama,yokohama,new_orleans,no_panama,14480.700000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca; Florida Strait
+yokohama__new_orleans__no_canals,yokohama,new_orleans,no_canals,15686.000000,Sunda Strait; Cape of Good Hope; Florida Strait
+yokohama__ras_tanura__direct,yokohama,ras_tanura,direct,6690.000000,Strait of Hormuz; Strait of Malacca
+yokohama__ras_tanura__no_suez,yokohama,ras_tanura,no_suez,6690.000000,Strait of Hormuz; Strait of Malacca
+yokohama__ras_tanura__no_panama,yokohama,ras_tanura,no_panama,6690.000000,Strait of Hormuz; Strait of Malacca
+yokohama__ras_tanura__no_canals,yokohama,ras_tanura,no_canals,6690.000000,Strait of Hormuz; Strait of Malacca
+yokohama__mina_al_fahal__direct,yokohama,mina_al_fahal,direct,6149.700000,Strait of Malacca
+yokohama__mina_al_fahal__no_suez,yokohama,mina_al_fahal,no_suez,6149.700000,Strait of Malacca
+yokohama__mina_al_fahal__no_panama,yokohama,mina_al_fahal,no_panama,6149.700000,Strait of Malacca
+yokohama__mina_al_fahal__no_canals,yokohama,mina_al_fahal,no_canals,6149.700000,Strait of Malacca
+yokohama__fujairah__direct,yokohama,fujairah,direct,6297.900000,Strait of Malacca
+yokohama__fujairah__no_suez,yokohama,fujairah,no_suez,6297.900000,Strait of Malacca
+yokohama__fujairah__no_panama,yokohama,fujairah,no_panama,6297.900000,Strait of Malacca
+yokohama__fujairah__no_canals,yokohama,fujairah,no_canals,6297.900000,Strait of Malacca
+yokohama__jubail__direct,yokohama,jubail,direct,6701.900000,Strait of Hormuz; Strait of Malacca
+yokohama__jubail__no_suez,yokohama,jubail,no_suez,6701.900000,Strait of Hormuz; Strait of Malacca
+yokohama__jubail__no_panama,yokohama,jubail,no_panama,6701.900000,Strait of Hormuz; Strait of Malacca
+yokohama__jubail__no_canals,yokohama,jubail,no_canals,6701.900000,Strait of Hormuz; Strait of Malacca
+yokohama__ningbo__direct,yokohama,ningbo,direct,1063.600000,
+yokohama__ningbo__no_suez,yokohama,ningbo,no_suez,1063.600000,
+yokohama__ningbo__no_panama,yokohama,ningbo,no_panama,1063.600000,
+yokohama__ningbo__no_canals,yokohama,ningbo,no_canals,1063.600000,
+yokohama__galveston__direct,yokohama,galveston,direct,9328.700000,Panama Canal; Yucatan Channel
+yokohama__galveston__no_suez,yokohama,galveston,no_suez,9328.700000,Panama Canal; Yucatan Channel
+yokohama__galveston__no_panama,yokohama,galveston,no_panama,14667.000000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca; Florida Strait
+yokohama__galveston__no_canals,yokohama,galveston,no_canals,15867.600000,Sunda Strait; Cape of Good Hope; Florida Strait
+yokohama__houston__direct,yokohama,houston,direct,9362.200000,Panama Canal; Yucatan Channel
+yokohama__houston__no_suez,yokohama,houston,no_suez,9362.200000,Panama Canal; Yucatan Channel
+yokohama__houston__no_panama,yokohama,houston,no_panama,14700.600000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca; Florida Strait
+yokohama__houston__no_canals,yokohama,houston,no_canals,15901.100000,Sunda Strait; Cape of Good Hope; Florida Strait
+yokohama__new_york__direct,yokohama,new_york,direct,9834.300000,Panama Canal
+yokohama__new_york__no_suez,yokohama,new_york,no_suez,9834.300000,Panama Canal
+yokohama__new_york__no_panama,yokohama,new_york,no_panama,13119.500000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca
+yokohama__new_york__no_canals,yokohama,new_york,no_canals,15224.400000,Sunda Strait; Cape of Good Hope
+yokohama__rotterdam__direct,yokohama,rotterdam,direct,11316.000000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait; Strait of Malacca
+yokohama__rotterdam__no_suez,yokohama,rotterdam,no_suez,12664.300000,Dover Strait; Panama Canal
+yokohama__rotterdam__no_panama,yokohama,rotterdam,no_panama,11316.000000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait; Strait of Malacca
+yokohama__rotterdam__no_canals,yokohama,rotterdam,no_canals,14608.200000,Dover Strait; Sunda Strait; Cape of Good Hope
+yokohama__amsterdam__direct,yokohama,amsterdam,direct,11415.000000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait; Strait of Malacca
+yokohama__amsterdam__no_suez,yokohama,amsterdam,no_suez,12763.400000,Dover Strait; Panama Canal
+yokohama__amsterdam__no_panama,yokohama,amsterdam,no_panama,11415.000000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait; Strait of Malacca
+yokohama__amsterdam__no_canals,yokohama,amsterdam,no_canals,14707.200000,Dover Strait; Sunda Strait; Cape of Good Hope
+yokohama__le_havre__direct,yokohama,le_havre,direct,11117.800000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca
+yokohama__le_havre__no_suez,yokohama,le_havre,no_suez,12471.000000,Panama Canal
+yokohama__le_havre__no_panama,yokohama,le_havre,no_panama,11117.800000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca
+yokohama__le_havre__no_canals,yokohama,le_havre,no_canals,14410.000000,Sunda Strait; Cape of Good Hope
+yokohama__bonny__direct,yokohama,bonny,direct,10921.200000,Sunda Strait; Cape of Good Hope
+yokohama__bonny__no_suez,yokohama,bonny,no_suez,10921.200000,Sunda Strait; Cape of Good Hope
+yokohama__bonny__no_panama,yokohama,bonny,no_panama,10921.200000,Sunda Strait; Cape of Good Hope
+yokohama__bonny__no_canals,yokohama,bonny,no_canals,10921.200000,Sunda Strait; Cape of Good Hope
+yokohama__singapore__direct,yokohama,singapore,direct,2940.900000,
+yokohama__singapore__no_suez,yokohama,singapore,no_suez,2940.900000,
+yokohama__singapore__no_panama,yokohama,singapore,no_panama,2940.900000,
+yokohama__singapore__no_canals,yokohama,singapore,no_canals,2940.900000,
+galveston__tubarao__direct,galveston,tubarao,direct,5044.800000,Florida Strait
+galveston__tubarao__no_suez,galveston,tubarao,no_suez,5044.800000,Florida Strait
+galveston__tubarao__no_panama,galveston,tubarao,no_panama,5044.800000,Florida Strait
+galveston__tubarao__no_canals,galveston,tubarao,no_canals,5044.800000,Florida Strait
+galveston__port_hedland__direct,galveston,port_hedland,direct,11568.400000,Panama Canal; Yucatan Channel
+galveston__port_hedland__no_suez,galveston,port_hedland,no_suez,11568.400000,Panama Canal; Yucatan Channel
+galveston__port_hedland__no_panama,galveston,port_hedland,no_panama,12769.600000,Cape of Good Hope; Florida Strait
+galveston__port_hedland__no_canals,galveston,port_hedland,no_canals,12769.600000,Cape of Good Hope; Florida Strait
+galveston__qingdao__direct,galveston,qingdao,direct,10184.600000,Panama Canal; Yucatan Channel
+galveston__qingdao__no_suez,galveston,qingdao,no_suez,10184.600000,Panama Canal; Yucatan Channel
+galveston__qingdao__no_panama,galveston,qingdao,no_panama,14204.000000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca; Florida Strait
+galveston__qingdao__no_canals,galveston,qingdao,no_canals,15432.300000,Sunda Strait; Cape of Good Hope; Florida Strait
+galveston__new_orleans__direct,galveston,new_orleans,direct,411.300000,
+galveston__new_orleans__no_suez,galveston,new_orleans,no_suez,411.300000,
+galveston__new_orleans__no_panama,galveston,new_orleans,no_panama,411.300000,
+galveston__new_orleans__no_canals,galveston,new_orleans,no_canals,411.300000,
+galveston__ras_tanura__direct,galveston,ras_tanura,direct,9882.300000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+galveston__ras_tanura__no_suez,galveston,ras_tanura,no_suez,12573.700000,Strait of Hormuz; Cape of Good Hope; Florida Strait
+galveston__ras_tanura__no_panama,galveston,ras_tanura,no_panama,9882.300000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+galveston__ras_tanura__no_canals,galveston,ras_tanura,no_canals,12573.700000,Strait of Hormuz; Cape of Good Hope; Florida Strait
+galveston__mina_al_fahal__direct,galveston,mina_al_fahal,direct,9342.000000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+galveston__mina_al_fahal__no_suez,galveston,mina_al_fahal,no_suez,12033.400000,Cape of Good Hope; Florida Strait
+galveston__mina_al_fahal__no_panama,galveston,mina_al_fahal,no_panama,9342.000000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+galveston__mina_al_fahal__no_canals,galveston,mina_al_fahal,no_canals,12033.400000,Cape of Good Hope; Florida Strait
+galveston__fujairah__direct,galveston,fujairah,direct,9490.200000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+galveston__fujairah__no_suez,galveston,fujairah,no_suez,12181.600000,Cape of Good Hope; Florida Strait
+galveston__fujairah__no_panama,galveston,fujairah,no_panama,9490.200000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+galveston__fujairah__no_canals,galveston,fujairah,no_canals,12181.600000,Cape of Good Hope; Florida Strait
+galveston__jubail__direct,galveston,jubail,direct,9894.200000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+galveston__jubail__no_suez,galveston,jubail,no_suez,12585.600000,Strait of Hormuz; Cape of Good Hope; Florida Strait
+galveston__jubail__no_panama,galveston,jubail,no_panama,9894.200000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+galveston__jubail__no_canals,galveston,jubail,no_canals,12585.600000,Strait of Hormuz; Cape of Good Hope; Florida Strait
+galveston__ningbo__direct,galveston,ningbo,direct,10225.400000,Panama Canal; Yucatan Channel
+galveston__ningbo__no_suez,galveston,ningbo,no_suez,10225.400000,Panama Canal; Yucatan Channel
+galveston__ningbo__no_panama,galveston,ningbo,no_panama,13825.800000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca; Florida Strait
+galveston__ningbo__no_canals,galveston,ningbo,no_canals,15054.000000,Sunda Strait; Cape of Good Hope; Florida Strait
+galveston__yokohama__direct,galveston,yokohama,direct,9328.700000,Panama Canal; Yucatan Channel
+galveston__yokohama__no_suez,galveston,yokohama,no_suez,9328.700000,Panama Canal; Yucatan Channel
+galveston__yokohama__no_panama,galveston,yokohama,no_panama,14667.000000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca; Florida Strait
+galveston__yokohama__no_canals,galveston,yokohama,no_canals,15867.600000,Sunda Strait; Cape of Good Hope; Florida Strait
+galveston__houston__direct,galveston,houston,direct,33.500000,
+galveston__houston__no_suez,galveston,houston,no_suez,33.500000,
+galveston__houston__no_panama,galveston,houston,no_panama,33.500000,
+galveston__houston__no_canals,galveston,houston,no_canals,33.500000,
+galveston__new_york__direct,galveston,new_york,direct,1887.400000,Florida Strait
+galveston__new_york__no_suez,galveston,new_york,no_suez,1887.400000,Florida Strait
+galveston__new_york__no_panama,galveston,new_york,no_panama,1887.400000,Florida Strait
+galveston__new_york__no_canals,galveston,new_york,no_canals,1887.400000,Florida Strait
+galveston__rotterdam__direct,galveston,rotterdam,direct,5028.900000,Dover Strait; Florida Strait
+galveston__rotterdam__no_suez,galveston,rotterdam,no_suez,5028.900000,Dover Strait; Florida Strait
+galveston__rotterdam__no_panama,galveston,rotterdam,no_panama,5028.900000,Dover Strait; Florida Strait
+galveston__rotterdam__no_canals,galveston,rotterdam,no_canals,5028.900000,Dover Strait; Florida Strait
+galveston__amsterdam__direct,galveston,amsterdam,direct,5127.900000,Dover Strait; Florida Strait
+galveston__amsterdam__no_suez,galveston,amsterdam,no_suez,5127.900000,Dover Strait; Florida Strait
+galveston__amsterdam__no_panama,galveston,amsterdam,no_panama,5127.900000,Dover Strait; Florida Strait
+galveston__amsterdam__no_canals,galveston,amsterdam,no_canals,5127.900000,Dover Strait; Florida Strait
+galveston__le_havre__direct,galveston,le_havre,direct,4835.500000,Florida Strait
+galveston__le_havre__no_suez,galveston,le_havre,no_suez,4835.500000,Florida Strait
+galveston__le_havre__no_panama,galveston,le_havre,no_panama,4835.500000,Florida Strait
+galveston__le_havre__no_canals,galveston,le_havre,no_canals,4835.500000,Florida Strait
+galveston__bonny__direct,galveston,bonny,direct,6299.700000,Florida Strait
+galveston__bonny__no_suez,galveston,bonny,no_suez,6299.700000,Florida Strait
+galveston__bonny__no_panama,galveston,bonny,no_panama,6299.700000,Florida Strait
+galveston__bonny__no_canals,galveston,bonny,no_canals,6299.700000,Florida Strait
+galveston__singapore__direct,galveston,singapore,direct,11731.900000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca; Florida Strait
+galveston__singapore__no_suez,galveston,singapore,no_suez,12188.200000,Panama Canal; Yucatan Channel
+galveston__singapore__no_panama,galveston,singapore,no_panama,11731.900000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca; Florida Strait
+galveston__singapore__no_canals,galveston,singapore,no_canals,13128.500000,Sunda Strait; Cape of Good Hope; Florida Strait
+houston__tubarao__direct,houston,tubarao,direct,5078.300000,Florida Strait
+houston__tubarao__no_suez,houston,tubarao,no_suez,5078.300000,Florida Strait
+houston__tubarao__no_panama,houston,tubarao,no_panama,5078.300000,Florida Strait
+houston__tubarao__no_canals,houston,tubarao,no_canals,5078.300000,Florida Strait
+houston__port_hedland__direct,houston,port_hedland,direct,11601.900000,Panama Canal; Yucatan Channel
+houston__port_hedland__no_suez,houston,port_hedland,no_suez,11601.900000,Panama Canal; Yucatan Channel
+houston__port_hedland__no_panama,houston,port_hedland,no_panama,12803.200000,Cape of Good Hope; Florida Strait
+houston__port_hedland__no_canals,houston,port_hedland,no_canals,12803.200000,Cape of Good Hope; Florida Strait
+houston__qingdao__direct,houston,qingdao,direct,10218.200000,Panama Canal; Yucatan Channel
+houston__qingdao__no_suez,houston,qingdao,no_suez,10218.200000,Panama Canal; Yucatan Channel
+houston__qingdao__no_panama,houston,qingdao,no_panama,14237.600000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca; Florida Strait
+houston__qingdao__no_canals,houston,qingdao,no_canals,15465.900000,Sunda Strait; Cape of Good Hope; Florida Strait
+houston__new_orleans__direct,houston,new_orleans,direct,444.800000,
+houston__new_orleans__no_suez,houston,new_orleans,no_suez,444.800000,
+houston__new_orleans__no_panama,houston,new_orleans,no_panama,444.800000,
+houston__new_orleans__no_canals,houston,new_orleans,no_canals,444.800000,
+houston__ras_tanura__direct,houston,ras_tanura,direct,9915.800000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+houston__ras_tanura__no_suez,houston,ras_tanura,no_suez,12607.200000,Strait of Hormuz; Cape of Good Hope; Florida Strait
+houston__ras_tanura__no_panama,houston,ras_tanura,no_panama,9915.800000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+houston__ras_tanura__no_canals,houston,ras_tanura,no_canals,12607.200000,Strait of Hormuz; Cape of Good Hope; Florida Strait
+houston__mina_al_fahal__direct,houston,mina_al_fahal,direct,9375.500000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+houston__mina_al_fahal__no_suez,houston,mina_al_fahal,no_suez,12066.900000,Cape of Good Hope; Florida Strait
+houston__mina_al_fahal__no_panama,houston,mina_al_fahal,no_panama,9375.500000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+houston__mina_al_fahal__no_canals,houston,mina_al_fahal,no_canals,12066.900000,Cape of Good Hope; Florida Strait
+houston__fujairah__direct,houston,fujairah,direct,9523.700000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+houston__fujairah__no_suez,houston,fujairah,no_suez,12215.100000,Cape of Good Hope; Florida Strait
+houston__fujairah__no_panama,houston,fujairah,no_panama,9523.700000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+houston__fujairah__no_canals,houston,fujairah,no_canals,12215.100000,Cape of Good Hope; Florida Strait
+houston__jubail__direct,houston,jubail,direct,9927.700000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+houston__jubail__no_suez,houston,jubail,no_suez,12619.100000,Strait of Hormuz; Cape of Good Hope; Florida Strait
+houston__jubail__no_panama,houston,jubail,no_panama,9927.700000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Florida Strait
+houston__jubail__no_canals,houston,jubail,no_canals,12619.100000,Strait of Hormuz; Cape of Good Hope; Florida Strait
+houston__ningbo__direct,houston,ningbo,direct,10259.000000,Panama Canal; Yucatan Channel
+houston__ningbo__no_suez,houston,ningbo,no_suez,10259.000000,Panama Canal; Yucatan Channel
+houston__ningbo__no_panama,houston,ningbo,no_panama,13859.300000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca; Florida Strait
+houston__ningbo__no_canals,houston,ningbo,no_canals,15087.600000,Sunda Strait; Cape of Good Hope; Florida Strait
+houston__yokohama__direct,houston,yokohama,direct,9362.200000,Panama Canal; Yucatan Channel
+houston__yokohama__no_suez,houston,yokohama,no_suez,9362.200000,Panama Canal; Yucatan Channel
+houston__yokohama__no_panama,houston,yokohama,no_panama,14700.600000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca; Florida Strait
+houston__yokohama__no_canals,houston,yokohama,no_canals,15901.100000,Sunda Strait; Cape of Good Hope; Florida Strait
+houston__galveston__direct,houston,galveston,direct,33.500000,
+houston__galveston__no_suez,houston,galveston,no_suez,33.500000,
+houston__galveston__no_panama,houston,galveston,no_panama,33.500000,
+houston__galveston__no_canals,houston,galveston,no_canals,33.500000,
+houston__new_york__direct,houston,new_york,direct,1920.900000,Florida Strait
+houston__new_york__no_suez,houston,new_york,no_suez,1920.900000,Florida Strait
+houston__new_york__no_panama,houston,new_york,no_panama,1920.900000,Florida Strait
+houston__new_york__no_canals,houston,new_york,no_canals,1920.900000,Florida Strait
+houston__rotterdam__direct,houston,rotterdam,direct,5062.400000,Dover Strait; Florida Strait
+houston__rotterdam__no_suez,houston,rotterdam,no_suez,5062.400000,Dover Strait; Florida Strait
+houston__rotterdam__no_panama,houston,rotterdam,no_panama,5062.400000,Dover Strait; Florida Strait
+houston__rotterdam__no_canals,houston,rotterdam,no_canals,5062.400000,Dover Strait; Florida Strait
+houston__amsterdam__direct,houston,amsterdam,direct,5161.500000,Dover Strait; Florida Strait
+houston__amsterdam__no_suez,houston,amsterdam,no_suez,5161.500000,Dover Strait; Florida Strait
+houston__amsterdam__no_panama,houston,amsterdam,no_panama,5161.500000,Dover Strait; Florida Strait
+houston__amsterdam__no_canals,houston,amsterdam,no_canals,5161.500000,Dover Strait; Florida Strait
+houston__le_havre__direct,houston,le_havre,direct,4869.100000,Florida Strait
+houston__le_havre__no_suez,houston,le_havre,no_suez,4869.100000,Florida Strait
+houston__le_havre__no_panama,houston,le_havre,no_panama,4869.100000,Florida Strait
+houston__le_havre__no_canals,houston,le_havre,no_canals,4869.100000,Florida Strait
+houston__bonny__direct,houston,bonny,direct,6333.300000,Florida Strait
+houston__bonny__no_suez,houston,bonny,no_suez,6333.300000,Florida Strait
+houston__bonny__no_panama,houston,bonny,no_panama,6333.300000,Florida Strait
+houston__bonny__no_canals,houston,bonny,no_canals,6333.300000,Florida Strait
+houston__singapore__direct,houston,singapore,direct,11765.500000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca; Florida Strait
+houston__singapore__no_suez,houston,singapore,no_suez,12221.700000,Panama Canal; Yucatan Channel
+houston__singapore__no_panama,houston,singapore,no_panama,11765.500000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca; Florida Strait
+houston__singapore__no_canals,houston,singapore,no_canals,13162.000000,Sunda Strait; Cape of Good Hope; Florida Strait
+new_york__tubarao__direct,new_york,tubarao,direct,4492.800000,
+new_york__tubarao__no_suez,new_york,tubarao,no_suez,4492.800000,
+new_york__tubarao__no_panama,new_york,tubarao,no_panama,4492.800000,
+new_york__tubarao__no_canals,new_york,tubarao,no_canals,4492.800000,
+new_york__port_hedland__direct,new_york,port_hedland,direct,11579.300000,Bab el Mandeb; Suez Canal; Strait of Gibraltar
+new_york__port_hedland__no_suez,new_york,port_hedland,no_suez,12074.000000,Panama Canal
+new_york__port_hedland__no_panama,new_york,port_hedland,no_panama,11579.300000,Bab el Mandeb; Suez Canal; Strait of Gibraltar
+new_york__port_hedland__no_canals,new_york,port_hedland,no_canals,12126.500000,Cape of Good Hope
+new_york__qingdao__direct,new_york,qingdao,direct,10690.200000,Panama Canal
+new_york__qingdao__no_suez,new_york,qingdao,no_suez,10690.200000,Panama Canal
+new_york__qingdao__no_panama,new_york,qingdao,no_panama,12656.500000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca
+new_york__qingdao__no_canals,new_york,qingdao,no_canals,14789.100000,Sunda Strait; Cape of Good Hope
+new_york__new_orleans__direct,new_york,new_orleans,direct,1701.000000,Florida Strait
+new_york__new_orleans__no_suez,new_york,new_orleans,no_suez,1701.000000,Florida Strait
+new_york__new_orleans__no_panama,new_york,new_orleans,no_panama,1701.000000,Florida Strait
+new_york__new_orleans__no_canals,new_york,new_orleans,no_canals,1701.000000,Florida Strait
+new_york__ras_tanura__direct,new_york,ras_tanura,direct,8334.800000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar
+new_york__ras_tanura__no_suez,new_york,ras_tanura,no_suez,11930.500000,Strait of Hormuz; Cape of Good Hope
+new_york__ras_tanura__no_panama,new_york,ras_tanura,no_panama,8334.800000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar
+new_york__ras_tanura__no_canals,new_york,ras_tanura,no_canals,11930.500000,Strait of Hormuz; Cape of Good Hope
+new_york__mina_al_fahal__direct,new_york,mina_al_fahal,direct,7794.500000,Bab el Mandeb; Suez Canal; Strait of Gibraltar
+new_york__mina_al_fahal__no_suez,new_york,mina_al_fahal,no_suez,11390.200000,Cape of Good Hope
+new_york__mina_al_fahal__no_panama,new_york,mina_al_fahal,no_panama,7794.500000,Bab el Mandeb; Suez Canal; Strait of Gibraltar
+new_york__mina_al_fahal__no_canals,new_york,mina_al_fahal,no_canals,11390.200000,Cape of Good Hope
+new_york__fujairah__direct,new_york,fujairah,direct,7942.600000,Bab el Mandeb; Suez Canal; Strait of Gibraltar
+new_york__fujairah__no_suez,new_york,fujairah,no_suez,11538.400000,Cape of Good Hope
+new_york__fujairah__no_panama,new_york,fujairah,no_panama,7942.600000,Bab el Mandeb; Suez Canal; Strait of Gibraltar
+new_york__fujairah__no_canals,new_york,fujairah,no_canals,11538.400000,Cape of Good Hope
+new_york__jubail__direct,new_york,jubail,direct,8346.700000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar
+new_york__jubail__no_suez,new_york,jubail,no_suez,11942.400000,Strait of Hormuz; Cape of Good Hope
+new_york__jubail__no_panama,new_york,jubail,no_panama,8346.700000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar
+new_york__jubail__no_canals,new_york,jubail,no_canals,11942.400000,Strait of Hormuz; Cape of Good Hope
+new_york__ningbo__direct,new_york,ningbo,direct,10731.000000,Panama Canal
+new_york__ningbo__no_suez,new_york,ningbo,no_suez,10731.000000,Panama Canal
+new_york__ningbo__no_panama,new_york,ningbo,no_panama,12278.200000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca
+new_york__ningbo__no_canals,new_york,ningbo,no_canals,14410.800000,Sunda Strait; Cape of Good Hope
+new_york__yokohama__direct,new_york,yokohama,direct,9834.300000,Panama Canal
+new_york__yokohama__no_suez,new_york,yokohama,no_suez,9834.300000,Panama Canal
+new_york__yokohama__no_panama,new_york,yokohama,no_panama,13119.500000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca
+new_york__yokohama__no_canals,new_york,yokohama,no_canals,15224.400000,Sunda Strait; Cape of Good Hope
+new_york__galveston__direct,new_york,galveston,direct,1887.400000,Florida Strait
+new_york__galveston__no_suez,new_york,galveston,no_suez,1887.400000,Florida Strait
+new_york__galveston__no_panama,new_york,galveston,no_panama,1887.400000,Florida Strait
+new_york__galveston__no_canals,new_york,galveston,no_canals,1887.400000,Florida Strait
+new_york__houston__direct,new_york,houston,direct,1920.900000,Florida Strait
+new_york__houston__no_suez,new_york,houston,no_suez,1920.900000,Florida Strait
+new_york__houston__no_panama,new_york,houston,no_panama,1920.900000,Florida Strait
+new_york__houston__no_canals,new_york,houston,no_canals,1920.900000,Florida Strait
+new_york__rotterdam__direct,new_york,rotterdam,direct,3322.300000,Dover Strait
+new_york__rotterdam__no_suez,new_york,rotterdam,no_suez,3322.300000,Dover Strait
+new_york__rotterdam__no_panama,new_york,rotterdam,no_panama,3322.300000,Dover Strait
+new_york__rotterdam__no_canals,new_york,rotterdam,no_canals,3322.300000,Dover Strait
+new_york__amsterdam__direct,new_york,amsterdam,direct,3421.400000,Dover Strait
+new_york__amsterdam__no_suez,new_york,amsterdam,no_suez,3421.400000,Dover Strait
+new_york__amsterdam__no_panama,new_york,amsterdam,no_panama,3421.400000,Dover Strait
+new_york__amsterdam__no_canals,new_york,amsterdam,no_canals,3421.400000,Dover Strait
+new_york__le_havre__direct,new_york,le_havre,direct,3129.000000,
+new_york__le_havre__no_suez,new_york,le_havre,no_suez,3129.000000,
+new_york__le_havre__no_panama,new_york,le_havre,no_panama,3129.000000,
+new_york__le_havre__no_canals,new_york,le_havre,no_canals,3129.000000,
+new_york__bonny__direct,new_york,bonny,direct,5265.200000,
+new_york__bonny__no_suez,new_york,bonny,no_suez,5265.200000,
+new_york__bonny__no_panama,new_york,bonny,no_panama,5265.200000,
+new_york__bonny__no_canals,new_york,bonny,no_canals,5265.200000,
+new_york__singapore__direct,new_york,singapore,direct,10184.400000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca
+new_york__singapore__no_suez,new_york,singapore,no_suez,12485.300000,Sunda Strait; Cape of Good Hope
+new_york__singapore__no_panama,new_york,singapore,no_panama,10184.400000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca
+new_york__singapore__no_canals,new_york,singapore,no_canals,12485.300000,Sunda Strait; Cape of Good Hope
+rotterdam__tubarao__direct,rotterdam,tubarao,direct,4955.000000,Dover Strait
+rotterdam__tubarao__no_suez,rotterdam,tubarao,no_suez,4955.000000,Dover Strait
+rotterdam__tubarao__no_panama,rotterdam,tubarao,no_panama,4955.000000,Dover Strait
+rotterdam__tubarao__no_canals,rotterdam,tubarao,no_canals,4955.000000,Dover Strait
+rotterdam__port_hedland__direct,rotterdam,port_hedland,direct,9775.800000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+rotterdam__port_hedland__no_suez,rotterdam,port_hedland,no_suez,11510.200000,Dover Strait; Cape of Good Hope
+rotterdam__port_hedland__no_panama,rotterdam,port_hedland,no_panama,9775.800000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+rotterdam__port_hedland__no_canals,rotterdam,port_hedland,no_canals,11510.200000,Dover Strait; Cape of Good Hope
+rotterdam__qingdao__direct,rotterdam,qingdao,direct,10853.000000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait; Strait of Malacca
+rotterdam__qingdao__no_suez,rotterdam,qingdao,no_suez,13520.300000,Dover Strait; Panama Canal
+rotterdam__qingdao__no_panama,rotterdam,qingdao,no_panama,10853.000000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait; Strait of Malacca
+rotterdam__qingdao__no_canals,rotterdam,qingdao,no_canals,14172.900000,Dover Strait; Sunda Strait; Cape of Good Hope
+rotterdam__new_orleans__direct,rotterdam,new_orleans,direct,4842.500000,Dover Strait; Florida Strait
+rotterdam__new_orleans__no_suez,rotterdam,new_orleans,no_suez,4842.500000,Dover Strait; Florida Strait
+rotterdam__new_orleans__no_panama,rotterdam,new_orleans,no_panama,4842.500000,Dover Strait; Florida Strait
+rotterdam__new_orleans__no_canals,rotterdam,new_orleans,no_canals,4842.500000,Dover Strait; Florida Strait
+rotterdam__ras_tanura__direct,rotterdam,ras_tanura,direct,6531.200000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+rotterdam__ras_tanura__no_suez,rotterdam,ras_tanura,no_suez,11314.300000,Strait of Hormuz; Dover Strait; Cape of Good Hope
+rotterdam__ras_tanura__no_panama,rotterdam,ras_tanura,no_panama,6531.200000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+rotterdam__ras_tanura__no_canals,rotterdam,ras_tanura,no_canals,11314.300000,Strait of Hormuz; Dover Strait; Cape of Good Hope
+rotterdam__mina_al_fahal__direct,rotterdam,mina_al_fahal,direct,5990.900000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+rotterdam__mina_al_fahal__no_suez,rotterdam,mina_al_fahal,no_suez,10774.000000,Dover Strait; Cape of Good Hope
+rotterdam__mina_al_fahal__no_panama,rotterdam,mina_al_fahal,no_panama,5990.900000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+rotterdam__mina_al_fahal__no_canals,rotterdam,mina_al_fahal,no_canals,10774.000000,Dover Strait; Cape of Good Hope
+rotterdam__fujairah__direct,rotterdam,fujairah,direct,6139.100000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+rotterdam__fujairah__no_suez,rotterdam,fujairah,no_suez,10922.200000,Dover Strait; Cape of Good Hope
+rotterdam__fujairah__no_panama,rotterdam,fujairah,no_panama,6139.100000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+rotterdam__fujairah__no_canals,rotterdam,fujairah,no_canals,10922.200000,Dover Strait; Cape of Good Hope
+rotterdam__jubail__direct,rotterdam,jubail,direct,6543.100000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+rotterdam__jubail__no_suez,rotterdam,jubail,no_suez,11326.200000,Strait of Hormuz; Dover Strait; Cape of Good Hope
+rotterdam__jubail__no_panama,rotterdam,jubail,no_panama,6543.100000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+rotterdam__jubail__no_canals,rotterdam,jubail,no_canals,11326.200000,Strait of Hormuz; Dover Strait; Cape of Good Hope
+rotterdam__ningbo__direct,rotterdam,ningbo,direct,10474.700000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait; Strait of Malacca
+rotterdam__ningbo__no_suez,rotterdam,ningbo,no_suez,13561.100000,Dover Strait; Panama Canal
+rotterdam__ningbo__no_panama,rotterdam,ningbo,no_panama,10474.700000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait; Strait of Malacca
+rotterdam__ningbo__no_canals,rotterdam,ningbo,no_canals,13794.600000,Dover Strait; Sunda Strait; Cape of Good Hope
+rotterdam__yokohama__direct,rotterdam,yokohama,direct,11316.000000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait; Strait of Malacca
+rotterdam__yokohama__no_suez,rotterdam,yokohama,no_suez,12664.300000,Dover Strait; Panama Canal
+rotterdam__yokohama__no_panama,rotterdam,yokohama,no_panama,11316.000000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait; Strait of Malacca
+rotterdam__yokohama__no_canals,rotterdam,yokohama,no_canals,14608.200000,Dover Strait; Sunda Strait; Cape of Good Hope
+rotterdam__galveston__direct,rotterdam,galveston,direct,5028.900000,Dover Strait; Florida Strait
+rotterdam__galveston__no_suez,rotterdam,galveston,no_suez,5028.900000,Dover Strait; Florida Strait
+rotterdam__galveston__no_panama,rotterdam,galveston,no_panama,5028.900000,Dover Strait; Florida Strait
+rotterdam__galveston__no_canals,rotterdam,galveston,no_canals,5028.900000,Dover Strait; Florida Strait
+rotterdam__houston__direct,rotterdam,houston,direct,5062.400000,Dover Strait; Florida Strait
+rotterdam__houston__no_suez,rotterdam,houston,no_suez,5062.400000,Dover Strait; Florida Strait
+rotterdam__houston__no_panama,rotterdam,houston,no_panama,5062.400000,Dover Strait; Florida Strait
+rotterdam__houston__no_canals,rotterdam,houston,no_canals,5062.400000,Dover Strait; Florida Strait
+rotterdam__new_york__direct,rotterdam,new_york,direct,3322.300000,Dover Strait
+rotterdam__new_york__no_suez,rotterdam,new_york,no_suez,3322.300000,Dover Strait
+rotterdam__new_york__no_panama,rotterdam,new_york,no_panama,3322.300000,Dover Strait
+rotterdam__new_york__no_canals,rotterdam,new_york,no_canals,3322.300000,Dover Strait
+rotterdam__amsterdam__direct,rotterdam,amsterdam,direct,144.000000,
+rotterdam__amsterdam__no_suez,rotterdam,amsterdam,no_suez,144.000000,
+rotterdam__amsterdam__no_panama,rotterdam,amsterdam,no_panama,144.000000,
+rotterdam__amsterdam__no_canals,rotterdam,amsterdam,no_canals,144.000000,
+rotterdam__le_havre__direct,rotterdam,le_havre,direct,246.200000,Dover Strait
+rotterdam__le_havre__no_suez,rotterdam,le_havre,no_suez,246.200000,Dover Strait
+rotterdam__le_havre__no_panama,rotterdam,le_havre,no_panama,246.200000,Dover Strait
+rotterdam__le_havre__no_canals,rotterdam,le_havre,no_canals,246.200000,Dover Strait
+rotterdam__bonny__direct,rotterdam,bonny,direct,4466.500000,Dover Strait
+rotterdam__bonny__no_suez,rotterdam,bonny,no_suez,4466.500000,Dover Strait
+rotterdam__bonny__no_panama,rotterdam,bonny,no_panama,4466.500000,Dover Strait
+rotterdam__bonny__no_canals,rotterdam,bonny,no_canals,4466.500000,Dover Strait
+rotterdam__singapore__direct,rotterdam,singapore,direct,8380.900000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait; Strait of Malacca
+rotterdam__singapore__no_suez,rotterdam,singapore,no_suez,11869.100000,Dover Strait; Sunda Strait; Cape of Good Hope
+rotterdam__singapore__no_panama,rotterdam,singapore,no_panama,8380.900000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait; Strait of Malacca
+rotterdam__singapore__no_canals,rotterdam,singapore,no_canals,11869.100000,Dover Strait; Sunda Strait; Cape of Good Hope
+amsterdam__tubarao__direct,amsterdam,tubarao,direct,5054.100000,Dover Strait
+amsterdam__tubarao__no_suez,amsterdam,tubarao,no_suez,5054.100000,Dover Strait
+amsterdam__tubarao__no_panama,amsterdam,tubarao,no_panama,5054.100000,Dover Strait
+amsterdam__tubarao__no_canals,amsterdam,tubarao,no_canals,5054.100000,Dover Strait
+amsterdam__port_hedland__direct,amsterdam,port_hedland,direct,9874.900000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+amsterdam__port_hedland__no_suez,amsterdam,port_hedland,no_suez,11609.300000,Dover Strait; Cape of Good Hope
+amsterdam__port_hedland__no_panama,amsterdam,port_hedland,no_panama,9874.900000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+amsterdam__port_hedland__no_canals,amsterdam,port_hedland,no_canals,11609.300000,Dover Strait; Cape of Good Hope
+amsterdam__qingdao__direct,amsterdam,qingdao,direct,10952.100000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait; Strait of Malacca
+amsterdam__qingdao__no_suez,amsterdam,qingdao,no_suez,13619.300000,Dover Strait; Panama Canal
+amsterdam__qingdao__no_panama,amsterdam,qingdao,no_panama,10952.100000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait; Strait of Malacca
+amsterdam__qingdao__no_canals,amsterdam,qingdao,no_canals,14272.000000,Dover Strait; Sunda Strait; Cape of Good Hope
+amsterdam__new_orleans__direct,amsterdam,new_orleans,direct,4941.600000,Dover Strait; Florida Strait
+amsterdam__new_orleans__no_suez,amsterdam,new_orleans,no_suez,4941.600000,Dover Strait; Florida Strait
+amsterdam__new_orleans__no_panama,amsterdam,new_orleans,no_panama,4941.600000,Dover Strait; Florida Strait
+amsterdam__new_orleans__no_canals,amsterdam,new_orleans,no_canals,4941.600000,Dover Strait; Florida Strait
+amsterdam__ras_tanura__direct,amsterdam,ras_tanura,direct,6630.300000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+amsterdam__ras_tanura__no_suez,amsterdam,ras_tanura,no_suez,11413.300000,Strait of Hormuz; Dover Strait; Cape of Good Hope
+amsterdam__ras_tanura__no_panama,amsterdam,ras_tanura,no_panama,6630.300000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+amsterdam__ras_tanura__no_canals,amsterdam,ras_tanura,no_canals,11413.300000,Strait of Hormuz; Dover Strait; Cape of Good Hope
+amsterdam__mina_al_fahal__direct,amsterdam,mina_al_fahal,direct,6090.000000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+amsterdam__mina_al_fahal__no_suez,amsterdam,mina_al_fahal,no_suez,10873.100000,Dover Strait; Cape of Good Hope
+amsterdam__mina_al_fahal__no_panama,amsterdam,mina_al_fahal,no_panama,6090.000000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+amsterdam__mina_al_fahal__no_canals,amsterdam,mina_al_fahal,no_canals,10873.100000,Dover Strait; Cape of Good Hope
+amsterdam__fujairah__direct,amsterdam,fujairah,direct,6238.200000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+amsterdam__fujairah__no_suez,amsterdam,fujairah,no_suez,11021.200000,Dover Strait; Cape of Good Hope
+amsterdam__fujairah__no_panama,amsterdam,fujairah,no_panama,6238.200000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+amsterdam__fujairah__no_canals,amsterdam,fujairah,no_canals,11021.200000,Dover Strait; Cape of Good Hope
+amsterdam__jubail__direct,amsterdam,jubail,direct,6642.200000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+amsterdam__jubail__no_suez,amsterdam,jubail,no_suez,11425.300000,Strait of Hormuz; Dover Strait; Cape of Good Hope
+amsterdam__jubail__no_panama,amsterdam,jubail,no_panama,6642.200000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait
+amsterdam__jubail__no_canals,amsterdam,jubail,no_canals,11425.300000,Strait of Hormuz; Dover Strait; Cape of Good Hope
+amsterdam__ningbo__direct,amsterdam,ningbo,direct,10573.800000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait; Strait of Malacca
+amsterdam__ningbo__no_suez,amsterdam,ningbo,no_suez,13660.100000,Dover Strait; Panama Canal
+amsterdam__ningbo__no_panama,amsterdam,ningbo,no_panama,10573.800000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait; Strait of Malacca
+amsterdam__ningbo__no_canals,amsterdam,ningbo,no_canals,13893.700000,Dover Strait; Sunda Strait; Cape of Good Hope
+amsterdam__yokohama__direct,amsterdam,yokohama,direct,11415.000000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait; Strait of Malacca
+amsterdam__yokohama__no_suez,amsterdam,yokohama,no_suez,12763.400000,Dover Strait; Panama Canal
+amsterdam__yokohama__no_panama,amsterdam,yokohama,no_panama,11415.000000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait; Strait of Malacca
+amsterdam__yokohama__no_canals,amsterdam,yokohama,no_canals,14707.200000,Dover Strait; Sunda Strait; Cape of Good Hope
+amsterdam__galveston__direct,amsterdam,galveston,direct,5127.900000,Dover Strait; Florida Strait
+amsterdam__galveston__no_suez,amsterdam,galveston,no_suez,5127.900000,Dover Strait; Florida Strait
+amsterdam__galveston__no_panama,amsterdam,galveston,no_panama,5127.900000,Dover Strait; Florida Strait
+amsterdam__galveston__no_canals,amsterdam,galveston,no_canals,5127.900000,Dover Strait; Florida Strait
+amsterdam__houston__direct,amsterdam,houston,direct,5161.500000,Dover Strait; Florida Strait
+amsterdam__houston__no_suez,amsterdam,houston,no_suez,5161.500000,Dover Strait; Florida Strait
+amsterdam__houston__no_panama,amsterdam,houston,no_panama,5161.500000,Dover Strait; Florida Strait
+amsterdam__houston__no_canals,amsterdam,houston,no_canals,5161.500000,Dover Strait; Florida Strait
+amsterdam__new_york__direct,amsterdam,new_york,direct,3421.400000,Dover Strait
+amsterdam__new_york__no_suez,amsterdam,new_york,no_suez,3421.400000,Dover Strait
+amsterdam__new_york__no_panama,amsterdam,new_york,no_panama,3421.400000,Dover Strait
+amsterdam__new_york__no_canals,amsterdam,new_york,no_canals,3421.400000,Dover Strait
+amsterdam__rotterdam__direct,amsterdam,rotterdam,direct,144.000000,
+amsterdam__rotterdam__no_suez,amsterdam,rotterdam,no_suez,144.000000,
+amsterdam__rotterdam__no_panama,amsterdam,rotterdam,no_panama,144.000000,
+amsterdam__rotterdam__no_canals,amsterdam,rotterdam,no_canals,144.000000,
+amsterdam__le_havre__direct,amsterdam,le_havre,direct,345.300000,Dover Strait
+amsterdam__le_havre__no_suez,amsterdam,le_havre,no_suez,345.300000,Dover Strait
+amsterdam__le_havre__no_panama,amsterdam,le_havre,no_panama,345.300000,Dover Strait
+amsterdam__le_havre__no_canals,amsterdam,le_havre,no_canals,345.300000,Dover Strait
+amsterdam__bonny__direct,amsterdam,bonny,direct,4565.600000,Dover Strait
+amsterdam__bonny__no_suez,amsterdam,bonny,no_suez,4565.600000,Dover Strait
+amsterdam__bonny__no_panama,amsterdam,bonny,no_panama,4565.600000,Dover Strait
+amsterdam__bonny__no_canals,amsterdam,bonny,no_canals,4565.600000,Dover Strait
+amsterdam__singapore__direct,amsterdam,singapore,direct,8480.000000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait; Strait of Malacca
+amsterdam__singapore__no_suez,amsterdam,singapore,no_suez,11968.100000,Dover Strait; Sunda Strait; Cape of Good Hope
+amsterdam__singapore__no_panama,amsterdam,singapore,no_panama,8480.000000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait; Strait of Malacca
+amsterdam__singapore__no_canals,amsterdam,singapore,no_canals,11968.100000,Dover Strait; Sunda Strait; Cape of Good Hope
+le_havre__tubarao__direct,le_havre,tubarao,direct,4756.800000,
+le_havre__tubarao__no_suez,le_havre,tubarao,no_suez,4756.800000,
+le_havre__tubarao__no_panama,le_havre,tubarao,no_panama,4756.800000,
+le_havre__tubarao__no_canals,le_havre,tubarao,no_canals,4756.800000,
+le_havre__port_hedland__direct,le_havre,port_hedland,direct,9577.600000,Bab el Mandeb; Suez Canal; Strait of Gibraltar
+le_havre__port_hedland__no_suez,le_havre,port_hedland,no_suez,11312.100000,Cape of Good Hope
+le_havre__port_hedland__no_panama,le_havre,port_hedland,no_panama,9577.600000,Bab el Mandeb; Suez Canal; Strait of Gibraltar
+le_havre__port_hedland__no_canals,le_havre,port_hedland,no_canals,11312.100000,Cape of Good Hope
+le_havre__qingdao__direct,le_havre,qingdao,direct,10654.800000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca
+le_havre__qingdao__no_suez,le_havre,qingdao,no_suez,13326.900000,Panama Canal
+le_havre__qingdao__no_panama,le_havre,qingdao,no_panama,10654.800000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca
+le_havre__qingdao__no_canals,le_havre,qingdao,no_canals,13974.700000,Sunda Strait; Cape of Good Hope
+le_havre__new_orleans__direct,le_havre,new_orleans,direct,4649.100000,Florida Strait
+le_havre__new_orleans__no_suez,le_havre,new_orleans,no_suez,4649.100000,Florida Strait
+le_havre__new_orleans__no_panama,le_havre,new_orleans,no_panama,4649.100000,Florida Strait
+le_havre__new_orleans__no_canals,le_havre,new_orleans,no_canals,4649.100000,Florida Strait
+le_havre__ras_tanura__direct,le_havre,ras_tanura,direct,6333.100000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar
+le_havre__ras_tanura__no_suez,le_havre,ras_tanura,no_suez,11116.100000,Strait of Hormuz; Cape of Good Hope
+le_havre__ras_tanura__no_panama,le_havre,ras_tanura,no_panama,6333.100000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar
+le_havre__ras_tanura__no_canals,le_havre,ras_tanura,no_canals,11116.100000,Strait of Hormuz; Cape of Good Hope
+le_havre__mina_al_fahal__direct,le_havre,mina_al_fahal,direct,5792.800000,Bab el Mandeb; Suez Canal; Strait of Gibraltar
+le_havre__mina_al_fahal__no_suez,le_havre,mina_al_fahal,no_suez,10575.800000,Cape of Good Hope
+le_havre__mina_al_fahal__no_panama,le_havre,mina_al_fahal,no_panama,5792.800000,Bab el Mandeb; Suez Canal; Strait of Gibraltar
+le_havre__mina_al_fahal__no_canals,le_havre,mina_al_fahal,no_canals,10575.800000,Cape of Good Hope
+le_havre__fujairah__direct,le_havre,fujairah,direct,5941.000000,Bab el Mandeb; Suez Canal; Strait of Gibraltar
+le_havre__fujairah__no_suez,le_havre,fujairah,no_suez,10724.000000,Cape of Good Hope
+le_havre__fujairah__no_panama,le_havre,fujairah,no_panama,5941.000000,Bab el Mandeb; Suez Canal; Strait of Gibraltar
+le_havre__fujairah__no_canals,le_havre,fujairah,no_canals,10724.000000,Cape of Good Hope
+le_havre__jubail__direct,le_havre,jubail,direct,6345.000000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar
+le_havre__jubail__no_suez,le_havre,jubail,no_suez,11128.000000,Strait of Hormuz; Cape of Good Hope
+le_havre__jubail__no_panama,le_havre,jubail,no_panama,6345.000000,Strait of Hormuz; Bab el Mandeb; Suez Canal; Strait of Gibraltar
+le_havre__jubail__no_canals,le_havre,jubail,no_canals,11128.000000,Strait of Hormuz; Cape of Good Hope
+le_havre__ningbo__direct,le_havre,ningbo,direct,10276.500000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca
+le_havre__ningbo__no_suez,le_havre,ningbo,no_suez,13367.700000,Panama Canal
+le_havre__ningbo__no_panama,le_havre,ningbo,no_panama,10276.500000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca
+le_havre__ningbo__no_canals,le_havre,ningbo,no_canals,13596.500000,Sunda Strait; Cape of Good Hope
+le_havre__yokohama__direct,le_havre,yokohama,direct,11117.800000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca
+le_havre__yokohama__no_suez,le_havre,yokohama,no_suez,12471.000000,Panama Canal
+le_havre__yokohama__no_panama,le_havre,yokohama,no_panama,11117.800000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca
+le_havre__yokohama__no_canals,le_havre,yokohama,no_canals,14410.000000,Sunda Strait; Cape of Good Hope
+le_havre__galveston__direct,le_havre,galveston,direct,4835.500000,Florida Strait
+le_havre__galveston__no_suez,le_havre,galveston,no_suez,4835.500000,Florida Strait
+le_havre__galveston__no_panama,le_havre,galveston,no_panama,4835.500000,Florida Strait
+le_havre__galveston__no_canals,le_havre,galveston,no_canals,4835.500000,Florida Strait
+le_havre__houston__direct,le_havre,houston,direct,4869.100000,Florida Strait
+le_havre__houston__no_suez,le_havre,houston,no_suez,4869.100000,Florida Strait
+le_havre__houston__no_panama,le_havre,houston,no_panama,4869.100000,Florida Strait
+le_havre__houston__no_canals,le_havre,houston,no_canals,4869.100000,Florida Strait
+le_havre__new_york__direct,le_havre,new_york,direct,3129.000000,
+le_havre__new_york__no_suez,le_havre,new_york,no_suez,3129.000000,
+le_havre__new_york__no_panama,le_havre,new_york,no_panama,3129.000000,
+le_havre__new_york__no_canals,le_havre,new_york,no_canals,3129.000000,
+le_havre__rotterdam__direct,le_havre,rotterdam,direct,246.200000,Dover Strait
+le_havre__rotterdam__no_suez,le_havre,rotterdam,no_suez,246.200000,Dover Strait
+le_havre__rotterdam__no_panama,le_havre,rotterdam,no_panama,246.200000,Dover Strait
+le_havre__rotterdam__no_canals,le_havre,rotterdam,no_canals,246.200000,Dover Strait
+le_havre__amsterdam__direct,le_havre,amsterdam,direct,345.300000,Dover Strait
+le_havre__amsterdam__no_suez,le_havre,amsterdam,no_suez,345.300000,Dover Strait
+le_havre__amsterdam__no_panama,le_havre,amsterdam,no_panama,345.300000,Dover Strait
+le_havre__amsterdam__no_canals,le_havre,amsterdam,no_canals,345.300000,Dover Strait
+le_havre__bonny__direct,le_havre,bonny,direct,4268.400000,
+le_havre__bonny__no_suez,le_havre,bonny,no_suez,4268.400000,
+le_havre__bonny__no_panama,le_havre,bonny,no_panama,4268.400000,
+le_havre__bonny__no_canals,le_havre,bonny,no_canals,4268.400000,
+le_havre__singapore__direct,le_havre,singapore,direct,8182.700000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca
+le_havre__singapore__no_suez,le_havre,singapore,no_suez,11670.900000,Sunda Strait; Cape of Good Hope
+le_havre__singapore__no_panama,le_havre,singapore,no_panama,8182.700000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca
+le_havre__singapore__no_canals,le_havre,singapore,no_canals,11670.900000,Sunda Strait; Cape of Good Hope
+bonny__tubarao__direct,bonny,tubarao,direct,3295.700000,
+bonny__tubarao__no_suez,bonny,tubarao,no_suez,3295.700000,
+bonny__tubarao__no_panama,bonny,tubarao,no_panama,3295.700000,
+bonny__tubarao__no_canals,bonny,tubarao,no_canals,3295.700000,
+bonny__port_hedland__direct,bonny,port_hedland,direct,7823.200000,Cape of Good Hope
+bonny__port_hedland__no_suez,bonny,port_hedland,no_suez,7823.200000,Cape of Good Hope
+bonny__port_hedland__no_panama,bonny,port_hedland,no_panama,7823.200000,Cape of Good Hope
+bonny__port_hedland__no_canals,bonny,port_hedland,no_canals,7823.200000,Cape of Good Hope
+bonny__qingdao__direct,bonny,qingdao,direct,10485.900000,Sunda Strait; Cape of Good Hope
+bonny__qingdao__no_suez,bonny,qingdao,no_suez,10485.900000,Sunda Strait; Cape of Good Hope
+bonny__qingdao__no_panama,bonny,qingdao,no_panama,10485.900000,Sunda Strait; Cape of Good Hope
+bonny__qingdao__no_canals,bonny,qingdao,no_canals,10485.900000,Sunda Strait; Cape of Good Hope
+bonny__new_orleans__direct,bonny,new_orleans,direct,6118.100000,Florida Strait
+bonny__new_orleans__no_suez,bonny,new_orleans,no_suez,6118.100000,Florida Strait
+bonny__new_orleans__no_panama,bonny,new_orleans,no_panama,6118.100000,Florida Strait
+bonny__new_orleans__no_canals,bonny,new_orleans,no_canals,6118.100000,Florida Strait
+bonny__ras_tanura__direct,bonny,ras_tanura,direct,7627.200000,Strait of Hormuz; Cape of Good Hope
+bonny__ras_tanura__no_suez,bonny,ras_tanura,no_suez,7627.200000,Strait of Hormuz; Cape of Good Hope
+bonny__ras_tanura__no_panama,bonny,ras_tanura,no_panama,7627.200000,Strait of Hormuz; Cape of Good Hope
+bonny__ras_tanura__no_canals,bonny,ras_tanura,no_canals,7627.200000,Strait of Hormuz; Cape of Good Hope
+bonny__mina_al_fahal__direct,bonny,mina_al_fahal,direct,7087.000000,Cape of Good Hope
+bonny__mina_al_fahal__no_suez,bonny,mina_al_fahal,no_suez,7087.000000,Cape of Good Hope
+bonny__mina_al_fahal__no_panama,bonny,mina_al_fahal,no_panama,7087.000000,Cape of Good Hope
+bonny__mina_al_fahal__no_canals,bonny,mina_al_fahal,no_canals,7087.000000,Cape of Good Hope
+bonny__fujairah__direct,bonny,fujairah,direct,7235.100000,Cape of Good Hope
+bonny__fujairah__no_suez,bonny,fujairah,no_suez,7235.100000,Cape of Good Hope
+bonny__fujairah__no_panama,bonny,fujairah,no_panama,7235.100000,Cape of Good Hope
+bonny__fujairah__no_canals,bonny,fujairah,no_canals,7235.100000,Cape of Good Hope
+bonny__jubail__direct,bonny,jubail,direct,7639.200000,Strait of Hormuz; Cape of Good Hope
+bonny__jubail__no_suez,bonny,jubail,no_suez,7639.200000,Strait of Hormuz; Cape of Good Hope
+bonny__jubail__no_panama,bonny,jubail,no_panama,7639.200000,Strait of Hormuz; Cape of Good Hope
+bonny__jubail__no_canals,bonny,jubail,no_canals,7639.200000,Strait of Hormuz; Cape of Good Hope
+bonny__ningbo__direct,bonny,ningbo,direct,10107.600000,Sunda Strait; Cape of Good Hope
+bonny__ningbo__no_suez,bonny,ningbo,no_suez,10107.600000,Sunda Strait; Cape of Good Hope
+bonny__ningbo__no_panama,bonny,ningbo,no_panama,10107.600000,Sunda Strait; Cape of Good Hope
+bonny__ningbo__no_canals,bonny,ningbo,no_canals,10107.600000,Sunda Strait; Cape of Good Hope
+bonny__yokohama__direct,bonny,yokohama,direct,10921.200000,Sunda Strait; Cape of Good Hope
+bonny__yokohama__no_suez,bonny,yokohama,no_suez,10921.200000,Sunda Strait; Cape of Good Hope
+bonny__yokohama__no_panama,bonny,yokohama,no_panama,10921.200000,Sunda Strait; Cape of Good Hope
+bonny__yokohama__no_canals,bonny,yokohama,no_canals,10921.200000,Sunda Strait; Cape of Good Hope
+bonny__galveston__direct,bonny,galveston,direct,6299.700000,Florida Strait
+bonny__galveston__no_suez,bonny,galveston,no_suez,6299.700000,Florida Strait
+bonny__galveston__no_panama,bonny,galveston,no_panama,6299.700000,Florida Strait
+bonny__galveston__no_canals,bonny,galveston,no_canals,6299.700000,Florida Strait
+bonny__houston__direct,bonny,houston,direct,6333.300000,Florida Strait
+bonny__houston__no_suez,bonny,houston,no_suez,6333.300000,Florida Strait
+bonny__houston__no_panama,bonny,houston,no_panama,6333.300000,Florida Strait
+bonny__houston__no_canals,bonny,houston,no_canals,6333.300000,Florida Strait
+bonny__new_york__direct,bonny,new_york,direct,5265.200000,
+bonny__new_york__no_suez,bonny,new_york,no_suez,5265.200000,
+bonny__new_york__no_panama,bonny,new_york,no_panama,5265.200000,
+bonny__new_york__no_canals,bonny,new_york,no_canals,5265.200000,
+bonny__rotterdam__direct,bonny,rotterdam,direct,4466.500000,Dover Strait
+bonny__rotterdam__no_suez,bonny,rotterdam,no_suez,4466.500000,Dover Strait
+bonny__rotterdam__no_panama,bonny,rotterdam,no_panama,4466.500000,Dover Strait
+bonny__rotterdam__no_canals,bonny,rotterdam,no_canals,4466.500000,Dover Strait
+bonny__amsterdam__direct,bonny,amsterdam,direct,4565.600000,Dover Strait
+bonny__amsterdam__no_suez,bonny,amsterdam,no_suez,4565.600000,Dover Strait
+bonny__amsterdam__no_panama,bonny,amsterdam,no_panama,4565.600000,Dover Strait
+bonny__amsterdam__no_canals,bonny,amsterdam,no_canals,4565.600000,Dover Strait
+bonny__le_havre__direct,bonny,le_havre,direct,4268.400000,
+bonny__le_havre__no_suez,bonny,le_havre,no_suez,4268.400000,
+bonny__le_havre__no_panama,bonny,le_havre,no_panama,4268.400000,
+bonny__le_havre__no_canals,bonny,le_havre,no_canals,4268.400000,
+bonny__singapore__direct,bonny,singapore,direct,8182.000000,Sunda Strait; Cape of Good Hope
+bonny__singapore__no_suez,bonny,singapore,no_suez,8182.000000,Sunda Strait; Cape of Good Hope
+bonny__singapore__no_panama,bonny,singapore,no_panama,8182.000000,Sunda Strait; Cape of Good Hope
+bonny__singapore__no_canals,bonny,singapore,no_canals,8182.000000,Sunda Strait; Cape of Good Hope
+singapore__tubarao__direct,singapore,tubarao,direct,8833.000000,Sunda Strait; Cape of Good Hope
+singapore__tubarao__no_suez,singapore,tubarao,no_suez,8833.000000,Sunda Strait; Cape of Good Hope
+singapore__tubarao__no_panama,singapore,tubarao,no_panama,8833.000000,Sunda Strait; Cape of Good Hope
+singapore__tubarao__no_canals,singapore,tubarao,no_canals,8833.000000,Sunda Strait; Cape of Good Hope
+singapore__port_hedland__direct,singapore,port_hedland,direct,1687.700000,Lombok Strait
+singapore__port_hedland__no_suez,singapore,port_hedland,no_suez,1687.700000,Lombok Strait
+singapore__port_hedland__no_panama,singapore,port_hedland,no_panama,1687.700000,Lombok Strait
+singapore__port_hedland__no_canals,singapore,port_hedland,no_canals,1687.700000,Lombok Strait
+singapore__qingdao__direct,singapore,qingdao,direct,2477.900000,
+singapore__qingdao__no_suez,singapore,qingdao,no_suez,2477.900000,
+singapore__qingdao__no_panama,singapore,qingdao,no_panama,2477.900000,
+singapore__qingdao__no_canals,singapore,qingdao,no_canals,2477.900000,
+singapore__new_orleans__direct,singapore,new_orleans,direct,11545.600000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca; Florida Strait
+singapore__new_orleans__no_suez,singapore,new_orleans,no_suez,12087.600000,Panama Canal; Yucatan Channel
+singapore__new_orleans__no_panama,singapore,new_orleans,no_panama,11545.600000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca; Florida Strait
+singapore__new_orleans__no_canals,singapore,new_orleans,no_canals,12946.900000,Sunda Strait; Cape of Good Hope; Florida Strait
+singapore__ras_tanura__direct,singapore,ras_tanura,direct,3754.900000,Strait of Hormuz; Strait of Malacca
+singapore__ras_tanura__no_suez,singapore,ras_tanura,no_suez,3754.900000,Strait of Hormuz; Strait of Malacca
+singapore__ras_tanura__no_panama,singapore,ras_tanura,no_panama,3754.900000,Strait of Hormuz; Strait of Malacca
+singapore__ras_tanura__no_canals,singapore,ras_tanura,no_canals,3754.900000,Strait of Hormuz; Strait of Malacca
+singapore__mina_al_fahal__direct,singapore,mina_al_fahal,direct,3214.700000,Strait of Malacca
+singapore__mina_al_fahal__no_suez,singapore,mina_al_fahal,no_suez,3214.700000,Strait of Malacca
+singapore__mina_al_fahal__no_panama,singapore,mina_al_fahal,no_panama,3214.700000,Strait of Malacca
+singapore__mina_al_fahal__no_canals,singapore,mina_al_fahal,no_canals,3214.700000,Strait of Malacca
+singapore__fujairah__direct,singapore,fujairah,direct,3362.800000,Strait of Malacca
+singapore__fujairah__no_suez,singapore,fujairah,no_suez,3362.800000,Strait of Malacca
+singapore__fujairah__no_panama,singapore,fujairah,no_panama,3362.800000,Strait of Malacca
+singapore__fujairah__no_canals,singapore,fujairah,no_canals,3362.800000,Strait of Malacca
+singapore__jubail__direct,singapore,jubail,direct,3766.900000,Strait of Hormuz; Strait of Malacca
+singapore__jubail__no_suez,singapore,jubail,no_suez,3766.900000,Strait of Hormuz; Strait of Malacca
+singapore__jubail__no_panama,singapore,jubail,no_panama,3766.900000,Strait of Hormuz; Strait of Malacca
+singapore__jubail__no_canals,singapore,jubail,no_canals,3766.900000,Strait of Hormuz; Strait of Malacca
+singapore__ningbo__direct,singapore,ningbo,direct,2099.600000,
+singapore__ningbo__no_suez,singapore,ningbo,no_suez,2099.600000,
+singapore__ningbo__no_panama,singapore,ningbo,no_panama,2099.600000,
+singapore__ningbo__no_canals,singapore,ningbo,no_canals,2099.600000,
+singapore__yokohama__direct,singapore,yokohama,direct,2940.900000,
+singapore__yokohama__no_suez,singapore,yokohama,no_suez,2940.900000,
+singapore__yokohama__no_panama,singapore,yokohama,no_panama,2940.900000,
+singapore__yokohama__no_canals,singapore,yokohama,no_canals,2940.900000,
+singapore__galveston__direct,singapore,galveston,direct,11731.900000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca; Florida Strait
+singapore__galveston__no_suez,singapore,galveston,no_suez,12188.200000,Panama Canal; Yucatan Channel
+singapore__galveston__no_panama,singapore,galveston,no_panama,11731.900000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca; Florida Strait
+singapore__galveston__no_canals,singapore,galveston,no_canals,13128.500000,Sunda Strait; Cape of Good Hope; Florida Strait
+singapore__houston__direct,singapore,houston,direct,11765.500000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca; Florida Strait
+singapore__houston__no_suez,singapore,houston,no_suez,12221.700000,Panama Canal; Yucatan Channel
+singapore__houston__no_panama,singapore,houston,no_panama,11765.500000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca; Florida Strait
+singapore__houston__no_canals,singapore,houston,no_canals,13162.000000,Sunda Strait; Cape of Good Hope; Florida Strait
+singapore__new_york__direct,singapore,new_york,direct,10184.400000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca
+singapore__new_york__no_suez,singapore,new_york,no_suez,12485.300000,Sunda Strait; Cape of Good Hope
+singapore__new_york__no_panama,singapore,new_york,no_panama,10184.400000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca
+singapore__new_york__no_canals,singapore,new_york,no_canals,12485.300000,Sunda Strait; Cape of Good Hope
+singapore__rotterdam__direct,singapore,rotterdam,direct,8380.900000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait; Strait of Malacca
+singapore__rotterdam__no_suez,singapore,rotterdam,no_suez,11869.100000,Dover Strait; Sunda Strait; Cape of Good Hope
+singapore__rotterdam__no_panama,singapore,rotterdam,no_panama,8380.900000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait; Strait of Malacca
+singapore__rotterdam__no_canals,singapore,rotterdam,no_canals,11869.100000,Dover Strait; Sunda Strait; Cape of Good Hope
+singapore__amsterdam__direct,singapore,amsterdam,direct,8480.000000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait; Strait of Malacca
+singapore__amsterdam__no_suez,singapore,amsterdam,no_suez,11968.100000,Dover Strait; Sunda Strait; Cape of Good Hope
+singapore__amsterdam__no_panama,singapore,amsterdam,no_panama,8480.000000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Dover Strait; Strait of Malacca
+singapore__amsterdam__no_canals,singapore,amsterdam,no_canals,11968.100000,Dover Strait; Sunda Strait; Cape of Good Hope
+singapore__le_havre__direct,singapore,le_havre,direct,8182.700000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca
+singapore__le_havre__no_suez,singapore,le_havre,no_suez,11670.900000,Sunda Strait; Cape of Good Hope
+singapore__le_havre__no_panama,singapore,le_havre,no_panama,8182.700000,Bab el Mandeb; Suez Canal; Strait of Gibraltar; Strait of Malacca
+singapore__le_havre__no_canals,singapore,le_havre,no_canals,11670.900000,Sunda Strait; Cape of Good Hope
+singapore__bonny__direct,singapore,bonny,direct,8182.000000,Sunda Strait; Cape of Good Hope
+singapore__bonny__no_suez,singapore,bonny,no_suez,8182.000000,Sunda Strait; Cape of Good Hope
+singapore__bonny__no_panama,singapore,bonny,no_panama,8182.000000,Sunda Strait; Cape of Good Hope
+singapore__bonny__no_canals,singapore,bonny,no_canals,8182.000000,Sunda Strait; Cape of Good Hope
