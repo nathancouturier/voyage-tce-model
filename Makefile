@@ -8,12 +8,15 @@ PYTHON ?= python
 PORT ?= 8150
 
 .DEFAULT_GOAL := help
-.PHONY: help setup data data-offline data-jobs routes seeds fixtures build serve test lint validate gate browser site note
+.PHONY: help all setup data data-offline data-jobs routes seeds fixtures build serve test lint validate gate browser site note
 
 help:
 	@echo "targets"
+	@echo "  make all           rebuild every derived file from the committed data, then run the gate:"
+	@echo "                     the Baltic seed, the engine's test cases, the site's files and the note"
 	@echo "  make setup         install the pinned Python dependencies"
-	@echo "                     equivalent: python -m pip install -e .[dev]"
+	@echo "                     equivalent: python -m pip install -r requirements-lock.txt"
+	@echo "                                 python -m pip install --no-deps -e ."
 	@echo "  make data          refresh the EU allowance and dollar rate caches, then rebuild the artifacts"
 	@echo "                     equivalent: python scripts/refresh.py"
 	@echo "  make data-offline  check the committed caches against their rules and raw files, no network"
@@ -45,8 +48,16 @@ help:
 	@echo "  make note          the research note, Voyage-Economics-TCE-Research-Note.pdf"
 	@echo "                     equivalent: python scripts/note.py"
 
+all:
+	$(PYTHON) scripts/seeds.py
+	$(PYTHON) scripts/gen_fixtures.py
+	$(PYTHON) scripts/export.py
+	$(PYTHON) scripts/note.py
+	$(MAKE) gate PYTHON="$(PYTHON)"
+
 setup:
-	$(PYTHON) -m pip install -e .[dev]
+	$(PYTHON) -m pip install -r requirements-lock.txt
+	$(PYTHON) -m pip install --no-deps -e .
 
 data:
 	$(PYTHON) scripts/refresh.py

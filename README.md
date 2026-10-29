@@ -151,12 +151,19 @@ For the pipeline and the checks, install the pinned dependencies once (Python
 3.11 or later; the lock is Python 3.13's), then run the gate:
 
 ```bash
-python -m pip install -r requirements-lock.txt && python -m pip install --no-deps -e .
+make setup
 ```
 
 ```bash
-make gate
+make all
 ```
+
+`make all` rebuilds every derived file from the committed data (the Baltic
+seed from its module, the engine's test cases, the JSON and CSV files the site
+reads, the content hashes in `index.html` and the research note) and then runs
+the gate, which fails if any rebuilt byte differs from the commit. `make gate`
+runs the checks alone; `make help` prints each target as the single command it
+stands for, for a machine without `make`.
 
 | Command | What it does |
 |---|---|
