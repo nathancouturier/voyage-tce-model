@@ -1,0 +1,60 @@
+NOTICE
+
+The code in this repository, and the figures this study computes itself, are
+released under the MIT licence in LICENSE. Data and documents published by
+others keep their publishers' terms. data/raw/manifest.json records, for every
+document the study read, its URL, the time it was retrieved, its sha256 and
+its licence; only the files whose terms allow it are committed. In particular:
+
+data/cache/eua_monthly.csv (to June 2025) and data/raw/public/ec/cap_report_202506_en.pdf:
+  European Commission, reports on the auctions of the common auction
+  platform, under the Creative Commons Attribution 4.0 International licence
+  (https://creativecommons.org/licenses/by/4.0/); the months are combined
+  from several reports by this study.
+
+data/cache/eua_monthly.csv (from July 2025) and
+data/raw/public/dehst/dehst_eua_german_auction_monthly.csv:
+  Source: EEX, DEHSt. German Emissions Trading Authority (DEHSt) at the German
+  Environment Agency, monthly auctioning reports, as cached unchanged by the
+  sibling study jkm-ttf-arbitrage, licensed under the Creative Commons
+  Attribution NonCommercial NoDerivatives 4.0 International licence
+  (https://creativecommons.org/licenses/by-nc-nd/4.0/). The monthly averages
+  are reproduced unchanged; they may be reused for non-commercial purposes
+  only.
+
+data/cache/usd_per_eur_daily.csv:
+  Board of Governors of the Federal Reserve System, H.10 Foreign Exchange
+  Rates, series RXI$US_N.B.EU. A work of the United States Government, in the
+  public domain.
+
+data/raw/public/nga/wpi_ports.json.gz and data/raw/public/nga/Pub151bk.pdf:
+  National Geospatial-Intelligence Agency, World Port Index (Pub. 150) and
+  Distances Between Ports (Pub. 151, 11th edition, 2001). Works of the United
+  States Government, no copyright claimed under Title 17 U.S.C.
+
+data/seed/sea_routes.json and data/seed/sea_routes.geojson.gz:
+  Computed by this study with searoute 1.6.0 (Apache License 2.0) over the
+  Eurostat SeaRoute network (European Union Public Licence 1.2).
+
+vendor/world-atlas/land-110m.json:
+  Natural Earth 1:110m land (public domain), as packed by world-atlas 2.0.2
+  (ISC licence, vendor/world-atlas/LICENSE).
+
+vendor/fraunces, vendor/figtree and vendor/jetbrains-mono:
+  The Fraunces, Figtree and JetBrains Mono typefaces, under the SIL Open Font
+  Licence 1.1 (the LICENSE file beside each font).
+
+data/seed/*.json, other than the files above:
+  Dated figures read from documents published by others (the Baltic
+  Exchange's Guide to Market Benchmarks; the Baltic's weekly reports and
+  broker and analyst reports as republished by Hellenic Shipping News, among
+  them Star Asia Shipbroking, Banchero Costa, Signal Group, Xclusiv
+  Shipbrokers, Drewry, S&P Global Platts and Marsh, each named where cited;
+  Ship & Bunker; Argus Media; Oilprice.com as republished by Yahoo Finance;
+  the EIA; the IMO; EUR-Lex; BIMCO; the Suez Canal Authority; EEX and ICE
+  Futures Europe), each with the passage it was read from and a link to the
+  document. The documents themselves are not
+  redistributed: those whose terms do not allow it were never committed. The
+  Baltic Exchange's route definitions, indices and assessments are its
+  property; Worldscale flat rates are licensed by the Worldscale Association
+  and none is published here.

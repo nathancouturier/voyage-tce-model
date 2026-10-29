@@ -15,11 +15,12 @@ ETS has covered shipping (from January 2024) and the year before.
 * From July 2025: the German Emissions Trading Authority's (DEHSt) monthly
   average of Germany's own auctions on EEX, a proxy for the platform average
   (0.13 EUR/t above it on average over January 2013 to June 2025, measured by
-  the sibling study). dehst.de refuses this environment's connections, so the
-  months are read from the sibling study's committed cache of DEHSt's reports,
-  pinned to commit cf42430b, which records the report each month comes from.
-  Licence: CC BY-NC-ND 4.0, "Source: EEX, DEHSt"; reproduced unchanged for this
-  non-commercial study.
+  the sibling study). dehst.de could not be reached when this study was built,
+  so the months are read from the sibling study's committed cache of DEHSt's
+  reports, which records the report each month comes from and which that
+  study's weekly refresh keeps current: its main branch is read, and the copy
+  read is committed here with its hash. Licence: CC BY-NC-ND 4.0,
+  "Source: EEX, DEHSt"; reproduced unchanged for this non-commercial study.
 """
 
 from __future__ import annotations
@@ -45,9 +46,9 @@ REPORTS = ("202403", "202406", "202409", "202412", "202503", "202506")
 FIXTURE_REPORT = "202506"
 DEHST_URL = (
     "https://raw.githubusercontent.com/nathancouturier/jkm-ttf-arbitrage/"
-    "cf42430bab2d22dc3c885bd48bc30badfdabbdc2/data/cache/dehst_eua_german_auction_monthly.csv"
+    "main/data/cache/dehst_eua_german_auction_monthly.csv"
 )
-DEHST_KEY = "jkm_dehst_eua_monthly_cf42430b"
+DEHST_KEY = "jkm_dehst_eua_monthly"
 CACHE = base.CACHE / "eua_monthly.csv"
 FIRST_MONTH = "2023-01"
 BOUNDS = (1.0, 200.0)
@@ -126,7 +127,7 @@ def fetch_dehst() -> bytes:
         committable=True,
         publisher="DEHSt (German Emissions Trading Authority), as cached by jkm-ttf-arbitrage",
         licence="CC BY-NC-ND 4.0, Source: EEX, DEHSt; monthly averages reproduced unchanged",
-        note="monthly average of Germany's auctions; dehst.de refuses this environment, read from the sibling cache",
+        note="monthly average of Germany's auctions, read from the sibling study's cache of DEHSt's reports",
     )
     return response.content
 

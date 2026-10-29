@@ -62902,7 +62902,7 @@
     },
     "ets": {
      "phase_in": 1.0,
-     "eua_eur_t": 72.47,
+     "eua_eur_t": 86.88,
      "usd_per_eur": 1.1824105263157894,
      "include_non_co2": true
     },
@@ -63158,8 +63158,8 @@
     },
     "ets": {
      "phase_in": 1.0,
-     "eua_eur_t": 68.49,
-     "usd_per_eur": 1.155668181818182,
+     "eua_eur_t": 72.47,
+     "usd_per_eur": 1.16246,
      "include_non_co2": true
     },
     "fueleu": {
@@ -63406,8 +63406,8 @@
     },
     "ets": {
      "phase_in": 1.0,
-     "eua_eur_t": 68.49,
-     "usd_per_eur": 1.155668181818182,
+     "eua_eur_t": 72.47,
+     "usd_per_eur": 1.1589500000000001,
      "include_non_co2": true
     },
     "fueleu": {
@@ -63654,8 +63654,8 @@
     },
     "ets": {
      "phase_in": 1.0,
-     "eua_eur_t": 77.99,
-     "usd_per_eur": 1.1516285714285714,
+     "eua_eur_t": 75.98,
+     "usd_per_eur": 1.1526315789473685,
      "include_non_co2": true
     },
     "fueleu": {
@@ -63903,7 +63903,7 @@
     "ets": {
      "phase_in": 1.0,
      "eua_eur_t": 82.31,
-     "usd_per_eur": 1.1504809523809523,
+     "usd_per_eur": 1.1614125,
      "include_non_co2": true
     },
     "fueleu": {
@@ -64151,7 +64151,7 @@
     "ets": {
      "phase_in": 1.0,
      "eua_eur_t": 82.31,
-     "usd_per_eur": 1.12100625,
+     "usd_per_eur": 1.1219428571428571,
      "include_non_co2": true
     },
     "fueleu": {
@@ -64407,7 +64407,7 @@
     "ets": {
      "phase_in": 1.0,
      "eua_eur_t": 82.31,
-     "usd_per_eur": 1.12100625,
+     "usd_per_eur": 1.1219428571428571,
      "include_non_co2": true
     },
     "fueleu": {
@@ -64477,14 +64477,14 @@
       "co2e_t": 4788.508658200121,
       "ets_covered_t": 2512.1739291000604
      },
-     "ets_all_usd": 231798.34982931294,
+     "ets_all_usd": 231992.018678307,
      "fueleu": {
       "energy_mj": 32509708.1244992,
       "intensity_g_mj": 91.31227011036528,
       "target_g_mj": 89.3368,
       "balance_g": -64221956.69664745,
       "penalty_eur": 41170.08640779286,
-      "penalty_usd": 46151.924176175846
+      "penalty_usd": 46190.48437317743
      },
      "revenue": {
       "gross_usd": 18400000.0,
@@ -64496,26 +64496,26 @@
       "bunkers": 1923445.5326021635,
       "ports": 0.0,
       "canals": 0.0,
-      "ets": 231798.34982931294,
+      "ets": 231992.018678307,
       "war_risk": 0.0,
       "other": 0.0,
       "fueleu": 0.0,
-      "total_usd": 2155243.8824314764
+      "total_usd": 2155437.5512804706
      },
      "charterer_costs_usd": 0.0,
-     "result_usd": 15554756.117568523,
-     "tce_usd_day": 294179.2274704807
+     "result_usd": 15554562.44871953,
+     "tce_usd_day": 294175.56470958935
     },
     "breakeven_zero": {
      "hire_usd_day": null,
-     "usd_t": 24.88016025894922,
-     "lump_sum_usd": 2239214.42330543,
+     "usd_t": 24.882395974377722,
+     "lump_sum_usd": 2239415.637693995,
      "ws": null
     },
     "breakeven_target": {
      "hire_usd_day": null,
-     "usd_t": 40.139929424968386,
-     "lump_sum_usd": 3612593.648247155,
+     "usd_t": 40.1421651403969,
+     "lump_sum_usd": 3612794.8626357205,
      "ws": null
     },
     "sensitivities": [
@@ -64523,49 +64523,49 @@
       "id": "freight",
       "low": 0.9,
       "high": 1.1,
-      "low_tce_usd_day": 260685.20108315724,
-      "high_tce_usd_day": 327673.2538578042,
-      "base_tce_usd_day": 294179.2274704807
+      "low_tce_usd_day": 260681.53832226587,
+      "high_tce_usd_day": 327669.59109691286,
+      "base_tce_usd_day": 294175.56470958935
      },
      {
       "id": "bunkers",
       "low": 0.9,
       "high": 1.1,
-      "low_tce_usd_day": 297816.9426270903,
-      "high_tce_usd_day": 290541.5123138711,
-      "base_tce_usd_day": 294179.2274704807
+      "low_tce_usd_day": 297813.27986619895,
+      "high_tce_usd_day": 290537.84955297975,
+      "base_tce_usd_day": 294175.56470958935
      },
      {
       "id": "speed",
       "low": -1.0,
       "high": 1.0,
-      "low_tce_usd_day": 275736.16519056616,
-      "high_tce_usd_day": 311783.48048392916,
-      "base_tce_usd_day": 294179.2274704807
+      "low_tce_usd_day": 275732.9579180187,
+      "high_tce_usd_day": 311779.33295364416,
+      "base_tce_usd_day": 294175.56470958935
      },
      {
       "id": "port_days",
       "low": -1.0,
       "high": 1.0,
-      "low_tce_usd_day": 299967.4230892436,
-      "high_tce_usd_day": 288605.9064636089,
-      "base_tce_usd_day": 294179.2274704807
+      "low_tce_usd_day": 299963.6897210497,
+      "high_tce_usd_day": 288602.31168887217,
+      "base_tce_usd_day": 294175.56470958935
      },
      {
       "id": "eua",
       "low": 0.8,
       "high": 1.2,
-      "low_tce_usd_day": 295056.00443781225,
-      "high_tce_usd_day": 293302.4505031491,
-      "base_tce_usd_day": 294179.2274704807
+      "low_tce_usd_day": 295053.0742290992,
+      "high_tce_usd_day": 293298.0551900795,
+      "base_tce_usd_day": 294175.56470958935
      }
     ],
     "hedge": {
      "tc_hedge_days": 52.875100160256416,
      "route_hedge_t": 90000,
-     "route_ffa_tce_usd_day": 260685.2010831573,
-     "basis_vs_tc_ffa_usd_day": 264179.2274704807,
-     "basis_vs_route_ffa_usd_day": 33494.02638732342
+     "route_ffa_tce_usd_day": 260681.5383222659,
+     "basis_vs_tc_ffa_usd_day": 264175.56470958935,
+     "basis_vs_route_ffa_usd_day": 33494.02638732345
     },
     "power_fit": {
      "a": 0.5759707881994446,
@@ -65166,8 +65166,8 @@
     },
     "ets": {
      "phase_in": 1.0,
-     "eua_eur_t": 79.66,
-     "usd_per_eur": 1.1422727272727273,
+     "eua_eur_t": 77.99,
+     "usd_per_eur": 1.1416,
      "include_non_co2": true
     },
     "fueleu": {
@@ -65430,8 +65430,8 @@
     },
     "ets": {
      "phase_in": 1.0,
-     "eua_eur_t": 79.66,
-     "usd_per_eur": 1.1422727272727273,
+     "eua_eur_t": 77.99,
+     "usd_per_eur": 1.1416,
      "include_non_co2": true
     },
     "fueleu": {
@@ -66215,7 +66215,7 @@
     "ets": {
      "phase_in": 1.0,
      "eua_eur_t": 82.31,
-     "usd_per_eur": 1.1504809523809523,
+     "usd_per_eur": 1.1614125,
      "include_non_co2": true
     },
     "fueleu": {
@@ -66462,8 +66462,8 @@
     },
     "ets": {
      "phase_in": 0.7,
-     "eua_eur_t": 82.95,
-     "usd_per_eur": 1.1710363636363637,
+     "eua_eur_t": 80.92,
+     "usd_per_eur": 1.16575,
      "include_non_co2": false
     },
     "fueleu": {
@@ -66710,8 +66710,8 @@
     },
     "ets": {
      "phase_in": 1.0,
-     "eua_eur_t": 68.49,
-     "usd_per_eur": 1.155668181818182,
+     "eua_eur_t": 72.47,
+     "usd_per_eur": 1.169,
      "include_non_co2": true
     },
     "fueleu": {
@@ -66966,8 +66966,8 @@
     },
     "ets": {
      "phase_in": 1.0,
-     "eua_eur_t": 68.49,
-     "usd_per_eur": 1.155668181818182,
+     "eua_eur_t": 72.47,
+     "usd_per_eur": 1.169,
      "include_non_co2": true
     },
     "fueleu": {

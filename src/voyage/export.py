@@ -778,7 +778,7 @@ def manifest_artifact() -> dict[str, Any]:
             "id": "eua",
             "what": "EU allowance price, monthly: European Commission auction reports, then DEHSt",
             "as_of": max(eua),
-            "source": raw_source("jkm_dehst_eua_monthly_cf42430b"),
+            "source": raw_source("jkm_dehst_eua_monthly"),
             "licence": "CC BY 4.0 (Commission), CC BY-NC-ND 4.0 (DEHSt)",
         },
         {

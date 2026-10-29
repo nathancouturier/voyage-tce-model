@@ -91,7 +91,7 @@
       "what": "EU allowance price, monthly: European Commission auction reports, then DEHSt",
       "as_of": "2026-08",
       "source": {
-        "url": "https://raw.githubusercontent.com/nathancouturier/jkm-ttf-arbitrage/cf42430bab2d22dc3c885bd48bc30badfdabbdc2/data/cache/dehst_eua_german_auction_monthly.csv",
+        "url": "https://raw.githubusercontent.com/nathancouturier/jkm-ttf-arbitrage/main/data/cache/dehst_eua_german_auction_monthly.csv",
         "retrieved": "2026-10-29",
         "publisher": "DEHSt (German Emissions Trading Authority), as cached by jkm-ttf-arbitrage"
       },

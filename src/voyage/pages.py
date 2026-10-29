@@ -637,6 +637,10 @@ def calculator_words() -> dict[str, Any]:
                 "them by a power law fitted to them; inside an emission control area the ship burns MGO, outside "
                 "VLSFO, or HSFO behind a scrubber. The sensitivities change one input at a time and keep the "
                 "others.",
+                "A dated market reads no price from after its date: bunkers from the brokers' weekly table of the "
+                "week, or of up to seven days before; the EU allowance price from the latest monthly average before "
+                "the voyage's own month, since a month's average is known only once it ends; the dollar rate as the "
+                "mean of the Federal Reserve's H.10 rates published in the voyage's month up to its date.",
             ],
         },
         "sections": [
@@ -1389,7 +1393,7 @@ def method_page(validation: Mapping[str, Any], route_rows: Sequence[Mapping[str,
             {
                 "id": "limitations",
                 "name": "Limitations",
-                "summary": ["What the study cannot do, and the hosts this environment could not reach."],
+                "summary": ["What the study cannot do, and the sources it could not reach."],
             },
             {"id": "downloads", "name": "Downloads", "summary": ["The CSV files and the research note."]},
         ],
@@ -1412,7 +1416,7 @@ def method_page(validation: Mapping[str, Any], route_rows: Sequence[Mapping[str,
             "Best speed = the laden speed on a 0.01 knot grid that maximises the TCE, the ballast leg keeping its gap",
         ],
         "limitations_heading": "What the study cannot do",
-        "blocked_heading": "Hosts this environment could not reach, and what each would have added",
+        "blocked_heading": "Sites that could not be reached when the study was built, and what each would have added",
         "early_march_caption": "Early March 2026: the Middle East Gulf to China VLCC rates reported in dollars a "
         "tonne, "
         "priced as TD3C. Platts printed USD 62.07 on 2 March; the USD 89 a tonne reported on 3 March names no primary "

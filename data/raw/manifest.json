@@ -2097,7 +2097,7 @@
     "ec_cap_report_202403": {
       "url": "https://climate.ec.europa.eu/document/download/dc3e24f5-ee7d-41db-91f4-a8a684b9d2d9_en?filename=cap_report_202403_en.pdf",
       "path": "data/raw/bulk/ec/cap_report_202403_en.pdf",
-      "retrieved_at": "2026-10-29T12:48:13Z",
+      "retrieved_at": "2026-10-29T15:40:13Z",
       "bytes": 1134635,
       "sha256": "61227b17753b076443d2936a52930e04d7f04459671299a5678cf15c4637559a",
       "stored": "as served",
@@ -2110,7 +2110,7 @@
     "ec_cap_report_202406": {
       "url": "https://climate.ec.europa.eu/document/download/d962459c-021e-4901-b49f-e5d37e5d2c93_en?filename=cap_report_202406_en.pdf",
       "path": "data/raw/bulk/ec/cap_report_202406_en.pdf",
-      "retrieved_at": "2026-10-29T12:48:17Z",
+      "retrieved_at": "2026-10-29T15:40:16Z",
       "bytes": 1136739,
       "sha256": "b10138fab935184304cbc18a76acd463bcb73f17b8bdd03e8474529ac704a299",
       "stored": "as served",
@@ -2123,7 +2123,7 @@
     "ec_cap_report_202409": {
       "url": "https://climate.ec.europa.eu/document/download/aa6af797-950a-4af2-877d-c187e4fef461_en?filename=cap_report_202409_en.pdf",
       "path": "data/raw/bulk/ec/cap_report_202409_en.pdf",
-      "retrieved_at": "2026-10-29T12:48:21Z",
+      "retrieved_at": "2026-10-29T15:40:20Z",
       "bytes": 839043,
       "sha256": "3f712deef9aeb6b445e027b929cfcbea07b872ff702d9d4c9abb91df798459b6",
       "stored": "as served",
@@ -2136,7 +2136,7 @@
     "ec_cap_report_202412": {
       "url": "https://climate.ec.europa.eu/document/download/fdb4097c-7135-4810-9e5e-24fecf71399f_en?filename=cap_report_202412_en.pdf",
       "path": "data/raw/bulk/ec/cap_report_202412_en.pdf",
-      "retrieved_at": "2026-10-29T12:48:25Z",
+      "retrieved_at": "2026-10-29T15:40:25Z",
       "bytes": 1127751,
       "sha256": "0222b9c8399bb20068f7b3b50facd1b2575115c766ca19e632fae64688528d85",
       "stored": "as served",
@@ -2149,7 +2149,7 @@
     "ec_cap_report_202503": {
       "url": "https://climate.ec.europa.eu/document/download/67cff48f-0f48-4fa0-963f-e163fc04b3c7_en?filename=cap_report_202503_en.pdf",
       "path": "data/raw/bulk/ec/cap_report_202503_en.pdf",
-      "retrieved_at": "2026-10-29T12:48:29Z",
+      "retrieved_at": "2026-10-29T15:40:29Z",
       "bytes": 715018,
       "sha256": "178a2c867c9f8a06aa8d5024d9051730305c17c88cea15adb0b268c718e9fb61",
       "stored": "as served",
@@ -2162,7 +2162,7 @@
     "ec_cap_report_202506": {
       "url": "https://climate.ec.europa.eu/document/download/761233e2-0bce-4e7e-850b-3f38d84b87db_en?filename=cap_report_202506_en.pdf",
       "path": "data/raw/public/ec/cap_report_202506_en.pdf",
-      "retrieved_at": "2026-10-29T12:48:33Z",
+      "retrieved_at": "2026-10-29T15:40:33Z",
       "bytes": 718648,
       "sha256": "7ea036e79210b5c90adf16738b094e3c978593e562ed86649010803f28bea62e",
       "stored": "as served",
@@ -2240,7 +2240,7 @@
     "frb_h10_package": {
       "url": "https://www.federalreserve.gov/releases/h10/data/FRB_h10_xml.zip",
       "path": "data/raw/bulk/frb/FRB_h10_xml.zip",
-      "retrieved_at": "2026-10-29T12:47:32Z",
+      "retrieved_at": "2026-10-29T15:41:35Z",
       "bytes": 2085508,
       "sha256": "17d087d0ebb2a0ac1a7c0feed844ecb5ca0410c4ae64582b2030233bdeb352e4",
       "stored": "as served",
@@ -2315,10 +2315,10 @@
       "licence": "IMO document; boundaries and dates cited with resolution and page, the PDF not redistributed",
       "note": "Resolution MEPC.392(82), Canadian Arctic and Norwegian Sea ECAs"
     },
-    "jkm_dehst_eua_monthly_cf42430b": {
-      "url": "https://raw.githubusercontent.com/nathancouturier/jkm-ttf-arbitrage/cf42430bab2d22dc3c885bd48bc30badfdabbdc2/data/cache/dehst_eua_german_auction_monthly.csv",
+    "jkm_dehst_eua_monthly": {
+      "url": "https://raw.githubusercontent.com/nathancouturier/jkm-ttf-arbitrage/main/data/cache/dehst_eua_german_auction_monthly.csv",
       "path": "data/raw/public/dehst/dehst_eua_german_auction_monthly.csv",
-      "retrieved_at": "2026-10-29T12:48:37Z",
+      "retrieved_at": "2026-10-29T15:40:37Z",
       "bytes": 9964,
       "sha256": "2548e241d2215bb299e7c987db315cfb6732767c8ea014be771d93f094fdf018",
       "stored": "as served",
@@ -2326,7 +2326,7 @@
       "committed": true,
       "publisher": "DEHSt (German Emissions Trading Authority), as cached by jkm-ttf-arbitrage",
       "licence": "CC BY-NC-ND 4.0, Source: EEX, DEHSt; monthly averages reproduced unchanged",
-      "note": "monthly average of Germany's auctions; dehst.de refuses this environment, read from the sibling cache"
+      "note": "monthly average of Germany's auctions, read from the sibling study's cache of DEHSt's reports"
     },
     "law_bimco_etsa_clause_timecharter_2022_page_html": {
       "url": "https://www.bimco.org/contractual-affairs/bimco-clauses/current-clauses/etsa_clause/",

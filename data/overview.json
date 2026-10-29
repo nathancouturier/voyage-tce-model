@@ -852,7 +852,7 @@
       "text": null,
       "status": "sourced",
       "status_words": "Sourced",
-      "source": "Federal Reserve H.10, mean of the 16 published days of October 2026"
+      "source": "Federal Reserve H.10, mean of the 16 published days from 1 to 23 October 2026"
     },
     {
       "path": "ets.phase_in",

@@ -76,7 +76,7 @@ week_ending,route,rate_basis,rate_value,published_tce_usd_day,tce_qualifier,repr
 2026-10-09,TD22,lump_sum_usd,79611111,637675,exact,True,653061.553291,0.024129,week of 2026-10-02,
 2026-10-09,TD20,ws,981.110000,561600,about,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
 2026-10-09,TD25,ws,955,308200,almost,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
-2026-10-09,TC20,lump_sum_usd,18400000,281800,exact,True,294179.227470,0.043929,week of 2026-10-02,
+2026-10-09,TC20,lump_sum_usd,18400000,281800,exact,True,294175.564710,0.043916,week of 2026-10-02,
 2026-10-09,TC5,ws,940,192900,exact,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
 2026-10-09,TC14,ws,285,32600,exact,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it
 2026-10-23,TD3C,ws,1208.130000,1287851,exact,False,,,,Worldscale rate: the 2026 flat rate is licensed and no public source states it

@@ -152,25 +152,52 @@ class Market:
     fx_source: str
 
 
-def _eua(month: str) -> tuple[float, str]:
+def _eua(month: str) -> tuple[float, str, str]:
+    """The EU allowance price of the latest month on or before `month` that has one: price, words, month."""
     from .sources import ec_eua
 
     rows = ec_eua.read_cache()
     available = sorted(m for m in rows if m <= month)
     if not available:
         raise ValueError("no EUA price on or before %s" % month)
-    row = rows[available[-1]]
-    return float(row["eua_eur_t"]), "%s, monthly average for %s" % (row["source"], date_label(available[-1]))
+    used = available[-1]
+    row = rows[used]
+    return float(row["eua_eur_t"]), "%s, monthly average for %s" % (row["source"], date_label(used)), used
 
 
-def _fx(month: str) -> tuple[float, str]:
+def _fx(date: str) -> tuple[float, str]:
+    """The mean of the H.10 rates of the date's month published up to the date.
+
+    A day after the date is never read, so a later release cannot move a dated
+    voyage; a date before its month's first published rate takes the latest
+    month before it.
+    """
     from .sources import frb_h10
 
-    days = frb_h10.read_cache()
-    months = sorted({d[:7] for d, v in days if v is not None and d[:7] <= month})
-    chosen = months[-1]
-    value, count = frb_h10.monthly_mean(chosen)
-    return value, "Federal Reserve H.10, mean of the %d published days of %s" % (count, date_label(chosen))
+    days = [(d, v) for d, v in frb_h10.read_cache() if v is not None and d <= date]
+    if not days:
+        raise ValueError("no H.10 euro rate published on or before %s" % date)
+    month = days[-1][0][:7]
+    values = [v for d, v in days if d.startswith(month)]
+    if date[:7] == month and date < month_end(month):
+        words = "mean of the %d published days from 1 to %s" % (len(values), date_label(date))
+    else:
+        words = "mean of the %d published days of %s" % (len(values), date_label(month))
+    return sum(values) / len(values), "Federal Reserve H.10, " + words
+
+
+def month_before(month: str) -> str:
+    """The month before a month (YYYY-MM)."""
+    year, number = (int(part) for part in month.split("-"))
+    return "%04d-12" % (year - 1) if number == 1 else "%04d-%02d" % (year, number - 1)
+
+
+def month_end(month: str) -> str:
+    """The last calendar day of a month (YYYY-MM), as YYYY-MM-DD."""
+    import calendar
+
+    year, number = (int(part) for part in month.split("-"))
+    return "%s-%02d" % (month, calendar.monthrange(year, number)[1])
 
 
 @cache
@@ -184,14 +211,14 @@ def common_market() -> Market:
         }
         for hub, grades in spec["bunkers_usd_t"].items()
     }
-    eua_value, eua_source = _eua(spec["eua"]["month"])
-    fx_value, fx_source = _fx(spec["usd_per_eur"]["month"])
+    eua_value, eua_source, eua_month = _eua(spec["eua"]["month"])
+    fx_value, fx_source = _fx(month_end(spec["usd_per_eur"]["month"]))
     return Market(
         "common",
         spec["label"],
-        spec["month"] + "-31",
+        month_end(spec["month"]),
         bunkers,
-        spec["eua"]["month"],
+        eua_month,
         eua_value,
         eua_source,
         fx_value,
@@ -226,14 +253,15 @@ def weekly_market(date: str, hub: str | None = None, max_lag_days: int = 7) -> M
         for h, values in best["prices"].items()
     }
     month = date[:7]
-    eua_value, eua_source = _eua(month)
-    fx_value, fx_source = _fx(month)
+    # The allowance price of a month is known after it ends: a dated voyage takes the latest month before its own.
+    eua_value, eua_source, eua_month = _eua(month_before(month))
+    fx_value, fx_source = _fx(date)
     return Market(
         "week_" + best["date"],
         "week of %s" % best["date"],
         date,
         bunkers,
-        month,
+        eua_month,
         eua_value,
         eua_source,
         fx_value,
@@ -251,14 +279,14 @@ def quarter_market(quarter: str, date: str) -> Market:
                 for hub, spec in q["prices"].items()
             }
             month = date[:7]
-            eua_value, eua_source = _eua(month)
-            fx_value, fx_source = _fx(month)
+            eua_value, eua_source, eua_month = _eua(month_before(month))
+            fx_value, fx_source = _fx(date)
             return Market(
                 "quarter_" + quarter,
                 "%s average" % quarter,
                 date,
                 bunkers,
-                month,
+                eua_month,
                 eua_value,
                 eua_source,
                 fx_value,

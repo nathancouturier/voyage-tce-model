@@ -1,0 +1,131 @@
+# The monthly refresh of the two series a script can follow: the EU allowance
+# price and the Federal Reserve's dollar rate (scripts/refresh.py). Every other
+# input is a dated figure read from a cited document; a new bunker average,
+# freight report or FFA assessment is a new document to read, not a download
+# to repeat, so nothing else is fetched.
+#
+# Fetches both series, rebuilds every artifact and the engine's test cases from
+# them, and runs the whole gate. If it passes and a cache gained or revised an
+# observation, the data are committed to the default branch and build.yml is
+# started on it, which checks them again and publishes them: a push by the
+# workflow's own token starts no workflow by itself. If anything fails, nothing
+# is committed and an issue says which step failed, with its output; the
+# committed data stay as they were, and so does the site.
+#
+# A dated voyage reads no price from after its date (src/voyage/cases.py), so a
+# refresh moves a dated estimate only where it fills a month that was missing:
+# a new allowance average replaces an older month's for the voyages after it.
+
+name: refresh
+
+on:
+  schedule:
+    # The 8th of each month: by then the Federal Reserve has re-issued H.10
+    # with the month before, and the German auction report for that month is
+    # out and read by the sibling study's weekly refresh.
+    - cron: "23 6 8 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  actions: write
+
+concurrency:
+  group: refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+
+      - name: Install the pinned Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-lock.txt
+          python -m pip install --no-deps -e .
+
+      # The default shell is bash -eo pipefail: a group piped into tee stops at
+      # its first failing command, and the pipe fails with it.
+      - name: Fetch the two series and rebuild the artifacts
+        run: python scripts/refresh.py 2>&1 | tee refresh.log
+
+      - name: Rewrite the engine's test cases from the refreshed inputs
+        run: python scripts/gen_fixtures.py 2>&1 | tee fixtures.log
+
+      - name: Run the gate
+        run: |
+          {
+            python scripts/refresh.py --offline
+            python scripts/seeds.py --check
+            python scripts/gen_fixtures.py --check
+            python -m pytest tests
+            ruff check src scripts tests
+            ruff format --check src scripts tests
+            python scripts/export.py --check
+            node tools/validate-data.mjs
+            node tools/validate-engine.mjs
+            node tools/validate-artifacts.mjs
+            node tools/check-paths.mjs
+            node tools/check-literals.mjs
+            node tools/check-styles.mjs
+            node tools/check-dashes.mjs
+          } 2>&1 | tee gate.log
+
+      - name: Commit the refreshed data, and publish them
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet -- data/cache; then
+            echo "no new or revised observation this month; nothing committed"
+            exit 0
+          fi
+          git config user.name "Nathan Couturier"
+          git config user.email "288413586+nathancouturier@users.noreply.github.com"
+          base="$(git rev-parse HEAD)"
+          git fetch origin "${{ github.event.repository.default_branch }}"
+          if [ "$(git rev-parse "origin/${{ github.event.repository.default_branch }}")" != "$base" ]; then
+            echo "the branch moved while this run worked; nothing committed, the next run refreshes again"
+            exit 0
+          fi
+          eua="$(tail -n 1 data/cache/eua_monthly.csv | cut -d, -f1)"
+          fx="$(tail -n 1 data/cache/usd_per_eur_daily.csv | cut -d, -f1)"
+          git add data index.html
+          git commit -m "Refresh the EU allowance price to $eua and the dollar rate to $fx"
+          git push origin "HEAD:${{ github.event.repository.default_branch }}"
+          gh workflow run build.yml --ref "${{ github.event.repository.default_branch }}"
+
+      - name: Open an issue on failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          {
+            echo "The refresh of $(date -u +%Y-%m-%d) failed. Nothing was committed; the site keeps the data it has."
+            echo
+            for log in refresh.log fixtures.log gate.log; do
+              if [ -f "$log" ]; then
+                echo "### $log"
+                echo
+                echo '```'
+                tail -n 80 "$log"
+                echo '```'
+                echo
+              fi
+            done
+            echo "Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          } > issue.md
+          gh issue create --title "Monthly refresh failed, $(date -u +%Y-%m-%d)" --body-file issue.md

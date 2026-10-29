@@ -19,7 +19,7 @@ entry and the figures the study uses (each with its quote, in `data/seed/`) are 
 | searoute 1.6.0 over Eurostat SeaRoute | PyPI `searoute==1.6.0` (Apache 2.0), network EUPL 1.2 | Sea routes for every ordered port pair under four routings | Apache 2.0, EUPL 1.2 | results committed in `data/seed/sea_routes.*` |
 | IMO resolutions MEPC.328(76), MEPC.361(79), MEPC.117(52), MEPC.201(62), MEPC.392(82) | `wwwcdn.imo.org/localresources/en/KnowledgeCentre/IndexofIMOResolutions/MEPCDocuments/` | ECA coordinates (Appendix VII: 47, 206, 45 and 55 points) and boundary lines | IMO copyright | licensed, polygons in `data/seed/eca.json` |
 | European Commission, EU ETS auction reports | `climate.ec.europa.eu/.../auctioning-allowances_en`, `cap_report_YYYYMM_en.pdf` | Monthly average clearing price of general allowances, EUR/t, to June 2025 | CC BY 4.0 | the June 2025 report committed as the parser's fixture; the others in the bulk store |
-| DEHSt, German auction monthly averages (via jkm-ttf-arbitrage, commit cf42430b) | `raw.githubusercontent.com/nathancouturier/jkm-ttf-arbitrage/cf42430b.../dehst_eua_german_auction_monthly.csv` | Monthly EUR/t from July 2025, a proxy for the platform average | CC BY-NC-ND 4.0, "Source: EEX, DEHSt" | committed unchanged |
+| DEHSt, German auction monthly averages (via jkm-ttf-arbitrage, whose weekly refresh keeps them current) | `raw.githubusercontent.com/nathancouturier/jkm-ttf-arbitrage/main/data/cache/dehst_eua_german_auction_monthly.csv` | Monthly EUR/t from July 2025, a proxy for the platform average | CC BY-NC-ND 4.0, "Source: EEX, DEHSt" | committed unchanged |
 | Federal Reserve Board H.10 | `federalreserve.gov/releases/h10/data/FRB_h10_xml.zip` | Daily USD per EUR (RXI$US_N.B.EU) | Public domain | bulk store; the series from 2023 committed as `data/cache/usd_per_eur_daily.csv` |
 
 Samples: `data/cache/eua_monthly.csv` reads `2026-08,82.31,DEHSt (German auctions, proxy),...`;
@@ -59,9 +59,9 @@ figure by figure in the seeds. None is redistributed.
 | Crew war bonus | 100 percent of basic wage in the Warlike Operations Area; the wage bill has no public source. |
 | Ship to ship transfer cost | No dated public figure found. |
 
-## Hosts that refused this environment
+## Hosts that could not be reached
 
-Denied by the environment's network policy (not retried): pancanal.com, micanaldepanama.com, dehst.de,
+Refused at the network level when the study was built (not retried): pancanal.com, micanaldepanama.com, dehst.de,
 worldscale.co.uk, web.archive.org, archive.org, ecfr.gov, marinecadastre.gov, nauticalcharts.noaa.gov,
 reuters.com, tradewindsnews.com, gcaptain.com, splash247.com, lloydslist.com, freightinvestorservices.com,
 sgx.com, offshore-energy.biz, engine.online, dan-bunkering.com, porthouston.com, portofamsterdam.com,

@@ -1639,8 +1639,8 @@
         "tce_qualifier": "exact",
         "raw_key": "tanker_hsn_baltic_tanker_report_pub2026_10_12_html",
         "reproducible": true,
-        "engine_tce_usd_day": 294179.22747,
-        "error": 0.043929,
+        "engine_tce_usd_day": 294175.56471,
+        "error": 0.043916,
         "reason": "",
         "bunkers": "week of 2026-10-02",
         "excluded": [
@@ -3367,7 +3367,7 @@
         "id": "limitations",
         "name": "Limitations",
         "summary": [
-          "What the study cannot do, and the hosts this environment could not reach."
+          "What the study cannot do, and the sources it could not reach."
         ]
       },
       {
@@ -3393,7 +3393,7 @@
       "Best speed = the laden speed on a 0.01 knot grid that maximises the TCE, the ballast leg keeping its gap"
     ],
     "limitations_heading": "What the study cannot do",
-    "blocked_heading": "Hosts this environment could not reach, and what each would have added",
+    "blocked_heading": "Sites that could not be reached when the study was built, and what each would have added",
     "early_march_caption": "Early March 2026: the Middle East Gulf to China VLCC rates reported in dollars a tonne, priced as TD3C. Platts printed USD 62.07 on 2 March; the USD 89 a tonne reported on 3 March names no primary assessment and is not Platts', whose year to date rise to USD 62.07 was 461 percent. The Baltic's TD3C TCE was USD 209,550 a day in the week to 27 February and USD 485,959 in the week to 6 March.",
     "baltic_2017_head": "Baltic, 2017",
     "baltic_2017_caption": "The Baltic's own worked TD3C TCE calculation (July 2017), the one fully worked public example found: its days and fuel reproduced line by line. It prints no prices, so no dollar figure can be checked against it.",

@@ -628,7 +628,7 @@
         },
         "ets.usd_per_eur": {
           "status": "sourced",
-          "source": "Federal Reserve H.10, mean of the 16 published days of October 2026"
+          "source": "Federal Reserve H.10, mean of the 16 published days from 1 to 23 October 2026"
         },
         "costs.port_load_usd": {
           "status": "empty",
@@ -948,7 +948,7 @@
         },
         "ets.usd_per_eur": {
           "status": "sourced",
-          "source": "Federal Reserve H.10, mean of the 16 published days of October 2026"
+          "source": "Federal Reserve H.10, mean of the 16 published days from 1 to 23 October 2026"
         },
         "costs.port_load_usd": {
           "status": "empty",
@@ -1197,7 +1197,7 @@
         "ets": {
           "phase_in": 1.0,
           "eua_eur_t": 82.31,
-          "usd_per_eur": 1.150481,
+          "usd_per_eur": 1.161412,
           "include_non_co2": true
         },
         "fueleu": {
@@ -1250,7 +1250,7 @@
         },
         "ets.usd_per_eur": {
           "status": "sourced",
-          "source": "Federal Reserve H.10, mean of the 21 published days of September 2026"
+          "source": "Federal Reserve H.10, mean of the 8 published days from 1 to 11 September 2026"
         },
         "costs.port_load_usd": {
           "status": "empty",
@@ -1262,11 +1262,11 @@
         },
         "costs.canal_laden_usd": {
           "status": "empty",
-          "source": "The Panama Canal Authority's tariff and calculator (pancanal.com) refuse this environment's connections. The only dated public toll found is the EIA's 2023 base toll for a product tanker in the Panamax locks, which is neither 2026 nor a bulk carrier, so P7's toll is an input and the TCE through Panama is reported before it."
+          "source": "The Panama Canal Authority's tariff and calculator (pancanal.com) could not be reached when the study was built. The only dated public toll found is the EIA's 2023 base toll for a product tanker in the Panamax locks, which is neither 2026 nor a bulk carrier, so P7's toll is an input and the TCE through Panama is reported before it."
         },
         "costs.canal_ballast_usd": {
           "status": "empty",
-          "source": "The Panama Canal Authority's tariff and calculator (pancanal.com) refuse this environment's connections. The only dated public toll found is the EIA's 2023 base toll for a product tanker in the Panamax locks, which is neither 2026 nor a bulk carrier, so P7's toll is an input and the TCE through Panama is reported before it."
+          "source": "The Panama Canal Authority's tariff and calculator (pancanal.com) could not be reached when the study was built. The only dated public toll found is the EIA's 2023 base toll for a product tanker in the Panamax locks, which is neither 2026 nor a bulk carrier, so P7's toll is an input and the TCE through Panama is reported before it."
         },
         "freight_value": {
           "status": "sourced",
@@ -1587,7 +1587,7 @@
         },
         "ets.usd_per_eur": {
           "status": "sourced",
-          "source": "Federal Reserve H.10, mean of the 16 published days of October 2026"
+          "source": "Federal Reserve H.10, mean of the 16 published days from 1 to 23 October 2026"
         },
         "costs.port_load_usd": {
           "status": "empty",
@@ -1897,7 +1897,7 @@
         },
         "ets.usd_per_eur": {
           "status": "sourced",
-          "source": "Federal Reserve H.10, mean of the 16 published days of October 2026"
+          "source": "Federal Reserve H.10, mean of the 16 published days from 1 to 23 October 2026"
         },
         "costs.port_load_usd": {
           "status": "empty",
@@ -2197,7 +2197,7 @@
         },
         "ets.usd_per_eur": {
           "status": "sourced",
-          "source": "Federal Reserve H.10, mean of the 16 published days of October 2026"
+          "source": "Federal Reserve H.10, mean of the 16 published days from 1 to 23 October 2026"
         },
         "costs.port_load_usd": {
           "status": "empty",
@@ -2499,7 +2499,7 @@
         },
         "ets.usd_per_eur": {
           "status": "sourced",
-          "source": "Federal Reserve H.10, mean of the 16 published days of October 2026"
+          "source": "Federal Reserve H.10, mean of the 16 published days from 1 to 23 October 2026"
         },
         "costs.port_load_usd": {
           "status": "empty",
@@ -2805,7 +2805,7 @@
         },
         "ets.usd_per_eur": {
           "status": "sourced",
-          "source": "Federal Reserve H.10, mean of the 16 published days of October 2026"
+          "source": "Federal Reserve H.10, mean of the 16 published days from 1 to 23 October 2026"
         },
         "costs.port_load_usd": {
           "status": "empty",
@@ -3109,7 +3109,7 @@
         },
         "ets.usd_per_eur": {
           "status": "sourced",
-          "source": "Federal Reserve H.10, mean of the 16 published days of October 2026"
+          "source": "Federal Reserve H.10, mean of the 16 published days from 1 to 23 October 2026"
         },
         "costs.port_load_usd": {
           "status": "empty",
@@ -3415,7 +3415,7 @@
         },
         "ets.usd_per_eur": {
           "status": "sourced",
-          "source": "Federal Reserve H.10, mean of the 16 published days of October 2026"
+          "source": "Federal Reserve H.10, mean of the 16 published days from 1 to 23 October 2026"
         },
         "costs.port_load_usd": {
           "status": "empty",
@@ -3715,7 +3715,7 @@
         },
         "ets.usd_per_eur": {
           "status": "sourced",
-          "source": "Federal Reserve H.10, mean of the 16 published days of October 2026"
+          "source": "Federal Reserve H.10, mean of the 16 published days from 1 to 23 October 2026"
         },
         "costs.port_load_usd": {
           "status": "empty",
@@ -4015,7 +4015,7 @@
         },
         "ets.usd_per_eur": {
           "status": "sourced",
-          "source": "Federal Reserve H.10, mean of the 16 published days of October 2026"
+          "source": "Federal Reserve H.10, mean of the 16 published days from 1 to 23 October 2026"
         },
         "costs.port_load_usd": {
           "status": "empty",
@@ -4251,7 +4251,7 @@
         },
         "ets": {
           "phase_in": 1.0,
-          "eua_eur_t": 72.47,
+          "eua_eur_t": 86.88,
           "usd_per_eur": 1.182411,
           "include_non_co2": true
         },
@@ -4309,11 +4309,11 @@
         },
         "ets.eua_eur_t": {
           "status": "sourced",
-          "source": "DEHSt (German auctions, proxy), monthly average for February 2026"
+          "source": "DEHSt (German auctions, proxy), monthly average for January 2026"
         },
         "ets.usd_per_eur": {
           "status": "sourced",
-          "source": "Federal Reserve H.10, mean of the 19 published days of February 2026"
+          "source": "Federal Reserve H.10, mean of the 19 published days from 1 to 27 February 2026"
         },
         "costs.port_load_usd": {
           "status": "empty",
@@ -4555,8 +4555,8 @@
         },
         "ets": {
           "phase_in": 1.0,
-          "eua_eur_t": 68.49,
-          "usd_per_eur": 1.155668,
+          "eua_eur_t": 72.47,
+          "usd_per_eur": 1.16246,
           "include_non_co2": true
         },
         "fueleu": {
@@ -4613,11 +4613,11 @@
         },
         "ets.eua_eur_t": {
           "status": "sourced",
-          "source": "DEHSt (German auctions, proxy), monthly average for March 2026"
+          "source": "DEHSt (German auctions, proxy), monthly average for February 2026"
         },
         "ets.usd_per_eur": {
           "status": "sourced",
-          "source": "Federal Reserve H.10, mean of the 22 published days of March 2026"
+          "source": "Federal Reserve H.10, mean of the 5 published days from 1 to 6 March 2026"
         },
         "costs.port_load_usd": {
           "status": "empty",
@@ -4859,8 +4859,8 @@
         },
         "ets": {
           "phase_in": 1.0,
-          "eua_eur_t": 68.49,
-          "usd_per_eur": 1.155668,
+          "eua_eur_t": 72.47,
+          "usd_per_eur": 1.15895,
           "include_non_co2": true
         },
         "fueleu": {
@@ -4917,11 +4917,11 @@
         },
         "ets.eua_eur_t": {
           "status": "sourced",
-          "source": "DEHSt (German auctions, proxy), monthly average for March 2026"
+          "source": "DEHSt (German auctions, proxy), monthly average for February 2026"
         },
         "ets.usd_per_eur": {
           "status": "sourced",
-          "source": "Federal Reserve H.10, mean of the 22 published days of March 2026"
+          "source": "Federal Reserve H.10, mean of the 10 published days from 1 to 13 March 2026"
         },
         "costs.port_load_usd": {
           "status": "empty",
@@ -5163,8 +5163,8 @@
         },
         "ets": {
           "phase_in": 1.0,
-          "eua_eur_t": 77.99,
-          "usd_per_eur": 1.151629,
+          "eua_eur_t": 75.98,
+          "usd_per_eur": 1.152632,
           "include_non_co2": true
         },
         "fueleu": {
@@ -5221,11 +5221,11 @@
         },
         "ets.eua_eur_t": {
           "status": "sourced",
-          "source": "DEHSt (German auctions, proxy), monthly average for June 2026"
+          "source": "DEHSt (German auctions, proxy), monthly average for May 2026"
         },
         "ets.usd_per_eur": {
           "status": "sourced",
-          "source": "Federal Reserve H.10, mean of the 21 published days of June 2026"
+          "source": "Federal Reserve H.10, mean of the 19 published days from 1 to 26 June 2026"
         },
         "costs.port_load_usd": {
           "status": "empty",
@@ -5468,7 +5468,7 @@
         "ets": {
           "phase_in": 1.0,
           "eua_eur_t": 82.31,
-          "usd_per_eur": 1.150481,
+          "usd_per_eur": 1.161412,
           "include_non_co2": true
         },
         "fueleu": {
@@ -5529,7 +5529,7 @@
         },
         "ets.usd_per_eur": {
           "status": "sourced",
-          "source": "Federal Reserve H.10, mean of the 21 published days of September 2026"
+          "source": "Federal Reserve H.10, mean of the 8 published days from 1 to 11 September 2026"
         },
         "costs.port_load_usd": {
           "status": "empty",
@@ -5772,7 +5772,7 @@
         "ets": {
           "phase_in": 1.0,
           "eua_eur_t": 82.31,
-          "usd_per_eur": 1.121006,
+          "usd_per_eur": 1.121943,
           "include_non_co2": true
         },
         "fueleu": {
@@ -5833,7 +5833,7 @@
         },
         "ets.usd_per_eur": {
           "status": "sourced",
-          "source": "Federal Reserve H.10, mean of the 16 published days of October 2026"
+          "source": "Federal Reserve H.10, mean of the 7 published days from 1 to 9 October 2026"
         },
         "costs.port_load_usd": {
           "status": "empty",
@@ -6076,7 +6076,7 @@
         "ets": {
           "phase_in": 1.0,
           "eua_eur_t": 82.31,
-          "usd_per_eur": 1.121006,
+          "usd_per_eur": 1.121943,
           "include_non_co2": true
         },
         "fueleu": {
@@ -6141,7 +6141,7 @@
         },
         "ets.usd_per_eur": {
           "status": "sourced",
-          "source": "Federal Reserve H.10, mean of the 16 published days of October 2026"
+          "source": "Federal Reserve H.10, mean of the 7 published days from 1 to 9 October 2026"
         },
         "costs.port_load_usd": {
           "status": "empty",
@@ -6471,7 +6471,7 @@
         },
         "ets.usd_per_eur": {
           "status": "sourced",
-          "source": "Federal Reserve H.10, mean of the 16 published days of October 2026"
+          "source": "Federal Reserve H.10, mean of the 16 published days from 1 to 23 October 2026"
         },
         "costs.port_load_usd": {
           "status": "empty",
@@ -6779,7 +6779,7 @@
         },
         "ets.usd_per_eur": {
           "status": "sourced",
-          "source": "Federal Reserve H.10, mean of the 16 published days of October 2026"
+          "source": "Federal Reserve H.10, mean of the 16 published days from 1 to 23 October 2026"
         },
         "costs.port_load_usd": {
           "status": "empty",
@@ -7047,8 +7047,8 @@
         },
         "ets": {
           "phase_in": 0.7,
-          "eua_eur_t": 82.95,
-          "usd_per_eur": 1.171036,
+          "eua_eur_t": 80.92,
+          "usd_per_eur": 1.16575,
           "include_non_co2": false
         },
         "fueleu": {
@@ -7105,11 +7105,11 @@
         },
         "ets.eua_eur_t": {
           "status": "sourced",
-          "source": "DEHSt (German auctions, proxy), monthly average for December 2025"
+          "source": "DEHSt (German auctions, proxy), monthly average for November 2025"
         },
         "ets.usd_per_eur": {
           "status": "sourced",
-          "source": "Federal Reserve H.10, mean of the 22 published days of December 2025"
+          "source": "Federal Reserve H.10, mean of the 10 published days from 1 to 12 December 2025"
         },
         "costs.port_load_usd": {
           "status": "empty",
@@ -7339,8 +7339,8 @@
         },
         "ets": {
           "phase_in": 1.0,
-          "eua_eur_t": 68.49,
-          "usd_per_eur": 1.155668,
+          "eua_eur_t": 72.47,
+          "usd_per_eur": 1.169,
           "include_non_co2": true
         },
         "fueleu": {
@@ -7397,11 +7397,11 @@
         },
         "ets.eua_eur_t": {
           "status": "sourced",
-          "source": "DEHSt (German auctions, proxy), monthly average for March 2026"
+          "source": "DEHSt (German auctions, proxy), monthly average for February 2026"
         },
         "ets.usd_per_eur": {
           "status": "sourced",
-          "source": "Federal Reserve H.10, mean of the 22 published days of March 2026"
+          "source": "Federal Reserve H.10, mean of the 1 published days from 1 to 2 March 2026"
         },
         "costs.port_load_usd": {
           "status": "empty",
@@ -7631,8 +7631,8 @@
         },
         "ets": {
           "phase_in": 1.0,
-          "eua_eur_t": 68.49,
-          "usd_per_eur": 1.155668,
+          "eua_eur_t": 72.47,
+          "usd_per_eur": 1.169,
           "include_non_co2": true
         },
         "fueleu": {
@@ -7689,11 +7689,11 @@
         },
         "ets.eua_eur_t": {
           "status": "sourced",
-          "source": "DEHSt (German auctions, proxy), monthly average for March 2026"
+          "source": "DEHSt (German auctions, proxy), monthly average for February 2026"
         },
         "ets.usd_per_eur": {
           "status": "sourced",
-          "source": "Federal Reserve H.10, mean of the 22 published days of March 2026"
+          "source": "Federal Reserve H.10, mean of the 1 published days from 1 to 2 March 2026"
         },
         "costs.port_load_usd": {
           "status": "empty",
@@ -8160,7 +8160,8 @@
     "data_caption": "Every input of the voyage as it now stands, with its status and its source.",
     "method": [
       "The calculator runs src/engine.js, the browser copy of the Python engine, checked against it to within one part in a billion on every committed test case. The TCE is gross freight and other revenue less commission and voyage costs, divided by the days of the whole round voyage, ballast leg included. On a trip charter the owner's TCE is the hire over the trip less commission, less the costs the owner bears (the ballast leg's bunkers and allowances), over the trip and the ballast leg.",
-      "Steaming days are distance over speed times 24 hours, plus the weather margin. Fuel at sea follows the ship's published speed and consumption pairs, interpolated between them and extended outside them by a power law fitted to them; inside an emission control area the ship burns MGO, outside VLSFO, or HSFO behind a scrubber. The sensitivities change one input at a time and keep the others."
+      "Steaming days are distance over speed times 24 hours, plus the weather margin. Fuel at sea follows the ship's published speed and consumption pairs, interpolated between them and extended outside them by a power law fitted to them; inside an emission control area the ship burns MGO, outside VLSFO, or HSFO behind a scrubber. The sensitivities change one input at a time and keep the others.",
+      "A dated market reads no price from after its date: bunkers from the brokers' weekly table of the week, or of up to seven days before; the EU allowance price from the latest monthly average before the voyage's own month, since a month's average is known only once it ends; the dollar rate as the mean of the Federal Reserve's H.10 rates published in the voyage's month up to its date."
     ]
   },
   "sections": [

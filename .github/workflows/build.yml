@@ -1,0 +1,182 @@
+# The deploy gate: everything `make gate` runs, then the site in a browser,
+# then GitHub Pages.
+#
+# Nothing here fetches data. The caches and seeds are committed and the gate
+# re-validates them offline (scripts/refresh.py --offline), so a build cannot
+# depend on a third party being up the morning a change lands; the monthly
+# fetch is refresh.yml, a separate workflow for that reason. Every step runs a
+# command that exits non zero on failure, a job stops at the first, and the
+# deploy job needs both checking jobs: a failed check means no deploy, not a
+# deploy with a red mark beside it.
+#
+# The site job serves the repository at its Pages subpath with the same server
+# a reader uses locally (scripts/serve.py) and drives it in the Chrome the
+# runner image ships: tools/check-site.mjs (every view at 1440 and 320 px, and
+# the calculator's form against src/engine.js), then every view at four widths
+# in both themes, closed and with every section open, failing on a console
+# error or a page that scrolls sideways (scripts/screenshots.mjs).
+
+name: build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  gate:
+    name: tests and validators
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+
+      - name: Install the pinned Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-lock.txt
+          python -m pip install --no-deps -e .
+
+      - name: Revalidate the committed caches, offline
+        run: python scripts/refresh.py --offline
+
+      - name: Fail if a cache, a seed or the raw manifest differs from the commit
+        run: git diff --exit-code -- data/cache data/seed data/raw/manifest.json
+
+      - name: Check the Baltic seed against its source module
+        run: python scripts/seeds.py --check
+
+      - name: Check the engine's test cases against the Python engine
+        run: python scripts/gen_fixtures.py --check
+
+      - name: Run the test suite
+        run: python -m pytest tests
+
+      - name: Lint
+        run: ruff check src scripts tests
+
+      - name: Check the formatting
+        run: ruff format --check src scripts tests
+
+      - name: Check every artifact, and the versions in index.html, against a rebuild
+        run: python scripts/export.py --check
+
+      - name: Validate the data layer
+        run: node tools/validate-data.mjs
+
+      - name: Check the browser engine against the Python, case by case
+        run: node tools/validate-engine.mjs
+
+      - name: Validate the site artifacts
+        run: node tools/validate-artifacts.mjs
+
+      - name: Check that every path is relative
+        run: node tools/check-paths.mjs
+
+      - name: Check for numbers in the frontend that no artifact supplied
+        run: node tools/check-literals.mjs
+
+      - name: Check the stylesheets against the design system
+        run: node tools/check-styles.mjs
+
+      - name: Check for em dashes and en dashes
+        run: node tools/check-dashes.mjs
+
+  site:
+    name: the site in a browser
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+
+      - name: Find the browser the image ships
+        run: |
+          for candidate in /usr/bin/google-chrome /usr/bin/google-chrome-stable /usr/bin/chromium /usr/bin/chromium-browser; do
+            if [ -x "$candidate" ]; then
+              echo "SITE_BROWSER=$candidate" >> "$GITHUB_ENV"
+              "$candidate" --version
+              exit 0
+            fi
+          done
+          echo "no Chromium on this image: the site cannot be checked in a browser"
+          exit 1
+
+      - name: Serve the repository at the Pages subpath
+        run: |
+          python scripts/serve.py --port 8150 &
+          for attempt in $(seq 1 40); do
+            if curl -fsS http://localhost:8150/voyage-tce-model/ > /dev/null; then
+              echo "serving"
+              exit 0
+            fi
+            sleep 0.5
+          done
+          echo "scripts/serve.py did not answer on port 8150"
+          exit 1
+
+      - name: Every view at two widths, and the calculator's form against the engine
+        env:
+          SITE_BROWSER_NO_SANDBOX: "1"
+        run: node tools/check-site.mjs --base http://localhost:8150/voyage-tce-model/
+
+      - name: Every view at four widths in both themes, closed and with every section open
+        env:
+          SITE_BROWSER_NO_SANDBOX: "1"
+        run: |
+          node scripts/screenshots.mjs --matrix --out "$RUNNER_TEMP/shots" --base http://localhost:8150/voyage-tce-model/
+          node scripts/screenshots.mjs --matrix --open --out "$RUNNER_TEMP/shots" --base http://localhost:8150/voyage-tce-model/
+
+  deploy:
+    name: publish to Pages
+    needs: [gate, site]
+    if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v7
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v6
+
+      - name: Upload the repository as the site
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: .
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v5

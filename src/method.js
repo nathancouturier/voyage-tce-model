@@ -6,7 +6,7 @@
  * dollars without a licensed flat rate. Behind buttons: the conventions with
  * the texts they are read from, the formulas, every validation anchor
  * (reproduced or not, and why), the sources with their dates and licences,
- * the limitations and the hosts this environment could not reach, and the
+ * the limitations and the sites that could not be reached, and the
  * downloads with the research note.
  *
  * Every figure is from data/method.json and data/manifest.json.

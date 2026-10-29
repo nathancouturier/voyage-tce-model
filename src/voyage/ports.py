@@ -16,8 +16,8 @@ choice recorded here and in docs/methodology.md:
   from the same port.
 * TD22, "Galveston O/S lightering area" (the Baltic's TSA1): the Index's
   Galveston position, because the lightering zone's coordinates sit in a US
-  regulation this environment cannot reach (33 CFR 156.300, on ecfr.gov and
-  govinfo.gov, both refused).
+  regulation that could not be reached when the study was built (33 CFR
+  156.300, on ecfr.gov and govinfo.gov).
 """
 
 from __future__ import annotations

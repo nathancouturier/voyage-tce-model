@@ -599,7 +599,7 @@
   ],
   "canals": {
     "schema": "voyage-tce-model seed: canal facts",
-    "note": "The study builds no tariff engine. Each canal toll is a lump sum input; a default exists only where a dated public source states a toll for a ship like the study's. None does for the Baltic standard ships: the Suez Canal Authority charges on Suez Canal net tonnage, which is not published for them, and the Panama Canal Authority's tariff could not be reached from this environment.",
+    "note": "The study builds no tariff engine. Each canal toll is a lump sum input; a default exists only where a dated public source states a toll for a ship like the study's. None does for the Baltic standard ships: the Suez Canal Authority charges on Suez Canal net tonnage, which is not published for them, and the Panama Canal Authority's tariff could not be reached when the study was built.",
     "suez": {
       "default_toll_usd": null,
       "why_empty": "Suez tolls are levied on the Suez Canal net tonnage of the individual ship, in SDR per tonne by tonnage band, plus surcharges and less rebates. No public source states the SCNT of the Baltic's standard ships or a toll for them, so the toll is an input. The detour analysis reports the largest toll at which Suez still beats the Cape instead.",
@@ -648,7 +648,7 @@
     },
     "panama": {
       "default_toll_usd": null,
-      "why_empty": "The Panama Canal Authority's tariff and calculator (pancanal.com) refuse this environment's connections. The only dated public toll found is the EIA's 2023 base toll for a product tanker in the Panamax locks, which is neither 2026 nor a bulk carrier, so P7's toll is an input and the TCE through Panama is reported before it.",
+      "why_empty": "The Panama Canal Authority's tariff and calculator (pancanal.com) could not be reached when the study was built. The only dated public toll found is the EIA's 2023 base toll for a product tanker in the Panamax locks, which is neither 2026 nor a bulk carrier, so P7's toll is an input and the TCE through Panama is reported before it.",
       "facts": [
         {
           "id": "eia_2023_base_tolls",
