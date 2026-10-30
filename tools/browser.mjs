@@ -303,4 +303,7 @@ export async function openView(page, base, { theme = "light", hash = "#/overview
     ".every((inner) => inner.children.length > 0)"
   );
   await page.evaluate("new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(r, 400))))");
+  // The bridge's bars grow in turn, each a stagger after the last, which can
+  // outlast that wait: a shot waits for the last bar to finish growing.
+  await page.evaluate("Promise.all(document.getAnimations().map((a) => a.finished.catch(() => null))).then(() => true)");
 }
