@@ -45,6 +45,15 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 // The fields the page's modules read, by artifact, as dotted paths.
 const REQUIRED = Object.freeze({
+  atlas: [
+    "as_of", "view_box", "page.title", "page.takeaway", "page.filters", "page.filter_label", "page.groups",
+    "page.list.caption", "page.list.heading", "page.list.unknown", "page.list.head.route", "page.list.head.tce",
+    "page.list.head.days", "page.panel.back", "page.panel.same", "page.panel.same_after", "page.panel.split",
+    "page.panel.alternatives", "page.panel.links", "page.panel.show", "page.summary.heading", "page.summary.items",
+    "page.map.title", "page.map.desc", "page.map.legend", "page.map.labels", "page.map.idle", "page.map.same",
+    "page.map.edge", "page.map.source", "page.sections", "page.method", "page.table.caption", "page.table.columns",
+    "clusters", "items",
+  ],
   overview: [
     "verdict", "dates", "facts", "bridge.rows", "bridge.title", "bridge.source", "bridge.caption", "bridge.result_line",
     "leaves_out", "map.key", "map.title", "map.legend", "map.source", "sections", "method.paragraphs", "method.formulas",
@@ -61,7 +70,7 @@ const REQUIRED = Object.freeze({
     "constants.HOURS_PER_DAY", "constants.PERCENT", "constants.SHOCKS", "constants.SPEED_STEP_KN",
     "constants.WAR_RISK_PERIOD_DAYS", "constants.WAR_RISK_AREAS",
   ],
-  map: ["land", "voyages"],
+  map: ["land", "voyages", "atlas.view_box", "atlas.legs", "atlas.ports", "atlas.passages"],
   routes: [
     "page.title", "page.takeaway", "page.baltic_map", "page.chart.title", "page.chart.axis", "page.chart.desc",
     "page.chart.source", "page.chart.legend", "page.table_caption", "page.hormuz.title", "page.hormuz.lead",

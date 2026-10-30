@@ -1,0 +1,6584 @@
+{
+  "artifact": "atlas",
+  "schema_version": 1,
+  "conventions": {
+    "decimals": {
+      "usd_day": 0,
+      "usd": 0,
+      "usd_m": 2,
+      "usd_m_0": 0,
+      "usd_t": 2,
+      "usd_bbl": 2,
+      "ws": 2,
+      "days": 1,
+      "days_2": 2,
+      "nm": 0,
+      "knots": 1,
+      "knots_2": 2,
+      "t": 0,
+      "tpd": 1,
+      "percent": 1,
+      "percent_0": 0,
+      "percent_2": 2,
+      "eur_t": 2,
+      "usd_per_eur": 4,
+      "tco2": 0,
+      "share": 3,
+      "exponent": 2,
+      "count": 0,
+      "year": 0,
+      "error_percent": 1,
+      "g_mj": 2,
+      "tonne_miles_bn": 2,
+      "days_4": 4,
+      "t_2": 2,
+      "mj": 0,
+      "eur": 0
+    },
+    "scale": {
+      "percent": 100.0,
+      "million": 1000000.0
+    }
+  },
+  "as_of": "2026-10-23",
+  "view_box": [
+    324.0,
+    18.0,
+    636.0,
+    252.0
+  ],
+  "page": {
+    "title": "What each route earns a day, and what the other ways cost",
+    "takeaway": [
+      "In the week to ",
+      {
+        "text": "23 October 2026",
+        "field": "date"
+      },
+      " a VLCC on TD3C earned ",
+      {
+        "value": 1287851,
+        "format": "usd_day",
+        "field": "tce_usd_day",
+        "prefix": "USD "
+      },
+      " a day by the Baltic's own figure, about ",
+      {
+        "value": 99.833411,
+        "format": "count",
+        "field": "takeaway.ratio",
+        "suffix": " times"
+      },
+      " an MR on TC2."
+    ],
+    "filters": [
+      {
+        "id": "all",
+        "label": "Every route",
+        "announce": [
+          {
+            "value": 15,
+            "format": "count",
+            "field": "filters.all.count"
+          },
+          " on the map and in the list: every route."
+        ]
+      },
+      {
+        "id": "dry",
+        "label": "Dry bulk",
+        "announce": [
+          {
+            "value": 5,
+            "format": "count",
+            "field": "filters.dry.count"
+          },
+          " on the map and in the list: dry bulk."
+        ]
+      },
+      {
+        "id": "dirty",
+        "label": "Dirty tankers",
+        "announce": [
+          {
+            "value": 5,
+            "format": "count",
+            "field": "filters.dirty.count"
+          },
+          " on the map and in the list: dirty tankers."
+        ]
+      },
+      {
+        "id": "clean",
+        "label": "Clean tankers",
+        "announce": [
+          {
+            "value": 5,
+            "format": "count",
+            "field": "filters.clean.count"
+          },
+          " on the map and in the list: clean tankers."
+        ]
+      }
+    ],
+    "filter_label": "Show",
+    "groups": [
+      {
+        "id": "dry",
+        "name": "Dry bulk: the engine's estimate"
+      },
+      {
+        "id": "dirty",
+        "name": "Dirty tankers: the Baltic's TCE"
+      },
+      {
+        "id": "clean",
+        "name": "Clean tankers: the Baltic's TCE"
+      },
+      {
+        "id": "study",
+        "name": "A detour study, not a Baltic route"
+      }
+    ],
+    "list": {
+      "caption": [
+        "Each route at its latest dated rate: the week to ",
+        {
+          "text": "23 October 2026",
+          "field": "date"
+        },
+        ", P7 at its latest public rate. Days are the round voyage."
+      ],
+      "heading": "The routes",
+      "unknown": "There is no route %s on this map; every route is listed below.",
+      "head": {
+        "route": "Route",
+        "tce": "TCE, USD a day",
+        "days": "Days"
+      },
+      "more_one": "other routing",
+      "more_many": "other routings"
+    },
+    "panel": {
+      "back": "Back to the list",
+      "same": "Its line runs with ",
+      "same_after": " for most of the way:",
+      "split": {
+        "ballast": "Ballast",
+        "laden": "Laden",
+        "port": "Port and waiting"
+      },
+      "alternatives": "Other ways to sail it",
+      "links": "More on this route",
+      "show": "Show on the map"
+    },
+    "summary": {
+      "heading": "At a glance",
+      "items": [
+        {
+          "item": "TD3C",
+          "label": "Highest TCE",
+          "value": [
+            "TD3C",
+            ", ",
+            {
+              "value": 1287851,
+              "format": "usd_day",
+              "field": "tce_usd_day",
+              "prefix": "USD "
+            },
+            " a day"
+          ],
+          "note": [
+            "The Baltic's, Ras Tanura to Ningbo."
+          ]
+        },
+        {
+          "item": "TC2_37",
+          "label": "Lowest of the Baltic's",
+          "value": [
+            "TC2",
+            ", ",
+            {
+              "value": 12900,
+              "format": "usd_day",
+              "field": "tce_usd_day",
+              "prefix": "USD "
+            },
+            " a day"
+          ],
+          "note": [
+            "MR, Rotterdam to New York."
+          ]
+        },
+        {
+          "item": "TD22",
+          "label": "Longest round voyage",
+          "value": [
+            "TD22",
+            ", ",
+            {
+              "value": 111.141202,
+              "format": "days",
+              "field": "summary.longest_days",
+              "suffix": " days"
+            }
+          ],
+          "note": [
+            "VLCC, Galveston to Ningbo."
+          ]
+        },
+        {
+          "item": "TC20",
+          "label": "Costliest detour",
+          "value": [
+            "TC20 round the Cape, ",
+            {
+              "value": 31.535357,
+              "format": "days",
+              "field": "summary.tc20_days",
+              "suffix": " more days"
+            }
+          ],
+          "note": [
+            "It needs ",
+            {
+              "value": 128.944732,
+              "format": "usd_t",
+              "field": "summary.tc20_freight",
+              "prefix": "USD "
+            },
+            " a tonne more freight than by Suez."
+          ]
+        }
+      ]
+    },
+    "map": {
+      "title": "Every route the study prices, from its loading port, with its TCE a day",
+      "desc": "An equirectangular map from 110 degrees west to 155 degrees east. Each route's laden leg is a line from its loading port; the other routings the study prices are dotted. Every figure is in the list beside the map.",
+      "legend": [
+        {
+          "kind": "laden",
+          "state": "list",
+          "text": "A route's laden leg, from its loading port"
+        },
+        {
+          "kind": "alternative",
+          "state": "list",
+          "text": "Another routing the study prices"
+        },
+        {
+          "kind": "picked",
+          "state": "route",
+          "text": "The route picked: its laden leg"
+        },
+        {
+          "kind": "picked-ballast",
+          "state": "route",
+          "text": "Its ballast leg, dashed beside it"
+        },
+        {
+          "kind": "eca",
+          "state": "route",
+          "text": "Inside an emission control area: 0.10 percent sulphur fuel (MGO)"
+        },
+        {
+          "kind": "alternative-picked",
+          "state": "route",
+          "text": "Another routing it could take"
+        },
+        {
+          "kind": "other",
+          "state": "route",
+          "text": "Every other route"
+        },
+        {
+          "kind": "edge",
+          "state": "both",
+          "text": "Where a line leaves the map across the Pacific, and where it comes back"
+        }
+      ],
+      "labels": [
+        "Beside each loading port, each route and its TCE in USD a day, in the week to ",
+        {
+          "text": "23 October 2026",
+          "field": "date"
+        },
+        ": the Baltic's for tankers, the engine's estimate, in grey, for dry bulk",
+        "; P7 at its latest public rate, of ",
+        {
+          "text": "11 September 2026",
+          "field": "late_date"
+        },
+        "."
+      ],
+      "idle": "Point at a route, or pick one from the list, for its figures and the other ways it could sail.",
+      "same": "Same water: ",
+      "edge": "across the Pacific",
+      "source": [
+        "Lines: searoute over Eurostat SeaRoute, the same lines the distances are measured on. Emission control areas: MARPOL Annex VI, in force on ",
+        {
+          "text": "23 October 2026",
+          "field": "date"
+        },
+        ". Land: Natural Earth 1:110m. TCEs: the Baltic Exchange weekly tanker report via Hellenic Shipping News for tankers; the engine at public rates for dry bulk.",
+        " Sources ",
+        {
+          "text": "retrieved 29 October 2026",
+          "field": "retrieved"
+        },
+        "."
+      ]
+    },
+    "sections": [
+      {
+        "id": "table",
+        "name": "Every route side by side",
+        "summary": [
+          "Days, distance, freight, costs and the freight that covers them, one row a route."
+        ]
+      },
+      {
+        "id": "method",
+        "name": "How to read it",
+        "summary": [
+          "Which TCE each route shows, and what every figure leaves out."
+        ]
+      }
+    ],
+    "method": [
+      [
+        "Every route is priced on its latest dated rate, the preset the calculator opens for it, by the same engine and conventions as the rest of the study: the Baltic's round voyage, its ships, speeds and port days, bunkers at the hub with public prices nearest the loading port, and a 5 percent weather margin on steaming time."
+      ],
+      [
+        "Tanker rates are quoted in Worldscale points, and a point has no dollar value without the licensed flat rate, so for the tanker routes the TCE shown is the Baltic's own, printed beside the rate in its weekly report. Where the rate is a lump sum (TD22, TC20) the engine prices the same voyage, and both figures are shown. The Baltic publishes no TCE for the dry voyage routes: theirs is the engine's estimate at a public rate. S4A is a trip time charter, so its TCE is the owner's over the round trip, the ballast back to the US Gulf included."
+      ],
+      [
+        "Port charges have no public per call figure and are left out of every TCE, as each panel says; so are canal tolls where a routing uses a canal. An alternative that earns more only because it leaves out a toll or a premium says so."
+      ],
+      [
+        "The lines are the ones the distances are measured on. The map is equirectangular and not to scale, so it carries no distance bar. TC23, the intra-EEA Handy route, is priced only for its carbon cost, on the Carbon view."
+      ]
+    ],
+    "table": {
+      "caption": [
+        "Every route at its latest dated rate, ",
+        {
+          "text": "23 October 2026",
+          "field": "date"
+        },
+        " unless the row says otherwise."
+      ],
+      "columns": {
+        "route": "Route",
+        "tce": "TCE a day, and whose",
+        "days": "Round voyage, days",
+        "laden_nm": "Laden leg, nautical miles",
+        "freight": "Freight as quoted",
+        "breakeven": "Freight that covers the voyage costs",
+        "costs": "Voyage costs priced"
+      }
+    }
+  },
+  "clusters": [
+    {
+      "ports": [
+        "tubarao"
+      ],
+      "x": 493.2,
+      "y": 220.8,
+      "box": [
+        493.2,
+        220.8,
+        493.2,
+        220.8
+      ],
+      "items": [
+        "C3"
+      ]
+    },
+    {
+      "ports": [
+        "port_hedland"
+      ],
+      "x": 872.6,
+      "y": 221.6,
+      "box": [
+        872.6,
+        221.6,
+        872.6,
+        221.6
+      ],
+      "items": [
+        "C5"
+      ]
+    },
+    {
+      "ports": [
+        "new_orleans"
+      ],
+      "x": 371.9,
+      "y": 100.9,
+      "box": [
+        371.9,
+        100.9,
+        371.9,
+        100.9
+      ],
+      "items": [
+        "P7",
+        "S4A_63"
+      ]
+    },
+    {
+      "ports": [
+        "ras_tanura",
+        "jubail"
+      ],
+      "x": 707.9,
+      "y": 108.4,
+      "box": [
+        707.2,
+        107.8,
+        708.5,
+        109.1
+      ],
+      "items": [
+        "TD3C",
+        "TC20",
+        "TC1",
+        "TC5"
+      ]
+    },
+    {
+      "ports": [
+        "galveston",
+        "houston"
+      ],
+      "x": 360.1,
+      "y": 101.9,
+      "box": [
+        359.7,
+        101.4,
+        360.6,
+        102.4
+      ],
+      "items": [
+        "TD22",
+        "TD25",
+        "TC14"
+      ]
+    },
+    {
+      "ports": [
+        "bonny"
+      ],
+      "x": 605.0,
+      "y": 162.3,
+      "box": [
+        605.0,
+        162.3,
+        605.0,
+        162.3
+      ],
+      "items": [
+        "TD20"
+      ]
+    },
+    {
+      "ports": [
+        "rotterdam"
+      ],
+      "x": 598.7,
+      "y": 48.2,
+      "box": [
+        598.7,
+        48.2,
+        598.7,
+        48.2
+      ],
+      "items": [
+        "TC2_37"
+      ]
+    },
+    {
+      "ports": [
+        "mina_al_fahal"
+      ],
+      "x": 728.6,
+      "y": 116.1,
+      "box": [
+        728.6,
+        116.1,
+        728.6,
+        116.1
+      ],
+      "items": [
+        "TD34"
+      ]
+    },
+    {
+      "ports": [
+        "qingdao"
+      ],
+      "x": 876.6,
+      "y": 86.3,
+      "box": [
+        876.6,
+        86.3,
+        876.6,
+        86.3
+      ],
+      "items": [
+        "QD_RTM_PMX"
+      ]
+    }
+  ],
+  "items": [
+    {
+      "id": "C3",
+      "label": "C3",
+      "kind": "route",
+      "segment": "dry",
+      "name": "Tubarao to Qingdao",
+      "ports": "Tubarao to Qingdao",
+      "ship": "Capesize",
+      "preset": "latest-c3",
+      "date": "2026-10-23",
+      "tce_usd_day": 30440.792471,
+      "tce_basis": "engine",
+      "days": 76.522292,
+      "figure": [
+        {
+          "value": 30440.792471,
+          "format": "usd_day",
+          "field": "tce_usd_day",
+          "prefix": "USD "
+        }
+      ],
+      "row": {
+        "tce": [
+          {
+            "value": 30440.792471,
+            "format": "usd_day",
+            "field": "tce_usd_day"
+          }
+        ],
+        "qualifier": "",
+        "days": [
+          {
+            "value": 76.522292,
+            "format": "days",
+            "field": "days.total"
+          }
+        ],
+        "note": [],
+        "also": "",
+        "last": false
+      },
+      "readout": [
+        {
+          "text": "C3",
+          "field": "label"
+        },
+        ", Capesize, Tubarao to Qingdao: ",
+        {
+          "value": 30440.792471,
+          "format": "usd_day",
+          "field": "tce_usd_day",
+          "prefix": "USD "
+        },
+        " a day, the engine's estimate; ",
+        {
+          "value": 76.522292,
+          "format": "days",
+          "field": "days.total",
+          "suffix": " days round"
+        }
+      ],
+      "basis": "engine",
+      "same_water": [],
+      "legs": {
+        "laden": "tubarao__qingdao__direct",
+        "ballast": "qingdao__tubarao__direct",
+        "beside": true
+      },
+      "view": [
+        427.5,
+        63.5,
+        521.2,
+        206.5
+      ],
+      "view_tall": [
+        475.2,
+        26.7,
+        425.8,
+        266.1
+      ],
+      "passages": [
+        "Cape of Good Hope",
+        "Sunda Strait"
+      ],
+      "heading": "C3, Tubarao to Qingdao",
+      "map_title": "C3, Tubarao to Qingdao by the Cape of Good Hope and the Sunda Strait",
+      "map_desc": "The route picked is drawn in the accent colour, its laden leg solid and its ballast leg dashed beside it; every other route is a thin muted line. Every figure is in the column beside the map.",
+      "subhead": [
+        "Capesize",
+        ", ",
+        {
+          "value": 170000,
+          "format": "t",
+          "field": "cargo_t",
+          "suffix": " tonnes"
+        },
+        ", ",
+        "Tubarao to Qingdao"
+      ],
+      "split": {
+        "total": 76.522292,
+        "ballast": 34.802813,
+        "laden": 34.802813,
+        "port": 6.916667
+      },
+      "facts": [
+        {
+          "id": "tce",
+          "label": "TCE",
+          "value": [
+            {
+              "value": 30440.792471,
+              "format": "usd_day",
+              "field": "tce_usd_day",
+              "prefix": "USD "
+            },
+            " a day"
+          ],
+          "note": [
+            "The engine's estimate at the freight below, ",
+            {
+              "text": "23 October 2026",
+              "field": "date"
+            },
+            "; the Baltic publishes no TCE for this route."
+          ]
+        },
+        {
+          "id": "days",
+          "label": "Round voyage",
+          "value": [
+            {
+              "value": 76.522292,
+              "format": "days",
+              "field": "days.total",
+              "suffix": " days"
+            }
+          ],
+          "note": [
+            {
+              "value": 34.8,
+              "format": "days",
+              "field": "days.ballast"
+            },
+            " in ballast, ",
+            {
+              "value": 34.8,
+              "format": "days",
+              "field": "days.laden"
+            },
+            " laden and ",
+            {
+              "value": 6.9,
+              "format": "days",
+              "field": "days.port"
+            },
+            " in port and waiting",
+            "."
+          ]
+        },
+        {
+          "id": "distance",
+          "label": "Distance",
+          "value": [
+            {
+              "value": 11136.9,
+              "format": "nm",
+              "field": "laden_nm",
+              "suffix": " nautical miles laden"
+            }
+          ],
+          "note": [
+            "By the Cape of Good Hope and the Sunda Strait",
+            "; back in ballast ",
+            "the same way",
+            "; no mile inside an emission control area."
+          ]
+        },
+        {
+          "id": "freight",
+          "label": "Freight",
+          "value": [
+            {
+              "value": 33.87,
+              "format": "usd_t",
+              "field": "rate.value",
+              "prefix": "USD "
+            },
+            " a tonne"
+          ],
+          "note": [
+            "Banchero Costa weekly market report, week 43 of 2026; rate of 23 October 2026."
+          ]
+        },
+        {
+          "id": "breakeven",
+          "label": "Freight that covers the voyage costs",
+          "value": [
+            {
+              "value": 19.446476,
+              "format": "usd_t",
+              "field": "breakeven_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne"
+          ],
+          "note": [
+            "Against ",
+            {
+              "value": 33.87,
+              "format": "usd_t",
+              "field": "freight_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne fixed."
+          ]
+        },
+        {
+          "id": "costs",
+          "label": "Voyage costs priced",
+          "value": [
+            {
+              "value": 3.140606,
+              "format": "usd_m",
+              "field": "costs_usd",
+              "prefix": "USD ",
+              "suffix": " million"
+            }
+          ],
+          "note": [
+            "Bunkers ",
+            {
+              "value": 3.140606,
+              "format": "usd_m",
+              "field": "bunkers_usd",
+              "prefix": "USD ",
+              "suffix": " million"
+            },
+            ", no EU allowance: no EEA port",
+            "; ",
+            {
+              "value": 41041.711266,
+              "format": "usd_day",
+              "field": "costs_per_day_usd",
+              "prefix": "USD "
+            },
+            " a day of the round voyage."
+          ]
+        },
+        {
+          "id": "left_out",
+          "label": "Left out",
+          "value": [
+            "Loading time at Tubarao (the Baltic's terms load at the port's scale, which is not published), fuel burnt in port (the Baltic prints no port consumption for bulk carriers) and port charges at Tubarao and Qingdao (no public per call figure)."
+          ],
+          "note": []
+        }
+      ],
+      "table": {
+        "tce": [
+          {
+            "value": 30440.792471,
+            "format": "usd_day",
+            "field": "tce_usd_day",
+            "prefix": "USD "
+          },
+          ", the engine's"
+        ],
+        "days": [
+          {
+            "value": 76.522292,
+            "format": "days",
+            "field": "days.total"
+          }
+        ],
+        "laden_nm": [
+          {
+            "value": 11136.9,
+            "format": "nm",
+            "field": "laden_nm"
+          }
+        ],
+        "freight": [
+          {
+            "value": 33.87,
+            "format": "usd_t",
+            "field": "rate.value",
+            "prefix": "USD "
+          },
+          " a tonne"
+        ],
+        "breakeven": [
+          {
+            "value": 19.446476,
+            "format": "usd_t",
+            "field": "breakeven_usd_t",
+            "prefix": "USD "
+          },
+          " a tonne"
+        ],
+        "costs": [
+          {
+            "value": 3140605.8,
+            "format": "usd",
+            "field": "costs_usd",
+            "prefix": "USD "
+          }
+        ]
+      },
+      "alternatives": [],
+      "links": [
+        {
+          "text": "Price C3 in the calculator",
+          "view": "calculator",
+          "params": {
+            "preset": "latest-c3"
+          }
+        },
+        {
+          "text": "C3 against the FFA on Paper",
+          "view": "paper",
+          "params": {}
+        }
+      ],
+      "source": [
+        "Rate: Banchero Costa weekly market report, week 43 of 2026; rate of 23 October 2026. Bunkers: Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026. ",
+        "Ship, speeds and port days: Baltic Exchange Guide to Market Benchmarks v8.8. ",
+        "Distances: searoute over Eurostat SeaRoute. Engine: this study.",
+        " Sources ",
+        {
+          "text": "retrieved 29 October 2026",
+          "field": "retrieved"
+        },
+        "."
+      ]
+    },
+    {
+      "id": "C5",
+      "label": "C5",
+      "kind": "route",
+      "segment": "dry",
+      "name": "West Australia to Qingdao",
+      "ports": "Port Hedland to Qingdao",
+      "ship": "Capesize",
+      "preset": "latest-c5",
+      "date": "2026-10-23",
+      "tce_usd_day": 43393.748923,
+      "tce_basis": "engine",
+      "days": 29.252292,
+      "figure": [
+        {
+          "value": 43393.748923,
+          "format": "usd_day",
+          "field": "tce_usd_day",
+          "prefix": "USD "
+        }
+      ],
+      "row": {
+        "tce": [
+          {
+            "value": 43393.748923,
+            "format": "usd_day",
+            "field": "tce_usd_day"
+          }
+        ],
+        "qualifier": "",
+        "days": [
+          {
+            "value": 29.252292,
+            "format": "days",
+            "field": "days.total"
+          }
+        ],
+        "note": [],
+        "also": "",
+        "last": false
+      },
+      "readout": [
+        {
+          "text": "C5",
+          "field": "label"
+        },
+        ", Capesize, Port Hedland to Qingdao: ",
+        {
+          "value": 43393.748923,
+          "format": "usd_day",
+          "field": "tce_usd_day",
+          "prefix": "USD "
+        },
+        " a day, the engine's estimate; ",
+        {
+          "value": 29.252292,
+          "format": "days",
+          "field": "days.total",
+          "suffix": " days round"
+        }
+      ],
+      "basis": "engine",
+      "same_water": [],
+      "legs": {
+        "laden": "port_hedland__qingdao__direct",
+        "ballast": "qingdao__port_hedland__direct",
+        "beside": true
+      },
+      "view": [
+        527.7,
+        68.3,
+        432.3,
+        171.3
+      ],
+      "view_tall": [
+        685.9,
+        68.3,
+        274.1,
+        171.3
+      ],
+      "passages": [
+        "Lombok Strait"
+      ],
+      "heading": "C5, West Australia to Qingdao",
+      "map_title": "C5, Port Hedland to Qingdao by the Lombok Strait",
+      "map_desc": "The route picked is drawn in the accent colour, its laden leg solid and its ballast leg dashed beside it; every other route is a thin muted line. Every figure is in the column beside the map.",
+      "subhead": [
+        "Capesize",
+        ", ",
+        {
+          "value": 170000,
+          "format": "t",
+          "field": "cargo_t",
+          "suffix": " tonnes"
+        },
+        ", ",
+        "Port Hedland to Qingdao"
+      ],
+      "split": {
+        "total": 29.252292,
+        "ballast": 11.167813,
+        "laden": 11.167813,
+        "port": 6.916667
+      },
+      "facts": [
+        {
+          "id": "tce",
+          "label": "TCE",
+          "value": [
+            {
+              "value": 43393.748923,
+              "format": "usd_day",
+              "field": "tce_usd_day",
+              "prefix": "USD "
+            },
+            " a day"
+          ],
+          "note": [
+            "The engine's estimate at the freight below, ",
+            {
+              "text": "23 October 2026",
+              "field": "date"
+            },
+            "; the Baltic publishes no TCE for this route."
+          ]
+        },
+        {
+          "id": "days",
+          "label": "Round voyage",
+          "value": [
+            {
+              "value": 29.252292,
+              "format": "days",
+              "field": "days.total",
+              "suffix": " days"
+            }
+          ],
+          "note": [
+            {
+              "value": 11.2,
+              "format": "days",
+              "field": "days.ballast"
+            },
+            " in ballast, ",
+            {
+              "value": 11.2,
+              "format": "days",
+              "field": "days.laden"
+            },
+            " laden and ",
+            {
+              "value": 6.9,
+              "format": "days",
+              "field": "days.port"
+            },
+            " in port and waiting",
+            "."
+          ]
+        },
+        {
+          "id": "distance",
+          "label": "Distance",
+          "value": [
+            {
+              "value": 3573.7,
+              "format": "nm",
+              "field": "laden_nm",
+              "suffix": " nautical miles laden"
+            }
+          ],
+          "note": [
+            "By the Lombok Strait",
+            "; back in ballast ",
+            "the same way",
+            "; no mile inside an emission control area."
+          ]
+        },
+        {
+          "id": "freight",
+          "label": "Freight",
+          "value": [
+            {
+              "value": 14.1,
+              "format": "usd_t",
+              "field": "rate.value",
+              "prefix": "USD "
+            },
+            " a tonne"
+          ],
+          "note": [
+            "Banchero Costa weekly market report, week 43 of 2026; rate of 23 October 2026."
+          ]
+        },
+        {
+          "id": "breakeven",
+          "label": "Freight that covers the voyage costs",
+          "value": [
+            {
+              "value": 6.240145,
+              "format": "usd_t",
+              "field": "breakeven_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne"
+          ],
+          "note": [
+            "Against ",
+            {
+              "value": 14.1,
+              "format": "usd_t",
+              "field": "freight_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne fixed."
+          ]
+        },
+        {
+          "id": "costs",
+          "label": "Voyage costs priced",
+          "value": [
+            {
+              "value": 1.007783,
+              "format": "usd_m",
+              "field": "costs_usd",
+              "prefix": "USD ",
+              "suffix": " million"
+            }
+          ],
+          "note": [
+            "Bunkers ",
+            {
+              "value": 1.007783,
+              "format": "usd_m",
+              "field": "bunkers_usd",
+              "prefix": "USD ",
+              "suffix": " million"
+            },
+            ", no EU allowance: no EEA port",
+            "; ",
+            {
+              "value": 34451.434147,
+              "format": "usd_day",
+              "field": "costs_per_day_usd",
+              "prefix": "USD "
+            },
+            " a day of the round voyage."
+          ]
+        },
+        {
+          "id": "left_out",
+          "label": "Left out",
+          "value": [
+            "Loading time at Port Hedland (the Baltic's terms load at the port's scale, which is not published), fuel burnt in port (the Baltic prints no port consumption for bulk carriers) and port charges at Port Hedland and Qingdao (no public per call figure)."
+          ],
+          "note": []
+        }
+      ],
+      "table": {
+        "tce": [
+          {
+            "value": 43393.748923,
+            "format": "usd_day",
+            "field": "tce_usd_day",
+            "prefix": "USD "
+          },
+          ", the engine's"
+        ],
+        "days": [
+          {
+            "value": 29.252292,
+            "format": "days",
+            "field": "days.total"
+          }
+        ],
+        "laden_nm": [
+          {
+            "value": 3573.7,
+            "format": "nm",
+            "field": "laden_nm"
+          }
+        ],
+        "freight": [
+          {
+            "value": 14.1,
+            "format": "usd_t",
+            "field": "rate.value",
+            "prefix": "USD "
+          },
+          " a tonne"
+        ],
+        "breakeven": [
+          {
+            "value": 6.240145,
+            "format": "usd_t",
+            "field": "breakeven_usd_t",
+            "prefix": "USD "
+          },
+          " a tonne"
+        ],
+        "costs": [
+          {
+            "value": 1007783.4,
+            "format": "usd",
+            "field": "costs_usd",
+            "prefix": "USD "
+          }
+        ]
+      },
+      "alternatives": [],
+      "links": [
+        {
+          "text": "Price C5 in the calculator",
+          "view": "calculator",
+          "params": {
+            "preset": "latest-c5"
+          }
+        },
+        {
+          "text": "C5 against the FFA on Paper",
+          "view": "paper",
+          "params": {}
+        }
+      ],
+      "source": [
+        "Rate: Banchero Costa weekly market report, week 43 of 2026; rate of 23 October 2026. Bunkers: Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026. ",
+        "Ship, speeds and port days: Baltic Exchange Guide to Market Benchmarks v8.8. ",
+        "Distances: searoute over Eurostat SeaRoute. Engine: this study.",
+        " Sources ",
+        {
+          "text": "retrieved 29 October 2026",
+          "field": "retrieved"
+        },
+        "."
+      ]
+    },
+    {
+      "id": "P7",
+      "label": "P7",
+      "kind": "route",
+      "segment": "dry",
+      "name": "US Gulf to Qingdao grain",
+      "ports": "New Orleans to Qingdao",
+      "ship": "Panamax",
+      "preset": "latest-p7",
+      "date": "2026-09-11",
+      "tce_usd_day": 37998.76183,
+      "tce_basis": "engine",
+      "days": 86.98213,
+      "figure": [
+        {
+          "value": 37998.76183,
+          "format": "usd_day",
+          "field": "tce_usd_day",
+          "prefix": "USD "
+        }
+      ],
+      "row": {
+        "tce": [
+          {
+            "value": 37998.76183,
+            "format": "usd_day",
+            "field": "tce_usd_day"
+          }
+        ],
+        "qualifier": "",
+        "days": [
+          {
+            "value": 86.98213,
+            "format": "days",
+            "field": "days.total"
+          }
+        ],
+        "note": [
+          "Rate of ",
+          {
+            "text": "11 September 2026",
+            "field": "date"
+          }
+        ],
+        "also": "Also round the Cape, either way or both",
+        "last": false
+      },
+      "readout": [
+        {
+          "text": "P7",
+          "field": "label"
+        },
+        ", Panamax, New Orleans to Qingdao: ",
+        {
+          "value": 37998.76183,
+          "format": "usd_day",
+          "field": "tce_usd_day",
+          "prefix": "USD "
+        },
+        " a day, the engine's estimate; ",
+        {
+          "value": 86.98213,
+          "format": "days",
+          "field": "days.total",
+          "suffix": " days round"
+        }
+      ],
+      "basis": "engine",
+      "same_water": [],
+      "legs": {
+        "laden": "new_orleans__qingdao__direct",
+        "ballast": "qingdao__new_orleans__direct",
+        "beside": true
+      },
+      "view": [
+        324.0,
+        18.0,
+        636.0,
+        252.0
+      ],
+      "view_tall": [
+        407.8,
+        0.0,
+        468.5,
+        292.8
+      ],
+      "passages": [
+        "Panama Canal",
+        "Cape of Good Hope",
+        "Sunda Strait"
+      ],
+      "heading": "P7, US Gulf to Qingdao grain",
+      "map_title": "P7, New Orleans to Qingdao by the Yucatan Channel and the Panama Canal, and three other ways to sail it",
+      "map_desc": "The route picked is drawn in the accent colour, its laden leg solid and its ballast leg dashed beside it, its other routings dotted; every other route is a thin muted line. Every figure is in the column beside the map.",
+      "subhead": [
+        "Panamax",
+        ", ",
+        {
+          "value": 66000,
+          "format": "t",
+          "field": "cargo_t",
+          "suffix": " tonnes"
+        },
+        ", ",
+        "New Orleans to Qingdao"
+      ],
+      "split": {
+        "total": 86.98213,
+        "ballast": 31.5125,
+        "laden": 32.67963,
+        "port": 22.79
+      },
+      "facts": [
+        {
+          "id": "tce",
+          "label": "TCE",
+          "value": [
+            {
+              "value": 37998.76183,
+              "format": "usd_day",
+              "field": "tce_usd_day",
+              "prefix": "USD "
+            },
+            " a day"
+          ],
+          "note": [
+            "The engine's estimate at the freight below, ",
+            {
+              "text": "11 September 2026",
+              "field": "date"
+            },
+            "; the Baltic publishes no TCE for this route."
+          ]
+        },
+        {
+          "id": "days",
+          "label": "Round voyage",
+          "value": [
+            {
+              "value": 86.98213,
+              "format": "days",
+              "field": "days.total",
+              "suffix": " days"
+            }
+          ],
+          "note": [
+            {
+              "value": 31.5,
+              "format": "days",
+              "field": "days.ballast"
+            },
+            " in ballast, ",
+            {
+              "value": 32.7,
+              "format": "days",
+              "field": "days.laden"
+            },
+            " laden and ",
+            {
+              "value": 22.8,
+              "format": "days",
+              "field": "days.port"
+            },
+            " in port and waiting",
+            "."
+          ]
+        },
+        {
+          "id": "distance",
+          "label": "Distance",
+          "value": [
+            {
+              "value": 10084.0,
+              "format": "nm",
+              "field": "laden_nm",
+              "suffix": " nautical miles laden"
+            }
+          ],
+          "note": [
+            "By the Yucatan Channel and the Panama Canal",
+            "; back in ballast ",
+            "the same way",
+            "; ",
+            {
+              "value": 4.490282,
+              "format": "percent",
+              "field": "eca_share",
+              "suffix": " percent"
+            },
+            " of the miles inside emission control areas."
+          ]
+        },
+        {
+          "id": "freight",
+          "label": "Freight",
+          "value": [
+            {
+              "value": 76.29,
+              "format": "usd_t",
+              "field": "rate.value",
+              "prefix": "USD "
+            },
+            " a tonne"
+          ],
+          "note": [
+            "Signal Group, Panamax in focus, republished by Hellenic Shipping News on 18 September 2026; rate of 11 September 2026."
+          ]
+        },
+        {
+          "id": "breakeven",
+          "label": "Freight that covers the voyage costs",
+          "value": [
+            {
+              "value": 23.575275,
+              "format": "usd_t",
+              "field": "breakeven_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne"
+          ],
+          "note": [
+            "Against ",
+            {
+              "value": 76.29,
+              "format": "usd_t",
+              "field": "freight_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne fixed."
+          ]
+        },
+        {
+          "id": "costs",
+          "label": "Voyage costs priced",
+          "value": [
+            {
+              "value": 1.47817,
+              "format": "usd_m",
+              "field": "costs_usd",
+              "prefix": "USD ",
+              "suffix": " million"
+            }
+          ],
+          "note": [
+            "Bunkers ",
+            {
+              "value": 1.47817,
+              "format": "usd_m",
+              "field": "bunkers_usd",
+              "prefix": "USD ",
+              "suffix": " million"
+            },
+            ", no EU allowance: no EEA port",
+            "; ",
+            {
+              "value": 16993.947826,
+              "format": "usd_day",
+              "field": "costs_per_day_usd",
+              "prefix": "USD "
+            },
+            " a day of the round voyage."
+          ]
+        },
+        {
+          "id": "left_out",
+          "label": "Left out",
+          "value": [
+            "Fuel burnt in port (the Baltic prints no port consumption for bulk carriers), port charges at New Orleans and Qingdao (no public per call figure), the Panama Canal toll on the laden leg (no public toll for this ship), the Panama Canal toll on the ballast leg (no public toll for this ship) and time at the Panama Canal, the transit and any wait (no canal days in the guide's P7 terms)."
+          ],
+          "note": []
+        }
+      ],
+      "table": {
+        "tce": [
+          {
+            "value": 37998.76183,
+            "format": "usd_day",
+            "field": "tce_usd_day",
+            "prefix": "USD "
+          },
+          ", the engine's"
+        ],
+        "days": [
+          {
+            "value": 86.98213,
+            "format": "days",
+            "field": "days.total"
+          }
+        ],
+        "laden_nm": [
+          {
+            "value": 10084.0,
+            "format": "nm",
+            "field": "laden_nm"
+          }
+        ],
+        "freight": [
+          {
+            "value": 76.29,
+            "format": "usd_t",
+            "field": "rate.value",
+            "prefix": "USD "
+          },
+          " a tonne"
+        ],
+        "breakeven": [
+          {
+            "value": 23.575275,
+            "format": "usd_t",
+            "field": "breakeven_usd_t",
+            "prefix": "USD "
+          },
+          " a tonne"
+        ],
+        "costs": [
+          {
+            "value": 1478169.772731,
+            "format": "usd",
+            "field": "costs_usd",
+            "prefix": "USD "
+          }
+        ]
+      },
+      "alternatives": [
+        {
+          "id": "no_canals-no_canals",
+          "short": "Round the Cape",
+          "name": "Round the Cape of Good Hope both ways",
+          "legs": [
+            "new_orleans__qingdao__no_canals",
+            "qingdao__new_orleans__no_canals"
+          ],
+          "label_at": [
+            650.4,
+            255.6
+          ],
+          "text": [
+            {
+              "value": 119.872002,
+              "format": "days",
+              "field": "alternatives.no_canals-no_canals.days",
+              "suffix": " days"
+            },
+            " (",
+            {
+              "value": 32.889873,
+              "format": "days",
+              "field": "alternatives.no_canals-no_canals.days_change",
+              "signed": true
+            },
+            ")",
+            "; TCE ",
+            {
+              "value": 21242.876442,
+              "format": "usd_day",
+              "field": "alternatives.no_canals-no_canals.tce_usd_day",
+              "prefix": "USD "
+            },
+            " a day (",
+            {
+              "value": -16755.885388,
+              "format": "usd_day",
+              "field": "alternatives.no_canals-no_canals.tce_change",
+              "signed": true
+            },
+            "). To earn the TCE above it needs ",
+            {
+              "value": 108.324474,
+              "format": "usd_t",
+              "field": "alternatives.no_canals-no_canals.freight_needed_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne (",
+            {
+              "value": 32.034474,
+              "format": "usd_t",
+              "field": "alternatives.no_canals-no_canals.freight_change_usd_t",
+              "signed": true
+            },
+            ")."
+          ],
+          "map_label": [
+            "Round the Cape: ",
+            {
+              "value": 32.889873,
+              "format": "days",
+              "field": "alternatives.no_canals-no_canals.days_change",
+              "signed": true,
+              "suffix": " days"
+            },
+            ", TCE ",
+            {
+              "value": 21242.876442,
+              "format": "usd_day",
+              "field": "alternatives.no_canals-no_canals.tce_usd_day"
+            }
+          ],
+          "whole_label": "P7 by the Cape"
+        },
+        {
+          "id": "direct-no_canals",
+          "short": "Back round the Cape",
+          "name": "By Panama laden, back round the Cape in ballast",
+          "legs": [
+            "new_orleans__qingdao__direct",
+            "qingdao__new_orleans__no_canals"
+          ],
+          "label_at": null,
+          "text": [
+            {
+              "value": 103.128067,
+              "format": "days",
+              "field": "alternatives.direct-no_canals.days",
+              "suffix": " days"
+            },
+            " (",
+            {
+              "value": 16.145938,
+              "format": "days",
+              "field": "alternatives.direct-no_canals.days_change",
+              "signed": true
+            },
+            ")",
+            "; TCE ",
+            {
+              "value": 28551.866542,
+              "format": "usd_day",
+              "field": "alternatives.direct-no_canals.tce_usd_day",
+              "prefix": "USD "
+            },
+            " a day (",
+            {
+              "value": -9446.895288,
+              "format": "usd_day",
+              "field": "alternatives.direct-no_canals.tce_change",
+              "signed": true
+            },
+            "). To earn the TCE above it needs ",
+            {
+              "value": 91.828119,
+              "format": "usd_t",
+              "field": "alternatives.direct-no_canals.freight_needed_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne (",
+            {
+              "value": 15.538119,
+              "format": "usd_t",
+              "field": "alternatives.direct-no_canals.freight_change_usd_t",
+              "signed": true
+            },
+            ")."
+          ],
+          "map_label": [
+            "Back round the Cape: ",
+            {
+              "value": 16.145938,
+              "format": "days",
+              "field": "alternatives.direct-no_canals.days_change",
+              "signed": true,
+              "suffix": " days"
+            },
+            ", TCE ",
+            {
+              "value": 28551.866542,
+              "format": "usd_day",
+              "field": "alternatives.direct-no_canals.tce_usd_day"
+            }
+          ],
+          "whole_label": null
+        },
+        {
+          "id": "no_canals-direct",
+          "short": "Laden round the Cape",
+          "name": "Round the Cape laden, back by Panama in ballast",
+          "legs": [
+            "new_orleans__qingdao__no_canals",
+            "qingdao__new_orleans__direct"
+          ],
+          "label_at": null,
+          "text": [
+            {
+              "value": 103.726065,
+              "format": "days",
+              "field": "alternatives.no_canals-direct.days",
+              "suffix": " days"
+            },
+            " (",
+            {
+              "value": 16.743935,
+              "format": "days",
+              "field": "alternatives.no_canals-direct.days_change",
+              "signed": true
+            },
+            ")",
+            "; TCE ",
+            {
+              "value": 28027.097693,
+              "format": "usd_day",
+              "field": "alternatives.no_canals-direct.tce_usd_day",
+              "prefix": "USD "
+            },
+            " a day (",
+            {
+              "value": -9971.664137,
+              "format": "usd_day",
+              "field": "alternatives.no_canals-direct.tce_change",
+              "signed": true
+            },
+            "). To earn the TCE above it needs ",
+            {
+              "value": 92.786355,
+              "format": "usd_t",
+              "field": "alternatives.no_canals-direct.freight_needed_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne (",
+            {
+              "value": 16.496355,
+              "format": "usd_t",
+              "field": "alternatives.no_canals-direct.freight_change_usd_t",
+              "signed": true
+            },
+            ")."
+          ],
+          "map_label": [
+            "Laden round the Cape: ",
+            {
+              "value": 16.743935,
+              "format": "days",
+              "field": "alternatives.no_canals-direct.days_change",
+              "signed": true,
+              "suffix": " days"
+            },
+            ", TCE ",
+            {
+              "value": 28027.097693,
+              "format": "usd_day",
+              "field": "alternatives.no_canals-direct.tce_usd_day"
+            }
+          ],
+          "whole_label": null
+        }
+      ],
+      "links": [
+        {
+          "text": "Price P7 in the calculator",
+          "view": "calculator",
+          "params": {
+            "preset": "latest-p7"
+          }
+        }
+      ],
+      "source": [
+        "Rate: Signal Group, Panamax in focus, republished by Hellenic Shipping News on 18 September 2026; rate of 11 September 2026. Bunkers: Star Asia Shipbroking weekly market report, week 37 of 2026, 11 September 2026, reprinting the row first printed on 4 September 2026. ",
+        "Ship, speeds and port days: Baltic Exchange Guide to Market Benchmarks v8.8. ",
+        "Distances: searoute over Eurostat SeaRoute. Engine: this study.",
+        " Sources ",
+        {
+          "text": "retrieved 29 October 2026",
+          "field": "retrieved"
+        },
+        "."
+      ]
+    },
+    {
+      "id": "S4A_63",
+      "label": "S4A",
+      "kind": "route",
+      "segment": "dry",
+      "name": "US Gulf trip to Skaw-Passero",
+      "ports": "New Orleans to Rotterdam",
+      "ship": "Supramax",
+      "preset": "latest-s4a_63",
+      "date": "2026-10-23",
+      "tce_usd_day": 9177.360625,
+      "tce_basis": "engine",
+      "days": 42.632812,
+      "figure": [
+        {
+          "value": 9177.360625,
+          "format": "usd_day",
+          "field": "tce_usd_day",
+          "prefix": "USD "
+        }
+      ],
+      "row": {
+        "tce": [
+          {
+            "value": 9177.360625,
+            "format": "usd_day",
+            "field": "tce_usd_day"
+          }
+        ],
+        "qualifier": "",
+        "days": [
+          {
+            "value": 42.632812,
+            "format": "days",
+            "field": "days.total"
+          }
+        ],
+        "note": [
+          "Trip charter: the owner's TCE with the ballast back; hire ",
+          {
+            "value": 30853,
+            "format": "usd_day",
+            "field": "trip_hire_usd_day",
+            "prefix": "USD "
+          },
+          " a day"
+        ],
+        "also": "",
+        "last": true
+      },
+      "readout": [
+        {
+          "text": "S4A",
+          "field": "label"
+        },
+        ", Supramax, New Orleans to Rotterdam: ",
+        {
+          "value": 9177.360625,
+          "format": "usd_day",
+          "field": "tce_usd_day",
+          "prefix": "USD "
+        },
+        " a day, the engine's estimate; ",
+        {
+          "value": 42.632812,
+          "format": "days",
+          "field": "days.total",
+          "suffix": " days round"
+        }
+      ],
+      "basis": "engine",
+      "same_water": [
+        "TD25",
+        "TC14"
+      ],
+      "legs": {
+        "laden": "new_orleans__rotterdam__direct",
+        "ballast": "rotterdam__new_orleans__direct",
+        "beside": true
+      },
+      "view": [
+        353.9,
+        29.3,
+        262.8,
+        104.1
+      ],
+      "view_tall": [
+        353.9,
+        0.0,
+        262.8,
+        164.3
+      ],
+      "passages": [],
+      "heading": "S4A, US Gulf trip to Skaw-Passero",
+      "map_title": "S4A, New Orleans to Rotterdam by the Florida Strait and the Dover Strait",
+      "map_desc": "The route picked is drawn in the accent colour, its laden leg solid and its ballast leg dashed beside it; every other route is a thin muted line. Every figure is in the column beside the map.",
+      "subhead": [
+        "Supramax",
+        ", ",
+        "trip time charter, ",
+        "New Orleans to Rotterdam"
+      ],
+      "split": {
+        "total": 42.632812,
+        "ballast": 15.132812,
+        "laden": 15.132812,
+        "port": 12.367188
+      },
+      "facts": [
+        {
+          "id": "tce",
+          "label": "TCE",
+          "value": [
+            {
+              "value": 9177.360625,
+              "format": "usd_day",
+              "field": "tce_usd_day",
+              "prefix": "USD "
+            },
+            " a day"
+          ],
+          "note": [
+            "The owner's TCE over the round trip, the ballast back to the US Gulf included: the trip pays ",
+            {
+              "value": 30853,
+              "format": "usd_day",
+              "field": "trip_hire_usd_day",
+              "prefix": "USD "
+            },
+            " a day of hire for its ",
+            {
+              "value": 27.5,
+              "format": "days",
+              "field": "trip_days",
+              "suffix": " days"
+            },
+            " and nothing for the way back."
+          ]
+        },
+        {
+          "id": "days",
+          "label": "Round voyage",
+          "value": [
+            {
+              "value": 42.632812,
+              "format": "days",
+              "field": "days.total",
+              "suffix": " days"
+            }
+          ],
+          "note": [
+            {
+              "value": 15.1,
+              "format": "days",
+              "field": "days.ballast"
+            },
+            " in ballast, ",
+            {
+              "value": 15.1,
+              "format": "days",
+              "field": "days.laden"
+            },
+            " laden and ",
+            {
+              "value": 12.4,
+              "format": "days",
+              "field": "days.port"
+            },
+            " in port and waiting",
+            "."
+          ]
+        },
+        {
+          "id": "distance",
+          "label": "Distance",
+          "value": [
+            {
+              "value": 4842.5,
+              "format": "nm",
+              "field": "laden_nm",
+              "suffix": " nautical miles laden"
+            }
+          ],
+          "note": [
+            "By the Florida Strait and the Dover Strait",
+            "; back in ballast ",
+            "the same way",
+            "; ",
+            {
+              "value": 23.719153,
+              "format": "percent",
+              "field": "eca_share",
+              "suffix": " percent"
+            },
+            " of the miles inside emission control areas."
+          ]
+        },
+        {
+          "id": "freight",
+          "label": "Freight",
+          "value": [
+            {
+              "value": 30853,
+              "format": "usd_day",
+              "field": "rate.value",
+              "prefix": "USD "
+            },
+            " a day of hire"
+          ],
+          "note": [
+            "Banchero Costa weekly market report, week 43 of 2026; rate of 23 October 2026."
+          ]
+        },
+        {
+          "id": "breakeven",
+          "label": "Hire that covers the owner's costs",
+          "value": [
+            {
+              "value": 15876.667186,
+              "format": "usd_day",
+              "field": "breakeven_hire_usd_day",
+              "prefix": "USD "
+            },
+            " a day"
+          ],
+          "note": [
+            "The hire that leaves the owner nothing over the round trip, against the hire above."
+          ]
+        },
+        {
+          "id": "costs",
+          "label": "Owner's voyage costs priced",
+          "value": [
+            {
+              "value": 0.414778,
+              "format": "usd_m",
+              "field": "costs_usd",
+              "prefix": "USD ",
+              "suffix": " million"
+            }
+          ],
+          "note": [
+            "Bunkers ",
+            {
+              "value": 0.359189,
+              "format": "usd_m",
+              "field": "bunkers_usd",
+              "prefix": "USD ",
+              "suffix": " million"
+            },
+            " and EU allowances ",
+            {
+              "value": 55589.023972,
+              "format": "usd",
+              "field": "ets_usd",
+              "prefix": "USD "
+            },
+            "; ",
+            {
+              "value": 9729.077344,
+              "format": "usd_day",
+              "field": "costs_per_day_usd",
+              "prefix": "USD "
+            },
+            " a day of the round voyage.",
+            " The owner's are the ballast leg's; the charterer pays the trip's, ",
+            {
+              "value": 481142.399058,
+              "format": "usd",
+              "field": "charterer_costs_usd",
+              "prefix": "USD "
+            },
+            "."
+          ]
+        },
+        {
+          "id": "left_out",
+          "label": "Left out",
+          "value": [
+            "Fuel burnt in port (the Baltic prints no port consumption for bulk carriers) and port charges at New Orleans and Rotterdam (no public per call figure)."
+          ],
+          "note": []
+        }
+      ],
+      "table": {
+        "tce": [
+          {
+            "value": 9177.360625,
+            "format": "usd_day",
+            "field": "tce_usd_day",
+            "prefix": "USD "
+          },
+          ", the engine's"
+        ],
+        "days": [
+          {
+            "value": 42.632812,
+            "format": "days",
+            "field": "days.total"
+          }
+        ],
+        "laden_nm": [
+          {
+            "value": 4842.5,
+            "format": "nm",
+            "field": "laden_nm"
+          }
+        ],
+        "freight": [
+          {
+            "value": 30853,
+            "format": "usd_day",
+            "field": "rate.value",
+            "prefix": "USD "
+          },
+          " a day of hire"
+        ],
+        "breakeven": [
+          {
+            "value": 15876.667186,
+            "format": "usd_day",
+            "field": "breakeven_hire_usd_day",
+            "prefix": "USD "
+          },
+          " a day of hire"
+        ],
+        "costs": [
+          {
+            "value": 414777.930222,
+            "format": "usd",
+            "field": "costs_usd",
+            "prefix": "USD "
+          }
+        ]
+      },
+      "alternatives": [],
+      "links": [
+        {
+          "text": "Price S4A in the calculator",
+          "view": "calculator",
+          "params": {
+            "preset": "latest-s4a_63"
+          }
+        },
+        {
+          "text": "Who pays the allowances on a trip, on Carbon",
+          "view": "carbon",
+          "params": {}
+        }
+      ],
+      "source": [
+        "Rate: Banchero Costa weekly market report, week 43 of 2026; rate of 23 October 2026. Bunkers: Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026. ",
+        "Ship, speeds and port days: Baltic Exchange Guide to Market Benchmarks v8.8. ",
+        "Distances: searoute over Eurostat SeaRoute. Engine: this study.",
+        " Sources ",
+        {
+          "text": "retrieved 29 October 2026",
+          "field": "retrieved"
+        },
+        "."
+      ]
+    },
+    {
+      "id": "TD3C",
+      "label": "TD3C",
+      "kind": "route",
+      "segment": "dirty",
+      "name": "Middle East Gulf to China",
+      "ports": "Ras Tanura to Ningbo",
+      "ship": "VLCC",
+      "preset": "latest-td3c",
+      "date": "2026-10-23",
+      "tce_usd_day": 1287851,
+      "tce_basis": "baltic",
+      "days": 47.007212,
+      "figure": [
+        {
+          "value": 1287851,
+          "format": "usd_day",
+          "field": "tce_usd_day",
+          "prefix": "USD "
+        }
+      ],
+      "row": {
+        "tce": [
+          {
+            "value": 1287851,
+            "format": "usd_day",
+            "field": "tce_usd_day"
+          }
+        ],
+        "qualifier": "",
+        "days": [
+          {
+            "value": 47.007212,
+            "format": "days",
+            "field": "days.total"
+          }
+        ],
+        "note": [],
+        "also": "Also TD34, a transfer off Fujairah, or a wait",
+        "last": false
+      },
+      "readout": [
+        {
+          "text": "TD3C",
+          "field": "label"
+        },
+        ", VLCC, Ras Tanura to Ningbo: ",
+        {
+          "value": 1287851,
+          "format": "usd_day",
+          "field": "tce_usd_day",
+          "prefix": "USD "
+        },
+        " a day, the Baltic's; ",
+        {
+          "value": 47.007212,
+          "format": "days",
+          "field": "days.total",
+          "suffix": " days round"
+        }
+      ],
+      "basis": "baltic",
+      "same_water": [
+        "TC1",
+        "TC5",
+        "TD34",
+        "QD_RTM_PMX"
+      ],
+      "legs": {
+        "laden": "ras_tanura__ningbo__direct",
+        "ballast": "ningbo__ras_tanura__direct",
+        "beside": true
+      },
+      "view": [
+        662.6,
+        82.9,
+        265.8,
+        105.3
+      ],
+      "view_tall": [
+        689.5,
+        69.3,
+        212.0,
+        132.5
+      ],
+      "passages": [
+        "Strait of Hormuz",
+        "Strait of Malacca"
+      ],
+      "heading": "TD3C, Middle East Gulf to China",
+      "map_title": "TD3C, Ras Tanura to Ningbo by the Strait of Hormuz and the Strait of Malacca, and three other ways to sail it",
+      "map_desc": "The route picked is drawn in the accent colour, its laden leg solid and its ballast leg dashed beside it, its other routings dotted; every other route is a thin muted line. Every figure is in the column beside the map.",
+      "subhead": [
+        "VLCC",
+        ", ",
+        {
+          "value": 270000,
+          "format": "t",
+          "field": "cargo_t",
+          "suffix": " tonnes"
+        },
+        ", ",
+        "Ras Tanura to Ningbo"
+      ],
+      "split": {
+        "total": 47.007212,
+        "ballast": 21.32375,
+        "laden": 19.683462,
+        "port": 6.0
+      },
+      "facts": [
+        {
+          "id": "tce",
+          "label": "TCE",
+          "value": [
+            {
+              "value": 1287851,
+              "format": "usd_day",
+              "field": "tce_usd_day",
+              "prefix": "USD "
+            },
+            " a day"
+          ],
+          "note": [
+            "The Baltic's TCE for the week to ",
+            {
+              "text": "23 October 2026",
+              "field": "date"
+            },
+            ". The rate is in Worldscale points, which have no dollar value without the licensed flat rate, so the engine prices this route's days and costs but not its TCE."
+          ]
+        },
+        {
+          "id": "days",
+          "label": "Round voyage",
+          "value": [
+            {
+              "value": 47.007212,
+              "format": "days",
+              "field": "days.total",
+              "suffix": " days"
+            }
+          ],
+          "note": [
+            {
+              "value": 21.3,
+              "format": "days",
+              "field": "days.ballast"
+            },
+            " in ballast, ",
+            {
+              "value": 19.7,
+              "format": "days",
+              "field": "days.laden"
+            },
+            " laden and ",
+            {
+              "value": 6.0,
+              "format": "days",
+              "field": "days.port"
+            },
+            " in port and waiting",
+            "."
+          ]
+        },
+        {
+          "id": "distance",
+          "label": "Distance",
+          "value": [
+            {
+              "value": 5848.8,
+              "format": "nm",
+              "field": "laden_nm",
+              "suffix": " nautical miles laden"
+            }
+          ],
+          "note": [
+            "By the Strait of Hormuz and the Strait of Malacca",
+            "; back in ballast ",
+            "the same way",
+            "; no mile inside an emission control area."
+          ]
+        },
+        {
+          "id": "freight",
+          "label": "Freight",
+          "value": [
+            {
+              "value": 1208.13,
+              "format": "ws",
+              "field": "rate.value",
+              "prefix": "WS "
+            }
+          ],
+          "note": [
+            "Baltic Exchange weekly tanker report, republished by Hellenic Shipping News on 26 October 2026; rate for the week to 23 October 2026."
+          ]
+        },
+        {
+          "id": "breakeven",
+          "label": "Freight that covers the voyage costs",
+          "value": [
+            {
+              "value": 8.433464,
+              "format": "usd_t",
+              "field": "breakeven_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne"
+          ],
+          "note": [
+            "At the engine's days and costs the freight that earns the Baltic's TCE is ",
+            {
+              "value": 241.385016,
+              "format": "usd_t",
+              "field": "freight_at_published_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne: derived, not a quoted rate."
+          ]
+        },
+        {
+          "id": "costs",
+          "label": "Voyage costs priced",
+          "value": [
+            {
+              "value": 2.191647,
+              "format": "usd_m",
+              "field": "costs_usd",
+              "prefix": "USD ",
+              "suffix": " million"
+            }
+          ],
+          "note": [
+            "Bunkers ",
+            {
+              "value": 2.191647,
+              "format": "usd_m",
+              "field": "bunkers_usd",
+              "prefix": "USD ",
+              "suffix": " million"
+            },
+            ", no EU allowance: no EEA port",
+            "; ",
+            {
+              "value": 46623.624061,
+              "format": "usd_day",
+              "field": "costs_per_day_usd",
+              "prefix": "USD "
+            },
+            " a day of the round voyage."
+          ]
+        },
+        {
+          "id": "war",
+          "label": "War risk premium",
+          "value": [
+            {
+              "value": 43.611111,
+              "format": "usd_t",
+              "field": "war.per_period_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne"
+          ],
+          "note": [
+            "The charterer's, for each seven days inside the Gulf (",
+            {
+              "value": 1.0,
+              "format": "count",
+              "field": "war.periods"
+            },
+            " on this voyage), at 7.5 percent of a ",
+            {
+              "value": 157.0,
+              "format": "usd_m_0",
+              "field": "war.hull_value_usd",
+              "prefix": "USD ",
+              "suffix": " million"
+            },
+            " hull value (Marsh, 22 July 2026; hull value Xclusiv Shipbrokers, 7 September 2026)."
+          ]
+        },
+        {
+          "id": "left_out",
+          "label": "Left out",
+          "value": [
+            "Port charges at Ras Tanura and Ningbo (no public per call figure) and the additional war risk premium in the Gulf (usually the charterer's; the Baltic's TCE leaves it out)."
+          ],
+          "note": []
+        }
+      ],
+      "table": {
+        "tce": [
+          {
+            "value": 1287851,
+            "format": "usd_day",
+            "field": "tce_usd_day",
+            "prefix": "USD "
+          },
+          ", the Baltic's"
+        ],
+        "days": [
+          {
+            "value": 47.007212,
+            "format": "days",
+            "field": "days.total"
+          }
+        ],
+        "laden_nm": [
+          {
+            "value": 5848.8,
+            "format": "nm",
+            "field": "laden_nm"
+          }
+        ],
+        "freight": [
+          {
+            "value": 1208.13,
+            "format": "ws",
+            "field": "rate.value",
+            "prefix": "WS "
+          }
+        ],
+        "breakeven": [
+          {
+            "value": 8.433464,
+            "format": "usd_t",
+            "field": "breakeven_usd_t",
+            "prefix": "USD "
+          },
+          " a tonne"
+        ],
+        "costs": [
+          {
+            "value": 2191646.558904,
+            "format": "usd",
+            "field": "costs_usd",
+            "prefix": "USD "
+          }
+        ]
+      },
+      "alternatives": [
+        {
+          "id": "td34",
+          "short": "TD34",
+          "name": "TD34: loading at Mina Al Fahal, outside the Gulf",
+          "legs": [
+            "mina_al_fahal__ningbo__direct",
+            "ningbo__mina_al_fahal__direct"
+          ],
+          "label_at": [
+            728.6,
+            116.1
+          ],
+          "text": [
+            {
+              "value": 42.21905,
+              "format": "days",
+              "field": "alternatives.td34.days",
+              "suffix": " days"
+            },
+            " (",
+            {
+              "value": -4.788161,
+              "format": "days",
+              "field": "alternatives.td34.days_change",
+              "signed": true
+            },
+            ")",
+            "; the Baltic's TCE ",
+            {
+              "value": 656587,
+              "format": "usd_day",
+              "field": "alternatives.td34.tce_usd_day",
+              "prefix": "USD "
+            },
+            " a day. At its own TCE the freight is ",
+            {
+              "value": 114.382375,
+              "format": "usd_t",
+              "field": "alternatives.td34.freight_needed_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne, against ",
+            {
+              "value": 241.385016,
+              "format": "usd_t",
+              "field": "alternatives.td34.td3c_freight_usd_t",
+              "prefix": "USD "
+            },
+            " for TD3C at its own."
+          ],
+          "map_label": [
+            "TD34: ",
+            {
+              "value": -4.788161,
+              "format": "days",
+              "field": "alternatives.td34.days_change",
+              "signed": true,
+              "suffix": " days"
+            },
+            ", TCE ",
+            {
+              "value": 656587,
+              "format": "usd_day",
+              "field": "alternatives.td34.tce_usd_day"
+            }
+          ],
+          "whole_label": null
+        },
+        {
+          "id": "transfer",
+          "short": "Fujairah transfer",
+          "name": "A shuttle out of the Gulf, then an export VLCC from Fujairah",
+          "legs": [
+            "ras_tanura__fujairah__direct",
+            "fujairah__ningbo__direct",
+            "ningbo__fujairah__direct"
+          ],
+          "label_at": [
+            750.4,
+            135.1
+          ],
+          "text": [
+            "The export VLCC sails ",
+            {
+              "value": 44.257412,
+              "format": "days",
+              "field": "alternatives.transfer.days",
+              "suffix": " days"
+            },
+            " (",
+            {
+              "value": -2.7498,
+              "format": "days",
+              "field": "alternatives.transfer.days_change",
+              "signed": true
+            },
+            ")",
+            " and needs ",
+            {
+              "value": 227.262808,
+              "format": "usd_t",
+              "field": "alternatives.transfer.freight_needed_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne to earn TD3C's TCE (",
+            {
+              "value": -14.122208,
+              "format": "usd_t",
+              "field": "alternatives.transfer.freight_change_usd_t",
+              "signed": true
+            },
+            "). The shuttle through Hormuz is not priced: it was reported at ",
+            {
+              "value": 16.0,
+              "format": "usd",
+              "field": "alternatives.transfer.shuttle_low",
+              "prefix": "USD "
+            },
+            " to ",
+            {
+              "value": 20.0,
+              "format": "usd",
+              "field": "alternatives.transfer.shuttle_high"
+            },
+            " a barrel (The Wall Street Journal via ChosunBiz, republished by Hellenic Shipping News on 21 September 2026)."
+          ],
+          "map_label": [
+            "Fujairah transfer: ",
+            {
+              "value": -2.7498,
+              "format": "days",
+              "field": "alternatives.transfer.days_change",
+              "signed": true,
+              "suffix": " days"
+            },
+            ", ",
+            {
+              "value": -14.122208,
+              "format": "usd_t",
+              "field": "alternatives.transfer.freight_change_usd_t",
+              "signed": true,
+              "prefix": "USD "
+            },
+            " a tonne"
+          ],
+          "whole_label": null
+        },
+        {
+          "id": "waiting",
+          "short": "",
+          "name": "Waiting inside the Gulf",
+          "legs": [],
+          "label_at": null,
+          "text": [
+            "Each seven days inside the Gulf costs the charterer another ",
+            {
+              "value": 43.611111,
+              "format": "usd_t",
+              "field": "alternatives.waiting.per_period_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne at 7.5 percent of the hull value. Waiting ",
+            {
+              "value": 5.0,
+              "format": "count",
+              "field": "alternatives.waiting.wait_5.days"
+            },
+            ", ",
+            {
+              "value": 10.0,
+              "format": "count",
+              "field": "alternatives.waiting.wait_10.days"
+            },
+            " or ",
+            {
+              "value": 20.0,
+              "format": "count",
+              "field": "alternatives.waiting.wait_20.days"
+            },
+            " days costs ",
+            {
+              "value": 112.187898,
+              "format": "usd_t",
+              "field": "alternatives.waiting.wait_5.total_usd_t",
+              "prefix": "USD "
+            },
+            ", ",
+            {
+              "value": 180.764685,
+              "format": "usd_t",
+              "field": "alternatives.waiting.wait_10.total_usd_t",
+              "prefix": ""
+            },
+            " or ",
+            {
+              "value": 274.307148,
+              "format": "usd_t",
+              "field": "alternatives.waiting.wait_20.total_usd_t",
+              "prefix": ""
+            },
+            " a tonne in all: the premium and the owner's extra freight at the latest TCE."
+          ],
+          "map_label": null,
+          "whole_label": null
+        }
+      ],
+      "links": [
+        {
+          "text": "Price TD3C in the calculator",
+          "view": "calculator",
+          "params": {
+            "preset": "latest-td3c"
+          }
+        },
+        {
+          "text": "The Hormuz scenarios on Detours",
+          "view": "detours",
+          "params": {
+            "open": "hormuz"
+          }
+        },
+        {
+          "text": "TD3C against the FFA on Paper",
+          "view": "paper",
+          "params": {
+            "open": "tankers"
+          }
+        }
+      ],
+      "source": [
+        "Rate: Baltic Exchange weekly tanker report, republished by Hellenic Shipping News on 26 October 2026; rate for the week to 23 October 2026. Bunkers: Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026. ",
+        "Ship, speeds and port days: Baltic Exchange Guide to Market Benchmarks v8.8. ",
+        "Distances: searoute over Eurostat SeaRoute. Engine: this study.",
+        " Sources ",
+        {
+          "text": "retrieved 29 October 2026",
+          "field": "retrieved"
+        },
+        "."
+      ]
+    },
+    {
+      "id": "TD22",
+      "label": "TD22",
+      "kind": "route",
+      "segment": "dirty",
+      "name": "US Gulf to China",
+      "ports": "Galveston to Ningbo",
+      "ship": "VLCC",
+      "preset": "anchor-td22-2026-10-23",
+      "date": "2026-10-23",
+      "tce_usd_day": 451905,
+      "tce_basis": "baltic",
+      "days": 111.141202,
+      "figure": [
+        {
+          "value": 451905,
+          "format": "usd_day",
+          "field": "tce_usd_day",
+          "prefix": "USD "
+        }
+      ],
+      "row": {
+        "tce": [
+          {
+            "value": 451905,
+            "format": "usd_day",
+            "field": "tce_usd_day"
+          }
+        ],
+        "qualifier": "",
+        "days": [
+          {
+            "value": 111.141202,
+            "format": "days",
+            "field": "days.total"
+          }
+        ],
+        "note": [],
+        "also": "Also back by Suez, or by the Sunda Strait",
+        "last": false
+      },
+      "readout": [
+        {
+          "text": "TD22",
+          "field": "label"
+        },
+        ", VLCC, Galveston to Ningbo: ",
+        {
+          "value": 451905,
+          "format": "usd_day",
+          "field": "tce_usd_day",
+          "prefix": "USD "
+        },
+        " a day, the Baltic's; ",
+        {
+          "value": 111.141202,
+          "format": "days",
+          "field": "days.total",
+          "suffix": " days round"
+        }
+      ],
+      "basis": "baltic",
+      "same_water": [],
+      "legs": {
+        "laden": "galveston__ningbo__no_canals_no_sunda",
+        "ballast": "ningbo__galveston__no_canals",
+        "beside": true
+      },
+      "view": [
+        342.6,
+        49.0,
+        557.8,
+        221.0
+      ],
+      "view_tall": [
+        387.3,
+        0.0,
+        468.5,
+        292.8
+      ],
+      "passages": [
+        "Cape of Good Hope",
+        "Strait of Malacca",
+        "Sunda Strait",
+        "Bab el Mandeb",
+        "Suez Canal"
+      ],
+      "heading": "TD22, US Gulf to China",
+      "map_title": "TD22, Galveston to Ningbo by the Florida Strait, the Cape of Good Hope and the Strait of Malacca, and three other ways to sail it",
+      "map_desc": "The route picked is drawn in the accent colour, its laden leg solid and its ballast leg dashed beside it, its other routings dotted; every other route is a thin muted line. Every figure is in the column beside the map.",
+      "subhead": [
+        "VLCC",
+        ", ",
+        {
+          "value": 270000,
+          "format": "t",
+          "field": "cargo_t",
+          "suffix": " tonnes"
+        },
+        ", ",
+        "Galveston to Ningbo"
+      ],
+      "split": {
+        "total": 111.141202,
+        "ballast": 54.884375,
+        "laden": 51.256827,
+        "port": 5.0
+      },
+      "facts": [
+        {
+          "id": "tce",
+          "label": "TCE",
+          "value": [
+            {
+              "value": 451905,
+              "format": "usd_day",
+              "field": "tce_usd_day",
+              "prefix": "USD "
+            },
+            " a day"
+          ],
+          "note": [
+            "The Baltic's TCE for the week to ",
+            {
+              "text": "23 October 2026",
+              "field": "date"
+            },
+            ". The engine prices the same voyage at ",
+            {
+              "value": 463638.730309,
+              "format": "usd_day",
+              "field": "engine_tce_usd_day",
+              "prefix": "USD "
+            },
+            ", ",
+            {
+              "value": 2.596504,
+              "format": "error_percent",
+              "field": "engine_gap",
+              "suffix": " percent"
+            },
+            " higher",
+            ", port charges left out of both."
+          ]
+        },
+        {
+          "id": "days",
+          "label": "Round voyage",
+          "value": [
+            {
+              "value": 111.141202,
+              "format": "days",
+              "field": "days.total",
+              "suffix": " days"
+            }
+          ],
+          "note": [
+            {
+              "value": 54.9,
+              "format": "days",
+              "field": "days.ballast"
+            },
+            " in ballast, ",
+            {
+              "value": 51.2,
+              "format": "days",
+              "field": "days.laden"
+            },
+            " laden and ",
+            {
+              "value": 5.0,
+              "format": "days",
+              "field": "days.port"
+            },
+            " in port and waiting",
+            "."
+          ]
+        },
+        {
+          "id": "distance",
+          "label": "Distance",
+          "value": [
+            {
+              "value": 15230.6,
+              "format": "nm",
+              "field": "laden_nm",
+              "suffix": " nautical miles laden"
+            }
+          ],
+          "note": [
+            "By the Florida Strait, the Cape of Good Hope and the Strait of Malacca",
+            "; back in ballast ",
+            {
+              "value": 15054.0,
+              "format": "nm",
+              "field": "ballast_nm",
+              "suffix": " nautical miles "
+            },
+            "by the Sunda Strait, the Cape of Good Hope and the Florida Strait",
+            "; ",
+            {
+              "value": 5.47473,
+              "format": "percent",
+              "field": "eca_share",
+              "suffix": " percent"
+            },
+            " of the miles inside emission control areas."
+          ]
+        },
+        {
+          "id": "freight",
+          "label": "Freight",
+          "value": [
+            {
+              "value": 58.22,
+              "format": "usd_m",
+              "field": "rate.value",
+              "prefix": "USD ",
+              "suffix": " million"
+            },
+            " lump sum"
+          ],
+          "note": [
+            "Baltic Exchange weekly tanker report, week ending 23 October 2026."
+          ]
+        },
+        {
+          "id": "breakeven",
+          "label": "Freight that covers the voyage costs",
+          "value": [
+            {
+              "value": 17.344432,
+              "format": "usd_t",
+              "field": "breakeven_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne"
+          ],
+          "note": [
+            "Against ",
+            {
+              "value": 215.62963,
+              "format": "usd_t",
+              "field": "freight_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne fixed."
+          ]
+        },
+        {
+          "id": "costs",
+          "label": "Voyage costs priced",
+          "value": [
+            {
+              "value": 4.507384,
+              "format": "usd_m",
+              "field": "costs_usd",
+              "prefix": "USD ",
+              "suffix": " million"
+            }
+          ],
+          "note": [
+            "Bunkers ",
+            {
+              "value": 4.507384,
+              "format": "usd_m",
+              "field": "bunkers_usd",
+              "prefix": "USD ",
+              "suffix": " million"
+            },
+            ", no EU allowance: no EEA port",
+            "; ",
+            {
+              "value": 40555.475174,
+              "format": "usd_day",
+              "field": "costs_per_day_usd",
+              "prefix": "USD "
+            },
+            " a day of the round voyage."
+          ]
+        },
+        {
+          "id": "left_out",
+          "label": "Left out",
+          "value": [
+            "Port charges at Galveston and Ningbo (no public per call figure)."
+          ],
+          "note": []
+        }
+      ],
+      "table": {
+        "tce": [
+          {
+            "value": 451905,
+            "format": "usd_day",
+            "field": "tce_usd_day",
+            "prefix": "USD "
+          },
+          ", the Baltic's"
+        ],
+        "days": [
+          {
+            "value": 111.141202,
+            "format": "days",
+            "field": "days.total"
+          }
+        ],
+        "laden_nm": [
+          {
+            "value": 15230.6,
+            "format": "nm",
+            "field": "laden_nm"
+          }
+        ],
+        "freight": [
+          {
+            "value": 58.22,
+            "format": "usd_m",
+            "field": "rate.value",
+            "prefix": "USD ",
+            "suffix": " million"
+          },
+          " lump sum"
+        ],
+        "breakeven": [
+          {
+            "value": 17.344432,
+            "format": "usd_t",
+            "field": "breakeven_usd_t",
+            "prefix": "USD "
+          },
+          " a tonne"
+        ],
+        "costs": [
+          {
+            "value": 4507384.255409,
+            "format": "usd",
+            "field": "costs_usd",
+            "prefix": "USD "
+          }
+        ]
+      },
+      "alternatives": [
+        {
+          "id": "no_canals_no_sunda-no_panama",
+          "short": "Back by Suez",
+          "name": "By Malacca laden, back by Suez in ballast",
+          "legs": [
+            "galveston__ningbo__no_canals_no_sunda",
+            "ningbo__galveston__no_panama"
+          ],
+          "label_at": [
+            643.2,
+            89.3
+          ],
+          "text": [
+            {
+              "value": 106.663389,
+              "format": "days",
+              "field": "alternatives.no_canals_no_sunda-no_panama.days",
+              "suffix": " days"
+            },
+            " (",
+            {
+              "value": -4.477813,
+              "format": "days",
+              "field": "alternatives.no_canals_no_sunda-no_panama.days_change",
+              "signed": true
+            },
+            ")",
+            "; TCE ",
+            {
+              "value": 482758.515214,
+              "format": "usd_day",
+              "field": "alternatives.no_canals_no_sunda-no_panama.tce_usd_day",
+              "prefix": "USD "
+            },
+            " a day (",
+            {
+              "value": 19119.784905,
+              "format": "usd_day",
+              "field": "alternatives.no_canals_no_sunda-no_panama.tce_change",
+              "signed": true
+            },
+            "). To earn the TCE above it needs ",
+            {
+              "value": 207.782083,
+              "format": "usd_t",
+              "field": "alternatives.no_canals_no_sunda-no_panama.freight_needed_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne (",
+            {
+              "value": -7.847546,
+              "format": "usd_t",
+              "field": "alternatives.no_canals_no_sunda-no_panama.freight_change_usd_t",
+              "signed": true
+            },
+            ").",
+            " It leaves out the Suez Canal toll on the ballast leg (no public toll for this ship) and the additional war risk premium for the Red Sea passage on the ballast leg (the owner's, unless the next charter pays it; the Baltic's TCE leaves it out)."
+          ],
+          "map_label": [
+            "Back by Suez: ",
+            {
+              "value": -4.477813,
+              "format": "days",
+              "field": "alternatives.no_canals_no_sunda-no_panama.days_change",
+              "signed": true,
+              "suffix": " days"
+            },
+            ", TCE ",
+            {
+              "value": 482758.515214,
+              "format": "usd_day",
+              "field": "alternatives.no_canals_no_sunda-no_panama.tce_usd_day"
+            }
+          ],
+          "whole_label": "TD22 back by Suez"
+        },
+        {
+          "id": "no_canals-no_canals",
+          "short": "Sunda both ways",
+          "name": "By the Sunda Strait both ways",
+          "legs": [
+            "galveston__ningbo__no_canals",
+            "ningbo__galveston__no_canals"
+          ],
+          "label_at": [
+            360.6,
+            102.4
+          ],
+          "text": [
+            {
+              "value": 110.546875,
+              "format": "days",
+              "field": "alternatives.no_canals-no_canals.days",
+              "suffix": " days"
+            },
+            " (",
+            {
+              "value": -0.594327,
+              "format": "days",
+              "field": "alternatives.no_canals-no_canals.days_change",
+              "signed": true
+            },
+            ")",
+            "; TCE ",
+            {
+              "value": 466377.812043,
+              "format": "usd_day",
+              "field": "alternatives.no_canals-no_canals.tce_usd_day",
+              "prefix": "USD "
+            },
+            " a day (",
+            {
+              "value": 2739.081735,
+              "format": "usd_day",
+              "field": "alternatives.no_canals-no_canals.tce_change",
+              "signed": true
+            },
+            "). To earn the TCE above it needs ",
+            {
+              "value": 214.464466,
+              "format": "usd_t",
+              "field": "alternatives.no_canals-no_canals.freight_needed_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne (",
+            {
+              "value": -1.165164,
+              "format": "usd_t",
+              "field": "alternatives.no_canals-no_canals.freight_change_usd_t",
+              "signed": true
+            },
+            ")."
+          ],
+          "map_label": [
+            "Sunda both ways: ",
+            {
+              "value": -0.594327,
+              "format": "days",
+              "field": "alternatives.no_canals-no_canals.days_change",
+              "signed": true,
+              "suffix": " days"
+            },
+            ", TCE ",
+            {
+              "value": 466377.812043,
+              "format": "usd_day",
+              "field": "alternatives.no_canals-no_canals.tce_usd_day"
+            }
+          ],
+          "whole_label": null
+        },
+        {
+          "id": "no_canals-no_panama",
+          "short": "Sunda, back by Suez",
+          "name": "By the Sunda Strait laden, back by Suez in ballast",
+          "legs": [
+            "galveston__ningbo__no_canals",
+            "ningbo__galveston__no_panama"
+          ],
+          "label_at": null,
+          "text": [
+            {
+              "value": 106.069063,
+              "format": "days",
+              "field": "alternatives.no_canals-no_panama.days",
+              "suffix": " days"
+            },
+            " (",
+            {
+              "value": -5.072139,
+              "format": "days",
+              "field": "alternatives.no_canals-no_panama.days_change",
+              "signed": true
+            },
+            ")",
+            "; TCE ",
+            {
+              "value": 485720.362162,
+              "format": "usd_day",
+              "field": "alternatives.no_canals-no_panama.tce_usd_day",
+              "prefix": "USD "
+            },
+            " a day (",
+            {
+              "value": 22081.631853,
+              "format": "usd_day",
+              "field": "alternatives.no_canals-no_panama.tce_change",
+              "signed": true
+            },
+            "). To earn the TCE above it needs ",
+            {
+              "value": 206.61692,
+              "format": "usd_t",
+              "field": "alternatives.no_canals-no_panama.freight_needed_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne (",
+            {
+              "value": -9.01271,
+              "format": "usd_t",
+              "field": "alternatives.no_canals-no_panama.freight_change_usd_t",
+              "signed": true
+            },
+            ").",
+            " It leaves out the Suez Canal toll on the ballast leg (no public toll for this ship) and the additional war risk premium for the Red Sea passage on the ballast leg (the owner's, unless the next charter pays it; the Baltic's TCE leaves it out)."
+          ],
+          "map_label": [
+            "Sunda, back by Suez: ",
+            {
+              "value": -5.072139,
+              "format": "days",
+              "field": "alternatives.no_canals-no_panama.days_change",
+              "signed": true,
+              "suffix": " days"
+            },
+            ", TCE ",
+            {
+              "value": 485720.362162,
+              "format": "usd_day",
+              "field": "alternatives.no_canals-no_panama.tce_usd_day"
+            }
+          ],
+          "whole_label": null
+        }
+      ],
+      "links": [
+        {
+          "text": "Price TD22 in the calculator",
+          "view": "calculator",
+          "params": {
+            "preset": "anchor-td22-2026-10-23"
+          }
+        },
+        {
+          "text": "TD22 step by step on Overview",
+          "view": "overview",
+          "params": {}
+        }
+      ],
+      "source": [
+        "Rate: Baltic Exchange weekly tanker report, week ending 23 October 2026. Bunkers: Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026. ",
+        "Ship, speeds and port days: Baltic Exchange Guide to Market Benchmarks v8.8. ",
+        "Distances: searoute over Eurostat SeaRoute. Engine: this study.",
+        " Sources ",
+        {
+          "text": "retrieved 29 October 2026",
+          "field": "retrieved"
+        },
+        "."
+      ]
+    },
+    {
+      "id": "TD20",
+      "label": "TD20",
+      "kind": "route",
+      "segment": "dirty",
+      "name": "West Africa to UK-Continent",
+      "ports": "Bonny to Rotterdam",
+      "ship": "Suezmax",
+      "preset": "latest-td20",
+      "date": "2026-10-23",
+      "tce_usd_day": 406769,
+      "tce_basis": "baltic",
+      "days": 36.315605,
+      "figure": [
+        {
+          "value": 406769,
+          "format": "usd_day",
+          "field": "tce_usd_day",
+          "prefix": "about USD "
+        }
+      ],
+      "row": {
+        "tce": [
+          {
+            "value": 406769,
+            "format": "usd_day",
+            "field": "tce_usd_day"
+          }
+        ],
+        "qualifier": "about",
+        "days": [
+          {
+            "value": 36.315605,
+            "format": "days",
+            "field": "days.total"
+          }
+        ],
+        "note": [],
+        "also": "",
+        "last": false
+      },
+      "readout": [
+        {
+          "text": "TD20",
+          "field": "label"
+        },
+        ", Suezmax, Bonny to Rotterdam: ",
+        {
+          "value": 406769,
+          "format": "usd_day",
+          "field": "tce_usd_day",
+          "prefix": "about USD "
+        },
+        " a day, the Baltic's; ",
+        {
+          "value": 36.315605,
+          "format": "days",
+          "field": "days.total",
+          "suffix": " days round"
+        }
+      ],
+      "basis": "baltic",
+      "same_water": [],
+      "legs": {
+        "laden": "bonny__rotterdam__direct",
+        "ballast": "rotterdam__bonny__direct",
+        "beside": true
+      },
+      "view": [
+        382.6,
+        30.0,
+        384.6,
+        152.4
+      ],
+      "view_tall": [
+        453.0,
+        30.0,
+        243.8,
+        152.4
+      ],
+      "passages": [],
+      "heading": "TD20, West Africa to UK-Continent",
+      "map_title": "TD20, Bonny to Rotterdam by the Dover Strait",
+      "map_desc": "The route picked is drawn in the accent colour, its laden leg solid and its ballast leg dashed beside it; every other route is a thin muted line. Every figure is in the column beside the map.",
+      "subhead": [
+        "Suezmax",
+        ", ",
+        {
+          "value": 130000,
+          "format": "t",
+          "field": "cargo_t",
+          "suffix": " tonnes"
+        },
+        ", ",
+        "Bonny to Rotterdam"
+      ],
+      "split": {
+        "total": 36.315605,
+        "ballast": 16.284115,
+        "laden": 15.03149,
+        "port": 5.0
+      },
+      "facts": [
+        {
+          "id": "tce",
+          "label": "TCE",
+          "value": [
+            {
+              "value": 406769,
+              "format": "usd_day",
+              "field": "tce_usd_day",
+              "prefix": "about USD "
+            },
+            " a day"
+          ],
+          "note": [
+            "The Baltic's TCE for the week to ",
+            {
+              "text": "23 October 2026",
+              "field": "date"
+            },
+            ". The rate is in Worldscale points, which have no dollar value without the licensed flat rate, so the engine prices this route's days and costs but not its TCE."
+          ]
+        },
+        {
+          "id": "days",
+          "label": "Round voyage",
+          "value": [
+            {
+              "value": 36.315605,
+              "format": "days",
+              "field": "days.total",
+              "suffix": " days"
+            }
+          ],
+          "note": [
+            {
+              "value": 16.3,
+              "format": "days",
+              "field": "days.ballast"
+            },
+            " in ballast, ",
+            {
+              "value": 15.0,
+              "format": "days",
+              "field": "days.laden"
+            },
+            " laden and ",
+            {
+              "value": 5.0,
+              "format": "days",
+              "field": "days.port"
+            },
+            " in port and waiting",
+            "."
+          ]
+        },
+        {
+          "id": "distance",
+          "label": "Distance",
+          "value": [
+            {
+              "value": 4466.5,
+              "format": "nm",
+              "field": "laden_nm",
+              "suffix": " nautical miles laden"
+            }
+          ],
+          "note": [
+            "By the Dover Strait",
+            "; back in ballast ",
+            "the same way",
+            "; ",
+            {
+              "value": 9.401097,
+              "format": "percent",
+              "field": "eca_share",
+              "suffix": " percent"
+            },
+            " of the miles inside emission control areas."
+          ]
+        },
+        {
+          "id": "freight",
+          "label": "Freight",
+          "value": [
+            {
+              "value": 731.11,
+              "format": "ws",
+              "field": "rate.value",
+              "prefix": "WS "
+            }
+          ],
+          "note": [
+            "Baltic Exchange weekly tanker report, republished by Hellenic Shipping News on 26 October 2026; rate for the week to 23 October 2026."
+          ]
+        },
+        {
+          "id": "breakeven",
+          "label": "Freight that covers the voyage costs",
+          "value": [
+            {
+              "value": 10.186585,
+              "format": "usd_t",
+              "field": "breakeven_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne"
+          ],
+          "note": [
+            "At the engine's days and costs the freight that earns the Baltic's TCE is ",
+            {
+              "value": 128.245025,
+              "format": "usd_t",
+              "field": "freight_at_published_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne: derived, not a quoted rate."
+          ]
+        },
+        {
+          "id": "costs",
+          "label": "Voyage costs priced",
+          "value": [
+            {
+              "value": 1.274596,
+              "format": "usd_m",
+              "field": "costs_usd",
+              "prefix": "USD ",
+              "suffix": " million"
+            }
+          ],
+          "note": [
+            "Bunkers ",
+            {
+              "value": 1.081156,
+              "format": "usd_m",
+              "field": "bunkers_usd",
+              "prefix": "USD ",
+              "suffix": " million"
+            },
+            " and EU allowances ",
+            {
+              "value": 193440.307466,
+              "format": "usd",
+              "field": "ets_usd",
+              "prefix": "USD "
+            },
+            "; ",
+            {
+              "value": 35097.762476,
+              "format": "usd_day",
+              "field": "costs_per_day_usd",
+              "prefix": "USD "
+            },
+            " a day of the round voyage."
+          ]
+        },
+        {
+          "id": "left_out",
+          "label": "Left out",
+          "value": [
+            "Port charges at Bonny and Rotterdam (no public per call figure)."
+          ],
+          "note": []
+        }
+      ],
+      "table": {
+        "tce": [
+          {
+            "value": 406769,
+            "format": "usd_day",
+            "field": "tce_usd_day",
+            "prefix": "about USD "
+          },
+          ", the Baltic's"
+        ],
+        "days": [
+          {
+            "value": 36.315605,
+            "format": "days",
+            "field": "days.total"
+          }
+        ],
+        "laden_nm": [
+          {
+            "value": 4466.5,
+            "format": "nm",
+            "field": "laden_nm"
+          }
+        ],
+        "freight": [
+          {
+            "value": 731.11,
+            "format": "ws",
+            "field": "rate.value",
+            "prefix": "WS "
+          }
+        ],
+        "breakeven": [
+          {
+            "value": 10.186585,
+            "format": "usd_t",
+            "field": "breakeven_usd_t",
+            "prefix": "USD "
+          },
+          " a tonne"
+        ],
+        "costs": [
+          {
+            "value": 1274596.477328,
+            "format": "usd",
+            "field": "costs_usd",
+            "prefix": "USD "
+          }
+        ]
+      },
+      "alternatives": [],
+      "links": [
+        {
+          "text": "Price TD20 in the calculator",
+          "view": "calculator",
+          "params": {
+            "preset": "latest-td20"
+          }
+        },
+        {
+          "text": "Its EU allowances by year on Carbon",
+          "view": "carbon",
+          "params": {}
+        }
+      ],
+      "source": [
+        "Rate: Baltic Exchange weekly tanker report, republished by Hellenic Shipping News on 26 October 2026; rate for the week to 23 October 2026. Bunkers: Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026. ",
+        "Ship, speeds and port days: Baltic Exchange Guide to Market Benchmarks v8.8. ",
+        "Distances: searoute over Eurostat SeaRoute. Engine: this study.",
+        " Sources ",
+        {
+          "text": "retrieved 29 October 2026",
+          "field": "retrieved"
+        },
+        "."
+      ]
+    },
+    {
+      "id": "TD25",
+      "label": "TD25",
+      "kind": "route",
+      "segment": "dirty",
+      "name": "US Gulf to UK-Continent",
+      "ports": "Houston to Rotterdam",
+      "ship": "Aframax",
+      "preset": "latest-td25",
+      "date": "2026-10-23",
+      "tce_usd_day": 197000,
+      "tce_basis": "baltic",
+      "days": 39.99359,
+      "figure": [
+        {
+          "value": 197000,
+          "format": "usd_day",
+          "field": "tce_usd_day",
+          "prefix": "just under USD "
+        }
+      ],
+      "row": {
+        "tce": [
+          {
+            "value": 197000,
+            "format": "usd_day",
+            "field": "tce_usd_day"
+          }
+        ],
+        "qualifier": "just under",
+        "days": [
+          {
+            "value": 39.99359,
+            "format": "days",
+            "field": "days.total"
+          }
+        ],
+        "note": [],
+        "also": "",
+        "last": false
+      },
+      "readout": [
+        {
+          "text": "TD25",
+          "field": "label"
+        },
+        ", Aframax, Houston to Rotterdam: ",
+        {
+          "value": 197000,
+          "format": "usd_day",
+          "field": "tce_usd_day",
+          "prefix": "just under USD "
+        },
+        " a day, the Baltic's; ",
+        {
+          "value": 39.99359,
+          "format": "days",
+          "field": "days.total",
+          "suffix": " days round"
+        }
+      ],
+      "basis": "baltic",
+      "same_water": [
+        "S4A_63",
+        "TC14"
+      ],
+      "legs": {
+        "laden": "houston__rotterdam__direct",
+        "ballast": "rotterdam__houston__direct",
+        "beside": true
+      },
+      "view": [
+        341.7,
+        26.9,
+        275.0,
+        109.0
+      ],
+      "view_tall": [
+        341.7,
+        0.0,
+        275.0,
+        171.9
+      ],
+      "passages": [],
+      "heading": "TD25, US Gulf to UK-Continent",
+      "map_title": "TD25, Houston to Rotterdam by the Florida Strait and the Dover Strait",
+      "map_desc": "The route picked is drawn in the accent colour, its laden leg solid and its ballast leg dashed beside it; every other route is a thin muted line. Every figure is in the column beside the map.",
+      "subhead": [
+        "Aframax",
+        ", ",
+        {
+          "value": 70000,
+          "format": "t",
+          "field": "cargo_t",
+          "suffix": " tonnes"
+        },
+        ", ",
+        "Houston to Rotterdam"
+      ],
+      "split": {
+        "total": 39.99359,
+        "ballast": 18.456667,
+        "laden": 17.036923,
+        "port": 4.5
+      },
+      "facts": [
+        {
+          "id": "tce",
+          "label": "TCE",
+          "value": [
+            {
+              "value": 197000,
+              "format": "usd_day",
+              "field": "tce_usd_day",
+              "prefix": "just under USD "
+            },
+            " a day"
+          ],
+          "note": [
+            "The Baltic's TCE for the week to ",
+            {
+              "text": "23 October 2026",
+              "field": "date"
+            },
+            ". The rate is in Worldscale points, which have no dollar value without the licensed flat rate, so the engine prices this route's days and costs but not its TCE."
+          ]
+        },
+        {
+          "id": "days",
+          "label": "Round voyage",
+          "value": [
+            {
+              "value": 39.99359,
+              "format": "days",
+              "field": "days.total",
+              "suffix": " days"
+            }
+          ],
+          "note": [
+            {
+              "value": 18.5,
+              "format": "days",
+              "field": "days.ballast"
+            },
+            " in ballast, ",
+            {
+              "value": 17.0,
+              "format": "days",
+              "field": "days.laden"
+            },
+            " laden and ",
+            {
+              "value": 4.5,
+              "format": "days",
+              "field": "days.port"
+            },
+            " in port and waiting",
+            "."
+          ]
+        },
+        {
+          "id": "distance",
+          "label": "Distance",
+          "value": [
+            {
+              "value": 5062.4,
+              "format": "nm",
+              "field": "laden_nm",
+              "suffix": " nautical miles laden"
+            }
+          ],
+          "note": [
+            "By the Florida Strait and the Dover Strait",
+            "; back in ballast ",
+            "the same way",
+            "; ",
+            {
+              "value": 26.169406,
+              "format": "percent",
+              "field": "eca_share",
+              "suffix": " percent"
+            },
+            " of the miles inside emission control areas."
+          ]
+        },
+        {
+          "id": "freight",
+          "label": "Freight",
+          "value": [
+            {
+              "value": 651,
+              "format": "ws",
+              "field": "rate.value",
+              "prefix": "WS "
+            }
+          ],
+          "note": [
+            "Baltic Exchange weekly tanker report, republished by Hellenic Shipping News on 26 October 2026; rate for the week to 23 October 2026."
+          ]
+        },
+        {
+          "id": "breakeven",
+          "label": "Freight that covers the voyage costs",
+          "value": [
+            {
+              "value": 20.933992,
+              "format": "usd_t",
+              "field": "breakeven_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne"
+          ],
+          "note": [
+            "At the engine's days and costs the freight that earns the Baltic's TCE is ",
+            {
+              "value": 137.872577,
+              "format": "usd_t",
+              "field": "freight_at_published_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne: derived, not a quoted rate."
+          ]
+        },
+        {
+          "id": "costs",
+          "label": "Voyage costs priced",
+          "value": [
+            {
+              "value": 1.410428,
+              "format": "usd_m",
+              "field": "costs_usd",
+              "prefix": "USD ",
+              "suffix": " million"
+            }
+          ],
+          "note": [
+            "Bunkers ",
+            {
+              "value": 1.220298,
+              "format": "usd_m",
+              "field": "bunkers_usd",
+              "prefix": "USD ",
+              "suffix": " million"
+            },
+            " and EU allowances ",
+            {
+              "value": 190129.942112,
+              "format": "usd",
+              "field": "ets_usd",
+              "prefix": "USD "
+            },
+            "; ",
+            {
+              "value": 35266.34364,
+              "format": "usd_day",
+              "field": "costs_per_day_usd",
+              "prefix": "USD "
+            },
+            " a day of the round voyage."
+          ]
+        },
+        {
+          "id": "left_out",
+          "label": "Left out",
+          "value": [
+            "Port charges at Houston and Rotterdam (no public per call figure)."
+          ],
+          "note": []
+        }
+      ],
+      "table": {
+        "tce": [
+          {
+            "value": 197000,
+            "format": "usd_day",
+            "field": "tce_usd_day",
+            "prefix": "just under USD "
+          },
+          ", the Baltic's"
+        ],
+        "days": [
+          {
+            "value": 39.99359,
+            "format": "days",
+            "field": "days.total"
+          }
+        ],
+        "laden_nm": [
+          {
+            "value": 5062.4,
+            "format": "nm",
+            "field": "laden_nm"
+          }
+        ],
+        "freight": [
+          {
+            "value": 651,
+            "format": "ws",
+            "field": "rate.value",
+            "prefix": "WS "
+          }
+        ],
+        "breakeven": [
+          {
+            "value": 20.933992,
+            "format": "usd_t",
+            "field": "breakeven_usd_t",
+            "prefix": "USD "
+          },
+          " a tonne"
+        ],
+        "costs": [
+          {
+            "value": 1410427.679291,
+            "format": "usd",
+            "field": "costs_usd",
+            "prefix": "USD "
+          }
+        ]
+      },
+      "alternatives": [],
+      "links": [
+        {
+          "text": "Price TD25 in the calculator",
+          "view": "calculator",
+          "params": {
+            "preset": "latest-td25"
+          }
+        }
+      ],
+      "source": [
+        "Rate: Baltic Exchange weekly tanker report, republished by Hellenic Shipping News on 26 October 2026; rate for the week to 23 October 2026. Bunkers: Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026. ",
+        "Ship, speeds and port days: Baltic Exchange Guide to Market Benchmarks v8.8. ",
+        "Distances: searoute over Eurostat SeaRoute. Engine: this study.",
+        " Sources ",
+        {
+          "text": "retrieved 29 October 2026",
+          "field": "retrieved"
+        },
+        "."
+      ]
+    },
+    {
+      "id": "TC2_37",
+      "label": "TC2",
+      "kind": "route",
+      "segment": "clean",
+      "name": "Continent to US Atlantic coast",
+      "ports": "Rotterdam to New York",
+      "ship": "MR",
+      "preset": "latest-tc2_37",
+      "date": "2026-10-23",
+      "tce_usd_day": 12900,
+      "tce_basis": "baltic",
+      "days": 28.293369,
+      "figure": [
+        {
+          "value": 12900,
+          "format": "usd_day",
+          "field": "tce_usd_day",
+          "prefix": "USD "
+        }
+      ],
+      "row": {
+        "tce": [
+          {
+            "value": 12900,
+            "format": "usd_day",
+            "field": "tce_usd_day"
+          }
+        ],
+        "qualifier": "",
+        "days": [
+          {
+            "value": 28.293369,
+            "format": "days",
+            "field": "days.total"
+          }
+        ],
+        "note": [],
+        "also": "",
+        "last": false
+      },
+      "readout": [
+        {
+          "text": "TC2",
+          "field": "label"
+        },
+        ", MR, Rotterdam to New York: ",
+        {
+          "value": 12900,
+          "format": "usd_day",
+          "field": "tce_usd_day",
+          "prefix": "USD "
+        },
+        " a day, the Baltic's; ",
+        {
+          "value": 28.293369,
+          "format": "days",
+          "field": "days.total",
+          "suffix": " days round"
+        }
+      ],
+      "basis": "baltic",
+      "same_water": [],
+      "legs": {
+        "laden": "rotterdam__new_york__direct",
+        "ballast": "new_york__rotterdam__direct",
+        "beside": true
+      },
+      "view": [
+        392.3,
+        18.0,
+        224.4,
+        88.9
+      ],
+      "view_tall": [
+        392.3,
+        0.0,
+        224.4,
+        140.2
+      ],
+      "passages": [],
+      "heading": "TC2, Continent to US Atlantic coast",
+      "map_title": "TC2, Rotterdam to New York by the Dover Strait",
+      "map_desc": "The route picked is drawn in the accent colour, its laden leg solid and its ballast leg dashed beside it; every other route is a thin muted line. Every figure is in the column beside the map.",
+      "subhead": [
+        "MR",
+        ", ",
+        {
+          "value": 37000,
+          "format": "t",
+          "field": "cargo_t",
+          "suffix": " tonnes"
+        },
+        ", ",
+        "Rotterdam to New York"
+      ],
+      "split": {
+        "total": 28.293369,
+        "ballast": 12.112552,
+        "laden": 11.180817,
+        "port": 5.0
+      },
+      "facts": [
+        {
+          "id": "tce",
+          "label": "TCE",
+          "value": [
+            {
+              "value": 12900,
+              "format": "usd_day",
+              "field": "tce_usd_day",
+              "prefix": "USD "
+            },
+            " a day"
+          ],
+          "note": [
+            "The Baltic's TCE for the week to ",
+            {
+              "text": "23 October 2026",
+              "field": "date"
+            },
+            ". The rate is in Worldscale points, which have no dollar value without the licensed flat rate, so the engine prices this route's days and costs but not its TCE."
+          ]
+        },
+        {
+          "id": "days",
+          "label": "Round voyage",
+          "value": [
+            {
+              "value": 28.293369,
+              "format": "days",
+              "field": "days.total",
+              "suffix": " days"
+            }
+          ],
+          "note": [
+            {
+              "value": 12.1,
+              "format": "days",
+              "field": "days.ballast"
+            },
+            " in ballast, ",
+            {
+              "value": 11.2,
+              "format": "days",
+              "field": "days.laden"
+            },
+            " laden and ",
+            {
+              "value": 5.0,
+              "format": "days",
+              "field": "days.port"
+            },
+            " in port and waiting",
+            "."
+          ]
+        },
+        {
+          "id": "distance",
+          "label": "Distance",
+          "value": [
+            {
+              "value": 3322.3,
+              "format": "nm",
+              "field": "laden_nm",
+              "suffix": " nautical miles laden"
+            }
+          ],
+          "note": [
+            "By the Dover Strait",
+            "; back in ballast ",
+            "the same way",
+            "; ",
+            {
+              "value": 49.071426,
+              "format": "percent",
+              "field": "eca_share",
+              "suffix": " percent"
+            },
+            " of the miles inside emission control areas."
+          ]
+        },
+        {
+          "id": "freight",
+          "label": "Freight",
+          "value": [
+            {
+              "value": 207,
+              "format": "ws",
+              "field": "rate.value",
+              "prefix": "WS "
+            }
+          ],
+          "note": [
+            "Baltic Exchange weekly tanker report, republished by Hellenic Shipping News on 26 October 2026; rate for the week to 23 October 2026."
+          ]
+        },
+        {
+          "id": "breakeven",
+          "label": "Freight that covers the voyage costs",
+          "value": [
+            {
+              "value": 18.999564,
+              "format": "usd_t",
+              "field": "breakeven_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne"
+          ],
+          "note": [
+            "At the engine's days and costs the freight that earns the Baltic's TCE is ",
+            {
+              "value": 29.248338,
+              "format": "usd_t",
+              "field": "freight_at_published_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne: derived, not a quoted rate."
+          ]
+        },
+        {
+          "id": "costs",
+          "label": "Voyage costs priced",
+          "value": [
+            {
+              "value": 0.676622,
+              "format": "usd_m",
+              "field": "costs_usd",
+              "prefix": "USD ",
+              "suffix": " million"
+            }
+          ],
+          "note": [
+            "Bunkers ",
+            {
+              "value": 0.60308,
+              "format": "usd_m",
+              "field": "bunkers_usd",
+              "prefix": "USD ",
+              "suffix": " million"
+            },
+            " and EU allowances ",
+            {
+              "value": 73542.143199,
+              "format": "usd",
+              "field": "ets_usd",
+              "prefix": "USD "
+            },
+            "; ",
+            {
+              "value": 23914.506147,
+              "format": "usd_day",
+              "field": "costs_per_day_usd",
+              "prefix": "USD "
+            },
+            " a day of the round voyage."
+          ]
+        },
+        {
+          "id": "left_out",
+          "label": "Left out",
+          "value": [
+            "Port charges at Rotterdam and New York (no public per call figure)."
+          ],
+          "note": []
+        }
+      ],
+      "table": {
+        "tce": [
+          {
+            "value": 12900,
+            "format": "usd_day",
+            "field": "tce_usd_day",
+            "prefix": "USD "
+          },
+          ", the Baltic's"
+        ],
+        "days": [
+          {
+            "value": 28.293369,
+            "format": "days",
+            "field": "days.total"
+          }
+        ],
+        "laden_nm": [
+          {
+            "value": 3322.3,
+            "format": "nm",
+            "field": "laden_nm"
+          }
+        ],
+        "freight": [
+          {
+            "value": 207,
+            "format": "ws",
+            "field": "rate.value",
+            "prefix": "WS "
+          }
+        ],
+        "breakeven": [
+          {
+            "value": 18.999564,
+            "format": "usd_t",
+            "field": "breakeven_usd_t",
+            "prefix": "USD "
+          },
+          " a tonne"
+        ],
+        "costs": [
+          {
+            "value": 676621.956221,
+            "format": "usd",
+            "field": "costs_usd",
+            "prefix": "USD "
+          }
+        ]
+      },
+      "alternatives": [],
+      "links": [
+        {
+          "text": "Price TC2 in the calculator",
+          "view": "calculator",
+          "params": {
+            "preset": "latest-tc2_37"
+          }
+        }
+      ],
+      "source": [
+        "Rate: Baltic Exchange weekly tanker report, republished by Hellenic Shipping News on 26 October 2026; rate for the week to 23 October 2026. Bunkers: Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026. ",
+        "Ship, speeds and port days: Baltic Exchange Guide to Market Benchmarks v8.8. ",
+        "Distances: searoute over Eurostat SeaRoute. Engine: this study.",
+        " Sources ",
+        {
+          "text": "retrieved 29 October 2026",
+          "field": "retrieved"
+        },
+        "."
+      ]
+    },
+    {
+      "id": "TC14",
+      "label": "TC14",
+      "kind": "route",
+      "segment": "clean",
+      "name": "US Gulf to Continent",
+      "ports": "Houston to Amsterdam",
+      "ship": "MR",
+      "preset": "latest-tc14",
+      "date": "2026-10-23",
+      "tce_usd_day": 53900,
+      "tce_basis": "baltic",
+      "days": 40.741086,
+      "figure": [
+        {
+          "value": 53900,
+          "format": "usd_day",
+          "field": "tce_usd_day",
+          "prefix": "USD "
+        }
+      ],
+      "row": {
+        "tce": [
+          {
+            "value": 53900,
+            "format": "usd_day",
+            "field": "tce_usd_day"
+          }
+        ],
+        "qualifier": "",
+        "days": [
+          {
+            "value": 40.741086,
+            "format": "days",
+            "field": "days.total"
+          }
+        ],
+        "note": [],
+        "also": "",
+        "last": false
+      },
+      "readout": [
+        {
+          "text": "TC14",
+          "field": "label"
+        },
+        ", MR, Houston to Amsterdam: ",
+        {
+          "value": 53900,
+          "format": "usd_day",
+          "field": "tce_usd_day",
+          "prefix": "USD "
+        },
+        " a day, the Baltic's; ",
+        {
+          "value": 40.741086,
+          "format": "days",
+          "field": "days.total",
+          "suffix": " days round"
+        }
+      ],
+      "basis": "baltic",
+      "same_water": [
+        "S4A_63",
+        "TD25"
+      ],
+      "legs": {
+        "laden": "houston__amsterdam__direct",
+        "ballast": "amsterdam__houston__direct",
+        "beside": true
+      },
+      "view": [
+        341.7,
+        26.1,
+        276.1,
+        109.4
+      ],
+      "view_tall": [
+        341.7,
+        0.0,
+        276.1,
+        172.6
+      ],
+      "passages": [],
+      "heading": "TC14, US Gulf to Continent",
+      "map_title": "TC14, Houston to Amsterdam by the Florida Strait and the Dover Strait",
+      "map_desc": "The route picked is drawn in the accent colour, its laden leg solid and its ballast leg dashed beside it; every other route is a thin muted line. Every figure is in the column beside the map.",
+      "subhead": [
+        "MR",
+        ", ",
+        {
+          "value": 38000,
+          "format": "t",
+          "field": "cargo_t",
+          "suffix": " tonnes"
+        },
+        ", ",
+        "Houston to Amsterdam"
+      ],
+      "split": {
+        "total": 40.741086,
+        "ballast": 18.585365,
+        "laden": 17.155721,
+        "port": 5.0
+      },
+      "facts": [
+        {
+          "id": "tce",
+          "label": "TCE",
+          "value": [
+            {
+              "value": 53900,
+              "format": "usd_day",
+              "field": "tce_usd_day",
+              "prefix": "USD "
+            },
+            " a day"
+          ],
+          "note": [
+            "The Baltic's TCE for the week to ",
+            {
+              "text": "23 October 2026",
+              "field": "date"
+            },
+            ". The rate is in Worldscale points, which have no dollar value without the licensed flat rate, so the engine prices this route's days and costs but not its TCE."
+          ]
+        },
+        {
+          "id": "days",
+          "label": "Round voyage",
+          "value": [
+            {
+              "value": 40.741086,
+              "format": "days",
+              "field": "days.total",
+              "suffix": " days"
+            }
+          ],
+          "note": [
+            {
+              "value": 18.6,
+              "format": "days",
+              "field": "days.ballast"
+            },
+            " in ballast, ",
+            {
+              "value": 17.1,
+              "format": "days",
+              "field": "days.laden"
+            },
+            " laden and ",
+            {
+              "value": 5.0,
+              "format": "days",
+              "field": "days.port"
+            },
+            " in port and waiting",
+            "."
+          ]
+        },
+        {
+          "id": "distance",
+          "label": "Distance",
+          "value": [
+            {
+              "value": 5097.7,
+              "format": "nm",
+              "field": "laden_nm",
+              "suffix": " nautical miles laden"
+            }
+          ],
+          "note": [
+            "By the Florida Strait and the Dover Strait",
+            "; back in ballast ",
+            "the same way",
+            "; ",
+            {
+              "value": 26.678698,
+              "format": "percent",
+              "field": "eca_share",
+              "suffix": " percent"
+            },
+            " of the miles inside emission control areas."
+          ]
+        },
+        {
+          "id": "freight",
+          "label": "Freight",
+          "value": [
+            {
+              "value": 399,
+              "format": "ws",
+              "field": "rate.value",
+              "prefix": "WS "
+            }
+          ],
+          "note": [
+            "Baltic Exchange weekly tanker report, republished by Hellenic Shipping News on 26 October 2026; rate for the week to 23 October 2026."
+          ]
+        },
+        {
+          "id": "breakeven",
+          "label": "Freight that covers the voyage costs",
+          "value": [
+            {
+              "value": 24.772349,
+              "format": "usd_t",
+              "field": "breakeven_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne"
+          ],
+          "note": [
+            "At the engine's days and costs the freight that earns the Baltic's TCE is ",
+            {
+              "value": 84.811844,
+              "format": "usd_t",
+              "field": "freight_at_published_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne: derived, not a quoted rate."
+          ]
+        },
+        {
+          "id": "costs",
+          "label": "Voyage costs priced",
+          "value": [
+            {
+              "value": 0.906049,
+              "format": "usd_m",
+              "field": "costs_usd",
+              "prefix": "USD ",
+              "suffix": " million"
+            }
+          ],
+          "note": [
+            "Bunkers ",
+            {
+              "value": 0.785782,
+              "format": "usd_m",
+              "field": "bunkers_usd",
+              "prefix": "USD ",
+              "suffix": " million"
+            },
+            " and EU allowances ",
+            {
+              "value": 120266.676202,
+              "format": "usd",
+              "field": "ets_usd",
+              "prefix": "USD "
+            },
+            "; ",
+            {
+              "value": 22239.188384,
+              "format": "usd_day",
+              "field": "costs_per_day_usd",
+              "prefix": "USD "
+            },
+            " a day of the round voyage."
+          ]
+        },
+        {
+          "id": "left_out",
+          "label": "Left out",
+          "value": [
+            "Port charges at Houston and Amsterdam (no public per call figure)."
+          ],
+          "note": []
+        }
+      ],
+      "table": {
+        "tce": [
+          {
+            "value": 53900,
+            "format": "usd_day",
+            "field": "tce_usd_day",
+            "prefix": "USD "
+          },
+          ", the Baltic's"
+        ],
+        "days": [
+          {
+            "value": 40.741086,
+            "format": "days",
+            "field": "days.total"
+          }
+        ],
+        "laden_nm": [
+          {
+            "value": 5097.7,
+            "format": "nm",
+            "field": "laden_nm"
+          }
+        ],
+        "freight": [
+          {
+            "value": 399,
+            "format": "ws",
+            "field": "rate.value",
+            "prefix": "WS "
+          }
+        ],
+        "breakeven": [
+          {
+            "value": 24.772349,
+            "format": "usd_t",
+            "field": "breakeven_usd_t",
+            "prefix": "USD "
+          },
+          " a tonne"
+        ],
+        "costs": [
+          {
+            "value": 906048.680689,
+            "format": "usd",
+            "field": "costs_usd",
+            "prefix": "USD "
+          }
+        ]
+      },
+      "alternatives": [],
+      "links": [
+        {
+          "text": "Price TC14 in the calculator",
+          "view": "calculator",
+          "params": {
+            "preset": "latest-tc14"
+          }
+        }
+      ],
+      "source": [
+        "Rate: Baltic Exchange weekly tanker report, republished by Hellenic Shipping News on 26 October 2026; rate for the week to 23 October 2026. Bunkers: Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026. ",
+        "Ship, speeds and port days: Baltic Exchange Guide to Market Benchmarks v8.8. ",
+        "Distances: searoute over Eurostat SeaRoute. Engine: this study.",
+        " Sources ",
+        {
+          "text": "retrieved 29 October 2026",
+          "field": "retrieved"
+        },
+        "."
+      ]
+    },
+    {
+      "id": "TC1",
+      "label": "TC1",
+      "kind": "route",
+      "segment": "clean",
+      "name": "Middle East Gulf to Japan (LR2)",
+      "ports": "Ras Tanura to Yokohama",
+      "ship": "LR2",
+      "preset": "latest-tc1",
+      "date": "2026-10-23",
+      "tce_usd_day": 313200,
+      "tce_basis": "baltic",
+      "days": 51.405048,
+      "figure": [
+        {
+          "value": 313200,
+          "format": "usd_day",
+          "field": "tce_usd_day",
+          "prefix": "USD "
+        }
+      ],
+      "row": {
+        "tce": [
+          {
+            "value": 313200,
+            "format": "usd_day",
+            "field": "tce_usd_day"
+          }
+        ],
+        "qualifier": "",
+        "days": [
+          {
+            "value": 51.405048,
+            "format": "days",
+            "field": "days.total"
+          }
+        ],
+        "note": [],
+        "also": "",
+        "last": false
+      },
+      "readout": [
+        {
+          "text": "TC1",
+          "field": "label"
+        },
+        ", LR2, Ras Tanura to Yokohama: ",
+        {
+          "value": 313200,
+          "format": "usd_day",
+          "field": "tce_usd_day",
+          "prefix": "USD "
+        },
+        " a day, the Baltic's; ",
+        {
+          "value": 51.405048,
+          "format": "days",
+          "field": "days.total",
+          "suffix": " days round"
+        }
+      ],
+      "basis": "baltic",
+      "same_water": [
+        "TD3C",
+        "TC5",
+        "TD34"
+      ],
+      "legs": {
+        "laden": "ras_tanura__yokohama__direct",
+        "ballast": "yokohama__ras_tanura__direct",
+        "beside": true
+      },
+      "view": [
+        661.4,
+        69.9,
+        298.6,
+        118.3
+      ],
+      "view_tall": [
+        690.5,
+        50.7,
+        250.7,
+        156.7
+      ],
+      "passages": [
+        "Strait of Hormuz",
+        "Strait of Malacca"
+      ],
+      "heading": "TC1, Middle East Gulf to Japan (LR2)",
+      "map_title": "TC1, Ras Tanura to Yokohama by the Strait of Hormuz and the Strait of Malacca",
+      "map_desc": "The route picked is drawn in the accent colour, its laden leg solid and its ballast leg dashed beside it; every other route is a thin muted line. Every figure is in the column beside the map.",
+      "subhead": [
+        "LR2",
+        ", ",
+        {
+          "value": 75000,
+          "format": "t",
+          "field": "cargo_t",
+          "suffix": " tonnes"
+        },
+        ", ",
+        "Ras Tanura to Yokohama"
+      ],
+      "split": {
+        "total": 51.405048,
+        "ballast": 24.390625,
+        "laden": 22.514423,
+        "port": 4.5
+      },
+      "facts": [
+        {
+          "id": "tce",
+          "label": "TCE",
+          "value": [
+            {
+              "value": 313200,
+              "format": "usd_day",
+              "field": "tce_usd_day",
+              "prefix": "USD "
+            },
+            " a day"
+          ],
+          "note": [
+            "The Baltic's TCE for the week to ",
+            {
+              "text": "23 October 2026",
+              "field": "date"
+            },
+            ". The rate is in Worldscale points, which have no dollar value without the licensed flat rate, so the engine prices this route's days and costs but not its TCE."
+          ]
+        },
+        {
+          "id": "days",
+          "label": "Round voyage",
+          "value": [
+            {
+              "value": 51.405048,
+              "format": "days",
+              "field": "days.total",
+              "suffix": " days"
+            }
+          ],
+          "note": [
+            {
+              "value": 24.4,
+              "format": "days",
+              "field": "days.ballast"
+            },
+            " in ballast, ",
+            {
+              "value": 22.5,
+              "format": "days",
+              "field": "days.laden"
+            },
+            " laden and ",
+            {
+              "value": 4.5,
+              "format": "days",
+              "field": "days.port"
+            },
+            " in port and waiting",
+            "."
+          ]
+        },
+        {
+          "id": "distance",
+          "label": "Distance",
+          "value": [
+            {
+              "value": 6690.0,
+              "format": "nm",
+              "field": "laden_nm",
+              "suffix": " nautical miles laden"
+            }
+          ],
+          "note": [
+            "By the Strait of Hormuz and the Strait of Malacca",
+            "; back in ballast ",
+            "the same way",
+            "; no mile inside an emission control area."
+          ]
+        },
+        {
+          "id": "freight",
+          "label": "Freight",
+          "value": [
+            {
+              "value": 1075,
+              "format": "ws",
+              "field": "rate.value",
+              "prefix": "WS "
+            }
+          ],
+          "note": [
+            "Baltic Exchange weekly tanker report, republished by Hellenic Shipping News on 26 October 2026; rate for the week to 23 October 2026."
+          ]
+        },
+        {
+          "id": "breakeven",
+          "label": "Freight that covers the voyage costs",
+          "value": [
+            {
+              "value": 20.412233,
+              "format": "usd_t",
+              "field": "breakeven_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne"
+          ],
+          "note": [
+            "At the engine's days and costs the freight that earns the Baltic's TCE is ",
+            {
+              "value": 243.443382,
+              "format": "usd_t",
+              "field": "freight_at_published_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne: derived, not a quoted rate."
+          ]
+        },
+        {
+          "id": "costs",
+          "label": "Voyage costs priced",
+          "value": [
+            {
+              "value": 1.473508,
+              "format": "usd_m",
+              "field": "costs_usd",
+              "prefix": "USD ",
+              "suffix": " million"
+            }
+          ],
+          "note": [
+            "Bunkers ",
+            {
+              "value": 1.473508,
+              "format": "usd_m",
+              "field": "bunkers_usd",
+              "prefix": "USD ",
+              "suffix": " million"
+            },
+            ", no EU allowance: no EEA port",
+            "; ",
+            {
+              "value": 28664.656714,
+              "format": "usd_day",
+              "field": "costs_per_day_usd",
+              "prefix": "USD "
+            },
+            " a day of the round voyage."
+          ]
+        },
+        {
+          "id": "war",
+          "label": "War risk premium",
+          "value": [
+            {
+              "value": 85.0,
+              "format": "usd_t",
+              "field": "war.per_period_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne"
+          ],
+          "note": [
+            "The charterer's, for each seven days inside the Gulf (",
+            {
+              "value": 1.0,
+              "format": "count",
+              "field": "war.periods"
+            },
+            " on this voyage), at 7.5 percent of a ",
+            {
+              "value": 85.0,
+              "format": "usd_m_0",
+              "field": "war.hull_value_usd",
+              "prefix": "USD ",
+              "suffix": " million"
+            },
+            " hull value (Marsh, 22 July 2026; hull value Xclusiv Shipbrokers, 7 September 2026)."
+          ]
+        },
+        {
+          "id": "left_out",
+          "label": "Left out",
+          "value": [
+            "Port charges at Ras Tanura and Yokohama (no public per call figure) and the additional war risk premium in the Gulf (usually the charterer's; the Baltic's TCE leaves it out)."
+          ],
+          "note": []
+        }
+      ],
+      "table": {
+        "tce": [
+          {
+            "value": 313200,
+            "format": "usd_day",
+            "field": "tce_usd_day",
+            "prefix": "USD "
+          },
+          ", the Baltic's"
+        ],
+        "days": [
+          {
+            "value": 51.405048,
+            "format": "days",
+            "field": "days.total"
+          }
+        ],
+        "laden_nm": [
+          {
+            "value": 6690.0,
+            "format": "nm",
+            "field": "laden_nm"
+          }
+        ],
+        "freight": [
+          {
+            "value": 1075,
+            "format": "ws",
+            "field": "rate.value",
+            "prefix": "WS "
+          }
+        ],
+        "breakeven": [
+          {
+            "value": 20.412233,
+            "format": "usd_t",
+            "field": "breakeven_usd_t",
+            "prefix": "USD "
+          },
+          " a tonne"
+        ],
+        "costs": [
+          {
+            "value": 1473508.05649,
+            "format": "usd",
+            "field": "costs_usd",
+            "prefix": "USD "
+          }
+        ]
+      },
+      "alternatives": [],
+      "links": [
+        {
+          "text": "Price TC1 in the calculator",
+          "view": "calculator",
+          "params": {
+            "preset": "latest-tc1"
+          }
+        }
+      ],
+      "source": [
+        "Rate: Baltic Exchange weekly tanker report, republished by Hellenic Shipping News on 26 October 2026; rate for the week to 23 October 2026. Bunkers: Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026. ",
+        "Ship, speeds and port days: Baltic Exchange Guide to Market Benchmarks v8.8. ",
+        "Distances: searoute over Eurostat SeaRoute. Engine: this study.",
+        " Sources ",
+        {
+          "text": "retrieved 29 October 2026",
+          "field": "retrieved"
+        },
+        "."
+      ]
+    },
+    {
+      "id": "TC5",
+      "label": "TC5",
+      "kind": "route",
+      "segment": "clean",
+      "name": "Middle East Gulf to Japan (LR1)",
+      "ports": "Ras Tanura to Yokohama",
+      "ship": "LR1",
+      "preset": "latest-tc5",
+      "date": "2026-10-23",
+      "tce_usd_day": 229900,
+      "tce_basis": "baltic",
+      "days": 51.905048,
+      "figure": [
+        {
+          "value": 229900,
+          "format": "usd_day",
+          "field": "tce_usd_day",
+          "prefix": "USD "
+        }
+      ],
+      "row": {
+        "tce": [
+          {
+            "value": 229900,
+            "format": "usd_day",
+            "field": "tce_usd_day"
+          }
+        ],
+        "qualifier": "",
+        "days": [
+          {
+            "value": 51.905048,
+            "format": "days",
+            "field": "days.total"
+          }
+        ],
+        "note": [],
+        "also": "",
+        "last": false
+      },
+      "readout": [
+        {
+          "text": "TC5",
+          "field": "label"
+        },
+        ", LR1, Ras Tanura to Yokohama: ",
+        {
+          "value": 229900,
+          "format": "usd_day",
+          "field": "tce_usd_day",
+          "prefix": "USD "
+        },
+        " a day, the Baltic's; ",
+        {
+          "value": 51.905048,
+          "format": "days",
+          "field": "days.total",
+          "suffix": " days round"
+        }
+      ],
+      "basis": "baltic",
+      "same_water": [
+        "TD3C",
+        "TC1",
+        "TD34"
+      ],
+      "legs": {
+        "laden": "ras_tanura__yokohama__direct",
+        "ballast": "yokohama__ras_tanura__direct",
+        "beside": true
+      },
+      "view": [
+        661.4,
+        69.9,
+        298.6,
+        118.3
+      ],
+      "view_tall": [
+        690.5,
+        50.7,
+        250.7,
+        156.7
+      ],
+      "passages": [
+        "Strait of Hormuz",
+        "Strait of Malacca"
+      ],
+      "heading": "TC5, Middle East Gulf to Japan (LR1)",
+      "map_title": "TC5, Ras Tanura to Yokohama by the Strait of Hormuz and the Strait of Malacca",
+      "map_desc": "The route picked is drawn in the accent colour, its laden leg solid and its ballast leg dashed beside it; every other route is a thin muted line. Every figure is in the column beside the map.",
+      "subhead": [
+        "LR1",
+        ", ",
+        {
+          "value": 55000,
+          "format": "t",
+          "field": "cargo_t",
+          "suffix": " tonnes"
+        },
+        ", ",
+        "Ras Tanura to Yokohama"
+      ],
+      "split": {
+        "total": 51.905048,
+        "ballast": 24.390625,
+        "laden": 22.514423,
+        "port": 5.0
+      },
+      "facts": [
+        {
+          "id": "tce",
+          "label": "TCE",
+          "value": [
+            {
+              "value": 229900,
+              "format": "usd_day",
+              "field": "tce_usd_day",
+              "prefix": "USD "
+            },
+            " a day"
+          ],
+          "note": [
+            "The Baltic's TCE for the week to ",
+            {
+              "text": "23 October 2026",
+              "field": "date"
+            },
+            ". The rate is in Worldscale points, which have no dollar value without the licensed flat rate, so the engine prices this route's days and costs but not its TCE."
+          ]
+        },
+        {
+          "id": "days",
+          "label": "Round voyage",
+          "value": [
+            {
+              "value": 51.905048,
+              "format": "days",
+              "field": "days.total",
+              "suffix": " days"
+            }
+          ],
+          "note": [
+            {
+              "value": 24.4,
+              "format": "days",
+              "field": "days.ballast"
+            },
+            " in ballast, ",
+            {
+              "value": 22.5,
+              "format": "days",
+              "field": "days.laden"
+            },
+            " laden and ",
+            {
+              "value": 5.0,
+              "format": "days",
+              "field": "days.port"
+            },
+            " in port and waiting",
+            "."
+          ]
+        },
+        {
+          "id": "distance",
+          "label": "Distance",
+          "value": [
+            {
+              "value": 6690.0,
+              "format": "nm",
+              "field": "laden_nm",
+              "suffix": " nautical miles laden"
+            }
+          ],
+          "note": [
+            "By the Strait of Hormuz and the Strait of Malacca",
+            "; back in ballast ",
+            "the same way",
+            "; no mile inside an emission control area."
+          ]
+        },
+        {
+          "id": "freight",
+          "label": "Freight",
+          "value": [
+            {
+              "value": 1105,
+              "format": "ws",
+              "field": "rate.value",
+              "prefix": "WS "
+            }
+          ],
+          "note": [
+            "Baltic Exchange weekly tanker report, republished by Hellenic Shipping News on 26 October 2026; rate for the week to 23 October 2026."
+          ]
+        },
+        {
+          "id": "breakeven",
+          "label": "Freight that covers the voyage costs",
+          "value": [
+            {
+              "value": 25.0827,
+              "format": "usd_t",
+              "field": "breakeven_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne"
+          ],
+          "note": [
+            "At the engine's days and costs the freight that earns the Baltic's TCE is ",
+            {
+              "value": 250.498909,
+              "format": "usd_t",
+              "field": "freight_at_published_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne: derived, not a quoted rate."
+          ]
+        },
+        {
+          "id": "costs",
+          "label": "Voyage costs priced",
+          "value": [
+            {
+              "value": 1.327815,
+              "format": "usd_m",
+              "field": "costs_usd",
+              "prefix": "USD ",
+              "suffix": " million"
+            }
+          ],
+          "note": [
+            "Bunkers ",
+            {
+              "value": 1.327815,
+              "format": "usd_m",
+              "field": "bunkers_usd",
+              "prefix": "USD ",
+              "suffix": " million"
+            },
+            ", no EU allowance: no EEA port",
+            "; ",
+            {
+              "value": 25581.624522,
+              "format": "usd_day",
+              "field": "costs_per_day_usd",
+              "prefix": "USD "
+            },
+            " a day of the round voyage."
+          ]
+        },
+        {
+          "id": "war",
+          "label": "War risk premium",
+          "value": [
+            "No public hull value"
+          ],
+          "note": [
+            "The Gulf premium is 7.5 percent of the hull value for each seven days inside (Marsh, 22 July 2026), the charterer's; no dated public hull value exists for this ship, so it is not priced."
+          ]
+        },
+        {
+          "id": "left_out",
+          "label": "Left out",
+          "value": [
+            "Port charges at Ras Tanura and Yokohama (no public per call figure) and the additional war risk premium in the Gulf (usually the charterer's; the Baltic's TCE leaves it out)."
+          ],
+          "note": []
+        }
+      ],
+      "table": {
+        "tce": [
+          {
+            "value": 229900,
+            "format": "usd_day",
+            "field": "tce_usd_day",
+            "prefix": "USD "
+          },
+          ", the Baltic's"
+        ],
+        "days": [
+          {
+            "value": 51.905048,
+            "format": "days",
+            "field": "days.total"
+          }
+        ],
+        "laden_nm": [
+          {
+            "value": 6690.0,
+            "format": "nm",
+            "field": "laden_nm"
+          }
+        ],
+        "freight": [
+          {
+            "value": 1105,
+            "format": "ws",
+            "field": "rate.value",
+            "prefix": "WS "
+          }
+        ],
+        "breakeven": [
+          {
+            "value": 25.0827,
+            "format": "usd_t",
+            "field": "breakeven_usd_t",
+            "prefix": "USD "
+          },
+          " a tonne"
+        ],
+        "costs": [
+          {
+            "value": 1327815.450721,
+            "format": "usd",
+            "field": "costs_usd",
+            "prefix": "USD "
+          }
+        ]
+      },
+      "alternatives": [],
+      "links": [
+        {
+          "text": "Price TC5 in the calculator",
+          "view": "calculator",
+          "params": {
+            "preset": "latest-tc5"
+          }
+        }
+      ],
+      "source": [
+        "Rate: Baltic Exchange weekly tanker report, republished by Hellenic Shipping News on 26 October 2026; rate for the week to 23 October 2026. Bunkers: Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026. ",
+        "Ship, speeds and port days: Baltic Exchange Guide to Market Benchmarks v8.8. ",
+        "Distances: searoute over Eurostat SeaRoute. Engine: this study.",
+        " Sources ",
+        {
+          "text": "retrieved 29 October 2026",
+          "field": "retrieved"
+        },
+        "."
+      ]
+    },
+    {
+      "id": "TC20",
+      "label": "TC20",
+      "kind": "route",
+      "segment": "clean",
+      "name": "Middle East Gulf to UK-Continent (LR2)",
+      "ports": "Jubail to Rotterdam",
+      "ship": "LR2",
+      "preset": "anchor-tc20-2026-10-23",
+      "date": "2026-10-23",
+      "tce_usd_day": 336400,
+      "tce_basis": "baltic",
+      "days": 52.959235,
+      "figure": [
+        {
+          "value": 336400,
+          "format": "usd_day",
+          "field": "tce_usd_day",
+          "prefix": "USD "
+        }
+      ],
+      "row": {
+        "tce": [
+          {
+            "value": 336400,
+            "format": "usd_day",
+            "field": "tce_usd_day"
+          }
+        ],
+        "qualifier": "",
+        "days": [
+          {
+            "value": 52.959235,
+            "format": "days",
+            "field": "days.total"
+          }
+        ],
+        "note": [],
+        "also": "Also round the Cape",
+        "last": false
+      },
+      "readout": [
+        {
+          "text": "TC20",
+          "field": "label"
+        },
+        ", LR2, Jubail to Rotterdam: ",
+        {
+          "value": 336400,
+          "format": "usd_day",
+          "field": "tce_usd_day",
+          "prefix": "USD "
+        },
+        " a day, the Baltic's; ",
+        {
+          "value": 52.959235,
+          "format": "days",
+          "field": "days.total",
+          "suffix": " days round"
+        }
+      ],
+      "basis": "baltic",
+      "same_water": [
+        "QD_RTM_PMX"
+      ],
+      "legs": {
+        "laden": "jubail__rotterdam__direct",
+        "ballast": "rotterdam__jubail__direct",
+        "beside": true
+      },
+      "view": [
+        330.0,
+        25.2,
+        617.8,
+        244.8
+      ],
+      "view_tall": [
+        443.1,
+        30.0,
+        391.7,
+        244.8
+      ],
+      "passages": [
+        "Strait of Hormuz",
+        "Bab el Mandeb",
+        "Suez Canal",
+        "Cape of Good Hope"
+      ],
+      "heading": "TC20, Middle East Gulf to UK-Continent (LR2)",
+      "map_title": "TC20, Jubail to Rotterdam by the Strait of Hormuz, Bab el Mandeb, the Suez Canal, the Strait of Gibraltar and the Dover Strait, and one other way to sail it",
+      "map_desc": "The route picked is drawn in the accent colour, its laden leg solid and its ballast leg dashed beside it, its other routings dotted; every other route is a thin muted line. Every figure is in the column beside the map.",
+      "subhead": [
+        "LR2",
+        ", ",
+        {
+          "value": 90000,
+          "format": "t",
+          "field": "cargo_t",
+          "suffix": " tonnes"
+        },
+        ", ",
+        "Jubail to Rotterdam"
+      ],
+      "split": {
+        "total": 52.959235,
+        "ballast": 23.898802,
+        "laden": 22.060433,
+        "port": 7.0
+      },
+      "facts": [
+        {
+          "id": "tce",
+          "label": "TCE",
+          "value": [
+            {
+              "value": 336400,
+              "format": "usd_day",
+              "field": "tce_usd_day",
+              "prefix": "USD "
+            },
+            " a day"
+          ],
+          "note": [
+            "The Baltic's TCE for the week to ",
+            {
+              "text": "23 October 2026",
+              "field": "date"
+            },
+            ". The engine prices the same voyage at ",
+            {
+              "value": 350393.739545,
+              "format": "usd_day",
+              "field": "engine_tce_usd_day",
+              "prefix": "USD "
+            },
+            ", ",
+            {
+              "value": 4.159851,
+              "format": "error_percent",
+              "field": "engine_gap",
+              "suffix": " percent"
+            },
+            " higher",
+            ", port charges left out of both."
+          ]
+        },
+        {
+          "id": "days",
+          "label": "Round voyage",
+          "value": [
+            {
+              "value": 52.959235,
+              "format": "days",
+              "field": "days.total",
+              "suffix": " days"
+            }
+          ],
+          "note": [
+            {
+              "value": 23.9,
+              "format": "days",
+              "field": "days.ballast"
+            },
+            " in ballast, ",
+            {
+              "value": 22.1,
+              "format": "days",
+              "field": "days.laden"
+            },
+            " laden and ",
+            {
+              "value": 7.0,
+              "format": "days",
+              "field": "days.port"
+            },
+            " in port and waiting",
+            "."
+          ]
+        },
+        {
+          "id": "distance",
+          "label": "Distance",
+          "value": [
+            {
+              "value": 6555.1,
+              "format": "nm",
+              "field": "laden_nm",
+              "suffix": " nautical miles laden"
+            }
+          ],
+          "note": [
+            "By the Strait of Hormuz, Bab el Mandeb, the Suez Canal, the Strait of Gibraltar and the Dover Strait",
+            "; back in ballast ",
+            "the same way",
+            "; ",
+            {
+              "value": 35.952159,
+              "format": "percent",
+              "field": "eca_share",
+              "suffix": " percent"
+            },
+            " of the miles inside emission control areas."
+          ]
+        },
+        {
+          "id": "freight",
+          "label": "Freight",
+          "value": [
+            {
+              "value": 21.51,
+              "format": "usd_m",
+              "field": "rate.value",
+              "prefix": "USD ",
+              "suffix": " million"
+            },
+            " lump sum"
+          ],
+          "note": [
+            "Baltic Exchange weekly tanker report, week ending 23 October 2026."
+          ]
+        },
+        {
+          "id": "breakeven",
+          "label": "Freight that covers the voyage costs",
+          "value": [
+            {
+              "value": 24.782576,
+              "format": "usd_t",
+              "field": "breakeven_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne"
+          ],
+          "note": [
+            "Against ",
+            {
+              "value": 239.0,
+              "format": "usd_t",
+              "field": "freight_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne fixed."
+          ]
+        },
+        {
+          "id": "costs",
+          "label": "Voyage costs priced",
+          "value": [
+            {
+              "value": 2.146791,
+              "format": "usd_m",
+              "field": "costs_usd",
+              "prefix": "USD ",
+              "suffix": " million"
+            }
+          ],
+          "note": [
+            "Bunkers ",
+            {
+              "value": 1.914623,
+              "format": "usd_m",
+              "field": "bunkers_usd",
+              "prefix": "USD ",
+              "suffix": " million"
+            },
+            " and EU allowances ",
+            {
+              "value": 232167.90967,
+              "format": "usd",
+              "field": "ets_usd",
+              "prefix": "USD "
+            },
+            "; ",
+            {
+              "value": 40536.66358,
+              "format": "usd_day",
+              "field": "costs_per_day_usd",
+              "prefix": "USD "
+            },
+            " a day of the round voyage."
+          ]
+        },
+        {
+          "id": "war",
+          "label": "War risk premiums",
+          "value": [
+            {
+              "value": 75.555556,
+              "format": "usd_t",
+              "field": "war.charterer_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne"
+          ],
+          "note": [
+            "The charterer's: the Gulf at 7.5 percent of the hull value a seven-day period and the laden Red Sea transit at 0.5 percent (Marsh, 22 July 2026). The owner pays ",
+            {
+              "value": 425000.0,
+              "format": "usd",
+              "field": "war.owner_usd",
+              "prefix": "USD "
+            },
+            " for the ballast transit back, which the Baltic's TCE leaves out."
+          ]
+        },
+        {
+          "id": "left_out",
+          "label": "Left out",
+          "value": [
+            "Port charges at Jubail and Rotterdam (no public per call figure), the Suez Canal toll on the laden leg (no public toll for this ship), the Suez Canal toll on the ballast leg (no public toll for this ship), the additional war risk premium in the Gulf (usually the charterer's; the Baltic's TCE leaves it out), the additional war risk premium for the Red Sea passage on the laden leg (usually the charterer's; the Baltic's TCE leaves it out) and the additional war risk premium for the Red Sea passage on the ballast leg (the owner's, unless the next charter pays it; the Baltic's TCE leaves it out)."
+          ],
+          "note": []
+        }
+      ],
+      "table": {
+        "tce": [
+          {
+            "value": 336400,
+            "format": "usd_day",
+            "field": "tce_usd_day",
+            "prefix": "USD "
+          },
+          ", the Baltic's"
+        ],
+        "days": [
+          {
+            "value": 52.959235,
+            "format": "days",
+            "field": "days.total"
+          }
+        ],
+        "laden_nm": [
+          {
+            "value": 6555.1,
+            "format": "nm",
+            "field": "laden_nm"
+          }
+        ],
+        "freight": [
+          {
+            "value": 21.51,
+            "format": "usd_m",
+            "field": "rate.value",
+            "prefix": "USD ",
+            "suffix": " million"
+          },
+          " lump sum"
+        ],
+        "breakeven": [
+          {
+            "value": 24.782576,
+            "format": "usd_t",
+            "field": "breakeven_usd_t",
+            "prefix": "USD "
+          },
+          " a tonne"
+        ],
+        "costs": [
+          {
+            "value": 2146790.683528,
+            "format": "usd",
+            "field": "costs_usd",
+            "prefix": "USD "
+          }
+        ]
+      },
+      "alternatives": [
+        {
+          "id": "no_suez-no_suez",
+          "short": "Round the Cape",
+          "name": "Round the Cape of Good Hope both ways",
+          "legs": [
+            "jubail__rotterdam__no_suez",
+            "rotterdam__jubail__no_suez"
+          ],
+          "label_at": [
+            631.2,
+            256.8
+          ],
+          "text": [
+            {
+              "value": 84.494591,
+              "format": "days",
+              "field": "alternatives.no_suez-no_suez.days",
+              "suffix": " days"
+            },
+            " (",
+            {
+              "value": 31.535357,
+              "format": "days",
+              "field": "alternatives.no_suez-no_suez.days_change",
+              "signed": true
+            },
+            ")",
+            "; TCE ",
+            {
+              "value": 210172.812194,
+              "format": "usd_day",
+              "field": "alternatives.no_suez-no_suez.tce_usd_day",
+              "prefix": "USD "
+            },
+            " a day, against ",
+            {
+              "value": 342368.699119,
+              "format": "usd_day",
+              "field": "alternatives.no_suez-no_suez.suez_tce_usd_day",
+              "prefix": "USD "
+            },
+            " by Suez once the owner pays its premium for the ballast transit of the Red Sea. The Cape needs ",
+            {
+              "value": 128.944732,
+              "format": "usd_t",
+              "field": "alternatives.no_suez-no_suez.freight_change_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne more freight to earn as much, so Suez stays the better way until the tolls of its ",
+            {
+              "value": 2,
+              "format": "count",
+              "field": "alternatives.no_suez-no_suez.transits"
+            },
+            " transits pass ",
+            {
+              "value": 7.000993,
+              "format": "usd_m",
+              "field": "alternatives.no_suez-no_suez.break_even_suez_toll_usd",
+              "prefix": "USD ",
+              "suffix": " million"
+            },
+            "."
+          ],
+          "map_label": [
+            "Round the Cape: ",
+            {
+              "value": 31.535357,
+              "format": "days",
+              "field": "alternatives.no_suez-no_suez.days_change",
+              "signed": true,
+              "suffix": " days"
+            },
+            ", TCE ",
+            {
+              "value": 210172.812194,
+              "format": "usd_day",
+              "field": "alternatives.no_suez-no_suez.tce_usd_day"
+            }
+          ],
+          "whole_label": "TC20 by the Cape"
+        }
+      ],
+      "links": [
+        {
+          "text": "Price TC20 in the calculator",
+          "view": "calculator",
+          "params": {
+            "preset": "anchor-tc20-2026-10-23"
+          }
+        },
+        {
+          "text": "Suez or the Cape on Detours",
+          "view": "detours",
+          "params": {
+            "open": "suez"
+          }
+        }
+      ],
+      "source": [
+        "Rate: Baltic Exchange weekly tanker report, week ending 23 October 2026. Bunkers: Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026. ",
+        "Ship, speeds and port days: Baltic Exchange Guide to Market Benchmarks v8.8. ",
+        "Distances: searoute over Eurostat SeaRoute. Engine: this study.",
+        " Sources ",
+        {
+          "text": "retrieved 29 October 2026",
+          "field": "retrieved"
+        },
+        "."
+      ]
+    },
+    {
+      "id": "TD34",
+      "label": "TD34",
+      "kind": "route",
+      "segment": "dirty",
+      "name": "Gulf of Oman to China",
+      "ports": "Mina Al Fahal to Ningbo",
+      "ship": "VLCC",
+      "preset": "latest-td34",
+      "date": "2026-10-23",
+      "tce_usd_day": 656587,
+      "tce_basis": "baltic",
+      "days": 42.21905,
+      "figure": [
+        {
+          "value": 656587,
+          "format": "usd_day",
+          "field": "tce_usd_day",
+          "prefix": "USD "
+        }
+      ],
+      "row": {
+        "tce": [
+          {
+            "value": 656587,
+            "format": "usd_day",
+            "field": "tce_usd_day"
+          }
+        ],
+        "qualifier": "",
+        "days": [
+          {
+            "value": 42.21905,
+            "format": "days",
+            "field": "days.total"
+          }
+        ],
+        "note": [],
+        "also": "",
+        "last": false
+      },
+      "readout": [
+        {
+          "text": "TD34",
+          "field": "label"
+        },
+        ", VLCC, Mina Al Fahal to Ningbo: ",
+        {
+          "value": 656587,
+          "format": "usd_day",
+          "field": "tce_usd_day",
+          "prefix": "USD "
+        },
+        " a day, the Baltic's; ",
+        {
+          "value": 42.21905,
+          "format": "days",
+          "field": "days.total",
+          "suffix": " days round"
+        }
+      ],
+      "basis": "baltic",
+      "same_water": [
+        "TD3C",
+        "TD22",
+        "TC1",
+        "TC5",
+        "QD_RTM_PMX"
+      ],
+      "legs": {
+        "laden": "mina_al_fahal__ningbo__direct",
+        "ballast": "ningbo__mina_al_fahal__direct",
+        "beside": true
+      },
+      "view": [
+        672.6,
+        82.9,
+        265.8,
+        105.3
+      ],
+      "view_tall": [
+        699.5,
+        69.3,
+        212.0,
+        132.5
+      ],
+      "passages": [
+        "Strait of Malacca"
+      ],
+      "heading": "TD34, Gulf of Oman to China",
+      "map_title": "TD34, Mina Al Fahal to Ningbo by the Strait of Malacca",
+      "map_desc": "The route picked is drawn in the accent colour, its laden leg solid and its ballast leg dashed beside it; every other route is a thin muted line. Every figure is in the column beside the map.",
+      "subhead": [
+        "VLCC",
+        ", ",
+        {
+          "value": 270000,
+          "format": "t",
+          "field": "cargo_t",
+          "suffix": " tonnes"
+        },
+        ", ",
+        "Mina Al Fahal to Ningbo"
+      ],
+      "split": {
+        "total": 42.21905,
+        "ballast": 19.353906,
+        "laden": 17.865144,
+        "port": 5.0
+      },
+      "facts": [
+        {
+          "id": "tce",
+          "label": "TCE",
+          "value": [
+            {
+              "value": 656587,
+              "format": "usd_day",
+              "field": "tce_usd_day",
+              "prefix": "USD "
+            },
+            " a day"
+          ],
+          "note": [
+            "The Baltic's TCE for the week to ",
+            {
+              "text": "23 October 2026",
+              "field": "date"
+            },
+            ". The rate is in Worldscale points, which have no dollar value without the licensed flat rate, so the engine prices this route's days and costs but not its TCE."
+          ]
+        },
+        {
+          "id": "days",
+          "label": "Round voyage",
+          "value": [
+            {
+              "value": 42.21905,
+              "format": "days",
+              "field": "days.total",
+              "suffix": " days"
+            }
+          ],
+          "note": [
+            {
+              "value": 19.3,
+              "format": "days",
+              "field": "days.ballast"
+            },
+            " in ballast, ",
+            {
+              "value": 17.9,
+              "format": "days",
+              "field": "days.laden"
+            },
+            " laden and ",
+            {
+              "value": 5.0,
+              "format": "days",
+              "field": "days.port"
+            },
+            " in port and waiting",
+            "."
+          ]
+        },
+        {
+          "id": "distance",
+          "label": "Distance",
+          "value": [
+            {
+              "value": 5308.5,
+              "format": "nm",
+              "field": "laden_nm",
+              "suffix": " nautical miles laden"
+            }
+          ],
+          "note": [
+            "By the Strait of Malacca",
+            "; back in ballast ",
+            "the same way",
+            "; no mile inside an emission control area."
+          ]
+        },
+        {
+          "id": "freight",
+          "label": "Freight",
+          "value": [
+            {
+              "value": 620,
+              "format": "ws",
+              "field": "rate.value",
+              "prefix": "WS "
+            }
+          ],
+          "note": [
+            "Baltic Exchange weekly tanker report, republished by Hellenic Shipping News on 26 October 2026; rate for the week to 23 October 2026."
+          ]
+        },
+        {
+          "id": "breakeven",
+          "label": "Freight that covers the voyage costs",
+          "value": [
+            {
+              "value": 7.713863,
+              "format": "usd_t",
+              "field": "breakeven_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne"
+          ],
+          "note": [
+            "At the engine's days and costs the freight that earns the Baltic's TCE is ",
+            {
+              "value": 114.382375,
+              "format": "usd_t",
+              "field": "freight_at_published_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne: derived, not a quoted rate."
+          ]
+        },
+        {
+          "id": "costs",
+          "label": "Voyage costs priced",
+          "value": [
+            {
+              "value": 2.00464,
+              "format": "usd_m",
+              "field": "costs_usd",
+              "prefix": "USD ",
+              "suffix": " million"
+            }
+          ],
+          "note": [
+            "Bunkers ",
+            {
+              "value": 2.00464,
+              "format": "usd_m",
+              "field": "bunkers_usd",
+              "prefix": "USD ",
+              "suffix": " million"
+            },
+            ", no EU allowance: no EEA port",
+            "; ",
+            {
+              "value": 47481.885189,
+              "format": "usd_day",
+              "field": "costs_per_day_usd",
+              "prefix": "USD "
+            },
+            " a day of the round voyage."
+          ]
+        },
+        {
+          "id": "left_out",
+          "label": "Left out",
+          "value": [
+            "Port charges at Mina Al Fahal and Ningbo (no public per call figure)."
+          ],
+          "note": []
+        }
+      ],
+      "table": {
+        "tce": [
+          {
+            "value": 656587,
+            "format": "usd_day",
+            "field": "tce_usd_day",
+            "prefix": "USD "
+          },
+          ", the Baltic's"
+        ],
+        "days": [
+          {
+            "value": 42.21905,
+            "format": "days",
+            "field": "days.total"
+          }
+        ],
+        "laden_nm": [
+          {
+            "value": 5308.5,
+            "format": "nm",
+            "field": "laden_nm"
+          }
+        ],
+        "freight": [
+          {
+            "value": 620,
+            "format": "ws",
+            "field": "rate.value",
+            "prefix": "WS "
+          }
+        ],
+        "breakeven": [
+          {
+            "value": 7.713863,
+            "format": "usd_t",
+            "field": "breakeven_usd_t",
+            "prefix": "USD "
+          },
+          " a tonne"
+        ],
+        "costs": [
+          {
+            "value": 2004640.107704,
+            "format": "usd",
+            "field": "costs_usd",
+            "prefix": "USD "
+          }
+        ]
+      },
+      "alternatives": [],
+      "links": [
+        {
+          "text": "Price TD34 in the calculator",
+          "view": "calculator",
+          "params": {
+            "preset": "latest-td34"
+          }
+        },
+        {
+          "text": "TD3C, the same voyage loading inside the Gulf",
+          "view": "map",
+          "params": {
+            "route": "TD3C"
+          }
+        }
+      ],
+      "source": [
+        "Rate: Baltic Exchange weekly tanker report, republished by Hellenic Shipping News on 26 October 2026; rate for the week to 23 October 2026. Bunkers: Star Asia Shipbroking weekly market report, week 43 of 2026, 23 October 2026. ",
+        "Ship, speeds and port days: Baltic Exchange Guide to Market Benchmarks v8.8. ",
+        "Distances: searoute over Eurostat SeaRoute. Engine: this study.",
+        " Sources ",
+        {
+          "text": "retrieved 29 October 2026",
+          "field": "retrieved"
+        },
+        "."
+      ]
+    },
+    {
+      "id": "QD_RTM_PMX",
+      "label": "Asia to Europe, Panamax",
+      "kind": "study",
+      "segment": "dry",
+      "name": "Panamax one way, Qingdao to Rotterdam",
+      "ports": "Qingdao to Rotterdam",
+      "ship": "Panamax",
+      "preset": null,
+      "date": "2026-10-23",
+      "tce_usd_day": null,
+      "tce_basis": "study",
+      "days": 35.171759,
+      "figure": null,
+      "row": {
+        "tce": [
+          {
+            "value": 29.010284,
+            "format": "usd_t",
+            "field": "freight_needed_usd_t",
+            "suffix": " a tonne"
+          }
+        ],
+        "qualifier": "",
+        "days": [
+          {
+            "value": 35.171759,
+            "format": "days",
+            "field": "days"
+          }
+        ],
+        "note": [
+          "One way by Suez: the freight that earns the P4 trip hire"
+        ],
+        "also": "Also round the Cape, or by Panama",
+        "last": false
+      },
+      "readout": [
+        {
+          "text": "Asia to Europe, Panamax",
+          "field": "label"
+        },
+        ", a Panamax one way from Qingdao to Rotterdam: ",
+        {
+          "value": 29.010284,
+          "format": "usd_t",
+          "field": "freight_needed_usd_t",
+          "prefix": "USD "
+        },
+        " a tonne by Suez to earn the P4 hire; ",
+        {
+          "value": 35.171759,
+          "format": "days",
+          "field": "days",
+          "suffix": " days"
+        }
+      ],
+      "basis": "study",
+      "same_water": [],
+      "legs": {
+        "laden": "qingdao__rotterdam__direct",
+        "ballast": null,
+        "beside": false
+      },
+      "view": [
+        324.0,
+        18.0,
+        636.0,
+        252.0
+      ],
+      "view_tall": [
+        407.8,
+        0.0,
+        468.5,
+        292.8
+      ],
+      "passages": [
+        "Strait of Malacca",
+        "Bab el Mandeb",
+        "Suez Canal",
+        "Sunda Strait",
+        "Cape of Good Hope",
+        "Panama Canal"
+      ],
+      "heading": "Asia to Europe, a Panamax one way",
+      "map_title": "A Panamax from Qingdao to Rotterdam by the Strait of Malacca, Bab el Mandeb, the Suez Canal, the Strait of Gibraltar and the Dover Strait, or round the Cape, or by Panama",
+      "map_desc": "The study's route by Suez is drawn in the accent colour, the Cape and Panama routings dotted; every other route is a thin muted line. Every figure is in the column beside the map.",
+      "subhead": [
+        "Not a Baltic route: Qingdao to Rotterdam with ",
+        {
+          "value": 66000,
+          "format": "t",
+          "field": "cargo_t",
+          "suffix": " tonnes"
+        },
+        ", priced against the Baltic's P4 trip hire"
+      ],
+      "split": null,
+      "facts": [
+        {
+          "id": "freight",
+          "label": "Freight to earn the P4 hire",
+          "value": [
+            {
+              "value": 29.010284,
+              "format": "usd_t",
+              "field": "freight_needed_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne by Suez"
+          ],
+          "note": [
+            "The freight at which the trip earns what a Panamax earns on P4, ",
+            {
+              "value": 13556,
+              "format": "usd_day",
+              "field": "p4_hire_usd_day",
+              "prefix": "USD "
+            },
+            " a day, or ",
+            {
+              "value": 12878.2,
+              "format": "usd_day",
+              "field": "target_tce_usd_day",
+              "prefix": "USD "
+            },
+            " after its ",
+            {
+              "value": 5.0,
+              "format": "percent_0",
+              "field": "p4_commission_pct",
+              "suffix": " percent"
+            },
+            " commission, in the week to ",
+            {
+              "text": "23 October 2026",
+              "field": "date"
+            },
+            "."
+          ]
+        },
+        {
+          "id": "days",
+          "label": "Days",
+          "value": [
+            {
+              "value": 35.171759,
+              "format": "days",
+              "field": "days",
+              "suffix": " days by Suez"
+            }
+          ],
+          "note": [
+            "One way, delivered at Qingdao and redelivered at Rotterdam, with no port time."
+          ]
+        },
+        {
+          "id": "distance",
+          "label": "Distance",
+          "value": [
+            {
+              "value": 10853.0,
+              "format": "nm",
+              "field": "laden_nm",
+              "suffix": " nautical miles"
+            }
+          ],
+          "note": [
+            "By the Strait of Malacca, Bab el Mandeb, the Suez Canal, the Strait of Gibraltar and the Dover Strait."
+          ]
+        },
+        {
+          "id": "war",
+          "label": "War risk premium",
+          "value": [
+            {
+              "value": 3.068182,
+              "format": "usd_t",
+              "field": "charterer_war_risk_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne"
+          ],
+          "note": [
+            "The charterer's, for the Red Sea transit at 0.5 percent of the hull value."
+          ]
+        },
+        {
+          "id": "left_out",
+          "label": "Left out",
+          "value": [
+            "Loading time at Qingdao (no terms for this voyage), discharging time at Rotterdam (no terms for this voyage), fuel burnt in port (the Baltic prints no port consumption for bulk carriers), port charges at Qingdao and Rotterdam (no public per call figure), the Suez Canal toll on the laden leg (no public toll for this ship) and time at the Suez Canal, the transit and any wait (no canal days in the study's voyage)."
+          ],
+          "note": []
+        }
+      ],
+      "alternatives": [
+        {
+          "id": "cape",
+          "short": "Round the Cape",
+          "name": "Round the Cape of Good Hope",
+          "legs": [
+            "qingdao__rotterdam__no_canals"
+          ],
+          "label_at": [
+            631.2,
+            256.8
+          ],
+          "text": [
+            {
+              "value": 45.930694,
+              "format": "days",
+              "field": "alternatives.cape.days",
+              "suffix": " days"
+            },
+            " (",
+            {
+              "value": 10.758935,
+              "format": "days",
+              "field": "alternatives.cape.days_change",
+              "signed": true
+            },
+            "); it needs ",
+            {
+              "value": 36.079151,
+              "format": "usd_t",
+              "field": "alternatives.cape.freight_needed_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne (",
+            {
+              "value": 7.068866,
+              "format": "usd_t",
+              "field": "alternatives.cape.freight_change_usd_t",
+              "signed": true
+            },
+            ").",
+            " At the Cape's freight it can spend ",
+            {
+              "value": 0.0,
+              "format": "usd",
+              "field": "alternatives.cape.budget",
+              "prefix": "USD "
+            },
+            " on its toll and waiting, ",
+            {
+              "value": 0.0,
+              "format": "days",
+              "field": "alternatives.cape.waiting_days",
+              "suffix": " days"
+            },
+            " of the hire. Unbooked first come, first served waits of 18 to 30 days were common in April 2026, according to a Panama based agent."
+          ],
+          "map_label": [
+            "Round the Cape: ",
+            {
+              "value": 10.758935,
+              "format": "days",
+              "field": "alternatives.cape.days_change",
+              "signed": true,
+              "suffix": " days"
+            },
+            ", ",
+            {
+              "value": 7.068866,
+              "format": "usd_t",
+              "field": "alternatives.cape.freight_change_usd_t",
+              "signed": true,
+              "prefix": "USD "
+            },
+            " a tonne"
+          ],
+          "whole_label": null
+        },
+        {
+          "id": "panama",
+          "short": "By Panama",
+          "name": "By the Panama Canal",
+          "legs": [
+            "qingdao__rotterdam__no_suez"
+          ],
+          "label_at": [
+            324.0,
+            121.1
+          ],
+          "text": [
+            {
+              "value": 43.815787,
+              "format": "days",
+              "field": "alternatives.panama.days",
+              "suffix": " days"
+            },
+            " (",
+            {
+              "value": 8.644028,
+              "format": "days",
+              "field": "alternatives.panama.days_change",
+              "signed": true
+            },
+            "); it needs ",
+            {
+              "value": 34.537574,
+              "format": "usd_t",
+              "field": "alternatives.panama.freight_needed_usd_t",
+              "prefix": "USD "
+            },
+            " a tonne (",
+            {
+              "value": 5.52729,
+              "format": "usd_t",
+              "field": "alternatives.panama.freight_change_usd_t",
+              "signed": true
+            },
+            ").",
+            " At the Cape's freight it can spend ",
+            {
+              "value": 96656.8565,
+              "format": "usd",
+              "field": "alternatives.panama.budget",
+              "prefix": "USD "
+            },
+            " on its toll and waiting, ",
+            {
+              "value": 7.505463,
+              "format": "days",
+              "field": "alternatives.panama.waiting_days",
+              "suffix": " days"
+            },
+            " of the hire. Unbooked first come, first served waits of 18 to 30 days were common in April 2026, according to a Panama based agent."
+          ],
+          "map_label": [
+            "By Panama: ",
+            {
+              "value": 8.644028,
+              "format": "days",
+              "field": "alternatives.panama.days_change",
+              "signed": true,
+              "suffix": " days"
+            },
+            ", ",
+            {
+              "value": 5.52729,
+              "format": "usd_t",
+              "field": "alternatives.panama.freight_change_usd_t",
+              "signed": true,
+              "prefix": "USD "
+            },
+            " a tonne"
+          ],
+          "whole_label": "Asia to Europe by Panama"
+        }
+      ],
+      "links": [
+        {
+          "text": "The detour study on Detours",
+          "view": "detours",
+          "params": {
+            "open": "dry"
+          }
+        }
+      ],
+      "source": [
+        "P4 hire: Banchero Costa, week to ",
+        {
+          "text": "23 October 2026",
+          "field": "date"
+        },
+        ". Ship: Baltic Exchange Guide to Market Benchmarks v8.8. ",
+        "Distances: searoute over Eurostat SeaRoute. Engine: this study, as on Detours.",
+        " Sources ",
+        {
+          "text": "retrieved 29 October 2026",
+          "field": "retrieved"
+        },
+        "."
+      ]
+    }
+  ]
+}

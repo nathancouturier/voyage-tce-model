@@ -33,8 +33,11 @@ const WIDTHS = { desktop: 1440, tablet: 768, mobile: 390, narrow: 320 };
 const HEIGHTS = { desktop: 900, tablet: 1024, mobile: 844, narrow: 640 };
 const THEMES = ["light", "dark"];
 
-/* Every view, and the sections that open behind its buttons. */
+/* Every view, and the sections that open behind its buttons. The Map view
+ * twice: with nothing picked, and with a route and its alternatives open. */
 const VIEWS = {
+  map: { hash: "#/map", open: "table,method" },
+  "map-route": { hash: "#/map?route=TC20", open: "table,method" },
   overview: { hash: "#/overview", open: "method,assumptions,data" },
   calculator: { hash: "#/calculator", open: "ship,route,market,costs,advanced,method,speed,assumptions,data" },
   routes: { hash: "#/routes", open: "method,assumptions,data" },
@@ -46,6 +49,9 @@ const VIEWS = {
 
 /* The README's set. */
 const README = [
+  { name: "map-desktop-light", view: "map", size: "desktop", theme: "light" },
+  { name: "map-route-desktop-light", view: "map-route", size: "desktop", theme: "light" },
+  { name: "map-mobile-light", view: "map", size: "mobile", theme: "light" },
   { name: "overview-desktop-light", view: "overview", size: "desktop", theme: "light" },
   { name: "overview-desktop-dark", view: "overview", size: "desktop", theme: "dark" },
   { name: "overview-mobile-light", view: "overview", size: "mobile", theme: "light" },

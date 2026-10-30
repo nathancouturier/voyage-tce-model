@@ -87,8 +87,17 @@ than a voyage cost, is drawn as an ink outline, the house sign for a negative st
 
 The brick `--accent` stays the portfolio's "one thing", one mark to a chart: the voyage result in the bridge, its
 bar and its figure, on the overview (with the TCE in the sentence under the table) and in the calculator; the
-base TCE rule of the calculator's tornado; the best speed on its speed chart, dot and label. A family colour
-never stands in for it, and it never appears beside HSFO.
+base TCE rule of the calculator's tornado; the best speed on its speed chart, dot and label; on the Map, the
+route picked, its laden leg solid and its ballast leg dashed beside it, over a casing of the ground so it stands
+off the land (with nothing picked the Map carries no accent). A family colour never stands in for it, and it
+never appears beside HSFO. On the Map the accent shares the drawing with the ECA sea green and the muted line of
+every other route; the OKLab separations measured in both themes all pass the target of 8 and the floor of 15
+for normal vision, the closest being the dark ECA green under deuteranopia:
+
+| Accent against | Normal vision, light / dark | Worst simulated, light / dark |
+|---|---|---|
+| ECA sea green | 31.5 / 27.5 | 18.5 / 8.9 |
+| The muted line | 17.1 / 21.9 | 11.6 / 17.0 |
 
 ### How an input shows where it comes from
 
@@ -115,15 +124,47 @@ cost stays in the "Leaves out" sentence printed under every TCE until the visito
 ## Part 3. The views
 
 Progressive disclosure, as the siblings: the page opens on one view; the others are reached by the nav, each at
-its own hash (`#/overview`, `#/calculator`, `#/routes`, `#/detours`, `#/carbon`, `#/paper`, `#/method`). From
-Routes on, every view opens with a title in Fraunces, one takeaway sentence and its key chart, whose source line
-names the documents it reads and the day they were retrieved; the overview opens on its verdict and the
-calculator on its presets. Method, assumptions, data and a view's own panels sit behind buttons inside the view,
+its own hash (`#/map`, `#/overview`, `#/calculator`, `#/routes`, `#/detours`, `#/carbon`, `#/paper`,
+`#/method`), and an empty address opens the Map. The Map and every view from Routes on open with a title in
+Fraunces, one takeaway sentence and its key chart, whose source line names the documents it reads and the day
+they were retrieved; the overview opens on its verdict and the calculator on its presets. Method, assumptions, data and a view's own panels sit behind buttons inside the view,
 each an `h2` holding a full width button that opens its section by `grid-template-rows`, the sibling's component.
 The open sections are written to the address (`#/routes?open=method,data`), so a view can be linked as it is
 read, and a section is built the first time it opens. Nothing is a card.
 
-### 1. Overview (`#/overview`, default)
+### 1. Map (`#/map`, default)
+
+- **The question:** what each route earns a day, and what the other ways to sail it would cost. The title says
+  so; the takeaway, one sentence of at most about thirty words written by the export, sets the highest of the
+  Baltic's TCEs against the lowest, both of the same day.
+- **The map** (`src/map.js`, `atlasMap`): every route of the study on one equirectangular map, 110 degrees west to
+  155 degrees east, each laden leg a line from its loading port, the other routings the study prices dotted, a
+  small ring where a line leaves the map across the Pacific and where it comes back. Each loading area carries a
+  block of labels, one line a route: its code and, where every block still finds a place with them, its TCE,
+  right aligned, the Baltic's in ink and the engine's estimates in the muted ink, as the key under the map says.
+  The other routings are named on open water where there is room. Under 420px of map the labels and taps give way
+  to the list beside it.
+- **A route picked** (a click on its line or its label, a row of the list, or `#/map?route=TD3C`): the map frames
+  it at the window's shape (from Python, `view`; under 600px of map a taller frame, `view_tall`), draws it in the
+  accent with its ballast leg dashed beside it and its ECA stretches in sea green, its other routings dotted in
+  ink and named with what each changes ("Round the Cape: +31.5 days, TCE 210,173"), every other route a thin muted
+  line. Its ports and the passages that decide between its routings are named. The column beside the map gives
+  the route's heading, the routes whose line runs with it (one step away each), its TCE, round voyage days (with a
+  bar of ballast, laden, port and waiting) and laden miles, its other ways to sail it with a "Show on the map"
+  toggle each, the calculator link, then its freight, break-even, costs, war risk and what it leaves out, its
+  links and its sources.
+- **The list:** one row a route, grouped by basis (dry bulk at the engine's estimate, dirty and clean tankers at
+  the Baltic's TCE, the detour study apart under its own column heads), highest TCE first, each row its code, ship
+  class and ports, the other ways it could sail after a dotted sample, its TCE with the Baltic's qualifier words
+  and its round voyage days, and a thin bar of its TCE on one linear scale for every route. A row that is not a
+  TCE like the others (S4A's trip) is pinned last, outside the order, with no bar. Filters (every route, dry bulk,
+  dirty tankers, clean tankers) head the list and are written to the address (`segment=`). Four facts follow the
+  list, each a link into its route. Behind buttons: every route side by side in a table, and how to read the map.
+- **Built from** `data/atlas.json` (the items, their figures, alternatives, frames and words) and the `atlas` block
+  of `data/map.json` (the lines, ports and passages), both written by the export (`src/voyage/atlas.py`,
+  `src/voyage/routemap.py`, the words in `src/voyage/pages.py`).
+
+### 2. Overview (`#/overview`)
 
 - **The verdict (the view's `h1`, Fraunces 400):** "A VLCC on TD22, Galveston to Ningbo, at the Baltic's
   assessed USD 58.22 million in the week to 23 October 2026, earns an estimated USD 463,639 a day over a 111.1
@@ -162,7 +203,7 @@ read, and a section is built the first time it opens. Nothing is a card.
   report printed TD22's TCE in all 13 weeks studied, so the engine can be set beside it every week; TC20, the
   other lump sum route, has a printed TCE in 2 of them. The calculator opens on the same voyage.
 
-### 2. Calculator (`#/calculator`)
+### 3. Calculator (`#/calculator`)
 
 - **Title and lead:** "Price a voyage", then "Choose a route and a dated market. Every field starts from its
   source or says why it is empty, and every change prices the voyage again with the same engine as the rest of the
@@ -201,7 +242,7 @@ read, and a section is built the first time it opens. Nothing is a card.
 - **State in the hash:** `#/calculator?preset=latest-c5&open=market` keeps the preset and the open steps, so a
   priced voyage can be linked; edits to single fields and routings are not written to the address.
 
-### 3. Routes (`#/routes`)
+### 4. Routes (`#/routes`)
 
 - **Takeaway:** "At August 2026 prices bunkers are all of the sourced voyage costs on 7 of the 12 routes and, on
   the 5 that touch the EEA, EU allowances are 12.6 to 17.4 percent of them; a Hormuz war risk premium at the low
@@ -224,7 +265,7 @@ read, and a section is built the first time it opens. Nothing is a card.
   "Assumptions" (port charges, canal tolls, speeds, laytime as port days, the S4A trip, and what each TCE leaves
   out), "Data" (the 25 distances checked against NGA Pub. 151, 20 of them within 2 percent, and the downloads).
 
-### 4. Detours (`#/detours`)
+### 5. Detours (`#/detours`)
 
 - **Takeaway:** "Round the Cape an LR2 from Jubail to Rotterdam sails 31.5 more days and needs USD 128.94 a
   tonne more freight to earn what it earns by Suez before Suez tolls; for a VLCC loading in the Gulf, each further
@@ -247,7 +288,7 @@ read, and a section is built the first time it opens. Nothing is a card.
   in days of hire), "Hormuz, VLCC" (war risk and waiting at the TCE of three dated weeks, then the transfer chain
   off Fujairah and TD34). Then "Method" (with the dated events), "Assumptions" and "Data".
 
-### 5. Carbon (`#/carbon`)
+### 6. Carbon (`#/carbon`)
 
 - **Takeaway:** "In 2026, with every tonne covered, a Handy tanker between two EEA ports pays USD 28,708 of
   allowances, 19.8 percent of its sourced voyage costs, a Suezmax from West Africa to Rotterdam USD 200,059 for
@@ -270,7 +311,7 @@ read, and a section is built the first time it opens. Nothing is a card.
   text), "FuelEU Maritime" (the penalty one voyage's energy would carry, shown and kept out of the TCE),
   "Assumptions", "Data" (every voyage and year as a table, and the downloads).
 
-### 6. Paper (`#/paper`)
+### 7. Paper (`#/paper`)
 
 - **Takeaway:** "In the week to 3 July 2026 a C3 cargo at USD 30.11 a tonne earned USD 37,294 a day grossed up
   by its 5 percent commission, between USD 419 and 4,060 above the 5TC FFA over its days on the two prints of the
@@ -298,7 +339,7 @@ read, and a section is built the first time it opens. Nothing is a card.
   "Method" (how each FFA settles), "Assumptions" (which curve and which spot figure each week takes, the weather
   margin, the bunker hub), "Data" (the FFA curves as printed).
 
-### 7. Method and data (`#/method`)
+### 8. Method and data (`#/method`)
 
 - **Takeaway:** one claim: with bunker prices first printed in the same week the engine reads 2.6 to 4.5 percent
   above the Baltic's own TCE for TD22 and TC20, the two routes it can price without a licensed flat rate. The
@@ -403,6 +444,19 @@ where one crosses a line.
   it, then a step further away, the first place where no line runs through it and no other name or dot lies under
   it, the map's box growing a band where a name at its edge needs one. The map has no hover readout: its title and
   legend state each leg's routing, miles and ECA miles in words.
+- **The atlas** (Map): lines keep their screen width; the route picked is the one accent mark (Part 2). Labels are
+  placed at the size drawn by the voyage map's box search, bounded on all four sides of the view, so the frame
+  never grows: a loading area's block is a small table, codes left and figures right aligned in tabular figures,
+  and the mode is chosen by fit, not by width: every block tries code and figure, and if any finds no place every
+  block drops to codes. The route under a pointer is found by its distance in map units, not by the line on top,
+  since corridors overlap (Ras Tanura to Hormuz carries four routes): a click takes the nearest line within 7px, a
+  tap only a line with no other as near, and a label its own route; a click with no line near does nothing.
+  **Its readout is the declared exception to the rule above:** no box over the lines, but one line under the map
+  that says what the pointer is on (the route's code, class, ports, TCE with its basis and days, and the routes
+  sharing that water), else the route picked, else how to start; two lines are kept for it so nothing below moves.
+  The map is an image (`role="img"`, its title and description swapped with the route picked) that answers a
+  pointer only; its keyboard and screen reader equivalent is the list beside it, which holds every figure the map
+  shows, and hovering or focusing a row draws that route at full weight and writes its line under the map.
 
 ## Part 5. Motion
 
@@ -411,8 +465,9 @@ The whole list: a section opening (its height by `grid-template-rows`, `--t-fast
 overview is drawn, each bar growing from its running total in turn, 60ms apart, each over `--t-base` with
 `--ease-out`, 800ms in all for its eight rows. It does not replay on a return to the overview; a width change
 while it runs carries it on from where it is, and one after it redraws without motion. The calculator's bridge
-and charts redraw at once when an input changes, with no motion. `prefers-reduced-motion: reduce` turns all of it
-off, the bridge's delays included, and `tools/check-styles.mjs` allows no other keyframe animation.
+and charts redraw at once when an input changes, with no motion. The Map changes state at once, and the scroll
+that brings the map into view after a choice below it is instant. `prefers-reduced-motion: reduce` turns all of
+it off, the bridge's delays included, and `tools/check-styles.mjs` allows no other keyframe animation.
 
 ## Part 6. Accessibility and widths
 
@@ -424,9 +479,23 @@ artifact; the bridge's bars are hidden, its table being their text. Nav links, t
 fields and checkboxes are at least 44px tall and section buttons 56px; the Reset and dated premium buttons beside
 a field are 32px.
 
+On the Map the keyboard reaches every route through the list: each row is a link to the route's address. A choice
+made in the page moves focus to the route's heading in the column (the map first brought into view when it is
+above the screen); "Back to the list", Escape (anywhere on the page but a field) and the browser's Back return to
+the list with focus on the route's row. Opening a route from the list is a history entry and moving from one route
+to another replaces it, so Back closes a route in one step. A filter press is said in the page's status line; a
+route the address names but the study does not is said above the list, and the address is rewritten without it.
+The map's lines and labels are pointer targets far under 44px: the list beside the map is their equivalent
+control, a tap selects only a line with no other as near, and under 420px of map a tap does nothing, so the
+list does the work on a phone.
+
 The layout works from 320px with no horizontal page scroll. Below 900px the header is two rows: the name and the
 toggle, then the nav, wrapping. The overview's bridge and map sit side by side from 1100px and one above the other
-below; at 480px and below the nav's links sit closer, so the header takes two rows at 320px. The calculator sets
+below; at 480px and below the nav's links sit closer, so the header takes two rows at 320px with the Map first and
+the last link named "Method" (`tools/check-site.mjs` counts the rows). The Map sets its map left and its column
+right from 1100px, the map, the line under it and its legend sticky while the column scrolls; below that the
+column follows the map and the source line follows the column, and once a route is picked a map under 600px wide
+takes a taller frame. The calculator sets
 its inputs left and its outputs right from 1100px; below that its outputs come first, so the result is read
 before the fields that move it; at every width a line under each open step gives the TCE as it stands.
 At 600px and below the bridge rows become two lines (name, then bar and figure), and a table of more than three
@@ -436,10 +505,11 @@ column sticky, at least 13em wide, and a caption above it naming the columns off
 
 ## Part 7. Artifacts
 
-`data/overview.json`, `data/calculator.json` (the presets with their inputs, sources and routings, the vessels, the
-routes, the fields and their words), `data/speed.json` (the best speed across markets), `data/routes.json`,
-`data/detours.json`, `data/carbon.json`, `data/paper.json`, `data/method.json`, `data/map.json` (projected land,
-legs and ports), `data/engine.json` (the engine's constants), `data/manifest.json` (provenance with the as-of date
+`data/atlas.json` (every route at its latest dated rate, its figures, its other routings and its frames on the
+map, for the Map view), `data/overview.json`, `data/calculator.json` (the presets with their inputs, sources and
+routings, the vessels, the routes, the fields and their words), `data/speed.json` (the best speed across markets),
+`data/routes.json`, `data/detours.json`, `data/carbon.json`, `data/paper.json`, `data/method.json`, `data/map.json`
+(projected land, each voyage's legs and ports, and the atlas of every leg the study sails), `data/engine.json` (the engine's constants), `data/manifest.json` (provenance with the as-of date
 of each source), `data/downloads/*.csv`. Written by `scripts/export.py` from the seeds, the caches and the engine,
 byte for byte the same on every run (`export --check` in the gate, which also checks the content hashes
 `index.html` loads them by). No market figure in the page's scripts (`src/*.js`) comes from anywhere but the
@@ -449,14 +519,15 @@ format they name is declared.
 
 ## Part 8. Review against the study's requirements
 
-- **One view per question.** Seven views, each answering one: what a voyage earns and where the money goes
-  (Overview), what a voyage on any of the calculator's 14 routes earns at inputs the visitor sets (Calculator),
+- **One view per question.** Eight views, each answering one: what each route earns a day and what the other ways
+  to sail it cost (Map), what a voyage earns and where the money goes (Overview), what a voyage on any of the calculator's 14 routes earns at inputs the visitor sets (Calculator),
   what each route costs to run
   (Routes), what a longer or riskier way costs (Detours), what the EU ETS adds (Carbon), how a physical fixture
   compares with the FFA (Paper), and how far the engine can be trusted and where each input comes from (Method
   and data).
-- **The answer in one minute.** The overview opens on the verdict, three dated facts, the bridge and the map; every
-  other view is one click away in the nav.
+- **The answer in one minute.** The site opens on the Map: every route on one map with its TCE beside its loading
+  port, the other routings named, and the list of routes with their figures beside it; the overview opens on the
+  verdict, three dated facts, the bridge and the map; every other view is one click away in the nav.
 - **The detail in five minutes.** Every input of a voyage is a field with its status and its source, and a preset
   rebuilds any of the 14 calculator routes at its latest dated market or at an anchor week.
 - **Progressive disclosure.** Each view opens on its answer: the overview on its verdict, the calculator on its

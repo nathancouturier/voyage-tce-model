@@ -8,8 +8,9 @@
 // declarations, and adds the two rules a grep cannot see. Plain node, no
 // dependencies. The checker of the sibling studies, with one exception this
 // study makes: its one orchestrated moment, the overview's bridge
-// building once on first load, is a keyframe animation named bridge-grow, and
-// that name is the only animation allowed (ONE_MOMENT below).
+// building once, the first time the overview is drawn, is a keyframe
+// animation named bridge-grow, and that name is the only animation allowed
+// (ONE_MOMENT below).
 //
 // BANNED
 //   backdrop-filter          glass effects
@@ -29,6 +30,10 @@
 //   a transform in a :hover rule     a hover lift
 //   @keyframes and animation         motion answers an action, as a transition,
 //                                    except the one moment named in ONE_MOMENT
+//   opacity, fill-opacity or stroke-opacity below 1
+//                                    a faded mark or word is the dim token by
+//                                    another name, under 3:1; a muted ink is used
+//                                    instead
 //
 // RULES A GREP CANNOT SEE
 //   every rule that names Fraunces or var(--ff-display) in a font or
@@ -48,7 +53,7 @@ const ROOT = path.resolve(HERE, "..");
 const MONO_SELECTORS = new Set([".num", ".tick"]);
 
 // The one orchestrated moment: the overview's bridge, each bar growing from
-// its running total in turn on first load. The reduced motion block in
+// its running total in turn, the first time the overview is drawn. The reduced motion block in
 // styles/layout.css cuts it to nothing.
 const ONE_MOMENT = "bridge-grow";
 
@@ -69,6 +74,7 @@ const BANNED = [
   { pattern: /var\(\s*--shadow(?:-sm|-lg)?\s*\)/i, why: "a shadow token" },
   { pattern: /text-shadow\s*:/i, why: "text-shadow" },
   { pattern: /drop-shadow\s*\(/i, why: "a drop-shadow filter" },
+  { pattern: /(?:^|[;{\s])(?:fill-|stroke-)?opacity\s*:\s*(?:0*\.\d+|0+(?:\.\d*)?)\s*(?=[;}]|$)/im, why: "an opacity below 1, a faded mark or word" },
   {
     pattern: new RegExp("@keyframes\\s+(?!" + ONE_MOMENT + "\\b)|(?:^|[;{\\s])animation(?:-name)?\\s*:(?![^;{}]*\\b" + ONE_MOMENT + "\\b)", "i"),
     why: "an animation; motion only answers an action, as a transition, except the bridge's one moment",
@@ -157,7 +163,10 @@ function selfTest() {
     { name: "a body clip", source: "body { overflow-x: clip; }", bad: 1 },
     { name: "mono in a second declaration", source: ".label { font-family: var(--ff-body); font-family: var(--ff-mono); }", bad: 1 },
     { name: "a hover lift", source: ".btn:hover { transform: translateY(-2px); }", bad: 1 },
-    { name: "an animation", source: "@keyframes pulse { from { opacity: 0; } } .x { animation: pulse 1s; }", bad: 2 },
+    { name: "an animation", source: "@keyframes pulse { from { transform: scale(0.9); } } .x { animation: pulse 1s; }", bad: 2 },
+    { name: "a faded line", source: ".line { stroke-opacity: 0.3; }", bad: 1 },
+    { name: "a faded label", source: ".label { fill: var(--text); opacity: .4; }", bad: 1 },
+    { name: "a hidden word", source: ".x { opacity: 0; }", bad: 1 },
     { name: "the one moment passes, another does not", source: "@keyframes bridge-grow { from { transform: scaleX(0); } } .bar { animation: bridge-grow 380ms both; } .y { animation: spin 1s; }", bad: 1 },
     {
       name: "allowed forms",
@@ -169,6 +178,8 @@ function selfTest() {
         "@media (max-width: 480px) { .tick { font-family: var(--ff-mono); } }",
         ".section__inner { overflow: hidden; }",
         "--shadow-sm: 0 1px 2px rgba(0,0,0,0.4);",
+        "--grain-opacity: 0.03;",
+        ".field::placeholder { opacity: 1; }",
       ].join("\n"),
       bad: 0,
     },

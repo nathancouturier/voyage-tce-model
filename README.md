@@ -172,16 +172,29 @@ Read this part first.
 
 ## The site
 
-![The Overview view at desktop width, light theme](assets/overview-desktop-light.png)
+![The Map view at desktop width, light theme](assets/map-desktop-light.png)
 
-Seven views, each opening on its key chart and a one sentence takeaway, with
-method, assumptions and data behind buttons: **Overview**, the featured voyage
-at the latest anchor, its bridge from freight to TCE and its map;
-**Calculator**, every input in five steps; **Routes**; **Detours**; **Carbon**;
-**Paper**; and **Method and data**, every convention with the text it is read
-from, the formulas, the validation table, the sources and the downloads.
+Eight views, each opening on its key chart and a one sentence takeaway, with
+method, assumptions and data behind buttons. **Map**, where the site opens:
+every route the study prices on one map of the world, each loading area
+labelled with its routes and their TCEs, the other routings the study prices
+dotted, and beside the map the list of routes with their TCE and round voyage
+days. A route picked on the map or in the list is framed on the map with its
+ballast leg, its emission control stretches and its other routings, each
+named with what it changes, while the column beside it gives its figures and
+what each other way would cost; the address keeps the choice. **Overview**,
+the featured voyage at the latest anchor, its bridge from freight to TCE and
+its map; **Calculator**, every input in five steps; **Routes**; **Detours**;
+**Carbon**; **Paper**; and **Method**, every convention with the text it is
+read from, the formulas, the validation table, the sources and the downloads.
 Screenshots of the views are in [`assets/`](assets/); the build checks every
 view at 1440, 768, 390 and 320 pixels in both themes.
+
+TC20 picked on the Map: its line by Suez in the accent colour, its ballast
+leg dashed beside it, and the routing round the Cape dotted and named with
+its extra days and its TCE.
+
+![The Map view with TC20 picked, desktop width, light theme](assets/map-route-desktop-light.png)
 
 The calculator, on C5 at the week to 23 October 2026, with the Market step
 open: every field says where its figure comes from, or why it is empty.
@@ -378,7 +391,7 @@ could not be reached.
 ## Layout
 
 ```
-index.html                       the page; seven views behind a hash router
+index.html                       the page; eight views behind a hash router
 src/*.js                         the views, the browser engine (engine.js) and their helpers
 src/voyage/                      the Python package: engine, cases, anchors, analysis, export, maps, words
 src/voyage/sources/              the adapters: the Baltic guide, EU allowances, the dollar rate, IMO texts,

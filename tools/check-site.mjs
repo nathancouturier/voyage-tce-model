@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // The site in headless Chromium: every view drawn at a wide and a narrow
-// width, and the calculator's form, what a visitor types and what the page
-// must then show. tools/validate-engine.mjs holds src/engine.js to the Python
+// width; the Map view, where the site opens, with a route picked from the
+// list, from the address and with the keyboard; and the calculator's form,
+// what a visitor types and what the page must then show. tools/validate-engine.mjs holds src/engine.js to the Python
 // engine; this holds the pages that read it, which no other check reaches.
 //
 //     python scripts/serve.py --port 8150                 in another shell
@@ -19,7 +20,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { argValue, launch, openView } from "./browser.mjs";
 import * as engine from "../src/engine.js";
-import { formatNumber } from "../src/format.js";
+import { formatNumber, segmentsText } from "../src/format.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const BASE = argValue(process.argv, "--base") || "http://localhost:8150/voyage-tce-model/";
@@ -27,9 +28,10 @@ const read = (name) => JSON.parse(readFileSync(path.join(ROOT, "data", name + ".
 
 const calc = read("calculator");
 const overview = read("overview");
+const atlas = read("atlas");
 engine.configure(read("engine").constants);
 const decimals = calc.conventions.decimals;
-const VIEWS = ["overview", "calculator", "routes", "detours", "carbon", "paper", "method"];
+const VIEWS = ["map", "overview", "calculator", "routes", "detours", "carbon", "paper", "method"];
 const WIDTHS = [1440, 320];
 
 const clone = (value) => JSON.parse(JSON.stringify(value));
@@ -303,15 +305,131 @@ CHECKS.push(
     },
   },
   {
-    name: "an address that names no view says so and links to the overview",
+    name: "an address that names no view says so and links to the Map, where the site opens",
     hash: "#/nowhere",
     async run(page) {
       const title = await page.evaluate(text("#view-title"));
       const said = await page.evaluate(text("#view"));
-      const link = await page.evaluate("[...document.querySelectorAll('#view a')].some((a) => a.getAttribute('href') === '#/overview')");
+      const link = await page.evaluate("[...document.querySelectorAll('#view a')].some((a) => a.getAttribute('href') === '#/map')");
       return [
         [title.length > 0 && said.includes("nowhere"), "the page does not name the address typed"],
-        [link, "no link to the overview"],
+        [link, "no link to the Map"],
+      ];
+    },
+  },
+);
+
+/* ------------------------------------------------------------ the Map view --- */
+
+const atlasItem = (id) => atlas.items.find((item) => item.id === id);
+const rowsShown = "[...document.querySelectorAll('.atlas-row[data-item]')].map((row) => row.getAttribute('data-item'))";
+const focused = "(document.activeElement && (document.activeElement.getAttribute('data-item') || document.activeElement.className)) || ''";
+
+CHECKS.push(
+  {
+    name: "an empty address opens the Map, with its nav link marked as the page",
+    hash: "#/",
+    async run(page) {
+      const title = await page.evaluate(text("#view-title"));
+      const current = await page.evaluate(attr(".site-nav a[href=\"#/map\"]", "aria-current"));
+      const rows = await page.evaluate(rowsShown);
+      return [
+        [title.trim() === atlas.page.title, "the title reads \"" + title.trim() + "\""],
+        [current === "page", "the Map link's aria-current is " + current],
+        [rows.length === atlas.items.length, rows.length + " rows listed, the artifact holds " + atlas.items.length],
+      ];
+    },
+  },
+  {
+    name: "the nav takes at most two rows at 320 px",
+    hash: "#/map",
+    width: 320,
+    async run(page) {
+      const rows = await page.evaluate("new Set([...document.querySelectorAll('.site-nav a')].map((a) => Math.round(a.getBoundingClientRect().top))).size");
+      return [[rows <= 2, "the nav takes " + rows + " rows"]];
+    },
+  },
+);
+
+for (const [id, width] of [["TD3C", 1440], ["TD3C", 320], ["P7", 1440], ["P7", 320]]) {
+  CHECKS.push({
+    name: "the address #/map?route=" + id + " draws " + id + " and its figures at " + width + " px, with no sideways scroll",
+    hash: "#/map?route=" + id + "&open=table,method",
+    width,
+    async run(page) {
+      const heading = await page.evaluate(text(".atlas-panel__title"));
+      const current = await page.evaluate("[...document.querySelectorAll('.atlas-route.is-current')].map((g) => g.getAttribute('data-item')).join(',')");
+      const tce = await page.evaluate(text(".atlas-fact[data-fact] .atlas-fact__value"));
+      const first = atlasItem(id).facts[0];
+      const overflow = await page.evaluate("document.documentElement.scrollWidth - document.documentElement.clientWidth");
+      return [
+        [heading.trim() === atlasItem(id).heading, "the detail's heading reads \"" + heading.trim() + "\""],
+        [current === id, "the map draws " + (current || "no route") + " as the route picked"],
+        [tce.trim() === segmentsText(first.value, atlas.conventions.decimals), "the first fact reads \"" + tce.trim() + "\""],
+        [overflow <= 0, "the page scrolls sideways by " + overflow + " px"],
+      ];
+    },
+  });
+}
+
+CHECKS.push(
+  {
+    name: "a row of the list opens its route, writes it to the address and moves focus to its heading; Back to the list returns focus to the row",
+    hash: "#/map",
+    async run(page) {
+      await page.evaluate(click(".atlas-row[data-item=\"TC20\"]"));
+      await page.waitFor("location.hash.includes('route=TC20') && document.activeElement && document.activeElement.classList.contains('atlas-panel__title')");
+      const opened = await page.evaluate(text(".atlas-panel__title"));
+      await page.evaluate(click(".atlas-back"));
+      await page.waitFor("!location.hash.includes('route=') && document.querySelector('.atlas-row[data-item=\"TC20\"]')");
+      await page.evaluate("new Promise((r) => setTimeout(r, 200))");
+      const back = await page.evaluate(focused);
+      return [
+        [opened.trim() === atlasItem("TC20").heading, "the detail opened on \"" + opened.trim() + "\""],
+        [back === "TC20", "focus is on " + (back || "nothing") + ", not on the TC20 row"],
+      ];
+    },
+  },
+  {
+    name: "Escape closes a route opened from its address, and the address follows",
+    hash: "#/map?route=TD3C",
+    async run(page) {
+      await page.evaluate("document.body.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })), true");
+      await page.waitFor("!location.hash.includes('route=') && document.querySelector('.atlas-list')");
+      const rows = await page.evaluate(rowsShown);
+      return [[rows.length === atlas.items.length, rows.length + " rows listed after Escape"]];
+    },
+  },
+  {
+    name: "a filter keeps its routes only, is pressed, is written to the address and is said in the status line",
+    hash: "#/map",
+    async run(page) {
+      await page.evaluate(click(".atlas-filters button[data-segment=\"dirty\"]"));
+      await page.waitFor("location.hash.includes('segment=dirty')");
+      const pressed = await page.evaluate(attr(".atlas-filters button[data-segment=\"dirty\"]", "aria-pressed"));
+      const rows = await page.evaluate(rowsShown);
+      const expected = atlas.items.filter((item) => item.segment === "dirty").map((item) => item.id);
+      const status = await page.evaluate(text("#view-status"));
+      const filter = atlas.page.filters.find((f) => f.id === "dirty");
+      return [
+        [pressed === "true", "the dirty tankers button's aria-pressed is " + pressed],
+        [rows.length === expected.length && rows.every((id) => expected.includes(id)), "the list shows " + rows.join(", ")],
+        [status.trim() === segmentsText(filter.announce, atlas.conventions.decimals), "the status line reads \"" + status.trim() + "\""],
+      ];
+    },
+  },
+  {
+    name: "an address naming no route says so, leaves the address and lists every route",
+    hash: "#/map?route=NOWHERE",
+    async run(page) {
+      const message = await page.evaluate(text(".atlas-message"));
+      const hidden = await page.evaluate("document.querySelector('.atlas-message').hidden");
+      const rows = await page.evaluate(rowsShown);
+      const hash = await page.evaluate("location.hash");
+      return [
+        [!hidden && message.includes("NOWHERE"), "the page does not name the route typed"],
+        [!hash.includes("NOWHERE"), "the address still reads " + hash],
+        [rows.length === atlas.items.length, rows.length + " rows listed"],
       ];
     },
   },
@@ -346,4 +464,4 @@ if (failed) {
   console.log("FAIL  " + failed + " of " + CHECKS.length + " checks");
   process.exit(1);
 }
-console.log("PASS  " + CHECKS.length + " checks: every view draws at both widths, and the calculator shows the engine's figures for what is typed");
+console.log("PASS  " + CHECKS.length + " checks: every view draws at both widths, the Map opens, picks and closes a route, and the calculator shows the engine's figures for what is typed");

@@ -21,7 +21,7 @@ from collections.abc import Mapping, Sequence
 from dataclasses import asdict
 from typing import Any
 
-from . import analysis, anchors, baltic, cases, engine, jsonio, pages, routemap, sea_routes
+from . import analysis, anchors, atlas, baltic, cases, engine, jsonio, pages, routemap, sea_routes
 from .sources import base, ec_eua, frb_h10
 from .words import DECIMALS, date_label, market_words
 
@@ -399,6 +399,7 @@ def leaves_out(case: cases.Case) -> list[str]:
 
 def map_voyages(preset_list: Sequence[Mapping[str, Any]]) -> dict[str, dict[str, Any]]:
     voyages: dict[str, dict[str, Any]] = {}
+    latest_date = max(p["date"] for p in atlas.latest(preset_list).values())
     for preset in preset_list:
         legs = preset["legs"]
         route = baltic.ROUTES[preset["route"]]
@@ -414,13 +415,71 @@ def map_voyages(preset_list: Sequence[Mapping[str, Any]]) -> dict[str, dict[str,
     ):
         key = "%s|%s|%s" % (code, laden, ballast)
         if key not in voyages:
-            voyages[key] = routemap.voyage_map(baltic.ROUTES[code], laden, ballast, "2026-10-23")
+            voyages[key] = routemap.voyage_map(baltic.ROUTES[code], laden, ballast, latest_date)
     return voyages
 
 
 # --------------------------------------------------------------------------
 # Artifacts
 # --------------------------------------------------------------------------
+
+
+def atlas_artifact(
+    preset_list: Sequence[Mapping[str, Any]],
+    st: Mapping[str, Any],
+    sd: Mapping[str, Any],
+    hz: Mapping[str, Any],
+    geo: Mapping[str, Any],
+    atlas_date: str,
+) -> dict[str, Any]:
+    """data/atlas.json: every route at its latest dated rate, with the routings it could take, for the Map view."""
+    latest = atlas.latest(preset_list)
+    entries = []
+    for code in atlas.ROUTES:
+        preset = latest[code]
+        figures = atlas.figures(preset)
+        if code in atlas.ROUTING_ORDER:
+            found = {alt["id"]: alt for alt in atlas.routing_alternatives(preset, figures)}
+            alternatives = [found[alt_id] for alt_id in atlas.ROUTING_ORDER[code]]
+        elif code == "TC20":
+            alternatives = atlas.tc20_alternatives(st)
+        elif code == "TD3C":
+            alternatives = atlas.td3c_alternatives(hz)
+        else:
+            alternatives = []
+        legs = [preset["legs"]["laden"]["key"], preset["legs"]["ballast"]["key"]]
+        entries.append(
+            {
+                "preset": preset,
+                "figures": figures,
+                "alternatives": alternatives,
+                "geometry": atlas.item_geometry(legs, alternatives, geo),
+                "passes": (atlas.ordered_passes(legs[0]), atlas.ordered_passes(legs[1])),
+            }
+        )
+    study = atlas.study(sd)
+    study_geometry = atlas.item_geometry(study["base"]["legs"], study["alternatives"], geo)
+    laden = {e["preset"]["route"]: e["preset"]["legs"]["laden"]["key"] for e in entries}
+    laden[study["id"]] = study["base"]["legs"][0]
+    same = atlas.same_water(laden, geo["legs"])
+    for entry in entries:
+        entry["same_water"] = same[entry["preset"]["route"]]
+    loads = [
+        (e["preset"]["route"], baltic.ROUTES[e["preset"]["route"]].load, e["figures"]["tce_usd_day"]) for e in entries
+    ]
+    loads.append((study["id"], study["route"].load, None))
+    page = pages.atlas_page(
+        entries,
+        study,
+        study_geometry,
+        atlas.ordered_passes(study["base"]["legs"][0]),
+        same[study["id"]],
+        st,
+        atlas.clusters(loads, geo["ports"]),
+        geo["view_box"],
+        atlas_date,
+    )
+    return header("atlas", **page)
 
 
 def overview(preset_list: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
@@ -740,8 +799,7 @@ def _pub151_for_page(document: Mapping[str, Any]) -> dict[str, Any]:
     return dict(document, checks=checks)
 
 
-def detours_artifact() -> dict[str, Any]:
-    st, sd, hz = analysis.suez_tanker(), analysis.suez_dry(), analysis.hormuz()
+def detours_artifact(st: Mapping[str, Any], sd: Mapping[str, Any], hz: Mapping[str, Any]) -> dict[str, Any]:
     return header(
         "detours",
         suez_tanker=st,
@@ -1173,17 +1231,21 @@ def downloads() -> dict[str, str]:
 def build() -> dict[str, str]:
     """Every artifact as the text it is written with, keyed by its path under data/."""
     preset_list = presets()
+    st, sd, hz = analysis.suez_tanker(), analysis.suez_dry(), analysis.hormuz()
+    atlas_date = max(p["date"] for p in atlas.latest(preset_list).values())
+    geo = routemap.atlas_document(atlas_date)
     documents = {
         "engine.json": header("engine", constants=engine.constants()),
+        "atlas.json": atlas_artifact(preset_list, st, sd, hz, geo, atlas_date),
         "overview.json": overview(preset_list),
         "calculator.json": calculator(preset_list),
         "routes.json": routes_artifact(),
-        "detours.json": detours_artifact(),
+        "detours.json": detours_artifact(st, sd, hz),
         "carbon.json": carbon_artifact(),
         "paper.json": paper_artifact(),
         "speed.json": speed_artifact(),
         "method.json": method_artifact(),
-        "map.json": header("map", **routemap.document(map_voyages(preset_list))),
+        "map.json": header("map", **routemap.document(map_voyages(preset_list), geo)),
         "manifest.json": manifest_artifact(),
     }
     out = {name: jsonio.dumps(clean(doc)) for name, doc in documents.items()}

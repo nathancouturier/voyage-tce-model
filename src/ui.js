@@ -3,7 +3,7 @@
  * The entry module. It wires the theme, builds the nav from the route table,
  * starts the router, loads what a view needs, and renders the view or a
  * sentence saying why it cannot. The sibling studies' entry module, with this
- * study's seven views.
+ * study's eight views; the Map opens the site.
  *
  * THE ROUTE TABLE IS THE ONLY LIST OF VIEWS. The nav is built from it, the
  * router is told its names, and nothing else in the site names a view. A view
@@ -18,6 +18,7 @@ import * as state from "./state.js";
 import { initTheme } from "./theme.js";
 import { el, clear, loadingMessage, failureMessages, renderFailureMessages } from "./dom.js";
 import { formatDay } from "./format.js";
+import * as atlas from "./atlas.js";
 import * as overview from "./overview.js";
 import * as calculator from "./calculator.js";
 import * as routesView from "./routes.js";
@@ -27,19 +28,20 @@ import * as paper from "./paper.js";
 import * as method from "./method.js";
 
 const SITE_NAME = "Voyage economics and TCE";
-const DEFAULT_VIEW = "overview";
+const DEFAULT_VIEW = "map";
 
 /* name: the hash segment. label: the nav text and the document title.
  * module: exports `artifacts`, the state.js names it needs, and
  * render(root, data, route), which returns the element that takes focus. */
 const ROUTES = [
+  { name: "map", label: "Map", loading: "every route on the map, with its figures and the other ways it could sail", module: atlas },
   { name: "overview", label: "Overview", loading: "the featured voyage, its bridge from freight to TCE and its map", module: overview },
   { name: "calculator", label: "Calculator", loading: "the calculator's presets, ships and routings", module: calculator },
   { name: "routes", label: "Routes", loading: "the route library and the voyage costs of every route", module: routesView },
   { name: "detours", label: "Detours", loading: "Suez against the Cape, and the Hormuz scenarios", module: detours },
   { name: "carbon", label: "Carbon", loading: "the EU ETS cost of three voyages", module: carbon },
   { name: "paper", label: "Paper", loading: "physical TCEs against the FFA", module: paper },
-  { name: "method", label: "Method and data", loading: "the conventions, the validation and every source", module: method },
+  { name: "method", label: "Method", loading: "the conventions, the validation and every source", module: method },
 ];
 
 const byName = new Map(ROUTES.map((route) => [route.name, route]));
@@ -115,7 +117,7 @@ function renderUnknown(route, isFirstLoad) {
   ]);
   const remedy = el("p", { class: "state-message" }, [
     "Check the address for a typing mistake, or ",
-    el("a", { text: "open the overview", attrs: { href: router.href(DEFAULT_VIEW) } }),
+    el("a", { text: "open the map of every route", attrs: { href: router.href(DEFAULT_VIEW) } }),
     ".",
   ]);
   viewRoot.appendChild(title);

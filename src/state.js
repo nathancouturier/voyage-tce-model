@@ -30,10 +30,11 @@ const SCHEMA_ONE = 1;
  * failure sentence. Paths are relative to index.html: a leading slash would
  * break the subpath deploy. */
 const ARTIFACTS = Object.freeze({
+  atlas: { path: "data/atlas.json", artifact: "atlas", schema: SCHEMA_ONE, holds: "every route at its latest dated rate, its figures and the other ways it could sail, for the map" },
   overview: { path: "data/overview.json", artifact: "overview", schema: SCHEMA_ONE, holds: "the featured voyage, its bridge from freight to TCE, its three facts and every input with its source" },
   calculator: { path: "data/calculator.json", artifact: "calculator", schema: SCHEMA_ONE, holds: "the calculator's presets, every input with its source, the ships and the routings" },
   engine: { path: "data/engine.json", artifact: "engine", schema: SCHEMA_ONE, holds: "the engine's constants: emission factors, warming potentials, FuelEU values and the sensitivity shocks" },
-  map: { path: "data/map.json", artifact: "map", schema: SCHEMA_ONE, holds: "the land and every voyage's legs, projected for the maps" },
+  map: { path: "data/map.json", artifact: "map", schema: SCHEMA_ONE, holds: "the land, every voyage's legs and the atlas of every leg, projected for the maps" },
   routes: { path: "data/routes.json", artifact: "routes", schema: SCHEMA_ONE, holds: "the route library, the voyage costs of every route at one dated market, and the distance checks" },
   detours: { path: "data/detours.json", artifact: "detours", schema: SCHEMA_ONE, holds: "Suez against the Cape for a tanker and a bulk carrier, and the Hormuz scenarios" },
   carbon: { path: "data/carbon.json", artifact: "carbon", schema: SCHEMA_ONE, holds: "the EU ETS cost of three voyages under the phase in, and the time charter split" },

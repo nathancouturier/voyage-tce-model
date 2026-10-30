@@ -125,6 +125,14 @@ const LAYOUT_CONSTANTS = {
     { name: "SHIFT", value: "0.5", why: "a name's step away from its dot, as a share of its size" },
     { name: "SHIFTS", value: "6", why: "the most steps a name moves away from its dot" },
     { name: "BALLAST_GAP", value: "3", why: "a ballast leg beside its laden leg, in screen px" },
+    { name: "HIT", value: "14", why: "the band round an atlas line that takes a pointer, in screen px" },
+    { name: "LEADING", value: "1.3", why: "an atlas label line's height as a share of its size" },
+    { name: "FIGURES_FROM", value: "640", why: "the map width from which a loading area's labels carry the TCE" },
+    { name: "CODES_FROM", value: "420", why: "the map width from which a loading area's labels are written" },
+    { name: "DOT", value: "3", why: "an atlas port's dot, in screen px" },
+    { name: "EDGE_RING", value: "4", why: "the ring where an atlas line leaves the map, in screen px" },
+    { name: "COLUMN_GAP", value: "2", why: "the gap between an atlas label block's codes and figures, in characters" },
+    { name: "TALL_BELOW", value: "600", why: "the map width under which a route picked takes the taller frame" },
   ],
 };
 
