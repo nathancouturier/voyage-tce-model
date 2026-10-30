@@ -74625,6 +74625,299 @@
    }
   },
   {
+   "name": "anchor TD3C 2026-01-23 at the implied flat rate",
+   "inputs": {
+    "contract": "voyage",
+    "freight_basis": "usd_t",
+    "freight_value": 26.17285,
+    "flat_rate_usd_t": null,
+    "cargo_t": 270000,
+    "commission_pct": 3.75,
+    "other_revenue_usd": 0.0,
+    "sea_margin": 0.05,
+    "laden": {
+     "distance_nm": 5848.8,
+     "speed_kn": 13,
+     "eca_nm": 0.0,
+     "ets_share": 0.0
+    },
+    "ballast": {
+     "distance_nm": 5848.8,
+     "speed_kn": 12,
+     "eca_nm": 0.0,
+     "ets_share": 0.0
+    },
+    "laden_curve": [
+     [
+      13,
+      57.3
+     ],
+     [
+      11,
+      39.8
+     ]
+    ],
+    "ballast_curve": [
+     [
+      12,
+      39.5
+     ],
+     [
+      11,
+      28.5
+     ]
+    ],
+    "mgo_at_sea_tpd": 0.0,
+    "scrubber": false,
+    "scrubber_in_eca": false,
+    "vlsfo_class": "HFO",
+    "port": {
+     "load_days": 2,
+     "discharge_days": 2,
+     "waiting_days": 2,
+     "canal_days": 0.0,
+     "delay_days": 0.0,
+     "sts_days": 0.0,
+     "load_tpd": 20,
+     "discharge_tpd": 110,
+     "waiting_tpd": 10,
+     "canal_tpd": 0.0,
+     "delay_tpd": 10,
+     "sts_tpd": 20,
+     "load_eca": false,
+     "discharge_eca": false,
+     "waiting_eca": false,
+     "canal_eca": false,
+     "delay_eca": false,
+     "sts_eca": false,
+     "load_ets_share": 0.0,
+     "discharge_ets_share": 0.0,
+     "waiting_ets_share": 0.0,
+     "canal_ets_share": 0.0,
+     "delay_ets_share": 0.0,
+     "sts_ets_share": 0.0
+    },
+    "prices": {
+     "vlsfo_usd_t": 420.0,
+     "hsfo_usd_t": 333.0,
+     "mgo_usd_t": 714.0
+    },
+    "ets": {
+     "phase_in": 1.0,
+     "eua_eur_t": 82.95,
+     "usd_per_eur": 1.1683400000000002,
+     "include_non_co2": true
+    },
+    "fueleu": {
+     "include": false,
+     "reduction_pct": 2.0
+    },
+    "costs": {
+     "port_load_usd": 0.0,
+     "port_discharge_usd": 0.0,
+     "canal_laden_usd": 0.0,
+     "canal_ballast_usd": 0.0,
+     "other_usd": 0.0,
+     "sts_usd": 0.0
+    },
+    "war_risk": {
+     "hull_value_usd": 157000000.0,
+     "crew_bonus_usd": 0.0,
+     "payer": "charterer",
+     "areas": {
+      "gulf": {
+       "premium_pct": 0.0,
+       "entries": 1,
+       "laden_nm": 360.7,
+       "ballast_nm": 360.7,
+       "port_activities": [
+        "load",
+        "waiting",
+        "delay"
+       ],
+       "ballast_transits": 0
+      },
+      "red_sea": {
+       "premium_pct": 0.0,
+       "entries": 0,
+       "laden_nm": 0.0,
+       "ballast_nm": 0.0,
+       "port_activities": [],
+       "ballast_transits": 0
+      }
+     }
+    }
+   },
+   "calls": {
+    "target_tce_usd_day": 25000.0,
+    "tc_ffa_usd_day": 30000.0,
+    "route_ffa_usd_t": 23.555565,
+    "speed_bounds_kn": null
+   },
+   "output": {
+    "evaluate": {
+     "days": {
+      "ballast_sea": 21.323750000000004,
+      "laden_sea": 19.68346153846154,
+      "load": 2,
+      "discharge": 2,
+      "waiting": 2,
+      "canal": 0.0,
+      "delay": 0.0,
+      "sts": 0.0,
+      "port_total": 6.0,
+      "sea_total": 41.00721153846155,
+      "total": 47.00721153846155,
+      "trip": 25.683461538461543
+     },
+     "fuel_t": {
+      "vlsfo": 2250.1504711538464,
+      "hsfo": 0.0,
+      "mgo": 0.0
+     },
+     "fuel_total_t": 2250.1504711538464,
+     "bunkers_by_activity_usd": {
+      "ballast": 353761.01250000007,
+      "laden": 473702.1853846154,
+      "load": 16800.0,
+      "discharge": 92400.0,
+      "waiting": 8400.0,
+      "canal": 0.0,
+      "delay": 0.0,
+      "sts": 0.0
+     },
+     "bunkers_by_grade_usd": {
+      "vlsfo": 945063.1978846155,
+      "hsfo": 0.0,
+      "mgo": 0.0
+     },
+     "emissions": {
+      "co2_t": 7006.968567173077,
+      "co2e_t": 7117.450955306731,
+      "ets_covered_t": 0.0
+     },
+     "ets_all_usd": 0.0,
+     "fueleu": {
+      "energy_mj": 0.0,
+      "intensity_g_mj": 0.0,
+      "target_g_mj": 89.3368,
+      "balance_g": 0.0,
+      "penalty_eur": 0.0,
+      "penalty_usd": 0.0
+     },
+     "war_risk": {
+      "areas": {
+       "gulf": {
+        "days": 6.528946314102564,
+        "periods": 1.0,
+        "usd": 0.0,
+        "ballast_periods": 0.0,
+        "ballast_usd": 0.0
+       },
+       "red_sea": {
+        "days": 0.0,
+        "periods": 0.0,
+        "usd": 0.0,
+        "ballast_periods": 0.0,
+        "ballast_usd": 0.0
+       }
+      },
+      "charter_usd": 0.0,
+      "ballast_usd": 0.0,
+      "premium_usd": 0.0,
+      "total_usd": 0.0
+     },
+     "revenue": {
+      "gross_usd": 7066669.5,
+      "other_usd": 0.0,
+      "commission_usd": 265000.10625,
+      "net_usd": 6801669.39375
+     },
+     "costs": {
+      "bunkers": 945063.1978846155,
+      "ports": 0.0,
+      "canals": 0.0,
+      "ets": 0.0,
+      "war_risk": 0.0,
+      "other": 0.0,
+      "fueleu": 0.0,
+      "total_usd": 945063.1978846155
+     },
+     "charterer_costs_usd": 0.0,
+     "result_usd": 5856606.195865384,
+     "tce_usd_day": 124589.5258235745
+    },
+    "breakeven_zero": {
+     "hire_usd_day": null,
+     "usd_t": 3.6366068220668226,
+     "lump_sum_usd": 981883.8419580421,
+     "ws": null
+    },
+    "breakeven_target": {
+     "hire_usd_day": null,
+     "usd_t": 8.158705094165096,
+     "lump_sum_usd": 2202850.375424576,
+     "ws": null
+    },
+    "sensitivities": [
+     {
+      "id": "freight",
+      "low": 0.9,
+      "high": 1.1,
+      "low_tce_usd_day": 110120.10895934542,
+      "high_tce_usd_day": 139058.94268780362,
+      "base_tce_usd_day": 124589.5258235745
+     },
+     {
+      "id": "bunkers",
+      "low": 0.9,
+      "high": 1.1,
+      "low_tce_usd_day": 126599.99010544615,
+      "high_tce_usd_day": 122579.06154170286,
+      "base_tce_usd_day": 124589.5258235745
+     },
+     {
+      "id": "speed",
+      "low": -1.0,
+      "high": 1.0,
+      "low_tce_usd_day": 118032.75057114678,
+      "high_tce_usd_day": 130254.4766557718,
+      "base_tce_usd_day": 124589.5258235745
+     },
+     {
+      "id": "port_days",
+      "low": -1.0,
+      "high": 1.0,
+      "low_tce_usd_day": 127388.85926537434,
+      "high_tce_usd_day": 121906.81375394319,
+      "base_tce_usd_day": 124589.5258235745
+     },
+     {
+      "id": "eua",
+      "low": 0.8,
+      "high": 1.2,
+      "low_tce_usd_day": 124589.5258235745,
+      "high_tce_usd_day": 124589.5258235745,
+      "base_tce_usd_day": 124589.5258235745
+     }
+    ],
+    "hedge": {
+     "tc_hedge_days": 47.00721153846155,
+     "tc_hedge_days_net": 45.24444110576924,
+     "route_hedge_t": 270000,
+     "route_ffa_tce_usd_day": 110120.10895934542,
+     "physical_tce_gross_usd_day": 129443.66319332414,
+     "basis_vs_tc_ffa_usd_day": 99443.66319332414,
+     "basis_vs_route_ffa_usd_day": 14469.416864229075
+    },
+    "power_fit": {
+     "a": 0.21283956020228187,
+     "b": 2.181531281711046,
+     "r2": 1.0
+    }
+   }
+  },
+  {
    "name": "anchor TD22 2026-01-23",
    "inputs": {
     "contract": "voyage",
@@ -74905,6 +75198,299 @@
      "physical_tce_gross_usd_day": 101519.84082232632,
      "basis_vs_tc_ffa_usd_day": 71519.84082232632,
      "basis_vs_route_ffa_usd_day": 11842.761525208116
+    },
+    "power_fit": {
+     "a": 0.21283956020228187,
+     "b": 2.181531281711046,
+     "r2": 1.0
+    }
+   }
+  },
+  {
+   "name": "anchor TD3C 2026-02-20 at the implied flat rate",
+   "inputs": {
+    "contract": "voyage",
+    "freight_basis": "usd_t",
+    "freight_value": 33.782632,
+    "flat_rate_usd_t": null,
+    "cargo_t": 270000,
+    "commission_pct": 3.75,
+    "other_revenue_usd": 0.0,
+    "sea_margin": 0.05,
+    "laden": {
+     "distance_nm": 5848.8,
+     "speed_kn": 13,
+     "eca_nm": 0.0,
+     "ets_share": 0.0
+    },
+    "ballast": {
+     "distance_nm": 5848.8,
+     "speed_kn": 12,
+     "eca_nm": 0.0,
+     "ets_share": 0.0
+    },
+    "laden_curve": [
+     [
+      13,
+      57.3
+     ],
+     [
+      11,
+      39.8
+     ]
+    ],
+    "ballast_curve": [
+     [
+      12,
+      39.5
+     ],
+     [
+      11,
+      28.5
+     ]
+    ],
+    "mgo_at_sea_tpd": 0.0,
+    "scrubber": false,
+    "scrubber_in_eca": false,
+    "vlsfo_class": "HFO",
+    "port": {
+     "load_days": 2,
+     "discharge_days": 2,
+     "waiting_days": 2,
+     "canal_days": 0.0,
+     "delay_days": 0.0,
+     "sts_days": 0.0,
+     "load_tpd": 20,
+     "discharge_tpd": 110,
+     "waiting_tpd": 10,
+     "canal_tpd": 0.0,
+     "delay_tpd": 10,
+     "sts_tpd": 20,
+     "load_eca": false,
+     "discharge_eca": false,
+     "waiting_eca": false,
+     "canal_eca": false,
+     "delay_eca": false,
+     "sts_eca": false,
+     "load_ets_share": 0.0,
+     "discharge_ets_share": 0.0,
+     "waiting_ets_share": 0.0,
+     "canal_ets_share": 0.0,
+     "delay_ets_share": 0.0,
+     "sts_ets_share": 0.0
+    },
+    "prices": {
+     "vlsfo_usd_t": 489.0,
+     "hsfo_usd_t": 432.0,
+     "mgo_usd_t": 753.0
+    },
+    "ets": {
+     "phase_in": 1.0,
+     "eua_eur_t": 86.88,
+     "usd_per_eur": 1.183192857142857,
+     "include_non_co2": true
+    },
+    "fueleu": {
+     "include": false,
+     "reduction_pct": 2.0
+    },
+    "costs": {
+     "port_load_usd": 0.0,
+     "port_discharge_usd": 0.0,
+     "canal_laden_usd": 0.0,
+     "canal_ballast_usd": 0.0,
+     "other_usd": 0.0,
+     "sts_usd": 0.0
+    },
+    "war_risk": {
+     "hull_value_usd": 157000000.0,
+     "crew_bonus_usd": 0.0,
+     "payer": "charterer",
+     "areas": {
+      "gulf": {
+       "premium_pct": 0.0,
+       "entries": 1,
+       "laden_nm": 360.7,
+       "ballast_nm": 360.7,
+       "port_activities": [
+        "load",
+        "waiting",
+        "delay"
+       ],
+       "ballast_transits": 0
+      },
+      "red_sea": {
+       "premium_pct": 0.0,
+       "entries": 0,
+       "laden_nm": 0.0,
+       "ballast_nm": 0.0,
+       "port_activities": [],
+       "ballast_transits": 0
+      }
+     }
+    }
+   },
+   "calls": {
+    "target_tce_usd_day": 25000.0,
+    "tc_ffa_usd_day": 30000.0,
+    "route_ffa_usd_t": 30.4043688,
+    "speed_bounds_kn": null
+   },
+   "output": {
+    "evaluate": {
+     "days": {
+      "ballast_sea": 21.323750000000004,
+      "laden_sea": 19.68346153846154,
+      "load": 2,
+      "discharge": 2,
+      "waiting": 2,
+      "canal": 0.0,
+      "delay": 0.0,
+      "sts": 0.0,
+      "port_total": 6.0,
+      "sea_total": 41.00721153846155,
+      "total": 47.00721153846155,
+      "trip": 25.683461538461543
+     },
+     "fuel_t": {
+      "vlsfo": 2250.1504711538464,
+      "hsfo": 0.0,
+      "mgo": 0.0
+     },
+     "fuel_total_t": 2250.1504711538464,
+     "bunkers_by_activity_usd": {
+      "ballast": 411878.89312500006,
+      "laden": 551524.6872692307,
+      "load": 19560.0,
+      "discharge": 107580.0,
+      "waiting": 9780.0,
+      "canal": 0.0,
+      "delay": 0.0,
+      "sts": 0.0
+     },
+     "bunkers_by_grade_usd": {
+      "vlsfo": 1100323.5803942308,
+      "hsfo": 0.0,
+      "mgo": 0.0
+     },
+     "emissions": {
+      "co2_t": 7006.968567173077,
+      "co2e_t": 7117.450955306731,
+      "ets_covered_t": 0.0
+     },
+     "ets_all_usd": 0.0,
+     "fueleu": {
+      "energy_mj": 0.0,
+      "intensity_g_mj": 0.0,
+      "target_g_mj": 89.3368,
+      "balance_g": 0.0,
+      "penalty_eur": 0.0,
+      "penalty_usd": 0.0
+     },
+     "war_risk": {
+      "areas": {
+       "gulf": {
+        "days": 6.528946314102564,
+        "periods": 1.0,
+        "usd": 0.0,
+        "ballast_periods": 0.0,
+        "ballast_usd": 0.0
+       },
+       "red_sea": {
+        "days": 0.0,
+        "periods": 0.0,
+        "usd": 0.0,
+        "ballast_periods": 0.0,
+        "ballast_usd": 0.0
+       }
+      },
+      "charter_usd": 0.0,
+      "ballast_usd": 0.0,
+      "premium_usd": 0.0,
+      "total_usd": 0.0
+     },
+     "revenue": {
+      "gross_usd": 9121310.64,
+      "other_usd": 0.0,
+      "commission_usd": 342049.14900000003,
+      "net_usd": 8779261.491
+     },
+     "costs": {
+      "bunkers": 1100323.5803942308,
+      "ports": 0.0,
+      "canals": 0.0,
+      "ets": 0.0,
+      "war_risk": 0.0,
+      "other": 0.0,
+      "fueleu": 0.0,
+      "total_usd": 1100323.5803942308
+     },
+     "charterer_costs_usd": 0.0,
+     "result_usd": 7678937.91060577,
+     "tce_usd_day": 163356.59272881615
+    },
+    "breakeven_zero": {
+     "hire_usd_day": null,
+     "usd_t": 4.234049371406371,
+     "lump_sum_usd": 1143193.3302797202,
+     "ws": null
+    },
+    "breakeven_target": {
+     "hire_usd_day": null,
+     "usd_t": 8.756147643504645,
+     "lump_sum_usd": 2364159.8637462542,
+     "ws": null
+    },
+    "sensitivities": [
+     {
+      "id": "freight",
+      "low": 0.9,
+      "high": 1.1,
+      "low_tce_usd_day": 144680.17861346967,
+      "high_tce_usd_day": 182033.00684416262,
+      "base_tce_usd_day": 163356.59272881615
+     },
+     {
+      "id": "bunkers",
+      "low": 0.9,
+      "high": 1.1,
+      "low_tce_usd_day": 165697.347571281,
+      "high_tce_usd_day": 161015.83788635128,
+      "base_tce_usd_day": 163356.59272881615
+     },
+     {
+      "id": "speed",
+      "low": -1.0,
+      "high": 1.0,
+      "low_tce_usd_day": 154428.04797464714,
+      "high_tce_usd_day": 171220.21821053937,
+      "base_tce_usd_day": 163356.59272881615
+     },
+     {
+      "id": "port_days",
+      "low": -1.0,
+      "high": 1.0,
+      "low_tce_usd_day": 167013.55404211293,
+      "high_tce_usd_day": 159851.98191437582,
+      "base_tce_usd_day": 163356.59272881615
+     },
+     {
+      "id": "eua",
+      "low": 0.8,
+      "high": 1.2,
+      "low_tce_usd_day": 163356.59272881615,
+      "high_tce_usd_day": 163356.59272881615,
+      "base_tce_usd_day": 163356.59272881615
+     }
+    ],
+    "hedge": {
+     "tc_hedge_days": 47.00721153846155,
+     "tc_hedge_days_net": 45.24444110576924,
+     "route_hedge_t": 270000,
+     "route_ffa_tce_usd_day": 144680.17861346967,
+     "physical_tce_gross_usd_day": 169721.1353026661,
+     "basis_vs_tc_ffa_usd_day": 139721.1353026661,
+     "basis_vs_route_ffa_usd_day": 18676.414115346473
     },
     "power_fit": {
      "a": 0.21283956020228187,
@@ -75203,6 +75789,307 @@
    }
   },
   {
+   "name": "anchor TD3C 2026-02-27 at the implied flat rate",
+   "inputs": {
+    "contract": "voyage",
+    "freight_basis": "usd_t",
+    "freight_value": 44.874541,
+    "flat_rate_usd_t": null,
+    "cargo_t": 270000,
+    "commission_pct": 3.75,
+    "other_revenue_usd": 0.0,
+    "sea_margin": 0.05,
+    "laden": {
+     "distance_nm": 5848.8,
+     "speed_kn": 13,
+     "eca_nm": 0.0,
+     "ets_share": 0.0
+    },
+    "ballast": {
+     "distance_nm": 5848.8,
+     "speed_kn": 12,
+     "eca_nm": 0.0,
+     "ets_share": 0.0
+    },
+    "laden_curve": [
+     [
+      13,
+      57.3
+     ],
+     [
+      11,
+      39.8
+     ]
+    ],
+    "ballast_curve": [
+     [
+      12,
+      39.5
+     ],
+     [
+      11,
+      28.5
+     ]
+    ],
+    "mgo_at_sea_tpd": 0.0,
+    "scrubber": false,
+    "scrubber_in_eca": false,
+    "vlsfo_class": "HFO",
+    "port": {
+     "load_days": 2,
+     "discharge_days": 2,
+     "waiting_days": 2,
+     "canal_days": 0.0,
+     "delay_days": 0.0,
+     "sts_days": 0.0,
+     "load_tpd": 20,
+     "discharge_tpd": 110,
+     "waiting_tpd": 10,
+     "canal_tpd": 0.0,
+     "delay_tpd": 10,
+     "sts_tpd": 20,
+     "load_eca": false,
+     "discharge_eca": false,
+     "waiting_eca": false,
+     "canal_eca": false,
+     "delay_eca": false,
+     "sts_eca": false,
+     "load_ets_share": 0.0,
+     "discharge_ets_share": 0.0,
+     "waiting_ets_share": 0.0,
+     "canal_ets_share": 0.0,
+     "delay_ets_share": 0.0,
+     "sts_ets_share": 0.0
+    },
+    "prices": {
+     "vlsfo_usd_t": 489.0,
+     "hsfo_usd_t": 432.0,
+     "mgo_usd_t": 753.0
+    },
+    "ets": {
+     "phase_in": 1.0,
+     "eua_eur_t": 86.88,
+     "usd_per_eur": 1.1824105263157894,
+     "include_non_co2": true
+    },
+    "fueleu": {
+     "include": false,
+     "reduction_pct": 2.0
+    },
+    "costs": {
+     "port_load_usd": 0.0,
+     "port_discharge_usd": 0.0,
+     "canal_laden_usd": 0.0,
+     "canal_ballast_usd": 0.0,
+     "other_usd": 0.0,
+     "sts_usd": 0.0
+    },
+    "war_risk": {
+     "hull_value_usd": 157000000.0,
+     "crew_bonus_usd": 0.0,
+     "payer": "charterer",
+     "areas": {
+      "gulf": {
+       "premium_pct": 0.0,
+       "entries": 1,
+       "laden_nm": 360.7,
+       "ballast_nm": 360.7,
+       "port_activities": [
+        "load",
+        "waiting",
+        "delay"
+       ],
+       "ballast_transits": 0
+      },
+      "red_sea": {
+       "premium_pct": 0.0,
+       "entries": 0,
+       "laden_nm": 0.0,
+       "ballast_nm": 0.0,
+       "port_activities": [],
+       "ballast_transits": 0
+      }
+     }
+    }
+   },
+   "calls": {
+    "target_tce_usd_day": 25000.0,
+    "tc_ffa_usd_day": 30000.0,
+    "route_ffa_usd_t": 40.3870869,
+    "speed_bounds_kn": [
+     9.0,
+     15.0
+    ]
+   },
+   "output": {
+    "evaluate": {
+     "days": {
+      "ballast_sea": 21.323750000000004,
+      "laden_sea": 19.68346153846154,
+      "load": 2,
+      "discharge": 2,
+      "waiting": 2,
+      "canal": 0.0,
+      "delay": 0.0,
+      "sts": 0.0,
+      "port_total": 6.0,
+      "sea_total": 41.00721153846155,
+      "total": 47.00721153846155,
+      "trip": 25.683461538461543
+     },
+     "fuel_t": {
+      "vlsfo": 2250.1504711538464,
+      "hsfo": 0.0,
+      "mgo": 0.0
+     },
+     "fuel_total_t": 2250.1504711538464,
+     "bunkers_by_activity_usd": {
+      "ballast": 411878.89312500006,
+      "laden": 551524.6872692307,
+      "load": 19560.0,
+      "discharge": 107580.0,
+      "waiting": 9780.0,
+      "canal": 0.0,
+      "delay": 0.0,
+      "sts": 0.0
+     },
+     "bunkers_by_grade_usd": {
+      "vlsfo": 1100323.5803942308,
+      "hsfo": 0.0,
+      "mgo": 0.0
+     },
+     "emissions": {
+      "co2_t": 7006.968567173077,
+      "co2e_t": 7117.450955306731,
+      "ets_covered_t": 0.0
+     },
+     "ets_all_usd": 0.0,
+     "fueleu": {
+      "energy_mj": 0.0,
+      "intensity_g_mj": 0.0,
+      "target_g_mj": 89.3368,
+      "balance_g": 0.0,
+      "penalty_eur": 0.0,
+      "penalty_usd": 0.0
+     },
+     "war_risk": {
+      "areas": {
+       "gulf": {
+        "days": 6.528946314102564,
+        "periods": 1.0,
+        "usd": 0.0,
+        "ballast_periods": 0.0,
+        "ballast_usd": 0.0
+       },
+       "red_sea": {
+        "days": 0.0,
+        "periods": 0.0,
+        "usd": 0.0,
+        "ballast_periods": 0.0,
+        "ballast_usd": 0.0
+       }
+      },
+      "charter_usd": 0.0,
+      "ballast_usd": 0.0,
+      "premium_usd": 0.0,
+      "total_usd": 0.0
+     },
+     "revenue": {
+      "gross_usd": 12116126.07,
+      "other_usd": 0.0,
+      "commission_usd": 454354.72762500006,
+      "net_usd": 11661771.342375001
+     },
+     "costs": {
+      "bunkers": 1100323.5803942308,
+      "ports": 0.0,
+      "canals": 0.0,
+      "ets": 0.0,
+      "war_risk": 0.0,
+      "other": 0.0,
+      "fueleu": 0.0,
+      "total_usd": 1100323.5803942308
+     },
+     "charterer_costs_usd": 0.0,
+     "result_usd": 10561447.76198077,
+     "tce_usd_day": 224677.18072022498
+    },
+    "breakeven_zero": {
+     "hire_usd_day": null,
+     "usd_t": 4.234049371406371,
+     "lump_sum_usd": 1143193.3302797202,
+     "ws": null
+    },
+    "breakeven_target": {
+     "hire_usd_day": null,
+     "usd_t": 8.756147643504645,
+     "lump_sum_usd": 2364159.8637462542,
+     "ws": null
+    },
+    "sensitivities": [
+     {
+      "id": "freight",
+      "low": 0.9,
+      "high": 1.1,
+      "low_tce_usd_day": 199868.70780573762,
+      "high_tce_usd_day": 249485.65363471233,
+      "base_tce_usd_day": 224677.18072022498
+     },
+     {
+      "id": "bunkers",
+      "low": 0.9,
+      "high": 1.1,
+      "low_tce_usd_day": 227017.9355626898,
+      "high_tce_usd_day": 222336.42587776014,
+      "base_tce_usd_day": 224677.18072022498
+     },
+     {
+      "id": "speed",
+      "low": -1.0,
+      "high": 1.0,
+      "low_tce_usd_day": 211410.38609827543,
+      "high_tce_usd_day": 236789.98171202888,
+      "base_tce_usd_day": 224677.18072022498
+     },
+     {
+      "id": "port_days",
+      "low": -1.0,
+      "high": 1.0,
+      "low_tce_usd_day": 229666.9893402999,
+      "high_tce_usd_day": 219895.2495610635,
+      "base_tce_usd_day": 224677.18072022498
+     },
+     {
+      "id": "eua",
+      "low": 0.8,
+      "high": 1.2,
+      "low_tce_usd_day": 224677.18072022498,
+      "high_tce_usd_day": 224677.18072022498,
+      "base_tce_usd_day": 224677.18072022498
+     }
+    ],
+    "hedge": {
+     "tc_hedge_days": 47.00721153846155,
+     "tc_hedge_days_net": 45.24444110576924,
+     "route_hedge_t": 270000,
+     "route_ffa_tce_usd_day": 199868.70780573762,
+     "physical_tce_gross_usd_day": 233430.83711192204,
+     "basis_vs_tc_ffa_usd_day": 203430.83711192204,
+     "basis_vs_route_ffa_usd_day": 24808.472914487356
+    },
+    "power_fit": {
+     "a": 0.21283956020228187,
+     "b": 2.181531281711046,
+     "r2": 1.0
+    },
+    "optimal": {
+     "laden_kn": 15.0,
+     "ballast_kn": 14.0,
+     "tce_usd_day": 247778.36853049882
+    }
+   }
+  },
+  {
    "name": "anchor TD22 2026-02-27",
    "inputs": {
     "contract": "voyage",
@@ -75492,6 +76379,299 @@
    }
   },
   {
+   "name": "anchor TD3C 2026-03-06 at the implied flat rate",
+   "inputs": {
+    "contract": "voyage",
+    "freight_basis": "usd_t",
+    "freight_value": 97.931977,
+    "flat_rate_usd_t": null,
+    "cargo_t": 270000,
+    "commission_pct": 3.75,
+    "other_revenue_usd": 0.0,
+    "sea_margin": 0.05,
+    "laden": {
+     "distance_nm": 5848.8,
+     "speed_kn": 13,
+     "eca_nm": 0.0,
+     "ets_share": 0.0
+    },
+    "ballast": {
+     "distance_nm": 5848.8,
+     "speed_kn": 12,
+     "eca_nm": 0.0,
+     "ets_share": 0.0
+    },
+    "laden_curve": [
+     [
+      13,
+      57.3
+     ],
+     [
+      11,
+      39.8
+     ]
+    ],
+    "ballast_curve": [
+     [
+      12,
+      39.5
+     ],
+     [
+      11,
+      28.5
+     ]
+    ],
+    "mgo_at_sea_tpd": 0.0,
+    "scrubber": false,
+    "scrubber_in_eca": false,
+    "vlsfo_class": "HFO",
+    "port": {
+     "load_days": 2,
+     "discharge_days": 2,
+     "waiting_days": 2,
+     "canal_days": 0.0,
+     "delay_days": 0.0,
+     "sts_days": 0.0,
+     "load_tpd": 20,
+     "discharge_tpd": 110,
+     "waiting_tpd": 10,
+     "canal_tpd": 0.0,
+     "delay_tpd": 10,
+     "sts_tpd": 20,
+     "load_eca": false,
+     "discharge_eca": false,
+     "waiting_eca": false,
+     "canal_eca": false,
+     "delay_eca": false,
+     "sts_eca": false,
+     "load_ets_share": 0.0,
+     "discharge_ets_share": 0.0,
+     "waiting_ets_share": 0.0,
+     "canal_ets_share": 0.0,
+     "delay_ets_share": 0.0,
+     "sts_ets_share": 0.0
+    },
+    "prices": {
+     "vlsfo_usd_t": 666.0,
+     "hsfo_usd_t": 579.0,
+     "mgo_usd_t": 1086.0
+    },
+    "ets": {
+     "phase_in": 1.0,
+     "eua_eur_t": 72.47,
+     "usd_per_eur": 1.16246,
+     "include_non_co2": true
+    },
+    "fueleu": {
+     "include": false,
+     "reduction_pct": 2.0
+    },
+    "costs": {
+     "port_load_usd": 0.0,
+     "port_discharge_usd": 0.0,
+     "canal_laden_usd": 0.0,
+     "canal_ballast_usd": 0.0,
+     "other_usd": 0.0,
+     "sts_usd": 0.0
+    },
+    "war_risk": {
+     "hull_value_usd": 157000000.0,
+     "crew_bonus_usd": 0.0,
+     "payer": "charterer",
+     "areas": {
+      "gulf": {
+       "premium_pct": 0.0,
+       "entries": 1,
+       "laden_nm": 360.7,
+       "ballast_nm": 360.7,
+       "port_activities": [
+        "load",
+        "waiting",
+        "delay"
+       ],
+       "ballast_transits": 0
+      },
+      "red_sea": {
+       "premium_pct": 0.0,
+       "entries": 0,
+       "laden_nm": 0.0,
+       "ballast_nm": 0.0,
+       "port_activities": [],
+       "ballast_transits": 0
+      }
+     }
+    }
+   },
+   "calls": {
+    "target_tce_usd_day": 25000.0,
+    "tc_ffa_usd_day": 30000.0,
+    "route_ffa_usd_t": 88.13877930000001,
+    "speed_bounds_kn": null
+   },
+   "output": {
+    "evaluate": {
+     "days": {
+      "ballast_sea": 21.323750000000004,
+      "laden_sea": 19.68346153846154,
+      "load": 2,
+      "discharge": 2,
+      "waiting": 2,
+      "canal": 0.0,
+      "delay": 0.0,
+      "sts": 0.0,
+      "port_total": 6.0,
+      "sea_total": 41.00721153846155,
+      "total": 47.00721153846155,
+      "trip": 25.683461538461543
+     },
+     "fuel_t": {
+      "vlsfo": 2250.1504711538464,
+      "hsfo": 0.0,
+      "mgo": 0.0
+     },
+     "fuel_total_t": 2250.1504711538464,
+     "bunkers_by_activity_usd": {
+      "ballast": 560963.8912500001,
+      "laden": 751156.3225384615,
+      "load": 26640.0,
+      "discharge": 146520.0,
+      "waiting": 13320.0,
+      "canal": 0.0,
+      "delay": 0.0,
+      "sts": 0.0
+     },
+     "bunkers_by_grade_usd": {
+      "vlsfo": 1498600.2137884616,
+      "hsfo": 0.0,
+      "mgo": 0.0
+     },
+     "emissions": {
+      "co2_t": 7006.968567173077,
+      "co2e_t": 7117.450955306731,
+      "ets_covered_t": 0.0
+     },
+     "ets_all_usd": 0.0,
+     "fueleu": {
+      "energy_mj": 0.0,
+      "intensity_g_mj": 0.0,
+      "target_g_mj": 89.3368,
+      "balance_g": 0.0,
+      "penalty_eur": 0.0,
+      "penalty_usd": 0.0
+     },
+     "war_risk": {
+      "areas": {
+       "gulf": {
+        "days": 6.528946314102564,
+        "periods": 1.0,
+        "usd": 0.0,
+        "ballast_periods": 0.0,
+        "ballast_usd": 0.0
+       },
+       "red_sea": {
+        "days": 0.0,
+        "periods": 0.0,
+        "usd": 0.0,
+        "ballast_periods": 0.0,
+        "ballast_usd": 0.0
+       }
+      },
+      "charter_usd": 0.0,
+      "ballast_usd": 0.0,
+      "premium_usd": 0.0,
+      "total_usd": 0.0
+     },
+     "revenue": {
+      "gross_usd": 26441633.79,
+      "other_usd": 0.0,
+      "commission_usd": 991561.2671249999,
+      "net_usd": 25450072.522875
+     },
+     "costs": {
+      "bunkers": 1498600.2137884616,
+      "ports": 0.0,
+      "canals": 0.0,
+      "ets": 0.0,
+      "war_risk": 0.0,
+      "other": 0.0,
+      "fueleu": 0.0,
+      "total_usd": 1498600.2137884616
+     },
+     "charterer_costs_usd": 0.0,
+     "result_usd": 23951472.30908654,
+     "tce_usd_day": 509527.61342776776
+    },
+    "breakeven_zero": {
+     "hire_usd_day": null,
+     "usd_t": 5.766619389277389,
+     "lump_sum_usd": 1556987.2351048952,
+     "ws": null
+    },
+    "breakeven_target": {
+     "hire_usd_day": null,
+     "usd_t": 10.288717661375664,
+     "lump_sum_usd": 2777953.768571429,
+     "ws": null
+    },
+    "sensitivities": [
+     {
+      "id": "freight",
+      "low": 0.9,
+      "high": 1.1,
+      "low_tce_usd_day": 455386.83015230886,
+      "high_tce_usd_day": 563668.3967032267,
+      "base_tce_usd_day": 509527.61342776776
+     },
+     {
+      "id": "bunkers",
+      "low": 0.9,
+      "high": 1.1,
+      "low_tce_usd_day": 512715.6353604499,
+      "high_tce_usd_day": 506339.5914950856,
+      "base_tce_usd_day": 509527.61342776776
+     },
+     {
+      "id": "speed",
+      "low": -1.0,
+      "high": 1.0,
+      "low_tce_usd_day": 477059.89705339907,
+      "high_tce_usd_day": 540127.9914848788,
+      "base_tce_usd_day": 509527.61342776776
+     },
+     {
+      "id": "port_days",
+      "low": -1.0,
+      "high": 1.0,
+      "low_tce_usd_day": 520747.32434191956,
+      "high_tce_usd_day": 498775.3202433528,
+      "base_tce_usd_day": 509527.61342776776
+     },
+     {
+      "id": "eua",
+      "low": 0.8,
+      "high": 1.2,
+      "low_tce_usd_day": 509527.61342776776,
+      "high_tce_usd_day": 509527.61342776776,
+      "base_tce_usd_day": 509527.61342776776
+     }
+    ],
+    "hedge": {
+     "tc_hedge_days": 47.00721153846155,
+     "tc_hedge_days_net": 45.24444110576924,
+     "route_hedge_t": 270000,
+     "route_ffa_tce_usd_day": 455386.83015230886,
+     "physical_tce_gross_usd_day": 529379.3386262523,
+     "basis_vs_tc_ffa_usd_day": 499379.33862625225,
+     "basis_vs_route_ffa_usd_day": 54140.7832754589
+    },
+    "power_fit": {
+     "a": 0.21283956020228187,
+     "b": 2.181531281711046,
+     "r2": 1.0
+    }
+   }
+  },
+  {
    "name": "anchor TD22 2026-03-06",
    "inputs": {
     "contract": "voyage",
@@ -75772,6 +76952,299 @@
      "physical_tce_gross_usd_day": 226831.17928518832,
      "basis_vs_tc_ffa_usd_day": 196831.17928518832,
      "basis_vs_route_ffa_usd_day": 24758.4200875792
+    },
+    "power_fit": {
+     "a": 0.21283956020228187,
+     "b": 2.181531281711046,
+     "r2": 1.0
+    }
+   }
+  },
+  {
+   "name": "anchor TD3C 2026-03-13 at the implied flat rate",
+   "inputs": {
+    "contract": "voyage",
+    "freight_basis": "usd_t",
+    "freight_value": 72.185341,
+    "flat_rate_usd_t": null,
+    "cargo_t": 270000,
+    "commission_pct": 3.75,
+    "other_revenue_usd": 0.0,
+    "sea_margin": 0.05,
+    "laden": {
+     "distance_nm": 5848.8,
+     "speed_kn": 13,
+     "eca_nm": 0.0,
+     "ets_share": 0.0
+    },
+    "ballast": {
+     "distance_nm": 5848.8,
+     "speed_kn": 12,
+     "eca_nm": 0.0,
+     "ets_share": 0.0
+    },
+    "laden_curve": [
+     [
+      13,
+      57.3
+     ],
+     [
+      11,
+      39.8
+     ]
+    ],
+    "ballast_curve": [
+     [
+      12,
+      39.5
+     ],
+     [
+      11,
+      28.5
+     ]
+    ],
+    "mgo_at_sea_tpd": 0.0,
+    "scrubber": false,
+    "scrubber_in_eca": false,
+    "vlsfo_class": "HFO",
+    "port": {
+     "load_days": 2,
+     "discharge_days": 2,
+     "waiting_days": 2,
+     "canal_days": 0.0,
+     "delay_days": 0.0,
+     "sts_days": 0.0,
+     "load_tpd": 20,
+     "discharge_tpd": 110,
+     "waiting_tpd": 10,
+     "canal_tpd": 0.0,
+     "delay_tpd": 10,
+     "sts_tpd": 20,
+     "load_eca": false,
+     "discharge_eca": false,
+     "waiting_eca": false,
+     "canal_eca": false,
+     "delay_eca": false,
+     "sts_eca": false,
+     "load_ets_share": 0.0,
+     "discharge_ets_share": 0.0,
+     "waiting_ets_share": 0.0,
+     "canal_ets_share": 0.0,
+     "delay_ets_share": 0.0,
+     "sts_ets_share": 0.0
+    },
+    "prices": {
+     "vlsfo_usd_t": 1036.0,
+     "hsfo_usd_t": 844.0,
+     "mgo_usd_t": 1558.0
+    },
+    "ets": {
+     "phase_in": 1.0,
+     "eua_eur_t": 72.47,
+     "usd_per_eur": 1.1589500000000001,
+     "include_non_co2": true
+    },
+    "fueleu": {
+     "include": false,
+     "reduction_pct": 2.0
+    },
+    "costs": {
+     "port_load_usd": 0.0,
+     "port_discharge_usd": 0.0,
+     "canal_laden_usd": 0.0,
+     "canal_ballast_usd": 0.0,
+     "other_usd": 0.0,
+     "sts_usd": 0.0
+    },
+    "war_risk": {
+     "hull_value_usd": 157000000.0,
+     "crew_bonus_usd": 0.0,
+     "payer": "charterer",
+     "areas": {
+      "gulf": {
+       "premium_pct": 0.0,
+       "entries": 1,
+       "laden_nm": 360.7,
+       "ballast_nm": 360.7,
+       "port_activities": [
+        "load",
+        "waiting",
+        "delay"
+       ],
+       "ballast_transits": 0
+      },
+      "red_sea": {
+       "premium_pct": 0.0,
+       "entries": 0,
+       "laden_nm": 0.0,
+       "ballast_nm": 0.0,
+       "port_activities": [],
+       "ballast_transits": 0
+      }
+     }
+    }
+   },
+   "calls": {
+    "target_tce_usd_day": 25000.0,
+    "tc_ffa_usd_day": 30000.0,
+    "route_ffa_usd_t": 64.9668069,
+    "speed_bounds_kn": null
+   },
+   "output": {
+    "evaluate": {
+     "days": {
+      "ballast_sea": 21.323750000000004,
+      "laden_sea": 19.68346153846154,
+      "load": 2,
+      "discharge": 2,
+      "waiting": 2,
+      "canal": 0.0,
+      "delay": 0.0,
+      "sts": 0.0,
+      "port_total": 6.0,
+      "sea_total": 41.00721153846155,
+      "total": 47.00721153846155,
+      "trip": 25.683461538461543
+     },
+     "fuel_t": {
+      "vlsfo": 2250.1504711538464,
+      "hsfo": 0.0,
+      "mgo": 0.0
+     },
+     "fuel_total_t": 2250.1504711538464,
+     "bunkers_by_activity_usd": {
+      "ballast": 872610.4975000002,
+      "laden": 1168465.3906153846,
+      "load": 41440.0,
+      "discharge": 227920.0,
+      "waiting": 20720.0,
+      "canal": 0.0,
+      "delay": 0.0,
+      "sts": 0.0
+     },
+     "bunkers_by_grade_usd": {
+      "vlsfo": 2331155.8881153846,
+      "hsfo": 0.0,
+      "mgo": 0.0
+     },
+     "emissions": {
+      "co2_t": 7006.968567173077,
+      "co2e_t": 7117.450955306731,
+      "ets_covered_t": 0.0
+     },
+     "ets_all_usd": 0.0,
+     "fueleu": {
+      "energy_mj": 0.0,
+      "intensity_g_mj": 0.0,
+      "target_g_mj": 89.3368,
+      "balance_g": 0.0,
+      "penalty_eur": 0.0,
+      "penalty_usd": 0.0
+     },
+     "war_risk": {
+      "areas": {
+       "gulf": {
+        "days": 6.528946314102564,
+        "periods": 1.0,
+        "usd": 0.0,
+        "ballast_periods": 0.0,
+        "ballast_usd": 0.0
+       },
+       "red_sea": {
+        "days": 0.0,
+        "periods": 0.0,
+        "usd": 0.0,
+        "ballast_periods": 0.0,
+        "ballast_usd": 0.0
+       }
+      },
+      "charter_usd": 0.0,
+      "ballast_usd": 0.0,
+      "premium_usd": 0.0,
+      "total_usd": 0.0
+     },
+     "revenue": {
+      "gross_usd": 19490042.069999997,
+      "other_usd": 0.0,
+      "commission_usd": 730876.5776249999,
+      "net_usd": 18759165.492374998
+     },
+     "costs": {
+      "bunkers": 2331155.8881153846,
+      "ports": 0.0,
+      "canals": 0.0,
+      "ets": 0.0,
+      "war_risk": 0.0,
+      "other": 0.0,
+      "fueleu": 0.0,
+      "total_usd": 2331155.8881153846
+     },
+     "charterer_costs_usd": 0.0,
+     "result_usd": 16428009.604259614,
+     "tce_usd_day": 349478.49631153146
+    },
+    "breakeven_zero": {
+     "hire_usd_day": null,
+     "usd_t": 8.970296827764829,
+     "lump_sum_usd": 2421980.1434965036,
+     "ws": null
+    },
+    "breakeven_target": {
+     "hire_usd_day": null,
+     "usd_t": 13.492395099863101,
+     "lump_sum_usd": 3642946.6769630373,
+     "ws": null
+    },
+    "sensitivities": [
+     {
+      "id": "freight",
+      "low": 0.9,
+      "high": 1.1,
+      "low_tce_usd_day": 309571.5014517616,
+      "high_tce_usd_day": 389385.4911713014,
+      "base_tce_usd_day": 349478.49631153146
+     },
+     {
+      "id": "bunkers",
+      "low": 0.9,
+      "high": 1.1,
+      "low_tce_usd_day": 354437.6415401482,
+      "high_tce_usd_day": 344519.35108291474,
+      "base_tce_usd_day": 349478.49631153146
+     },
+     {
+      "id": "speed",
+      "low": -1.0,
+      "high": 1.0,
+      "low_tce_usd_day": 330322.5874302773,
+      "high_tce_usd_day": 366373.3333481163,
+      "base_tce_usd_day": 349478.49631153146
+     },
+     {
+      "id": "port_days",
+      "low": -1.0,
+      "high": 1.0,
+      "low_tce_usd_day": 357299.84614514856,
+      "high_tce_usd_day": 341982.98709989473,
+      "base_tce_usd_day": 349478.49631153146
+     },
+     {
+      "id": "eua",
+      "low": 0.8,
+      "high": 1.2,
+      "low_tce_usd_day": 349478.49631153146,
+      "high_tce_usd_day": 349478.49631153146,
+      "base_tce_usd_day": 349478.49631153146
+     }
+    ],
+    "hedge": {
+     "tc_hedge_days": 47.00721153846155,
+     "tc_hedge_days_net": 45.24444110576924,
+     "route_hedge_t": 270000,
+     "route_ffa_tce_usd_day": 309571.5014517616,
+     "physical_tce_gross_usd_day": 363094.54162237037,
+     "basis_vs_tc_ffa_usd_day": 333094.54162237037,
+     "basis_vs_route_ffa_usd_day": 39906.99485976988
     },
     "power_fit": {
      "a": 0.21283956020228187,
@@ -76078,6 +77551,299 @@
    }
   },
   {
+   "name": "anchor TD3C 2026-03-20 at the implied flat rate",
+   "inputs": {
+    "contract": "voyage",
+    "freight_basis": "usd_t",
+    "freight_value": 85.63384099999999,
+    "flat_rate_usd_t": null,
+    "cargo_t": 270000,
+    "commission_pct": 3.75,
+    "other_revenue_usd": 0.0,
+    "sea_margin": 0.05,
+    "laden": {
+     "distance_nm": 5848.8,
+     "speed_kn": 13,
+     "eca_nm": 0.0,
+     "ets_share": 0.0
+    },
+    "ballast": {
+     "distance_nm": 5848.8,
+     "speed_kn": 12,
+     "eca_nm": 0.0,
+     "ets_share": 0.0
+    },
+    "laden_curve": [
+     [
+      13,
+      57.3
+     ],
+     [
+      11,
+      39.8
+     ]
+    ],
+    "ballast_curve": [
+     [
+      12,
+      39.5
+     ],
+     [
+      11,
+      28.5
+     ]
+    ],
+    "mgo_at_sea_tpd": 0.0,
+    "scrubber": false,
+    "scrubber_in_eca": false,
+    "vlsfo_class": "HFO",
+    "port": {
+     "load_days": 2,
+     "discharge_days": 2,
+     "waiting_days": 2,
+     "canal_days": 0.0,
+     "delay_days": 0.0,
+     "sts_days": 0.0,
+     "load_tpd": 20,
+     "discharge_tpd": 110,
+     "waiting_tpd": 10,
+     "canal_tpd": 0.0,
+     "delay_tpd": 10,
+     "sts_tpd": 20,
+     "load_eca": false,
+     "discharge_eca": false,
+     "waiting_eca": false,
+     "canal_eca": false,
+     "delay_eca": false,
+     "sts_eca": false,
+     "load_ets_share": 0.0,
+     "discharge_ets_share": 0.0,
+     "waiting_ets_share": 0.0,
+     "canal_ets_share": 0.0,
+     "delay_ets_share": 0.0,
+     "sts_ets_share": 0.0
+    },
+    "prices": {
+     "vlsfo_usd_t": 1040.0,
+     "hsfo_usd_t": 844.0,
+     "mgo_usd_t": 1731.0
+    },
+    "ets": {
+     "phase_in": 1.0,
+     "eua_eur_t": 72.47,
+     "usd_per_eur": 1.15652,
+     "include_non_co2": true
+    },
+    "fueleu": {
+     "include": false,
+     "reduction_pct": 2.0
+    },
+    "costs": {
+     "port_load_usd": 0.0,
+     "port_discharge_usd": 0.0,
+     "canal_laden_usd": 0.0,
+     "canal_ballast_usd": 0.0,
+     "other_usd": 0.0,
+     "sts_usd": 0.0
+    },
+    "war_risk": {
+     "hull_value_usd": 157000000.0,
+     "crew_bonus_usd": 0.0,
+     "payer": "charterer",
+     "areas": {
+      "gulf": {
+       "premium_pct": 0.0,
+       "entries": 1,
+       "laden_nm": 360.7,
+       "ballast_nm": 360.7,
+       "port_activities": [
+        "load",
+        "waiting",
+        "delay"
+       ],
+       "ballast_transits": 0
+      },
+      "red_sea": {
+       "premium_pct": 0.0,
+       "entries": 0,
+       "laden_nm": 0.0,
+       "ballast_nm": 0.0,
+       "port_activities": [],
+       "ballast_transits": 0
+      }
+     }
+    }
+   },
+   "calls": {
+    "target_tce_usd_day": 25000.0,
+    "tc_ffa_usd_day": 30000.0,
+    "route_ffa_usd_t": 77.0704569,
+    "speed_bounds_kn": null
+   },
+   "output": {
+    "evaluate": {
+     "days": {
+      "ballast_sea": 21.323750000000004,
+      "laden_sea": 19.68346153846154,
+      "load": 2,
+      "discharge": 2,
+      "waiting": 2,
+      "canal": 0.0,
+      "delay": 0.0,
+      "sts": 0.0,
+      "port_total": 6.0,
+      "sea_total": 41.00721153846155,
+      "total": 47.00721153846155,
+      "trip": 25.683461538461543
+     },
+     "fuel_t": {
+      "vlsfo": 2250.1504711538464,
+      "hsfo": 0.0,
+      "mgo": 0.0
+     },
+     "fuel_total_t": 2250.1504711538464,
+     "bunkers_by_activity_usd": {
+      "ballast": 875979.6500000001,
+      "laden": 1172976.84,
+      "load": 41600.0,
+      "discharge": 228800.0,
+      "waiting": 20800.0,
+      "canal": 0.0,
+      "delay": 0.0,
+      "sts": 0.0
+     },
+     "bunkers_by_grade_usd": {
+      "vlsfo": 2340156.49,
+      "hsfo": 0.0,
+      "mgo": 0.0
+     },
+     "emissions": {
+      "co2_t": 7006.968567173077,
+      "co2e_t": 7117.450955306731,
+      "ets_covered_t": 0.0
+     },
+     "ets_all_usd": 0.0,
+     "fueleu": {
+      "energy_mj": 0.0,
+      "intensity_g_mj": 0.0,
+      "target_g_mj": 89.3368,
+      "balance_g": 0.0,
+      "penalty_eur": 0.0,
+      "penalty_usd": 0.0
+     },
+     "war_risk": {
+      "areas": {
+       "gulf": {
+        "days": 6.528946314102564,
+        "periods": 1.0,
+        "usd": 0.0,
+        "ballast_periods": 0.0,
+        "ballast_usd": 0.0
+       },
+       "red_sea": {
+        "days": 0.0,
+        "periods": 0.0,
+        "usd": 0.0,
+        "ballast_periods": 0.0,
+        "ballast_usd": 0.0
+       }
+      },
+      "charter_usd": 0.0,
+      "ballast_usd": 0.0,
+      "premium_usd": 0.0,
+      "total_usd": 0.0
+     },
+     "revenue": {
+      "gross_usd": 23121137.069999997,
+      "other_usd": 0.0,
+      "commission_usd": 867042.6401249999,
+      "net_usd": 22254094.429874998
+     },
+     "costs": {
+      "bunkers": 2340156.49,
+      "ports": 0.0,
+      "canals": 0.0,
+      "ets": 0.0,
+      "war_risk": 0.0,
+      "other": 0.0,
+      "fueleu": 0.0,
+      "total_usd": 2340156.49
+     },
+     "charterer_costs_usd": 0.0,
+     "result_usd": 19913937.939875,
+     "tce_usd_day": 423635.80582909734
+    },
+    "breakeven_zero": {
+     "hire_usd_day": null,
+     "usd_t": 9.00493117845118,
+     "lump_sum_usd": 2431331.4181818184,
+     "ws": null
+    },
+    "breakeven_target": {
+     "hire_usd_day": null,
+     "usd_t": 13.527029450549453,
+     "lump_sum_usd": 3652297.951648352,
+     "ws": null
+    },
+    "sensitivities": [
+     {
+      "id": "freight",
+      "low": 0.9,
+      "high": 1.1,
+      "low_tce_usd_day": 376293.9327386959,
+      "high_tce_usd_day": 470977.6789194988,
+      "base_tce_usd_day": 423635.80582909734
+     },
+     {
+      "id": "bunkers",
+      "low": 0.9,
+      "high": 1.1,
+      "low_tce_usd_day": 428614.09833658894,
+      "high_tce_usd_day": 418657.51332160557,
+      "base_tce_usd_day": 423635.80582909734
+     },
+     {
+      "id": "speed",
+      "low": -1.0,
+      "high": 1.0,
+      "low_tce_usd_day": 399254.9876895116,
+      "high_tce_usd_day": 445641.06117221504,
+      "base_tce_usd_day": 423635.80582909734
+     },
+     {
+      "id": "port_days",
+      "low": -1.0,
+      "high": 1.0,
+      "low_tce_usd_day": 433069.8878200532,
+      "high_tce_usd_day": 414594.7515391316,
+      "base_tce_usd_day": 423635.80582909734
+     },
+     {
+      "id": "eua",
+      "low": 0.8,
+      "high": 1.2,
+      "low_tce_usd_day": 423635.80582909734,
+      "high_tce_usd_day": 423635.80582909734,
+      "base_tce_usd_day": 423635.80582909734
+     }
+    ],
+    "hedge": {
+     "tc_hedge_days": 47.00721153846155,
+     "tc_hedge_days_net": 45.24444110576924,
+     "route_hedge_t": 270000,
+     "route_ffa_tce_usd_day": 376293.9327386959,
+     "physical_tce_gross_usd_day": 440141.0969652959,
+     "basis_vs_tc_ffa_usd_day": 410141.0969652959,
+     "basis_vs_route_ffa_usd_day": 47341.87309040147
+    },
+    "power_fit": {
+     "a": 0.21283956020228187,
+     "b": 2.181531281711046,
+     "r2": 1.0
+    }
+   }
+  },
+  {
    "name": "anchor TD22 2026-03-20",
    "inputs": {
     "contract": "voyage",
@@ -76358,6 +78124,299 @@
      "physical_tce_gross_usd_day": 155749.55119715672,
      "basis_vs_tc_ffa_usd_day": 125749.55119715672,
      "basis_vs_route_ffa_usd_day": 19240.457908490454
+    },
+    "power_fit": {
+     "a": 0.21283956020228187,
+     "b": 2.181531281711046,
+     "r2": 1.0
+    }
+   }
+  },
+  {
+   "name": "anchor TD3C 2026-03-27 at the implied flat rate",
+   "inputs": {
+    "contract": "voyage",
+    "freight_basis": "usd_t",
+    "freight_value": 75.72540000000001,
+    "flat_rate_usd_t": null,
+    "cargo_t": 270000,
+    "commission_pct": 3.75,
+    "other_revenue_usd": 0.0,
+    "sea_margin": 0.05,
+    "laden": {
+     "distance_nm": 5848.8,
+     "speed_kn": 13,
+     "eca_nm": 0.0,
+     "ets_share": 0.0
+    },
+    "ballast": {
+     "distance_nm": 5848.8,
+     "speed_kn": 12,
+     "eca_nm": 0.0,
+     "ets_share": 0.0
+    },
+    "laden_curve": [
+     [
+      13,
+      57.3
+     ],
+     [
+      11,
+      39.8
+     ]
+    ],
+    "ballast_curve": [
+     [
+      12,
+      39.5
+     ],
+     [
+      11,
+      28.5
+     ]
+    ],
+    "mgo_at_sea_tpd": 0.0,
+    "scrubber": false,
+    "scrubber_in_eca": false,
+    "vlsfo_class": "HFO",
+    "port": {
+     "load_days": 2,
+     "discharge_days": 2,
+     "waiting_days": 2,
+     "canal_days": 0.0,
+     "delay_days": 0.0,
+     "sts_days": 0.0,
+     "load_tpd": 20,
+     "discharge_tpd": 110,
+     "waiting_tpd": 10,
+     "canal_tpd": 0.0,
+     "delay_tpd": 10,
+     "sts_tpd": 20,
+     "load_eca": false,
+     "discharge_eca": false,
+     "waiting_eca": false,
+     "canal_eca": false,
+     "delay_eca": false,
+     "sts_eca": false,
+     "load_ets_share": 0.0,
+     "discharge_ets_share": 0.0,
+     "waiting_ets_share": 0.0,
+     "canal_ets_share": 0.0,
+     "delay_ets_share": 0.0,
+     "sts_ets_share": 0.0
+    },
+    "prices": {
+     "vlsfo_usd_t": 1040.0,
+     "hsfo_usd_t": 844.0,
+     "mgo_usd_t": 1731.0
+    },
+    "ets": {
+     "phase_in": 1.0,
+     "eua_eur_t": 72.47,
+     "usd_per_eur": 1.1563750000000002,
+     "include_non_co2": true
+    },
+    "fueleu": {
+     "include": false,
+     "reduction_pct": 2.0
+    },
+    "costs": {
+     "port_load_usd": 0.0,
+     "port_discharge_usd": 0.0,
+     "canal_laden_usd": 0.0,
+     "canal_ballast_usd": 0.0,
+     "other_usd": 0.0,
+     "sts_usd": 0.0
+    },
+    "war_risk": {
+     "hull_value_usd": 157000000.0,
+     "crew_bonus_usd": 0.0,
+     "payer": "charterer",
+     "areas": {
+      "gulf": {
+       "premium_pct": 0.0,
+       "entries": 1,
+       "laden_nm": 360.7,
+       "ballast_nm": 360.7,
+       "port_activities": [
+        "load",
+        "waiting",
+        "delay"
+       ],
+       "ballast_transits": 0
+      },
+      "red_sea": {
+       "premium_pct": 0.0,
+       "entries": 0,
+       "laden_nm": 0.0,
+       "ballast_nm": 0.0,
+       "port_activities": [],
+       "ballast_transits": 0
+      }
+     }
+    }
+   },
+   "calls": {
+    "target_tce_usd_day": 25000.0,
+    "tc_ffa_usd_day": 30000.0,
+    "route_ffa_usd_t": 68.15286,
+    "speed_bounds_kn": null
+   },
+   "output": {
+    "evaluate": {
+     "days": {
+      "ballast_sea": 21.323750000000004,
+      "laden_sea": 19.68346153846154,
+      "load": 2,
+      "discharge": 2,
+      "waiting": 2,
+      "canal": 0.0,
+      "delay": 0.0,
+      "sts": 0.0,
+      "port_total": 6.0,
+      "sea_total": 41.00721153846155,
+      "total": 47.00721153846155,
+      "trip": 25.683461538461543
+     },
+     "fuel_t": {
+      "vlsfo": 2250.1504711538464,
+      "hsfo": 0.0,
+      "mgo": 0.0
+     },
+     "fuel_total_t": 2250.1504711538464,
+     "bunkers_by_activity_usd": {
+      "ballast": 875979.6500000001,
+      "laden": 1172976.84,
+      "load": 41600.0,
+      "discharge": 228800.0,
+      "waiting": 20800.0,
+      "canal": 0.0,
+      "delay": 0.0,
+      "sts": 0.0
+     },
+     "bunkers_by_grade_usd": {
+      "vlsfo": 2340156.49,
+      "hsfo": 0.0,
+      "mgo": 0.0
+     },
+     "emissions": {
+      "co2_t": 7006.968567173077,
+      "co2e_t": 7117.450955306731,
+      "ets_covered_t": 0.0
+     },
+     "ets_all_usd": 0.0,
+     "fueleu": {
+      "energy_mj": 0.0,
+      "intensity_g_mj": 0.0,
+      "target_g_mj": 89.3368,
+      "balance_g": 0.0,
+      "penalty_eur": 0.0,
+      "penalty_usd": 0.0
+     },
+     "war_risk": {
+      "areas": {
+       "gulf": {
+        "days": 6.528946314102564,
+        "periods": 1.0,
+        "usd": 0.0,
+        "ballast_periods": 0.0,
+        "ballast_usd": 0.0
+       },
+       "red_sea": {
+        "days": 0.0,
+        "periods": 0.0,
+        "usd": 0.0,
+        "ballast_periods": 0.0,
+        "ballast_usd": 0.0
+       }
+      },
+      "charter_usd": 0.0,
+      "ballast_usd": 0.0,
+      "premium_usd": 0.0,
+      "total_usd": 0.0
+     },
+     "revenue": {
+      "gross_usd": 20445858.000000004,
+      "other_usd": 0.0,
+      "commission_usd": 766719.6750000002,
+      "net_usd": 19679138.325000003
+     },
+     "costs": {
+      "bunkers": 2340156.49,
+      "ports": 0.0,
+      "canals": 0.0,
+      "ets": 0.0,
+      "war_risk": 0.0,
+      "other": 0.0,
+      "fueleu": 0.0,
+      "total_usd": 2340156.49
+     },
+     "charterer_costs_usd": 0.0,
+     "result_usd": 17338981.835,
+     "tce_usd_day": 368857.9106806443
+    },
+    "breakeven_zero": {
+     "hire_usd_day": null,
+     "usd_t": 9.00493117845118,
+     "lump_sum_usd": 2431331.4181818184,
+     "ws": null
+    },
+    "breakeven_target": {
+     "hire_usd_day": null,
+     "usd_t": 13.527029450549453,
+     "lump_sum_usd": 3652297.951648352,
+     "ws": null
+    },
+    "sensitivities": [
+     {
+      "id": "freight",
+      "low": 0.9,
+      "high": 1.1,
+      "low_tce_usd_day": 326993.82710508816,
+      "high_tce_usd_day": 410721.99425620044,
+      "base_tce_usd_day": 368857.9106806443
+     },
+     {
+      "id": "bunkers",
+      "low": 0.9,
+      "high": 1.1,
+      "low_tce_usd_day": 373836.20318813605,
+      "high_tce_usd_day": 363879.6181731527,
+      "base_tce_usd_day": 368857.9106806443
+     },
+     {
+      "id": "speed",
+      "low": -1.0,
+      "high": 1.0,
+      "low_tce_usd_day": 348352.4662804359,
+      "high_tce_usd_day": 387067.36271882337,
+      "base_tce_usd_day": 368857.9106806443
+     },
+     {
+      "id": "port_days",
+      "low": -1.0,
+      "high": 1.0,
+      "low_tce_usd_day": 377101.355523277,
+      "high_tce_usd_day": 360957.89111010963,
+      "base_tce_usd_day": 368857.9106806443
+     },
+     {
+      "id": "eua",
+      "low": 0.8,
+      "high": 1.2,
+      "low_tce_usd_day": 368857.9106806443,
+      "high_tce_usd_day": 368857.9106806443,
+      "base_tce_usd_day": 368857.9106806443
+     }
+    ],
+    "hedge": {
+     "tc_hedge_days": 47.00721153846155,
+     "tc_hedge_days_net": 45.24444110576924,
+     "route_hedge_t": 270000,
+     "route_ffa_tce_usd_day": 326993.82710508816,
+     "physical_tce_gross_usd_day": 383228.9981097603,
+     "basis_vs_tc_ffa_usd_day": 353228.9981097603,
+     "basis_vs_route_ffa_usd_day": 41864.08357555611
     },
     "power_fit": {
      "a": 0.21283956020228187,
@@ -76656,6 +78715,307 @@
    }
   },
   {
+   "name": "anchor TD3C 2026-04-17 at the implied flat rate",
+   "inputs": {
+    "contract": "voyage",
+    "freight_basis": "usd_t",
+    "freight_value": 96.66781800000001,
+    "flat_rate_usd_t": null,
+    "cargo_t": 270000,
+    "commission_pct": 3.75,
+    "other_revenue_usd": 0.0,
+    "sea_margin": 0.05,
+    "laden": {
+     "distance_nm": 5848.8,
+     "speed_kn": 13,
+     "eca_nm": 0.0,
+     "ets_share": 0.0
+    },
+    "ballast": {
+     "distance_nm": 5848.8,
+     "speed_kn": 12,
+     "eca_nm": 0.0,
+     "ets_share": 0.0
+    },
+    "laden_curve": [
+     [
+      13,
+      57.3
+     ],
+     [
+      11,
+      39.8
+     ]
+    ],
+    "ballast_curve": [
+     [
+      12,
+      39.5
+     ],
+     [
+      11,
+      28.5
+     ]
+    ],
+    "mgo_at_sea_tpd": 0.0,
+    "scrubber": false,
+    "scrubber_in_eca": false,
+    "vlsfo_class": "HFO",
+    "port": {
+     "load_days": 2,
+     "discharge_days": 2,
+     "waiting_days": 2,
+     "canal_days": 0.0,
+     "delay_days": 0.0,
+     "sts_days": 0.0,
+     "load_tpd": 20,
+     "discharge_tpd": 110,
+     "waiting_tpd": 10,
+     "canal_tpd": 0.0,
+     "delay_tpd": 10,
+     "sts_tpd": 20,
+     "load_eca": false,
+     "discharge_eca": false,
+     "waiting_eca": false,
+     "canal_eca": false,
+     "delay_eca": false,
+     "sts_eca": false,
+     "load_ets_share": 0.0,
+     "discharge_ets_share": 0.0,
+     "waiting_ets_share": 0.0,
+     "canal_ets_share": 0.0,
+     "delay_ets_share": 0.0,
+     "sts_ets_share": 0.0
+    },
+    "prices": {
+     "vlsfo_usd_t": 816.0,
+     "hsfo_usd_t": 714.0,
+     "mgo_usd_t": 1685.0
+    },
+    "ets": {
+     "phase_in": 1.0,
+     "eua_eur_t": 68.49,
+     "usd_per_eur": 1.167676923076923,
+     "include_non_co2": true
+    },
+    "fueleu": {
+     "include": false,
+     "reduction_pct": 2.0
+    },
+    "costs": {
+     "port_load_usd": 0.0,
+     "port_discharge_usd": 0.0,
+     "canal_laden_usd": 0.0,
+     "canal_ballast_usd": 0.0,
+     "other_usd": 0.0,
+     "sts_usd": 0.0
+    },
+    "war_risk": {
+     "hull_value_usd": 157000000.0,
+     "crew_bonus_usd": 0.0,
+     "payer": "charterer",
+     "areas": {
+      "gulf": {
+       "premium_pct": 0.0,
+       "entries": 1,
+       "laden_nm": 360.7,
+       "ballast_nm": 360.7,
+       "port_activities": [
+        "load",
+        "waiting",
+        "delay"
+       ],
+       "ballast_transits": 0
+      },
+      "red_sea": {
+       "premium_pct": 0.0,
+       "entries": 0,
+       "laden_nm": 0.0,
+       "ballast_nm": 0.0,
+       "port_activities": [],
+       "ballast_transits": 0
+      }
+     }
+    }
+   },
+   "calls": {
+    "target_tce_usd_day": 25000.0,
+    "tc_ffa_usd_day": 30000.0,
+    "route_ffa_usd_t": 87.00103620000002,
+    "speed_bounds_kn": [
+     9.0,
+     15.0
+    ]
+   },
+   "output": {
+    "evaluate": {
+     "days": {
+      "ballast_sea": 21.323750000000004,
+      "laden_sea": 19.68346153846154,
+      "load": 2,
+      "discharge": 2,
+      "waiting": 2,
+      "canal": 0.0,
+      "delay": 0.0,
+      "sts": 0.0,
+      "port_total": 6.0,
+      "sea_total": 41.00721153846155,
+      "total": 47.00721153846155,
+      "trip": 25.683461538461543
+     },
+     "fuel_t": {
+      "vlsfo": 2250.1504711538464,
+      "hsfo": 0.0,
+      "mgo": 0.0
+     },
+     "fuel_total_t": 2250.1504711538464,
+     "bunkers_by_activity_usd": {
+      "ballast": 687307.1100000001,
+      "laden": 920335.6744615384,
+      "load": 32640.0,
+      "discharge": 179520.0,
+      "waiting": 16320.0,
+      "canal": 0.0,
+      "delay": 0.0,
+      "sts": 0.0
+     },
+     "bunkers_by_grade_usd": {
+      "vlsfo": 1836122.7844615385,
+      "hsfo": 0.0,
+      "mgo": 0.0
+     },
+     "emissions": {
+      "co2_t": 7006.968567173077,
+      "co2e_t": 7117.450955306731,
+      "ets_covered_t": 0.0
+     },
+     "ets_all_usd": 0.0,
+     "fueleu": {
+      "energy_mj": 0.0,
+      "intensity_g_mj": 0.0,
+      "target_g_mj": 89.3368,
+      "balance_g": 0.0,
+      "penalty_eur": 0.0,
+      "penalty_usd": 0.0
+     },
+     "war_risk": {
+      "areas": {
+       "gulf": {
+        "days": 6.528946314102564,
+        "periods": 1.0,
+        "usd": 0.0,
+        "ballast_periods": 0.0,
+        "ballast_usd": 0.0
+       },
+       "red_sea": {
+        "days": 0.0,
+        "periods": 0.0,
+        "usd": 0.0,
+        "ballast_periods": 0.0,
+        "ballast_usd": 0.0
+       }
+      },
+      "charter_usd": 0.0,
+      "ballast_usd": 0.0,
+      "premium_usd": 0.0,
+      "total_usd": 0.0
+     },
+     "revenue": {
+      "gross_usd": 26100310.860000003,
+      "other_usd": 0.0,
+      "commission_usd": 978761.65725,
+      "net_usd": 25121549.202750005
+     },
+     "costs": {
+      "bunkers": 1836122.7844615385,
+      "ports": 0.0,
+      "canals": 0.0,
+      "ets": 0.0,
+      "war_risk": 0.0,
+      "other": 0.0,
+      "fueleu": 0.0,
+      "total_usd": 1836122.7844615385
+     },
+     "charterer_costs_usd": 0.0,
+     "result_usd": 23285426.418288466,
+     "tce_usd_day": 495358.59831286117
+    },
+    "breakeven_zero": {
+     "hire_usd_day": null,
+     "usd_t": 7.06540754001554,
+     "lump_sum_usd": 1907660.0358041958,
+     "ws": null
+    },
+    "breakeven_target": {
+     "hire_usd_day": null,
+     "usd_t": 11.587505812113813,
+     "lump_sum_usd": 3128626.5692707296,
+     "ws": null
+    },
+    "sensitivities": [
+     {
+      "id": "freight",
+      "low": 0.9,
+      "high": 1.1,
+      "low_tce_usd_day": 441916.69359108154,
+      "high_tce_usd_day": 548800.5030346408,
+      "base_tce_usd_day": 495358.59831286117
+     },
+     {
+      "id": "bunkers",
+      "low": 0.9,
+      "high": 1.1,
+      "low_tce_usd_day": 499264.6432033547,
+      "high_tce_usd_day": 491452.5534223677,
+      "base_tce_usd_day": 495358.59831286117
+     },
+     {
+      "id": "speed",
+      "low": -1.0,
+      "high": 1.0,
+      "low_tce_usd_day": 464699.57078738516,
+      "high_tce_usd_day": 523916.9960455554,
+      "base_tce_usd_day": 495358.59831286117
+     },
+     {
+      "id": "port_days",
+      "low": -1.0,
+      "high": 1.0,
+      "low_tce_usd_day": 506302.93902544543,
+      "high_tce_usd_day": 484870.203295178,
+      "base_tce_usd_day": 495358.59831286117
+     },
+     {
+      "id": "eua",
+      "low": 0.8,
+      "high": 1.2,
+      "low_tce_usd_day": 495358.59831286117,
+      "high_tce_usd_day": 495358.59831286117,
+      "base_tce_usd_day": 495358.59831286117
+     }
+    ],
+    "hedge": {
+     "tc_hedge_days": 47.00721153846155,
+     "tc_hedge_days_net": 45.24444110576924,
+     "route_hedge_t": 270000,
+     "route_ffa_tce_usd_day": 441916.69359108154,
+     "physical_tce_gross_usd_day": 514658.2839614142,
+     "basis_vs_tc_ffa_usd_day": 484658.2839614142,
+     "basis_vs_route_ffa_usd_day": 53441.90472177963
+    },
+    "power_fit": {
+     "a": 0.21283956020228187,
+     "b": 2.181531281711046,
+     "r2": 1.0
+    },
+    "optimal": {
+     "laden_kn": 15.0,
+     "ballast_kn": 14.0,
+     "tce_usd_day": 550429.8870565798
+    }
+   }
+  },
+  {
    "name": "anchor TD22 2026-04-17",
    "inputs": {
     "contract": "voyage",
@@ -76945,6 +79305,299 @@
    }
   },
   {
+   "name": "anchor TD3C 2026-06-26 at the implied flat rate",
+   "inputs": {
+    "contract": "voyage",
+    "freight_basis": "usd_t",
+    "freight_value": 65.978341,
+    "flat_rate_usd_t": null,
+    "cargo_t": 270000,
+    "commission_pct": 3.75,
+    "other_revenue_usd": 0.0,
+    "sea_margin": 0.05,
+    "laden": {
+     "distance_nm": 5848.8,
+     "speed_kn": 13,
+     "eca_nm": 0.0,
+     "ets_share": 0.0
+    },
+    "ballast": {
+     "distance_nm": 5848.8,
+     "speed_kn": 12,
+     "eca_nm": 0.0,
+     "ets_share": 0.0
+    },
+    "laden_curve": [
+     [
+      13,
+      57.3
+     ],
+     [
+      11,
+      39.8
+     ]
+    ],
+    "ballast_curve": [
+     [
+      12,
+      39.5
+     ],
+     [
+      11,
+      28.5
+     ]
+    ],
+    "mgo_at_sea_tpd": 0.0,
+    "scrubber": false,
+    "scrubber_in_eca": false,
+    "vlsfo_class": "HFO",
+    "port": {
+     "load_days": 2,
+     "discharge_days": 2,
+     "waiting_days": 2,
+     "canal_days": 0.0,
+     "delay_days": 0.0,
+     "sts_days": 0.0,
+     "load_tpd": 20,
+     "discharge_tpd": 110,
+     "waiting_tpd": 10,
+     "canal_tpd": 0.0,
+     "delay_tpd": 10,
+     "sts_tpd": 20,
+     "load_eca": false,
+     "discharge_eca": false,
+     "waiting_eca": false,
+     "canal_eca": false,
+     "delay_eca": false,
+     "sts_eca": false,
+     "load_ets_share": 0.0,
+     "discharge_ets_share": 0.0,
+     "waiting_ets_share": 0.0,
+     "canal_ets_share": 0.0,
+     "delay_ets_share": 0.0,
+     "sts_ets_share": 0.0
+    },
+    "prices": {
+     "vlsfo_usd_t": 1203.0,
+     "hsfo_usd_t": 603.0,
+     "mgo_usd_t": 1424.0
+    },
+    "ets": {
+     "phase_in": 1.0,
+     "eua_eur_t": 75.98,
+     "usd_per_eur": 1.1526315789473685,
+     "include_non_co2": true
+    },
+    "fueleu": {
+     "include": false,
+     "reduction_pct": 2.0
+    },
+    "costs": {
+     "port_load_usd": 0.0,
+     "port_discharge_usd": 0.0,
+     "canal_laden_usd": 0.0,
+     "canal_ballast_usd": 0.0,
+     "other_usd": 0.0,
+     "sts_usd": 0.0
+    },
+    "war_risk": {
+     "hull_value_usd": 157000000.0,
+     "crew_bonus_usd": 0.0,
+     "payer": "charterer",
+     "areas": {
+      "gulf": {
+       "premium_pct": 0.0,
+       "entries": 1,
+       "laden_nm": 360.7,
+       "ballast_nm": 360.7,
+       "port_activities": [
+        "load",
+        "waiting",
+        "delay"
+       ],
+       "ballast_transits": 0
+      },
+      "red_sea": {
+       "premium_pct": 0.0,
+       "entries": 0,
+       "laden_nm": 0.0,
+       "ballast_nm": 0.0,
+       "port_activities": [],
+       "ballast_transits": 0
+      }
+     }
+    }
+   },
+   "calls": {
+    "target_tce_usd_day": 25000.0,
+    "tc_ffa_usd_day": 30000.0,
+    "route_ffa_usd_t": 59.3805069,
+    "speed_bounds_kn": null
+   },
+   "output": {
+    "evaluate": {
+     "days": {
+      "ballast_sea": 21.323750000000004,
+      "laden_sea": 19.68346153846154,
+      "load": 2,
+      "discharge": 2,
+      "waiting": 2,
+      "canal": 0.0,
+      "delay": 0.0,
+      "sts": 0.0,
+      "port_total": 6.0,
+      "sea_total": 41.00721153846155,
+      "total": 47.00721153846155,
+      "trip": 25.683461538461543
+     },
+     "fuel_t": {
+      "vlsfo": 2250.1504711538464,
+      "hsfo": 0.0,
+      "mgo": 0.0
+     },
+     "fuel_total_t": 2250.1504711538464,
+     "bunkers_by_activity_usd": {
+      "ballast": 1013272.6143750002,
+      "laden": 1356818.402423077,
+      "load": 48120.0,
+      "discharge": 264660.0,
+      "waiting": 24060.0,
+      "canal": 0.0,
+      "delay": 0.0,
+      "sts": 0.0
+     },
+     "bunkers_by_grade_usd": {
+      "vlsfo": 2706931.016798077,
+      "hsfo": 0.0,
+      "mgo": 0.0
+     },
+     "emissions": {
+      "co2_t": 7006.968567173077,
+      "co2e_t": 7117.450955306731,
+      "ets_covered_t": 0.0
+     },
+     "ets_all_usd": 0.0,
+     "fueleu": {
+      "energy_mj": 0.0,
+      "intensity_g_mj": 0.0,
+      "target_g_mj": 89.3368,
+      "balance_g": 0.0,
+      "penalty_eur": 0.0,
+      "penalty_usd": 0.0
+     },
+     "war_risk": {
+      "areas": {
+       "gulf": {
+        "days": 6.528946314102564,
+        "periods": 1.0,
+        "usd": 0.0,
+        "ballast_periods": 0.0,
+        "ballast_usd": 0.0
+       },
+       "red_sea": {
+        "days": 0.0,
+        "periods": 0.0,
+        "usd": 0.0,
+        "ballast_periods": 0.0,
+        "ballast_usd": 0.0
+       }
+      },
+      "charter_usd": 0.0,
+      "ballast_usd": 0.0,
+      "premium_usd": 0.0,
+      "total_usd": 0.0
+     },
+     "revenue": {
+      "gross_usd": 17814152.07,
+      "other_usd": 0.0,
+      "commission_usd": 668030.702625,
+      "net_usd": 17146121.367375
+     },
+     "costs": {
+      "bunkers": 2706931.016798077,
+      "ports": 0.0,
+      "canals": 0.0,
+      "ets": 0.0,
+      "war_risk": 0.0,
+      "other": 0.0,
+      "fueleu": 0.0,
+      "total_usd": 2706931.016798077
+     },
+     "charterer_costs_usd": 0.0,
+     "result_usd": 14439190.350576924,
+     "tce_usd_day": 307169.6847783175
+    },
+    "breakeven_zero": {
+     "hire_usd_day": null,
+     "usd_t": 10.416280968919969,
+     "lump_sum_usd": 2812395.8616083916,
+     "ws": null
+    },
+    "breakeven_target": {
+     "hire_usd_day": null,
+     "usd_t": 14.938379241018245,
+     "lump_sum_usd": 4033362.395074926,
+     "ws": null
+    },
+    "sensitivities": [
+     {
+      "id": "freight",
+      "low": 0.9,
+      "high": 1.1,
+      "low_tce_usd_day": 270694.1721788391,
+      "high_tce_usd_day": 343645.1973777959,
+      "base_tce_usd_day": 307169.6847783175
+     },
+     {
+      "id": "bunkers",
+      "low": 0.9,
+      "high": 1.1,
+      "low_tce_usd_day": 312928.2288999642,
+      "high_tce_usd_day": 301411.1406566709,
+      "base_tce_usd_day": 307169.6847783175
+     },
+     {
+      "id": "speed",
+      "low": -1.0,
+      "high": 1.0,
+      "low_tce_usd_day": 291904.6495552131,
+      "high_tce_usd_day": 319952.46026330075,
+      "base_tce_usd_day": 307169.6847783175
+     },
+     {
+      "id": "port_days",
+      "low": -1.0,
+      "high": 1.0,
+      "low_tce_usd_day": 314107.72066670144,
+      "high_tce_usd_day": 300520.6902929247,
+      "base_tce_usd_day": 307169.6847783175
+     },
+     {
+      "id": "eua",
+      "low": 0.8,
+      "high": 1.2,
+      "low_tce_usd_day": 307169.6847783175,
+      "high_tce_usd_day": 307169.6847783175,
+      "base_tce_usd_day": 307169.6847783175
+     }
+    ],
+    "hedge": {
+     "tc_hedge_days": 47.00721153846155,
+     "tc_hedge_days_net": 45.24444110576924,
+     "route_hedge_t": 270000,
+     "route_ffa_tce_usd_day": 270694.1721788391,
+     "physical_tce_gross_usd_day": 319137.3348346156,
+     "basis_vs_tc_ffa_usd_day": 289137.3348346156,
+     "basis_vs_route_ffa_usd_day": 36475.51259947842
+    },
+    "power_fit": {
+     "a": 0.21283956020228187,
+     "b": 2.181531281711046,
+     "r2": 1.0
+    }
+   }
+  },
+  {
    "name": "anchor TD22 2026-06-26",
    "inputs": {
     "contract": "voyage",
@@ -77225,6 +79878,299 @@
      "physical_tce_gross_usd_day": 159142.0018580994,
      "basis_vs_tc_ffa_usd_day": 129142.0018580994,
      "basis_vs_route_ffa_usd_day": 18499.052540146193
+    },
+    "power_fit": {
+     "a": 0.21283956020228187,
+     "b": 2.181531281711046,
+     "r2": 1.0
+    }
+   }
+  },
+  {
+   "name": "anchor TD3C 2026-09-11 at the implied flat rate",
+   "inputs": {
+    "contract": "voyage",
+    "freight_basis": "usd_t",
+    "freight_value": 169.887659,
+    "flat_rate_usd_t": null,
+    "cargo_t": 270000,
+    "commission_pct": 3.75,
+    "other_revenue_usd": 0.0,
+    "sea_margin": 0.05,
+    "laden": {
+     "distance_nm": 5848.8,
+     "speed_kn": 13,
+     "eca_nm": 0.0,
+     "ets_share": 0.0
+    },
+    "ballast": {
+     "distance_nm": 5848.8,
+     "speed_kn": 12,
+     "eca_nm": 0.0,
+     "ets_share": 0.0
+    },
+    "laden_curve": [
+     [
+      13,
+      57.3
+     ],
+     [
+      11,
+      39.8
+     ]
+    ],
+    "ballast_curve": [
+     [
+      12,
+      39.5
+     ],
+     [
+      11,
+      28.5
+     ]
+    ],
+    "mgo_at_sea_tpd": 0.0,
+    "scrubber": false,
+    "scrubber_in_eca": false,
+    "vlsfo_class": "HFO",
+    "port": {
+     "load_days": 2,
+     "discharge_days": 2,
+     "waiting_days": 2,
+     "canal_days": 0.0,
+     "delay_days": 0.0,
+     "sts_days": 0.0,
+     "load_tpd": 20,
+     "discharge_tpd": 110,
+     "waiting_tpd": 10,
+     "canal_tpd": 0.0,
+     "delay_tpd": 10,
+     "sts_tpd": 20,
+     "load_eca": false,
+     "discharge_eca": false,
+     "waiting_eca": false,
+     "canal_eca": false,
+     "delay_eca": false,
+     "sts_eca": false,
+     "load_ets_share": 0.0,
+     "discharge_ets_share": 0.0,
+     "waiting_ets_share": 0.0,
+     "canal_ets_share": 0.0,
+     "delay_ets_share": 0.0,
+     "sts_ets_share": 0.0
+    },
+    "prices": {
+     "vlsfo_usd_t": 780.0,
+     "hsfo_usd_t": 621.0,
+     "mgo_usd_t": 1388.0
+    },
+    "ets": {
+     "phase_in": 1.0,
+     "eua_eur_t": 82.31,
+     "usd_per_eur": 1.1614125,
+     "include_non_co2": true
+    },
+    "fueleu": {
+     "include": false,
+     "reduction_pct": 2.0
+    },
+    "costs": {
+     "port_load_usd": 0.0,
+     "port_discharge_usd": 0.0,
+     "canal_laden_usd": 0.0,
+     "canal_ballast_usd": 0.0,
+     "other_usd": 0.0,
+     "sts_usd": 0.0
+    },
+    "war_risk": {
+     "hull_value_usd": 157000000.0,
+     "crew_bonus_usd": 0.0,
+     "payer": "charterer",
+     "areas": {
+      "gulf": {
+       "premium_pct": 0.0,
+       "entries": 1,
+       "laden_nm": 360.7,
+       "ballast_nm": 360.7,
+       "port_activities": [
+        "load",
+        "waiting",
+        "delay"
+       ],
+       "ballast_transits": 0
+      },
+      "red_sea": {
+       "premium_pct": 0.0,
+       "entries": 0,
+       "laden_nm": 0.0,
+       "ballast_nm": 0.0,
+       "port_activities": [],
+       "ballast_transits": 0
+      }
+     }
+    }
+   },
+   "calls": {
+    "target_tce_usd_day": 25000.0,
+    "tc_ffa_usd_day": 30000.0,
+    "route_ffa_usd_t": 152.8988931,
+    "speed_bounds_kn": null
+   },
+   "output": {
+    "evaluate": {
+     "days": {
+      "ballast_sea": 21.323750000000004,
+      "laden_sea": 19.68346153846154,
+      "load": 2,
+      "discharge": 2,
+      "waiting": 2,
+      "canal": 0.0,
+      "delay": 0.0,
+      "sts": 0.0,
+      "port_total": 6.0,
+      "sea_total": 41.00721153846155,
+      "total": 47.00721153846155,
+      "trip": 25.683461538461543
+     },
+     "fuel_t": {
+      "vlsfo": 2250.1504711538464,
+      "hsfo": 0.0,
+      "mgo": 0.0
+     },
+     "fuel_total_t": 2250.1504711538464,
+     "bunkers_by_activity_usd": {
+      "ballast": 656984.7375000002,
+      "laden": 879732.63,
+      "load": 31200.0,
+      "discharge": 171600.0,
+      "waiting": 15600.0,
+      "canal": 0.0,
+      "delay": 0.0,
+      "sts": 0.0
+     },
+     "bunkers_by_grade_usd": {
+      "vlsfo": 1755117.3675000002,
+      "hsfo": 0.0,
+      "mgo": 0.0
+     },
+     "emissions": {
+      "co2_t": 7006.968567173077,
+      "co2e_t": 7117.450955306731,
+      "ets_covered_t": 0.0
+     },
+     "ets_all_usd": 0.0,
+     "fueleu": {
+      "energy_mj": 0.0,
+      "intensity_g_mj": 0.0,
+      "target_g_mj": 89.3368,
+      "balance_g": 0.0,
+      "penalty_eur": 0.0,
+      "penalty_usd": 0.0
+     },
+     "war_risk": {
+      "areas": {
+       "gulf": {
+        "days": 6.528946314102564,
+        "periods": 1.0,
+        "usd": 0.0,
+        "ballast_periods": 0.0,
+        "ballast_usd": 0.0
+       },
+       "red_sea": {
+        "days": 0.0,
+        "periods": 0.0,
+        "usd": 0.0,
+        "ballast_periods": 0.0,
+        "ballast_usd": 0.0
+       }
+      },
+      "charter_usd": 0.0,
+      "ballast_usd": 0.0,
+      "premium_usd": 0.0,
+      "total_usd": 0.0
+     },
+     "revenue": {
+      "gross_usd": 45869667.93000001,
+      "other_usd": 0.0,
+      "commission_usd": 1720112.547375,
+      "net_usd": 44149555.382625006
+     },
+     "costs": {
+      "bunkers": 1755117.3675000002,
+      "ports": 0.0,
+      "canals": 0.0,
+      "ets": 0.0,
+      "war_risk": 0.0,
+      "other": 0.0,
+      "fueleu": 0.0,
+      "total_usd": 1755117.3675000002
+     },
+     "charterer_costs_usd": 0.0,
+     "result_usd": 42394438.01512501,
+     "tce_usd_day": 901870.9391097928
+    },
+    "breakeven_zero": {
+     "hire_usd_day": null,
+     "usd_t": 6.753698383838384,
+     "lump_sum_usd": 1823498.5636363637,
+     "ws": null
+    },
+    "breakeven_target": {
+     "hire_usd_day": null,
+     "usd_t": 11.275796655936656,
+     "lump_sum_usd": 3044465.0971028972,
+     "ws": null
+    },
+    "sensitivities": [
+     {
+      "id": "freight",
+      "low": 0.9,
+      "high": 1.1,
+      "low_tce_usd_day": 807950.1258181948,
+      "high_tce_usd_day": 995791.7524013909,
+      "base_tce_usd_day": 901870.9391097928
+     },
+     {
+      "id": "bunkers",
+      "low": 0.9,
+      "high": 1.1,
+      "low_tce_usd_day": 905604.6584904116,
+      "high_tce_usd_day": 898137.2197291742,
+      "base_tce_usd_day": 901870.9391097928
+     },
+     {
+      "id": "speed",
+      "low": -1.0,
+      "high": 1.0,
+      "low_tce_usd_day": 842258.8627070899,
+      "high_tce_usd_day": 958852.8150357447,
+      "base_tce_usd_day": 901870.9391097928
+     },
+     {
+      "id": "port_days",
+      "low": -1.0,
+      "high": 1.0,
+      "low_tce_usd_day": 921643.2945447515,
+      "high_tce_usd_day": 882922.3080612888,
+      "base_tce_usd_day": 901870.9391097928
+     },
+     {
+      "id": "eua",
+      "low": 0.8,
+      "high": 1.2,
+      "low_tce_usd_day": 901870.9391097928,
+      "high_tce_usd_day": 901870.9391097928,
+      "base_tce_usd_day": 901870.9391097928
+     }
+    ],
+    "hedge": {
+     "tc_hedge_days": 47.00721153846155,
+     "tc_hedge_days_net": 45.24444110576924,
+     "route_hedge_t": 270000,
+     "route_ffa_tce_usd_day": 807950.1258181948,
+     "physical_tce_gross_usd_day": 937008.7679062783,
+     "basis_vs_tc_ffa_usd_day": 907008.7679062783,
+     "basis_vs_route_ffa_usd_day": 93920.813291598
     },
     "power_fit": {
      "a": 0.21283956020228187,
@@ -77527,6 +80473,299 @@
      "laden_kn": 15.0,
      "ballast_kn": 14.0,
      "tce_usd_day": 297344.76337598846
+    }
+   }
+  },
+  {
+   "name": "anchor TD3C 2026-10-09 at the implied flat rate",
+   "inputs": {
+    "contract": "voyage",
+    "freight_basis": "usd_t",
+    "freight_value": 272.849375,
+    "flat_rate_usd_t": null,
+    "cargo_t": 270000,
+    "commission_pct": 3.75,
+    "other_revenue_usd": 0.0,
+    "sea_margin": 0.05,
+    "laden": {
+     "distance_nm": 5848.8,
+     "speed_kn": 13,
+     "eca_nm": 0.0,
+     "ets_share": 0.0
+    },
+    "ballast": {
+     "distance_nm": 5848.8,
+     "speed_kn": 12,
+     "eca_nm": 0.0,
+     "ets_share": 0.0
+    },
+    "laden_curve": [
+     [
+      13,
+      57.3
+     ],
+     [
+      11,
+      39.8
+     ]
+    ],
+    "ballast_curve": [
+     [
+      12,
+      39.5
+     ],
+     [
+      11,
+      28.5
+     ]
+    ],
+    "mgo_at_sea_tpd": 0.0,
+    "scrubber": false,
+    "scrubber_in_eca": false,
+    "vlsfo_class": "HFO",
+    "port": {
+     "load_days": 2,
+     "discharge_days": 2,
+     "waiting_days": 2,
+     "canal_days": 0.0,
+     "delay_days": 0.0,
+     "sts_days": 0.0,
+     "load_tpd": 20,
+     "discharge_tpd": 110,
+     "waiting_tpd": 10,
+     "canal_tpd": 0.0,
+     "delay_tpd": 10,
+     "sts_tpd": 20,
+     "load_eca": false,
+     "discharge_eca": false,
+     "waiting_eca": false,
+     "canal_eca": false,
+     "delay_eca": false,
+     "sts_eca": false,
+     "load_ets_share": 0.0,
+     "discharge_ets_share": 0.0,
+     "waiting_ets_share": 0.0,
+     "canal_ets_share": 0.0,
+     "delay_ets_share": 0.0,
+     "sts_ets_share": 0.0
+    },
+    "prices": {
+     "vlsfo_usd_t": 1014.0,
+     "hsfo_usd_t": 749.0,
+     "mgo_usd_t": 1707.0
+    },
+    "ets": {
+     "phase_in": 1.0,
+     "eua_eur_t": 82.31,
+     "usd_per_eur": 1.1219428571428571,
+     "include_non_co2": true
+    },
+    "fueleu": {
+     "include": false,
+     "reduction_pct": 2.0
+    },
+    "costs": {
+     "port_load_usd": 0.0,
+     "port_discharge_usd": 0.0,
+     "canal_laden_usd": 0.0,
+     "canal_ballast_usd": 0.0,
+     "other_usd": 0.0,
+     "sts_usd": 0.0
+    },
+    "war_risk": {
+     "hull_value_usd": 157000000.0,
+     "crew_bonus_usd": 0.0,
+     "payer": "charterer",
+     "areas": {
+      "gulf": {
+       "premium_pct": 0.0,
+       "entries": 1,
+       "laden_nm": 360.7,
+       "ballast_nm": 360.7,
+       "port_activities": [
+        "load",
+        "waiting",
+        "delay"
+       ],
+       "ballast_transits": 0
+      },
+      "red_sea": {
+       "premium_pct": 0.0,
+       "entries": 0,
+       "laden_nm": 0.0,
+       "ballast_nm": 0.0,
+       "port_activities": [],
+       "ballast_transits": 0
+      }
+     }
+    }
+   },
+   "calls": {
+    "target_tce_usd_day": 25000.0,
+    "tc_ffa_usd_day": 30000.0,
+    "route_ffa_usd_t": 245.56443750000003,
+    "speed_bounds_kn": null
+   },
+   "output": {
+    "evaluate": {
+     "days": {
+      "ballast_sea": 21.323750000000004,
+      "laden_sea": 19.68346153846154,
+      "load": 2,
+      "discharge": 2,
+      "waiting": 2,
+      "canal": 0.0,
+      "delay": 0.0,
+      "sts": 0.0,
+      "port_total": 6.0,
+      "sea_total": 41.00721153846155,
+      "total": 47.00721153846155,
+      "trip": 25.683461538461543
+     },
+     "fuel_t": {
+      "vlsfo": 2250.1504711538464,
+      "hsfo": 0.0,
+      "mgo": 0.0
+     },
+     "fuel_total_t": 2250.1504711538464,
+     "bunkers_by_activity_usd": {
+      "ballast": 854080.1587500002,
+      "laden": 1143652.419,
+      "load": 40560.0,
+      "discharge": 223080.0,
+      "waiting": 20280.0,
+      "canal": 0.0,
+      "delay": 0.0,
+      "sts": 0.0
+     },
+     "bunkers_by_grade_usd": {
+      "vlsfo": 2281652.57775,
+      "hsfo": 0.0,
+      "mgo": 0.0
+     },
+     "emissions": {
+      "co2_t": 7006.968567173077,
+      "co2e_t": 7117.450955306731,
+      "ets_covered_t": 0.0
+     },
+     "ets_all_usd": 0.0,
+     "fueleu": {
+      "energy_mj": 0.0,
+      "intensity_g_mj": 0.0,
+      "target_g_mj": 89.3368,
+      "balance_g": 0.0,
+      "penalty_eur": 0.0,
+      "penalty_usd": 0.0
+     },
+     "war_risk": {
+      "areas": {
+       "gulf": {
+        "days": 6.528946314102564,
+        "periods": 1.0,
+        "usd": 0.0,
+        "ballast_periods": 0.0,
+        "ballast_usd": 0.0
+       },
+       "red_sea": {
+        "days": 0.0,
+        "periods": 0.0,
+        "usd": 0.0,
+        "ballast_periods": 0.0,
+        "ballast_usd": 0.0
+       }
+      },
+      "charter_usd": 0.0,
+      "ballast_usd": 0.0,
+      "premium_usd": 0.0,
+      "total_usd": 0.0
+     },
+     "revenue": {
+      "gross_usd": 73669331.25,
+      "other_usd": 0.0,
+      "commission_usd": 2762599.921875,
+      "net_usd": 70906731.328125
+     },
+     "costs": {
+      "bunkers": 2281652.57775,
+      "ports": 0.0,
+      "canals": 0.0,
+      "ets": 0.0,
+      "war_risk": 0.0,
+      "other": 0.0,
+      "fueleu": 0.0,
+      "total_usd": 2281652.57775
+     },
+     "charterer_costs_usd": 0.0,
+     "result_usd": 68625078.750375,
+     "tce_usd_day": 1459884.058305088
+    },
+    "breakeven_zero": {
+     "hire_usd_day": null,
+     "usd_t": 8.7798078989899,
+     "lump_sum_usd": 2370548.132727273,
+     "ws": null
+    },
+    "breakeven_target": {
+     "hire_usd_day": null,
+     "usd_t": 13.301906171088174,
+     "lump_sum_usd": 3591514.666193807,
+     "ws": null
+    },
+    "sensitivities": [
+     {
+      "id": "freight",
+      "low": 0.9,
+      "high": 1.1,
+      "low_tce_usd_day": 1309041.817279775,
+      "high_tce_usd_day": 1610726.2993304012,
+      "base_tce_usd_day": 1459884.058305088
+     },
+     {
+      "id": "bunkers",
+      "low": 0.9,
+      "high": 1.1,
+      "low_tce_usd_day": 1464737.8934998922,
+      "high_tce_usd_day": 1455030.2231102835,
+      "base_tce_usd_day": 1459884.058305088
+     },
+     {
+      "id": "speed",
+      "low": -1.0,
+      "high": 1.0,
+      "low_tce_usd_day": 1362051.9933870519,
+      "high_tce_usd_day": 1553879.309728688,
+      "base_tce_usd_day": 1459884.058305088
+     },
+     {
+      "id": "port_days",
+      "low": -1.0,
+      "high": 1.0,
+      "low_tce_usd_day": 1491836.0938479542,
+      "high_tce_usd_day": 1429263.1575862998,
+      "base_tce_usd_day": 1459884.058305088
+     },
+     {
+      "id": "eua",
+      "low": 0.8,
+      "high": 1.2,
+      "low_tce_usd_day": 1459884.058305088,
+      "high_tce_usd_day": 1459884.058305088,
+      "base_tce_usd_day": 1459884.058305088
+     }
+    ],
+    "hedge": {
+     "tc_hedge_days": 47.00721153846155,
+     "tc_hedge_days_net": 45.24444110576924,
+     "route_hedge_t": 270000,
+     "route_ffa_tce_usd_day": 1309041.817279775,
+     "physical_tce_gross_usd_day": 1516762.6579793121,
+     "basis_vs_tc_ffa_usd_day": 1486762.6579793121,
+     "basis_vs_route_ffa_usd_day": 150842.24102531304
+    },
+    "power_fit": {
+     "a": 0.21283956020228187,
+     "b": 2.181531281711046,
+     "r2": 1.0
     }
    }
   },
@@ -78113,6 +81352,299 @@
    }
   },
   {
+   "name": "anchor TD3C 2026-10-23 at the implied flat rate",
+   "inputs": {
+    "contract": "voyage",
+    "freight_basis": "usd_t",
+    "freight_value": 249.96209700000003,
+    "flat_rate_usd_t": null,
+    "cargo_t": 270000,
+    "commission_pct": 3.75,
+    "other_revenue_usd": 0.0,
+    "sea_margin": 0.05,
+    "laden": {
+     "distance_nm": 5848.8,
+     "speed_kn": 13,
+     "eca_nm": 0.0,
+     "ets_share": 0.0
+    },
+    "ballast": {
+     "distance_nm": 5848.8,
+     "speed_kn": 12,
+     "eca_nm": 0.0,
+     "ets_share": 0.0
+    },
+    "laden_curve": [
+     [
+      13,
+      57.3
+     ],
+     [
+      11,
+      39.8
+     ]
+    ],
+    "ballast_curve": [
+     [
+      12,
+      39.5
+     ],
+     [
+      11,
+      28.5
+     ]
+    ],
+    "mgo_at_sea_tpd": 0.0,
+    "scrubber": false,
+    "scrubber_in_eca": false,
+    "vlsfo_class": "HFO",
+    "port": {
+     "load_days": 2,
+     "discharge_days": 2,
+     "waiting_days": 2,
+     "canal_days": 0.0,
+     "delay_days": 0.0,
+     "sts_days": 0.0,
+     "load_tpd": 20,
+     "discharge_tpd": 110,
+     "waiting_tpd": 10,
+     "canal_tpd": 0.0,
+     "delay_tpd": 10,
+     "sts_tpd": 20,
+     "load_eca": false,
+     "discharge_eca": false,
+     "waiting_eca": false,
+     "canal_eca": false,
+     "delay_eca": false,
+     "sts_eca": false,
+     "load_ets_share": 0.0,
+     "discharge_ets_share": 0.0,
+     "waiting_ets_share": 0.0,
+     "canal_ets_share": 0.0,
+     "delay_ets_share": 0.0,
+     "sts_ets_share": 0.0
+    },
+    "prices": {
+     "vlsfo_usd_t": 974.0,
+     "hsfo_usd_t": 748.0,
+     "mgo_usd_t": 1750.0
+    },
+    "ets": {
+     "phase_in": 1.0,
+     "eua_eur_t": 82.31,
+     "usd_per_eur": 1.12100625,
+     "include_non_co2": true
+    },
+    "fueleu": {
+     "include": false,
+     "reduction_pct": 2.0
+    },
+    "costs": {
+     "port_load_usd": 0.0,
+     "port_discharge_usd": 0.0,
+     "canal_laden_usd": 0.0,
+     "canal_ballast_usd": 0.0,
+     "other_usd": 0.0,
+     "sts_usd": 0.0
+    },
+    "war_risk": {
+     "hull_value_usd": 157000000.0,
+     "crew_bonus_usd": 0.0,
+     "payer": "charterer",
+     "areas": {
+      "gulf": {
+       "premium_pct": 0.0,
+       "entries": 1,
+       "laden_nm": 360.7,
+       "ballast_nm": 360.7,
+       "port_activities": [
+        "load",
+        "waiting",
+        "delay"
+       ],
+       "ballast_transits": 0
+      },
+      "red_sea": {
+       "premium_pct": 0.0,
+       "entries": 0,
+       "laden_nm": 0.0,
+       "ballast_nm": 0.0,
+       "port_activities": [],
+       "ballast_transits": 0
+      }
+     }
+    }
+   },
+   "calls": {
+    "target_tce_usd_day": 25000.0,
+    "tc_ffa_usd_day": 30000.0,
+    "route_ffa_usd_t": 224.96588730000002,
+    "speed_bounds_kn": null
+   },
+   "output": {
+    "evaluate": {
+     "days": {
+      "ballast_sea": 21.323750000000004,
+      "laden_sea": 19.68346153846154,
+      "load": 2,
+      "discharge": 2,
+      "waiting": 2,
+      "canal": 0.0,
+      "delay": 0.0,
+      "sts": 0.0,
+      "port_total": 6.0,
+      "sea_total": 41.00721153846155,
+      "total": 47.00721153846155,
+      "trip": 25.683461538461543
+     },
+     "fuel_t": {
+      "vlsfo": 2250.1504711538464,
+      "hsfo": 0.0,
+      "mgo": 0.0
+     },
+     "fuel_total_t": 2250.1504711538464,
+     "bunkers_by_activity_usd": {
+      "ballast": 820388.6337500002,
+      "laden": 1098537.9251538462,
+      "load": 38960.0,
+      "discharge": 214280.0,
+      "waiting": 19480.0,
+      "canal": 0.0,
+      "delay": 0.0,
+      "sts": 0.0
+     },
+     "bunkers_by_grade_usd": {
+      "vlsfo": 2191646.5589038464,
+      "hsfo": 0.0,
+      "mgo": 0.0
+     },
+     "emissions": {
+      "co2_t": 7006.968567173077,
+      "co2e_t": 7117.450955306731,
+      "ets_covered_t": 0.0
+     },
+     "ets_all_usd": 0.0,
+     "fueleu": {
+      "energy_mj": 0.0,
+      "intensity_g_mj": 0.0,
+      "target_g_mj": 89.3368,
+      "balance_g": 0.0,
+      "penalty_eur": 0.0,
+      "penalty_usd": 0.0
+     },
+     "war_risk": {
+      "areas": {
+       "gulf": {
+        "days": 6.528946314102564,
+        "periods": 1.0,
+        "usd": 0.0,
+        "ballast_periods": 0.0,
+        "ballast_usd": 0.0
+       },
+       "red_sea": {
+        "days": 0.0,
+        "periods": 0.0,
+        "usd": 0.0,
+        "ballast_periods": 0.0,
+        "ballast_usd": 0.0
+       }
+      },
+      "charter_usd": 0.0,
+      "ballast_usd": 0.0,
+      "premium_usd": 0.0,
+      "total_usd": 0.0
+     },
+     "revenue": {
+      "gross_usd": 67489766.19000001,
+      "other_usd": 0.0,
+      "commission_usd": 2530866.2321250006,
+      "net_usd": 64958899.95787501
+     },
+     "costs": {
+      "bunkers": 2191646.5589038464,
+      "ports": 0.0,
+      "canals": 0.0,
+      "ets": 0.0,
+      "war_risk": 0.0,
+      "other": 0.0,
+      "fueleu": 0.0,
+      "total_usd": 2191646.5589038464
+     },
+     "charterer_costs_usd": 0.0,
+     "result_usd": 62767253.39897117,
+     "tce_usd_day": 1335268.5969814372
+    },
+    "breakeven_zero": {
+     "hire_usd_day": null,
+     "usd_t": 8.433464392126393,
+     "lump_sum_usd": 2277035.385874126,
+     "ws": null
+    },
+    "breakeven_target": {
+     "hire_usd_day": null,
+     "usd_t": 12.955562664224665,
+     "lump_sum_usd": 3498001.9193406594,
+     "ws": null
+    },
+    "sensitivities": [
+     {
+      "id": "freight",
+      "low": 0.9,
+      "high": 1.1,
+      "low_tce_usd_day": 1197079.3748772384,
+      "high_tce_usd_day": 1473457.8190856355,
+      "base_tce_usd_day": 1335268.5969814372
+     },
+     {
+      "id": "bunkers",
+      "low": 0.9,
+      "high": 1.1,
+      "low_tce_usd_day": 1339930.9593874917,
+      "high_tce_usd_day": 1330606.2345753822,
+      "base_tce_usd_day": 1335268.5969814372
+     },
+     {
+      "id": "speed",
+      "low": -1.0,
+      "high": 1.0,
+      "low_tce_usd_day": 1246037.700496679,
+      "high_tce_usd_day": 1420911.3961105957,
+      "base_tce_usd_day": 1335268.5969814372
+     },
+     {
+      "id": "port_days",
+      "low": -1.0,
+      "high": 1.0,
+      "low_tce_usd_day": 1364503.3311025656,
+      "high_tce_usd_day": 1307251.7937996096,
+      "base_tce_usd_day": 1335268.5969814372
+     },
+     {
+      "id": "eua",
+      "low": 0.8,
+      "high": 1.2,
+      "low_tce_usd_day": 1335268.5969814372,
+      "high_tce_usd_day": 1335268.5969814372,
+      "base_tce_usd_day": 1335268.5969814372
+     }
+    ],
+    "hedge": {
+     "tc_hedge_days": 47.00721153846155,
+     "tc_hedge_days_net": 45.24444110576924,
+     "route_hedge_t": 270000,
+     "route_ffa_tce_usd_day": 1197079.3748772384,
+     "physical_tce_gross_usd_day": 1387292.0488118827,
+     "basis_vs_tc_ffa_usd_day": 1357292.0488118827,
+     "basis_vs_route_ffa_usd_day": 138189.22210419877
+    },
+    "power_fit": {
+     "a": 0.21283956020228187,
+     "b": 2.181531281711046,
+     "r2": 1.0
+    }
+   }
+  },
+  {
    "name": "anchor TD22 2026-10-23",
    "inputs": {
     "contract": "voyage",
@@ -78236,7 +81768,10 @@
     "target_tce_usd_day": 25000.0,
     "tc_ffa_usd_day": 30000.0,
     "route_ffa_usd_t": 194.06666666666666,
-    "speed_bounds_kn": null
+    "speed_bounds_kn": [
+     9.0,
+     15.0
+    ]
    },
    "output": {
     "evaluate": {
@@ -78398,6 +81933,11 @@
      "a": 0.21283956020228187,
      "b": 2.181531281711046,
      "r2": 1.0
+    },
+    "optimal": {
+     "laden_kn": 15.0,
+     "ballast_kn": 14.0,
+     "tce_usd_day": 519581.8305484762
     }
    }
   },
@@ -78834,10 +82374,7 @@
     "target_tce_usd_day": 25000.0,
     "tc_ffa_usd_day": 30000.0,
     "route_ffa_usd_t": 27.099,
-    "speed_bounds_kn": [
-     9.0,
-     15.0
-    ]
+    "speed_bounds_kn": null
    },
    "output": {
     "evaluate": {
@@ -78999,11 +82536,6 @@
      "a": 0.08540219073848061,
      "b": 2.4316692398435644,
      "r2": 0.9994749298952572
-    },
-    "optimal": {
-     "laden_kn": 12.0,
-     "ballast_kn": 12.0,
-     "tce_usd_day": 35894.18677443873
     }
    }
   },
@@ -79757,7 +83289,10 @@
     "target_tce_usd_day": 25000.0,
     "tc_ffa_usd_day": 30000.0,
     "route_ffa_usd_t": 12.69,
-    "speed_bounds_kn": null
+    "speed_bounds_kn": [
+     9.0,
+     15.0
+    ]
    },
    "output": {
     "evaluate": {
@@ -79919,6 +83454,11 @@
      "a": 0.08540219073848061,
      "b": 2.4316692398435644,
      "r2": 0.9994749298952572
+    },
+    "optimal": {
+     "laden_kn": 12.0,
+     "ballast_kn": 12.0,
+     "tce_usd_day": 44915.1107692405
     }
    }
   },
@@ -80339,10 +83879,7 @@
     "target_tce_usd_day": 25000.0,
     "tc_ffa_usd_day": 30000.0,
     "route_ffa_usd_t": 25.056,
-    "speed_bounds_kn": [
-     9.0,
-     15.0
-    ]
+    "speed_bounds_kn": null
    },
    "output": {
     "evaluate": {
@@ -80504,11 +84041,6 @@
      "a": 0.21283956020228187,
      "b": 2.181531281711046,
      "r2": 1.0
-    },
-    "optimal": {
-     "laden_kn": 15.0,
-     "ballast_kn": 14.0,
-     "tce_usd_day": 144758.3362314811
     }
    }
   },
@@ -81238,7 +84770,10 @@
     "target_tce_usd_day": 25000.0,
     "tc_ffa_usd_day": 30000.0,
     "route_ffa_usd_t": 27.0,
-    "speed_bounds_kn": null
+    "speed_bounds_kn": [
+     9.0,
+     15.0
+    ]
    },
    "output": {
     "evaluate": {
@@ -81400,6 +84935,11 @@
      "a": 0.08540219073848061,
      "b": 2.4316692398435644,
      "r2": 0.9994749298952572
+    },
+    "optimal": {
+     "laden_kn": 10.72,
+     "ballast_kn": 10.72,
+     "tce_usd_day": 30931.08512669998
     }
    }
   },
@@ -81832,10 +85372,7 @@
     "target_tce_usd_day": 25000.0,
     "tc_ffa_usd_day": 30000.0,
     "route_ffa_usd_t": 27.0,
-    "speed_bounds_kn": [
-     9.0,
-     15.0
-    ]
+    "speed_bounds_kn": null
    },
    "output": {
     "evaluate": {
@@ -81997,11 +85534,6 @@
      "a": 0.04572903833232436,
      "b": 2.528741466590797,
      "r2": 1.0
-    },
-    "optimal": {
-     "laden_kn": 9.0,
-     "ballast_kn": 9.5,
-     "tce_usd_day": 9028.166114886695
     }
    }
   },
@@ -82727,7 +86259,10 @@
     "target_tce_usd_day": 25000.0,
     "tc_ffa_usd_day": 30000.0,
     "route_ffa_usd_t": 66.66666666666667,
-    "speed_bounds_kn": null
+    "speed_bounds_kn": [
+     9.0,
+     15.0
+    ]
    },
    "output": {
     "evaluate": {
@@ -82889,6 +86424,11 @@
      "a": 0.21283956020228187,
      "b": 2.181531281711046,
      "r2": 1.0
+    },
+    "optimal": {
+     "laden_kn": 15.0,
+     "ballast_kn": 14.0,
+     "tce_usd_day": 145559.97638546818
     }
    }
   },
@@ -83305,10 +86845,7 @@
     "target_tce_usd_day": 25000.0,
     "tc_ffa_usd_day": 30000.0,
     "route_ffa_usd_t": 27.0,
-    "speed_bounds_kn": [
-     9.0,
-     15.0
-    ]
+    "speed_bounds_kn": null
    },
    "output": {
     "evaluate": {
@@ -83470,11 +87007,6 @@
      "a": 0.5759707881994446,
      "b": 1.604546805756877,
      "r2": 1.0
-    },
-    "optimal": {
-     "laden_kn": 11.030000000000001,
-     "ballast_kn": 10.030000000000001,
-     "tce_usd_day": 19205.37134640655
     }
    }
   },
@@ -84184,7 +87716,10 @@
     "target_tce_usd_day": 25000.0,
     "tc_ffa_usd_day": 30000.0,
     "route_ffa_usd_t": 27.0,
-    "speed_bounds_kn": null
+    "speed_bounds_kn": [
+     9.0,
+     15.0
+    ]
    },
    "output": {
     "evaluate": {
@@ -84346,6 +87881,11 @@
      "a": 0.5759707881994446,
      "b": 1.604546805756877,
      "r2": 1.0
+    },
+    "optimal": {
+     "laden_kn": 12.0,
+     "ballast_kn": 11.0,
+     "tce_usd_day": 18367.145328376544
     }
    }
   },
@@ -84766,10 +88306,7 @@
     "target_tce_usd_day": 25000.0,
     "tc_ffa_usd_day": 30000.0,
     "route_ffa_usd_t": 27.0,
-    "speed_bounds_kn": [
-     9.0,
-     15.0
-    ]
+    "speed_bounds_kn": null
    },
    "output": {
     "evaluate": {
@@ -84931,11 +88468,6 @@
      "a": 0.21283956020228187,
      "b": 2.181531281711046,
      "r2": 1.0
-    },
-    "optimal": {
-     "laden_kn": 15.0,
-     "ballast_kn": 14.0,
-     "tce_usd_day": 152565.71567090976
     }
    }
   },

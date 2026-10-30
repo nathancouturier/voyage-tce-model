@@ -703,7 +703,8 @@ def build(
     src(
         "costs.port_load_usd",
         "empty",
-        "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published",
+        "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its "
+        "website, which answers scripted requests with a challenge",
     )
     src("costs.port_discharge_usd", "empty", sources["costs.port_load_usd"]["source"])
     excluded.append(
@@ -721,6 +722,10 @@ def build(
         canal_names.append(canal)
         src("costs.canal_%s_usd" % name, "empty", seed("canals.json")[canal.lower()]["why_empty"])
         excluded.append("the %s Canal toll on the %s leg (no public toll for this ship)" % (canal, name))
+    # A leg through no canal pays no toll: a zero that follows from the routing, not a scenario.
+    for name in ("laden", "ballast"):
+        if name not in canal_legs:
+            src("costs.canal_%s_usd" % name, "derived", "no canal on this routing")
     if route.segment == "dry" and canal_names:
         where = " and ".join("the %s Canal" % c for c in sorted(set(canal_names)))
         # A voyage the study builds itself is not one of the guide's routes and has no terms of its own.

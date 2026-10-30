@@ -509,10 +509,10 @@ ROUTES: Mapping[str, Route] = {
         ballast_routing="no_canals",
         notes=(
             "A laden VLCC fits neither canal, so the laden leg goes round the Cape of Good Hope and through the "
-            "Strait of Malacca, as the Baltic's own TD3C calculation routes the same laden ship (5,897 nm, TD3C TCE "
-            "Calculation Process, July 2017), rather than through the shallower Sunda Strait of the shortest "
-            "network line; the ballast leg is priced round the Cape as well, with Suez in ballast as the "
-            "alternative.",
+            "Strait of Malacca, the strait the mileage of the Baltic's own TD3C calculation for the same laden ship "
+            "implies (5,897 nm, TD3C TCE Calculation Process, July 2017), rather than through the shallower Sunda "
+            "Strait of the shortest network line; the ballast leg is priced round the Cape as well, with Suez in "
+            "ballast as the alternative.",
         ),
     ),
     "TD20": Route(

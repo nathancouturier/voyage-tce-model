@@ -158,12 +158,13 @@ function hormuzSection(inner, detours, decimals) {
     el("th", { class: "col-num", text: "Extra laden tonne miles, " + UNITS.tonne_miles_bn, attrs: { scope: "col", "data-short": "extra tonne miles" } }),
     el("th", { class: "col-num", text: "Days inside the Gulf", attrs: { scope: "col", "data-short": "days inside" } }),
     el("th", { class: "col-num", text: "Seven day periods", attrs: { scope: "col", "data-short": "periods" } }),
-    el("th", { class: "col-num", text: "War risk premium, the charterer's, " + UNITS.usd, attrs: { scope: "col", "data-short": "premium" } }),
+    el("th", { class: "col-num", text: "Premium, the charterer's, " + UNITS.usd, attrs: { scope: "col", "data-short": "premium" } }),
     el("th", { class: "col-num", text: "The same a tonne, " + UNITS.usd_t, attrs: { scope: "col", "data-short": "premium a tonne" } }),
-    el("th", { class: "col-num", text: "Shuttle through the strait, the charterer's, reported, " + UNITS.usd_t, attrs: { scope: "col", "data-short": "shuttle" } }),
+    el("th", { class: "col-num", text: "Shuttle, reported, " + UNITS.usd_t, attrs: { scope: "col", "data-short": "shuttle" } }),
     ...hz.levels.map((level) => el("th", {
       class: "col-num",
-      text: "Extra freight the owner needs, " + UNITS.usd_t + ", at the TCE " + level.label + ", USD " + formatNumber(level.tce_usd_day, "usd_day", decimals, { context: "prose" }) + " a day",
+      // The TCE each column keeps is in the caption.
+      text: "Owner's extra freight " + level.label + ", " + UNITS.usd_t,
       attrs: { scope: "col", "data-short": detours.page.hormuz.levels_short[level.week_ending] },
     })),
   ]);
@@ -181,7 +182,8 @@ function hormuzSection(inner, detours, decimals) {
       ...scenario.levels.map((level) => figureCell(formatCell(level.extra_freight_usd_t, "usd_t", decimals, true), "extra_freight_usd_t")),
     ]));
   }
-  // Loading outside the strait: the export voyage priced as the scenarios are, the shuttle beside it.
+  // Loading outside the strait: the export voyage priced as the scenarios are, the shuttle beside it. A
+  // voyage outside the Gulf counts no days or periods inside it; only the premium columns want a dated rate.
   const shuttle = detours.page.hormuz.shuttle_range;
   for (const [key, chain] of [["sts", hz.chains.sts], ["td34", hz.chains.td34]]) {
     body.appendChild(el("tr", {}, [
@@ -189,7 +191,7 @@ function hormuzSection(inner, detours, decimals) {
       figureCell(formatCell(chain.days, "days", decimals), "days"),
       figureCell(formatCell(chain.extra_tonne_miles_bn, "tonne_miles_bn", decimals, true), "extra_tonne_miles_bn"),
       figureCell(null, "days_inside_gulf", { missing: "outside the Gulf" }),
-      figureCell(null, "periods", { missing: "no dated rate" }),
+      figureCell(null, "periods", { missing: "outside the Gulf" }),
       figureCell(null, "charterer_war_risk_usd", { missing: "no dated rate" }),
       figureCell(null, "charterer_war_risk_usd_t", { missing: "no dated rate" }),
       key === "sts" ? el("td", { class: "num", text: shuttle }) : figureCell(null, "shuttle_usd_t", { missing: "no shuttle" }),

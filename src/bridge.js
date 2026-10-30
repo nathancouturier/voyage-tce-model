@@ -17,9 +17,11 @@
  * cost in its family's colour, and a swatch of that colour beside its name.
  *
  * THE ONE ORCHESTRATED MOMENT. The overview's bridge builds once on first
- * load: each bar grows from its running total in turn, ENTER_STAGGER apart
- * (styles/components.css holds the duration and the reduced motion rule). A
- * redraw for a width change never replays it.
+ * load: each bar grows from its running total in turn, --bridge-stagger
+ * apart, each over --t-base (styles/components.css and the reduced motion
+ * rule in styles/layout.css). The bars are drawn again only when a cell's
+ * size changes; a redraw while the build is still running carries it on from
+ * where it is, and one after it never replays it.
  *
  * Numeric literals: none; the stagger is read from the stylesheet.
  */
@@ -56,6 +58,9 @@ export function bridgeTable(rows, decimals, options) {
   let current = rows;
   let cells = [];
   let entering = opts.enter === true;
+  // When the build began, and the cell sizes last drawn at.
+  let enteredAt = null;
+  let drawnKey = "";
 
   const build = () => {
     body.replaceChildren();
@@ -95,39 +100,52 @@ export function bridgeTable(rows, decimals, options) {
     const ends = current.flatMap((row) => [row.from_usd, row.to_usd]).filter((v) => typeof v === "number" && Number.isFinite(v));
     return [Math.min(0, ...ends), Math.max(0, ...ends)];
   };
-  const stagger = () => {
-    const raw = getComputedStyle(table).getPropertyValue("--bridge-stagger").trim();
-    const value = parseFloat(raw);
+  const milliseconds = (name) => {
+    const value = parseFloat(getComputedStyle(table).getPropertyValue(name).trim());
     return Number.isFinite(value) ? value : 0;
   };
-  const draw = () => {
+  const stagger = () => milliseconds("--bridge-stagger");
+  // The whole build: the last bar's delay and its growth.
+  const buildTime = () => stagger() * Math.max(cells.length - 1, 0) + milliseconds("--t-base");
+  const draw = (force) => {
+    const key = cells.map((item) => item.cell.clientWidth + "x" + item.cell.clientHeight).join(",");
+    if (!force && key === drawnKey) return;
     const range = scale();
-    const step = entering ? stagger() : 0;
+    const now = performance.now();
+    const elapsed = enteredAt === null ? 0 : now - enteredAt;
+    const animate = entering || (enteredAt !== null && elapsed < buildTime());
+    const step = animate ? stagger() : 0;
     let drawn = false;
     for (const item of cells) {
       const width = item.cell.clientWidth;
       const height = item.cell.clientHeight;
       if (width === 0 || height === 0) continue;
       drawn = true;
+      // A negative delay starts a bar's growth part of the way through.
       item.cell.replaceChildren(bridgeBar({
         width, height, row: item.row, previous: item.previous, isLast: item.isLast, scale: range,
-        enter: entering, delay: step * item.index,
+        enter: animate, delay: step * item.index - (animate ? elapsed : 0),
       }));
     }
-    if (drawn) entering = false;
+    if (!drawn) return;
+    drawnKey = key;
+    if (entering) {
+      entering = false;
+      enteredAt = now;
+    }
   };
 
   build();
-  if (typeof ResizeObserver === "function") new ResizeObserver(() => draw()).observe(table);
-  else window.addEventListener("resize", draw, { passive: true });
-  requestAnimationFrame(draw);
+  if (typeof ResizeObserver === "function") new ResizeObserver(() => draw(false)).observe(table);
+  else window.addEventListener("resize", () => draw(false), { passive: true });
+  requestAnimationFrame(() => draw(false));
 
   return {
     node: table,
     redraw(next) {
       current = next;
       build();
-      draw();
+      draw(true);
     },
   };
 }

@@ -13,7 +13,7 @@ PORT ?= 8150
 help:
 	@echo "targets"
 	@echo "  make all           rebuild every derived file from the committed data, run the gate, then fail"
-	@echo "                     if a rebuilt seed, test case or site file differs from the commit"
+	@echo "                     if a rebuilt seed, test case or site file differs from the commit or is new"
 	@echo "  make setup         install the pinned Python dependencies"
 	@echo "                     equivalent: python -m pip install -r requirements-lock.txt"
 	@echo "                                 python -m pip install --no-deps -e ."
@@ -54,7 +54,8 @@ all:
 	$(PYTHON) scripts/export.py
 	$(PYTHON) scripts/note.py
 	$(MAKE) gate PYTHON="$(PYTHON)"
-	git diff --exit-code --stat -- data index.html
+	git diff --exit-code --stat HEAD -- data index.html
+	test -z "$$(git status --porcelain -- data index.html)"
 
 setup:
 	$(PYTHON) -m pip install -r requirements-lock.txt

@@ -642,7 +642,9 @@ export function tooltip(frame, svg, regions) {
  *
  *  A total in ink, or the accent where the artifact marks it; a deduction an
  *  ink outline; a cost filled in its family's colour. A step under SMALL_STEP
- *  px is a dot, so a small cost is never drawn as nothing. */
+ *  px is a dot, so a small cost is never drawn as nothing, and so is a
+ *  deduction narrower than the bar is thick, whose outline would read as an
+ *  empty box beside its figure rather than as a step: an outlined dot. */
 export function bridgeBar({ width, height, row, previous, isLast, scale, enter, delay }) {
   const g = GEOMETRY;
   const svg = hiddenSvg({ width, height, className: "chart--bar" });
@@ -671,12 +673,12 @@ export function bridgeBar({ width, height, row, previous, isLast, scale, enter, 
   if (row.kind === "total") className = row.accent ? "mark-accent-bar" : "mark-series-fill";
   else if (row.kind === "deduction") className = "mark-negative";
   else className = "mark-family mark-family--" + row.family;
-  if (to - from < g.SMALL_STEP) {
+  const outline = row.kind === "deduction";
+  if (to - from < (outline ? g.BAR_THICKNESS : g.SMALL_STEP)) {
     if (row.from_usd === row.to_usd) return svg;
-    svg.appendChild(svgEl("circle", { class: className === "mark-negative" ? "mark-negative" : className, cx: px(xOf(row.to_usd)), cy: px(middle), r: g.SMALL_RADIUS }));
+    svg.appendChild(svgEl("circle", { class: className, cx: px(xOf(row.to_usd)), cy: px(middle), r: g.SMALL_RADIUS }));
     return svg;
   }
-  const outline = row.kind === "deduction";
   const rect = svgEl("rect", {
     class: className + (enter ? " is-entering" : ""),
     x: px(outline ? from + g.OUTLINE_INSET : from),
@@ -726,8 +728,8 @@ function haloLines(group, attrs, lines) {
 /** The rows of a horizontal chart laid down the plot: a heading wherever the
  *  group changes, wrapped to the width, and, when narrow, each row's label
  *  wrapped above its mark. `extra(row, index)`, where given, is how much
- *  taller than the others a row must be for what it holds. Returns { layout,
- *  bottom }. */
+ *  taller than the others a row must be for what it holds; each row keeps
+ *  it as `extra`. Returns { layout, bottom }. */
 function rowLayout(rows, width, narrow, rowHeight, extra) {
   const g = GEOMETRY;
   const maxChars = Math.max(1, Math.floor(width / g.CHAR));
@@ -742,11 +744,40 @@ function rowLayout(rows, width, narrow, rowHeight, extra) {
       y += g.GROUP_HEAD + (lines.length - 1) * g.LABEL_LINE;
     }
     const lines = narrow ? wrapWords(row.label, maxChars) : [row.label];
-    const height = rowHeight + (lines.length - 1) * g.LABEL_LINE + (extra ? extra(row, index) : 0);
-    layout.push({ kind: "row", row, index, y, lines, height });
+    const more = extra ? extra(row, index) : 0;
+    const height = rowHeight + (lines.length - 1) * g.LABEL_LINE + more;
+    layout.push({ kind: "row", row, index, y, lines, height, extra: more });
     y += height;
   });
   return { layout, bottom: y };
+}
+
+/** A bar's value in its pieces, split at its commas, each piece but the last
+ *  keeping its comma, so the pieces set one after another read as the whole. */
+function valuePieces(text) {
+  const pieces = String(text).split(", ");
+  return pieces.map((piece, at) => (at < pieces.length - 1 ? piece + "," : piece));
+}
+
+/** A bar's value in the lines it needs to stay within `room` px, in a chart
+ *  text class: whole where it fits; else the figure first and the rest after
+ *  it, wrapped at its commas, each line as full as the room allows, and a
+ *  piece wider than the room wrapped at its spaces. */
+function valueLines(className, text, room) {
+  if (textWidth(className, text) <= room) return [String(text)];
+  const lines = [];
+  let line = "";
+  for (const piece of valuePieces(text)) {
+    const next = line ? line + " " + piece : piece;
+    if (line && textWidth(className, next) > room) {
+      lines.push(line);
+      line = piece;
+    } else {
+      line = next;
+    }
+  }
+  if (line) lines.push(line);
+  return lines.flatMap((one) => (textWidth(className, one) <= room ? [one] : wrapToWidth(className, one, room)));
 }
 
 /* ========================================================== bar chart === */
@@ -763,7 +794,9 @@ function rowLayout(rows, width, narrow, rowHeight, extra) {
  *
  *  Wide, the label sits in a column left of the bar; narrow, above it. A
  *  group starts with its name in a heading row. The value is written right of
- *  the bar's end, in the label's ink, never in the bar's colour. */
+ *  the bar's end, in the label's ink, never in the bar's colour; a value too
+ *  long for the room after its bar keeps its figure there and wraps the rest
+ *  at its commas onto lines under it, the row growing to hold them. */
 export function barChart({ width, rows, domain, words }) {
   const g = GEOMETRY;
   const { narrow, labelColumn } = labelLayout(width, rows.map((row) => row.label));
@@ -771,29 +804,54 @@ export function barChart({ width, rows, domain, words }) {
   const negatives = rows.map((row) => (row.segments || []).reduce((sum, s) => sum + (present(s.value) && s.value < 0 ? s.value : 0), 0));
   const fit = domain || niceDomain([...totals, ...negatives], g.X_TICKS, true);
   const left = labelColumn + (narrow ? g.SMALL_RADIUS : g.LABEL_GAP);
+  // A row's value is set in the value's ink after its bar, or, with no bar,
+  // in the context ink after zero, where it says why.
+  const barred = (row) => (row.segments || []).some((s) => present(s.value) && s.value !== 0);
+  const valueClass = (row) => (barred(row) ? "chart-value" : "chart-label--context");
   // The plot as wide as it can be with each row's value written right of its
   // own bar inside the chart: a long value on a short bar needs no room at
-  // the right of the longest one.
+  // the right of the longest one. Each value is measured as it is drawn; one
+  // too long to stand whole after its bar even on the narrowest plot is
+  // wrapped at its commas, so it asks only for the room of its widest piece.
   let right = width - g.VALUE_ROOM;
   rows.forEach((row, at) => {
     if (!row.valueText) return;
-    const need = String(row.valueText).length * g.CHAR + g.LABEL_GAP;
     const share = (Math.max(totals[at], 0) - fit.low) / (fit.high - fit.low);
-    if (share > 0) right = Math.min(right, left + (width - need - left) / share);
+    if (!(share > 0)) return;
+    const className = valueClass(row);
+    const whole = textWidth(className, row.valueText);
+    const standsWhole = left + share * g.VALUE_ROOM + g.LABEL_GAP + whole <= width;
+    const need = (standsWhole ? whole : Math.max(...valuePieces(row.valueText).map((piece) => textWidth(className, piece)))) + g.LABEL_GAP;
+    right = Math.min(right, left + (width - need - left) / share);
   });
   right = Math.max(right, left + g.VALUE_ROOM);
   const xOf = linear(fit.low, fit.high, left, right);
   const rowHeight = narrow ? g.ROW_NARROW : g.ROW;
 
-  // Lay the rows out first: a heading row wherever the group changes.
-  const { layout, bottom: plotBottom } = rowLayout(rows, width, narrow, rowHeight);
+  // Each row's value where it starts, LABEL_GAP after the end of its bar's
+  // positive stack (zero, where it has none), and in the lines it needs there.
+  const values = rows.map((row) => {
+    if (!row.valueText) return null;
+    const className = valueClass(row);
+    const positive = (row.segments || []).reduce((sum, s) => sum + (present(s.value) && s.value > 0 ? s.value : 0), 0);
+    const x = xOf(positive) + g.LABEL_GAP;
+    return { className, x, lines: valueLines(className, row.valueText, width - x) };
+  });
+
+  // Lay the rows out first: a heading row wherever the group changes, and a
+  // row as much taller as the lines its value wraps onto.
+  const { layout, bottom: plotBottom } = rowLayout(rows, width, narrow, rowHeight,
+    (row, index) => (values[index] ? (values[index].lines.length - 1) * g.LABEL_LINE : 0));
   const title = axisTitleLines(words.axis, left, width);
   const height = plotBottom + axisRoom(title);
   const svg = imageSvg({ width, height, title: words.title, desc: words.desc, className: "chart--bars" });
   bottomAxis(svg, xOf, fit, { top: 0, bottom: plotBottom, width, title, rule: false });
   // A row's bar: narrow, under its label, LABEL_GAP above the row's foot;
-  // wide, in the middle of the row.
-  const barTopOf = (item) => (narrow ? item.y + item.height - g.BAR_THICKNESS - g.LABEL_GAP : item.y + (item.height - g.BAR_THICKNESS) * g.HALF);
+  // wide, in the middle of the row; either way above the lines its value
+  // wraps onto.
+  const barTopOf = (item) => (narrow
+    ? item.y + item.height - item.extra - g.BAR_THICKNESS - g.LABEL_GAP
+    : item.y + (item.height - item.extra - g.BAR_THICKNESS) * g.HALF);
   // Plates of the ground under the group headings and, when narrow, under the
   // labels set above their bars: drawn over the gridlines, under every mark.
   for (const item of layout) {
@@ -813,7 +871,7 @@ export function barChart({ width, rows, domain, words }) {
         run = null;
         continue;
       }
-      if (narrow && !(item.row.segments || []).some((s) => present(s.value) && s.value !== 0)) continue;
+      if (narrow && !barred(item.row)) continue;
       const top = barTopOf(item);
       if (narrow || !run) run = svg.appendChild(svgEl("line", { class: "mark-context", x1: px(zero), x2: px(zero), y1: px(top) }));
       run.setAttribute("y2", px(top + g.BAR_THICKNESS));
@@ -866,23 +924,24 @@ export function barChart({ width, rows, domain, words }) {
     // The row's marks, the bar and the value written after it, for the
     // keyboard's readout to sit beside.
     let reach = end;
-    if (row.valueText) {
-      const valueClass = segments.length ? "chart-value" : "chart-label--context";
-      const valueX = (segments.length ? end : xOf(0)) + g.LABEL_GAP;
-      haloText(svg, {
-        class: valueClass,
-        x: px(valueX),
+    const value = values[item.index];
+    if (value) {
+      const attrs = {
+        class: value.className,
+        x: px(value.x),
         y: px(barTop + g.BAR_THICKNESS * g.HALF),
         "dominant-baseline": "middle",
-      }, row.valueText);
-      reach = valueX + textWidth(valueClass, row.valueText);
+      };
+      if (value.lines.length > 1) haloLines(svg, attrs, value.lines);
+      else haloText(svg, attrs, row.valueText);
+      reach = value.x + Math.max(...value.lines.map((line) => textWidth(value.className, line)));
     }
     regions.push({
       x: 0,
       y: item.y,
       w: width,
       h: item.height,
-      mark: { x: start, y: barTop, w: reach - start, h: g.BAR_THICKNESS },
+      mark: { x: start, y: barTop, w: reach - start, h: g.BAR_THICKNESS + item.extra },
       lines: row.tip || [row.label, row.valueText || ""],
     });
   }
@@ -1217,13 +1276,16 @@ function markLabelPlace({ cx, cy, size, below, segments, taken, plot }) {
 
 /** A line over a numeric x axis, with marked points.
  *
- *    series   [{ points: [[x, y]], className }]
+ *    series   [{ points: [[x, y]], className }]: the line in pieces, in
+ *             order, each starting on the point the one before it ends on; a
+ *             piece's className sets its pattern (line--dash, line--solid)
  *    marks    [{ x, y, className, label, below }]: a dot ringed in the ground,
  *             labelled above it (below where asked), or wherever nearest that
  *             no line runs through the label
  *    x, y     { low, high, step } from the caller, the artifact's figures
  *    words    { title, desc, xAxis, yAxis }
- *    regions  one readout per x value, the lines given by `tipFor(x)` */
+ *    regions  one readout per x value along the line, a point two pieces
+ *             share counted once, the lines given by `tipFor(x, index)` */
 export function lineChart({ width, series, marks, x, y, words, tipFor }) {
   const g = GEOMETRY;
   const narrow = width < g.NARROW_WIDTH;
@@ -1316,7 +1378,14 @@ export function lineChart({ width, series, marks, x, y, words, tipFor }) {
   }
 
   const regions = [];
-  const points = series.length ? series[0].points : [];
+  // The line's points in order across its pieces, the point a piece starts on
+  // dropped where it repeats the end of the piece before it.
+  const points = [];
+  for (const line of series) {
+    for (const point of line.points) {
+      if (!points.length || points[points.length - 1][0] !== point[0]) points.push(point);
+    }
+  }
   const xs = points.map(([vx]) => vx);
   xs.forEach((vx, index) => {
     const prev = index > 0 ? xOf(xs[index - 1]) : left;

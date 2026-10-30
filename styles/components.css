@@ -85,7 +85,9 @@
   max-width: 34em;
 }
 
-/* The input dates: a list of sentences, never one line of figures. */
+/* The input dates: a list of sentences, never one line of figures, in the
+ * muted ink of the source lines above it, and as wide as the bridge and the
+ * map together, so it reads as under both rather than under the bridge. */
 .data-dates {
   margin-top: 20px;
   display: grid;
@@ -93,8 +95,7 @@
   font-weight: 400;
   font-size: var(--fs-meta);
   line-height: 1.45;
-  color: var(--text);
-  max-width: 64em;
+  color: var(--text-muted);
   font-variant-numeric: tabular-nums lining-nums;
 }
 
@@ -279,6 +280,15 @@
 .table td.nowrap { white-space: nowrap; }
 .table--routes th[scope="row"],
 .table--inputs th[scope="row"] { white-space: nowrap; }
+/* A wide table's first column, the names of its rows, keeps a readable width
+ * above the width where the table stacks, so a name is not six lines tall
+ * while the figures beside it have room; the heads stay short, a measure and
+ * its unit, so the other columns need no floor. Stacked, a name takes its
+ * row. */
+@media (min-width: 600.02px) {
+  .table--wide th:first-child,
+  .table--wide td:first-child { min-width: 13em; }
+}
 
 /* ------------------------------------------------------ chart marks --- */
 
@@ -491,8 +501,8 @@ p.block,
 .waterfall__row.is-total .waterfall__line { font-weight: 600; }
 
 /* At 600px and below each row is two lines inside the same tr: the step and
- * its second line across the width, then the bar and the figure. Grid on the
- * tr, with the table roles written in the markup. */
+ * its second line across the width, then the bar and the figure, a clear gap
+ * between them. Grid on the tr, with the table roles written in the markup. */
 @media (max-width: 600px) {
   .waterfall,
   .waterfall tbody,
@@ -503,7 +513,7 @@ p.block,
     display: grid;
     grid-template-columns: minmax(0, 1fr) 9ch;
   }
-  .waterfall__row { grid-template-rows: auto 32px; }
+  .waterfall__row { grid-template-rows: auto 32px; column-gap: 12px; }
   .waterfall thead th.waterfall__bar-head { display: none; }
   .waterfall__name { width: auto; grid-column: 1 / -1; padding-right: 0; }
   .table td.waterfall__bar { min-width: 0; height: 32px; }
@@ -586,6 +596,8 @@ p.block,
 }
 .result-line .fig { font-weight: 600; }
 .leaves-out { margin-top: 28px; }
+/* On the overview the sentence follows the input dates under both columns. */
+.data-dates + .leaves-out { max-width: none; }
 .plain-list { display: grid; gap: 6px; max-width: 64em; }
 .plain-list > li { padding-left: 14px; position: relative; min-width: 0; overflow-wrap: anywhere; }
 /* The date and place of an event: free to wrap with the column. */
@@ -616,9 +628,11 @@ p.block,
 .mark-family--hsfo { fill: var(--data-hsfo); }
 
 /* The swatch beside a family's name in a table or a legend: the colour is
- * never the only sign, the name is beside it. */
+ * never the only sign, the name is beside it. It keeps its size where the
+ * name beside it wraps. */
 .swatch {
   display: inline-block;
+  flex: none;
   width: 10px;
   height: 10px;
   margin-right: 8px;
@@ -640,6 +654,10 @@ p.block,
 .swatch--ring { background: var(--bg); border: 1.5px solid var(--role-series); border-radius: 50%; }
 .swatch--dot { border-radius: 50%; }
 .swatch--muted { background: var(--role-context); border-radius: 50%; }
+/* A line's sample, as long as the map legend's and as thick as the line it
+ * names: solid, or dashed where the line is. */
+.swatch--line { width: 28px; height: 0; background: none; border-top: 2px solid var(--role-series); }
+.swatch--line-dash { border-top-style: dashed; }
 
 /* A span between two dots on a dot chart: the basis. */
 .mark-span { stroke: var(--role-context); stroke-width: 2px; stroke-linecap: round; }
@@ -790,18 +808,17 @@ p.block,
   gap: 0 48px;
 }
 .calc-wide > * { min-width: 0; }
-/* The result in one line under each open step, for the narrow screens where
- * the result sits above the steps. */
-.calc-live { display: none; }
+/* The result in one line under each open step, at every width: narrow, the
+ * result sits above the steps; wide, its column ends while the open steps run
+ * on, so either way it is out of sight while a field is edited. */
+.calc-live {
+  margin-top: 16px;
+  font-weight: 500;
+}
 @media (max-width: 1099.98px) {
   .calc { grid-template-columns: minmax(0, 1fr); }
   .calc__outputs { order: -1; }
   .calc-wide { grid-template-columns: minmax(0, 1fr); }
-  .calc-live {
-    display: block;
-    margin-top: 16px;
-    font-weight: 500;
-  }
 }
 
 /* The sentence the inputs move: the verdict's face, a step smaller. */
@@ -871,7 +888,11 @@ p.block,
 /* A scenario input, zero in the base case: its figure in the muted ink. */
 .field[data-status="scenario"] .field__input { color: var(--text-muted); }
 
-/* The one place --bg-elev is used: the field a figure is typed into. */
+/* The one place --bg-elev is used: the field a figure is typed into. Its
+ * border is all that marks the field, so it is in the muted ink, 4.90 on the
+ * ground and 5.12 on the field in light, 7.54 and 6.83 in dark, above the 3.0
+ * a component's boundary needs; the status styles above change only its
+ * pattern. */
 .field__input,
 .field__select {
   font-family: var(--ff-body);
@@ -880,7 +901,7 @@ p.block,
   font-variant-numeric: tabular-nums lining-nums;
   color: var(--text);
   background: var(--bg-elev);
-  border: 1px solid var(--border-strong);
+  border: 1px solid var(--text-muted);
   border-radius: 2px;
   min-height: 44px;
   padding: 6px 10px;
@@ -904,6 +925,22 @@ p.block,
 .calc__outputs > .block,
 .calc__outputs > .breakeven + .block { margin-top: 28px; }
 .preset-note { margin-top: 12px; }
+
+/* The speed tables: a best speed at an end of the range searched keeps its
+ * figure right aligned with the others and with its head, and the end's word
+ * hangs after it, quieter, in room the column keeps at its right, as many
+ * characters as src/calculator.js sets in --mark-chars from the artifact's
+ * words. Stacked on a phone, the word simply follows its figure. */
+.table .col-bound { padding-right: calc(12px + var(--mark-chars, 0) * 0.55em); }
+.table td.col-bound { position: relative; }
+.bound-mark {
+  position: absolute;
+  padding-left: 0.35em;
+  font-family: var(--ff-body);
+  font-weight: 400;
+  font-size: var(--fs-caption);
+  color: var(--text-muted);
+}
 
 /* A route's code and name in a table's first column: the code at weight 600,
  * the name under it in the muted ink. */
@@ -990,4 +1027,6 @@ p.block,
   .table--routes.table--stack td.words,
   .table--inputs.table--stack td.words,
   .table--wide.table--stack td.words { min-width: 0; }
+  .table--stack td.col-bound { padding-right: 0; }
+  .table--stack .bound-mark { position: static; }
 }

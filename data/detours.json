@@ -838,22 +838,7 @@
         "field": "cape_vs_suez.extra_freight_usd_t",
         "prefix": "USD "
       },
-      " a tonne more freight to earn what it earns by Suez before Suez tolls, a gap that closes only when the two tolls reach ",
-      {
-        "value": 7.000993,
-        "format": "usd_m",
-        "field": "takeaway.break_even_suez_toll_usd",
-        "prefix": "USD ",
-        "suffix": " million"
-      },
-      "; by Suez the Red Sea premium on the laden transit costs its charterer ",
-      {
-        "value": 4.722222,
-        "format": "usd_t",
-        "field": "red_sea.per_tonne_usd",
-        "prefix": "USD "
-      },
-      " a tonne; for a VLCC loading in the Gulf, each further seven days inside costs the charterer another ",
+      " a tonne more freight to earn what it earns by Suez before Suez tolls; for a VLCC loading in the Gulf, each further seven days inside costs the charterer another ",
       {
         "value": 43.611111,
         "format": "usd_t",
@@ -892,7 +877,7 @@
         },
         {
           "group": "LR2, Jubail to Rotterdam (TC20), against Suez",
-          "label": "Red Sea premium on the laden Suez transit, the charterer's",
+          "label": "Red Sea premium on the laden transit, the charterer's",
           "segments": [
             {
               "value": 4.722222,
@@ -1333,7 +1318,7 @@
         ", for a cargo already in the Gulf of Oman."
       ],
       "shuttle_range": "118.52 to 148.15",
-      "table_caption": "TD3C, Ras Tanura to Ningbo, bunkers of the week to 23 October 2026; the premium is the charterer's, and each freight column keeps the Baltic's TD3C TCE of its week. The last two rows load outside the strait, where no dated premium was found: the export VLCC after a transfer off Fujairah, with the shuttle the charterer pays beside it (reported at USD 16 to 20 a barrel), and TD34 from Mina Al Fahal; the transfer's own days and cost have no public figure.",
+      "table_caption": "TD3C, Ras Tanura to Ningbo, bunkers of the week to 23 October 2026; the premium is the charterer's, and each column of the owner's extra freight keeps the Baltic's TD3C TCE of its week (USD 122,676 a day before the war; USD 485,959 a day the week of the closure; USD 1,287,851 a day the latest week). The last two rows load outside the strait, where no dated premium was found: the export VLCC after a transfer off Fujairah, with the shuttle through the strait the charterer pays beside it (reported at USD 16 to 20 a barrel), and TD34 from Mina Al Fahal; the transfer's own days and cost have no public figure.",
       "levels_words": {
         "2025-12-12": "before the war",
         "2026-03-06": "the week of the closure",

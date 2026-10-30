@@ -47,7 +47,7 @@ def test_checks_cover_every_trade_and_most_pass():
     assert {c["id"] for c in checks} == {c.id for c in distance_checks.CHECKS}
     within = [c for c in checks if c["within_tolerance"]]
     assert len(within) >= 10
-    # The featured voyage's route, round the Cape, is the longest check.
+    # TD22's ballast routing, round the Cape and through the Sunda Strait, is the longest check.
     td22 = next(c for c in checks if c["id"] == "galveston_shanghai_cape")
     assert td22["within_tolerance"]
 

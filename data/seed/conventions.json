@@ -37,7 +37,7 @@
     {
       "id": "port_costs",
       "topic": "Port costs",
-      "rule": "The Baltic's tanker TCEs include port and canal costs supplied by Cory Brothers, which are not published; the study takes them as lump sum inputs.",
+      "rule": "The Baltic's tanker TCEs include port and canal costs supplied by Cory Brothers, which its 2017 TD3C note says are on its website; that website answers scripted requests with a challenge, so no figure could be read, and the study takes them as lump sum inputs, empty by default.",
       "source": "GMB v8.8 Appendix 3, page 98",
       "raw_key": "baltic_gmb",
       "quote": "Port costs supplied by Cory Brothers Shipping"

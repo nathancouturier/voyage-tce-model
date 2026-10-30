@@ -146,6 +146,13 @@ h1, h2, h3, h4 {
   .site-nav { order: 3; flex-basis: 100%; }
 }
 
+/* On a phone the nav's rows touch and its links stand 12px apart, so the
+ * seven views take two rows even at 320px; every link keeps its 44px height,
+ * so the rows still give each tap its own target. */
+@media (max-width: 480px) {
+  .site-nav__list { gap: 0 12px; }
+}
+
 /* ---------------------------------------------------- content column --- */
 
 /* The view holds at least the screen's height, so the footer starts below the
@@ -183,10 +190,14 @@ h1, h2, h3, h4 {
 
 /* The portfolio's block, minus its hero and reveal selectors. */
 @media (prefers-reduced-motion: reduce) {
+  /* The delays too, or the bridge's bars would still appear one after
+   * another, each at its inline delay. */
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
     scroll-behavior: auto !important;
   }
 }

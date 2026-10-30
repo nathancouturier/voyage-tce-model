@@ -33,7 +33,7 @@
  */
 
 import { el, clear, sentence, appendSegments, scrollTable, figureCell } from "./dom.js";
-import { formatNumber, formatCell, formatDay, listWords, roundedParts, UNITS, MINUS_PROSE } from "./format.js";
+import { formatNumber, formatCell, formatDay, formatDayShort, listWords, roundedParts, UNITS, MINUS_PROSE } from "./format.js";
 import { onWidthChange, tornadoChart, lineChart, tooltip, niceDomain, GEOMETRY } from "./charts.js";
 import * as engine from "./engine.js";
 import * as router from "./router.js";
@@ -81,6 +81,26 @@ function set(object, path, value) {
 /** "{tce} a day" with each {name} replaced by its text. */
 function fill(template, values) {
   return template.replace(/\{(\w+)\}/g, (all, name) => (Object.prototype.hasOwnProperty.call(values, name) ? values[name] : all));
+}
+
+/** "{tce} a day" as segments, the form the export writes a sentence in, so it
+ *  is set as the overview sets its own: each {name} the number segment given
+ *  for it, and a unit the words write right after a number kept with it as
+ *  its suffix, as the export keeps one. A {name} with no number stays words. */
+function segmentsOf(template, numbers) {
+  const segments = [];
+  let from = 0;
+  for (const match of template.matchAll(/\{(\w+)\}/g)) {
+    const number = numbers[match[1]];
+    if (!number) continue;
+    const end = match.index + match[0].length;
+    const unit = UNITS[number.format] ? " " + UNITS[number.format] : "";
+    const suffix = unit && template.startsWith(unit, end) ? unit : "";
+    segments.push(template.slice(from, match.index), { ...number, suffix });
+    from = end + suffix.length;
+  }
+  segments.push(template.slice(from));
+  return segments.filter((segment) => segment !== "");
 }
 
 function usdText(value, format) {
@@ -238,10 +258,18 @@ function presetChoices() {
   }
   const marketRow = el("div", { class: "choice-row", attrs: { role: "group", "aria-label": calc.words.market_label } });
   for (const p of calc.presets.filter((q) => q.route === preset.route)) {
+    // A dated week shows its day in the short form, so a row of a phone holds two or three; the
+    // full label is its tooltip and description, and its name stays the words it shows.
+    const short = shortMarket(p);
     const button = el("button", {
       class: "choice",
-      text: p.market_label,
-      attrs: { type: "button", "aria-pressed": p.id === preset.id ? "true" : "false", "data-preset": p.id },
+      text: short || p.market_label,
+      attrs: {
+        type: "button",
+        "aria-pressed": p.id === preset.id ? "true" : "false",
+        "data-preset": p.id,
+        title: short ? p.market_label : null,
+      },
     });
     button.addEventListener("click", () => choose(p.id));
     marketRow.appendChild(button);
@@ -250,6 +278,16 @@ function presetChoices() {
     el("div", { class: "choice-group" }, [el("p", { class: "choice-group__label", text: calc.words.route_label }), routeRow]),
     el("div", { class: "choice-group" }, [el("p", { class: "choice-group__label", text: calc.words.market_label }), marketRow]),
   ]);
+}
+
+/* A market named by its day alone, or by its day after words that hold no
+ * figure (the week to it), in the short form of that day; null for a market
+ * named by more than its day (a source and its rate), which keeps its words. */
+function shortMarket(p) {
+  const day = formatDay(p.date);
+  if (!day || !p.market_label.endsWith(day) || /\d/.test(p.market_label.slice(0, -day.length))) return null;
+  const short = formatDayShort(p.date);
+  return short !== p.market_label ? short : null;
 }
 
 function choose(id) {
@@ -276,7 +314,8 @@ function buildStep(inner, stepId) {
   if (stepId === "costs") warRates(fieldset);
   if (stepId === "advanced") advancedExtras(fieldset);
   inner.appendChild(fieldset);
-  // On a narrow screen the result sits above the steps, out of sight while a field is edited.
+  // The result sits above the steps on a narrow screen and its column ends before open steps do on a
+  // wide one, out of sight either way while a field is edited, so each open step ends with it.
   const line = el("p", { class: "calc-live" });
   live.stepLines = [...(live.stepLines || []), line];
   inner.appendChild(line);
@@ -435,7 +474,9 @@ function routeExtras(fieldset) {
     const choices = [];
     for (const v of variants) {
       if (!choices.some((c) => c.value === v[leg])) {
-        choices.push({ value: v[leg], label: v[leg + "_label"] + ", " + formatNumber(v.patch[leg + ".distance_nm"], "nm", decimals) + " " + UNITS.nm });
+        // Led by the leg's distance, in nautical miles as the study's sentences write them, so a select
+        // too narrow for the routing's name still shows it.
+        choices.push({ value: v[leg], label: formatNumber(v.patch[leg + ".distance_nm"], "nm", decimals) + " nm, " + v[leg + "_label"] });
       }
     }
     if (choices.length <= 1) continue;
@@ -677,7 +718,16 @@ function buildOutputs(column, wide) {
   live.speedTitle = el("h2", { class: "block__heading" });
   live.speedFrame = el("div", { class: "chart-frame" });
   live.speedSource = el("p", { class: "source-line" });
-  const speedFigure = el("figure", { class: "block" }, [live.speedTitle, live.speedFrame, el("p", { class: "source-line", text: calc.words.speed_desc }), live.speedSource]);
+  const speedFigure = el("figure", { class: "block" }, [
+    live.speedTitle,
+    live.speedFrame,
+    el("ul", { class: "chart-legend" }, [
+      el("li", { class: "chart-legend__item" }, [el("span", { class: "swatch swatch--line", attrs: { "aria-hidden": "true" } }), calc.words.speed_published]),
+      el("li", { class: "chart-legend__item" }, [el("span", { class: "swatch swatch--line swatch--line-dash", attrs: { "aria-hidden": "true" } }), calc.words.speed_extrapolated]),
+    ]),
+    el("p", { class: "source-line", text: calc.words.speed_desc }),
+    live.speedSource,
+  ]);
   live.speedFigure = speedFigure;
   live.figures.push(speedFigure);
   wide.appendChild(speedFigure);
@@ -804,13 +854,14 @@ function recompute() {
   if (!live.bridgeHolder.contains(live.bridge.node)) live.bridgeHolder.appendChild(live.bridge.node);
   // The parts rounded so that they add up to the total shown.
   const [ballastDays, ladenDays, portDays] = roundedParts([result.days.ballast_sea, result.days.laden_sea, result.days.port_total], "days", decimals);
-  live.resultLine.textContent = fill(calc.words.result_line, {
-    tce: usdText(tce, "usd_day"),
-    days: formatNumber(days, "days", decimals),
-    ballast: formatNumber(ballastDays, "days", decimals),
-    laden: formatNumber(ladenDays, "days", decimals),
-    port: formatNumber(portDays, "days", decimals),
-  });
+  live.resultLine.replaceChildren();
+  appendSegments(live.resultLine, segmentsOf(calc.words.result_line, {
+    tce: { value: tce, format: "usd_day", prefix: "USD ", accent: true, field: "result.tce_usd_day" },
+    days: { value: days, format: "days", field: "result.days.total" },
+    ballast: { value: ballastDays, format: "days", field: "result.days.ballast_sea" },
+    laden: { value: ladenDays, format: "days", field: "result.days.laden_sea" },
+    port: { value: portDays, format: "days", field: "result.days.port_total" },
+  }), decimals);
   live.leaves.textContent = leavesOut();
   live.source.textContent = fill(calc.words.source, { preset: preset.label, market: preset.market_words, eua: preset.eua_words, fx: preset.fx_words })
     + yourFigures();
@@ -954,9 +1005,21 @@ function drawSpeed() {
   const ys = points.map((p) => p.tce_usd_day).concat([best.tce_usd_day]);
   const y = niceDomain(ys, GEOMETRY.Y_TICKS, false);
   const x = { low, high, step: niceDomain([low, high], GEOMETRY.X_TICKS, false).step };
+  // The line solid between the slowest and fastest published speeds, where
+  // consumption is read from the pairs, and dashed outside them, where it
+  // follows the power law fitted to them: three pieces sharing their end
+  // points, at the speeds searched nearest the published ones.
+  const line = points.map((p) => [p.laden_kn, p.tce_usd_day]);
+  const nearest = (v) => Math.min(Math.max(Math.round((v - low) / step), 0), line.length - 1);
+  const slowest = nearest(Math.min(...speeds));
+  const fastest = nearest(Math.max(...speeds));
   const { svg, regions } = lineChart({
     width,
-    series: [{ points: points.map((p) => [p.laden_kn, p.tce_usd_day]) }],
+    series: [
+      { points: line.slice(0, slowest + 1), className: "line--dash" },
+      { points: line.slice(slowest, fastest + 1), className: "line--solid" },
+      { points: line.slice(fastest), className: "line--dash" },
+    ],
     marks: [
       { x: best.laden_kn, y: best.tce_usd_day, className: "mark-accent-dot", label: fill(calc.words.speed_best, { best: knots(best.laden_kn) }) },
       { x: current, y: live.result.tce_usd_day, className: "mark-printed", label: fill(calc.words.speed_current, { current: knots(current) }), below: true },
@@ -986,22 +1049,38 @@ function methodSection(inner) {
   inner.appendChild(block);
 }
 
-/* A best speed at an end of the speeds searched says which end. */
+/* A best speed at an end of the speeds searched says which end; "" for one
+ * inside them. */
 function boundMark(cell, speed) {
-  if (cell.at_top) return " " + speed.bound_marks.top;
-  if (cell.at_bottom) return " " + speed.bound_marks.bottom;
+  if (cell.at_top) return speed.bound_marks.top;
+  if (cell.at_bottom) return speed.bound_marks.bottom;
   return "";
+}
+
+/* A best speed's cell: the figure right aligned in its column like every
+ * other, and its end of the range, where it has one, in a quieter span after
+ * it that hangs in the room the column keeps (styles: .col-bound). */
+function bestSpeedCell(cell, speed, bound) {
+  const figure = formatCell(cell.optimal_laden_kn, "knots_2", decimals);
+  const td = figureCell(figure, "optimal_laden_kn", bound);
+  const mark = boundMark(cell, speed);
+  // The space keeps "15.00 top" two words for a screen reader and a copy of the table.
+  if (mark && figure !== null) td.replaceChildren(el("span", {}, [figure, " ", el("span", { class: "bound-mark", text: mark })]));
+  return td;
 }
 
 function speedSection(inner) {
   const speed = data.speed;
   inner.appendChild(sentence("p", speed.lead, decimals, "lead block"));
+  // The room a marked column keeps after its figures: the longest mark and a space, in characters.
+  const markChars = Math.max(...Object.values(speed.bound_marks).map((mark) => mark.length)) + 1;
   for (const routeEntry of speed.routes) {
+    const bound = routeEntry.grid.some((cell) => boundMark(cell, speed)) ? "col-bound" : "";
     const head = el("tr", {}, [
       el("th", { text: "Freight", attrs: { scope: "col" } }),
       el("th", { text: "Bunkers", attrs: { scope: "col" } }),
       el("th", { class: "col-num", text: "VLSFO, " + UNITS.usd_t, attrs: { scope: "col", "data-short": "VLSFO" } }),
-      el("th", { class: "col-num", text: "Best laden speed, " + UNITS.knots, attrs: { scope: "col", "data-short": "best speed" } }),
+      el("th", { class: ["col-num", bound].filter(Boolean).join(" "), text: "Best laden speed, " + UNITS.knots, attrs: { scope: "col", "data-short": "best speed" } }),
       el("th", { class: "col-num", text: "TCE at the best speed, " + UNITS.usd_day, attrs: { scope: "col", "data-short": "TCE at best" } }),
       el("th", { class: "col-num", text: "TCE at the priced speed, " + UNITS.usd_day, attrs: { scope: "col", "data-short": "TCE at the priced speed" } }),
     ]);
@@ -1011,12 +1090,13 @@ function speedSection(inner) {
         el("th", { attrs: { scope: "row" } }, [cell.freight_words]),
         el("td", { class: "words", text: cell.bunker_words }),
         figureCell(formatCell(cell.vlsfo_usd_t, "usd_t", decimals), "vlsfo_usd_t"),
-        figureCell(formatCell(cell.optimal_laden_kn, "knots_2", decimals) + boundMark(cell, speed), "optimal_laden_kn"),
+        bestSpeedCell(cell, speed, bound),
         figureCell(formatCell(cell.optimal_tce_usd_day, "usd_day", decimals), "optimal_tce_usd_day"),
         figureCell(formatCell(cell.reference_tce_usd_day, "usd_day", decimals), "reference_tce_usd_day"),
       ]));
     }
     const table = el("table", { class: "table" }, [el("thead", {}, [head]), body]);
+    table.style.setProperty("--mark-chars", String(markChars));
     inner.appendChild(el("div", { class: "block" }, [scrollTable([appendSegments(el("span"), routeEntry.caption, decimals)], table)]));
   }
   inner.appendChild(el("p", { class: "note block", text: speed.note }));

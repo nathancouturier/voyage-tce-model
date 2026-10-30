@@ -87,10 +87,10 @@
     " of their cases the best speed is at the top of the range searched."
   ],
   "bound_marks": {
-    "top": "(top of the range)",
-    "bottom": "(bottom of the range)"
+    "top": "top",
+    "bottom": "bottom"
   },
-  "note": "The range searched runs one knot either side of the published consumption pairs; beyond them consumption follows the power law fitted to the pairs, an extrapolation. Linear interpolation between pairs puts kinks at the published speeds, so best speeds often fall exactly on one of them.",
+  "note": "The range searched runs one knot either side of the published consumption pairs; beyond them consumption follows the power law fitted to the pairs, an extrapolation. Linear interpolation between pairs puts kinks at the published speeds, so best speeds often fall exactly on one of them. In the tables, top and bottom mark a best speed at an end of the range searched.",
   "routes": [
     {
       "route": "C5",

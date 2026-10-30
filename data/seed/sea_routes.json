@@ -17719,7 +17719,7 @@
         "searoute_nm": 5097.3,
         "error": 0.002419,
         "within_tolerance": true,
-        "note": "Galveston's route plus 47 miles, the rule Pub. 151 prints for Houston on p. 44 (TC14)"
+        "note": "Galveston's route plus 47 miles, the rule Pub. 151 prints for Houston on p. 44 (TC14), to Pub. 151's Amsterdam position, a little nearer IJmuiden than the World Port Index position the priced leg ends at"
       },
       {
         "id": "amsterdam_le_havre",
@@ -17742,7 +17742,7 @@
         "searoute_nm": 281.1,
         "error": 0.02967,
         "within_tolerance": false,
-        "note": "the TC23 route"
+        "note": "the TC23 route, from Pub. 151's Amsterdam position, a little nearer IJmuiden than the World Port Index position the priced leg starts from"
       },
       {
         "id": "galveston_shanghai_cape",
@@ -17783,7 +17783,7 @@
         "searoute_nm": 15167.9,
         "error": 5.9e-05,
         "within_tolerance": true,
-        "note": "through the Straits of Florida, the Cape of Good Hope and Selat Sunda, the TD22 route"
+        "note": "through the Straits of Florida, the Cape of Good Hope and Selat Sunda, the routing of TD22's ballast leg; its laden leg leaves it for the Strait of Malacca and has no Pub. 151 figure of its own"
       },
       {
         "id": "port_hedland_lombok",

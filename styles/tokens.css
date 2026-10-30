@@ -180,9 +180,10 @@
 /* ------------------------------------------------- 4. the data palette --- */
 
 /* docs/design.md Part 2. Marks only: text never wears these colours. Each
- * value is at least 3:1 on its theme's --bg, and the sets pass the dataviz
- * validator (OKLab separation under protanopia and deuteranopia, adjacent
- * pairs, target 8; normal vision floor 15). */
+ * value is at least 3:1 on its theme's --bg, and adjacent slots stand apart
+ * in OKLab (the difference times 100) under the Machado, Oliveira and
+ * Fernandes (2009) simulation of protanopia and deuteranopia at full
+ * severity, target 8, and by at least 15 in normal vision. */
 :root {
   --data-laden: var(--text);
   --data-ballast: var(--text-muted);

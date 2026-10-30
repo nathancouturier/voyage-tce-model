@@ -687,11 +687,19 @@
         },
         "costs.port_load_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
         },
         "costs.port_discharge_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
+        },
+        "costs.canal_laden_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
+        },
+        "costs.canal_ballast_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
         },
         "freight_value": {
           "status": "sourced",
@@ -1075,11 +1083,19 @@
         },
         "costs.port_load_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
         },
         "costs.port_discharge_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
+        },
+        "costs.canal_laden_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
+        },
+        "costs.canal_ballast_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
         },
         "freight_value": {
           "status": "sourced",
@@ -1445,11 +1461,11 @@
         },
         "costs.port_load_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
         },
         "costs.port_discharge_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
         },
         "costs.canal_laden_usd": {
           "status": "empty",
@@ -1703,7 +1719,10 @@
               "status": "derived",
               "source": "searoute 1.6.0 over Eurostat SeaRoute, Suez and Panama avoided"
             },
-            "costs.canal_ballast_usd": null
+            "costs.canal_ballast_usd": {
+              "status": "derived",
+              "source": "no canal on this routing"
+            }
           },
           "excluded_items": [
             {
@@ -1760,7 +1779,10 @@
             "war_risk.areas.red_sea.ballast_transits": 0
           },
           "sources": {
-            "costs.canal_laden_usd": null,
+            "costs.canal_laden_usd": {
+              "status": "derived",
+              "source": "no canal on this routing"
+            },
             "laden.distance_nm": {
               "status": "derived",
               "source": "searoute 1.6.0 over Eurostat SeaRoute, Suez and Panama avoided"
@@ -1825,8 +1847,14 @@
               "status": "derived",
               "source": "searoute 1.6.0 over Eurostat SeaRoute, Suez and Panama avoided"
             },
-            "costs.canal_ballast_usd": null,
-            "costs.canal_laden_usd": null,
+            "costs.canal_ballast_usd": {
+              "status": "derived",
+              "source": "no canal on this routing"
+            },
+            "costs.canal_laden_usd": {
+              "status": "derived",
+              "source": "no canal on this routing"
+            },
             "laden.distance_nm": {
               "status": "derived",
               "source": "searoute 1.6.0 over Eurostat SeaRoute, Suez and Panama avoided"
@@ -2103,11 +2131,19 @@
         },
         "costs.port_load_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
         },
         "costs.port_discharge_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
+        },
+        "costs.canal_laden_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
+        },
+        "costs.canal_ballast_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
         },
         "freight_value": {
           "status": "sourced",
@@ -2481,11 +2517,19 @@
         },
         "costs.port_load_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
         },
         "costs.port_discharge_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
+        },
+        "costs.canal_laden_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
+        },
+        "costs.canal_ballast_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
         },
         "freight_value": {
           "status": "sourced",
@@ -2852,11 +2896,19 @@
         },
         "costs.port_load_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
         },
         "costs.port_discharge_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
+        },
+        "costs.canal_laden_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
+        },
+        "costs.canal_ballast_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
         },
         "freight_value": {
           "status": "sourced",
@@ -3218,11 +3270,19 @@
         },
         "costs.port_load_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
         },
         "costs.port_discharge_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
+        },
+        "costs.canal_laden_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
+        },
+        "costs.canal_ballast_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
         },
         "freight_value": {
           "status": "sourced",
@@ -3588,11 +3648,19 @@
         },
         "costs.port_load_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
         },
         "costs.port_discharge_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
+        },
+        "costs.canal_laden_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
+        },
+        "costs.canal_ballast_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
         },
         "freight_value": {
           "status": "sourced",
@@ -3956,11 +4024,19 @@
         },
         "costs.port_load_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
         },
         "costs.port_discharge_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
+        },
+        "costs.canal_laden_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
+        },
+        "costs.canal_ballast_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
         },
         "freight_value": {
           "status": "sourced",
@@ -4330,11 +4406,19 @@
         },
         "costs.port_load_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
         },
         "costs.port_discharge_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
+        },
+        "costs.canal_laden_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
+        },
+        "costs.canal_ballast_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
         },
         "freight_value": {
           "status": "sourced",
@@ -4705,11 +4789,19 @@
         },
         "costs.port_load_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
         },
         "costs.port_discharge_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
+        },
+        "costs.canal_laden_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
+        },
+        "costs.canal_ballast_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
         },
         "freight_value": {
           "status": "sourced",
@@ -5076,11 +5168,19 @@
         },
         "costs.port_load_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
         },
         "costs.port_discharge_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
+        },
+        "costs.canal_laden_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
+        },
+        "costs.canal_ballast_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
         },
         "freight_value": {
           "status": "sourced",
@@ -5438,11 +5538,19 @@
         },
         "costs.port_load_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
         },
         "costs.port_discharge_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
+        },
+        "costs.canal_laden_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
+        },
+        "costs.canal_ballast_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
         },
         "freight_value": {
           "status": "sourced",
@@ -6010,11 +6118,19 @@
         },
         "costs.port_load_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
         },
         "costs.port_discharge_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
+        },
+        "costs.canal_laden_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
+        },
+        "costs.canal_ballast_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
         },
         "freight_value": {
           "status": "sourced",
@@ -6582,11 +6698,19 @@
         },
         "costs.port_load_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
         },
         "costs.port_discharge_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
+        },
+        "costs.canal_laden_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
+        },
+        "costs.canal_ballast_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
         },
         "freight_value": {
           "status": "sourced",
@@ -7154,11 +7278,19 @@
         },
         "costs.port_load_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
         },
         "costs.port_discharge_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
+        },
+        "costs.canal_laden_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
+        },
+        "costs.canal_ballast_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
         },
         "freight_value": {
           "status": "sourced",
@@ -7726,11 +7858,19 @@
         },
         "costs.port_load_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
         },
         "costs.port_discharge_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
+        },
+        "costs.canal_laden_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
+        },
+        "costs.canal_ballast_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
         },
         "freight_value": {
           "status": "sourced",
@@ -8298,11 +8438,19 @@
         },
         "costs.port_load_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
         },
         "costs.port_discharge_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
+        },
+        "costs.canal_laden_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
+        },
+        "costs.canal_ballast_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
         },
         "freight_value": {
           "status": "sourced",
@@ -8870,11 +9018,19 @@
         },
         "costs.port_load_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
         },
         "costs.port_discharge_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
+        },
+        "costs.canal_laden_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
+        },
+        "costs.canal_ballast_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
         },
         "freight_value": {
           "status": "sourced",
@@ -9442,11 +9598,19 @@
         },
         "costs.port_load_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
         },
         "costs.port_discharge_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
+        },
+        "costs.canal_laden_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
+        },
+        "costs.canal_ballast_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
         },
         "freight_value": {
           "status": "sourced",
@@ -10014,11 +10178,19 @@
         },
         "costs.port_load_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
         },
         "costs.port_discharge_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
+        },
+        "costs.canal_laden_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
+        },
+        "costs.canal_ballast_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
         },
         "freight_value": {
           "status": "sourced",
@@ -10586,11 +10758,19 @@
         },
         "costs.port_load_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
         },
         "costs.port_discharge_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
+        },
+        "costs.canal_laden_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
+        },
+        "costs.canal_ballast_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
         },
         "freight_value": {
           "status": "sourced",
@@ -11158,11 +11338,19 @@
         },
         "costs.port_load_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
         },
         "costs.port_discharge_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
+        },
+        "costs.canal_laden_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
+        },
+        "costs.canal_ballast_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
         },
         "freight_value": {
           "status": "sourced",
@@ -11730,11 +11918,19 @@
         },
         "costs.port_load_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
         },
         "costs.port_discharge_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
+        },
+        "costs.canal_laden_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
+        },
+        "costs.canal_ballast_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
         },
         "freight_value": {
           "status": "sourced",
@@ -12306,11 +12502,11 @@
         },
         "costs.port_load_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
         },
         "costs.port_discharge_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
         },
         "costs.canal_laden_usd": {
           "status": "empty",
@@ -12580,7 +12776,10 @@
               "status": "derived",
               "source": "searoute 1.6.0 over Eurostat SeaRoute, Suez Canal and Red Sea avoided"
             },
-            "costs.canal_ballast_usd": null,
+            "costs.canal_ballast_usd": {
+              "status": "derived",
+              "source": "no canal on this routing"
+            },
             "port.canal_days": {
               "status": "derived",
               "source": "GMB v8.8 page 94, TC20 TCE description: 2 days for its 2 canal transits, the same days a transit for the 1 of this routing"
@@ -12648,7 +12847,10 @@
             "war_risk.areas.red_sea.ballast_transits": 1
           },
           "sources": {
-            "costs.canal_laden_usd": null,
+            "costs.canal_laden_usd": {
+              "status": "derived",
+              "source": "no canal on this routing"
+            },
             "laden.distance_nm": {
               "status": "derived",
               "source": "searoute 1.6.0 over Eurostat SeaRoute, Suez Canal and Red Sea avoided"
@@ -12724,8 +12926,14 @@
               "status": "derived",
               "source": "searoute 1.6.0 over Eurostat SeaRoute, Suez Canal and Red Sea avoided"
             },
-            "costs.canal_ballast_usd": null,
-            "costs.canal_laden_usd": null,
+            "costs.canal_ballast_usd": {
+              "status": "derived",
+              "source": "no canal on this routing"
+            },
+            "costs.canal_laden_usd": {
+              "status": "derived",
+              "source": "no canal on this routing"
+            },
             "laden.distance_nm": {
               "status": "derived",
               "source": "searoute 1.6.0 over Eurostat SeaRoute, Suez Canal and Red Sea avoided"
@@ -13005,11 +13213,19 @@
         },
         "costs.port_load_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
         },
         "costs.port_discharge_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
+        },
+        "costs.canal_laden_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
+        },
+        "costs.canal_ballast_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
         },
         "freight_value": {
           "status": "sourced",
@@ -13581,11 +13797,11 @@
         },
         "costs.port_load_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
         },
         "costs.port_discharge_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
         },
         "costs.canal_laden_usd": {
           "status": "empty",
@@ -13855,7 +14071,10 @@
               "status": "derived",
               "source": "searoute 1.6.0 over Eurostat SeaRoute, Suez Canal and Red Sea avoided"
             },
-            "costs.canal_ballast_usd": null,
+            "costs.canal_ballast_usd": {
+              "status": "derived",
+              "source": "no canal on this routing"
+            },
             "port.canal_days": {
               "status": "derived",
               "source": "GMB v8.8 page 94, TC20 TCE description: 2 days for its 2 canal transits, the same days a transit for the 1 of this routing"
@@ -13923,7 +14142,10 @@
             "war_risk.areas.red_sea.ballast_transits": 1
           },
           "sources": {
-            "costs.canal_laden_usd": null,
+            "costs.canal_laden_usd": {
+              "status": "derived",
+              "source": "no canal on this routing"
+            },
             "laden.distance_nm": {
               "status": "derived",
               "source": "searoute 1.6.0 over Eurostat SeaRoute, Suez Canal and Red Sea avoided"
@@ -13999,8 +14221,14 @@
               "status": "derived",
               "source": "searoute 1.6.0 over Eurostat SeaRoute, Suez Canal and Red Sea avoided"
             },
-            "costs.canal_ballast_usd": null,
-            "costs.canal_laden_usd": null,
+            "costs.canal_ballast_usd": {
+              "status": "derived",
+              "source": "no canal on this routing"
+            },
+            "costs.canal_laden_usd": {
+              "status": "derived",
+              "source": "no canal on this routing"
+            },
             "laden.distance_nm": {
               "status": "derived",
               "source": "searoute 1.6.0 over Eurostat SeaRoute, Suez Canal and Red Sea avoided"
@@ -14284,11 +14512,19 @@
         },
         "costs.port_load_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
         },
         "costs.port_discharge_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
+        },
+        "costs.canal_laden_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
+        },
+        "costs.canal_ballast_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
         },
         "freight_value": {
           "status": "sourced",
@@ -14651,11 +14887,19 @@
         },
         "costs.port_load_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
         },
         "costs.port_discharge_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
+        },
+        "costs.canal_laden_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
+        },
+        "costs.canal_ballast_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
         },
         "freight_value": {
           "status": "sourced",
@@ -15018,11 +15262,19 @@
         },
         "costs.port_load_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
         },
         "costs.port_discharge_usd": {
           "status": "empty",
-          "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+          "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
+        },
+        "costs.canal_laden_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
+        },
+        "costs.canal_ballast_usd": {
+          "status": "derived",
+          "source": "no canal on this routing"
         },
         "freight_value": {
           "status": "sourced",
@@ -15462,7 +15714,7 @@
     "gross": "Gross freight and other revenue",
     "commission": "Commission",
     "result": "Voyage result",
-    "none": "None on this voyage",
+    "none": "None on this routing",
     "none_ets": "None: no EEA port",
     "market_label": "Market",
     "verdict": "At these inputs the voyage earns {tce} a day over {days} days.",
@@ -15494,7 +15746,9 @@
     "speed_title_bound": "The TCE still rises at {best} knots, the top of the range searched, a knot above the fastest published consumption, where consumption is extrapolated; the voyage is priced at {current}.",
     "speed_axis_x": "Laden speed, knots (ballast keeps its gap)",
     "speed_axis_y": "TCE, USD a day",
-    "speed_desc": "The TCE at each laden speed from one knot below the slowest published speed to one knot above the fastest. Between published pairs consumption is interpolated; outside them it follows the power law fitted to the pairs.",
+    "speed_desc": "The TCE at each laden speed from one knot below the slowest published speed to one knot above the fastest. Between published pairs consumption is interpolated and the line is solid; outside them it follows the power law fitted to the pairs and the line is dashed.",
+    "speed_published": "Consumption from the published speed pairs",
+    "speed_extrapolated": "Consumption extrapolated by the fitted power law",
     "speed_title_low": "The TCE is highest at {best} knots, the slowest speed searched; the voyage is priced at {current}.",
     "speed_trip_note": "On a trip time charter the charterer orders the speed and buys the trip's fuel, and the owner earns the same hire a day at any speed, so no speed chart is drawn for a trip.",
     "speed_best": "Best, {best} kn",

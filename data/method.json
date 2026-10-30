@@ -80,7 +80,7 @@
     {
       "id": "port_costs",
       "topic": "Port costs",
-      "rule": "The Baltic's tanker TCEs include port and canal costs supplied by Cory Brothers, which are not published; the study takes them as lump sum inputs.",
+      "rule": "The Baltic's tanker TCEs include port and canal costs supplied by Cory Brothers, which its 2017 TD3C note says are on its website; that website answers scripted requests with a challenge, so no figure could be read, and the study takes them as lump sum inputs, empty by default.",
       "source": "GMB v8.8 Appendix 3, page 98",
       "raw_key": "baltic_gmb",
       "quote": "Port costs supplied by Cory Brothers Shipping",
@@ -2791,7 +2791,7 @@
           "searoute_nm": 5097.3,
           "error": 0.002419,
           "within_tolerance": true,
-          "note": "Galveston's route plus 47 miles, the rule Pub. 151 prints for Houston on p. 44 (TC14)"
+          "note": "Galveston's route plus 47 miles, the rule Pub. 151 prints for Houston on p. 44 (TC14), to Pub. 151's Amsterdam position, a little nearer IJmuiden than the World Port Index position the priced leg ends at"
         },
         {
           "id": "amsterdam_le_havre",
@@ -2814,7 +2814,7 @@
           "searoute_nm": 281.1,
           "error": 0.02967,
           "within_tolerance": false,
-          "note": "the TC23 route"
+          "note": "the TC23 route, from Pub. 151's Amsterdam position, a little nearer IJmuiden than the World Port Index position the priced leg starts from"
         },
         {
           "id": "galveston_shanghai_cape",
@@ -2855,7 +2855,7 @@
           "searoute_nm": 15167.9,
           "error": 5.9e-05,
           "within_tolerance": true,
-          "note": "through the Straits of Florida, the Cape of Good Hope and Selat Sunda, the TD22 route"
+          "note": "through the Straits of Florida, the Cape of Good Hope and Selat Sunda, the routing of TD22's ballast leg; its laden leg leaves it for the Strait of Malacca and has no Pub. 151 figure of its own"
         },
         {
           "id": "port_hedland_lombok",
@@ -4023,53 +4023,7 @@
         "field": "validation.max_error",
         "suffix": " percent"
       },
-      " above the Baltic's TCE for TD22 and TC20 (",
-      {
-        "value": 1.827446,
-        "format": "error_percent",
-        "field": "validation.usual_min_error"
-      },
-      " to ",
-      {
-        "value": 4.677353,
-        "format": "error_percent",
-        "field": "validation.usual_max_error",
-        "suffix": " percent"
-      },
-      " with prices up to a week old), outside the two weeks after the closure of Hormuz; TD3C, priced at the 2026 flat rate Platts' January pairs imply, reads ",
-      {
-        "value": -1.862721,
-        "format": "error_percent",
-        "field": "validation.implied_min_error",
-        "signed": true
-      },
-      " to ",
-      {
-        "value": 10.850691,
-        "format": "error_percent",
-        "field": "validation.implied_max_error",
-        "signed": true,
-        "suffix": " percent"
-      },
-      "; ",
-      {
-        "value": 52,
-        "format": "count",
-        "field": "validation.ws_count"
-      },
-      " other Worldscale anchors cannot be priced without a licensed flat rate, and ",
-      {
-        "value": 20,
-        "format": "count",
-        "field": "distances.within"
-      },
-      " of ",
-      {
-        "value": 25,
-        "format": "count",
-        "field": "distances.count"
-      },
-      " distances fall within 2 percent of NGA Pub. 151."
+      " above the Baltic's own TCE for TD22 and TC20, the two routes it can price without a licensed flat rate; the chart sets out every week, its exceptions and TD3C, and Validation every other check."
     ],
     "dry_caption": [
       "Dry route rates priced by the engine against the time charter average of the same day. The averages are gross hire and the TCEs net of the 5 percent commission, so each TCE is grossed up by the commission before the gap is taken (Guide to Market Benchmarks section 7.4.3), against the average for the 182,000 t ship the study prices",
@@ -4092,7 +4046,7 @@
         "field": "dry.july.like_for_like",
         "prefix": "USD "
       },
-      ". The gap is what the TCEs leave out (port charges, loading time and fuel burnt in port, all of which would lower them) and one round voyage set against a basket of time charter routes; C3 is priced at Singapore, the hub on its voyage, and the Paper view gives its sensitivity to Rotterdam's prices."
+      ". The gap is what the TCEs leave out (port charges, loading time and fuel burnt in port, all of which would lower them) and one round voyage set against a basket of time charter routes; C3 is priced at Singapore, about 270 nm off its ballast leg, and the Paper view gives its sensitivity to Rotterdam's prices."
     ],
     "dry_benchmark_head": "For the 182,000 t ship priced, USD a day",
     "early_march_caption": "Early March 2026: the Middle East Gulf to China VLCC rates reported in dollars a tonne, priced as TD3C. Platts printed USD 62.07 on 2 March; the USD 89 a tonne reported on 3 March names no primary assessment and is not Platts', whose year to date rise to USD 62.07 was 461 percent. The Baltic's TD3C TCE was USD 209,550 a day in the week to 27 February and USD 485,959 in the week to 6 March. The war risk column is a scenario, not the Baltic's basis: the early March premium of 2.5 percent of a USD 120 million hull for one seven day period inside the Gulf, in the owner's costs as if the freight carried it.",

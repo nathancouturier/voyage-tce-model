@@ -736,11 +736,11 @@ def build(out: Path) -> int:
             "it, the war risk premium. The tanker TCE follows the Baltic's own method (Appendix 3 of the guide): a 5 "
             "percent weather margin on steaming days, the round voyage from the discharge port, the port and waiting "
             "days and consumptions of the route's description, and bunkers at the hub nearest the load port; C3 alone "
-            "is priced at Singapore, the hub on its voyage, since the hub nearest Tubarao lies off it. The guide "
-            "leaves a dry route's weather allowance to its panellists, so the same 5 percent on the dry routes is the "
-            "study's choice. Worldscale freight is WS / 100 x flat rate, priced with the reader's own licensed flat "
-            "rate. Commission is %s percent on dry routes and %s percent on tankers, address commission and brokerage "
-            "together." % (MINUS, MINUS, short(dry_commission), short(tanker_commission))
+            "is priced at Singapore, about 270 nm off its ballast leg, since the hub nearest Tubarao lies off it. The "
+            "guide leaves a dry route's weather allowance to its panellists, so the same 5 percent on the dry routes "
+            "is the study's choice. Worldscale freight is WS / 100 x flat rate, priced with the reader's own licensed "
+            "flat rate. Commission is %s percent on dry routes and %s percent on tankers, address commission and "
+            "brokerage together." % (MINUS, MINUS, short(dry_commission), short(tanker_commission))
         )
     )
     story.append(
@@ -765,8 +765,8 @@ def build(out: Path) -> int:
             "The gap grows with freight, from %s a day at a %s lump sum (%s) to %s at %s (%s), so the port charges "
             "the engine leaves out, a fixed sum a voyage, explain only part of it. The weeks to %s, just after the "
             "closure of Hormuz, read %s percent above with tables of the same weeks, and why is not established; "
-            "TD3C, priced at Fujairah, shows no such jump in those weeks (below), which points to the Houston prices "
-            "rather than the method."
+            "TD3C, priced at Fujairah, shows no such jump in those weeks (below), which points to TD22's Houston "
+            "prices or to the hub the Baltic priced TD22 at before its guide rewrote the fuel price text in May 2026."
             % (
                 summary["weeks"],
                 date_label(min(r["week_ending"] for r in reproducible)),
@@ -803,7 +803,13 @@ def build(out: Path) -> int:
                     method["page"]["chart"],
                 ),
                 p(
-                    "Figure 2. " + escape(plain(method["page"]["chart"]["source"])),
+                    # The site's chart adds TD3C at its implied flat rate; this one plots the lump sums only.
+                    "Figure 2. "
+                    + escape(plain(method["page"]["chart"]["source"])).replace(
+                        " TD3C's flat rate implied by Platts' pairs of 2 and 13 January 2026 (Hellenic Shipping News, "
+                        "17 January 2026);",
+                        "",
+                    ),
                     SOURCE,
                 ),
             ]
@@ -862,9 +868,9 @@ def build(out: Path) -> int:
     story.append(
         p(
             "Early March 2026: Platts' %s a tonne for the Gulf to China on %s gives %s a day with the bunkers of the "
-            "%s, and %s with the early March premium of %s percent of a %s hull in the owner's costs; the %s widely "
-            "reported on %s names no primary assessment and would give %s. The Baltic's TD3C TCE was %s in the week "
-            "to %s and %s in the week to %s."
+            "%s, and %s with the early March premium of %s percent of a %s hull in the owner's costs; the %s that "
+            "Oilprice.com reported on %s names no primary assessment and would give %s. The Baltic's TD3C TCE was %s "
+            "in the week to %s and %s in the week to %s."
             % (
                 usd(platts["freight_usd_t"], "usd_t"),
                 date_label(platts["date"]),

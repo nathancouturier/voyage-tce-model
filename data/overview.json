@@ -44,7 +44,7 @@
   "route": "TD22",
   "title": "What a VLCC earns from the US Gulf to China",
   "verdict": [
-    "A VLCC fixed on TD22, Galveston to Ningbo, at the Baltic's ",
+    "A VLCC on TD22, Galveston to Ningbo, at the Baltic's assessed ",
     {
       "value": 58.22,
       "format": "usd_m",
@@ -57,7 +57,7 @@
       "text": "23 October 2026",
       "field": "date"
     },
-    ", earns about ",
+    ", earns an estimated ",
     {
       "value": 463638.730309,
       "format": "usd_day",
@@ -181,7 +181,22 @@
       "unit": "percent",
       "as_of": "2026-10-23",
       "note": [
-        "VLSFO at ",
+        "The bunker bill, ",
+        {
+          "value": 4.507384,
+          "format": "usd_m",
+          "field": "result.costs.bunkers",
+          "prefix": "USD ",
+          "suffix": " million"
+        },
+        ", is ",
+        {
+          "value": 7.741986,
+          "format": "percent",
+          "field": "result.bunkers_of_freight",
+          "suffix": " percent"
+        },
+        " of the freight: VLSFO at ",
         {
           "value": 800.0,
           "format": "usd_t",
@@ -294,9 +309,7 @@
         "to_usd": 51529365.744591,
         "family": "canals",
         "accent": false,
-        "detail": [
-          "No canal on this routing"
-        ],
+        "detail": null,
         "zero": "None on this routing"
       },
       {
@@ -308,10 +321,8 @@
         "to_usd": 51529365.744591,
         "family": "ets",
         "accent": false,
-        "detail": [
-          "No EEA port on either leg"
-        ],
-        "zero": "None: outside the EEA"
+        "detail": null,
+        "zero": "None: no EEA port"
       },
       {
         "id": "war_risk",
@@ -322,9 +333,7 @@
         "to_usd": 51529365.744591,
         "family": "war",
         "accent": false,
-        "detail": [
-          "No listed war risk area on this routing"
-        ],
+        "detail": null,
         "zero": "None on this routing"
       },
       {
@@ -370,7 +379,7 @@
         "format": "days",
         "field": "result.days.port_total"
       },
-      " in port), the result is a TCE of ",
+      " in port and waiting), the result is a TCE of ",
       {
         "value": 463638.730309,
         "format": "usd_day",
@@ -528,7 +537,7 @@
           "field": "inputs.sea_margin",
           "suffix": " percent"
         },
-        " weather margin; fuel is priced at the bunker port nearest the load port; port, waiting and canal days follow the route description. TD22 loads in the Galveston lightering area and sails laden round the Cape of Good Hope and through the Strait of Malacca to Ningbo, the strait the Baltic's own TD3C calculation takes with the same laden VLCC, rather than the shallower Sunda Strait of the shortest network line; in ballast it comes back through the Sunda Strait. The Baltic measures its distances on AtoBviaC tables, which are not published."
+        " weather margin; fuel is priced at the bunker port nearest the load port; port, waiting and canal days follow the route description. TD22 loads in the Galveston lightering area and sails laden round the Cape of Good Hope and through the Strait of Malacca to Ningbo, the strait the mileage of the Baltic's own TD3C calculation implies for the same laden VLCC, rather than the shallower Sunda Strait of the shortest network line; in ballast it comes back through the Sunda Strait. The Baltic measures its distances on AtoBviaC tables, which are not published."
       ],
       [
         "Operating and capital costs are not voyage costs: a TCE is compared with them, never net of them. A TCE without the ballast leg is a different number; the one here includes it."
@@ -597,7 +606,7 @@
       ")."
     ],
     "comparison_note": [
-      "Port charges, which the engine leaves out (the Baltic uses Cory Brothers' estimates, which are not published), are a fixed sum a voyage, so they explain only part of the gap; the rest grows with freight, as it would if the Baltic's voyage were longer than searoute's or carried another cost that scales with freight, and the weeks checked cannot tell which. In the weeks to ",
+      "Port charges, which the engine leaves out (the Baltic takes them from Cory Brothers and says they are on its website, which this study could not read), are a fixed sum a voyage, so they explain only part of the gap; the rest grows with freight, as it would if the Baltic's voyage were longer than searoute's or carried another cost that scales with freight, and the weeks checked cannot tell which. In the weeks to ",
       {
         "text": "13 March 2026",
         "field": "exception.0"
@@ -974,7 +983,7 @@
       "text": null,
       "status": "empty",
       "status_words": "No public figure",
-      "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+      "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
     },
     {
       "path": "costs.port_discharge_usd",
@@ -984,7 +993,27 @@
       "text": null,
       "status": "empty",
       "status_words": "No public figure",
-      "source": "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published"
+      "source": "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge"
+    },
+    {
+      "path": "costs.canal_laden_usd",
+      "label": "Canal toll, laden",
+      "value": 0.0,
+      "format": "usd",
+      "text": null,
+      "status": "derived",
+      "status_words": "Derived",
+      "source": "no canal on this routing"
+    },
+    {
+      "path": "costs.canal_ballast_usd",
+      "label": "Canal toll, ballast",
+      "value": 0.0,
+      "format": "usd",
+      "text": null,
+      "status": "derived",
+      "status_words": "Derived",
+      "source": "no canal on this routing"
     },
     {
       "path": "war_risk.areas.gulf.premium_pct",
@@ -1221,5 +1250,5 @@
       "bunkers_words": "Same week"
     }
   ],
-  "plain_verdict": "A VLCC fixed on TD22, Galveston to Ningbo, at the Baltic's USD 58.22 million in the week to 23 October 2026, earns about USD 463,639 a day over a 111.1 day round voyage; freight of USD 17.34 a tonne would only cover the voyage costs priced."
+  "plain_verdict": "A VLCC on TD22, Galveston to Ningbo, at the Baltic's assessed USD 58.22 million in the week to 23 October 2026, earns an estimated USD 463,639 a day over a 111.1 day round voyage; freight of USD 17.34 a tonne would only cover the voyage costs priced."
 }

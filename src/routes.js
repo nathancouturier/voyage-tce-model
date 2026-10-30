@@ -2,12 +2,11 @@
  *
  * The Routes view: the route library at one common dated market. The key
  * chart is the voyage cost of every route per day of its round voyage, split
- * into the cost families that have a public figure; the table under it gives
- * each route's ship, cargo, commission, distances by routing, the share of its
- * miles inside emission control areas, its port days and its sourced voyage
- * costs.
- * The Gulf loadings are shown again with the Hormuz war risk premium, which
- * would swamp the chart. Method, Assumptions and Data sit behind buttons.
+ * into the cost families that have a public figure. Behind buttons: the
+ * routes one by one (ship, cargo, commission, distances by routing, the share
+ * of the miles inside emission control areas, port days and sourced voyage
+ * costs), the Gulf loadings again with the Hormuz war risk premium, which
+ * would swamp the chart, and Method, Assumptions and Data.
  *
  * Every figure is from data/routes.json.
  *
@@ -65,10 +64,9 @@ export function render(root, data, route) {
     el("a", { class: "text-link", text: page.baltic_map.link, attrs: { href: routes.baltic_map_url } }),
     page.baltic_map.after,
   ]));
-  root.appendChild(el("div", { class: "block" }, [routeTable(routes, decimals)]));
-  root.appendChild(hormuzBlock(routes, decimals));
-
   sections = buildSections(VIEW, withBuilders(page.sections, {
+    library: (inner) => inner.appendChild(el("div", { class: "block" }, [routeTable(routes, decimals)])),
+    hormuz: (inner) => inner.appendChild(hormuzBlock(routes, decimals)),
     method: (inner) => paragraphs(inner, page.method),
     assumptions: (inner) => assumptions(inner, routes),
     data: (inner) => dataSection(inner, routes, decimals),
@@ -156,8 +154,8 @@ function hormuzBlock(routes, decimals) {
     body.appendChild(el("tr", {}, cells));
   }
   const table = el("table", { class: "table" }, [el("thead", {}, [head]), body]);
+  // The section's button carries the title.
   return el("div", { class: "block" }, [
-    el("h2", { class: "block__heading", text: page.hormuz.title }),
     sentence("p", page.hormuz.lead, decimals, "prose"),
     scrollTable([page.hormuz.caption], table),
   ]);

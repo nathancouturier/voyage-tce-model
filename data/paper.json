@@ -1327,11 +1327,11 @@
         "short": "freight"
       },
       {
-        "text": "Physical TCE, net of commission, USD a day",
+        "text": "Net TCE, USD a day",
         "short": "net TCE"
       },
       {
-        "text": "Grossed up by the commission, USD a day",
+        "text": "Gross TCE, USD a day",
         "short": "gross TCE"
       },
       {
@@ -1340,35 +1340,35 @@
         "words": true
       },
       {
-        "text": "5TC (182) FFA over the voyage's days, the print used, USD a day",
+        "text": "FFA, USD a day",
         "short": "FFA"
       },
       {
-        "text": "Basis, grossed up TCE less FFA, USD a day",
+        "text": "Basis, USD a day",
         "short": "basis"
       },
       {
-        "text": "Basis on the curve's other print, USD a day",
+        "text": "Basis, other print, USD a day",
         "short": "other print"
       },
       {
-        "text": "Freight whose grossed up TCE equals the FFA, USD a tonne",
+        "text": "Freight for the FFA, USD a tonne",
         "short": "freight for the FFA"
       },
       {
-        "text": "Spot 5TC on the fixture date, 182,000 t basis, USD a day",
+        "text": "Spot 5TC, USD a day",
         "short": "spot"
       },
       {
-        "text": "Timing basis, FFA less spot, USD a day",
+        "text": "Timing basis, USD a day",
         "short": "timing basis"
       },
       {
-        "text": "Hedge, days of 5TC (182), EEX C5TM",
+        "text": "Hedge, 5TC (182) days",
         "short": "hedge"
       },
       {
-        "text": "Days that hedge the net earnings",
+        "text": "Net hedge, days",
         "short": "net hedge"
       }
     ],
@@ -1418,21 +1418,7 @@
         "field": "C5.basis_range.1"
       },
       " above",
-      " it; hedging the C3 voyage takes ",
-      {
-        "value": 76.522292,
-        "format": "days",
-        "field": "C3.hedge_days",
-        "suffix": " days"
-      },
-      " of 5TC (182) or ",
-      {
-        "value": 170000,
-        "format": "t",
-        "field": "C3.cargo_t",
-        "suffix": " tonnes"
-      },
-      " of C3 FFA."
+      " it."
     ],
     "chart": {
       "title": [
@@ -1489,49 +1475,56 @@
     },
     "fixture": {
       "lead": [
-        "A C5 fixture reported on 22 October 2026 at ",
+        "A C5 cargo fixed on 22 October 2026 at ",
         {
           "value": 14.15,
           "format": "usd_t",
           "field": "c5_fixture.fixture_usd_t",
           "prefix": "USD "
         },
-        " a tonne for 5 to 7 November 2026 was fixed at the route's level that day in the report's narrative, ",
+        " a tonne (loading 5 to 7 November 2026) matched the index that day as the report's narrative gives it, ",
         {
           "value": 14.15,
           "format": "usd_t",
           "field": "c5_fixture.route_on_day_usd_t",
           "prefix": "USD "
         },
-        ": no basis on the day. The report's table of Baltic indices gives the C5 index only at the next day's close, ",
+        ": no basis. The report's table runs ",
+        {
+          "value": 0.1,
+          "format": "usd_t",
+          "field": "c5_fixture.series_gap_usd_t",
+          "prefix": "USD "
+        },
+        " above its narrative at the next close (",
         {
           "value": 14.1,
           "format": "usd_t",
           "field": "c5_fixture.index_next_day_usd_t",
           "prefix": "USD "
         },
-        " on 23 October 2026, where its narrative says ",
+        " against ",
         {
           "value": 14.0,
           "format": "usd_t",
           "field": "c5_fixture.narrative_next_day_usd_t",
           "prefix": "USD "
         },
-        "; on the table's series the fixture sat about ",
+        " on 23 October 2026), so on the table's series the fixture sat ",
         {
           "value": 0.1,
           "format": "usd_t",
           "field": "c5_fixture.basis_table_series_usd_t",
           "prefix": "USD "
         },
-        " a tonne, ",
+        " a tonne under the index, about ",
         {
           "value": 552.093497,
           "format": "usd_day",
           "field": "c5_fixture.basis_table_series_usd_day",
           "prefix": "USD "
         },
-        " a day, below the index on its day: the basis between a fixture and the index it would be hedged with."
+        " a day."
       ],
       "table_caption": "A fixture against the index it would be hedged with, on the fixture's day and the next; TCEs at the bunker table of 23 October 2026."
     },
@@ -1656,7 +1649,7 @@
         " in October."
       ],
       [
-        "C3 is priced at Singapore bunkers, the hub on its voyage. At Rotterdam's, the hub with public prices nearest Tubarao, it would earn ",
+        "C3 is priced at Singapore bunkers, about 270 nm off its ballast leg, where a ship leaving China takes orders. At Rotterdam's, the hub with public prices nearest Tubarao, it would earn ",
         {
           "value": 3361.927412,
           "format": "usd_day",
@@ -1696,6 +1689,6 @@
       "C3 2026-10-23": "October 9.0 days at 36,757, November 30.0 at 39,557, December 31.0 at 39,878, January 6.5 at 33,503",
       "C5 2026-10-23": "October 9.0 days at 36,757, November 20.3 at 39,557"
     },
-    "hedge_caption": "Each anchor week: the physical TCE net and grossed up, the 5TC FFA over the voyage's days and its months, the basis between them, the freight that would earn the FFA, the spot 5TC, the timing basis and the hedge."
+    "hedge_caption": "Each anchor week: the physical TCE net of commission and grossed up by it; the 5TC (182) FFA over the voyage's days on the print used, with its months; the basis, the grossed up TCE less the FFA, and the same on the curve's other print; the freight whose grossed up TCE equals the FFA; the spot 5TC on the fixture date, 182,000 t basis; the timing basis, the FFA less the spot; the hedge in days of 5TC (182), EEX C5TM, and the days that hedge the net earnings."
   }
 }

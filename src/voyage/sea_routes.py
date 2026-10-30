@@ -17,8 +17,9 @@ calculator can ballast from any of them:
 
 One further routing is computed only for the legs listed in SPECIAL_LEGS:
 no_canals_no_sunda also closes the Sunda Strait, for a laden VLCC from the
-Cape of Good Hope to China, which takes the Strait of Malacca as the Baltic's
-own TD3C calculation routes the same ship and cargo.
+Cape of Good Hope to China, which takes the Strait of Malacca: the mileage of
+the Baltic's own TD3C calculation for the same ship and cargo (5,897 nm, July
+2017) fits the network's line through Malacca, not through Sunda.
 
 The checks work from the committed geometry alone, independently of the
 library: each line's great circle length within 0.5 percent of the length
@@ -51,8 +52,8 @@ SPECIAL_ROUTINGS: Mapping[str, tuple[str, ...]] = {
 
 #: The legs a special routing is computed for: TD22's laden leg, Galveston to
 #: Ningbo round the Cape. The shortest network line runs through the Sunda
-#: Strait; the Baltic routes a laden VLCC300 with 270,000 t through the Strait
-#: of Malacca on TD3C (5,897 nm, TD3C TCE Calculation Process, July 2017).
+#: Strait; the mileage the Baltic gives a laden VLCC300 with 270,000 t on TD3C
+#: (5,897 nm, TD3C TCE Calculation Process, July 2017) fits the Strait of Malacca.
 SPECIAL_LEGS: Sequence[tuple[str, str, str]] = (("galveston", "ningbo", "no_canals_no_sunda"),)
 
 ROUTING_LABELS: Mapping[str, str] = {

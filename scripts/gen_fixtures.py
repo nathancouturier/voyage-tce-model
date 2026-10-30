@@ -163,6 +163,12 @@ def study_cases() -> list[tuple[str, dict]]:
             market = cases.weekly_market(row["week_ending"], hub)
             case = cases.build(row["route"], market, freight_value=row["rate_value"], freight_basis="lump_sum")
             out.append(("anchor %s %s" % (row["route"], row["week_ending"]), case.inputs))
+        elif row.get("implied"):
+            # A Worldscale week priced at the flat rate a cited pair implies, as anchors.tanker_weekly prices it.
+            hub = cases.route_hub(baltic.ROUTES[row["route"]])
+            market = cases.weekly_market(row["week_ending"], hub)
+            case = cases.build(row["route"], market, freight_value=row["freight_usd_t"], freight_basis="usd_t")
+            out.append(("anchor %s %s at the implied flat rate" % (row["route"], row["week_ending"]), case.inputs))
     for row in anchors.dry_weekly():
         hub = cases.route_hub(baltic.ROUTES[row["route"]])
         case = cases.build(row["route"], cases.weekly_market(row["date"], hub), freight_value=row["freight_usd_t"])

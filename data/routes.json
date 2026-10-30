@@ -1484,7 +1484,7 @@
         "searoute_nm": 5097.3,
         "error": 0.002419,
         "within_tolerance": true,
-        "note": "Galveston's route plus 47 miles, the rule Pub. 151 prints for Houston on p. 44 (TC14)",
+        "note": "Galveston's route plus 47 miles, the rule Pub. 151 prints for Houston on p. 44 (TC14), to Pub. 151's Amsterdam position, a little nearer IJmuiden than the World Port Index position the priced leg ends at",
         "pair_words": "Houston to Amsterdam"
       },
       {
@@ -1508,7 +1508,7 @@
         "searoute_nm": 281.1,
         "error": 0.02967,
         "within_tolerance": false,
-        "note": "the TC23 route",
+        "note": "the TC23 route, from Pub. 151's Amsterdam position, a little nearer IJmuiden than the World Port Index position the priced leg starts from",
         "pair_words": "Amsterdam to Le Havre"
       },
       {
@@ -1550,7 +1550,7 @@
         "searoute_nm": 15167.9,
         "error": 5.9e-05,
         "within_tolerance": true,
-        "note": "through the Straits of Florida, the Cape of Good Hope and Selat Sunda, the TD22 route",
+        "note": "through the Straits of Florida, the Cape of Good Hope and Selat Sunda, the routing of TD22's ballast leg; its laden leg leaves it for the Strait of Malacca and has no Pub. 151 figure of its own",
         "pair_words": "Galveston to Shanghai"
       },
       {
@@ -1784,7 +1784,7 @@
         " routes that do not touch the EEA they are bunkers alone, since port charges and canal tolls have no public figure."
       ],
       "axis": "Sourced voyage costs, USD a day of the round voyage",
-      "note": "S4A is a trip time charter: its bar holds the charterer's trip costs and the owner's ballast leg back to the US Gulf.",
+      "note": "S4A is a trip time charter: its bar holds the charterer's trip costs and the owner's ballast leg back to the US Gulf. The library holds the study's 12 routes; TC20 and TD34 are priced in the calculator and on the Detours view, and TC23, the voyage between two EEA ports, on the Carbon view.",
       "desc": "One bar a route, grouped by segment, split into bunkers and EU allowances; port charges and canal tolls have no public figure and are left out of every bar. S4A is a trip time charter: its bar holds the charterer's trip costs and the owner's ballast leg back to the US Gulf.",
       "source": [
         "Engine output at the common market, August 2026: Ship & Bunker's August 2026 averages where it publishes them (Singapore VLSFO and HSFO; Fujairah VLSFO) and its third quarter averages, July to September, for the other hub prices (Singapore MGO; Fujairah HSFO and MGO; Rotterdam VLSFO, HSFO and MGO; Houston VLSFO, HSFO and MGO), at each route's bunker hub; EU allowances at EUR ",
@@ -1854,6 +1854,20 @@
     },
     "sections": [
       {
+        "id": "library",
+        "name": "The routes, one by one",
+        "summary": [
+          "Each route's ship, cargo, commission, distances by routing, miles inside ECAs, port days and sourced voyage costs."
+        ]
+      },
+      {
+        "id": "hormuz",
+        "name": "The Gulf loadings with the Hormuz premium",
+        "summary": [
+          "The charterer's premium for each seven days inside the Gulf, beside the voyage costs."
+        ]
+      },
+      {
         "id": "method",
         "name": "Method",
         "summary": [
@@ -1876,13 +1890,13 @@
       }
     ],
     "method": [
-      "Distances are searoute 1.6.0 over Eurostat's SeaRoute network, the line the map draws. Each route has a routing for each leg (the shortest with the canals open, or Suez, Panama or both avoided) and the table lists every routing that changes the distance. The laden leg runs from the load port to the discharge port; the ballast leg back from the discharge port, the Baltic's TCE delivery point. TD22's laden VLCC goes round the Cape of Good Hope and through the Strait of Malacca, as the Baltic's own TD3C calculation routes the same laden ship (5,897 nm, July 2017), not through the shallower Sunda Strait of the shortest network line (176.6 nm shorter), which its ballast leg takes. The Baltic measures its distances on AtoBviaC tables, which are not published.",
+      "Distances are searoute 1.6.0 over Eurostat's SeaRoute network, the line the map draws. Each route has a routing for each leg (the shortest with the canals open, or Suez, Panama or both avoided) and the table lists every routing that changes the distance. The laden leg runs from the load port to the discharge port; the ballast leg back from the discharge port, the Baltic's TCE delivery point. TD22's laden VLCC goes round the Cape of Good Hope and through the Strait of Malacca, the strait the 5,897 nm of the Baltic's own TD3C calculation (July 2017) implies for the same laden ship (the network's line through Malacca measures that leg at 5,849 nm), not through the shallower Sunda Strait of the shortest network line (176.6 nm shorter), which its ballast leg takes. The Baltic measures its distances on AtoBviaC tables, which are not published.",
       "Each line starts at the network's node nearest its port. Amsterdam's nearest node lies in the IJmeer, behind the lakes, so its legs are asked from IJmuiden and the 14 miles of the North Sea Canal are added (Pub. 151 page 44); the stretch from the port is added at Port Hedland (43 nm of open water) and Jubail (12 nm). Elsewhere it is left out: under 10 nm at most ports, up a river or ship channel the network does not draw at Ningbo and Houston, and about 21.5 nm a leg at Tubarao, where the node lies off the way the line runs.",
       "Miles inside emission control areas are measured on the same line against polygons built from MARPOL Annex VI Appendix VII and the area regulations, with the Mediterranean ECA from 1 May 2025. The Canadian Arctic and Norwegian Sea ECAs (0.10 percent from 1 March 2027) are listed with their dates but not drawn: no study route enters them. Inside an ECA a ship without a scrubber burns MGO at 0.10 percent sulphur; outside, VLSFO at 0.50 percent.",
       "Bunkers are priced at the hub nearest the load port among the four with public prices for every grade (Singapore, Fujairah, Rotterdam, Houston), the rule the Baltic applies to its tanker TCEs (Guide to Market Benchmarks v8.8, Appendix 3, page 98), applied to every route except C3, priced at Singapore: the hub nearest Tubarao, Rotterdam, lies over 4,000 nm off the voyage, while the round voyage leaves Qingdao in ballast and passes about 270 nm from Singapore, the waypoint a ship leaving China takes for orders (special report on TCE earnings, April 2015, page 2); the guide leaves dry bunker prices to its panellists (section 7.4.2, page 35). The common market is August 2026: Ship & Bunker's August 2026 averages where it publishes them (Singapore VLSFO and HSFO; Fujairah VLSFO) and its third quarter averages, July to September, for the other hub prices (Singapore MGO; Fujairah HSFO and MGO; Rotterdam VLSFO, HSFO and MGO; Houston VLSFO, HSFO and MGO); the allowance price and the dollar rate are August 2026 averages."
     ],
     "assumptions": [
-      "Port charges have no public per call figure for any study port (the Baltic uses Cory Brothers' estimates, which are not published), so every TCE leaves them out and reads high by their amount.",
+      "Port charges have no public per call figure for any study port (the Baltic takes them from Cory Brothers and says they are on its website, which answers scripted requests with a challenge), so every TCE leaves them out and reads high by their amount.",
       "Canal tolls depend on each ship's own canal tonnage, which is not published for the Baltic's standard ships; a routing through a canal leaves its toll out and says so. The guide's dry route terms set no time at a canal, so P7 also leaves out its transit and any wait at Panama. Unbooked first come, first served waits of 18 to 30 days were common in April 2026, according to a Panama based agent.",
       "Tankers sail at the laden and ballast speeds their descriptions name, at which the Baltic prices its TCEs. The dry routes name no speed, so the study prices bulk carriers at the fastest pair the guide prints for each ship, its own choice; the calculator shows the TCE at every speed.",
       "Dry laytime becomes calendar days by the route's terms: Saturdays and Sundays excepted terms count five working days in seven, Sundays and holidays included terms count every day, and the turn time is added. Capesize loading on the port's scale has no published rate and is left out.",

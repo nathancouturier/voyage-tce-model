@@ -2,12 +2,16 @@
 
 Every source the study reads, as probed from the build environment on 29 October 2026: the endpoint, what it
 covers, its units, its terms, a sample, and what the study does with it. `data/raw/manifest.json` lists every
-downloaded file with its URL, retrieval time (UTC) and sha256: 365 entries, all retrieved on 29 October 2026.
+stored file with its URL, retrieval time (UTC) and sha256: 365 entries, all retrieved on 29 October 2026. Six
+Ship & Bunker price pages are stored with their embedded price history removed: for those the manifest's hash is
+the stored copy's, and the download's hash is in the entry's note. The Commission's auctioning page is read only
+for the links to its reports and is not stored.
 The repository commits the four files whose terms allow redistribution and that the build needs offline, under
 `data/raw/public/`. Another 39 public files, which need not be committed (large, reissued often, or kept only as
 the record behind a cited figure), stay out of git in `data/raw/bulk/`. The remaining 322 stay in
 `data/raw/licensed/`, which git ignores; the repository commits only their manifest entries and the figures the
-study uses, each with its quote, in `data/seed/`. `tests/test_provenance.py` finds every quoted figure in its
+study uses, in `data/seed/`, each with its quote or, for the guide's route and vessel figures and the ECA
+coordinates, its page and resolution. `tests/test_provenance.py` finds every quoted figure in its
 document wherever the raw file is present.
 
 ## Sources the pipeline fetches
@@ -55,9 +59,13 @@ below to 1.67 above (`proxy_gap` in `src/voyage/sources/ec_eua.py`, tested in `t
 The other 348 manifest entries are documents read once during the research. The seeds (`data/seed/*.json`)
 carry 269 `raw_key` references to 92 distinct entries: 90 of those 348, plus the guide and the 2017 TD3C note.
 The code (`src/voyage/` and `scripts/`) names 21 entries, 12 of them also cited by a seed and 9 not (the H.10
-package, the DEHSt months, the World Port Index, Pub. 151 and the five IMO resolutions that give the ECA
-polygons), and builds the keys of the Commission's six auction reports from their dates. Seeds and code together
-use 107 entries. The other 258 are documents read during the research and not cited: site searches, indexes and
+package, the DEHSt months, the World Port Index, Pub. 151 and the five IMO resolutions behind the ECA seed,
+four of which give its polygons while MEPC.392(82) gives the dates of two areas no route enters), and builds
+the keys of the Commission's six auction reports from their dates. Seeds and code together use 107 entries by
+key, and the site cites two more in prose without one: the 2015 special report on TCE earnings (page 2, for the
+C3 bunker hub, Singapore being where a ship leaving China takes orders) and Ship & Bunker's account of VPS
+testing VLSFO against RMG 380 (18 August 2023, for the VLSFO emission class); 109 in all. The other 256 are
+documents read during the research and not cited: site searches, indexes and
 feeds used to find documents; other reports of figures the study takes from elsewhere (SSY's Capesize indices,
 Fearnleys' and Advanced Shipping's weekly reports and Argus on Rotterdam bunker sales, among others); pages checked
 for a figure they turned out not to hold (the Commission's maritime ETS and MRV FAQs hold no VLSFO grade
@@ -96,17 +104,19 @@ document. The guide and the 2017 TD3C note are in the table above.
 | Baltic Exchange weekly tanker reports, via HSN | one article a week, from `/vlcc-tanker-market-steadied-last-week/` (15 December 2025) to `/vlcc-tanker-market-giving-up-past-gains/` (26 October 2026) | 13 weeks ending 12 December 2025 to 23 October 2026: TD3C, TD34, TD22, TD20, TD25, TC1, TC2, TC5, TC14 and TC20 as each week prints them | Worldscale points, or a lump sum in USD (TD22, TC20); TCE in USD/day | Copyright of the publisher | TD3C, week ending 12 December 2025: "at WS125.78 which corresponds to a daily round-trip TCE of $122,676" |
 | Platts, tanker freight, via HSN | `/vlcc-rates-rebound-in-h1-jan-on-fleet-consolidation-strong-demand/` (17 January 2026), `/persian-gulf-tanker-rates-spike-as-hormuz-traffic-drops-on-iran-conflict/` (4 March), `/vlcc-rates-face-downward-pressure-as-tankers-flee-gulf-crisis/` (19 March) | Persian Gulf to China, 270,000 t, on 12 December 2025 and 2 and 13 January and 2 March 2026; the Platts VLCC index on 27 February and 3 and 16 March 2026 | USD/t and Worldscale points; USD/day | Copyright of the publisher | "rose 73.8% to w93 or $19.24/mt by Jan. 13, up from w53.5 or $11.07/mt on Jan. 2" |
 | Argus Media | `https://www.argusmedia.com/en/news-and-insights/latest-market-news/2796228-vlcc-rates-surge-to-over-20pc-of-fob-value` | Basrah medium, Mideast Gulf to China, 3 March 2026 (context only) | USD a barrel | Copyright of the publisher | "Mideast Gulf to China VLCC rate surged to $15.32/bl on 3 March" |
-| Oilprice.com, via Yahoo Finance | `https://finance.yahoo.com/news/24-hour-energy-shock-world-160000254.html` | 3 March 2026; the article names no source, so the figure is recorded and not used as an anchor | USD/t | Copyright of the publisher | "with a Gulf-to-China voyage now costing $89 per metric tonne, up 560% since early January" |
+| Oilprice.com, via Yahoo Finance | `https://finance.yahoo.com/news/24-hour-energy-shock-world-160000254.html` | 3 March 2026; the article names no source, so the figure is priced through the engine in the early March table and offered as a calculator preset, and never used to check the engine | USD/t | Copyright of the publisher | "with a Gulf-to-China voyage now costing $89 per metric tonne, up 560% since early January" |
 | Signal Group, dry freight, via HSN | `https://www.hellenicshippingnews.com/?p=1140060` (8 July 2026), `/capesize-in-focus-c3-at-a-multi-year-high-as-ordering-accelerates/` (10 September 2026), `/panamax-in-focus-pacific-routes-gain-as-the-index-eases-and-china-bound-thermal-coal-flows-weaken/` (18 September 2026) | Assessments of 3 July, 4 September and 11 September 2026 | USD/t (C3, C5, P7); USD/day (5TC averages); index points (BCI, BDI) | Copyright of the publisher | "Average C5TC earnings climbed to $33,678/day" (3 July 2026) |
 | Banchero Costa weekly reports, via HSN | `https://www.hellenicshippingnews.com/wp-content/uploads/2026/06/Bancosta-Weekly-2026-26.pdf`, `.../2026/07/Bancosta-Weekly-2026-27-1.pdf`, `.../2026/10/Bancosta-Weekly-2026-43.pdf` | Baltic indices of 3 July and 23 October 2026; FFA assessments of 29 June, 6 July and 25 October 2026, each beside the previous week's; the bunker table of 3 July 2026; a C5 fixture of 22 October 2026 | USD/t (routes, bunkers; the fixture in USD/wmt); USD/day (time charter averages and FFAs) | Copyright of the publisher | "C3 Tubarao - Qingdao usd/t 33.87 30.08" (23 October 2026, beside the week before) |
 | Drewry, via HSN | `/us-india-trade-pact-a-game-changer-for-crude-flows-and-vlccs/` | TD3C FFA converted to TCE for Q1 and Q2 2026, published February 2026 | USD/day | Copyright of the publisher | "in 2Q26, they are likely to be around $93,100pd" |
 | European Energy Exchange | `https://www.eex.com/fileadmin/EEX/Downloads/Rules/EEX-Contract_Specifications_for_Trade_Registration/20260723_EEX_Contract_Specifications_for_Trade_Registration_047a_EN_FINAL.pdf` | Release 047a, 23 July 2026: Capesize 5TC (180,000 t and 182,000 t baskets), Panamax 5TC, C3 and C5 futures | USD/day, one day a lot; USD/t for C3 and C5 | Copyright of the publisher | "Contract Volume 1 day Pricing In USD per day" |
 | ICE Futures Europe | `https://www.ice.com/publicdocs/contractregs/86_SECTION_TTT_Part_II_E.pdf` | Rulebook Section TTT Part II E, freight contracts: the Baltic settled tanker FFAs, and Platts settled TC5 and Arab Gulf to Japan 75,000 t contracts | USD and cents a tonne | Copyright of the publisher | "18. TD3C FFA - Middle East Gulf to China (Baltic) Future" |
-| Ship & Bunker | sales analyses `https://shipandbunker.com/news/apac/537117-analysis-singapore-bunker-sales-continue-at-record-pace-despite-hormuz-crisis` and `https://shipandbunker.com/news/emea/764284-fujairah-bunker-sales-more-than-halve-from-last-year`; port price pages `https://shipandbunker.com/prices/<region>/<area>/<port>` for Singapore, Fujairah, Rotterdam and Houston, as they stood on 28 October 2026 | August 2026 averages; quarterly averages for Q4 2025 and Q3 2026 | USD/t | Copyright of the publisher | "Singapore's average VLSFO price in August was $822/mt, according to Ship & Bunker data" |
-| Star Asia Shipbroking weekly reports, via HSN | `https://www.hellenicshippingnews.com/wp-content/uploads/<year>/<month>/Market-report-Week-<n>.pdf` (Market-Report from week 26 of 2026), from `.../2025/12/Market-report-Week-49.pdf` to `.../2026/10/Market-Report-Week-43.pdf` | 17 weekly tables, 5 December 2025 to 23 October 2026 | USD/t: VLSFO 0.5%, HSFO 3.5% and MGO 0.1% at Singapore, Hong Kong, Fujairah, Rotterdam and Houston | Copyright of the publisher | Week 43 of 2026: "SINGAPORE $940 $879 $1334" |
+| Ship & Bunker | sales analyses `https://shipandbunker.com/news/apac/537117-analysis-singapore-bunker-sales-continue-at-record-pace-despite-hormuz-crisis` and `https://shipandbunker.com/news/emea/764284-fujairah-bunker-sales-more-than-halve-from-last-year`; port price pages `https://shipandbunker.com/prices/<region>/<area>/<port>` for Singapore, Fujairah, Rotterdam and Houston, as they stood on 28 October 2026 and stored with their embedded price history removed | August 2026 averages; quarterly averages for Q4 2025 and Q3 2026 | USD/t | Copyright of the publisher | "Singapore's average VLSFO price in August was $822/mt, according to Ship & Bunker data" |
+| Star Asia Shipbroking weekly reports, via HSN | `https://www.hellenicshippingnews.com/wp-content/uploads/<year>/<month>/Market-report-Week-<n>.pdf` (Market-Report from week 26 of 2026; week 28 is `Market-Report-Week-28-2.pdf`), from `.../2025/12/Market-report-Week-49.pdf` to `.../2026/10/Market-Report-Week-43.pdf` | 17 weekly tables, 5 December 2025 to 23 October 2026 | USD/t: VLSFO 0.5%, HSFO 3.5% and MGO 0.1% at Singapore, Hong Kong, Fujairah, Rotterdam and Houston | Copyright of the publisher | Week 43 of 2026: "SINGAPORE $940 $879 $1334" |
 | Intermodal weekly report, week 11 of 2026, via HSN | `https://www.hellenicshippingnews.com/wp-content/uploads/2026/03/Intermodal-Report-Week-11-2026.pdf` | Bunker prices of 6 March 2026, page 7; a cross-check only | USD/t: MGO, 380cst and VLSFO at Rotterdam, Houston and Singapore | Copyright of the publisher | MGO at Rotterdam, 1,070.3, from the page's letter spaced text "1,0 7 0.3" |
 | Xclusiv Shipbrokers weekly report, via HSN | `https://www.hellenicshippingnews.com/wp-content/uploads/2026/09/xclusiv-2026_09_07.pdf` | 7 September 2026, September 2026 column, 5 year old Japanese built ships (dry, page 5; tankers, page 6) | USD | Copyright of the publisher | VLCC, 5 Year: USD 157,000,000, read from the rendered table; the text layer of these tables is rotated and cannot be quoted |
 | Signal Group, VLCC values, via HSN | `/vlcc-second-hand-prices-at-decade-highs/` | 2 March 2026 | USD | Copyright of the publisher | "Today, it is indicated above USD 120 million" |
+| Special report "Speed up for what? Time Charter Equivalent (TCE) Earnings", via HSN | `https://www.hellenicshippingnews.com/wp-content/uploads/2015/04/Copy-of-Special-Report-TCE-ENG.pdf` | April 2015; page 2, cited in prose for the C3 bunker hub | None: where a ship takes orders | Copyright of the publisher | "on leaving China, this might be Singapore for orders" |
+| Ship & Bunker, VPS on VLSFO quality | `https://shipandbunker.com/news/world/149128-why-do-vlsfos-still-require-quality-considerations` | 18 August 2023; cited in prose for the VLSFO emission class | ISO 8217 grades | Copyright of the publisher | "most VLSFOs are tested against the RMG380 specifications" |
 | Platts, war risk and Hormuz, via HSN | for example `/war-risk-insurance-cost-off-highs-but-still-elevated-in-persian-gulf/` (1 April 2026); the others of 8 December 2025 and 11 March, 18 June (with a BRS research note and European tanker sources), 5 October and 28 October 2026 | War risk premiums from 2024 to 15 June 2026, and a multiple reported on 5 October 2026; Hormuz transits from 28 February to 25 October 2026 | Percent of hull and machinery value per seven day period; ships a day | Copyright of the publisher | "The AWRP had reached around 2.5% of the Hull and Machinery value of ships per seven-day period in the Persian Gulf earlier in March" |
 | Marsh, to Platts, via HSN | `/war-cover-available-for-hormuz-trades-but-transit-challenges-remain-insurers/` (25 June 2026), `/middle-east-shipping-insurance-costs-rise-on-hormuz-risks-marsh/` (24 July 2026) | The pre-war level, the level after the June peace deal and the levels of 22 July 2026 | Percent of hull value | Copyright of the publisher | "Premiums for vessels transiting the Bab al-Mandab Strait currently stand at 0.5% of hull value, according to Baker" |
 | Gard, via HSN | `/the-middle-east-conflict-frequently-asked-questions/` | 21 March 2026 | None: who pays the premium under VOYWAR 2013 | Copyright of the publisher | "VOYWAR 2013 only addresses the cost of a deviation to avoid a dangerous place, not waiting time" |
@@ -132,7 +142,7 @@ Every input whose status is empty in one of the calculator's 30 presets (`preset
 | Input | Where | Why it is empty |
 |---|---|---|
 | Worldscale flat rate | every preset | "Worldscale flat rates are licensed by the Worldscale Association and no dated public source states this route's flat rate for the year". No public source states a study route's flat rate for 2025 or 2026, and the December 2025 anchors need a 2025 rate. Platts printed its Persian Gulf to China benchmark in both points and dollars in January 2026 (w53.5 and USD 11.07 a tonne; w93 and USD 19.24), which implies USD 20.69 a tonne for its own route, whose ports it does not state. The study uses it only to check TD3C's 2026 weeks, never as a calculator default (`implied_flat_rates` in `data/seed/anchors.json`). The other Worldscale anchors are recorded as not reproducible. |
-| Port charges at the load and discharge ports | every preset | "no public per call figure; the Baltic uses Cory Brothers' estimates, which are not published" |
+| Port charges at the load and discharge ports | every preset | "no public per call figure; the Baltic takes port costs from Cory Brothers and says they are on its website, which answers scripted requests with a challenge" (its TD3C note of July 2017: "All port cost related information is provided by Cory Brothers Shipping and available on our website") |
 | Suez toll, laden and ballast | the TC20 anchors of 9 and 23 October 2026 | Tolls are levied on each ship's Suez Canal net tonnage, in SDR a tonne by band, plus surcharges and less rebates; no public source states that tonnage for the Baltic's standard ships or a toll for them. The detours report the largest toll at which Suez still beats the Cape instead. |
 | Panama toll, laden and ballast | P7 | The Panama Canal Authority's tariff and calculator (pancanal.com) could not be reached. The only dated public toll found is the EIA's 2023 base toll for a product tanker in the Panamax locks, which is neither 2026 nor a bulk carrier, so the TCE through Panama is reported before the toll. |
 | Time at the Panama Canal | P7 | "the guide's P7 terms set no time at the Panama Canal": the transit and any wait are left out |
@@ -163,8 +173,9 @@ estimate with prices to reproduce to the dollar.
 
 The candidates that could be downloaded are not such an estimate: E.A. Gibson's weekly tanker reports of 28 August
 2015 and 3 August 2018 print rates and TCEs "based on round voyage economics at 'market' speed", not the voyage
-itself; a 2015 special report on TCE earnings and speed is conceptual; and a copy of a blog article on GitHub holds
-a numeric example with no stated source. All four are in the manifest and none is cited.
+itself; a 2015 special report on TCE earnings and speed is conceptual (its page 2 is cited only for the C3
+bunker hub); and a copy of a blog article on GitHub holds a numeric example with no stated source. All four are in
+the manifest, and none is cited as a worked example.
 
 The Baltic's TD3C TCE calculation of July 2017 is the one fully worked public example found: it prints days and
 tonnes of fuel but no prices, so it checks the engine's days and fuel only.
@@ -193,7 +204,10 @@ Refused by the build environment's network policy (not retried), with what each 
 - thedcn.com.au: Australian trade press on the Pilbara iron ore ports.
 - itfglobal.org: the ITF's own text of the Warlike Operations Area terms, read instead as HSN republished the
   joint statement.
-- ics.org.uk, commons.wmu.se, core.ac.uk, unctad.org and wikipedia.org: worked voyage estimates (above).
+
+Refused or unreachable, the kind of refusal not recorded: ics.org.uk, eclass.unipi.gr, maritime-unipi.gr,
+commons.wmu.se, core.ac.uk, unctad.org, scribd.com, poten.com and wikipedia.org, which hold examiners' reports,
+course handouts, theses and broker notes: worked voyage estimates with prices to reproduce to the dollar (above).
 
 Answering scripted requests with HTTP 403 or a browser challenge (not bypassed):
 

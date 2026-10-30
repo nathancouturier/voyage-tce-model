@@ -19,7 +19,6 @@ reads those pages of the committed PDF again and finds each one.
 
 from __future__ import annotations
 
-import math
 from collections.abc import Sequence
 from dataclasses import dataclass
 
@@ -86,7 +85,7 @@ class Check:
 
     @property
     def published_nm(self) -> int:
-        return math.fsum(part.nm for part in self.parts) + self.adjustment_nm
+        return sum(part.nm for part in self.parts) + self.adjustment_nm
 
     @property
     def composite(self) -> bool:
@@ -218,7 +217,8 @@ CHECKS: Sequence[Check] = (
             Part("BISHOP ROCK, ENGLAND", "Amsterdam, Netherlands", 481, 14),
         ),
         adjustment_nm=47,
-        note="Galveston's route plus 47 miles, the rule Pub. 151 prints for Houston on p. 44 (TC14)",
+        note="Galveston's route plus 47 miles, the rule Pub. 151 prints for Houston on p. 44 (TC14), to Pub. 151's "
+        "Amsterdam position, a little nearer IJmuiden than the World Port Index position the priced leg ends at",
     ),
     Check(
         "amsterdam_le_havre",
@@ -226,7 +226,8 @@ CHECKS: Sequence[Check] = (
         "Le Havre",
         "direct",
         (Part("AMSTERDAM, NETHERLANDS", "Le Havre, France", 273, 4),),
-        note="the TC23 route",
+        note="the TC23 route, from Pub. 151's Amsterdam position, a little nearer IJmuiden than the World Port Index "
+        "position the priced leg starts from",
     ),
     Check(
         "galveston_shanghai_cape",
@@ -239,8 +240,8 @@ CHECKS: Sequence[Check] = (
             Part("CAPE OF GOOD HOPE, SOUTH AFRICA", "Selat Sunda, Indonesia", 5164, 21),
             Part("SELAT SUNDA, INDONESIA", "Shanghai, China", 2535, 101),
         ),
-        note="through the Straits of Florida, the Cape of Good Hope and Selat Sunda: the network line, whose "
-        "Sunda Strait TD22's laden leg leaves for the Strait of Malacca",
+        note="through the Straits of Florida, the Cape of Good Hope and Selat Sunda, the routing of TD22's ballast "
+        "leg; its laden leg leaves it for the Strait of Malacca and has no Pub. 151 figure of its own",
     ),
     Check(
         "port_hedland_lombok",

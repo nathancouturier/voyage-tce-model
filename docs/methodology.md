@@ -18,8 +18,9 @@ charter, or in Worldscale points: freight a tonne = WS / 100 x flat rate. Flat
 rates are licensed by the Worldscale Association and no public source states a
 study route's flat rate for 2025 or 2026, so the flat rate is the reader's
 input, with no default. Commission is one input, address commission and
-brokerage together: 5 percent on the dry routes (Baltic, since 2 January 2018)
-and 3.75 percent on the tankers.
+brokerage together: 5 percent on the dry routes (the "5% total commission" of
+the route terms in GMB v8.8 Appendix 2, page 77 for C3) and 3.75 percent on the
+tankers (circular 27/21, as the guide's document history records).
 
 ## Legs and distances
 
@@ -32,14 +33,24 @@ and 3.75 percent on the tankers.
   `scripts/routes.py` under four routings (the shortest; Suez avoided; Panama
   avoided; both) and one more for TD22's laden leg: both canals and the Sunda
   Strait avoided, so the line goes round the Cape of Good Hope and through the
-  Strait of Malacca, as the Baltic's own TD3C calculation routes the same laden
-  ship (5,897 nm, July 2017). TD22's ballast leg keeps the network's shortest
-  line round the Cape, through the Sunda Strait. Each line starts at the
-  network's node nearest its port. Amsterdam is asked from IJmuiden, its node
-  being behind the lakes, and the 14 miles of the North Sea Canal are added
-  (NGA Pub. 151, page 44); the stretch from the port is added at Port Hedland
-  and Jubail, where the node lies 10 nm or more out in open water
-  (`src/voyage/sea_routes.py`).
+  Strait of Malacca, the strait the Baltic's own TD3C calculation for the same
+  laden ship implies: that note gives 5,897 nm for the Gulf to China leg (July
+  2017), and the network's line through Malacca measures it at 5,849 nm. TD22's
+  ballast leg keeps the network's shortest line round the Cape, through the
+  Sunda Strait. Each line starts at the network's node nearest its port.
+  Amsterdam is asked from IJmuiden, its node being behind the lakes, and the 14
+  miles of the North Sea Canal are added (NGA Pub. 151, page 44); the stretch
+  from the port is added at Port Hedland (43 nm) and Jubail (12 nm), where the
+  node lies 10 nm or more out in open water with no doubling back, and left out
+  elsewhere: at Tubarao the node lies about 46 nm out but the stretch would
+  double back, so each C3 leg is about 21.5 nm short (`src/voyage/sea_routes.py`).
+- Ports are the World Port Index's positions (NGA Pub. 150), Bonny's offshore
+  terminal aside, which takes the position Pub. 151 prints for Bonny (page 15).
+  Where the Baltic names an area wider than a port the study picks one
+  (`src/voyage/ports.py`): Port Hedland for C5's West Australia, New Orleans for
+  P7's Mississippi river, and the Index's Galveston position for TD22's
+  Galveston lightering area, whose coordinates sit in a US regulation that
+  could not be reached (33 CFR 156.300).
 - Miles inside emission control areas are measured on the line against polygons
   built from MARPOL Annex VI Appendix VII and the area regulations, in force on
   the voyage date (`src/voyage/eca.py`).
@@ -82,8 +93,9 @@ and 3.75 percent on the tankers.
 - Bunkers are priced at the hub nearest the load port among Singapore, Fujairah,
   Rotterdam and Houston, the rule the Baltic applies to its tanker TCEs
   (Appendix 3), except C3: its nearest hub, Rotterdam, lies over 4,000 nm off
-  the voyage, so it is priced at Singapore, which its ballast leg passes; the
-  guide leaves dry bunker prices to its panellists (section 7.4.2).
+  the voyage, so it is priced at Singapore, about 270 nm off its ballast leg,
+  where a ship leaving China takes orders; the guide leaves dry bunker prices to
+  its panellists (section 7.4.2).
 - A dated market reads no price from after its date: bunkers from the brokers'
   table of the week or of up to seven days before, a reprinted row dated by its
   first printing; the EU allowance price from the latest monthly average before
@@ -92,8 +104,10 @@ and 3.75 percent on the tankers.
 - The common market, August 2026, is a period average: Ship & Bunker's August
   averages where published and its third quarter averages for the other hub
   prices, with the allowance price and dollar rate of August.
-- Float sums use `math.fsum`, exactly rounded, so the committed files rebuild
-  byte for byte on every supported Python.
+- No float sum uses the built-in `sum`, whose rounding changed in Python 3.12:
+  the engine adds left to right, as `src/engine.js` does, and the rest of the
+  pipeline uses `math.fsum`, so the committed files rebuild byte for byte on
+  Python 3.11 to 3.13 (checked on 3.11.17 and 3.13).
 
 ## Carbon
 
@@ -120,20 +134,24 @@ premium, its entries and the days inside, the load port's days and any delay
 there included. The charter's periods are the days inside over seven, rounded
 up, never fewer than its entries; each ballast transit is one period.
 
-Who pays follows the charter. On spot voyage charters the premium for the laden
-voyage and the stay in the loading area is usually the charterer's (Platts,
-8 December 2025). The Baltic's TCEs leave it out too: Appendix 3 (page 98)
+Who pays follows the charter. Additional premiums are usually on the
+charterer's account in spot voyage charters (Platts, 8 December 2025), and the
+study applies that to the charter's own periods: its laden transits and its
+stay in the loading area, the ballast leg's days inside that area included.
+The Baltic's TCEs leave it out too: Appendix 3 (page 98)
 admits additional insurance only as a route's description in Appendix 2 sets it
 out, and no tanker TCE description names a war risk premium; at the flat rate
 Platts' January pairs imply, the engine reads TD3C a few percent above the
 Baltic in the war months, where a premium in the costs would put it far above.
 So the engine's payer input defaults to the charterer, and that premium is
 shown beside the owner's TCE, not in it; the input moves it into the owner's
-costs for a fixture that puts it in the freight. The premium for a ballast
-leg's approach to the next loading is the owner's unless a charter makes the
-charterer pay it (Gard, 21 March 2026), so it is in the owner's voyage costs.
-Hull values are Xclusiv's dated five-year-old values; LR1 and Handy tankers
-have none, so their premium is empty.
+costs for a fixture that puts it in the freight. A ballast passage through
+another listed area on the way back to the load port (the Red Sea on TC20 by
+Suez) is the approach to the next loading: the owner's unless a charter makes
+the charterer pay it (Gard, 21 March 2026), one period a passage, so it is in
+the owner's voyage costs. Hull values are Xclusiv's dated five-year-old values
+(the early March 2026 VLCC value, USD 120 million, is Signal Group's); LR1 and
+Handy tankers have none, so their premium is empty.
 
 ## Validation
 

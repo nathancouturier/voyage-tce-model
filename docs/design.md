@@ -41,9 +41,10 @@ built, and how the site meets the study's own requirements (Part 8).
 
 The siblings draw every series in ink and tell series apart by line style. This study has three kinds of thing
 that must be told apart at a glance and that recur on several views, so it names a palette for them. Each hue
-was chosen for what it stands for, then the set was validated with the dataviz method's validator
-(`validate_palette.js`, OKLab differences under protanopia and deuteranopia, Machado 2009 at full severity)
-against this site's own surfaces, `#FBFAF8` light and `#17181C` dark. Every slot is at least 3:1 against its
+was chosen for what it stands for, then the set was checked against this site's own surfaces, `#FBFAF8` light
+and `#17181C` dark: the OKLab difference, times 100, between adjacent slots under the Machado, Oliveira and
+Fernandes (2009) simulation of protanopia and deuteranopia at full severity, with a target of 8, and in normal
+vision, with a floor of 15. Every slot is at least 3:1 against its
 surface, so a mark can be read alone; text never wears these colours (labels and figures stay in `--text` and
 `--text-muted`, with a swatch beside them).
 
@@ -57,7 +58,7 @@ surface, so a mark can be read alone; text never wears these colours (labels and
 | MGO, inside an ECA | `#00a278` | `#0fab81` | 3.13 / 6.05 | The 0.10 percent sulphur zone: a sea green that marks ECA segments on the map, the ECA polygons' 10 percent wash, and MGO in the fuel split. |
 | HSFO, behind a scrubber | `#954000` | `#a24c00` | 6.69 / 3.02 | Only when the scrubber input is on; a rust that sits apart from both blues. It never shares a chart with the accent. |
 
-Validator, the three fuel slots in this order: light worst adjacent separation 15.3 (deuteranopia), normal
+The check, the three fuel slots in this order: light worst adjacent separation 15.3 (deuteranopia), normal
 vision 17.9; dark 15.1 and 17.9; all PASS.
 
 Of this set the site draws only the map's part: the laden and ballast legs and, over them, the sea green of the
@@ -71,11 +72,11 @@ fuel split and ECA polygons that no view draws.
 |---|---|---|---|---|
 | Bunkers | `#487ec1` | `#5187cb` | 4.00 / 4.80 | Fuel, the largest voyage cost on every route: harbour blue, the calmest hue, so the biggest block is not the loudest. |
 | EU ETS allowances | `#006f2f` | `#137837` | 6.07 / 3.18 | Carbon: a deep green, read as environmental without the bright green of a "good" status. |
-| War risk premium | `#9c8600` | `#a58f00` | 3.46 / 5.51 | Hazard: an ochre, the warning family without borrowing the status warning yellow; kept apart from the brick accent (an OKLab separation of 23.9 light and 18.2 dark in normal vision, 18.8 and 9.2 at the worst simulated colour vision deficiency, both above the validator's target of 8) so a premium never looks like the result. |
+| War risk premium | `#9c8600` | `#a58f00` | 3.46 / 5.51 | Hazard: an ochre, the warning family without borrowing the status warning yellow; kept apart from the brick accent (an OKLab separation of 23.9 light and 18.2 dark in normal vision, 18.8 and 9.2 at the worst simulated colour vision deficiency, both above the target of 8) so a premium never looks like the result. |
 | Canal tolls | `#614fb6` | `#6958c0` | 6.10 / 3.17 | Violet, a hue no other family or the map uses, so a toll in the Suez detour reads as its own thing. |
-| Port charges | `#c765ac` | `#cc69b1` | 3.42 / 5.26 | An orchid; ports are empty on most routes (no public figure), and when entered they stand apart from fuel and carbon. |
+| Port charges | `#c765ac` | `#cc69b1` | 3.42 / 5.26 | An orchid; ports are empty on every route (no public figure), and when entered they stand apart from fuel and carbon. |
 
-Validator, the five families in this order (bunkers, ETS, war risk, canals, ports): light worst adjacent
+The check, the five families in this order (bunkers, ETS, war risk, canals, ports): light worst adjacent
 separation 11.5 (protanopia, war risk beside ETS), normal vision 18.7; dark 11.1 and 18.5; all PASS (target 8,
 floor 15 for normal vision). On the site two families stack only on the Routes chart, bunkers then EU
 allowances; the bridge gives each family a row of its own with a swatch beside its name, the Detours chart sets
@@ -93,7 +94,9 @@ never stands in for it, and it never appears beside HSFO.
 
 Every field of the calculator carries one of seven statuses, written under the field before its source or its
 reason. The inputs tables of the overview and the calculator carry the same words in a Status column: an empty
-input in the muted ink, a visitor's own figure at weight 600, never red.
+input in the muted ink, a visitor's own figure at weight 600, never red. Every field's border is drawn in
+`--text-muted` (4.90:1 on the light page, 7.54:1 on the dark), solid, dotted or dashed by its status, so a field
+can be found at the 3:1 that form controls need.
 
 | Status, as written | Treatment | Example, as the calculator shows it |
 |---|---|---|
@@ -122,22 +125,25 @@ read, and a section is built the first time it opens. Nothing is a card.
 
 ### 1. Overview (`#/overview`, default)
 
-- **The verdict (the view's `h1`, Fraunces 400):** "A VLCC fixed on TD22, Galveston to Ningbo, at the Baltic's
-  USD 58.22 million in the week to 23 October 2026, earns about USD 463,639 a day over a 111.1 day round voyage;
-  freight of USD 17.34 a tonne would only cover the voyage costs priced." Figures from `data/overview.json`,
-  written by the export.
+- **The verdict (the view's `h1`, Fraunces 400):** "A VLCC on TD22, Galveston to Ningbo, at the Baltic's
+  assessed USD 58.22 million in the week to 23 October 2026, earns an estimated USD 463,639 a day over a 111.1
+  day round voyage; freight of USD 17.34 a tonne would only cover the voyage costs priced." Figures from
+  `data/overview.json`, written by the export.
 - **Three facts** under it, in one row from 768px and stacked below: "TCE, round voyage from Ningbo" (USD a day),
   "Freight that covers the voyage costs priced" (USD a tonne, with the lump sum in its note) and "Bunkers in the
-  voyage costs priced" (percent). Each has a note and its as-of date in `--text-muted`. Not cards: three label
-  and value pairs separated by space, with a hairline above the row.
+  voyage costs priced" (percent; 100.0 on TD22, whose only other cost, port charges, has no public figure, so its
+  note gives the bunker bill, USD 4.51 million, and its share of the freight, 7.7 percent). Each has a note and
+  its as-of date in `--text-muted`. Not cards: three label and value pairs separated by space, with a hairline
+  above the row.
 - **The bridge** (the one orchestrated motion, Part 5): a table, one row per step from gross freight to the
   result: gross freight and other revenue (ink fill), commission (ink outline), bunkers, port charges, canal
   tolls, EU ETS allowances and war risk premium (family colours, a swatch beside each name), the voyage result
-  (the accent). A step with no figure keeps its row, says why in the figure's place ("Left out: no public per
-  call figure", "None on this routing", "None: outside the EEA") and draws no bar. Figures in JetBrains Mono at
-  the right. The heading says where the freight goes; the sentence under the table divides the result by the
-  days, "Over 111.1 days (54.9 in ballast, 51.2 laden and 5.0 in port), the result is a TCE of USD 463,639 a
-  day.", the TCE in the accent.
+  (the accent). A step with no figure keeps its row, says why once, in the figure's place ("Left out: no public
+  per call figure", "None on this routing", "None: no EEA port"), with no line under its name repeating it, and
+  draws no bar; the calculator's bridge uses the same words. Figures in JetBrains Mono at the right. The heading
+  says where the freight goes; the sentence under the table divides the result by the days, "Over 111.1 days
+  (54.9 in ballast, 51.2 laden and 5.0 in port and waiting), the result is a TCE of USD 463,639 a day.", the TCE
+  in the accent.
 - **The map**, beside the bridge from 1100px and under it below. Its title gives each leg's routing and miles:
   "TD22 sails round the Cape of Good Hope, Galveston to Ningbo laden by the Strait of Malacca, 15,231 nautical
   miles, and back in ballast by the Sunda Strait, 15,054; 829 miles of each leg lie inside the North American and
@@ -145,8 +151,9 @@ read, and a section is built the first time it opens. Nothing is a card.
   drawn beside it, the ECA stretches over both in sea green, the ports ink dots ringed in `--bg` with their names
   placed by the page at the size it draws them (Part 4). Land from Natural Earth 1:110m and the route lines
   projected by Python into SVG paths.
-- **The date and source of every input** follow the bridge and the map, so on a phone the figures come first;
-  then the "Leaves out" sentence: what the TCE leaves out, and that it is an estimate, not a forecast.
+- **The date and source of every input** follow the bridge and the map, full width under both and in the muted
+  source style, so on a phone the figures come first; then the "Leaves out" sentence, full width too: what the
+  TCE leaves out, and that it is an estimate, not a forecast.
 - **Buttons:** "Method" (the Baltic's round voyage TCE and the engine against the Baltic in 13 weeks),
   "Assumptions" (what the TCE leaves out, the ship's speeds and consumptions, the port days), "Data" (every input
   with its value, its status and its source).
@@ -163,12 +170,14 @@ read, and a section is built the first time it opens. Nothing is a card.
 - **Presets:** two rows of `aria-pressed` text buttons. The first holds the 14 routes (C3, C5, P7, S4A, TD3C,
   TD22, TD20, TD25, TC2, TC14, TC1, TC5, TC20, TD34), each opening at its latest dated market; the second the
   dated markets of the route chosen, its anchors among them (TD22's 13 weeks, TC20's 2, three TD3C rates reported
-  in dollars a tonne), 30 presets in all. A preset fills every field with its sourced or derived value, or leaves
-  it empty with the reason.
+  in dollars a tonne), 30 presets in all; a market button shows its date short ("23 Oct 2026") with the full
+  label as its accessible name, so several sit on a row on a phone. A preset fills every field with its value
+  and its status (sourced, derived, the study's choice, left out of the TCE or scenario input), or leaves it
+  empty with the reason.
 - **Inputs in five steps,** each opened by its own button, any number open at once: Ship (the Baltic's ship, its
   published speeds and consumptions with the power law fitted to them, the laden and ballast speeds, MGO burnt at
-  sea, a scrubber), Route (the routing
-  of each leg where the study computes more than one, distances, miles inside ECAs, port and canal days), Market
+  sea, a scrubber), Route (the routing of each leg where the study computes more than one, each option leading with
+  its distance, then distances, miles inside ECAs, port and canal days), Market
   (freight basis and value, Worldscale flat rate, cargo, bunker prices by grade, the allowance price, dollars per
   euro, the ETS year), Costs (port charges, canal tolls, the dated war risk premiums of the listed areas the
   routing enters, hull value, crew war bonus, ship to ship and other costs, who pays the premium, and the periods
@@ -183,7 +192,8 @@ read, and a section is built the first time it opens. Nothing is a card.
   laden and ballast speed 1 knot slower or faster, one day less or more waiting, the EU allowance price 20
   percent lower or higher), the widest first, its title naming the input that moves the TCE most; and the TCE
   against laden speed from one knot below the slowest published speed to one knot above the fastest, in 0.25
-  knot steps, the best speed marked by the accent dot and the priced speed by an open dot. On a trip charter no
+  knot steps, solid between the published speed pairs and dashed where consumption is extrapolated, with a legend
+  saying so, the best speed marked by the accent dot and the priced speed by an open dot. On a trip charter no
   speed chart is drawn, and a note says why.
 - **Buttons:** "Method", "Speed across markets" (the best speed at low, middle and high freight and bunker
   prices, and the textbook result tested), "Assumptions" (what this voyage leaves out, what each status means),
@@ -201,26 +211,27 @@ read, and a section is built the first time it opens. Nothing is a card.
   voyage, one bar a route split into bunkers and EU allowances and grouped by segment (dry bulk, dirty tankers,
   clean tankers). Its title: "Sourced voyage costs run from USD 17,330 a day on P7 to USD 38,654 on TD3C; on the 7
   routes that do not touch the EEA they are bunkers alone, since port charges and canal tolls have no public
-  figure." Port charges and canal tolls are named, not drawn. Under the chart, a note on the S4A trip charter and
-  the link to the Baltic routes map (https://nathancouturier.github.io/baltic-freight-routes/).
-- **Table:** each route's code and name, ship, cargo, commission, laden distance by routing (the one priced
-  marked), the share of its miles inside ECAs, port days (loading, discharging, waiting), round voyage days,
-  sourced voyage costs a day, EU allowances as a share of them, and the bunker hub.
-- **The Gulf loadings with the Hormuz premium:** a second table, apart from the chart because the premium would
-  swamp it: hull value, days inside the Gulf, seven day periods, the charterer's premium in dollars and a tonne,
-  and the premium over the voyage's bunkers, 5.22 to 6.48 times at 7.5 percent.
-- **Buttons:** "Method" (distances and routings, miles inside ECAs, the bunker hub rule, the common market),
+  figure." Port charges and canal tolls are named, not drawn. Under the chart, a note on the S4A trip charter,
+  on the routes priced in other views (TC20 and TD34 in the calculator and on Detours, TC23 on Carbon) and the
+  link to the Baltic routes map (https://nathancouturier.github.io/baltic-freight-routes/).
+- **Buttons:** "The routes, one by one" (a table: each route's code and name, ship, cargo, commission, laden
+  distance by routing with the one priced marked, the share of its miles inside ECAs, port days for loading,
+  discharging and waiting, round voyage days, sourced voyage costs a day, EU allowances as a share of them, and
+  the bunker hub), "The Gulf loadings with the Hormuz premium" (a second table, apart from the chart because the
+  premium would swamp it: hull value, days inside the Gulf, seven day periods, the charterer's premium in dollars
+  and a tonne, and the premium over the voyage's bunkers, 5.22 to 6.48 times at 7.5 percent), "Method"
+  (distances and routings, miles inside ECAs, the bunker hub rule, the common market),
   "Assumptions" (port charges, canal tolls, speeds, laytime as port days, the S4A trip, and what each TCE leaves
   out), "Data" (the 25 distances checked against NGA Pub. 151, 20 of them within 2 percent, and the downloads).
 
 ### 4. Detours (`#/detours`)
 
 - **Takeaway:** "Round the Cape an LR2 from Jubail to Rotterdam sails 31.5 more days and needs USD 128.94 a
-  tonne more freight to earn what it earns by Suez before Suez tolls, a gap that closes only when the two tolls
-  reach USD 7.00 million; by Suez the Red Sea premium on the laden transit costs its charterer USD 4.72 a tonne;
-  for a VLCC loading in the Gulf, each further seven days inside costs the charterer another USD 43.61 a tonne of
-  premium at 7.5 percent of hull value." From `data/detours.json` (`page.takeaway`); the USD 128.94 a tonne is
-  USD 11.61 million on TC20's 90,000 t (`suez_tanker.cape_vs_suez`).
+  tonne more freight to earn what it earns by Suez before Suez tolls; for a VLCC loading in the Gulf, each further
+  seven days inside costs the charterer another USD 43.61 a tonne of premium at 7.5 percent of hull value." From
+  `data/detours.json` (`page.takeaway`); the USD 128.94 a tonne is USD 11.61 million on TC20's 90,000 t
+  (`suez_tanker.cape_vs_suez`). The break-even toll (USD 7.00 million for the two transits) and the Red Sea
+  premium (USD 4.72 a tonne, the charterer's on the laden transit) are in the chart and the TC20 panel.
 - **Chart:** every detour on one scale, what a tonne of cargo costs more than on its base: the freight the owner
   needs to earn the base TCE in ink, the charterer's war risk premium at cost in the war risk ochre, stacked where
   a Hormuz case has both. Ten rows in three groups: the LR2 on TC20 against Suez, the Panamax one way from
@@ -263,9 +274,10 @@ read, and a section is built the first time it opens. Nothing is a card.
 
 - **Takeaway:** "In the week to 3 July 2026 a C3 cargo at USD 30.11 a tonne earned USD 37,294 a day grossed up
   by its 5 percent commission, between USD 419 and 4,060 above the 5TC FFA over its days on the two prints of the
-  29 June curve, and a C5 cargo between USD 10,109 and 14,961 above it; hedging the C3 voyage takes 76.5 days of
-  5TC (182) or 170,000 tonnes of C3 FFA." Under the chart, the C5 fixture of 22 October 2026 against the C5
-  index.
+  29 June curve, and a C5 cargo between USD 10,109 and 14,961 above it." Under the chart, the C5 fixture of 22
+  October 2026 against the C5 index, as one comparison: it matched the index that day as the report's narrative
+  gives it, and sat USD 0.10 a tonne (about USD 552 a day) under it on the report's table series. The hedge (76.5
+  days of 5TC (182) or 170,000 tonnes of C3 FFA for the C3 voyage) is in the Hedge and basis section.
 - **How a voyage meets paper:** the voyage TCE, grossed up by its commission because the 5TC is gross hire, is
   set against the 5TC FFA strip over the voyage's days from the fixture date, each day at its month's FFA, on the
   latest curve tradable on that date: 29 June for week 27, a date Banchero Costa printed twice with different
@@ -288,10 +300,10 @@ read, and a section is built the first time it opens. Nothing is a card.
 
 ### 7. Method and data (`#/method`)
 
-- **Takeaway:** how near the engine reads to the Baltic's published TCEs (2.6 to 4.5 percent above for TD22 and
-  TC20 with bunker prices first printed in the same week, outside the two weeks after the closure of Hormuz), TD3C
-  at the 2026 flat rate Platts' January pairs imply, the 52 other Worldscale anchors that cannot be priced without
-  a licensed flat rate, and the 20 of 25 distances within 2 percent of NGA Pub. 151.
+- **Takeaway:** one claim: with bunker prices first printed in the same week the engine reads 2.6 to 4.5 percent
+  above the Baltic's own TCE for TD22 and TC20, the two routes it can price without a licensed flat rate. The
+  exceptions and TD3C at the 2026 flat rate Platts' January pairs imply are in the chart's title; the 52 other
+  Worldscale anchors and the 20 of 25 distances within 2 percent of NGA Pub. 151 are in Validation.
 - **Chart:** the engine against the Baltic in percent, one dot a week: TD22 and TC20, the two lump sum routes,
   then TD3C at the implied flat rate of USD 20.69 a tonne. An ink dot is priced with bunker prices first printed
   that week, an open dot with prices printed up to a week before, a muted dot with older prices a broker
@@ -309,8 +321,9 @@ read, and a section is built the first time it opens. Nothing is a card.
 One approach for every chart, the siblings': SVG drawn by hand in `src/charts.js` (the map in `src/map.js`), marks
 coloured by classes that read the roles in `tokens.css` and the palette above, so a theme change needs no redraw.
 A chart is drawn again at its column's width whenever the width changes, never scaled through a `viewBox`, so the
-type inside it stays the size the stylesheet sets; and it is drawn once more if a web font finishes loading after
-the first draw, since its words were measured in the face standing in for it.
+type inside it stays the size the stylesheet sets (the map alone scales with its `viewBox`, its strokes kept at
+their screen width and its dots and names resized at every width); and it is drawn once more if a web font
+finishes loading after the first draw, since its words were measured in the face standing in for it.
 
 Every chart sits in a figure with a heading that states its takeaway, an axis title with its unit, a legend in
 words with a swatch beside each item (the speed chart labels its two marks instead), a source line naming its
@@ -356,7 +369,9 @@ where one crosses a line.
 
 ### Chart by chart
 
-- **Bar charts** (Routes, Detours, Carbon): segments stack from zero in the artifact's order. The zero rule runs
+- **Bar charts** (Routes, Detours, Carbon): segments stack from zero in the artifact's order. A bar's value is
+  measured, and where it does not fit after its bar the figure stays there and the rest wraps at its commas onto
+  lines under it, the row growing to hold them, so no value passes the chart's edge. The zero rule runs
   only beside the bars, from the first bar of a run of rows to its last, so none of it shows above a heading or
   between two labels set above their bars; narrow, each piece is the height of its own bar, and a row with no bar
   has none.
@@ -370,13 +385,15 @@ where one crosses a line.
   for one), the two bars share the row as half-height bars, the lower case above, and one label at the far end
   gives both changes in that order, joined by "and"; with no room past the far end it sits on the other side of
   the base rule.
-- **Line chart** (calculator, TCE against speed): a 2px ink line over the speed grid, the best speed an accent
-  dot and the priced speed an open dot, each labelled. A mark's label is placed where no line, label or dot lies
+- **Line chart** (calculator, TCE against speed): a 2px ink line over the speed grid, solid between the slowest
+  and fastest published speeds and dashed outside them, where consumption follows the fitted power law; the best
+  speed an accent dot and the priced speed an open dot, each labelled. A mark's label is placed where no line, label or dot lies
   under it: above the dot (below it for the priced speed), centred, starting at the dot or ending at it, then
   beside it, then each of those a step of 8px further out, inside the plot. One readout per speed of the grid.
 - **The bridge** (overview and calculator): a bar in each row's cell, drawn at the cell's size, with a dotted
-  connector carrying the running total from row to row. The bars are hidden from assistive technology, the table
-  being their text.
+  connector carrying the running total from row to row; a step narrower than the bar's thickness is a dot, an
+  outlined one for the commission, with a clear gap before its figure. The bars are drawn again only when a
+  cell's size changes. They are hidden from assistive technology, the table being their text.
 - **The map** (overview): the projected land and the very lines the distances are measured on, with the stretches
   inside an ECA cut out as their own paths, scaled to the column with every line keeping its screen width. A
   ballast leg that starts at the discharge port sails the laden leg's water back, so the page draws it a fixed 3
@@ -392,10 +409,10 @@ where one crosses a line.
 The whole list: a section opening (its height by `grid-template-rows`, `--t-fast`, 200ms); the theme's colours
 (`--t-base`, 380ms); and **one orchestrated moment: the overview's bridge builds once**, the first time the
 overview is drawn, each bar growing from its running total in turn, 60ms apart, each over `--t-base` with
-`--ease-out`, 800ms in all for its eight rows. It does not replay on a return to the overview or on a width
-change. The calculator's bridge and charts redraw at once when an input changes, with no motion.
-`prefers-reduced-motion: reduce` turns all of it off, and `tools/check-styles.mjs` allows no other keyframe
-animation.
+`--ease-out`, 800ms in all for its eight rows. It does not replay on a return to the overview; a width change
+while it runs carries it on from where it is, and one after it redraws without motion. The calculator's bridge
+and charts redraw at once when an input changes, with no motion. `prefers-reduced-motion: reduce` turns all of it
+off, the bridge's delays included, and `tools/check-styles.mjs` allows no other keyframe animation.
 
 ## Part 6. Accessibility and widths
 
@@ -409,12 +426,13 @@ a field are 32px.
 
 The layout works from 320px with no horizontal page scroll. Below 900px the header is two rows: the name and the
 toggle, then the nav, wrapping. The overview's bridge and map sit side by side from 1100px and one above the other
-below. The calculator sets its inputs left and its outputs right from 1100px; below that its outputs come first,
-so the result is read before the fields that move it, and a line under each open step gives the TCE as it stands.
+below; at 480px and below the nav's links sit closer, so the header takes two rows at 320px. The calculator sets
+its inputs left and its outputs right from 1100px; below that its outputs come first, so the result is read
+before the fields that move it; at every width a line under each open step gives the TCE as it stands.
 At 600px and below the bridge rows become two lines (name, then bar and figure), and a table of more than three
 columns, or of three when its cells hold sentences, becomes one block per row, each cell under its column's name,
 with the table roles written into the markup. Above that a wide table scrolls inside its own box with its first
-column sticky and a caption above it naming the columns off screen.
+column sticky, at least 13em wide, and a caption above it naming the columns off screen.
 
 ## Part 7. Artifacts
 
@@ -424,20 +442,23 @@ routes, the fields and their words), `data/speed.json` (the best speed across ma
 legs and ports), `data/engine.json` (the engine's constants), `data/manifest.json` (provenance with the as-of date
 of each source), `data/downloads/*.csv`. Written by `scripts/export.py` from the seeds, the caches and the engine,
 byte for byte the same on every run (`export --check` in the gate, which also checks the content hashes
-`index.html` loads them by). No number in `src/` comes from anywhere else (`tools/check-literals.mjs`), and
-`tools/validate-artifacts.mjs` formats every figure in them as the page will.
+`index.html` loads them by). No market figure in the page's scripts (`src/*.js`) comes from anywhere but the
+artifacts: their only literals are the unit and drawing constants declared in `tools/check-literals.mjs`. And
+`tools/validate-artifacts.mjs` formats every figure in their sentences as the page will and checks that every
+format they name is declared.
 
 ## Part 8. Review against the study's requirements
 
 - **One view per question.** Seven views, each answering one: what a voyage earns and where the money goes
-  (Overview), what any study voyage earns at inputs the visitor sets (Calculator), what each route costs to run
+  (Overview), what a voyage on any of the calculator's 14 routes earns at inputs the visitor sets (Calculator),
+  what each route costs to run
   (Routes), what a longer or riskier way costs (Detours), what the EU ETS adds (Carbon), how a physical fixture
   compares with the FFA (Paper), and how far the engine can be trusted and where each input comes from (Method
   and data).
 - **The answer in one minute.** The overview opens on the verdict, three dated facts, the bridge and the map; every
   other view is one click away in the nav.
 - **The detail in five minutes.** Every input of a voyage is a field with its status and its source, and a preset
-  rebuilds any study route at its latest dated market or at an anchor week.
+  rebuilds any of the 14 calculator routes at its latest dated market or at an anchor week.
 - **Progressive disclosure.** Each view opens on its answer: the overview on its verdict, the calculator on its
   presets and the TCE they price, the others on a title, a takeaway and a key chart. Method, assumptions, data and
   the view's own panels sit behind buttons, and the open ones are kept in the address.
@@ -454,14 +475,15 @@ byte for byte the same on every run (`export --check` in the gate, which also ch
 - **320px without sideways scroll.** `tools/check-site.mjs` opens every view at 1440 and 320px and fails if the
   page scrolls sideways; wide tables stack at 600px and below or scroll in their own box.
 - **AA contrast in both themes.** Text wears `--text` (17.01) or `--text-muted` (4.90 light, 7.54 dark), and accent
-  text `--accent` in light (7.96) and `--accent-bright` in dark (5.15); every mark is at least 3:1 on its ground
-  (Part 2).
+  text `--accent` in light (7.96) and `--accent-bright` in dark (5.15); every data mark is at least 3:1 on its
+  ground (Part 2), gridlines and connectors being decorative; form fields' borders reach 3:1 on the page in both
+  themes.
 - **One motion moment.** The overview's bridge builds once; the only other motion is a section opening and the
   theme's colours, and reduced motion turns all of it off.
 - **Keyboard and screen reader.** Every control is a native button, link or field; every chart's readout steps
   with the arrow keys; every chart and the map carries a title and a description from its artifact; the focus ring
   is never removed.
 - **Palette documented and validated.** Hex values, reasons and contrast in both themes, with the separations the
-  validator measured (Part 2).
-- **Every figure from an artifact.** No number in `src/` comes from anywhere but the artifacts, and the artifacts
-  rebuild byte for byte in the gate (Part 7).
+  check measured (Part 2).
+- **Every figure from an artifact.** No market figure in the page's scripts comes from anywhere but the
+  artifacts, and the artifacts rebuild byte for byte in the gate (Part 7).
