@@ -170,8 +170,8 @@ read, and a section is built the first time it opens. Nothing is a card.
   gives its change in days and in money, taken from the two figures as they are shown and written with a word,
   never a signed sum of money ("USD 7,270 a day higher"). The line sits beside the route's own figure, so where
   the base is not that figure it names the base with the base's figure: TC20's Cape is "USD 132,196 a day lower
-  than by Suez (342,369)", TD22's way back by Suez is set against "the engine's TCE (463,639)" beside the Baltic's
-  451,905, and TD3C's transfer and waits are costs of carriage "than at Ras Tanura (285.00)" beside a TCE a day.
+  than the engine's TCE by Suez (342,369)" beside the Baltic's 336,400, TD22's way back by Suez is set against
+  "the engine's TCE (463,639)" beside the Baltic's 451,905, and TD3C's transfer and waits are costs of carriage "than at Ras Tanura (285.00)" beside a TCE a day.
   The study's lines are freight, as its row is. What the change is before, or the basis it holds on, follows
   every line ("before Suez tolls", "before tolls and waiting", "the export VLCC at TD3C's TCE"), as the routing's
   entry in the column says it. TD3C's list holds options rather than routings (TD34, another cargo loading outside

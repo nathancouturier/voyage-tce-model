@@ -195,9 +195,10 @@ view at 1440, 768, 390 and 320 pixels in both themes.
 
 TC20 picked on the Map: its line by Suez in the accent colour, its ballast
 leg dashed beside it, and the routing round the Cape dotted and named with
-its 31.5 more days; beside the map, its entry gives a TCE USD 132,196 a day
-lower than by Suez, before Suez tolls, Suez staying the better way if war
-cover can be placed.
+its 31.5 more days. Beside the map, its entry gives the Cape's TCE, USD
+132,196 a day lower than the engine's TCE by Suez, before Suez tolls: if war
+cover can be placed, Suez stays the better way until the tolls of its two
+transits pass USD 7.00 million.
 
 ![The Map view with TC20 picked, desktop width, light theme](assets/map-route-desktop-light.png)
 
