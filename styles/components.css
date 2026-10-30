@@ -735,8 +735,12 @@ p.block,
  * round it. From 1100px the map, the line under it and its legend stay on
  * screen while the column scrolls: the figure runs the column's height (its
  * row takes what the column needs beyond the source line) and its block is
- * sticky. The source line ends the map's column. Below 1100px the column
- * follows the map and the source follows the column. */
+ * sticky. The source line ends the map's column. Below 1100px the map's
+ * block lends its parts to the page's grid, which sets the map's heading,
+ * the map and the line under it, then the column (the filters and the list,
+ * or the route picked), then the legend, the key to the labels and the
+ * source line: on a phone the list follows the map. The page keeps the
+ * legend beside the map, where a screen reader reads it. */
 .atlas {
   margin-top: 28px;
   display: grid;
@@ -757,18 +761,30 @@ p.block,
   .atlas {
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: none;
-    grid-template-areas: "map" "side" "source";
-    gap: 24px;
+    grid-template-areas: "heading" "frame" "caption" "side" "legend" "note" "source";
+    gap: 0;
   }
+  .atlas-figure,
+  .atlas-sticky { display: contents; }
   .atlas-sticky { position: static; }
+  .atlas-map-heading { grid-area: heading; }
+  .atlas-frame { grid-area: frame; }
+  .atlas-caption { grid-area: caption; }
+  .atlas-side { margin-top: 24px; }
+  /* Over the legend's own margin under the map, which is set further down. */
+  .atlas .atlas-legend { grid-area: legend; margin-top: 28px; }
+  .atlas-labels-note { grid-area: note; }
+  .atlas-source { margin-top: 24px; }
 }
 .atlas-frame { position: relative; }
 
 /* Lines: a route's laden leg in ink; the route picked is the chart's one
  * accent mark, its ballast dashed beside it and its ECA stretches in sea
  * green, over a casing of the ground so they stand off the land; another
- * routing dotted; once a route is picked every other one is a thin muted
- * line, never a faded one (4.90:1 light, 7.54:1 dark). */
+ * routing dotted; once a route is picked, and while one is pointed at with
+ * nothing picked, every other one is a thin muted line, never a faded one
+ * (4.90:1 light, 7.54:1 dark). src/map.js paints the route picked over every
+ * other and the route pointed at over the rest of its layer. */
 .atlas-route__line,
 .atlas-route__ballast,
 .atlas-route__casing,
@@ -779,7 +795,8 @@ p.block,
 .atlas-route__ballast { display: none; stroke: var(--role-mark-accent); stroke-width: 1.5px; stroke-dasharray: 8 4; }
 .atlas-route__eca { display: none; stroke: var(--data-mgo); stroke-width: 4px; stroke-linecap: butt; }
 .atlas-route.is-hover .atlas-route__line { stroke-width: 2.5px; }
-.atlas-map.has-selection .atlas-route .atlas-route__line { stroke: var(--role-context); stroke-width: 1px; }
+.atlas-map.has-selection .atlas-route .atlas-route__line,
+.atlas-map.is-pointing:not(.has-selection) .atlas-route:not(.is-hover) .atlas-route__line { stroke: var(--role-context); stroke-width: 1px; }
 .atlas-map.has-selection .atlas-route.is-hover .atlas-route__line { stroke: var(--data-laden); stroke-width: 2px; }
 .atlas-map.has-selection .atlas-route.is-current .atlas-route__line { stroke: var(--role-mark-accent); stroke-width: 2.5px; }
 .atlas-route.is-current .atlas-route__casing,
@@ -792,11 +809,15 @@ p.block,
 .atlas-alt.is-hidden { display: none; }
 /* A route under the pointer, found by its distance in src/map.js. */
 .atlas-map.is-pointing { cursor: pointer; }
-/* Where a line leaves the map across the Pacific, and where it comes back. */
+/* Where a line leaves the map across the Pacific, and where it comes back:
+ * muted with its line while another route is pointed at. */
 .atlas-edge { fill: var(--bg); stroke: var(--data-laden); stroke-width: 1.5px; vector-effect: non-scaling-stroke; }
+.atlas-map.is-pointing:not(.has-selection) .atlas-edge[data-item]:not(.is-hover) { stroke: var(--role-context); }
 /* Labels are sized in map units by src/map.js, so no rule here sets a size. A
- * figure is right aligned in its block; the engine's estimate is in the muted
- * ink, the Baltic's in ink, as the key under the map says. */
+ * figure starts in its block's second column, a little after the widest code;
+ * the engine's estimate is in the muted ink, the Baltic's in ink, as the key
+ * under the map says. A routing's name with a route picked takes the pointer,
+ * as its line does. */
 .atlas-label {
   font-family: var(--ff-body);
   font-weight: 400;
@@ -811,8 +832,13 @@ p.block,
 .atlas-label__alt,
 .atlas-label__passage { fill: var(--text-muted); }
 .atlas-label__alt { font-weight: 500; }
-/* The heading over the map says what it shows, and changes with the route picked. */
-.atlas-map-heading { margin-bottom: 12px; }
+/* The heading over the map says what it shows, and changes with the route
+ * picked. From 768px it keeps two lines, balanced, so the map under it does
+ * not move when a route's longer heading takes the second. */
+.atlas-map-heading { margin-bottom: 12px; text-wrap: balance; }
+@media (min-width: 768px) {
+  .atlas-map-heading { min-height: 2lh; }
+}
 /* The line under the map: what the pointer is on, or the route picked. Two
  * lines are kept for it, so the legend under it does not move as it changes. */
 .atlas-caption {
@@ -824,10 +850,11 @@ p.block,
   font-variant-numeric: tabular-nums lining-nums;
 }
 .atlas-caption__same { color: var(--text-muted); }
-/* The legend shows the lines of the state on screen: the list's, or a route's. */
+/* The legend shows the lines the map draws now: the list's, or the route
+ * picked's, each sample only where a line of its kind is drawn (src/atlas.js
+ * hides the others). */
 .atlas-legend { margin-top: 8px; }
-.atlas-legend[data-state="list"] .map-legend__item[data-state="route"],
-.atlas-legend[data-state="route"] .map-legend__item[data-state="list"] { display: none; }
+.atlas-legend .map-legend__item[hidden] { display: none; }
 .map-legend__sample--picked { border-top: 2.5px solid var(--role-mark-accent); }
 .map-legend__sample--picked-ballast { border-top: 1.5px dashed var(--role-mark-accent); }
 .map-legend__sample--alternative { border-top: 2px dotted var(--data-ballast); }
@@ -849,13 +876,23 @@ p.block,
 .atlas-message[hidden] { display: none; }
 .atlas-message { margin-top: 8px; }
 /* The list: one row a route, its code, ship and ports, its TCE and its days,
- * and a thin bar of its TCE on one scale for every route. */
+ * its other routings across the row, and a thin bar of its TCE on one scale
+ * for every route. The first column never narrows under its longest word, so
+ * a head or a code never runs into the figures beside it. */
 .atlas-list__caption { margin-top: 8px; }
+/* On a phone the rows follow the filters at once and the caption (the week,
+ * and whose figure each family shows, as the group headings say too) follows
+ * the rows, so the list starts higher. The page keeps the caption first,
+ * where a screen reader reads it before them. */
+@media (max-width: 600px) {
+  .atlas-list { display: flex; flex-direction: column; }
+  .atlas-list__caption { order: 1; margin-top: 16px; }
+}
 .atlas-rows { list-style: none; margin: 0; padding: 0; }
 .atlas-group { margin-top: 20px; font-size: var(--fs-meta); font-weight: 600; color: var(--text); }
 .atlas-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto 5ch;
+  grid-template-columns: minmax(min-content, 1fr) auto 5ch;
   gap: 2px 14px;
   align-items: baseline;
   width: 100%;
@@ -876,9 +913,20 @@ p.block,
 .atlas-row__route { display: grid; gap: 2px; min-width: 0; }
 .atlas-row__code { font-weight: 600; }
 .atlas-row__ports,
-.atlas-row__note,
-.atlas-row__also { font-size: var(--fs-meta); color: var(--text-muted); }
-/* Another routing, after the dotted sample the map draws it with. */
+.atlas-row__note { font-size: var(--fs-meta); color: var(--text-muted); }
+/* Under the ports and across the whole row: the row's note, then its other
+ * routings, one line each with what it changes; a line that wraps hangs
+ * after the dotted sample the map draws the routing with. */
+.atlas-row__note { grid-column: 1 / -1; }
+.atlas-row__alts {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 2px;
+  font-size: var(--fs-meta);
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.atlas-row__alt { padding-left: 24px; text-indent: -24px; text-wrap: pretty; }
 .atlas-row__swatch {
   display: inline-block;
   width: 18px;
@@ -890,6 +938,11 @@ p.block,
 .atlas-row__days { display: grid; text-align: right; font-variant-numeric: tabular-nums lining-nums; }
 .atlas-row__figure { white-space: nowrap; }
 .atlas-row__qualifier { font-size: var(--fs-meta); color: var(--text-muted); }
+/* The Baltic's qualifier reads before its figure ("just under 197,000"); on
+ * a phone it takes the line above, so the ports beside it keep their width. */
+@media (max-width: 480px) {
+  .atlas-row__prefix { display: block; }
+}
 .atlas-row__bar { grid-column: 1 / -1; display: flex; height: 3px; margin-top: 4px; }
 .atlas-row__bar-fill { min-width: 2px; background: var(--data-laden); }
 .atlas-row__bar-fill--engine { background: var(--role-context); }
@@ -945,11 +998,28 @@ p.block,
 }
 .atlas-panel__title:focus { outline-offset: 4px; }
 .atlas-panel__sub { margin-top: 6px; font-size: var(--fs-body-s); color: var(--text-muted); }
+/* The routes sharing the water stay one sentence, each link a 44px target:
+ * the padding of an inline link takes the pointer but moves no line, so the
+ * sentence keeps its own spacing. */
 .atlas-panel__same { margin-top: 10px; font-size: var(--fs-body-s); line-height: 1.6; }
+.atlas-panel__same a { padding-block: 14px; }
 .atlas-facts { margin-top: 16px; }
 .atlas-fact { display: grid; gap: 2px; padding: 10px 0; border-top: 1px solid var(--border); }
 .atlas-fact__label { font-weight: 500; font-size: var(--fs-meta); color: var(--text-muted); }
 .atlas-fact__value { font-weight: 600; font-variant-numeric: tabular-nums lining-nums; }
+/* The route's own figure, its TCE (the study's freight), at the display size
+ * and weight of the overview's facts, the words after it in their unit's. */
+.atlas-facts--head > .atlas-fact:first-child .atlas-fact__value {
+  font-weight: 400;
+  font-size: var(--fs-body-s);
+  line-height: 1.15;
+  color: var(--text-muted);
+}
+.atlas-facts--head > .atlas-fact:first-child .atlas-fact__value .fig {
+  font-weight: 600;
+  font-size: var(--fs-display-s);
+  color: var(--text);
+}
 .atlas-fact__note { font-size: var(--fs-meta); color: var(--text-muted); line-height: 1.45; font-variant-numeric: tabular-nums lining-nums; }
 .atlas-fact__note .fig { color: var(--text); }
 /* What a route leaves out is a sentence, not a figure. */
@@ -965,6 +1035,11 @@ p.block,
 .atlas-links { list-style: none; margin: 6px 0 0; padding: 0; }
 .atlas-alt-entry { padding: 10px 0 4px; border-top: 1px solid var(--border); }
 .atlas-alt-entry__name { font-weight: 600; }
+/* The base, the routing priced above that every change is set against, reads
+ * as a reference: its name in a label's weight, size and ink, and room after
+ * it before the routings, which are named in weight. */
+.atlas-alt-entry--base { padding-bottom: 14px; }
+.atlas-alt-entry--base .atlas-alt-entry__name { font-weight: 500; font-size: var(--fs-meta); color: var(--text-muted); }
 .atlas-alt-entry__text { margin-top: 2px; font-size: var(--fs-body-s); font-variant-numeric: tabular-nums lining-nums; }
 .atlas-links a { display: inline-flex; align-items: center; min-height: 44px; }
 /* The calculator, the step from reading a route to pricing it, comes first and in weight. */

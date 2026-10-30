@@ -131,7 +131,11 @@ const LAYOUT_CONSTANTS = {
     { name: "CODES_FROM", value: "420", why: "the map width from which a loading area's labels are written" },
     { name: "DOT", value: "3", why: "an atlas port's dot, in screen px" },
     { name: "EDGE_RING", value: "4", why: "the ring where an atlas line leaves the map, in screen px" },
-    { name: "COLUMN_GAP", value: "2", why: "the gap between an atlas label block's codes and figures, in characters" },
+    { name: "EDGE_STROKE", value: "1.5", why: "that ring's stroke, as styles/components.css draws .atlas-edge, in screen px" },
+    { name: "COLUMN_GAP", value: "1.2", why: "the gap between an atlas label block's codes and figures, as a share of its size" },
+    { name: "ROOM_ACROSS", value: "1.2", why: "the room kept clear beside an atlas label placed, as a share of its size" },
+    { name: "ROOM_DOWN", value: "0.5", why: "the room kept clear above and below an atlas label placed, as a share of its size" },
+    { name: "BASELINE_REACH", value: "6", why: "how far across two atlas labels should not share a baseline, as a share of their size" },
     { name: "TALL_BELOW", value: "600", why: "the map width under which a route picked takes the taller frame" },
   ],
 };

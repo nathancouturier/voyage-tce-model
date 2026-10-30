@@ -274,16 +274,28 @@ export async function launch(argv = process.argv) {
 }
 
 /** Open any view by its hash at `base` in `theme`, and wait until the view's
- *  title is drawn, the fonts are in and the width observers have run. */
-export async function openView(page, base, { theme = "light", hash = "#/overview", width = 1440, height = 900 } = {}) {
+ *  title is drawn, the fonts are in and the width observers have run.
+ *
+ *  The hash is set in the page, which is then reloaded on it. `direct` opens
+ *  base and hash as a new document instead, for an address the page rewrites
+ *  as it reads it (a route the study does not have): the page already shown
+ *  hears the hash change first and may rewrite the address before the reload
+ *  reads it. */
+export async function openView(page, base, { theme = "light", hash = "#/overview", width = 1440, height = 900, direct = false } = {}) {
   await page.viewport(width, height);
   await page.goto(base);
   await page.waitFor("location.href.startsWith(" + JSON.stringify(base) + ") && document.readyState !== 'loading'");
   await page.evaluate("localStorage.setItem('nc-theme', " + JSON.stringify(theme) + "), true");
-  // Set the hash in the page rather than through navigation: a same document
-  // navigation fires no load event to wait for.
-  await page.evaluate("location.hash = " + JSON.stringify(hash) + ", true");
-  await page.reload();
+  if (direct) {
+    // Through about:blank, as a navigation that changes only the hash loads no new document.
+    await page.goto("about:blank");
+    await page.goto(base + hash);
+  } else {
+    // Set the hash in the page rather than through navigation: a same document
+    // navigation fires no load event to wait for.
+    await page.evaluate("location.hash = " + JSON.stringify(hash) + ", true");
+    await page.reload();
+  }
   await page.waitFor("document.querySelector('#view-title') && !document.querySelector('#view .state-message[role=\"status\"]')");
   // Every open section has drawn what it holds.
   await page.waitFor(

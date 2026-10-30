@@ -3,7 +3,11 @@
  * Owns location.hash and nothing else. It does not know what a view is or what
  * any artifact holds. It parses the hash, tells its one listener what the hash
  * now says, and writes the hash when asked. The sibling studies' router
- * (crack-spread-study, jkm-ttf-arbitrage), unchanged in behaviour.
+ * (crack-spread-study, jkm-ttf-arbitrage), with one addition: a history entry
+ * keeps the state a view gives it (window.history.state). go() can write one
+ * on the entry it adds, and replaceState() keeps the entry's own, so a view
+ * can mark an entry, for example a route opened over the Map's list, and
+ * read the mark back on Back and Forward.
  *
  * Three shapes of hash, kept apart on purpose:
  *
@@ -100,24 +104,29 @@ export function current() {
   return parse(window.location.hash, knownViews, defaultView);
 }
 
-/** Navigate. Adds a history entry, so Back works. */
-export function go(view, params) {
+/** Navigate. Adds a history entry, so Back works. `state`, when given, is kept
+ *  with the new entry: the fragment navigation is synchronous and its
+ *  hashchange comes later, so the listener already finds it there. */
+export function go(view, params, state) {
   const next = href(view, params);
   if (window.location.hash === next) {
     announce();
     return;
   }
   window.location.hash = next;
+  if (state !== undefined) window.history.replaceState(state, "", window.location.href);
 }
 
 /** Rewrite the address for a change of view state, for example a section
  *  opening or a preset chosen, without a history entry and without announcing it: the view already
- *  holds that state, and announcing would send it back into its own render. */
+ *  holds that state, and announcing would send it back into its own render.
+ *  The entry keeps the state it carries, so a section opened on a marked
+ *  entry leaves the mark. */
 export function replaceState(view, params) {
   const next = href(view, params);
   if (window.location.hash === next) return;
   const url = window.location.pathname + window.location.search + next;
-  window.history.replaceState(null, "", url);
+  window.history.replaceState(window.history.state, "", url);
   lastRoute = parse(next, knownViews, defaultView);
 }
 

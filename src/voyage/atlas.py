@@ -13,18 +13,25 @@ charges and canal tolls, which have no public per call figure. S4A, a trip
 time charter, is shown at the Baltic's hire; the owner's round trip with the
 ballast back unpaid is a what-if beside it, not its figure.
 
+The map's week is the newest date on which at least two of its routes carry a
+TCE the Baltic printed: the dry rates and the tanker report come out on their
+own days, so one route's rate can run ahead of the others, and the takeaway
+names the highest and the lowest of the Baltic's TCEs in that week.
+
 The alternatives follow one rule. Each list opens with the base routing on
 the alternatives' own basis, and every change is taken against that base. A
 war risk premium is priced by who pays it: the owner's comes off the TCE, the
 charterer's is a cost of carriage beside the freight. A tanker's canal transit
 takes the days a transit the guide gives TC20 (two days for its two Suez
 transits). Where a toll has no public figure, the comparison is the toll at
-which the two routings earn the same, not a TCE before the toll. The routings
-and options are the ones the study already computes: the calculator's leg
-routings (P7, TD22), the Suez and Cape comparison of the Detours view for
-TC20, its Hormuz options for TD3C, and the Panamax trip from Asia to Europe,
-a detour study rather than a Baltic route. The words for every figure are
-written in pages.atlas_page.
+which the two routings earn the same, not a TCE before the toll. Every
+routing also carries the freight a tonne it needs on top of its base's to
+earn the base's TCE, the one measure the costliest detour is picked on. The
+routings and options are the ones the study already computes: the
+calculator's leg routings (P7, TD22), the Suez and Cape comparison of the
+Detours view for TC20, its Hormuz options for TD3C, and the Panamax trip from
+Asia to Europe, a detour study rather than a Baltic route. The words for
+every figure are written in pages.atlas_page.
 """
 
 from __future__ import annotations
@@ -33,7 +40,9 @@ import copy
 import itertools
 import math
 import re
+from collections import Counter
 from collections.abc import Mapping, Sequence
+from dataclasses import replace
 from typing import Any
 
 from . import analysis, baltic, cases, engine, routemap, sea_routes
@@ -66,6 +75,12 @@ ROUTING_ORDER: Mapping[str, tuple[str, ...]] = {
 }
 #: The barrels in a VLCC cargo, the shuttle's per barrel cost per tonne (Windward, 30 July 2026), as on Detours.
 VLCC_BARRELS_ID = "vlcc_barrels_2026_07_30"
+#: The fewest of the Baltic's TCEs a week needs for the map: its highest and its lowest are two routes.
+TCES_A_WEEK = 2
+
+
+class TooFewTcesError(ValueError):
+    """Fewer than two of the Baltic's TCEs share a date, so the map has no highest and lowest to name that week."""
 
 
 def latest(preset_list: Sequence[Mapping[str, Any]]) -> dict[str, Mapping[str, Any]]:
@@ -78,6 +93,33 @@ def latest(preset_list: Sequence[Mapping[str, Any]]) -> dict[str, Mapping[str, A
         if best is None or rank > (best["date"], best["kind"] == "latest"):
             out[code] = preset
     return out
+
+
+def map_date(presets: Mapping[str, Mapping[str, Any]]) -> str:
+    """The map's week: the newest date on which at least two of the map's routes carry a TCE the Baltic printed.
+
+    `presets` is each route's latest preset (latest()). A dry rate or one
+    tanker route's report a week ahead of the rest does not move the map's
+    week, so the takeaway always has a highest and a lowest TCE to name.
+    """
+    counts = Counter(
+        preset["date"]
+        for code, preset in presets.items()
+        if code in ROUTES and preset["published"] and preset["published"]["tce_usd_day"] is not None
+    )
+    dates = [date for date, count in counts.items() if count >= TCES_A_WEEK]
+    if not dates:
+        raise TooFewTcesError("no date has two of the Baltic's TCEs on the map's routes: %s" % dict(counts))
+    return max(dates)
+
+
+def war_area(inputs: Mapping[str, Any], load: str) -> bool:
+    """True if a voyage passes a listed war risk area, or loads in the Gulf of Oman, which the crews' Warlike
+    Operations Area takes in (the crew war bonus applies there, though no dated premium was found)."""
+    areas = inputs["war_risk"]["areas"]
+    return load in cases.GULF_OF_OMAN or any(
+        areas[area]["entries"] or areas[area]["ballast_transits"] for area in AREA_RATES
+    )
 
 
 def priced(preset: Mapping[str, Any]) -> dict[str, Any]:
@@ -183,26 +225,52 @@ def figures(preset: Mapping[str, Any]) -> dict[str, Any]:
         "round_trip_gross_usd_day": engine_tce / net if trip and engine_tce is not None else None,
         "charterer_costs_usd": result["charterer_costs_usd"] if trip else None,
         "gulf_war_risk": gulf_premium(inputs),
+        "war_area": war_area(inputs, preset["legs"]["laden"]["from"]),
     }
     out["eca_share"] = out["eca_nm"] / (out["laden_nm"] + out["ballast_nm"])
     return out
 
 
-def picks(items: Sequence[Mapping[str, Any]], on_date: str) -> dict[str, Mapping[str, Any]]:
-    """The routes the page's takeaway and summary name: the highest and the lowest of the Baltic's TCEs, and the
-    longest round voyage.
+def picks(items: Sequence[Mapping[str, Any]], on_date: str) -> dict[str, Any]:
+    """What the page's takeaway and summary name: the highest and the lowest of the Baltic's TCEs, the longest
+    round voyage, and the costliest detour.
 
-    Only routes priced on the map's own date take part, so a figure of an
-    earlier week (P7's) is never set beside them, and only round-voyage TCEs
-    the Baltic prints: a trip hire is not one, and the engine's estimates are
-    not the Baltic's.
+    Only routes priced on the map's own date take part in the first three, so
+    a figure of an earlier week (P7's) is never set beside them, and only
+    round-voyage TCEs the Baltic prints: a trip hire is not one, and the
+    engine's estimates are not the Baltic's. The highest and the lowest are two
+    routes even when two print the same figure.
+
+    The costliest detour is taken over every routing alternative on one money
+    measure: the extra freight the whole cargo needs, on top of its base
+    routing's, to earn the base's TCE (the extra a tonne times the item's
+    cargo). An alternative without that figure cannot be set on the measure:
+    it is returned under "unpriced", for the page to say so.
     """
     same_day = [i for i in items if i["kind"] == "route" and i["date"] == on_date]
-    tces = [i for i in same_day if i["headline"] == "baltic_tce"]
+    tces = sorted((i for i in same_day if i["headline"] == "baltic_tce"), key=lambda i: -i["tce_usd_day"])
+    if len(tces) < TCES_A_WEEK:
+        raise TooFewTcesError("%d of the Baltic's TCEs on %s, two needed" % (len(tces), on_date))
+    measured: list[tuple[Mapping[str, Any], Mapping[str, Any]]] = []
+    unpriced: list[tuple[Mapping[str, Any], Mapping[str, Any]]] = []
+    for i in items:
+        for alt in i["alternatives"]:
+            if alt["kind"] == "routing":
+                on_measure = alt["freight_change_usd_t"] is not None and i["cargo_t"]
+                (measured if on_measure else unpriced).append((i, alt))
+    costliest = max(measured, key=lambda pair: pair[1]["freight_change_usd_t"] * pair[0]["cargo_t"], default=None)
     return {
-        "top": max(tces, key=lambda i: i["tce_usd_day"]),
-        "bottom": min(tces, key=lambda i: i["tce_usd_day"]),
+        "top": tces[0],
+        "bottom": min(tces[1:], key=lambda i: i["tce_usd_day"]),
         "longest": max(same_day, key=lambda i: i["days"]),
+        "costliest": {
+            "item": costliest[0],
+            "alternative": costliest[1],
+            "extra_freight_usd": costliest[1]["freight_change_usd_t"] * costliest[0]["cargo_t"],
+        }
+        if costliest
+        else None,
+        "unpriced": unpriced,
     }
 
 
@@ -260,6 +328,9 @@ def routing_alternatives(preset: Mapping[str, Any], base: Mapping[str, Any]) -> 
     toll, so each is set against the base by the toll a transit at which the
     two earn the same; a dry routing that avoids every canal also by the days
     the base could wait at its canals, no toll paid and no fuel burnt waiting.
+    Each also carries the freight a tonne it needs on top of the base's to earn
+    the base's TCE, the engine's freight for that TCE on the routing's own
+    inputs less the base's.
     """
     code = preset["route"]
     route = baltic.ROUTES[code]
@@ -267,6 +338,7 @@ def routing_alternatives(preset: Mapping[str, Any], base: Mapping[str, Any]) -> 
     tanker = route.segment != "dry"
     base_days = base["days"]["total"]
     base_tce = base["engine_tce_usd_day"]
+    base_freight = engine.freight_for_tce(inputs, base_tce)["usd_t"] if base_tce is not None else None
     base_transits = transits(route, preset["legs"]["laden"]["routing"], preset["legs"]["ballast"]["routing"])
     variants = {"%s-%s" % (v["laden"], v["ballast"]): v for v in preset["routings"] if not v["is_preset"]}
     out: list[dict[str, Any]] = [
@@ -303,6 +375,7 @@ def routing_alternatives(preset: Mapping[str, Any], base: Mapping[str, Any]) -> 
                 )
         result = engine.evaluate(alt_inputs)
         days, tce = result["days"]["total"], result["tce_usd_day"]
+        needed = engine.freight_for_tce(alt_inputs, base_tce)["usd_t"] if base_freight is not None else None
         waiting = None
         if not tanker and base_transits and not alt_transits:
             # The days the base could wait at its canals, at no cost but time, and still earn this routing's TCE.
@@ -331,6 +404,8 @@ def routing_alternatives(preset: Mapping[str, Any], base: Mapping[str, Any]) -> 
                 "toll_crossing_usd": toll_crossing(base_tce, base_days, base_transits, tce, days, alt_transits),
                 "ahead_below": "alternative" if tce > base_tce else "base",
                 "waiting_days_crossing": waiting,
+                "freight_change_usd_t": None if needed is None or base_freight is None else needed - base_freight,
+                "war_area": war_area(alt_inputs, route.load),
                 "excluded": excluded,
             }
         )
@@ -388,14 +463,21 @@ def td3c_alternatives(hz: Mapping[str, Any]) -> list[dict[str, Any]]:
 
     Every option is a cost of carriage a tonne: the freight that earns the
     Baltic's TCE at the engine's days and costs (derived, as on Detours) and
-    the charterer's Gulf premium beside it. The base, loading at Ras Tanura,
-    comes first.
+    the charterer's Gulf premium beside it. The base, loading at Ras Tanura
+    with no wait, comes first, and already carries the one seven-day period of
+    premium its days inside the Gulf make; a wait's change is its cost of
+    carriage less the base's, so that period is counted once. The export VLCC
+    of the transfer is priced at TD3C's TCE of the week, as on Detours, with
+    the shuttle beside it at its reported cost; TD34, another cargo loading
+    outside the strait, at its own. No dated premium was found for a loading in
+    the Gulf of Oman, so neither carries one.
     """
     chains = hz["chains"]
     latest_week = hz["levels"][-1]["week_ending"]
     scenarios = {s["id"]: s for s in hz["scenarios"]}
     freight = chains["td3c_freight_at_own_tce_usd_t"]
     premium = scenarios["war_low"]["charterer_war_risk_usd_t"]
+    base_carriage = freight + premium
 
     def at_latest(levels: Sequence[Mapping[str, Any]]) -> Mapping[str, Any]:
         return next(level for level in levels if level["week_ending"] == latest_week)
@@ -403,7 +485,9 @@ def td3c_alternatives(hz: Mapping[str, Any]) -> list[dict[str, Any]]:
     waits = []
     for sid in ("wait_5", "wait_10", "wait_20"):
         scenario = scenarios[sid]
-        total = scenario["charterer_war_risk_usd_t"] + at_latest(scenario["levels"])["extra_freight_usd_t"]
+        carriage_t = (
+            freight + scenario["charterer_war_risk_usd_t"] + at_latest(scenario["levels"])["extra_freight_usd_t"]
+        )
         waits.append(
             {
                 "id": sid,
@@ -411,8 +495,8 @@ def td3c_alternatives(hz: Mapping[str, Any]) -> list[dict[str, Any]]:
                 "periods": scenario["periods"],
                 "charterer_usd_t": scenario["charterer_war_risk_usd_t"],
                 "owner_usd_t": at_latest(scenario["levels"])["extra_freight_usd_t"],
-                "total_usd_t": total,
-                "carriage_usd_t": freight + total,
+                "carriage_usd_t": carriage_t,
+                "change_usd_t": carriage_t - base_carriage,
             }
         )
     reports = {r["id"]: r for r in cases.seed("market.json")["hormuz_chain"]["reports"]}
@@ -430,10 +514,11 @@ def td3c_alternatives(hz: Mapping[str, Any]) -> list[dict[str, Any]]:
             "id": "base",
             "kind": "base",
             "legs": [],
+            "days": scenarios["base"]["days"],
             "freight_usd_t": freight,
             "premium_usd_t": premium,
             "periods": scenarios["war_low"]["periods"],
-            "carriage_usd_t": freight + premium,
+            "carriage_usd_t": base_carriage,
             "premium_pct": analysis._rate(hz["war_risk_source"])["low"],
         },
         {
@@ -447,6 +532,9 @@ def td3c_alternatives(hz: Mapping[str, Any]) -> list[dict[str, Any]]:
             "tce_basis": "baltic",
             "freight_needed_usd_t": td34["freight_at_own_tce_usd_t"],
             "td3c_freight_usd_t": freight,
+            # No premium is priced off Mina Al Fahal, so its cost of carriage is its freight.
+            "carriage_usd_t": td34["freight_at_own_tce_usd_t"],
+            "change_usd_t": td34["freight_at_own_tce_usd_t"] - base_carriage,
             "excluded": list(td34["excluded"]),
         },
         {
@@ -458,19 +546,21 @@ def td3c_alternatives(hz: Mapping[str, Any]) -> list[dict[str, Any]]:
             "days_change": sts["extra_days"],
             "freight_needed_usd_t": export_t,
             "freight_change_usd_t": at_latest(sts["levels"])["extra_freight_usd_t"],
+            # The TCE the export VLCC is priced at: TD3C's of the latest week, as on Detours.
+            "tce_usd_day": hz["levels"][-1]["tce_usd_day"],
             "shuttle_usd_bbl": [shuttle["low"], shuttle["high"]],
             "shuttle_reported": shuttle["reported"],
             "barrels": barrels,
             "barrels_reported": reports[VLCC_BARRELS_ID]["reported"],
             "shuttle_usd_t": [shuttle["low"] * barrels / cargo, shuttle["high"] * barrels / cargo],
             "carriage_usd_t": carriage,
+            "change_usd_t": [carriage[0] - base_carriage, carriage[1] - base_carriage],
             "wait_above_low": {"days": above["waiting_days"], "carriage_usd_t": above["carriage_usd_t"]}
             if above
             else None,
             "transit_usd": transit["low"],
             "transit_reported": transit["reported"],
             "transit_carriage_usd_t": export_t + transit["low"] / cargo,
-            "shuttle_budget_usd_t": freight + premium - export_t,
             "excluded": list(sts["excluded"]),
         },
         {
@@ -488,13 +578,28 @@ def _passes_canal(option: Mapping[str, Any]) -> bool:
     return bool({"Suez Canal", "Panama Canal"} & set(option["passes"]))
 
 
+def study_case(sd: Mapping[str, Any]) -> cases.Case:
+    """The detour study's Suez voyage, built as analysis.suez_dry builds it: the week's bunker table at the hub
+    nearest Qingdao, and the allowance price and dollar rate of that date. Its sources are the study's."""
+    route = analysis.ASIA_EUROPE_PANAMAX
+    market = cases.weekly_market(sd["as_of"], cases.bunker_hub(route.load))
+    return cases.build(
+        STUDY_ID,
+        market,
+        freight_value=0.0,
+        freight_basis="usd_t",
+        route=replace(route, laden_routing="direct", ballast_routing="direct"),
+    )
+
+
 def study(sd: Mapping[str, Any]) -> dict[str, Any]:
     """The Panamax one way from Qingdao to Rotterdam by Suez, the Cape or Panama (analysis.suez_dry).
 
     Each option's cost of carriage is the freight that earns the P4 hire and
     the charterer's Red Sea premium, as the Detours view sets them; a routing
     through a canal also has the toll and waiting it could pay at the Cape's
-    freight, which Detours computes on the freight alone.
+    freight, which Detours computes on the freight alone. The sources of its
+    bunkers, allowances and dollar rate are those of the case it is priced on.
     """
     options = {option["name"]: option for option in sd["options"]}
     suez = options["Suez"]
@@ -525,6 +630,8 @@ def study(sd: Mapping[str, Any]) -> dict[str, Any]:
         }
 
     route = analysis.ASIA_EUROPE_PANAMAX
+    case = study_case(sd)
+    sources = case.sources
     return {
         "id": STUDY_ID,
         "kind": "study",
@@ -540,6 +647,16 @@ def study(sd: Mapping[str, Any]) -> dict[str, Any]:
         "alternatives": [option("Cape of Good Hope", "cape"), option("Panama", "panama")],
         "red_sea_premium_pct": sd["war_risk"]["premium_pct"],
         "red_sea_source_id": sd["war_risk"]["source_id"],
+        "war_area": war_area(case.inputs, route.load),
+        "hub": cases.route_hub(route),
+        "sources": {
+            "bunkers": sources["prices.vlsfo_usd_t"]["source"],
+            "eua": sources["ets.eua_eur_t"]["source"],
+            "fx": sources["ets.usd_per_eur"]["source"],
+            "hull": sources["war_risk.hull_value_usd"]["source"],
+            "speeds_chosen": sources["laden.speed_kn"]["status"] == "chosen",
+        },
+        "ets_usd": engine.evaluate(analysis.one_way(case)[0])["costs"]["ets"],
     }
 
 

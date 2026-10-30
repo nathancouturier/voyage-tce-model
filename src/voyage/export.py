@@ -432,7 +432,11 @@ def atlas_artifact(
     geo: Mapping[str, Any],
     atlas_date: str,
 ) -> dict[str, Any]:
-    """data/atlas.json: every route at its latest dated rate, with the routings it could take, for the Map view."""
+    """data/atlas.json: every route at its latest dated rate, with the routings it could take, for the Map view.
+
+    `atlas_date` is the map's week (atlas.map_date); a route whose rate is of
+    another week keeps its own date, which its row and its panel name.
+    """
     latest = atlas.latest(preset_list)
     entries = []
     for code in atlas.ROUTES:
@@ -475,7 +479,6 @@ def atlas_artifact(
         same[study["id"]],
         st,
         atlas.clusters(loads, geo["ports"]),
-        geo["view_box"],
         atlas_date,
         next(level for level in hz["levels"] if level["label"] == "before the war"),
     )
@@ -1232,7 +1235,8 @@ def build() -> dict[str, str]:
     """Every artifact as the text it is written with, keyed by its path under data/."""
     preset_list = presets()
     st, sd, hz = analysis.suez_tanker(), analysis.suez_dry(), analysis.hormuz()
-    atlas_date = max(p["date"] for p in atlas.latest(preset_list).values())
+    # The map's week is the newest with two of the Baltic's TCEs, not the newest rate: a dry rate can run ahead.
+    atlas_date = atlas.map_date(atlas.latest(preset_list))
     geo = routemap.atlas_document(atlas_date)
     documents = {
         "engine.json": header("engine", constants=engine.constants()),

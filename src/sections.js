@@ -39,8 +39,10 @@ export function withBuilders(sections, builders) {
  *    decimals   the artifact's conventions.decimals, for the summaries
  *    route      the route the view was rendered for
  *
- *  Returns { node, update(route) }: update re-reads the open set from an
- *  address that changed under the view, for example a pasted link. */
+ *  Returns { node, update(route), open() }: update re-reads the open set from
+ *  an address that changed under the view, for example a pasted link; open
+ *  gives the ids open on the page now, which a view reads before an update
+ *  that should not close them. */
 export function buildSections(view, items, decimals, route) {
   const rendered = new Map();
   let params = { ...((route && route.params) || {}) };
@@ -91,7 +93,7 @@ export function buildSections(view, items, decimals, route) {
     for (const [id, entry] of rendered) setOpen(entry, open.has(id));
   };
   apply(route);
-  return { node, update: apply };
+  return { node, update: apply, open: openIds };
 }
 
 function setOpen(entry, open) {

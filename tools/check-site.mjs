@@ -1,7 +1,13 @@
 #!/usr/bin/env node
 // The site in headless Chromium: every view drawn at a wide and a narrow
 // width; the Map view, where the site opens, with a route picked from the
-// list, from the address and with the keyboard; and the calculator's form,
+// list, from the address and with the keyboard, its history (Back closes a
+// route in one step, from a link to another route and after the browser's
+// Back and Forward) with the filter, the focus and the sections open kept
+// right, its layout on a phone, its list and a route's detail, and its
+// drawing (the route picked painted over the rest, each name by its own
+// place, a click on a routing pressing its toggle, a routing drawn once and
+// only where it leaves its route); and the calculator's form,
 // what a visitor types and what the page must then show. tools/validate-engine.mjs holds src/engine.js to the Python
 // engine; this holds the pages that read it, which no other check reaches.
 //
@@ -333,10 +339,13 @@ CHECKS.push(
       const title = await page.evaluate(text("#view-title"));
       const current = await page.evaluate(attr(".site-nav a[href=\"#/map\"]", "aria-current"));
       const rows = await page.evaluate(rowsShown);
+      const heading = await page.evaluate(text(".atlas-map-heading"));
       return [
         [title.trim() === atlas.page.title, "the title reads \"" + title.trim() + "\""],
         [current === "page", "the Map link's aria-current is " + current],
         [rows.length === atlas.items.length, rows.length + " rows listed, the artifact holds " + atlas.items.length],
+        // The map carries its figures at this width, as its heading says.
+        [heading.trim() === atlas.page.map.title, "the map's heading reads \"" + heading.trim() + "\""],
       ];
     },
   },
@@ -421,7 +430,10 @@ CHECKS.push(
   {
     name: "an address naming no route says so, leaves the address and lists every route",
     hash: "#/map?route=NOWHERE",
+    // Opened as a new document: the page rewrites this address as it reads it.
+    direct: true,
     async run(page) {
+      await page.waitFor("document.querySelector('.atlas-message') && !document.querySelector('.atlas-message').hidden", 5000);
       const message = await page.evaluate(text(".atlas-message"));
       const hidden = await page.evaluate("document.querySelector('.atlas-message').hidden");
       const rows = await page.evaluate(rowsShown);
@@ -435,6 +447,351 @@ CHECKS.push(
   },
 );
 
+/* --------------------------------------- the Map's history and sections --- */
+
+const escape = "document.body.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })), true";
+const panelOf = (id) => "document.querySelector('.atlas-panel[data-item=\"" + id + "\"]')";
+const listShown = "document.querySelector('.atlas-list') && !location.hash.includes('route=')";
+const sectionsOpen = "[...document.querySelectorAll('.section__button[aria-expanded=\"true\"]')].map((b) => b.getAttribute('data-section')).join(',')";
+
+CHECKS.push(
+  {
+    name: "closing a route the restored filter would not list clears the filter and gives focus back to its row",
+    hash: "#/map",
+    async run(page) {
+      await page.evaluate(click(".atlas-filters button[data-segment=\"dirty\"]"));
+      await page.waitFor("location.hash.includes('segment=dirty')");
+      await page.evaluate(click(".atlas-row[data-item=\"TD3C\"]"));
+      await page.waitFor(panelOf("TD3C"));
+      // TC1 is a clean tanker, its line running with TD3C's.
+      await page.evaluate(click(".atlas-panel__same a[data-item=\"TC1\"]"));
+      await page.waitFor(panelOf("TC1"));
+      await page.evaluate(escape);
+      await page.waitFor(listShown);
+      await page.evaluate("new Promise((r) => setTimeout(r, 200))");
+      const hash = await page.evaluate("location.hash");
+      const pressed = await page.evaluate(attr(".atlas-filters button[data-segment=\"all\"]", "aria-pressed"));
+      const rows = await page.evaluate(rowsShown);
+      const back = await page.evaluate(focused);
+      return [
+        [!hash.includes("segment="), "the address keeps the filter: " + hash],
+        [pressed === "true", "Every route is not pressed"],
+        [rows.length === atlas.items.length, rows.length + " rows listed"],
+        [back === "TC1", "focus is on " + (back || "nothing") + ", not on the TC1 row"],
+      ];
+    },
+  },
+  {
+    name: "a link from one route to another replaces its history entry, so Back to the list closes it in one step",
+    hash: "#/map",
+    async run(page) {
+      await page.evaluate(click(".atlas-row[data-item=\"TD34\"]"));
+      await page.waitFor(panelOf("TD34"));
+      const length = await page.evaluate("history.length");
+      await page.evaluate(click(".atlas-links a[href*=\"route=TD3C\"]"));
+      await page.waitFor(panelOf("TD3C"));
+      const after = await page.evaluate("history.length");
+      await page.evaluate(click(".atlas-back"));
+      await page.waitFor(listShown);
+      // Forward again reaches the route's entry, which Back to the list went back from.
+      await page.evaluate("history.forward(), true");
+      await page.waitFor(panelOf("TD3C"), 3000).catch(() => {});
+      const forward = await page.evaluate("location.hash");
+      return [
+        [after === length, "the link to TD3C added a history entry (" + length + " to " + after + ")"],
+        [forward.includes("route=TD3C"), "Back to the list did not go back from TD3C's entry: Forward reads " + forward],
+      ];
+    },
+  },
+  {
+    name: "after the browser's Back and Forward, Back to the list still goes back in history",
+    hash: "#/map",
+    async run(page) {
+      await page.evaluate(click(".atlas-row[data-item=\"TD22\"]"));
+      await page.waitFor(panelOf("TD22"));
+      await page.evaluate("history.back(), true");
+      await page.waitFor(listShown);
+      await page.evaluate("history.forward(), true");
+      await page.waitFor(panelOf("TD22"));
+      const length = await page.evaluate("history.length");
+      await page.evaluate(click(".atlas-back"));
+      await page.waitFor(listShown);
+      const after = await page.evaluate("history.length");
+      await page.evaluate("history.forward(), true");
+      await page.waitFor(panelOf("TD22"), 3000).catch(() => {});
+      const forward = await page.evaluate("location.hash");
+      return [
+        [after === length, "Back to the list changed the history's length from " + length + " to " + after],
+        [forward.includes("route=TD22"), "Back to the list rewrote the route's entry: Forward reads " + forward],
+      ];
+    },
+  },
+  {
+    name: "a section open stays open when a route is picked from a row or a fact under the list, and when the route is closed",
+    hash: "#/map?open=table",
+    async run(page) {
+      await page.evaluate(click(".atlas-row[data-item=\"TD22\"]"));
+      await page.waitFor(panelOf("TD22"));
+      const picked = await page.evaluate("location.hash");
+      // A second section opened on the route, then the route closed.
+      await page.evaluate(click("button[data-section=\"method\"]"));
+      await page.waitFor("location.hash.includes('method')");
+      await page.evaluate(click(".atlas-back"));
+      await page.waitFor(listShown);
+      await page.evaluate("new Promise((r) => setTimeout(r, 200))");
+      const closed = await page.evaluate("location.hash");
+      const open = await page.evaluate(sectionsOpen);
+      const fact = atlas.page.summary.items[0].item;
+      await page.evaluate(click(".atlas-glance__value[data-item=\"" + fact + "\"]"));
+      await page.waitFor(panelOf(fact));
+      const glance = await page.evaluate("location.hash");
+      return [
+        [picked.includes("open=table") && picked.includes("route=TD22"), "a row's click led to " + picked],
+        [closed.includes("table") && closed.includes("method") && open === "table,method", "closing the route left " + closed + " with " + (open || "nothing") + " open"],
+        [glance.includes("table") && glance.includes("method") && glance.includes("route=" + fact), "a fact's click led to " + glance],
+      ];
+    },
+  },
+  {
+    name: "on a short phone screen a route picked from the list shows its heading, and a routing shown from its toggle brings the map into view",
+    hash: "#/map",
+    width: 320,
+    height: 568,
+    async run(page) {
+      // On screen within a pixel: the page scrolls by whole pixels, and a box may not sit on one.
+      const seen = (expression) => "(() => { const b = " + expression + ".getBoundingClientRect(); return b.top > -1 && b.bottom < innerHeight + 1; })()";
+      await page.evaluate("document.querySelector('.atlas-row[data-item=\"TC20\"]').focus(), true");
+      await page.evaluate(click(".atlas-row[data-item=\"TC20\"]"));
+      await page.waitFor("document.activeElement && document.activeElement.classList.contains('atlas-panel__title')");
+      const heading = await page.evaluate(seen("document.activeElement"));
+      await page.evaluate("document.querySelector('.atlas-alt-entry__show').scrollIntoView({ block: 'center' }), true");
+      await page.evaluate(click(".atlas-alt-entry__show"));
+      const map = await page.evaluate(seen("document.querySelector('.atlas-frame')"));
+      const kept = await page.evaluate("document.activeElement.classList.contains('atlas-alt-entry__show')");
+      return [
+        [heading, "the route's heading, which has focus, is off the screen"],
+        [map, "the map is off the screen after a routing is shown from its toggle"],
+        [kept, "focus left the toggle"],
+      ];
+    },
+  },
+  {
+    name: "on a phone the list follows the map and the line under it, the legend follows the list, and the words round a map too narrow for labels send the reader to the list",
+    hash: "#/map",
+    width: 390,
+    async run(page) {
+      const parts = [".atlas-map", ".atlas-caption", ".atlas-filters", ".atlas-row[data-item]", ".atlas-legend"];
+      const tops = await page.evaluate("[" + parts.map((s) => "document.querySelector(" + JSON.stringify(s) + ").getBoundingClientRect().top").join(", ") + "]");
+      const heading = await page.evaluate(text(".atlas-map-heading"));
+      const idle = await page.evaluate(text(".atlas-caption"));
+      return [
+        [tops.every((top, i) => i === 0 || top > tops[i - 1]), parts.map((s, i) => s + " at " + Math.round(tops[i])).join(", ")],
+        [heading.trim() === atlas.page.map.title_narrow, "the heading reads \"" + heading.trim() + "\""],
+        [idle.trim() === atlas.page.map.idle_narrow, "the line under the map reads \"" + idle.trim() + "\""],
+      ];
+    },
+  },
+);
+
+/* ------------------------------------------------- the Map's list and detail --- */
+
+/** The legend's samples the map draws for a route, in the legend's order, from
+ *  data/map.json: its ballast leg, its ECA stretches, its routings drawn and
+ *  the rings where any of its lines leaves the map. */
+function legendFor(item) {
+  const own = new Set([item.legs.laden, item.legs.ballast]);
+  const routings = item.alternatives.filter((alt) => alt.legs.some((key) => !own.has(key)));
+  const legs = [item.legs.laden, item.legs.ballast].filter(Boolean);
+  const kinds = new Set(["picked", "other"]);
+  if (item.legs.ballast) kinds.add("picked-ballast");
+  if (legs.some((key) => geo.legs[key].eca.length)) kinds.add("eca");
+  if (routings.length) kinds.add("alternative-picked");
+  if ([...legs, ...routings.flatMap((alt) => alt.legs)].some((key) => geo.legs[key].edges.length)) kinds.add("edge");
+  return atlas.page.map.legend.filter((sample) => kinds.has(sample.kind)).map((sample) => sample.kind).join(",");
+}
+const legendShown = "[...document.querySelectorAll('.atlas-legend .map-legend__item')].filter((li) => !li.hidden).map((li) => li.getAttribute('data-kind')).join(',')";
+/* The text's own box, not its cell's. */
+const textBox = (expression) => "(() => { const range = document.createRange(); range.selectNodeContents(" + expression + "); return range.getBoundingClientRect(); })()";
+
+for (const id of ["TD3C", "QD_RTM_PMX", "C5", "P7"]) {
+  CHECKS.push({
+    name: "with " + id + " picked its figure is at display size, each toggle is named for its routing, its same-water links are full targets, its freight and costs have a heading, and the legend keys only what the map draws",
+    hash: "#/map?route=" + id,
+    async run(page) {
+      const item = atlasItem(id);
+      const size = await page.evaluate("getComputedStyle(document.querySelector('.atlas-facts--head .atlas-fact .atlas-fact__value .fig')).fontSize");
+      const display = await page.evaluate("(() => { const probe = document.body.appendChild(document.createElement('span')); probe.className = 'fact__figure'; const size = getComputedStyle(probe).fontSize; probe.remove(); return size; })()");
+      const toggles = await page.evaluate("[...document.querySelectorAll('.atlas-alt-entry__show')].map((b) => b.textContent)");
+      const links = await page.evaluate("[...document.querySelectorAll('.atlas-panel__same a')].map((a) => a.getBoundingClientRect().height)");
+      const heads = await page.evaluate("[...document.querySelectorAll('.atlas-panel h3')].map((h) => h.textContent + ' > ' + (h.nextElementSibling ? h.nextElementSibling.className : ''))");
+      const legend = await page.evaluate(legendShown);
+      const more = atlas.page.panel.more + " > atlas-facts";
+      return [
+        [size === display, "the figure is " + size + ", the overview's facts " + display],
+        [toggles.every((t) => t.startsWith(atlas.page.panel.show)) && new Set(toggles).size === toggles.length, "the toggles read " + JSON.stringify(toggles)],
+        [links.every((h) => h >= 44), "a same-water link is " + Math.min(...links) + " px tall"],
+        [heads.includes(more), "the headings in the detail are " + JSON.stringify(heads)],
+        [legend === legendFor(item), "the legend shows " + legend + ", the map draws " + legendFor(item)],
+      ];
+    },
+  });
+}
+
+for (const width of [320, 1440]) {
+  CHECKS.push({
+    name: "at " + width + " px each row's qualifier is read before its figure, the figures line up, each routing is a line after its sample, and the study's heads keep apart",
+    hash: "#/map",
+    width,
+    async run(page) {
+      const cells = await page.evaluate("[...document.querySelectorAll('.atlas-row[data-item]')].map((row) => ({ id: row.getAttribute('data-item'), tce: row.querySelector('.atlas-row__tce .atlas-row__figure').textContent, alts: [...row.querySelectorAll('.atlas-row__alt')].map((a) => a.textContent), right: row.querySelector('.atlas-row__tce .fig').getBoundingClientRect().right }))");
+      const wrong = cells.filter((cell) => {
+        const item = atlasItem(cell.id);
+        return cell.tce !== segmentsText(item.row.tce, atlas.conventions.decimals) ||
+          JSON.stringify(cell.alts) !== JSON.stringify(item.row.alts.map((line) => segmentsText(line, atlas.conventions.decimals)));
+      });
+      const rights = cells.map((cell) => cell.right);
+      const study = await page.evaluate("(() => { const heads = [...document.querySelectorAll('.atlas-row--head')]; const head = heads[heads.length - 1]; return [" + textBox("head.children[0]") + ", " + textBox("head.children[1]") + "].map((b) => ({ left: b.left, right: b.right })); })()");
+      const also = await page.evaluate("document.querySelectorAll('.atlas-row__also').length");
+      return [
+        [wrong.length === 0, wrong.map((cell) => cell.id + " reads " + JSON.stringify(cell.tce) + " and " + JSON.stringify(cell.alts)).join("; ")],
+        [Math.max(...rights) - Math.min(...rights) <= 1, "the figures end between " + Math.min(...rights) + " and " + Math.max(...rights) + " px"],
+        [study[0].right <= study[1].left, "the study's first head ends at " + study[0].right + " px, over the next starting at " + study[1].left],
+        [also === 0, "a row still carries an \"Also\" line"],
+      ];
+    },
+  });
+}
+
+CHECKS.push({
+  name: "picking the route with the longest heading does not move the map at 1440 px",
+  hash: "#/map",
+  async run(page) {
+    const longest = atlas.items.reduce((a, b) => (b.map_title.length > a.map_title.length ? b : a));
+    const where = "document.querySelector('.atlas-map').getBoundingClientRect().top + scrollY";
+    const before = await page.evaluate(where);
+    await page.evaluate(click(".atlas-row[data-item=\"" + longest.id + "\"]"));
+    await page.waitFor(panelOf(longest.id));
+    const after = await page.evaluate(where);
+    return [[Math.abs(after - before) < 0.5, "the map moved from " + before + " to " + after + " px when " + longest.id + " was picked"]];
+  },
+});
+
+/* ---------------------------------------------------- the Map's drawing --- */
+
+/* The line and routing groups the map shows, in the order they are painted
+ * (document order inside the svg), each as its route, "alt" for a routing,
+ * and its state. */
+const painted = "[...document.querySelectorAll('.atlas-map .atlas-route, .atlas-map .atlas-alt')]" +
+  ".filter((g) => !g.classList.contains('is-hidden'))" +
+  ".map((g) => ({ id: g.getAttribute('data-item'), alt: g.classList.contains('atlas-alt'), current: g.classList.contains('is-current'), focus: g.classList.contains('is-focus') }))";
+
+/** In the page: each port and passage name on the map, with its distance in
+ *  screen px from its own point and from the nearest other named point (a
+ *  port's dot, or a passage whose name is drawn). Serialised into the page. */
+function namesAndPoints(ports, passages) {
+  const svg = document.querySelector(".atlas-map");
+  const ctm = svg.getScreenCTM();
+  const screen = (point) => {
+    const at = new DOMPoint(point.x, point.y).matrixTransform(ctm);
+    return { x: at.x, y: at.y };
+  };
+  const names = [...svg.querySelectorAll(".atlas-labels text:not(.halo)")].filter((t) => /atlas-label__(port|passage)/.test(t.getAttribute("class")));
+  const dots = [...svg.querySelectorAll(".atlas-marks .map-port-dot")].map((c) => ({ x: Number(c.getAttribute("cx")), y: Number(c.getAttribute("cy")) }));
+  const points = [
+    ...ports.filter((port) => dots.some((dot) => Math.hypot(dot.x - port.x, dot.y - port.y) < 0.05)),
+    ...passages.filter((passage) => names.some((t) => t.textContent === passage.name)),
+  ].map((point) => ({ name: point.name, ...screen(point) }));
+  const away = (box, point) => Math.hypot(Math.max(box.left - point.x, 0, point.x - box.right), Math.max(box.top - point.y, 0, point.y - box.bottom));
+  return names.map((t) => {
+    const box = t.getBoundingClientRect();
+    const own = points.find((point) => point.name === t.textContent);
+    const others = points.filter((point) => point !== own).map((point) => ({ name: point.name, distance: away(box, point) })).sort((a, b) => a.distance - b.distance);
+    return { name: t.textContent, own: own ? away(box, own) : null, other: others[0] || null };
+  });
+}
+const geo = read("map").atlas;
+
+CHECKS.push({
+  name: "the route picked is painted over every other route, its routings over the rest, and the routing its toggle shows over everything",
+  hash: "#/map?route=TD3C",
+  async run(page) {
+    const before = await page.evaluate(painted);
+    const routes = before.filter((g) => !g.alt);
+    const last = routes[routes.length - 1] || {};
+    const firstOwn = before.findIndex((g) => g.current);
+    const lastOther = before.map((g) => g.current).lastIndexOf(false);
+    await page.evaluate(click(".atlas-alt-entry__show"));
+    const after = await page.evaluate(painted);
+    const top = after[after.length - 1] || {};
+    return [
+      [last.id === "TD3C" && last.current, "the last route painted is " + (last.id || "none") + ", not TD3C"],
+      [firstOwn > lastOther, "a route or routing of another route is painted over TD3C's own lines"],
+      [top.alt && top.focus && top.id === "TD3C", "the routing shown from its toggle is not painted last"],
+    ];
+  },
+});
+
+for (const [id, width] of [["TC20", 1440], ["TC20", 320], ["TC1", 1440], ["TC1", 320]]) {
+  CHECKS.push({
+    name: "with " + id + " picked at " + width + " px each port and passage is named nearer its own point than any other, and both ends of its laden leg are named",
+    hash: "#/map?route=" + id,
+    width,
+    async run(page) {
+      const names = await page.evaluate("(" + namesAndPoints.toString() + ")(" + JSON.stringify(Object.values(geo.ports)) + ", " + JSON.stringify(geo.passages) + ")");
+      const leg = geo.legs[atlasItem(id).legs.laden];
+      const ends = [geo.ports[leg.from].name, geo.ports[leg.to].name];
+      const misplaced = names.filter((n) => n.own === null || (n.other && n.other.distance <= n.own));
+      return [
+        [misplaced.length === 0, misplaced.map((n) => "\"" + n.name + "\" is " + (n.own === null ? "drawn with no point of its own" : n.other.distance.toFixed(1) + " px from " + n.other.name + " and " + n.own.toFixed(1) + " px from its own point")).join("; ")],
+        [ends.every((end) => names.some((n) => n.name === end)), "the map names " + names.map((n) => n.name).join(", ") + ", not both of " + ends.join(" and ")],
+      ];
+    },
+  });
+}
+
+CHECKS.push({
+  name: "a click on a dotted routing of the route picked presses that routing's toggle and keeps the route",
+  hash: "#/map?route=TC20",
+  async run(page) {
+    const routing = atlasItem("TC20").alternatives.find((alt) => alt.kind === "routing");
+    const toggle = ".atlas-alt-entry[data-alt=\"" + routing.id + "\"] .atlas-alt-entry__show";
+    // The middle of the routing's first leg, where it runs apart from the route's own lines.
+    const at = await page.evaluate("(() => { const path = document.querySelector('.atlas-alt.is-current[data-alt=" + JSON.stringify(routing.id) + "] path');" +
+      " const point = path.getPointAtLength(path.getTotalLength() / 2).matrixTransform(path.getScreenCTM()); return { x: point.x, y: point.y }; })()");
+    for (const type of ["mouseMoved", "mousePressed", "mouseReleased"]) {
+      await page.send("Input.dispatchMouseEvent", { type, x: at.x, y: at.y, button: "left", clickCount: 1 });
+    }
+    await page.waitFor("document.querySelector(" + JSON.stringify(toggle) + ").getAttribute('aria-pressed') === 'true'", 3000).catch(() => {});
+    const pressed = await page.evaluate(attr(toggle, "aria-pressed"));
+    const shown = await page.evaluate("[...document.querySelectorAll('.atlas-alt.is-focus')].map((g) => g.getAttribute('data-alt')).join(',')");
+    const hash = await page.evaluate("location.hash");
+    return [
+      [pressed === "true", "the toggle of " + routing.id + " is not pressed after a click on its line"],
+      [shown === routing.id, "the map shows " + (shown || "no routing") + " at full weight"],
+      [hash.includes("route=TC20"), "the click left TC20 for " + hash],
+    ];
+  },
+});
+
+CHECKS.push({
+  name: "a routing is drawn only where it leaves its route, out and back on one path, and shown from its toggle it is the only routing named",
+  hash: "#/map?route=P7",
+  async run(page) {
+    // P7's three routings round the Cape: both ways, back only and laden only, the last two sharing a leg with P7.
+    const item = atlasItem("P7");
+    const own = [item.legs.laden, item.legs.ballast].map((key) => geo.legs[key].d);
+    const shown = item.alternatives.find((alt) => alt.kind === "routing" && alt.legs.some((key) => own.includes(geo.legs[key].d)));
+    await page.evaluate(click(".atlas-alt-entry[data-alt=\"" + shown.id + "\"] .atlas-alt-entry__show"));
+    const drawn = await page.evaluate("[...document.querySelectorAll('.atlas-map .atlas-alt.is-current path')].map((p) => p.getAttribute('d'))");
+    const named = await page.evaluate("[...document.querySelectorAll('.atlas-labels text[data-alt]:not(.halo)')].map((t) => t.getAttribute('data-alt'))");
+    return [
+      [!drawn.some((d) => own.includes(d)), "a routing draws a dotted copy of P7's own line"],
+      [new Set(drawn).size === 1, "the water round the Cape is drawn on " + new Set(drawn).size + " paths, whose dots fall between each other's"],
+      [named.every((id) => id === shown.id), "with " + shown.id + " shown the map names " + named.join(", ")],
+    ];
+  },
+});
+
 console.log("check-site.mjs, " + BASE);
 const browser = await launch(process.argv);
 let failed = 0;
@@ -444,7 +801,7 @@ try {
     page.errors.length = 0;
     let results;
     try {
-      await openView(page, BASE, { hash: check.hash, width: check.width || 1440, theme: "light" });
+      await openView(page, BASE, { hash: check.hash, width: check.width || 1440, height: check.height, theme: "light", direct: check.direct });
       results = await check.run(page);
     } catch (error) {
       results = [[false, error.message]];
@@ -464,4 +821,4 @@ if (failed) {
   console.log("FAIL  " + failed + " of " + CHECKS.length + " checks");
   process.exit(1);
 }
-console.log("PASS  " + CHECKS.length + " checks: every view draws at both widths, the Map opens, picks and closes a route, and the calculator shows the engine's figures for what is typed");
+console.log("PASS  " + CHECKS.length + " checks: every view draws at both widths, the Map opens, picks and closes a route and keeps its history, focus and sections right, and the calculator shows the engine's figures for what is typed");

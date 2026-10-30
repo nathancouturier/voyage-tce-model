@@ -17,7 +17,8 @@
 //   1  the file exists, parses, and state.js's refusal() accepts it
 //   2  conventions.decimals maps every format to a whole number of places, and
 //      conventions.scale holds the percent and million factors
-//   3  every field the page's modules read is there (REQUIRED below)
+//   3  every field the page's modules read is there (REQUIRED below), and on
+//      every element of a list they read field by field (REQUIRED_EACH)
 //   4  every "format" anywhere in the file is declared in conventions.decimals
 //   5  every sentence (a list holding at least one segment object) is made of
 //      the three shapes format.js reads, and every figure in it formats:
@@ -46,12 +47,14 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 // The fields the page's modules read, by artifact, as dotted paths.
 const REQUIRED = Object.freeze({
   atlas: [
-    "as_of", "view_box", "page.title", "page.takeaway", "page.filters", "page.filter_label", "page.groups",
+    "page.title", "page.takeaway", "page.filters", "page.filter_label", "page.groups",
     "page.list.caption", "page.list.heading", "page.list.unknown", "page.list.head.route", "page.list.head.tce",
-    "page.list.head.days", "page.panel.back", "page.panel.same", "page.panel.same_after", "page.panel.split",
-    "page.panel.alternatives", "page.panel.links", "page.panel.show", "page.summary.heading", "page.summary.items",
-    "page.map.title", "page.map.desc", "page.map.legend", "page.map.labels", "page.map.idle", "page.map.same",
-    "page.map.edge", "page.map.source", "page.sections", "page.method", "page.table.caption", "page.table.columns",
+    "page.list.head.days", "page.list.study_head.route", "page.list.study_head.tce", "page.list.study_head.days",
+    "page.panel.back", "page.panel.same", "page.panel.same_after", "page.panel.split",
+    "page.panel.alternatives", "page.panel.more", "page.panel.links", "page.panel.show", "page.summary.heading",
+    "page.summary.items", "page.map.title", "page.map.title_narrow", "page.map.name", "page.map.desc",
+    "page.map.legend", "page.map.labels", "page.map.idle", "page.map.idle_narrow", "page.map.same", "page.map.edge",
+    "page.map.source", "page.sections", "page.method", "page.table.caption", "page.table.columns",
     "clusters", "items",
   ],
   overview: [
@@ -110,6 +113,19 @@ const REQUIRED = Object.freeze({
   ],
 });
 
+// The fields the page reads from every element of a list, by artifact and the
+// list's dotted path: src/atlas.js draws each route's row and detail from these.
+const REQUIRED_EACH = Object.freeze({
+  atlas: {
+    items: [
+      "id", "label", "kind", "segment", "basis", "ship", "ports", "heading", "subhead", "readout", "map_title",
+      "map_desc", "tce_usd_day", "figure", "view", "view_tall", "passages",
+      "legs.laden", "same_water", "facts", "alternatives", "links", "source",
+      "row.tce", "row.qualifier", "row.days", "row.note", "row.alts", "row.last",
+    ],
+  },
+});
+
 const SEGMENT_KEYS = new Set(["value", "format", "field", "prefix", "suffix", "signed", "accent", "missing"]);
 
 function get(object, dotted) {
@@ -141,6 +157,15 @@ export function check(name, data) {
   if (!scale || scale.percent !== 100 || scale.million !== 1e6) problems.push(name + ": conventions.scale must hold percent 100 and million 1000000");
   for (const field of REQUIRED[name] || []) {
     if (get(data, field) === undefined) problems.push(name + ": the page reads " + field + ", which is missing");
+  }
+  for (const [list, fields] of Object.entries(REQUIRED_EACH[name] || {})) {
+    const elements = get(data, list);
+    if (!Array.isArray(elements)) continue;
+    elements.forEach((element, at) => {
+      for (const field of fields) {
+        if (get(element, field) === undefined) problems.push(name + ": the page reads " + list + "[" + at + "]." + field + ", which is missing");
+      }
+    });
   }
   const walk = (node, where) => {
     if (typeof node === "number" && !Number.isFinite(node)) problems.push(name + ": a non finite number at " + where);
@@ -198,6 +223,10 @@ function selfTest(real) {
     {
       name: "a missing field",
       plant: (d) => { const c = clone(d.routes); delete c.page.chart; return ["routes", c]; },
+    },
+    {
+      name: "a field missing from one element of a list",
+      plant: (d) => { const c = clone(d.atlas); delete c.items[c.items.length - 1].row.alts; return ["atlas", c]; },
     },
     {
       name: "a figure with no field",
