@@ -826,7 +826,7 @@
     "takeaway": [
       "Round the Cape an LR2 from Jubail to Rotterdam sails ",
       {
-        "value": 31.535357,
+        "value": 31.5,
         "format": "days",
         "field": "cape_vs_suez.extra_days",
         "suffix": " more days"
@@ -895,7 +895,7 @@
               "family": "routing"
             }
           ],
-          "detail": "10.8 more days"
+          "detail": "10.7 more days"
         },
         {
           "group": "Panamax, Qingdao to Rotterdam one way, against Suez",
@@ -1077,7 +1077,7 @@
           "prefix": "USD ",
           "suffix": " million"
         },
-        " a transit; the Suez Canal Authority puts the toll of a one million barrel crude tanker at about USD 500,000 a transit. A Jubail loading is Saudi linked, and from 24 July 2026 Lloyd's insurers excluded Saudi linked ships from war risk cover (Windward, 30 July 2026), so cover at the quoted rate may not be available."
+        " a transit; the Suez Canal Authority puts the toll of a one million barrel crude tanker at about USD 500,000 a transit (Korea JoongAng Daily, republished by Hellenic Shipping News on 23 July 2026). A Jubail loading is Saudi linked, and from 24 July 2026 Lloyd's insurers excluded Saudi linked ships from war risk cover (Windward, republished by Hellenic Shipping News on 30 July 2026), so cover at the quoted rate may not be available."
       ]
     },
     "suez_dry": {
@@ -1239,7 +1239,7 @@
         " at the closure week's)."
       ],
       "chain": [
-        "Loading off Fujairah splits the voyage in two. A shuttle carries the cargo through the strait, reported at USD 16 to 20 a barrel (The Wall Street Journal via ChosunBiz, 21 September 2026), about ",
+        "Loading off Fujairah splits the voyage in two. A shuttle carries the cargo through the strait, reported at USD 16 to 20 a barrel (The Wall Street Journal via ChosunBiz, republished by Hellenic Shipping News on 21 September 2026), about ",
         {
           "value": 118.518519,
           "format": "usd_t",
@@ -1261,7 +1261,7 @@
           "prefix": "USD ",
           "suffix": " million"
         },
-        " a transit (Windward, 12 October 2026), ",
+        " a transit (Windward, republished by Hellenic Shipping News on 12 October 2026), ",
         {
           "value": 185.185185,
           "format": "usd_t",

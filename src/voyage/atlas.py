@@ -73,7 +73,8 @@ ROUTING_ORDER: Mapping[str, tuple[str, ...]] = {
     "P7": ("no_canals-no_canals", "direct-no_canals", "no_canals-direct"),
     "TD22": ("no_canals_no_sunda-no_panama",),
 }
-#: The barrels in a VLCC cargo, the shuttle's per barrel cost per tonne (Windward, 30 July 2026), as on Detours.
+#: The barrels in a VLCC cargo, which make the shuttle's cost a barrel a cost a tonne, as on Detours (Windward,
+#: republished by Hellenic Shipping News on 30 July 2026).
 VLCC_BARRELS_ID = "vlcc_barrels_2026_07_30"
 #: The fewest of the Baltic's TCEs a week needs for the map: its highest and its lowest are two routes.
 TCES_A_WEEK = 2

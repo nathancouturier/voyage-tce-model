@@ -235,7 +235,12 @@ def test_the_served_costliest_detour_is_the_maximum_over_every_routing(latest: d
     assert figures(detour["value"])["summary.detour.freight_usd"] * 1e6 == pytest.approx(whole)
     assert whole == pytest.approx(cape["freight_change_usd_t"] * 90000.0)
     per_t = round(cape["freight_change_usd_t"], 2)
-    assert note.startswith("31.5 more days; USD %.2f a tonne more freight than by Suez" % per_t)
+    assert note == (
+        "31.5 more days, and USD %.2f a tonne more freight than by Suez both ways to earn as much, "
+        "if war cover can be placed." % per_t
+    )
+    # The figure a tonne is not set out as a sum with the cargo, whose product would miss the whole cargo's figure.
+    assert "tonnes" not in note
 
 
 # --------------------------------------------------------------------------
@@ -325,6 +330,54 @@ def test_a_tanker_week_whose_report_printed_no_tce_says_the_engines_estimate_sta
     assert served_groups["dry"] == "Dry bulk: the engine's estimates, and the Baltic's hire for S4A"
 
 
+def unprinted(latest: dict, code: str) -> tuple[dict, dict]:
+    """A route as the export serves it in a week whose report printed no TCE for it, and its figures."""
+    week = atlas.map_date(latest)
+    preset = copy.deepcopy(latest[code])
+    preset["published"] = None
+    f = atlas.figures(preset)
+    alternatives = atlas.routing_alternatives(preset, f) if code in atlas.ROUTING_ORDER else []
+    legs = [preset["legs"]["laden"]["key"], preset["legs"]["ballast"]["key"]]
+    entry = {
+        "preset": preset,
+        "figures": f,
+        "alternatives": alternatives,
+        "geometry": atlas.item_geometry(legs, alternatives, routemap.atlas_document(week)),
+        "passes": (atlas.ordered_passes(legs[0]), atlas.ordered_passes(legs[1])),
+        "same_water": [],
+    }
+    return pages._route_item(entry, analysis.suez_tanker(), week), f
+
+
+def test_a_worldscale_week_with_no_printed_tce_shows_no_figure_and_says_so(latest: dict) -> None:
+    served, f = unprinted(latest, "TC2_37")
+    # The engine cannot price a rate in Worldscale points, so there is no estimate to stand in.
+    assert f["headline"] == "engine_tce" and f["tce_usd_day"] is None
+    assert served["row"]["tce"][0]["missing"] == "no TCE printed"
+    rows = [{**ITEMS[code], "headline": headline(latest, ITEMS[code])} for code in ("TC14", "TC1", "TC5", "TC20")]
+    rows.append(served)
+    clean = next(group for group in pages._groups(rows) if group["id"] == "clean")
+    assert clean["name"] == "Clean tankers: the Baltic's TCE, and no TCE printed for TC2"
+    for words in (pages.KEY_BASIS, pages.CAPTION_BASIS):
+        assert "TC2: no TCE printed this week." in pages._basis_sentences(rows, words)
+        assert "engine's estimate" not in pages._basis_sentences(rows, words)
+    method = text(ATLAS["page"]["method"][1])
+    assert (
+        "the engine's estimate in its place where the rate is a lump sum, and no figure where the rate is in " in method
+    )
+
+
+def test_a_lump_sum_week_with_no_printed_tce_sets_the_routing_against_the_figure_shown(latest: dict) -> None:
+    served, f = unprinted(latest, "TD22")
+    assert f["headline"] == "engine_tce" and f["tce_usd_day"] == f["engine_tce_usd_day"]
+    base = text(served["alternatives"][0]["text"])
+    assert base.endswith("before port charges: the figure the other routing is set against.")
+    assert "not the Baltic's" not in base and "no figure" not in base
+    # The row shows the engine's figure, the base itself: the line has no other base to name.
+    line = text(served["row"]["alts"][0])
+    assert line == "Back by Suez: " + MINUS + "3.4 days, USD 7,270 a day higher, before Suez tolls"
+
+
 def test_no_worldscale_route_shows_a_derived_dollar_freight_beside_its_points() -> None:
     for entry in ATLAS["items"]:
         if entry["kind"] != "route":
@@ -366,26 +419,66 @@ def test_every_alternative_has_one_line_by_one_rule() -> None:
         assert len(lines) == len(others), entry["id"]
         for alt, line in zip(others, lines, strict=True):
             words = text(line)
-            # '<name>: <days> days, <an unsigned change and its word>[, <qualifier>]', short enough for the map.
+            # '<name>: <days> days, <an unsigned change and its word>[ than <base> (<figure>)], <qualifier>'.
             assert words.startswith(alt["short"] + ": "), words
-            assert len(words) <= pages.LINE_CHARS, words
             assert "USD +" not in words and "USD " + MINUS not in words, words
             assert any(w in words for w in (" more", " less", " higher", " lower")), words
+            # The qualifier that decides the change is never dropped, however long the line.
+            qualifier = pages.ALT_QUALIFIERS[(entry["id"], alt["id"])]
+            assert not qualifier or words.endswith(", " + qualifier), words
             if alt["legs"]:
-                assert alt["map_label"] == line
+                # Named on the map by its days alone, which are against the route's own.
+                days = [s for s in line if isinstance(s, dict) and s.get("field", "").endswith(".days_change")]
+                assert alt["map_label"] == [alt["short"] + ": ", *days], entry["id"]
             else:
                 assert alt["map_label"] is None
     assert ITEMS["C3"]["row"]["alts"] == []
-    assert (
-        text(ITEMS["TC20"]["row"]["alts"][0])
-        == "Round the Cape: +31.5 days, USD 132,196 a day lower, before Suez tolls"
+    assert [text(line) for line in ITEMS["P7"]["row"]["alts"]] == [
+        "Round the Cape: +32.9 days, USD 16,756 a day lower, before Panama tolls and waiting",
+        "Back round the Cape: +16.1 days, USD 9,447 a day lower, before Panama tolls",
+        "Laden round the Cape: +16.7 days, USD 9,972 a day lower, before Panama tolls",
+    ]
+    assert text(ITEMS["TC20"]["alternatives"][1]["map_label"]) == "Round the Cape: +31.5 days"
+
+
+def test_a_line_names_its_base_where_the_row_shows_another_figure() -> None:
+    # TC20 and TD22: the Baltic's TCE heads the row, and the routing is set against the engine's.
+    tc20, td22 = text(ITEMS["TC20"]["row"]["alts"][0]), text(ITEMS["TD22"]["row"]["alts"][0])
+    assert tc20 == "Round the Cape: +31.5 days, USD 132,196 a day lower than by Suez (342,369), before Suez tolls"
+    assert td22 == (
+        "Back by Suez: " + MINUS + "3.4 days, USD 7,270 a day higher than the engine's TCE (463,639), before Suez tolls"
     )
-    by_panama = text(ITEMS[atlas.STUDY_ID]["row"]["alts"][1])
-    assert by_panama == "By Panama: +8.6 days, USD 2.46 a tonne more, before toll and waiting"
+    for code in ("TC20", "TD22"):
+        base = figures(ITEMS[code]["alternatives"][0]["text"])["alternatives.base.tce_usd_day"]
+        assert figures(ITEMS[code]["row"]["alts"][0])["alternatives.base.tce_usd_day"] == base
+        assert round(base) != round(ITEMS[code]["tce_usd_day"])
+    # TD3C's row is a TCE a day: TD34, another cargo, is set against it; the transfer and the waits are costs of
+    # carriage against loading at Ras Tanura, named with its figure, the transfer on the basis it is priced at.
+    td34, transfer, waiting = (text(line) for line in ITEMS["TD3C"]["row"]["alts"])
+    assert td34 == "TD34: " + MINUS + "4.8 days, USD 631,264 a day lower, another cargo, loading outside the strait"
+    assert round(ITEMS["TD3C"]["tce_usd_day"] - ITEMS["TD34"]["tce_usd_day"]) == 631264
+    assert transfer == (
+        "Fujairah transfer: " + MINUS + "2.7 days, USD 60.78 to 90.41 a tonne more to carry than at Ras Tanura "
+        "(285.00), the export VLCC at TD3C's TCE"
+    )
+    assert waiting.endswith("a tonne more to carry than with no wait (285.00)")
+    assert "USD 631,264 a day lower than TD3C's" in text(ITEMS["TD3C"]["alternatives"][1]["text"])
+    # The study's row is the freight that earns the P4 hire: its lines are freight too, as its panel gives them.
+    cape, panama = (text(line) for line in ITEMS[atlas.STUDY_ID]["row"]["alts"])
+    assert cape == "Round the Cape: +10.7 days, USD 7.07 a tonne more freight, before Suez tolls"
+    assert panama == "By Panama: +8.6 days, USD 5.53 a tonne more freight, before tolls and waiting"
+    assert "USD 7.07 a tonne more than by Suez" in text(ITEMS[atlas.STUDY_ID]["alternatives"][1]["text"])
+    # P7's row is its base, the engine's TCE by Panama both ways: no base to name.
+    assert ITEMS["P7"]["tce_usd_day"] == pytest.approx(
+        figures(ITEMS["P7"]["alternatives"][0]["text"])["alternatives.base.tce_usd_day"]
+    )
+    assert all(" than " not in text(line) for line in ITEMS["P7"]["row"]["alts"])
 
 
 def test_shown_changes_are_the_differences_of_the_figures_as_shown() -> None:
     assert pages._shown(0.125, "usd_t") == 0.13  # a half away from zero, as format.js rounds
+    # A tie in the shortest decimal is a tie, as Intl.NumberFormat reads it, not the binary value just under it.
+    assert pages._shown(2.675, "usd_t") == 2.68 and pages._shown(1.005, "usd_t") == 1.01
     td22 = ITEMS["TD22"]
     base, suez = td22["alternatives"]
     days = figures(suez["text"])
@@ -401,6 +494,15 @@ def test_shown_changes_are_the_differences_of_the_figures_as_shown() -> None:
                 if isinstance(segment, dict) and segment.get("field", "").endswith(".days_change"):
                     shown = segment["value"]
                     assert round(shown, 1) == pytest.approx(shown, abs=1e-9), (entry["id"], alt["id"])
+
+
+def test_the_map_and_detours_give_a_detour_the_same_days() -> None:
+    # Both views take a detour's days from the two days they show, so the study's Cape reads the same on both.
+    study = text(ITEMS[atlas.STUDY_ID]["alternatives"][1]["text"])
+    rows = {row["label"]: row["detail"] for row in DETOURS["page"]["chart"]["rows"]}
+    assert study.startswith("45.9 days (+10.7)")
+    assert rows["Cape of Good Hope instead of Suez"] == "10.7 more days"
+    assert rows["Cape of Good Hope instead of Suez, before Suez tolls"].startswith("31.5 more days")
 
 
 def test_toll_crossing() -> None:
@@ -470,8 +572,12 @@ def test_tc20_changes_are_taken_against_suez_with_the_owners_premium(latest: dic
 def test_tc20_round_the_cape_carries_the_detours_toll_scale_and_war_cover() -> None:
     words = text(ITEMS["TC20"]["alternatives"][1]["text"])
     detours = text(DETOURS["page"]["suez_tanker"]["lead"])
-    assert pages.SUEZ_TOLL_AND_COVER in words and pages.SUEZ_TOLL_AND_COVER in detours
+    both = pages.suez_toll_and_cover()
+    assert both in words and both in detours
     assert "If war cover can be placed, Suez stays the better way" in words
+    # Each report is dated and named with the publication it was read in.
+    assert "(Korea JoongAng Daily, republished by Hellenic Shipping News on 23 July 2026)" in both
+    assert "(Windward, republished by Hellenic Shipping News on 30 July 2026)" in both
 
 
 def test_td3c_options_are_costs_of_carriage_against_loading_at_ras_tanura() -> None:
@@ -520,7 +626,13 @@ def test_td3c_prints_each_waits_change_as_its_carriage_less_the_bases() -> None:
 def test_the_transfer_states_its_basis_and_draws_no_verdict() -> None:
     words = text(ITEMS["TD3C"]["alternatives"][2]["text"])
     assert "priced at TD3C's TCE of the week as on the Detours view" in words
-    assert "(The Wall Street Journal via ChosunBiz, 21 September 2026)" in words
+    # Each report by its author, the publication it was read in and its day, as the Detours view cites them.
+    for report in (
+        "(The Wall Street Journal via ChosunBiz, republished by Hellenic Shipping News on 21 September 2026)",
+        "(Windward, republished by Hellenic Shipping News on 12 October 2026)",
+    ):
+        assert report in words and report in text(DETOURS["page"]["hormuz"]["chain"])
+    assert "(Windward, republished by Hellenic Shipping News on 30 July 2026)" in words
     assert "any war risk premium off Fujairah, in the Gulf of Oman, has no dated rate and is left out" in words
     assert "after a wait of 5 days" in words
     served = json.dumps(ATLAS)
@@ -573,10 +685,17 @@ def test_the_tce_note_is_one_dated_line_and_the_method_carries_the_basis(latest:
 
 def test_the_words_a_desk_reads_first() -> None:
     page = ATLAS["page"]
-    assert len(text(page["list"]["caption"]).split()) <= 30
-    assert page["panel"]["more"] == "Freight and costs"
-    assert page["map"]["title_narrow"] == "Every route the study prices, from its loading port"
-    assert page["map"]["idle_narrow"].startswith("Pick a route in the list below")
+    caption = text(page["list"]["caption"])
+    assert len(caption.split()) <= 40
+    assert caption.endswith(" Days: the round voyage, unless the row says otherwise.")
+    # The facts after the routings are headed by what they are: a trip time charter has hire, not freight.
+    assert ITEMS["S4A_63"]["more"] == "Hire and costs" and ITEMS["TD3C"]["more"] == "Freight and costs"
+    assert "more" not in page["panel"]
+    # On a phone the map's heading and the line under it are one line each, and promise no figure.
+    assert page["map"]["title_narrow"] == "Every route, from its loading port"
+    assert page["map"]["idle_narrow"] == "Pick a route in the list below."
+    assert page["filters"][0]["label"] == "All"
+    assert text(page["filters"][0]["announce"]).endswith(" on the map and in the list: every route.")
     # The key under the map is short sentences, every one dated or naming whose figure it is.
     sentences = text(page["map"]["labels"]).split(". ")
     assert len(sentences) >= 4 and all(len(sentence.split()) <= 20 for sentence in sentences)

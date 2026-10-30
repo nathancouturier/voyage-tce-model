@@ -136,6 +136,8 @@ const LAYOUT_CONSTANTS = {
     { name: "ROOM_ACROSS", value: "1.2", why: "the room kept clear beside an atlas label placed, as a share of its size" },
     { name: "ROOM_DOWN", value: "0.5", why: "the room kept clear above and below an atlas label placed, as a share of its size" },
     { name: "BASELINE_REACH", value: "6", why: "how far across two atlas labels should not share a baseline, as a share of their size" },
+    { name: "ROUTING_SHIFTS", value: "12", why: "how many steps a routing's name may move from its point on the atlas" },
+    { name: "ALONG", value: "3", why: "the spacing of the points along its line a routing's name may sit by, as a share of its size" },
     { name: "TALL_BELOW", value: "600", why: "the map width under which a route picked takes the taller frame" },
   ],
 };

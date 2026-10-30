@@ -850,6 +850,9 @@ p.block,
   font-variant-numeric: tabular-nums lining-nums;
 }
 .atlas-caption__same { color: var(--text-muted); }
+/* On a map too narrow for labels and taps the line changes only with a pick,
+ * so no second line is kept, and the list on a phone starts higher. */
+.atlas-caption--still { min-height: 0; }
 /* The legend shows the lines the map draws now: the list's, or the route
  * picked's, each sample only where a line of its kind is drawn (src/atlas.js
  * hides the others). */
@@ -998,11 +1001,20 @@ p.block,
 }
 .atlas-panel__title:focus { outline-offset: 4px; }
 .atlas-panel__sub { margin-top: 6px; font-size: var(--fs-body-s); color: var(--text-muted); }
-/* The routes sharing the water stay one sentence, each link a 44px target:
- * the padding of an inline link takes the pointer but moves no line, so the
- * sentence keeps its own spacing. */
-.atlas-panel__same { margin-top: 10px; font-size: var(--fs-body-s); line-height: 1.6; }
-.atlas-panel__same a { padding-block: 14px; }
+/* The routes sharing the water: the words that name them, then the routes
+ * as a row of links, each a box 44px tall and at least as wide, the rows of
+ * them 44px apart, so no link's box reaches over another's words. */
+.atlas-panel__same { margin-top: 10px; font-size: var(--fs-body-s); }
+.atlas-same {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--fs-body-s);
+}
+.atlas-same a { display: inline-flex; align-items: center; min-width: 44px; min-height: 44px; }
 .atlas-facts { margin-top: 16px; }
 .atlas-fact { display: grid; gap: 2px; padding: 10px 0; border-top: 1px solid var(--border); }
 .atlas-fact__label { font-weight: 500; font-size: var(--fs-meta); color: var(--text-muted); }
@@ -1349,4 +1361,7 @@ p.block,
   .table--wide.table--stack td.words { min-width: 0; }
   .table--stack td.col-bound { padding-right: 0; }
   .table--stack .bound-mark { position: static; }
+  /* A cell that is a sentence (the Map's "USD 37,999, the engine's, net, rate
+   * of 11 September 2026") wraps under its column's name, every word kept. */
+  .table--stack td .atlas-cell { white-space: normal; }
 }

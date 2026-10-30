@@ -1266,6 +1266,9 @@ def _shuttle(hz: Mapping[str, Any]) -> dict[str, Any]:
         "transit_t": transit["low"] / cargo,
         "barrels": barrels,
         "round_voyage_days": reports["goo_round_voyage_2026_09_23"]["low"],
+        # Each report by its author, the publication it was read in and the day, as the Map cites them.
+        "bbl_reported": per_bbl["reported"],
+        "transit_reported": transit["reported"],
     }
 
 
@@ -1283,9 +1286,12 @@ def detours_page(st: Mapping[str, Any], sd: Mapping[str, Any], hz: Mapping[str, 
     def owner(sid: str, week: str) -> float:
         return next(lvl for lvl in scen[sid]["levels"] if lvl["week_ending"] == week)["extra_freight_usd_t"]
 
+    # A detour's days are the difference of the two days its table shows, as on the Map: 45.9 against 35.2 is 10.7
+    # more, whatever the unrounded days.
+    tc20_days = _change(st["options"][1]["days"], st["options"][0]["days"], "days")
     takeaway = [
         "Round the Cape an LR2 from Jubail to Rotterdam sails ",
-        fig(cape["extra_days"], "days", "cape_vs_suez.extra_days", suffix=" more days"),
+        fig(tc20_days, "days", "cape_vs_suez.extra_days", suffix=" more days"),
         " and needs ",
         usd(cape["extra_freight_usd_t"], "cape_vs_suez.extra_freight_usd_t", "usd_t"),
         " a tonne more freight to earn what it earns by Suez before Suez tolls; for a VLCC loading in the Gulf, "
@@ -1301,8 +1307,7 @@ def detours_page(st: Mapping[str, Any], sd: Mapping[str, Any], hz: Mapping[str, 
             "group": group_tc20,
             "label": "Cape of Good Hope instead of Suez, before Suez tolls",
             "segments": [{"value": cape["extra_freight_usd_t"], "family": "routing"}],
-            "detail": "%.1f more days, %.2f billion more tonne miles"
-            % (cape["extra_days"], cape["extra_tonne_miles"] / 1e9),
+            "detail": "%.1f more days, %.2f billion more tonne miles" % (tc20_days, cape["extra_tonne_miles"] / 1e9),
         },
         {
             "group": group_tc20,
@@ -1314,13 +1319,13 @@ def detours_page(st: Mapping[str, Any], sd: Mapping[str, Any], hz: Mapping[str, 
             "group": group_dry,
             "label": "Cape of Good Hope instead of Suez",
             "segments": [{"value": dry["Cape of Good Hope"]["extra_freight_vs_suez_usd_t"], "family": "routing"}],
-            "detail": "%.1f more days" % dry["Cape of Good Hope"]["extra_days_vs_suez"],
+            "detail": "%.1f more days" % _change(dry["Cape of Good Hope"]["days"], dry["Suez"]["days"], "days"),
         },
         {
             "group": group_dry,
             "label": "Panama instead of Suez",
             "segments": [{"value": dry["Panama"]["extra_freight_vs_suez_usd_t"], "family": "routing"}],
-            "detail": "%.1f more days" % dry["Panama"]["extra_days_vs_suez"],
+            "detail": "%.1f more days" % _change(dry["Panama"]["days"], dry["Suez"]["days"], "days"),
         },
         {
             "group": group_dry,
@@ -1405,10 +1410,7 @@ def detours_page(st: Mapping[str, Any], sd: Mapping[str, Any], hz: Mapping[str, 
                     st["break_even_suez_toll_usd"] / st["break_even_suez_transits"],
                     "break_even_suez_toll_per_transit_usd",
                 ),
-                " a transit; the Suez Canal Authority puts the toll of a one million barrel crude tanker at about USD "
-                "500,000 a transit. A Jubail loading is Saudi linked, and from 24 July 2026 Lloyd's insurers excluded "
-                "Saudi linked ships from war risk cover (Windward, 30 July 2026), so cover at the quoted rate may not "
-                "be available.",
+                " a transit; " + suez_toll_and_cover(),
             ],
         },
         "suez_dry": {
@@ -1471,14 +1473,14 @@ def detours_page(st: Mapping[str, Any], sd: Mapping[str, Any], hz: Mapping[str, 
             ],
             "chain": [
                 "Loading off Fujairah splits the voyage in two. A shuttle carries the cargo through the strait, "
-                "reported at USD %g to %g a barrel (The Wall Street Journal via ChosunBiz, 21 September 2026), about "
-                % (shuttle["bbl_low"], shuttle["bbl_high"]),
+                "reported at USD %g to %g a barrel (%s), about "
+                % (shuttle["bbl_low"], shuttle["bbl_high"], shuttle["bbl_reported"]),
                 usd(shuttle["bbl_low_t"], "shuttle.bbl_low_t", "usd_t"),
                 " to ",
                 usd(shuttle["bbl_high_t"], "shuttle.bbl_high_t", "usd_t"),
                 " a tonne at %s million barrels a cargo, and at " % ("%g" % (shuttle["barrels"] / 1e6)),
                 usd_m(shuttle["transit_usd"], "shuttle.transit_usd", "usd_m_0"),
-                " a transit (Windward, 12 October 2026), ",
+                " a transit (%s), " % shuttle["transit_reported"],
                 usd(shuttle["transit_t"], "shuttle.transit_t", "usd_t"),
                 " a tonne; the transfer's own cost and days have no public figure. The export VLCC then sails ",
                 fig(abs(chains["sts"]["extra_days"]), "days", "chains.sts.days_saved", suffix=" fewer days"),
@@ -2354,8 +2356,8 @@ BASE_NAMES = {
     "TD3C": "Loading at Ras Tanura with no wait, as priced above, as a cost of carriage",
     "QD_RTM_PMX": "By Suez, as priced above",
 }
-#: What each alternative's change against its base is before, where that decides it: a line on the map and in the
-#: list carries it when the line has room, and the panel's text always does.
+#: What each alternative's change against its base is before, or the basis it holds on, where that decides it: its
+#: line in the list and its entry in the panel both carry it.
 ALT_QUALIFIERS = {
     ("P7", "no_canals-no_canals"): "before Panama tolls and waiting",
     ("P7", "direct-no_canals"): "before Panama tolls",
@@ -2363,14 +2365,16 @@ ALT_QUALIFIERS = {
     ("TD22", "no_canals_no_sunda-no_panama"): "before Suez tolls",
     ("TC20", "no_suez-no_suez"): "before Suez tolls",
     ("QD_RTM_PMX", "cape"): "before Suez tolls",
-    ("QD_RTM_PMX", "panama"): "before toll and waiting",
-    ("TD3C", "td34"): "before any Gulf of Oman premium",
-    ("TD3C", "transfer"): "before the transfer's own cost and days",
+    ("QD_RTM_PMX", "panama"): "before tolls and waiting",
+    ("TD3C", "td34"): "another cargo, loading outside the strait",
+    # The transfer costs more than loading at Ras Tanura only while its export VLCC earns TD3C's TCE: priced at
+    # TD34's, the TCE of a loading outside the strait, it costs less.
+    ("TD3C", "transfer"): "the export VLCC at TD3C's TCE",
     ("TD3C", "waiting"): "",
 }
-#: The most characters an alternative's line may take with its qualifier, so that it sits on the map; a longer
-#: line leaves the qualifier to the panel's text. Most lines are well under, at about 55.
-LINE_CHARS = 70
+#: What decides a routing beyond its figures, said wherever the routing is weighed: a Jubail loading is Saudi
+#: linked, so Suez stays the better way for TC20 only if its war cover can be placed.
+ALT_CAVEATS = {("TC20", "no_suez-no_suez"): "if war cover can be placed"}
 #: A change's unit and its words up and down, by format: a cost a tonne is more or less, a TCE higher or lower.
 CHANGE_WORDS = {"usd_t": (" a tonne", "more", "less"), "usd_day": (" a day", "higher", "lower")}
 #: The detour study's name wherever routes are named, its list row, the map and every list of routes: no comma,
@@ -2382,31 +2386,29 @@ STUDY_GROUP = "A detour study, not a Baltic route"
 #: The families of routes the map's key and the list's caption name, in their order.
 FAMILY_WORDS = {"dirty": "Tankers", "clean": "Tankers", "dry": "Dry bulk"}
 #: Each kind of figure a route is headed by, as a group heading names it: for the whole group, or for the routes
-#: of a group that show another kind (a tanker week whose report printed no TCE, S4A's hire).
+#: of a group that show another kind (a tanker week whose report printed no TCE, S4A's hire). "none" is a route
+#: rated in Worldscale points whose week printed no TCE: the engine cannot price its rate, so it shows no figure.
 GROUP_BASIS = {
     "baltic_tce": ("the Baltic's TCE", "the Baltic's TCE for %s"),
     "engine_tce": ("the engine's estimates", "the engine's estimate for %s"),
     "baltic_hire": ("the Baltic's hire", "the Baltic's hire for %s"),
+    "none": ("no TCE printed this week", "no TCE printed for %s"),
 }
 #: The same, as the key under the map names a figure, and as the list's caption does.
 KEY_BASIS = {
     "baltic_tce": "the Baltic's round-trip TCE",
     "engine_tce": "the engine's estimate, in grey",
     "baltic_hire": "the Baltic's trip hire",
+    "none": "no TCE printed this week",
 }
 CAPTION_BASIS = {
     "baltic_tce": "the Baltic's TCE, net",
     "engine_tce": "the engine's estimate, net",
     "baltic_hire": "the Baltic's trip hire, gross",
+    "none": "no TCE printed this week",
 }
 #: Left out wherever a route passes a listed war risk area, as the Detours view words it.
 CREW_BONUS = "the crew war bonus (no public figure for this ship)"
-#: The Detours view's two sentences on TC20's Suez tolls and war cover, carried into its Round the Cape entry.
-SUEZ_TOLL_AND_COVER = (
-    "the Suez Canal Authority puts the toll of a one million barrel crude tanker at about USD 500,000 a transit. A "
-    "Jubail loading is Saudi linked, and from 24 July 2026 Lloyd's insurers excluded Saudi linked ships from war "
-    "risk cover (Windward, 30 July 2026), so cover at the quoted rate may not be available."
-)
 #: Where else the site prices a route, as links from its panel; the words name the target's market or basis where
 #: it is not this view's.
 ATLAS_LINKS: dict[str, list[dict[str, Any]]] = {
@@ -2484,13 +2486,6 @@ def _source_short(reported: str) -> str:
     return reported.split(" to ")[0].split(",")[0].split(" (")[0]
 
 
-def _cited(reported: str) -> str:
-    """'Windward, republished by Hellenic Shipping News on 30 July 2026' as 'Windward, 30 July 2026': a report
-    named by its author and day, as the Detours view cites it."""
-    author, _, republished = reported.partition(", republished by ")
-    return "%s, %s" % (author, republished.split(" on ")[-1]) if republished else reported
-
-
 def _report_words(raw_key: str, day: str) -> str:
     """A report read in a republication, by its author, its publication and its day ('Platts, republished by
     Hellenic Shipping News on 16 April 2026'), from the raw manifest's entry for the page it was read on."""
@@ -2515,6 +2510,20 @@ def _panama_waits() -> str:
     return "%s (%s)" % (_panama_wait(), _panama_report())
 
 
+def suez_toll_and_cover() -> str:
+    """Two sentences on TC20's Suez tolls and war cover: the Suez Canal Authority's toll scale and the Saudi linked
+    cover exclusion, each with the report it was read in. The Detours view's lead ends with them and the Map's
+    Round the Cape entry for TC20 carries them word for word, so both are written here once."""
+    toll = next(f for f in cases.seed("canals.json")["suez"]["facts"] if f["id"] == "toll_1m_bbl_2026")
+    cover = cases.seed("market.json")["war_risk"]["cover_note"]
+    return (
+        "the Suez Canal Authority puts the toll of a one million barrel crude tanker at about USD 500,000 a transit "
+        "(%s). A Jubail loading is Saudi linked, and from 24 July 2026 Lloyd's insurers excluded Saudi linked ships "
+        "from war risk cover (%s), so cover at the quoted rate may not be available."
+        % (_report_words(toll["raw_key"], toll["date"]), cover["reported"])
+    )
+
+
 def _short_date(iso: str) -> str:
     """2026-09-11 as 11 Sep, for a label on the map."""
     parts = iso.split("-")
@@ -2522,20 +2531,19 @@ def _short_date(iso: str) -> str:
 
 
 def _shown(value: float, fmt: str) -> float:
-    """A figure as the page shows it: rounded to its format's places, a half away from zero, as format.js does."""
-    return float(Decimal(value).quantize(Decimal(1).scaleb(-DECIMALS[fmt]), rounding=ROUND_HALF_UP))
+    """A figure as the page shows it: rounded to its format's places, a half away from zero, as format.js does.
+
+    The value is read as its shortest decimal, 2.675 rather than the binary value just under it, because that is
+    the number Intl.NumberFormat rounds: both then print 2.68.
+    """
+    shortest = Decimal(repr(float(value)))
+    return float(shortest.quantize(Decimal(1).scaleb(-DECIMALS[fmt]), rounding=ROUND_HALF_UP))
 
 
 def _change(new: float, old: float, fmt: str) -> float:
     """A change as a reader takes it from the two figures shown: the difference of the rounded values, so that
     107.7 days against 111.1 is 3.4 fewer, whatever the unrounded days."""
     return _shown(new, fmt) - _shown(old, fmt)
-
-
-def _line_length(segments: Sequence[Any]) -> int:
-    """The characters of a line as the page sets it; plain() writes no plus before a signed figure."""
-    signs = sum(1 for s in segments if isinstance(s, dict) and s.get("signed") and _shown(s["value"], s["format"]) > 0)
-    return len(plain(list(segments))) + signs
 
 
 def _days_split(days: Mapping[str, float], field: str) -> list[Any]:
@@ -2693,8 +2701,11 @@ def _war_fact(code: str, f: Mapping[str, Any], st: Mapping[str, Any]) -> dict[st
 
 
 # Every change an alternative shows is taken against the base its panel lists first, from the two figures as the
-# page shows them, and written as an unsigned figure with a word ("USD 2.46 a tonne more"); its line on the map
-# and in the list is the same change, short.
+# page shows them, and written as an unsigned figure with a word ("USD 2.46 a tonne more"). Its line in the list
+# sits beside the route's own figure, so where the base is not that figure (the engine's TCE beside the Baltic's,
+# a cost of carriage beside a TCE) the line names the base and gives its figure; the study's lines are freight, as
+# its row is. Its name on the map carries its days alone: a money change there would be read against the figure
+# under the map, which is the route's, not the base's.
 
 
 def _days_and_change(days: float, base_days: float, field: str) -> list[Any]:
@@ -2742,12 +2753,25 @@ def _money_changes(changes: Sequence[float], fmt: str, fields: Sequence[str], jo
 
 
 def _alt_line(short: str, days: list[Any], money: list[Any], qualifier: str) -> list[Any]:
-    """An alternative's line on the map and in the list: '<name>: <days> days, <change>, <qualifier>'. The
-    qualifier that decides the change stays when the line still fits on the map; the panel's text carries it."""
-    line: list[Any] = [short + ": ", *days, ", ", *money]
-    if qualifier and _line_length([*line, ", " + qualifier]) <= LINE_CHARS:
+    """An alternative's line in the list: '<name>: <days> days, <change>[ than <base> (<its figure>)], <qualifier>',
+    the qualifier that decides the change always with it, as in the panel's text."""
+    line: list[Any] = [short + ": ", *days]
+    if money:
+        line += [", ", *money]
+    if qualifier:
         line.append(", " + qualifier)
     return line
+
+
+def _map_name(short: str, days: list[Any]) -> list[Any]:
+    """An alternative's name on the map, '<name>: <days> days': its days are against the route's own, which the
+    line under the map gives."""
+    return [short + ": ", *days]
+
+
+def _than(words: str, value: float, fmt: str, field: str) -> list[Any]:
+    """' than by Suez (342,369)': the base a change is taken against, where the row shows another figure."""
+    return [" than %s (" % words, fig(value, fmt, field), ")"]
 
 
 def _left_out_added(alt: Mapping[str, Any], base_excluded: Sequence[str], base_war_area: bool) -> list[str]:
@@ -2857,12 +2881,19 @@ def _base_text(code: str, base: Mapping[str, Any], f: Mapping[str, Any], date: s
             "for this ship." % _count_words(base["transits"]),
         ]
     if code == "TD22":
-        return [
+        engine_tce = [
             "The engine's TCE, ",
             usd(base["tce_usd_day"], field + ".tce_usd_day", "usd_day"),
             " a day over ",
             fig(base["days"], "days", field + ".days", suffix=" days"),
-            ", before port charges: the figure the other routing is set against, not the Baltic's ",
+            ", before port charges: the figure the other routing is set against",
+        ]
+        if f["published_tce_usd_day"] is None:
+            # A week whose report printed no TCE: the engine's figure heads the panel too, so there is no other.
+            return [*engine_tce, "."]
+        return [
+            *engine_tce,
+            ", not the Baltic's ",
             usd(f["published_tce_usd_day"], field + ".published_tce_usd_day", "usd_day"),
             ", which comes from the Baltic's own calculation.",
         ]
@@ -2924,18 +2955,30 @@ def _tc20_cape(alt: Mapping[str, Any], base: Mapping[str, Any], field: str) -> l
             alt["break_even_suez_toll_usd"] / alt["break_even_suez_transits"],
             field + ".break_even_suez_toll_per_transit_usd",
         ),
-        " a transit; " + SUEZ_TOLL_AND_COVER,
+        " a transit; " + suez_toll_and_cover(),
     ]
 
 
-def _td34_option(alt: Mapping[str, Any], base: Mapping[str, Any], date: str, field: str) -> list[Any]:
+def _td34_tce_change(alt: Mapping[str, Any], f: Mapping[str, Any], field: str) -> list[Any]:
+    """'USD 631,264 a day lower': TD34's TCE against TD3C's, two of the Baltic's TCEs of one week, the figure TD3C's
+    row shows; none where TD3C's week printed no TCE."""
+    if alt["tce_usd_day"] is None or f["tce_usd_day"] is None:
+        return []
+    return _money_change(_change(alt["tce_usd_day"], f["tce_usd_day"], "usd_day"), "usd_day", field + ".tce_change")
+
+
+def _td34_option(
+    alt: Mapping[str, Any], base: Mapping[str, Any], f: Mapping[str, Any], date: str, field: str
+) -> list[Any]:
     """TD34 beside TD3C: another cargo for the same ship, loading outside the strait, at the Baltic's TCE."""
+    against = _td34_tce_change(alt, f, field)
     return [
         *_days_and_change(alt["days"], base["days"], field),
         "; the Baltic's round-trip TCE ",
         usd(alt["tce_usd_day"], field + ".tce_usd_day", "usd_day"),
         " a day on ",
         word(date_label(date), "date"),
+        *([", ", *against, " than TD3C's"] if against else []),
         ". At the engine's days and costs that is a freight of ",
         usd(alt["freight_needed_usd_t"], field + ".freight_needed_usd_t", "usd_t"),
         " a tonne, against ",
@@ -2966,12 +3009,11 @@ def _transfer_option(alt: Mapping[str, Any], base: Mapping[str, Any], field: str
         usd(low, field + ".shuttle_low"),
         " to ",
         fig(high, "usd", field + ".shuttle_high"),
-        " a barrel (%s), " % _cited(alt["shuttle_reported"]),
+        " a barrel (%s), " % alt["shuttle_reported"],
         usd(low_t, field + ".shuttle_low_t", "usd_t"),
         " to ",
         fig(high_t, "usd_t", field + ".shuttle_high_t"),
-        " a tonne at %s million barrels a cargo (%s): "
-        % ("%g" % (alt["barrels"] / 1e6), _cited(alt["barrels_reported"])),
+        " a tonne at %s million barrels a cargo (%s): " % ("%g" % (alt["barrels"] / 1e6), alt["barrels_reported"]),
         usd(carriage_low, field + ".carriage_low_usd_t", "usd_t"),
         " to ",
         fig(carriage_high, "usd_t", field + ".carriage_high_usd_t"),
@@ -2991,7 +3033,7 @@ def _transfer_option(alt: Mapping[str, Any], base: Mapping[str, Any], field: str
         usd_m(alt["transit_usd"], field + ".transit_usd", "usd_m_0"),
         " a transit (%s). All of it is before the transfer's own cost and days, which have no public figure, and any "
         "war risk premium off Fujairah, in the Gulf of Oman, has no dated rate and is left out."
-        % _cited(alt["transit_reported"]),
+        % alt["transit_reported"],
         *(
             [
                 " Loading at Ras Tanura after a wait of ",
@@ -3045,19 +3087,39 @@ def _waiting_text(alt: Mapping[str, Any], base: Mapping[str, Any], field: str) -
 
 
 def _waiting_line(alt: Mapping[str, Any], base: Mapping[str, Any], field: str) -> list[Any]:
-    """'Waiting: +5, +10 or +20 days, USD 68.57, 137.15 or 230.69 a tonne more', for the list."""
+    """'Waiting: +5, +10 or +20 days, USD 68.57, 137.15 or 230.69 a tonne more to carry than with no wait
+    (285.00)', for the list."""
     waits = alt["waits"]
+    changes = _money_changes(
+        [_change(w["carriage_usd_t"], base["carriage_usd_t"], "usd_t") for w in waits],
+        "usd_t",
+        [field + ".%s.change_usd_t" % w["id"] for w in waits],
+        "or",
+    )
     return [
         "Waiting: ",
         *_or_words([fig(w["waiting_days"], "count", field + ".%s.days" % w["id"], signed=True) for w in waits]),
         " days, ",
-        *_money_changes(
-            [_change(w["carriage_usd_t"], base["carriage_usd_t"], "usd_t") for w in waits],
-            "usd_t",
-            [field + ".%s.change_usd_t" % w["id"] for w in waits],
-            "or",
-        ),
+        *_carriage_against(changes, "with no wait", base),
     ]
+
+
+def _tce_against(
+    alt: Mapping[str, Any], base: Mapping[str, Any], f: Mapping[str, Any], words: str, field: str
+) -> list[Any]:
+    """A routing's TCE change against its base, and the base named with its figure where the route's row shows
+    another figure (the Baltic's TCE beside the engine's): 'USD 7,270 a day higher than the engine's TCE (463,639)'."""
+    money = _money_change(_change(alt["tce_usd_day"], base["tce_usd_day"], "usd_day"), "usd_day", field + ".tce_change")
+    shown = f["tce_usd_day"]
+    if shown is None or _shown(shown, "usd_day") != _shown(base["tce_usd_day"], "usd_day"):
+        money += _than(words, base["tce_usd_day"], "usd_day", "alternatives.base.tce_usd_day")
+    return money
+
+
+def _carriage_against(changes: list[Any], words: str, base: Mapping[str, Any]) -> list[Any]:
+    """A cost of carriage against loading at Ras Tanura, which TD3C's row, a TCE a day, does not show: 'USD 60.78 to
+    90.41 a tonne more to carry than at Ras Tanura (285.00)'."""
+    return [*changes, " to carry", *_than(words, base["carriage_usd_t"], "usd_t", "alternatives.base.carriage_usd_t")]
 
 
 def _alternative(
@@ -3073,60 +3135,42 @@ def _alternative(
     """One way to sail a route: its name on the map and in the panel, its figures as a sentence, and its line.
 
     The base comes first and carries no line of its own: the route's line is it. Every other entry's line is
-    its change against the base, the map label of an alternative the map draws and the entry of the list row.
+    its change against the base, the entry of the list row; an alternative the map draws is named there by its
+    days alone.
     """
     field = "alternatives.%s" % alt["id"]
     qualifier = ALT_QUALIFIERS.get((code, alt["id"]), "")
     line: list[Any] | None = None
+    days: list[Any] = []
     if alt["kind"] == "base":
         short, name, text = "", BASE_NAMES[code], _base_text(code, alt, f, date)
     elif alt["kind"] == "routing" and code in ("P7", "TD22"):
         short, name = ROUTING_NAMES[(code, alt["routing"]["laden"], alt["routing"]["ballast"])]
         text = _routing_text(code, alt, base, base_excluded, base_war_area, field)
-        line = _alt_line(
-            short,
-            _days_line(alt["days"], base["days"], field),
-            _money_change(
-                _change(alt["tce_usd_day"], base["tce_usd_day"], "usd_day"), "usd_day", field + ".tce_change"
-            ),
-            qualifier,
-        )
+        days = _days_line(alt["days"], base["days"], field)
+        line = _alt_line(short, days, _tce_against(alt, base, f, "the engine's TCE", field), qualifier)
     elif code == "TC20":
         short, name = ROUTING_NAMES[(code, "no_suez", "no_suez")]
         text = _tc20_cape(alt, base, field)
-        line = _alt_line(
-            short,
-            _days_line(alt["days"], base["days"], field),
-            _money_change(
-                _change(alt["tce_usd_day"], base["tce_usd_day"], "usd_day"), "usd_day", field + ".tce_change"
-            ),
-            qualifier,
-        )
+        days = _days_line(alt["days"], base["days"], field)
+        line = _alt_line(short, days, _tce_against(alt, base, f, "by Suez", field), qualifier)
     elif alt["id"] == "td34":
+        # Another cargo, not a way to carry TD3C's: its line sets its TCE against TD3C's, the figure the row shows.
         short, name = "TD34", "TD34: another cargo for the same ship, loading at Mina Al Fahal outside the strait"
-        text = _td34_option(alt, base, date, field)
-        line = _alt_line(
-            short,
-            _days_line(alt["days"], base["days"], field),
-            _money_change(
-                _change(alt["carriage_usd_t"], base["carriage_usd_t"], "usd_t"), "usd_t", field + ".change_usd_t"
-            ),
-            qualifier,
-        )
+        text = _td34_option(alt, base, f, date, field)
+        days = _days_line(alt["days"], base["days"], field)
+        line = _alt_line(short, days, _td34_tce_change(alt, f, field), qualifier)
     elif alt["id"] == "transfer":
         short, name = "Fujairah transfer", "A shuttle out of the Gulf, then an export VLCC from Fujairah"
         text = _transfer_option(alt, base, field)
-        line = _alt_line(
-            short,
-            _days_line(alt["days"], base["days"], field),
-            _money_changes(
-                [_change(c, base["carriage_usd_t"], "usd_t") for c in alt["carriage_usd_t"]],
-                "usd_t",
-                [field + ".change_low_usd_t", field + ".change_high_usd_t"],
-                "to",
-            ),
-            qualifier,
+        days = _days_line(alt["days"], base["days"], field)
+        changes = _money_changes(
+            [_change(c, base["carriage_usd_t"], "usd_t") for c in alt["carriage_usd_t"]],
+            "usd_t",
+            [field + ".change_low_usd_t", field + ".change_high_usd_t"],
+            "to",
         )
+        line = _alt_line(short, days, _carriage_against(changes, "at Ras Tanura", base), qualifier)
     elif alt["id"] == "waiting":
         short, name = "Waiting", "Waiting inside the Gulf"
         text = _waiting_text(alt, base, field)
@@ -3141,7 +3185,7 @@ def _alternative(
         "legs": list(alt["legs"]),
         "label_at": label_at,
         "text": text,
-        "map_label": line if alt["legs"] else None,
+        "map_label": _map_name(short, days) if alt["legs"] and days else None,
         "whole_label": "%s %s" % (_short(code), WHOLE_MAP_NAMES[(code, alt["id"])])
         if (code, alt["id"]) in WHOLE_MAP_NAMES
         else None,
@@ -3586,6 +3630,8 @@ def _route_item(entry: Mapping[str, Any], st: Mapping[str, Any], atlas_date: str
         ],
         "split": f["days"],
         "facts": facts,
+        # The heading over the facts after the routings: a trip time charter has hire where a voyage has freight.
+        "more": "Hire and costs" if trip else "Freight and costs",
         "table": {
             "tce": [
                 usd(f["tce_usd_day"], "tce_usd_day", "usd_day") if trip else _tce_figure(f, "tce_usd_day"),
@@ -3687,12 +3733,14 @@ def _study_item(
         else:
             text.append(" before its toll and time at the canal.")
         short, name = names[alt["id"]]
-        line = _alt_line(
-            short,
-            _days_line(alt["days"], base["days"], field),
-            _money_change(carriage_change, "usd_t", field + ".carriage_change_usd_t"),
-            ALT_QUALIFIERS[(s["id"], alt["id"])],
+        days = _days_line(alt["days"], base["days"], field)
+        # Freight, as the row's figure is: the freight the routing needs on top of Suez's to earn the P4 hire.
+        freight = _money_change(
+            _change(alt["freight_needed_usd_t"], base["freight_needed_usd_t"], "usd_t"),
+            "usd_t",
+            field + ".freight_change_usd_t",
         )
+        line = _alt_line(short, days, [*freight, " freight"], ALT_QUALIFIERS[(s["id"], alt["id"])])
         lines.append(line)
         alternatives.append(
             {
@@ -3703,7 +3751,7 @@ def _study_item(
                 "legs": list(alt["legs"]),
                 "label_at": geometry["label_at"].get(alt["id"]),
                 "text": text,
-                "map_label": line,
+                "map_label": _map_name(short, days),
                 "whole_label": "Asia to Europe by Panama" if alt["id"] == "panama" else None,
                 "freight_change_usd_t": alt["freight_change_usd_t"],
             }
@@ -3759,6 +3807,8 @@ def _study_item(
             ", priced against the Baltic's P4 trip hire",
         ],
         "split": None,
+        # The heading over the facts after the routings, which are the Red Sea premium and the cost of carriage.
+        "more": "Premium and cost of carriage",
         "facts": [
             {
                 "id": "freight",
@@ -3856,6 +3906,12 @@ def _served(item: Mapping[str, Any]) -> dict[str, Any]:
     return out
 
 
+def _shows(item: Mapping[str, Any]) -> str:
+    """The kind of figure a route's row shows: its headline, or "none" where the week printed no TCE and the
+    engine has no estimate either (a rate in Worldscale points)."""
+    return "none" if item["tce_usd_day"] is None else item["headline"]
+
+
 def _groups(items: Sequence[Mapping[str, Any]]) -> list[dict[str, str]]:
     """The list's group headings, each naming the figures its rows actually show: the kind most of them show,
     then any other kind with the routes that show it ('Dry bulk: the engine's estimates, and the Baltic's hire for
@@ -3865,13 +3921,11 @@ def _groups(items: Sequence[Mapping[str, Any]]) -> list[dict[str, str]]:
         rows = [i for i in items if i["kind"] == "route" and i["segment"] == segment]
         if not rows:
             continue
-        counts = Counter(i["headline"] for i in rows)
-        main, *rest = sorted(counts, key=lambda headline: -counts[headline])
+        counts = Counter(_shows(i) for i in rows)
+        main, *rest = sorted(counts, key=lambda shows: -counts[shows])
         name = "%s: %s" % (SEGMENT_WORDS[segment], GROUP_BASIS[main][0])
-        for headline in rest:
-            name += ", and " + GROUP_BASIS[headline][1] % _plain_join(
-                [i["label"] for i in rows if i["headline"] == headline]
-            )
+        for shows in rest:
+            name += ", and " + GROUP_BASIS[shows][1] % _plain_join([i["label"] for i in rows if _shows(i) == shows])
         out.append({"id": segment, "name": name})
     out.append({"id": "study", "name": STUDY_GROUP})
     return out
@@ -3885,13 +3939,11 @@ def _basis_sentences(routes: Sequence[Mapping[str, Any]], words: Mapping[str, st
         rows = [r for r in routes if FAMILY_WORDS[r["segment"]] == family]
         if not rows:
             continue
-        counts = Counter(r["headline"] for r in rows)
-        main, *rest = sorted(counts, key=lambda headline: -counts[headline])
+        counts = Counter(_shows(r) for r in rows)
+        main, *rest = sorted(counts, key=lambda shows: -counts[shows])
         out.append("%s: %s." % (family, words[main]))
-        for headline in rest:
-            out.append(
-                "%s: %s." % (_plain_join([r["label"] for r in rows if r["headline"] == headline]), words[headline])
-            )
+        for shows in rest:
+            out.append("%s: %s." % (_plain_join([r["label"] for r in rows if _shows(r) == shows]), words[shows]))
     return " ".join(out)
 
 
@@ -3974,6 +4026,8 @@ def atlas_page(
         ]
         caption += ["; %s rate of " % _rates_of(codes, False), word(date_label(week), field)]
     caption.append(". " + _basis_sentences(routes, CAPTION_BASIS))
+    # The days column's basis: a row whose days are another kind (S4A's on hire, the study's one way) says so.
+    caption.append(" Days: the round voyage, unless the row says otherwise.")
 
     top_note: list[Any] = ["Round-trip TCE, %s, %s" % (top["ship"], top["ports"])]
     if ratio:
@@ -4011,10 +4065,12 @@ def atlas_page(
     if detour:
         item, alt = detour["item"], detour["alternative"]
         raw, base = as_priced[(item["id"], alt["id"])]
-        # The whole cargo's figure is the one the pick is made on, as the Detours view and the note give it; the
-        # figure a tonne beside it is rounded on its own.
+        # The whole cargo's figure is the one the pick is made on, as the research note gives it, with the figure a
+        # tonne beside it as the note does: each is rounded on its own, so the card does not set them out as a sum
+        # with the cargo, whose product of two rounded figures would miss the whole cargo's by a cent in a million.
         extra, per_t = detour["extra_freight_usd"], alt["freight_change_usd_t"]
         days = _change(raw["days"], base["days"], "days")
+        caveat = ALT_CAVEATS.get((item["id"], alt["id"]))
         unpriced = ["%s %s" % (i["label"], _lower_first(a["short"])) for i, a in chosen["unpriced"]]
         summary.append(
             {
@@ -4032,17 +4088,16 @@ def atlas_page(
                         "summary.detour.days_change",
                         suffix=" more days" if days >= 0 else " fewer days",
                     ),
-                    "; ",
+                    ", and ",
                     usd(abs(per_t), "summary.detour.freight_usd_t", "usd_t"),
-                    " a tonne %s freight than %s, over its "
+                    " a tonne %s freight than %s to earn as much"
                     % ("more" if per_t > 0 else "less", _lower_first(BASE_NAMES[item["id"]].split(",")[0])),
-                    fig(item["cargo_t"], "t", "summary.detour.cargo_t", suffix=" tonnes"),
-                    ", to earn as much",
                     *(
                         [", at the rate of ", word(date_label(item["date"]), "summary.detour.date")]
                         if item["date"] != atlas_date
                         else []
                     ),
+                    *([", " + caveat] if caveat else []),
                     ".",
                     *(
                         [
@@ -4082,17 +4137,19 @@ def atlas_page(
         "page": {
             "title": "What each route earns a day, and what the other ways cost",
             "takeaway": takeaway,
+            # "All" is short so that the four filters take one line on a phone from 360px, where the list follows
+            # them; the announcement names what each shows in full.
             "filters": [
                 {
                     "id": segment,
                     "label": name,
-                    "announce": [*count_words(segment), " on the map and in the list: %s." % name.lower()],
+                    "announce": [*count_words(segment), " on the map and in the list: %s." % shows],
                 }
-                for segment, name in (
-                    ("all", "Every route"),
-                    ("dry", "Dry bulk"),
-                    ("dirty", "Dirty tankers"),
-                    ("clean", "Clean tankers"),
+                for segment, name, shows in (
+                    ("all", "All", "every route"),
+                    ("dry", "Dry bulk", "dry bulk"),
+                    ("dirty", "Dirty tankers", "dirty tankers"),
+                    ("clean", "Clean tankers", "clean tankers"),
                 )
             ],
             "filter_label": "Show",
@@ -4106,19 +4163,18 @@ def atlas_page(
             },
             "panel": {
                 "back": "Back to the list",
-                "same": "Its line runs with ",
-                "same_after": " for most of the way.",
+                "same": "Its line runs for most of the way with these routes:",
                 "split": {"ballast": "Ballast", "laden": "Laden", "port": "Port and waiting"},
                 "alternatives": "Other ways to sail it",
-                "more": "Freight and costs",
                 "links": "More on this route",
                 "show": "Show on the map",
             },
             "summary": {"heading": "At a glance", "items": summary},
             "map": {
                 "title": "Every route the study prices, from its loading port, with its figure a day",
-                # While the map is too narrow for its labels to carry figures, the list carries them.
-                "title_narrow": "Every route the study prices, from its loading port",
+                # While the map is too narrow for its labels to carry figures, the list carries them; one line on a
+                # phone, so the list starts higher.
+                "title_narrow": "Every route, from its loading port",
                 # The image's own short name with nothing picked, apart from the heading over it.
                 "name": "World map of the study's routes",
                 "desc": "An equirectangular map from 110 degrees west to 155 degrees east. Each route's laden leg is "
@@ -4145,7 +4201,7 @@ def atlas_page(
                 "labels": key,
                 "idle": "Point at a route, or pick one from the list, for its figures and the other ways it could "
                 "sail.",
-                "idle_narrow": "Pick a route in the list below for its figures and the other ways it could sail.",
+                "idle_narrow": "Pick a route in the list below.",
                 "same": "Same water: ",
                 "edge": "across the Pacific",
                 "source": with_retrieval(
@@ -4200,8 +4256,9 @@ def atlas_page(
                     "its TCE is set beside the Baltic's: it is before the port charges and canal tolls the Baltic "
                     "deducts, at the week's bunker prices and searoute's distances, so the two differ by those "
                     "costs and by the two calculations' bunkers and distances. A week whose report prints no TCE "
-                    "for a route shows the engine's estimate in its place, and says so. The days, distances and "
-                    "costs in a route's detail are the engine's, with no port charges."
+                    "for a route shows the engine's estimate in its place where the rate is a lump sum, and no "
+                    "figure where the rate is in Worldscale points; the route's row says which. The days, distances "
+                    "and costs in a route's detail are the engine's, with no port charges."
                     % (baltic.GMB["version"], _plain_join(lump_sums))
                 ],
                 [
@@ -4215,10 +4272,11 @@ def atlas_page(
                     "Each route's other routings are set against its own base, the first of its list, on one basis: "
                     "a war risk premium is priced for whoever pays it, a tanker's canal transit takes the day TC20's "
                     "description gives one, and where a toll has no public figure the comparison is the toll at "
-                    "which the two routings earn the same, not a TCE before the toll. A routing's line on the map "
-                    "and in the list gives its change in days and in its list's unit, a TCE a day or a cost of "
-                    "carriage a tonne, from the two figures as they are shown, and what the change is before where "
-                    "that decides it and the line has room; its entry in the detail always says. The costliest "
+                    "which the two routings earn the same, not a TCE before the toll. A routing's name on the map "
+                    "gives its change in days. Its line in the list gives that and its change in money from the two "
+                    "figures as they are shown, naming its base with the base's figure wherever the row shows "
+                    "another (the Baltic's TCE beside the engine's, a TCE beside a cost of carriage), and what the "
+                    "change is before where that decides it, as its entry in the detail does. The costliest "
                     "detour is the routing whose whole cargo needs the most freight on top of its base's to earn the "
                     "base's TCE. Wherever a route passes a listed war risk area the crew war bonus, which has no "
                     "public figure, is left out."

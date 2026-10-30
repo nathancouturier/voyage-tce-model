@@ -5,9 +5,10 @@
  * now says, and writes the hash when asked. The sibling studies' router
  * (crack-spread-study, jkm-ttf-arbitrage), with one addition: a history entry
  * keeps the state a view gives it (window.history.state). go() can write one
- * on the entry it adds, and replaceState() keeps the entry's own, so a view
- * can mark an entry, for example a route opened over the Map's list, and
- * read the mark back on Back and Forward.
+ * on the entry it adds, mark() adds one to the entry the page is on, and
+ * replaceState() keeps the entry's own, so a view can mark an entry, for
+ * example a route opened over the Map's list and the list under it, and read
+ * the mark back on Back and Forward.
  *
  * Three shapes of hash, kept apart on purpose:
  *
@@ -128,6 +129,12 @@ export function replaceState(view, params) {
   const url = window.location.pathname + window.location.search + next;
   window.history.replaceState(window.history.state, "", url);
   lastRoute = parse(next, knownViews, defaultView);
+}
+
+/** Mark the entry the page is on, keeping its address and whatever else its
+ *  state holds, so a view can tell it from another when Back returns to it. */
+export function mark(state) {
+  window.history.replaceState({ ...(window.history.state || {}), ...state }, "", window.location.href);
 }
 
 /** Start listening. `views` is the caller's list of view names that exist,

@@ -180,11 +180,12 @@ every route the study prices on one map of the world, each loading area
 labelled with its routes and their TCEs, the other routings the study prices
 dotted, and beside the map the list of routes with their TCE and round voyage
 days, each other routing a line under its route with what it changes against
-the route's base. A route picked on the map or in the list is framed on the
-map with its ballast leg, its emission control stretches and its other
-routings, each named with what it changes, while the column beside it gives
-its figures and what each other way would cost; the address keeps the
-choice, and Back closes the route in one step. **Overview**,
+its base, the base named with its figure where the row shows another. A
+route picked on the map or in the list is framed on the map with its ballast
+leg, its emission control stretches and its other routings, each named with
+its days, while the column beside it gives its figures and what each other
+way would cost; the address keeps the choice, and Back closes the route in
+one step. **Overview**,
 the featured voyage at the latest anchor, its bridge from freight to TCE and
 its map; **Calculator**, every input in five steps; **Routes**; **Detours**;
 **Carbon**; **Paper**; and **Method**, every convention with the text it is
@@ -194,8 +195,9 @@ view at 1440, 768, 390 and 320 pixels in both themes.
 
 TC20 picked on the Map: its line by Suez in the accent colour, its ballast
 leg dashed beside it, and the routing round the Cape dotted and named with
-what it changes against Suez: 31.5 more days and a TCE USD 132,196 a day
-lower, before Suez tolls.
+its 31.5 more days; beside the map, its entry gives a TCE USD 132,196 a day
+lower than by Suez, before Suez tolls, Suez staying the better way if war
+cover can be placed.
 
 ![The Map view with TC20 picked, desktop width, light theme](assets/map-route-desktop-light.png)
 

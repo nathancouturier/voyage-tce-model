@@ -322,15 +322,18 @@ export function voyageMap(frame, land, voyage, words) {
  *
  * LABELS are placed here at the size they are drawn, each measured on the
  * page in its own face, weight and size (a hidden text in the svg; widths
- * are kept by text and size once the faces are in), by a box search like the
- * voyage map's: beside the anchor first, then above or below, then a step
- * further away. A place is taken only inside the view with room for the
- * halo, clear of every dot and ring and of every other label with room kept
- * round it, and nearer its own point than any other named point: a port's
- * dot, and a passage or the side where lines leave across the Pacific once
- * its name is drawn, so a name never reads as another place's (a routing's
- * name, which names no place, minds only ports and passages, as its line may
- * leave by that side). Among those places the first wins that shares no
+ * are kept by text and size once the faces are in, and measured again when a
+ * face arrives or a reader's own style spaces the text wider), by a box
+ * search like the voyage map's: beside the anchor first, then above or
+ * below, then a step further away. A place is taken only inside the view
+ * with room for the halo, clear of every dot and ring and of every other
+ * label with room kept round it and, for a place's name, nearer its own
+ * point than any other named point: a port's dot and, with a route picked,
+ * every passage and side of the map its lines use, named or not, so a name
+ * never reads as another place's. A routing's name names no place and minds
+ * none of them: it may go further from its point and, with a route picked,
+ * by any point of its own line, as its point is often where its legs meet,
+ * at a cape. Among those places the first wins that shares no
  * baseline with a label beside it and that no line crosses; failing that, a
  * place on no shared baseline comes before one no line crosses, so two labels
  * run on as one line only where there is no other room, and a line through a
@@ -346,8 +349,8 @@ export function voyageMap(frame, land, voyage, words) {
  * and muted for the engine's estimate; the alternatives each route's line
  * carries are named in the muted ink where they fit. With a route picked,
  * its ports, the passages that decide between its routings, and each
- * alternative's name with what it changes are written instead, or, while a
- * routing is shown from its toggle, its name alone; a passage, or
+ * routing's name with its days are written instead, or, while a routing is
+ * shown from its toggle, its name alone; a passage, or
  * the side where lines leave the map, with no place that reads as its own is
  * left out, as the column beside the map names it. Every word wears a halo of
  * the ground, set inline in map units.
@@ -387,6 +390,12 @@ export const ATLAS_GEOMETRY = Object.freeze({
   ROOM_ACROSS: 1.2,
   ROOM_DOWN: 0.5,
   BASELINE_REACH: 6,
+  /* How many steps of SHIFT a routing's name may move from its point with
+   * nothing picked: it names no place, so it may go further than a port's or
+   * a passage's name to find water no line crosses. With a route picked it
+   * may move along its own line instead, a point every ALONG of its size. */
+  ROUTING_SHIFTS: 12,
+  ALONG: 3,
   /* The map width under which a route picked is framed in the taller box, in px. */
   TALL_BELOW: 600,
 });
@@ -468,11 +477,29 @@ function crossings(box, lines, apart) {
   return seen.length;
 }
 
+/** Points every `spacing` along some lines, nearest a point first, each as a
+ *  box with no size: where else a routing's name may sit beside its line. */
+function alongFrom(point, lines, spacing) {
+  const out = [];
+  for (const points of lines) {
+    for (let i = 1; i < points.length; i += 1) {
+      const a = points[i - 1];
+      const b = points[i];
+      const n = Math.ceil(Math.hypot(b.x - a.x, b.y - a.y) / spacing);
+      for (let j = 0; j < n; j += 1) out.push({ x: a.x + ((b.x - a.x) * j) / n, y: a.y + ((b.y - a.y) * j) / n });
+    }
+  }
+  return out
+    .sort((p, q) => Math.hypot(p.x - point.x, p.y - point.y) - Math.hypot(q.x - point.x, q.y - point.y))
+    .map((p) => ({ left: p.x, top: p.y, right: p.x, bottom: p.y }));
+}
+
 /** Place blocks. A block takes a candidate inside the view that nothing
  *  taken overlaps (dots, rings, and the labels placed before it with `room`
- *  round them) and that lies nearer its own anchor than any named point it
- *  does not own by more than `slack` (a routing's name owns none and minds
- *  only ports and passages, as its line may leave the map by an edge). Among
+ *  round them) and, if it names a place, that lies nearer its own anchor than
+ *  any named point it does not own by more than `slack` (a routing's name
+ *  names no place, and so minds only what is taken: beside a port's dot it
+ *  still reads as the routing's, and its line may run by a port). Among
  *  those it takes the first place where no row of it lies on the baseline of
  *  a label placed within `reach` across (within `level`) and no line crosses
  *  it; else the place with the fewest rows on such a baseline, and of those
@@ -493,15 +520,18 @@ function placeBlocks(blocks, { taken, rows, named, names, view, step, steps, lin
   const inside = (b) => b.left >= view.left && b.right <= view.right && b.top >= view.top && b.bottom <= view.bottom;
   const clear = (place) => !taken.some((t) => overlaps(place, t));
   const shared = (place, block) => block.baselines.filter((dy) => rows.some((row) => Math.abs(row.y - place.top - dy) < level && row.left - reach < place.right && place.left < row.right + reach)).length;
-  // The named points a block must lie nearer its own point than, as they stand; one at the block's own place is that place.
-  const rivals = (block) => named.filter((point) => (block.owns ? !block.owns.includes(point.key) : !point.edge) && boxDistance(point, block.anchor) > slack);
+  // The named points a block must lie nearer its own point than, as they stand; one at the block's own place is
+  // that place. A routing's name names no place, so it has none: the dots and rings it keeps clear of are taken.
+  const rivals = (block) => (block.owns ? named.filter((point) => !block.owns.includes(point.key) && boxDistance(point, block.anchor) > slack) : []);
   const plain = (place, block, others) => {
     const own = boxDistance(place, block.anchor);
     return !others.some((point) => boxDistance(place, point) <= own + slack);
   };
   const entries = blocks.map((block, index) => {
-    const centre = (block.anchor.left + block.anchor.right) * GEOMETRY.HALF;
-    const places = blockPlaces(block.anchor, block.width, block.height, block.gap, step, steps, centre > middle ? "end" : "start", view).filter(inside);
+    const places = [block.anchor, ...(block.along || [])].flatMap((anchor) => {
+      const centre = (anchor.left + anchor.right) * GEOMETRY.HALF;
+      return blockPlaces(anchor, block.width, block.height, block.gap, step, steps, centre > middle ? "end" : "start", view);
+    }).filter(inside);
     const others = rivals(block);
     return { block, index, places, left: places.filter((place) => clear(place) && plain(place, block, others)).length };
   });
@@ -528,7 +558,7 @@ function placeBlocks(blocks, { taken, rows, named, names, view, step, steps, lin
       taken.push({ left: box.left - room.x, top: box.top - room.y, right: box.right + room.x, bottom: box.bottom + room.y });
       for (const dy of block.baselines) rows.push({ left: box.left, right: box.right, y: box.top + dy });
       if (block.owns) names.push({ box, anchor: block.anchor });
-      if (point) named.push(point);
+      if (point && !named.some((other) => other.key === point.key)) named.push(point);
     }
     boxes.set(entry, box);
   }
@@ -767,10 +797,17 @@ export function atlasMap(frame, land, geo, items, clusters, words, decimals, on)
   });
 
   // Each label's width as drawn, kept by text and size once the faces are in;
-  // a width taken while a face is loading is the fallback face's.
+  // a width taken while a face is loading is the fallback face's. A map whose
+  // frame has left the page stops listening (stop, below).
   const widths = new Map();
   let widthsAt = "";
-  const forget = () => widths.clear();
+  const forget = () => {
+    if (!svg.isConnected) {
+      stop();
+      return;
+    }
+    widths.clear();
+  };
   if (document.fonts) document.fonts.addEventListener("loadingdone", forget);
   const measure = (text, className, font) => {
     const size = px(font);
@@ -791,6 +828,7 @@ export function atlasMap(frame, land, geo, items, clusters, words, decimals, on)
   // The face's reach above and below its baseline at this size, which is the
   // height of a label's box whatever its letters.
   const extent = (font) => {
+    probe.setAttribute("class", "atlas-label");
     probe.setAttribute("font-size", px(font));
     probe.textContent = words.title;
     const b = probe.getBBox();
@@ -832,9 +870,10 @@ export function atlasMap(frame, land, geo, items, clusters, words, decimals, on)
     let mode = selected ? "route" : "none";
     // What a label keeps clear of (dots and rings, then each label placed,
     // and the rows of those labels, whose baselines it should not share); the
-    // named points a label must be nearest its own of (the ports' dots, then
-    // each passage named) and the names placed so far; and the lines it should
-    // not cross, each leg once however many routes sail it.
+    // named points a place's name must be nearest its own of (the ports' dots,
+    // then every passage and side of the map a picked route's lines use) and
+    // the names placed so far; and the lines it should not cross, each leg
+    // once however many routes sail it.
     const taken = [];
     const placedRows = [];
     const named = [];
@@ -893,7 +932,7 @@ export function atlasMap(frame, land, geo, items, clusters, words, decimals, on)
     const at = (x, y) => ({ left: x, top: y, right: x, bottom: y });
     // Returns whether every block found a place; `dry` asks only that, and
     // leaves the page and what is taken as they were.
-    const place = (blocks, dry) => {
+    const place = (blocks, dry, steps = mg.SHIFTS) => {
       const placed = placeBlocks(blocks, {
         taken: dry ? [...taken] : taken,
         rows: dry ? [...placedRows] : placedRows,
@@ -902,7 +941,7 @@ export function atlasMap(frame, land, geo, items, clusters, words, decimals, on)
         // Inside the view with room for the halo, which the frame would cut.
         view: { left: box.left + haloWidth, top: box.top + haloWidth, right: box.right - haloWidth, bottom: box.bottom - haloWidth },
         step: font * mg.SHIFT,
-        steps: mg.SHIFTS,
+        steps,
         lines,
         // Lines nearer than half the pointer's band are one line to the eye.
         apart: g.HIT * GEOMETRY.HALF * k,
@@ -952,7 +991,7 @@ export function atlasMap(frame, land, geo, items, clusters, words, decimals, on)
         place(items
           .filter((item) => shown.has(item.id))
           .flatMap((item) => (item.alternatives || []).filter((alt) => alt.whole_label && alt.label_at && drawnAlt.has(alt)))
-          .map((alt) => blockOf(at(alt.label_at[0], alt.label_at[1]), null, [{ parts: [{ text: alt.whole_label, className: "atlas-label__alt" }] }], gap)));
+          .map((alt) => blockOf(at(alt.label_at[0], alt.label_at[1]), null, [{ parts: [{ text: alt.whole_label, className: "atlas-label__alt" }] }], gap)), false, g.ROUTING_SHIFTS);
       }
     } else {
       // The route picked: where its lines leave the map, its ports, its alternatives' names, its passages.
@@ -976,20 +1015,36 @@ export function atlasMap(frame, land, geo, items, clusters, words, decimals, on)
         .map((edge) => ({ key: edge.key, x: edge.points[0][0], y: edge.points.reduce((sum, [, y]) => sum + y, 0) / edge.points.length }));
       lines.push(...[...legs].map(trace));
       place(portIds.map((portId) => blockOf(at(geo.ports[portId].x, geo.ports[portId].y), [portId], [{ parts: [{ text: geo.ports[portId].name, className: "atlas-label__port" }] }], dot + gap)));
+      // A routing's name goes by its point, where it shows apart from the
+      // route, or failing water no line of the route crosses there, by another
+      // point of its own line: its point is often where its legs meet, at a
+      // cape, where every place beside it lies across one leg or the other.
       const routingName = (alt) => {
         const text = alt.map_label ? segmentsText(alt.map_label, decimals) : alt.short;
-        return blockOf(at(alt.label_at[0], alt.label_at[1]), null, [{ item: selected.id, alt: alt.id, parts: [{ text, className: "atlas-label__alt" }] }], gap);
+        const block = blockOf(at(alt.label_at[0], alt.label_at[1]), null, [{ item: selected.id, alt: alt.id, parts: [{ text, className: "atlas-label__alt" }] }], gap);
+        const own = current.alternatives.find((a) => a.alt === alt);
+        block.along = own ? alongFrom({ x: alt.label_at[0], y: alt.label_at[1] }, own.lines, font * g.ALONG) : [];
+        return block;
       };
       // While a routing is shown from its toggle its name alone is written:
       // where routings share water, a name on it could be another's.
       place((selected.alternatives || [])
         .filter((alt) => alt.label_at && drawnAlt.has(alt) && (!state.focus || alt.id === state.focus))
         .map(routingName));
+      // Every passage and side of the map its lines use is a place a name could
+      // be read as, named or not: each name lies nearer its own than any of
+      // them, so the Pacific's name never sits by a canal left unnamed.
+      const passagePoints = passages.map((p) => ({ key: p.name, edge: false, ...at(p.x, p.y) }));
+      const edgePoints = edges.map((edge) => ({ key: edge.key, edge: true, ...at(edge.x, edge.y) }));
+      named.push(...passagePoints, ...edgePoints);
       place([
-        ...passages.map((p) => blockOf(at(p.x, p.y), [p.name], [{ parts: [{ text: p.name, className: "atlas-label__passage" }] }], gap, { key: p.name, edge: false, ...at(p.x, p.y) })),
-        ...edges.map((edge) => blockOf(at(edge.x, edge.y), [edge.key], [{ parts: [{ text: words.edge, className: "atlas-label__passage" }] }], inset + gap, { key: edge.key, edge: true, ...at(edge.x, edge.y) })),
+        ...passages.map((p, i) => blockOf(at(p.x, p.y), [p.name], [{ parts: [{ text: p.name, className: "atlas-label__passage" }] }], gap, passagePoints[i])),
+        ...edges.map((edge, i) => blockOf(at(edge.x, edge.y), [edge.key], [{ parts: [{ text: words.edge, className: "atlas-label__passage" }] }], inset + gap, edgePoints[i])),
       ]);
     }
+    // The probe keeps no text or label class between drawings, so the svg holds only what it draws.
+    probe.textContent = "";
+    probe.removeAttribute("class");
     if (on.labels) on.labels(mode);
   };
 
@@ -1014,10 +1069,25 @@ export function atlasMap(frame, land, geo, items, clusters, words, decimals, on)
   };
 
   const unobserve = onWidthChange(frame, () => layout());
-  const stop = () => {
+  // A text of one fixed size that only the faces and the text's spacing can
+  // widen: when a face arrives, or a reader's own style spaces letters or
+  // words wider (WCAG 1.4.12), every label is measured and placed again, so
+  // none runs past the frame until the next change of width.
+  const spacing = probe.parentNode.appendChild(svgEl("text", { class: "atlas-probe__spacing", "font-size": mg.PORT_FONT }, words.title));
+  let spaced = spacing.getBBox().width;
+  const respace = new ResizeObserver(() => {
+    const now = spacing.getBBox().width;
+    if (now === spaced || !svg.isConnected) return;
+    spaced = now;
+    widths.clear();
+    layout();
+  });
+  respace.observe(spacing);
+  function stop() {
     unobserve();
+    respace.disconnect();
     if (document.fonts) document.fonts.removeEventListener("loadingdone", forget);
-  };
+  }
   show({});
   return { show, stop, hover: setHover };
 }

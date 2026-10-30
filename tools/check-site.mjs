@@ -4,10 +4,14 @@
 // list, from the address and with the keyboard, its history (Back closes a
 // route in one step, from a link to another route and after the browser's
 // Back and Forward) with the filter, the focus and the sections open kept
-// right, its layout on a phone, its list and a route's detail, and its
-// drawing (the route picked painted over the rest, each name by its own
-// place, a click on a routing pressing its toggle, a routing drawn once and
-// only where it leaves its route); and the calculator's form,
+// right, an address typed with its own sections taken as it is, its layout
+// on a phone, its list and a route's detail (a same-water route's name a
+// target of its own; the text spaced as WCAG 1.4.12 allows, nothing cut),
+// and its drawing (the route picked painted over the rest, each name by its
+// own place, the Pacific's by its ring, every routing named with nothing
+// picked, a click on a routing pressing its toggle where the page stands, a
+// routing drawn once and only where it leaves its route); and the
+// calculator's form,
 // what a visitor types and what the page must then show. tools/validate-engine.mjs holds src/engine.js to the Python
 // engine; this holds the pages that read it, which no other check reaches.
 //
@@ -464,7 +468,7 @@ CHECKS.push(
       await page.evaluate(click(".atlas-row[data-item=\"TD3C\"]"));
       await page.waitFor(panelOf("TD3C"));
       // TC1 is a clean tanker, its line running with TD3C's.
-      await page.evaluate(click(".atlas-panel__same a[data-item=\"TC1\"]"));
+      await page.evaluate(click(".atlas-same a[data-item=\"TC1\"]"));
       await page.waitFor(panelOf("TC1"));
       await page.evaluate(escape);
       await page.waitFor(listShown);
@@ -475,7 +479,7 @@ CHECKS.push(
       const back = await page.evaluate(focused);
       return [
         [!hash.includes("segment="), "the address keeps the filter: " + hash],
-        [pressed === "true", "Every route is not pressed"],
+        [pressed === "true", "the filter for every route is not pressed"],
         [rows.length === atlas.items.length, rows.length + " rows listed"],
         [back === "TC1", "focus is on " + (back || "nothing") + ", not on the TC1 row"],
       ];
@@ -553,6 +557,18 @@ CHECKS.push(
     },
   },
   {
+    name: "an address typed while a route is open that names its own sections closes the route and opens those sections",
+    hash: "#/map?route=TD22&open=table",
+    async run(page) {
+      await page.evaluate("(location.hash = '#/map?open=method'), true");
+      await page.waitFor(listShown);
+      await page.evaluate("new Promise((r) => setTimeout(r, 200))");
+      const hash = await page.evaluate("location.hash");
+      const open = await page.evaluate(sectionsOpen);
+      return [[hash === "#/map?open=method" && open === "method", "the address became " + hash + " with " + (open || "nothing") + " open"]];
+    },
+  },
+  {
     name: "on a short phone screen a route picked from the list shows its heading, and a routing shown from its toggle brings the map into view",
     hash: "#/map",
     width: 320,
@@ -622,16 +638,61 @@ for (const id of ["TD3C", "QD_RTM_PMX", "C5", "P7"]) {
       const size = await page.evaluate("getComputedStyle(document.querySelector('.atlas-facts--head .atlas-fact .atlas-fact__value .fig')).fontSize");
       const display = await page.evaluate("(() => { const probe = document.body.appendChild(document.createElement('span')); probe.className = 'fact__figure'; const size = getComputedStyle(probe).fontSize; probe.remove(); return size; })()");
       const toggles = await page.evaluate("[...document.querySelectorAll('.atlas-alt-entry__show')].map((b) => b.textContent)");
-      const links = await page.evaluate("[...document.querySelectorAll('.atlas-panel__same a')].map((a) => a.getBoundingClientRect().height)");
+      const links = await page.evaluate("[...document.querySelectorAll('.atlas-same a')].map((a) => a.getBoundingClientRect().height)");
       const heads = await page.evaluate("[...document.querySelectorAll('.atlas-panel h3')].map((h) => h.textContent + ' > ' + (h.nextElementSibling ? h.nextElementSibling.className : ''))");
       const legend = await page.evaluate(legendShown);
-      const more = atlas.page.panel.more + " > atlas-facts";
+      const more = item.more + " > atlas-facts";
       return [
         [size === display, "the figure is " + size + ", the overview's facts " + display],
         [toggles.every((t) => t.startsWith(atlas.page.panel.show)) && new Set(toggles).size === toggles.length, "the toggles read " + JSON.stringify(toggles)],
         [links.every((h) => h >= 44), "a same-water link is " + Math.min(...links) + " px tall"],
         [heads.includes(more), "the headings in the detail are " + JSON.stringify(heads)],
         [legend === legendFor(item), "the legend shows " + legend + ", the map draws " + legendFor(item)],
+      ];
+    },
+  });
+}
+
+/* In the page: every point inside a same-water route's own letters that a
+ * tap would give to another link, or to none. */
+const sameWaterMisses = "(() => { document.querySelector('.atlas-same').scrollIntoView({ block: 'center' }); const out = [];" +
+  " for (const a of document.querySelectorAll('.atlas-same a')) { const range = document.createRange(); range.selectNodeContents(a);" +
+  " for (const q of range.getClientRects()) for (let x = q.left + 1; x < q.right - 1; x += 2) for (let y = q.top + 1; y < q.bottom - 1; y += 2) {" +
+  " const hit = document.elementFromPoint(x, y); const link = hit && hit.closest('a');" +
+  " if (link !== a) out.push(a.textContent + ' at ' + Math.round(x) + ',' + Math.round(y) + ' goes to ' + (link ? link.textContent : 'nothing')); } }" +
+  " return out.slice(0, 4); })()";
+
+for (const [id, width] of [["TD3C", 320], ["TD34", 320], ["TD34", 375], ["TD34", 1100]]) {
+  CHECKS.push({
+    name: "with " + id + " picked at " + width + " px a tap anywhere on a same-water route's name opens that route, not the one beside or below it",
+    hash: "#/map?route=" + id,
+    width,
+    async run(page) {
+      const misses = await page.evaluate(sameWaterMisses);
+      return [[misses.length === 0, misses.join("; ")]];
+    },
+  });
+}
+
+/* The WCAG 1.4.12 spacing a reader's own style may set on any page. */
+const SPACED = "* { line-height: 1.5 !important; letter-spacing: 0.12em !important; word-spacing: 0.16em !important; } p { margin-bottom: 2em !important; }";
+const labelsCut = "(() => { const svg = document.querySelector('.atlas-map'); const s = svg.getBoundingClientRect();" +
+  " return [...svg.querySelectorAll('.atlas-labels text:not(.halo)')].filter((t) => { const b = t.getBoundingClientRect();" +
+  " return b.left < s.left - 0.5 || b.right > s.right + 0.5 || b.top < s.top - 0.5 || b.bottom > s.bottom + 0.5; }).map((t) => t.textContent); })()";
+
+for (const id of ["TD25", "TD3C"]) {
+  CHECKS.push({
+    name: "with " + id + " picked at 320 px and the text spaced as WCAG 1.4.12 allows, nothing scrolls sideways and no name on the map runs past it",
+    hash: "#/map?route=" + id,
+    width: 320,
+    async run(page) {
+      await page.evaluate("(() => { const style = document.createElement('style'); style.textContent = " + JSON.stringify(SPACED) + "; document.head.appendChild(style); return true; })()");
+      await page.evaluate("new Promise((r) => setTimeout(r, 400))");
+      const overflow = await page.evaluate("document.documentElement.scrollWidth - document.documentElement.clientWidth");
+      const cut = await page.evaluate(labelsCut);
+      return [
+        [overflow <= 0, "the page scrolls sideways by " + overflow + " px"],
+        [cut.length === 0, "the map cuts " + cut.join(", ")],
       ];
     },
   });
@@ -769,6 +830,82 @@ CHECKS.push({
       [pressed === "true", "the toggle of " + routing.id + " is not pressed after a click on its line"],
       [shown === routing.id, "the map shows " + (shown || "no routing") + " at full weight"],
       [hash.includes("route=TC20"), "the click left TC20 for " + hash],
+    ];
+  },
+});
+
+/** In the page: each name of the side where lines leave the map, with its
+ *  distance in screen px from the nearest ring and from the nearest passage
+ *  the route's lines use (named or not) or port dot. */
+function edgeNames(passages, words) {
+  const svg = document.querySelector(".atlas-map");
+  const ctm = svg.getScreenCTM();
+  const screen = (x, y) => new DOMPoint(x, y).matrixTransform(ctm);
+  const away = (box, point) => Math.hypot(Math.max(box.left - point.x, 0, point.x - box.right), Math.max(box.top - point.y, 0, point.y - box.bottom));
+  const rings = [...svg.querySelectorAll(".atlas-marks .atlas-edge")].map((c) => screen(Number(c.getAttribute("cx")), Number(c.getAttribute("cy"))));
+  const dots = [...svg.querySelectorAll(".atlas-marks .map-port-dot")].map((c) => screen(Number(c.getAttribute("cx")), Number(c.getAttribute("cy"))));
+  const points = [...passages.map((p) => screen(p.x, p.y)), ...dots];
+  return [...svg.querySelectorAll(".atlas-labels text:not(.halo)")].filter((t) => t.textContent === words).map((t) => {
+    const box = t.getBoundingClientRect();
+    return { ring: Math.min(...rings.map((r) => away(box, r))), other: Math.min(...points.map((q) => away(box, q))) };
+  });
+}
+
+for (const width of [768, 1100]) {
+  CHECKS.push({
+    name: "with P7 picked at " + width + " px the Panama Canal is named, and each name for the Pacific lies nearer its ring than any passage or port",
+    hash: "#/map?route=P7",
+    width,
+    async run(page) {
+      const passages = atlasItem("P7").passages.map((name) => geo.passages.find((p) => p.name === name)).filter(Boolean);
+      const edges = await page.evaluate("(" + edgeNames.toString() + ")(" + JSON.stringify(passages) + ", " + JSON.stringify(atlas.page.map.edge) + ")");
+      const names = await page.evaluate("[...document.querySelectorAll('.atlas-labels text:not(.halo)')].map((t) => t.textContent)");
+      const astray = edges.filter((edge) => edge.other <= edge.ring);
+      return [
+        [names.includes("Panama Canal"), "the map names " + names.join(", ")],
+        [edges.length > 0 && astray.length === 0, astray.map((edge) => "a Pacific name is " + edge.ring.toFixed(1) + " px from its ring and " + edge.other.toFixed(1) + " px from a passage or port").join("; ") || "no Pacific name"],
+      ];
+    },
+  });
+}
+
+for (const width of [768, 1100, 1440]) {
+  CHECKS.push({
+    name: "with nothing picked at " + width + " px every routing the map names in the artifact is named on it",
+    hash: "#/map",
+    width,
+    async run(page) {
+      const named = await page.evaluate("[...document.querySelectorAll('.atlas-labels text.atlas-label__alt:not(.halo)')].map((t) => t.textContent)");
+      const expected = atlas.items.flatMap((item) => item.alternatives.filter((alt) => alt.whole_label).map((alt) => alt.whole_label));
+      const missing = expected.filter((name) => !named.includes(name));
+      return [[missing.length === 0, "the map does not name " + missing.join(", ")]];
+    },
+  });
+}
+
+CHECKS.push({
+  name: "below 1100 px a click on a routing on the map presses its toggle where the page stands, focus staying where it was",
+  hash: "#/map?route=TC20",
+  width: 768,
+  async run(page) {
+    const routing = atlasItem("TC20").alternatives.find((alt) => alt.kind === "routing");
+    const toggle = ".atlas-alt-entry[data-alt=\"" + routing.id + "\"] .atlas-alt-entry__show";
+    // The map partly scrolled off the top, as a reader who scrolled down the column a little leaves it.
+    await page.evaluate("window.scrollTo(0, document.querySelector('.atlas-frame').getBoundingClientRect().top + scrollY + 40), true");
+    const at = await page.evaluate("(() => { const path = document.querySelector('.atlas-alt.is-current[data-alt=" + JSON.stringify(routing.id) + "] path');" +
+      " const point = path.getPointAtLength(path.getTotalLength() / 2).matrixTransform(path.getScreenCTM()); return { x: point.x, y: point.y }; })()");
+    const before = await page.evaluate("scrollY");
+    for (const type of ["mouseMoved", "mousePressed", "mouseReleased"]) {
+      await page.send("Input.dispatchMouseEvent", { type, x: at.x, y: at.y, button: "left", clickCount: 1 });
+    }
+    await page.waitFor("document.querySelector(" + JSON.stringify(toggle) + ").getAttribute('aria-pressed') === 'true'", 3000).catch(() => {});
+    const pressed = await page.evaluate(attr(toggle, "aria-pressed"));
+    const after = await page.evaluate("scrollY");
+    const active = await page.evaluate("document.activeElement ? document.activeElement.className : ''");
+    return [
+      [pressed === "true", "the toggle of " + routing.id + " is not pressed after a click on its line"],
+      [Math.abs(after - before) < 1, "the page scrolled from " + before + " to " + after + " px"],
+      [!String(active).includes("atlas-alt-entry__show"), "focus moved to the toggle"],
     ];
   },
 });

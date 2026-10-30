@@ -147,27 +147,35 @@ read, and a section is built the first time it opens. Nothing is a card.
   engine's estimates in the muted ink, as the key under the map says. The other routings are named on open water
   where there is room. Pointing at a line, or at a row of the list, draws that route in ink over the others, which
   turn to the thin muted line. Under 640px of map the blocks carry codes alone, and under 420px the labels and taps
-  give way to the list below it; while the labels carry no figures the heading over the map promises none.
+  give way to the list below it; while the labels carry no figures the heading over the map promises none
+  ("Every route, from its loading port"), and under 420px the line under it, one line, sends the reader to the
+  list ("Pick a route in the list below.").
 - **A route picked** (a click on its line or its label, a row of the list, or `#/map?route=TD3C`): the map frames
   it at the window's shape (from Python, `view`; under 600px of map a taller frame, `view_tall`), draws it in the
   accent over every other route with its ballast leg dashed beside it and its ECA stretches in sea green, its other
-  routings dotted in ink on the legs they do not share with it and named with what each changes ("Round the Cape:
-  +31.5 days, USD 132,196 a day lower, before Suez tolls"), every other route a thin muted line. Its ports and the
+  routings dotted in ink on the legs they do not share with it and named with their days ("Round the Cape: +31.5
+  days"), every other route a thin muted line. A routing's name carries no money: beside the line under the map,
+  which gives the route's own figure, a change taken against another base would be misread. Its ports and the
   passages that decide between its routings are named. A click on one of its routings, or on a routing's name,
-  presses that routing's toggle in the column; a routing shown from its toggle is drawn at full weight over the
-  rest, and its name alone is written, since routings that share water would otherwise share a name. The column
-  beside the map gives the route's heading, the routes whose line runs with it (one step away each), its TCE (the
-  study's freight) at the display size of the overview's facts, round voyage days (with a bar of ballast, laden,
-  port and waiting) and laden miles, its other ways to sail it, the base they are set against first and set apart,
-  with a "Show on the map" toggle each, named for its routing, the calculator link, then under "Freight and costs"
-  its freight, break-even, costs, war risk and what it leaves out, its links and its sources. The legend names only
-  the lines the map draws for it.
-- **One rule for the other routings:** each is set against the base its list opens with, and its line, on the map
-  and in the list, gives its change in days and in its list's unit (a TCE a day, or a cost of carriage a tonne),
-  taken from the two figures as they are shown and written with a word, never a signed sum of money ("USD 2.46 a
-  tonne more"). What the change is before ("before Suez tolls", "before toll and waiting") follows where the line
-  stays within 70 characters; the routing's entry in the column always says it. TD3C's list holds options rather
-  than routings (TD34, another cargo loading outside the strait; a transfer off Fujairah; waiting at Ras Tanura),
+  presses that routing's toggle in the column, with nothing scrolled; a routing shown from its toggle is drawn at
+  full weight over the rest, and its name alone is written, since routings that share water would otherwise share
+  a name. The column beside the map gives the route's heading, the routes whose line runs with it (a row of links,
+  each a full target, one step away), its TCE (the study's freight) at the display size of the overview's facts,
+  round voyage days (with a bar of ballast, laden, port and waiting) and laden miles, its other ways to sail it,
+  the base they are set against first and set apart, with a "Show on the map" toggle each, named for its routing,
+  the calculator link, then under "Freight and costs" ("Hire and costs" on S4A's trip, "Premium and cost of
+  carriage" on the study) its freight, break-even, costs, war risk and what it leaves out, its links and its
+  sources. The legend names only the lines the map draws for it.
+- **One rule for the other routings:** each is set against the base its list opens with, and its line in the list
+  gives its change in days and in money, taken from the two figures as they are shown and written with a word,
+  never a signed sum of money ("USD 7,270 a day higher"). The line sits beside the route's own figure, so where
+  the base is not that figure it names the base with the base's figure: TC20's Cape is "USD 132,196 a day lower
+  than by Suez (342,369)", TD22's way back by Suez is set against "the engine's TCE (463,639)" beside the Baltic's
+  451,905, and TD3C's transfer and waits are costs of carriage "than at Ras Tanura (285.00)" beside a TCE a day.
+  The study's lines are freight, as its row is. What the change is before, or the basis it holds on, follows
+  every line ("before Suez tolls", "before tolls and waiting", "the export VLCC at TD3C's TCE"), as the routing's
+  entry in the column says it. TD3C's list holds options rather than routings (TD34, another cargo loading outside
+  the strait, set against TD3C's TCE; a transfer off Fujairah; waiting at Ras Tanura), the transfer and the waits
   each a cost of carriage against loading there with no wait, whose one period of premium is counted once.
 - **The list:** one row a route, grouped by what its figure is (each group's heading names the basis its rows
   actually show: dry bulk at the engine's estimate and S4A at the Baltic's hire, dirty and clean tankers at the
@@ -175,11 +183,14 @@ read, and a section is built the first time it opens. Nothing is a card.
   class and ports, its TCE with the Baltic's qualifier words before it ("just under 197,000") and its round voyage
   days, then across the row its note (a date, how S4A's days are counted) and its other routings, one line each
   with what it changes, after a dotted sample, and a thin bar of its TCE on one linear scale for every route. A row
-  that is not a TCE like the others (S4A's trip) is pinned last, outside the order, with no bar. Filters (every
-  route, dry bulk, dirty tankers, clean tankers) head the list and are written to the address (`segment=`). Four
+  that is not a TCE like the others (S4A's trip) is pinned last, outside the order, with no bar. The caption says
+  whose figure each family shows and that the days are the round voyage's unless the row says otherwise. Filters
+  (all, dry bulk, dirty tankers, clean tankers, "All" short so that the four take one line on a phone from
+  360px) head the list and are written to the address (`segment=`). Four
   facts follow the list, each a link into its route: the highest and the lowest of the Baltic's TCEs, the longest
   round voyage, and the costliest detour, the routing whose whole cargo needs the most freight on top of its base's
-  to earn the base's TCE ("TC20 round the Cape, USD 11.61 million more freight, before Suez tolls"). Behind
+  to earn the base's TCE ("TC20 round the Cape, USD 11.61 million more freight, before Suez tolls", its note with
+  the days, the figure a tonne and "if war cover can be placed"). Behind
   buttons: every route side by side in a table, each row dated where its rate is of another week, and how to read
   the map.
 - **Built from** `data/atlas.json` (the items, their figures, alternatives, frames and words, and nothing the page
@@ -471,13 +482,16 @@ where one crosses a line.
   everything; the list's order comes back when the pick is cleared. A routing sailed out and back on the same water
   is drawn the same way round both ways, so its dots fall together and it never reads as a solid line, and it is
   drawn only on the legs it does not share with its route. Labels are measured on the page at the size
-  drawn (each in its own face, weight and size, once the web fonts are in) and placed by a box search like the
-  voyage map's, bounded on all four sides of the view with room for the halo, so the frame never grows. A label
-  must lie nearer its own point than any other named point (a port's dot; a passage, or the side where lines leave
-  across the Pacific, once its name is drawn), and a passage with no place that reads as its own is left out, the
-  column naming it. Among the places left the first wins that shares no baseline with a label beside it and that
-  no line crosses, else the one with the fewest shared baselines and then the fewest lines through it, a corridor
-  several routes sail counting as one line; the block with the fewest places chooses first. A loading area's block
+  drawn (each in its own face, weight and size, once the web fonts are in, and again when a reader's own style
+  spaces the text wider) and placed by a box search like the voyage map's, bounded on all four sides of the view
+  with room for the halo, so the frame never grows. A place's name must lie nearer its own point than any other
+  named point (a port's dot; with a route picked, every passage and side of the map its lines use, named or not),
+  and a passage with no place that reads as its own is left out, the column naming it. A routing's name names no
+  place: it keeps clear of dots, rings and labels only, may move further from its point, and with a route picked
+  may sit by any point of its own line, so it is not set across the legs that meet at a cape. Among the places
+  left the first wins that shares no baseline with a label beside it and that no line crosses, else the one with
+  the fewest shared baselines and then the fewest lines through it, a corridor several routes sail counting as one
+  line; the block with the fewest places chooses first. A loading area's block
   is a small table, codes left and figures in tabular figures in a column a little after the widest code, and the
   mode is chosen by fit, not by width: every block tries code and figure, and if any finds no place every block
   drops to codes. The route under a pointer is found by its distance in map units, not by the line on top, since
@@ -488,7 +502,8 @@ where one crosses a line.
   from a click by the pointer that went down. **Its readout is the declared exception to the rule above:** no box
   over the lines, but one line under the map that says what the pointer is on (the route's code, class, ports, TCE
   with its basis and days, and the routes sharing that water, kept up to date as the pointer slides along a line),
-  else the route picked, else how to start; two lines are kept for it so nothing below moves. The map is an image
+  else the route picked, else how to start; two lines are kept for it so nothing below moves as the pointer moves,
+  and none on a map too narrow for a pointer, where it changes only with a pick. The map is an image
   (`role="img"`, named by its title alone, "World map of the study's routes" or the route's heading once one is
   picked, and described by its description) that answers a pointer only; its keyboard and screen reader
   equivalent is the list beside it, which holds every figure the map shows, and hovering or focusing a row draws
@@ -529,7 +544,8 @@ written afresh as the pointer or focus arrives. Each "Show on the map" toggle is
 words seen ("Show on the map, Round the Cape"), and below 1100px a routing shown from its toggle brings the map into
 view, focus staying on the toggle. A filter press is said in the page's status line; a route the address names but
 the study does not is said above the list, and the address is rewritten without it. The links to the routes sharing
-a route's water stay in their sentence, each padded to a 44px target. The map's lines and labels are pointer
+a route's water are a row of links under the words that name them, each a box 44px tall and at least as wide, the
+rows 44px apart, so no link's box reaches over another's words. The map's lines and labels are pointer
 targets far under 44px: the list beside the map is their equivalent control, a tap selects only a line with no
 other as near, and under 420px of map a tap does nothing, so the list does the work on a phone.
 
@@ -542,8 +558,10 @@ heading, the map and the line under it come first, then the filters and the list
 legend, the key to the labels and the source line, the page keeping the legend with the map, where a screen reader
 reads it; at 600px and below the list's caption follows its rows, which start right after the filters, and the
 page keeps it before them. Once a route is picked a map under 600px wide takes a taller frame. While the map's
-labels carry no figures its heading drops "with its figure a day", and under 420px the line under it sends the
-reader to the list below. From 768px the heading keeps room for two lines, so a pick never moves the map, and at
+labels carry no figures its heading is one line that promises none, and under 420px the line under it, one line
+with no second kept, sends the reader to the list below, so on a 360 by 740 or a 390 by 844 phone the first rows
+are on the first screen; at 375 by 667 and at 320 wide the site's header, the view's title and takeaway and the
+map fill it. From 768px the heading keeps room for two lines, so a pick never moves the map, and at
 480px and below the Baltic's qualifier in a row ("just under") takes the line above its figure. The calculator sets
 its inputs left and its outputs right from 1100px; below that its outputs come first, so the result is read
 before the fields that move it; at every width a line under each open step gives the TCE as it stands.

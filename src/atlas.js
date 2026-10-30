@@ -33,7 +33,9 @@
  * route is taken here, so the route opens with the sections open; a click
  * with a modifier key follows the link's own address, which is written afresh
  * as the pointer or focus arrives. Closing a route, by Back to the list,
- * Escape or the browser's Back, leaves the sections as the page has them. The
+ * Escape or the browser's Back (which return to the list's entry, marked when
+ * the route was opened over it), leaves the sections as the page has them; an
+ * address typed or pasted that names its own sections is taken as it is. The
  * segment is not an entry, and a filter press is announced in the page's
  * status line. A route outside the segment clears the segment, and so does
  * closing a route the segment would not list.
@@ -43,7 +45,8 @@
  * lies below the screen's foot; on the way back, to the route's row, or to
  * the pressed filter where no row can take it. Never on the first load, which
  * ui.js handles. Below 1100px a routing shown from its toggle brings the map
- * into view, and focus stays on the toggle.
+ * into view, and focus stays on the toggle; one pressed by a click on the map
+ * itself, which is in view, moves nothing.
  *
  * Every figure is from data/atlas.json and every line from data/map.json.
  * Nothing is computed here but where things go, the length of each row's
@@ -68,9 +71,12 @@ const VIEW = "map";
  * (the study's freight); the others follow its alternatives. */
 const HEADLINE_FACTS = new Set(["tce", "round_trip", "days", "distance"]);
 const isHeadline = (fact, index) => index === 0 || HEADLINE_FACTS.has(fact.id);
-/* The mark a route's history entry carries when it was opened over the list. */
+/* The mark a route's history entry carries when it was opened over the list,
+ * and the one the list's own entry takes then, so a return to it by Back,
+ * Escape or the browser's Back is told from an address typed or pasted. */
 const OPENED_OVER_LIST = Object.freeze({ openedOverList: true });
-const openedOverList = () => Boolean(window.history.state && window.history.state.openedOverList);
+const LIST_UNDER_ROUTE = Object.freeze({ listUnderRoute: true });
+const marked = (key) => Boolean(window.history.state && window.history.state[key]);
 /* A click the page takes; one with a modifier key opens the link's own
  * address as the browser does, in a new tab or window. */
 const plainClick = (event) => !(event.button || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey);
@@ -85,6 +91,8 @@ let view = null;
 let escapeBound = false;
 
 export function render(root, data, route) {
+  // The map of an earlier visit stops listening, so it is not kept alive by the page's listeners.
+  if (view && view.map) view.map.stop();
   const atlas = data.atlas;
   const page = atlas.page;
   const decimals = atlas.conventions.decimals;
@@ -133,16 +141,19 @@ export function render(root, data, route) {
     // What the map's labels carried at its last drawing with nothing picked: "figures", "codes" or "none".
     labels: "figures",
     hovered: null,
+    // Each routing's toggle on the panel shown, by the routing's id: press({ fromMap }).
+    toggles: new Map(),
     state: { route: null, segment: "all" },
     // The longest bar is the highest TCE among the rows that carry one.
     top: Math.max(...atlas.items.filter(hasBar).map((item) => item.tce_usd_day)),
   };
   view.map = atlasMap(frame, data.map.land, data.map.atlas, atlas.items, atlas.clusters, page.map, decimals, {
     select: (id) => pick(id),
-    // A click on a routing of the route picked presses that routing's toggle, so the button and the map stay in step.
+    // A click on a routing of the route picked presses that routing's toggle, so the button and the map stay in
+    // step; the map is in view already, so nothing scrolls and focus stays where it is.
     alternative: (id) => {
-      const toggle = view.body.querySelector('.atlas-alt-entry[data-alt="' + id + '"] .atlas-alt-entry__show');
-      if (toggle) toggle.click();
+      const press = view.toggles.get(id);
+      if (press) press({ fromMap: true });
     },
     hover: (id, sharing) => hover(id, sharing),
     labels: (mode) => labelsDrawn(mode),
@@ -159,11 +170,16 @@ export function render(root, data, route) {
 
 export function update(root, route) {
   let next = route;
-  if (sections && view && view.layout.isConnected && view.state.route && !(route.params || {}).route) {
-    // A route closed, by Back to the list, Escape or the browser's Back: the
-    // sections stay as the page has them, and the list's address says so.
-    const params = openParams(sections.open(), route.params);
-    if (router.href(VIEW, params) !== router.href(VIEW, route.params || {})) {
+  const asked = route.params || {};
+  // A route closed, by Back to the list, Escape or the browser's Back, which
+  // land on the list's own entry, or by an address naming no sections, such as
+  // the Map in the navigation: the sections stay as the page has them, and the
+  // list's address says so. An address typed or pasted that names its own
+  // sections is taken as it is (sections.update below).
+  const returned = marked("listUnderRoute") || !asked.open;
+  if (sections && view && view.layout.isConnected && view.state.route && !asked.route && returned) {
+    const params = openParams(sections.open(), asked);
+    if (router.href(VIEW, params) !== router.href(VIEW, asked)) {
       router.replaceState(VIEW, params);
       next = router.current();
     }
@@ -225,6 +241,7 @@ function pick(id) {
     apply(router.current().params || {}, { firstLoad: false });
     return;
   }
+  router.mark(LIST_UNDER_ROUTE);
   router.go(VIEW, params, OPENED_OVER_LIST);
 }
 
@@ -233,7 +250,7 @@ function pick(id) {
  * entry, a deep link, is rewritten. */
 function back() {
   if (view.closing) return;
-  if (openedOverList()) {
+  if (marked("openedOverList")) {
     view.closing = true;
     window.history.back();
     return;
@@ -357,6 +374,8 @@ function hover(id, sharing) {
 function writeCaption() {
   const { caption, page, decimals, byId } = view;
   clear(caption);
+  // Two lines are kept for it where a pointer can change it; on a map too narrow for labels and taps it changes only with a pick.
+  caption.classList.toggle("atlas-caption--still", view.labels === "none");
   const shown = view.hovered ? byId.get(view.hovered.id) : view.state.route ? byId.get(view.state.route) : null;
   if (!shown) {
     caption.textContent = view.labels === "none" ? page.map.idle_narrow : page.map.idle;
@@ -510,20 +529,21 @@ function showPanel(item) {
     appendSegments(el("p", { class: "atlas-panel__sub" }), item.subhead, decimals),
   ]);
 
-  // The routes whose line runs with this one, each one step away and a full size target in the sentence.
+  // The routes whose line runs with this one, each one step away: a short
+  // list under the words that name it, every link a full target on its own
+  // line of targets, so a tap never lands on the link beside or below it.
   const same = (item.same_water || []).map((id) => byId.get(id)).filter(Boolean);
   if (same.length) {
-    const line = el("p", { class: "atlas-panel__same" }, [page.panel.same]);
-    same.forEach((other, index) => {
-      if (index) line.appendChild(document.createTextNode(index === same.length - 1 ? " and " : ", "));
-      line.appendChild(intoRoute(el("a", { class: "text-link", text: other.label, attrs: { href: routeHref(other.id), "data-item": other.id } }), other.id));
-    });
-    line.appendChild(document.createTextNode(page.panel.same_after));
-    panel.appendChild(line);
+    const lead = el("p", { class: "atlas-panel__same", id: "atlas-same-water", text: page.panel.same });
+    panel.appendChild(lead);
+    panel.appendChild(el("ul", { class: "atlas-same", attrs: { "aria-labelledby": lead.id } }, same.map((other) => el("li", {}, [
+      intoRoute(el("a", { class: "text-link", text: other.label, attrs: { href: routeHref(other.id), "data-item": other.id } }), other.id),
+    ]))));
   }
 
   panel.appendChild(factList(item, item.facts.filter(isHeadline), "atlas-facts atlas-facts--head"));
   const drawn = new Set(drawnRoutings(item));
+  view.toggles = new Map();
   if (item.alternatives.length) {
     panel.appendChild(el("h3", { class: "atlas-panel__heading", text: page.panel.alternatives }));
     const list = el("ul", { class: "atlas-alts" });
@@ -541,13 +561,17 @@ function showPanel(item) {
           page.panel.show,
           el("span", { class: "visually-hidden", text: ", " + (alt.short || alt.name) }),
         ]);
-        toggle.addEventListener("click", () => {
+        // Pressed from the column, below 1100px, it brings the map into view;
+        // pressed from the map, by a click on the routing, nothing moves.
+        const press = ({ fromMap }) => {
           const on = toggle.getAttribute("aria-pressed") !== "true";
           for (const other of list.querySelectorAll(".atlas-alt-entry__show")) other.setAttribute("aria-pressed", "false");
           toggle.setAttribute("aria-pressed", on ? "true" : "false");
           view.map.show({ focus: on ? alt.id : null });
-          if (on) showMap(toggle);
-        });
+          if (on && !fromMap) showMap(toggle);
+        };
+        toggle.addEventListener("click", () => press({ fromMap: false }));
+        view.toggles.set(alt.id, press);
         entry.appendChild(toggle);
       }
       list.appendChild(entry);
@@ -560,8 +584,9 @@ function showPanel(item) {
   if (calculator.length) panel.appendChild(linkList(calculator, "atlas-links atlas-links--first"));
   const rest = item.facts.filter((fact, index) => !isHeadline(fact, index));
   if (rest.length) {
-    // Under their own heading, so a reader moving by headings does not find them among the routings.
-    panel.appendChild(el("h3", { class: "atlas-panel__heading", text: page.panel.more }));
+    // Under their own heading, so a reader moving by headings does not find
+    // them among the routings; worded for the route ("Hire and costs" on a trip).
+    panel.appendChild(el("h3", { class: "atlas-panel__heading", text: item.more }));
     panel.appendChild(factList(item, rest, "atlas-facts"));
   }
   if (others.length) {
@@ -578,12 +603,25 @@ function factList(item, facts, className) {
   for (const fact of facts) {
     list.appendChild(el("div", { class: "atlas-fact", attrs: { "data-fact": fact.id } }, [
       el("dt", { class: "atlas-fact__label", text: fact.label }),
-      appendSegments(el("dd", { class: "atlas-fact__value" }), fact.value, decimals),
+      appendSegments(el("dd", { class: "atlas-fact__value" }), leadOut(fact.value), decimals),
       fact.id === "days" && item.split ? daysBar(item.split, page.panel.split) : null,
       fact.note.length ? appendSegments(el("dd", { class: "atlas-fact__note" }), fact.note, decimals) : null,
     ]));
   }
   return list;
+}
+
+/* A figure whose prefix carries words before its unit ("just under USD
+ * 197,000") keeps only the unit with the figure, which never breaks: the words
+ * may take the line above on a narrow screen, or with the text spaced wider. */
+function leadOut(segments) {
+  return segments.flatMap((segment) => {
+    if (!segment || typeof segment !== "object" || !segment.prefix || !Number.isFinite(segment.value)) return [segment];
+    const words = segment.prefix.trimEnd().split(" ");
+    if (words.length <= 1) return [segment];
+    const unit = words.pop();
+    return [words.join(" ") + " ", { ...segment, prefix: unit + " " }];
+  });
 }
 
 /* A route's links. One to another route of this map moves to it as a
@@ -640,7 +678,8 @@ function routeTable(atlas, decimals) {
   for (const item of atlas.items.filter((entry) => entry.kind === "route")) {
     rows.appendChild(el("tr", { attrs: { "data-item": item.id } }, [
       el("th", { attrs: { scope: "row" } }, [el("span", { class: "row-code", text: item.label }), el("span", { class: "row-name", text: item.ports })]),
-      ...keys.map((key) => appendSegments(el("td", { class: "num" }), item.table[key], decimals)),
+      // Each cell's words in one box, so a phone's stacked table wraps them as a sentence, every word kept.
+      ...keys.map((key) => el("td", { class: "num" }, [appendSegments(el("span", { class: "atlas-cell" }), item.table[key], decimals)])),
     ]));
   }
   const table = el("table", { class: "table" }, [el("thead", {}, [head]), rows]);
