@@ -615,7 +615,7 @@ export function atlasMap(frame, land, geo, items, clusters, words, decimals, on)
       for (const portId of portIds) dotAt(geo.ports[portId].x, geo.ports[portId].y);
       const passages = new Map(geo.passages.map((p) => [p.name, p]));
       // One name a side of the map where its lines leave across the Pacific, at the middle of that side's rings.
-      const middle = geo.view_box[0] + geo.view_box[2] * GEOMETRY.HALF;
+      const middle = geo.view_box[0] + ww * GEOMETRY.HALF;
       const edges = [true, false]
         .map((west) => keys.flatMap((key) => geo.legs[key].edges).filter(([x]) => (x < middle) === west))
         .filter((side) => side.length)

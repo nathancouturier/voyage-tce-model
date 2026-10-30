@@ -44,8 +44,10 @@ import { segmentsText, listWords } from "./format.js";
 export const artifacts = Object.freeze(["atlas", "map"]);
 
 const VIEW = "map";
-/* The facts read first in a route's detail; the others follow its alternatives. */
-const HEADLINE_FACTS = new Set(["tce", "hire", "days", "distance"]);
+/* The facts read first in a route's detail, with its first fact whatever it is
+ * (the study's freight); the others follow its alternatives. */
+const HEADLINE_FACTS = new Set(["tce", "round_trip", "days", "distance"]);
+const isHeadline = (fact, index) => index === 0 || HEADLINE_FACTS.has(fact.id);
 let sections = null;
 let view = null;
 let escapeBound = false;
@@ -361,13 +363,14 @@ function showPanel(item) {
     panel.appendChild(line);
   }
 
-  panel.appendChild(factList(item, item.facts.filter((fact) => HEADLINE_FACTS.has(fact.id))));
+  panel.appendChild(factList(item, item.facts.filter(isHeadline)));
   const own = new Set([item.legs.laden, item.legs.ballast]);
   if (item.alternatives.length) {
     panel.appendChild(el("h3", { class: "atlas-panel__heading", text: page.panel.alternatives }));
     const list = el("ul", { class: "atlas-alts" });
     for (const alt of item.alternatives) {
-      const entry = el("li", { class: "atlas-alt-entry", attrs: { "data-alt": alt.id } }, [
+      // The base, listed first, is the routing priced above on the alternatives' own basis: every change is set against it.
+      const entry = el("li", { class: "atlas-alt-entry" + (alt.kind === "base" ? " atlas-alt-entry--base" : ""), attrs: { "data-alt": alt.id } }, [
         el("p", { class: "atlas-alt-entry__name", text: alt.name }),
         appendSegments(el("p", { class: "atlas-alt-entry__text" }), alt.text, decimals),
       ]);
@@ -390,7 +393,7 @@ function showPanel(item) {
   const calculator = item.links.filter((link) => link.view === "calculator");
   const others = item.links.filter((link) => link.view !== "calculator");
   if (calculator.length) panel.appendChild(linkList(calculator, "atlas-links atlas-links--first"));
-  const rest = item.facts.filter((fact) => !HEADLINE_FACTS.has(fact.id));
+  const rest = item.facts.filter((fact, index) => !isHeadline(fact, index));
   if (rest.length) panel.appendChild(factList(item, rest));
   if (others.length) {
     panel.appendChild(el("h3", { class: "atlas-panel__heading", text: page.panel.links }));

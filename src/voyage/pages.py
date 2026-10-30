@@ -12,8 +12,8 @@ from collections.abc import Mapping, Sequence
 from functools import cache
 from typing import Any
 
-from . import anchors, baltic, cases
-from .words import date_label, fig, plain, rounded_parts, usd, usd_m, word
+from . import anchors, atlas, baltic, cases
+from .words import MONTHS, date_label, fig, plain, rounded_parts, usd, usd_m, word
 
 Segments = list[Any]
 
@@ -2341,14 +2341,20 @@ ROUTING_NAMES = {
     ("P7", "no_canals", "no_canals"): ("Round the Cape", "Round the Cape of Good Hope both ways"),
     ("P7", "direct", "no_canals"): ("Back round the Cape", "By Panama laden, back round the Cape in ballast"),
     ("P7", "no_canals", "direct"): ("Laden round the Cape", "Round the Cape laden, back by Panama in ballast"),
-    ("TD22", "no_canals", "no_canals"): ("Sunda both ways", "By the Sunda Strait both ways"),
     ("TD22", "no_canals_no_sunda", "no_panama"): ("Back by Suez", "By Malacca laden, back by Suez in ballast"),
-    ("TD22", "no_canals", "no_panama"): ("Sunda, back by Suez", "By the Sunda Strait laden, back by Suez in ballast"),
     ("TC20", "no_suez", "no_suez"): ("Round the Cape", "Round the Cape of Good Hope both ways"),
 }
-#: The list's group headings: each names the basis of the TCE its rows show.
+#: The first entry of each route's alternatives: the routing they are all set against, on their own basis.
+BASE_NAMES = {
+    "P7": "By Panama both ways, as priced above",
+    "TD22": "By Malacca laden and the Sunda Strait back, as priced above",
+    "TC20": "By Suez both ways, as the Detours view prices it",
+    "TD3C": "Loading at Ras Tanura, as priced above, as a cost of carriage",
+    "QD_RTM_PMX": "By Suez, as priced above",
+}
+#: The list's group headings: each names the basis of the figure its rows show.
 ATLAS_GROUPS = {
-    "dry": "Dry bulk: the engine's estimate",
+    "dry": "Dry bulk: the engine's estimates, and S4A's hire",
     "dirty": "Dirty tankers: the Baltic's TCE",
     "clean": "Clean tankers: the Baltic's TCE",
     "study": "A detour study, not a Baltic route",
@@ -2356,26 +2362,47 @@ ATLAS_GROUPS = {
 #: What else a route could do, named in its list row.
 ATLAS_ALSO = {
     "P7": "Also round the Cape, either way or both",
-    "TD22": "Also back by Suez, or by the Sunda Strait",
+    "TD22": "Also back by Suez",
     "TC20": "Also round the Cape",
     "TD3C": "Also TD34, a transfer off Fujairah, or a wait",
     "QD_RTM_PMX": "Also round the Cape, or by Panama",
 }
-#: Where else the site prices a route, as links from its panel.
+#: Where else the site prices a route, as links from its panel; the words name the target's market or basis where
+#: it is not this view's.
 ATLAS_LINKS: dict[str, list[dict[str, Any]]] = {
-    "TD22": [{"text": "TD22 step by step on Overview", "view": "overview", "params": {}}],
+    "TD22": [
+        {
+            "text": "TD22 step by step on Overview, at the engine's TCE for the same lump sum",
+            "view": "overview",
+            "params": {},
+        }
+    ],
     "TC20": [{"text": "Suez or the Cape on Detours", "view": "detours", "params": {"open": "suez"}}],
     "TD3C": [
         {"text": "The Hormuz scenarios on Detours", "view": "detours", "params": {"open": "hormuz"}},
-        {"text": "TD3C against the FFA on Paper", "view": "paper", "params": {"open": "tankers"}},
+        {
+            "text": "TD3C against its FFA on Paper, in the second quarter of 2026",
+            "view": "paper",
+            "params": {"open": "tankers"},
+        },
     ],
-    "TD20": [{"text": "Its EU allowances by year on Carbon", "view": "carbon", "params": {}}],
-    "C3": [{"text": "C3 against the FFA on Paper", "view": "paper", "params": {}}],
-    "C5": [{"text": "C5 against the FFA on Paper", "view": "paper", "params": {}}],
-    "S4A_63": [{"text": "Who pays the allowances on a trip, on Carbon", "view": "carbon", "params": {}}],
+    "TD20": [
+        {"text": "Its EU allowances by year on Carbon, at the August 2026 market", "view": "carbon", "params": {}}
+    ],
+    "C3": [{"text": "C3 against the FFA on Paper, in the week to 3 July 2026", "view": "paper", "params": {}}],
+    "C5": [{"text": "C5 against the FFA on Paper, in the week to 3 July 2026", "view": "paper", "params": {}}],
+    "S4A_63": [
+        {
+            "text": "Who pays the allowances on a trip, on Carbon, at the August 2026 market",
+            "view": "carbon",
+            "params": {},
+        }
+    ],
     "QD_RTM_PMX": [{"text": "The detour study on Detours", "view": "detours", "params": {"open": "dry"}}],
-    "TD34": [{"text": "TD3C, the same voyage loading inside the Gulf", "view": "map", "params": {"route": "TD3C"}}],
+    "TD34": [{"text": "TD3C, the same ship loading inside the Gulf", "view": "map", "params": {"route": "TD3C"}}],
 }
+#: The three months' letters a map label writes a date's month in.
+SHORT_MONTH = 3
 
 
 def _or_words(items: list[Any]) -> list[Any]:
@@ -2418,6 +2445,12 @@ def _source_short(reported: str) -> str:
     return reported.split(" to ")[0].split(",")[0].split(" (")[0]
 
 
+def _short_date(iso: str) -> str:
+    """2026-09-11 as 11 Sep, for a label on the map."""
+    parts = iso.split("-")
+    return "%d %s" % (int(parts[2]), MONTHS[int(parts[1]) - 1][:SHORT_MONTH])
+
+
 def _days_split(days: Mapping[str, float], field: str) -> list[Any]:
     """'21.3 in ballast, 19.7 laden and 6.0 in port and waiting', the parts rounded to add to the total."""
     ballast, laden, port = rounded_parts([days["ballast"], days["laden"], days["port"]], "days")
@@ -2431,11 +2464,22 @@ def _days_split(days: Mapping[str, float], field: str) -> list[Any]:
     ]
 
 
-def _rate_value(rate: Mapping[str, Any], field: str) -> list[Any]:
+def _rate_qualifier(code: str, date: str) -> str:
+    """The words the Baltic's weekly report sets before a rate it gives in round figures ('just over WS651')."""
+    for report in cases.seed("anchors.json")["tanker_weekly"]["reports"]:
+        if report["week_ending"] != date:
+            continue
+        for entry in report["entries"]:
+            if entry["route"] == code and "just over WS" in entry["quote"]:
+                return "just over "
+    return ""
+
+
+def _rate_value(rate: Mapping[str, Any], field: str, qualifier: str = "") -> list[Any]:
     """The freight as the market quotes it."""
     basis, value = rate["basis"], rate["value"]
     if basis == "ws":
-        return [fig(value, "ws", field, prefix="WS ")]
+        return [fig(value, "ws", field, prefix=qualifier + "WS ")]
     if basis == "lump_sum":
         return [usd_m(value, field), " lump sum"]
     if basis == "hire_usd_day":
@@ -2444,31 +2488,82 @@ def _rate_value(rate: Mapping[str, Any], field: str) -> list[Any]:
 
 
 def _tce_figure(f: Mapping[str, Any], field: str) -> dict[str, Any]:
-    """The headline TCE as one figure, the Baltic's qualifier in front of it."""
-    prefix = QUALIFIER_WORDS[f["published_qualifier"]] if f["tce_basis"] == "baltic" else ""
+    """The headline figure in US dollars: the Baltic's TCE with its qualifier in front, S4A's hire, or the estimate."""
+    if f["headline"] == "baltic_hire":
+        return fig(f["tce_usd_day"], "usd_day", field, prefix="hire USD ")
+    prefix = QUALIFIER_WORDS[f["published_qualifier"]] if f["headline"] == "baltic_tce" else ""
     return fig(f["tce_usd_day"], "usd_day", field, prefix=prefix + "USD ")
+
+
+def _map_figure(f: Mapping[str, Any], date: str, atlas_date: str) -> list[Any]:
+    """The figure beside a route's code on the map: no currency, the key line under the map names it; the Baltic's
+    qualifier, 'hire' for a trip hire, and the date of a rate older than the map's."""
+    if f["headline"] == "baltic_hire":
+        prefix = "hire "
+    elif f["headline"] == "baltic_tce":
+        prefix = QUALIFIER_WORDS[f["published_qualifier"]]
+    else:
+        prefix = ""
+    out: list[Any] = [fig(f["tce_usd_day"], "usd_day", "tce_usd_day", prefix=prefix)]
+    if date != atlas_date:
+        out += [", ", word(_short_date(date), "date_short")]
+    return out
+
+
+def _war_rate_words(rate: Mapping[str, Any]) -> str:
+    """A rate with who gave it and when; a rate taken from a range, as the range's low end."""
+    who = _source_short(rate["reported"])
+    to = " Platts" if " to Platts" in rate["reported"] else ""
+    if rate["high"] != rate["low"]:
+        return "the low end of the %g to %g percent %s gave%s on %s" % (
+            rate["low"],
+            rate["high"],
+            who,
+            to,
+            date_label(rate["as_of"]),
+        )
+    return "%s%s, %s" % (who, " to Platts" if to else "", date_label(rate["as_of"]))
+
+
+def _war_source(code: str, f: Mapping[str, Any]) -> str | None:
+    """The war risk rates a route's panel prices, with who gave them and when; None if it prices none."""
+    rates = {r["id"]: r for r in cases.seed("market.json")["war_risk"]["rates_pct"]}
+    used = []
+    if f["gulf_war_risk"] is not None and f["gulf_war_risk"]["hull_value_usd"]:
+        used.append(rates[atlas.GULF_RATE_ID])
+    if code in ("TC20", "TD22"):
+        used.append(rates[atlas.RED_SEA_RATE_ID])
+    if code == "TC20":
+        used.append(rates[atlas.GULF_RATE_ID])
+    if not used:
+        return None
+    named = sorted({(_source_short(r["reported"]), r["as_of"]) for r in used})
+    return "; ".join("%s to Platts, %s" % (who, date_label(day)) for who, day in named)
+
+
+def _hull_words() -> str:
+    hulls = cases.seed("market.json")["hull_values_usd"]
+    return "%s, %s" % (_source_short(hulls["source"]), date_label(hulls["source"].split(" of ")[1].split(",")[0]))
 
 
 def _war_fact(code: str, f: Mapping[str, Any], st: Mapping[str, Any]) -> dict[str, Any] | None:
     """Who pays which war risk premium on the route, at the rates the Detours view prices."""
-    market = cases.seed("market.json")
-    rates = {r["id"]: r for r in market["war_risk"]["rates_pct"]}
-    hulls = market["hull_values_usd"]
-    hull_words = "%s, %s" % (_source_short(hulls["source"]), date_label(hulls["source"].split(" of ")[1].split(",")[0]))
+    rates = {r["id"]: r for r in cases.seed("market.json")["war_risk"]["rates_pct"]}
     if code == "TC20":
         suez = st["options"][0]
         red = st["red_sea_war_risk"]
         gulf = rates[st["gulf_war_risk"]["source_id"]]
+        red_rate = rates[red["source_id"]]
         return {
             "id": "war",
-            "label": "War risk premiums",
+            "label": "Additional war risk premiums",
             "value": [usd(suez["charterer_war_risk_usd_t"], "war.charterer_usd_t", "usd_t"), " a tonne"],
             "note": [
-                "The charterer's: the Gulf at %g percent of the hull value a seven-day period and the laden Red Sea "
-                "transit at %g percent (%s, %s). The owner pays "
-                % (gulf["low"], red["premium_pct"], _source_short(gulf["reported"]), date_label(gulf["as_of"])),
+                "For the charterer's account: the Gulf at %g percent of the hull value a seven-day period, %s, and the "
+                "laden Red Sea transit at %g percent (%s). The owner pays "
+                % (gulf["low"], _war_rate_words(gulf), red["premium_pct"], _war_rate_words(red_rate)),
                 usd(red["owner_usd"], "war.owner_usd"),
-                " for the ballast transit back, which the Baltic's TCE leaves out.",
+                " for the ballast transit back, which the Baltic's TCE leaves out (hull value %s)." % _hull_words(),
             ],
         }
     gulf_risk = f["gulf_war_risk"]
@@ -2478,101 +2573,268 @@ def _war_fact(code: str, f: Mapping[str, Any], st: Mapping[str, Any]) -> dict[st
     if gulf_risk["hull_value_usd"] is None:
         return {
             "id": "war",
-            "label": "War risk premium",
+            "label": "Additional war risk premium",
             "value": ["No public hull value"],
             "note": [
-                "The Gulf premium is %g percent of the hull value for each seven days inside (%s, %s), the "
-                "charterer's; no dated public hull value exists for this ship, so it is not priced."
-                % (rate["low"], _source_short(rate["reported"]), date_label(rate["as_of"]))
+                "The Gulf premium is %g percent of the hull value for each seven days inside, %s, for the "
+                "charterer's account; no dated public hull value exists for this ship, so it is not priced."
+                % (rate["low"], _war_rate_words(rate))
             ],
         }
     return {
         "id": "war",
-        "label": "War risk premium",
+        "label": "Additional war risk premium",
         "value": [usd(gulf_risk["per_period_usd_t"], "war.per_period_usd_t", "usd_t"), " a tonne"],
         "note": [
-            "The charterer's, for each seven days inside the Gulf (",
+            "For the charterer's account, for each seven days inside the Gulf (",
             fig(gulf_risk["periods"], "count", "war.periods"),
             " on this voyage), at %g percent of a " % rate["low"],
             usd_m(gulf_risk["hull_value_usd"], "war.hull_value_usd", "usd_m_0"),
-            " hull value (%s, %s; hull value %s)."
-            % (_source_short(rate["reported"]), date_label(rate["as_of"]), hull_words),
+            " hull value: %s (hull value %s)." % (_war_rate_words(rate), _hull_words()),
         ],
     }
 
 
-def _alternative(code: str, alt: Mapping[str, Any], base_excluded: Sequence[str], label_at: Any) -> dict[str, Any]:
-    """One other way to sail a route: its name on the map, its name in the panel and its figures as a sentence."""
-    field = "alternatives.%s" % alt["id"]
+def _days_and_change(alt: Mapping[str, Any], field: str) -> list[Any]:
+    return [
+        fig(alt["days"], "days", field + ".days", suffix=" days"),
+        " (",
+        fig(alt["days_change"], "days", field + ".days_change", signed=True),
+        ")",
+    ]
 
-    def days_and_change() -> list[Any]:
-        return [
-            fig(alt["days"], "days", field + ".days", suffix=" days"),
-            " (",
-            fig(alt["days_change"], "days", field + ".days_change", signed=True),
-            ")",
+
+def _routing_text(code: str, alt: Mapping[str, Any], base_excluded: Sequence[str], field: str) -> list[Any]:
+    """A leg routing of P7 or TD22 against its base: what it earns, or the toll at which the two earn the same."""
+    text: list[Any] = [*_days_and_change(alt, field)]
+    crossing = alt["toll_crossing_usd"]
+    if code == "TD22":
+        text += [
+            ". With the owner's Red Sea premium for the ballast transit, ",
+            usd(alt["owner_premium_usd"], field + ".owner_premium_usd"),
+            " at %g percent (%s) of a "
+            % (
+                alt["red_sea_premium_pct"],
+                _war_rate_words(
+                    next(
+                        r
+                        for r in cases.seed("market.json")["war_risk"]["rates_pct"]
+                        if r["id"] == atlas.RED_SEA_RATE_ID
+                    )
+                ),
+            ),
+            usd_m(alt["hull_value_usd"], field + ".hull_value_usd", "usd_m_0"),
+            " hull value, and %s in the canal, as the guide gives TC20 a transit, it earns more than the base until "
+            "the Suez toll passes " % ("one day" if alt["canal_days"] == 1 else "%g days" % alt["canal_days"]),
+            usd_m(crossing, field + ".toll_crossing_usd"),
+            ".",
         ]
+    elif alt["transits"]:
+        text += [
+            ". It keeps ",
+            _count_words(alt["transits"]),
+            " of the ",
+            _count_words(alt["base_transits"]),
+            " Panama transits; with the same toll on every transit, Panama both ways stays ahead while a transit "
+            "costs less than ",
+            usd_m(crossing, field + ".toll_crossing_usd"),
+            ".",
+        ]
+    else:
+        text += [
+            "; TCE ",
+            usd(alt["tce_usd_day"], field + ".tce_usd_day", "usd_day"),
+            " a day at the same freight (",
+            fig(alt["tce_change"], "usd_day", field + ".tce_change", signed=True),
+            "). Panama both ways stays ahead unless its ",
+            _count_words(alt["base_transits"]),
+            " transits cost more than ",
+            usd_m(crossing * alt["base_transits"], field + ".toll_budget_usd"),
+            " in tolls, or about ",
+            fig(alt["waiting_days_crossing"], "count", field + ".waiting_days_crossing", suffix=" days"),
+            " of waiting with no toll (no fuel is priced while it waits). %s." % _panama_wait(),
+        ]
+    added = [item for item in alt["excluded"] if item not in base_excluded]
+    if added:
+        text.append(" It leaves out %s." % _plain_join(added))
+    return text
 
-    if alt["kind"] == "routing" and code in ("P7", "TD22"):
+
+def _routing_label(code: str, short: str, alt: Mapping[str, Any], field: str) -> list[Any]:
+    out: list[Any] = [
+        short + ": ",
+        fig(alt["days_change"], "days", field + ".days_change", signed=True, suffix=" days"),
+    ]
+    if code == "TD22":
+        out += [", toll budget ", usd_m(alt["toll_crossing_usd"], field + ".toll_crossing_usd")]
+    elif not alt["transits"]:
+        out += [", TCE ", fig(alt["tce_usd_day"], "usd_day", field + ".tce_usd_day")]
+    return out
+
+
+def _base_text(code: str, base: Mapping[str, Any], f: Mapping[str, Any], date: str) -> list[Any]:
+    """The base routing on its alternatives' own basis, and why it differs from the figure at the head of the panel."""
+    field = "alternatives.base"
+    if code == "P7":
+        return [
+            "TCE ",
+            usd(base["tce_usd_day"], field + ".tce_usd_day", "usd_day"),
+            " a day over ",
+            fig(base["days"], "days", field + ".days", suffix=" days"),
+            ", at the rate of ",
+            word(date_label(date), "date"),
+            ", before the tolls of its %s Panama transits and any time at the canal, which have no public figure "
+            "for this ship." % _count_words(base["transits"]),
+        ]
+    if code == "TD22":
+        return [
+            "The engine's TCE, ",
+            usd(base["tce_usd_day"], field + ".tce_usd_day", "usd_day"),
+            " a day over ",
+            fig(base["days"], "days", field + ".days", suffix=" days"),
+            ", before port charges: the figure the other routing is set against, not the Baltic's ",
+            usd(f["published_tce_usd_day"], field + ".published_tce_usd_day", "usd_day"),
+            ", which comes from the Baltic's own calculation.",
+        ]
+    if code == "TC20":
+        return [
+            usd(base["tce_usd_day"], field + ".tce_usd_day", "usd_day"),
+            " a day over ",
+            fig(base["days"], "days", field + ".days", suffix=" days"),
+            ", ",
+            usd(base["tce_below_headline"], field + ".tce_below_headline", "usd_day"),
+            " a day below the engine's figure above: the owner pays ",
+            usd(base["owner_red_sea_usd"], field + ".owner_red_sea_usd"),
+            " of Red Sea premium for the ballast transit, which that figure leaves out. The charterer pays ",
+            usd(base["charterer_war_risk_usd_t"], field + ".charterer_war_risk_usd_t", "usd_t"),
+            " a tonne of premium: the Gulf's at %g percent and the laden Red Sea transit's at %g percent. Before the "
+            "two Suez tolls, which have no public figure for this ship."
+            % (base["gulf_premium_pct"], base["red_sea_premium_pct"]),
+        ]
+    if code == "TD3C":
+        return [
+            "The freight that earns the Baltic's TCE at the engine's days and costs is ",
+            usd(base["freight_usd_t"], field + ".freight_usd_t", "usd_t"),
+            " a tonne, derived as on Detours, not a quoted rate; with the charterer's Gulf premium, ",
+            usd(base["premium_usd_t"], field + ".premium_usd_t", "usd_t"),
+            " a tonne for its %s seven-day period%s at %g percent of the hull value, the cargo costs "
+            % (_count_words(int(base["periods"])), "" if base["periods"] == 1 else "s", base["premium_pct"]),
+            usd(base["carriage_usd_t"], field + ".carriage_usd_t", "usd_t"),
+            " a tonne to carry, before port charges.",
+        ]
+    raise KeyError(code)
+
+
+def _alternative(
+    code: str, alt: Mapping[str, Any], base_excluded: Sequence[str], label_at: Any, f: Mapping[str, Any], date: str
+) -> dict[str, Any]:
+    """One way to sail a route: its name on the map, its name in the panel and its figures as a sentence.
+
+    The base comes first and carries no line of its own: the route's line is it.
+    """
+    field = "alternatives.%s" % alt["id"]
+    map_label: list[Any] | None = None
+    if alt["kind"] == "base":
+        short, name, text = "", BASE_NAMES[code], _base_text(code, alt, f, date)
+    elif alt["kind"] == "routing" and code in ("P7", "TD22"):
         short, name = ROUTING_NAMES[(code, alt["routing"]["laden"], alt["routing"]["ballast"])]
-        text: list[Any] = [
-            *days_and_change(),
+        text = _routing_text(code, alt, base_excluded, field)
+        map_label = _routing_label(code, short, alt, field)
+    elif code == "TC20":
+        short, name = ROUTING_NAMES[(code, "no_suez", "no_suez")]
+        text = [
+            *_days_and_change(alt, field),
             "; TCE ",
             usd(alt["tce_usd_day"], field + ".tce_usd_day", "usd_day"),
             " a day (",
             fig(alt["tce_change"], "usd_day", field + ".tce_change", signed=True),
-            "). To earn the TCE above it needs ",
-            usd(alt["freight_needed_usd_t"], field + ".freight_needed_usd_t", "usd_t"),
-            " a tonne (",
-            fig(alt["freight_change_usd_t"], "usd_t", field + ".freight_change_usd_t", signed=True),
-            ").",
-        ]
-        added = [item for item in alt["excluded"] if item not in base_excluded]
-        if added:
-            text.append(" It leaves out %s." % _plain_join(added))
-    elif code == "TC20":
-        short, name = ROUTING_NAMES[(code, "no_suez", "no_suez")]
-        text = [
-            *days_and_change(),
-            "; TCE ",
-            usd(alt["tce_usd_day"], field + ".tce_usd_day", "usd_day"),
-            " a day, against ",
-            usd(alt["suez_tce_usd_day"], field + ".suez_tce_usd_day", "usd_day"),
-            " by Suez once the owner pays its premium for the ballast transit of the Red Sea. The Cape needs ",
+            " on Suez). The Cape needs ",
             usd(alt["freight_change_usd_t"], field + ".freight_change_usd_t", "usd_t"),
-            " a tonne more freight to earn as much, so Suez stays the better way until the tolls of its ",
-            fig(alt["break_even_suez_transits"], "count", field + ".transits"),
+            " a tonne more freight to earn as much, and saves the charterer ",
+            usd(-alt["charterer_war_risk_change_usd_t"], field + ".charterer_war_risk_saved_usd_t", "usd_t"),
+            " a tonne of premium (",
+            usd(alt["charterer_war_risk_usd_t"], field + ".charterer_war_risk_usd_t", "usd_t"),
+            " for the Gulf alone); Suez stays the better way until the tolls of its ",
+            _count_words(alt["break_even_suez_transits"]),
             " transits pass ",
             usd_m(alt["break_even_suez_toll_usd"], field + ".break_even_suez_toll_usd"),
             ".",
         ]
+        map_label = [
+            short + ": ",
+            fig(alt["days_change"], "days", field + ".days_change", signed=True, suffix=" days"),
+            ", TCE ",
+            fig(alt["tce_usd_day"], "usd_day", field + ".tce_usd_day"),
+        ]
     elif alt["id"] == "td34":
-        short, name = "TD34", "TD34: loading at Mina Al Fahal, outside the Gulf"
+        short, name = "TD34", "TD34: another cargo for the same ship, loading at Mina Al Fahal outside the strait"
         text = [
-            *days_and_change(),
-            "; the Baltic's TCE ",
+            *_days_and_change(alt, field),
+            "; the Baltic's round-trip TCE ",
             usd(alt["tce_usd_day"], field + ".tce_usd_day", "usd_day"),
-            " a day. At its own TCE the freight is ",
+            " a day on ",
+            word(date_label(date), "date"),
+            ". At the engine's days and costs that is a freight of ",
             usd(alt["freight_needed_usd_t"], field + ".freight_needed_usd_t", "usd_t"),
             " a tonne, against ",
             usd(alt["td3c_freight_usd_t"], field + ".td3c_freight_usd_t", "usd_t"),
-            " for TD3C at its own.",
+            " for TD3C, both derived as on Detours: a different crude, already outside the strait, not a way to "
+            "carry a TD3C cargo.",
+        ]
+        map_label = [
+            "TD34: ",
+            fig(alt["days_change"], "days", field + ".days_change", signed=True, suffix=" days"),
+            ", TCE ",
+            fig(alt["tce_usd_day"], "usd_day", field + ".tce_usd_day"),
         ]
     elif alt["id"] == "transfer":
         short, name = "Fujairah transfer", "A shuttle out of the Gulf, then an export VLCC from Fujairah"
         low, high = alt["shuttle_usd_bbl"]
+        low_t, high_t = alt["shuttle_usd_t"]
+        carriage_low, carriage_high = alt["carriage_usd_t"]
         text = [
             "The export VLCC sails ",
-            *days_and_change(),
+            *_days_and_change(alt, field),
             " and needs ",
             usd(alt["freight_needed_usd_t"], field + ".freight_needed_usd_t", "usd_t"),
-            " a tonne to earn TD3C's TCE (",
-            fig(alt["freight_change_usd_t"], "usd_t", field + ".freight_change_usd_t", signed=True),
-            "). The shuttle through Hormuz is not priced: it was reported at ",
+            " a tonne to earn TD3C's TCE, derived. The shuttle through the strait was reported at ",
             usd(low, field + ".shuttle_low"),
             " to ",
             fig(high, "usd", field + ".shuttle_high"),
-            " a barrel (%s)." % alt["shuttle_reported"],
+            " a barrel (%s), " % alt["shuttle_reported"],
+            usd(low_t, field + ".shuttle_low_t", "usd_t"),
+            " to ",
+            fig(high_t, "usd_t", field + ".shuttle_high_t"),
+            " a tonne at %s million barrels a cargo (%s): " % ("%g" % (alt["barrels"] / 1e6), alt["barrels_reported"]),
+            usd(carriage_low, field + ".carriage_low_usd_t", "usd_t"),
+            " to ",
+            fig(carriage_high, "usd_t", field + ".carriage_high_usd_t"),
+            " a tonne to carry the cargo, or ",
+            usd(alt["transit_carriage_usd_t"], field + ".transit_carriage_usd_t", "usd_t"),
+            " at the ",
+            usd_m(alt["transit_usd"], field + ".transit_usd", "usd_m_0"),
+            " a transit reported by %s, before the transfer's own cost and days, which have no public figure. It "
+            "costs less than loading at Ras Tanura only if the shuttle costs under " % alt["transit_reported"],
+            usd(alt["shuttle_budget_usd_t"], field + ".shuttle_budget_usd_t", "usd_t"),
+            " a tonne",
+            *(
+                [
+                    ", or if loading there means a wait: after ",
+                    fig(alt["wait_above_low"]["days"], "count", field + ".wait_above_low.days", suffix=" days"),
+                    " inside the Gulf, Ras Tanura costs ",
+                    usd(alt["wait_above_low"]["carriage_usd_t"], field + ".wait_above_low.carriage_usd_t", "usd_t"),
+                    " a tonne, more than the transfer's low end.",
+                ]
+                if alt["wait_above_low"]
+                else ["."]
+            ),
+        ]
+        map_label = [
+            "Fujairah transfer: ",
+            usd(carriage_low, field + ".carriage_low_usd_t", "usd_t"),
+            " to ",
+            fig(carriage_high, "usd_t", field + ".carriage_high_usd_t"),
+            " a tonne",
         ]
     elif alt["id"] == "waiting":
         short, name = "", "Waiting inside the Gulf"
@@ -2589,19 +2851,34 @@ def _alternative(code: str, alt: Mapping[str, Any], base_excluded: Sequence[str]
                     for at, w in enumerate(waits)
                 ]
             ),
-            " a tonne in all: the premium and the owner's extra freight at the latest TCE.",
+            " a tonne more, the premium and the owner's lost days at the latest TCE: ",
+            *_or_words(
+                [
+                    fig(
+                        w["carriage_usd_t"],
+                        "usd_t",
+                        field + ".%s.carriage_usd_t" % w["id"],
+                        prefix="USD " if not at else "",
+                    )
+                    for at, w in enumerate(waits)
+                ]
+            ),
+            " a tonne to carry the cargo. Waiting is priced as days the owner loses; laytime and demurrage, which "
+            "would move part of it to the charterer, are not priced. The periods count only the days the study "
+            "prices inside the Gulf, so they are a lower bound.",
         ]
     else:
         raise KeyError(alt["id"])
     return {
         "id": alt["id"],
+        "kind": alt["kind"],
         "short": short,
         "name": name,
         "legs": list(alt["legs"]),
         "label_at": label_at,
         "text": text,
-        "map_label": _alt_map_label(short, alt, field),
-        "whole_label": "%s %s" % (_short(code), WHOLE_MAP_NAMES.get((code, alt["id"]), ""))
+        "map_label": map_label,
+        "whole_label": "%s %s" % (_short(code), WHOLE_MAP_NAMES[(code, alt["id"])])
         if (code, alt["id"]) in WHOLE_MAP_NAMES
         else None,
     }
@@ -2615,22 +2892,52 @@ WHOLE_MAP_NAMES = {
 }
 
 
-def _alt_map_label(short: str, alt: Mapping[str, Any], field: str) -> list[Any] | None:
-    """An alternative's name on the map once its route is picked, with what it changes: days and TCE, or the freight."""
-    if not short:
-        return None
-    out: list[Any] = [short + ": "]
-    if alt.get("days_change") is not None:
-        out += [fig(alt["days_change"], "days", field + ".days_change", signed=True, suffix=" days")]
-    if alt.get("tce_usd_day") is not None:
-        out += [", TCE ", fig(alt["tce_usd_day"], "usd_day", field + ".tce_usd_day")]
-    elif alt.get("freight_change_usd_t") is not None:
-        out += [
-            ", ",
-            fig(alt["freight_change_usd_t"], "usd_t", field + ".freight_change_usd_t", signed=True, prefix="USD "),
-            " a tonne",
-        ]
-    return out
+def _older_week(route: baltic.Route, preset: Mapping[str, Any], atlas_date: str) -> list[Any]:
+    """For a rate older than the map's week: the whole voyage is priced at its date, its bunkers too."""
+    hub = cases.route_hub(route)
+    latest = cases.weekly_market(atlas_date, hub).bunkers[hub]["vlsfo"][0]
+    return [
+        " The whole voyage is priced at that date, its bunkers too: VLSFO at %s was " % _port_name(hub),
+        usd(preset["inputs"]["prices"]["vlsfo_usd_t"], "prices.vlsfo_usd_t", "usd_t"),
+        " a tonne then and ",
+        usd(latest, "prices.vlsfo_latest_usd_t", "usd_t"),
+        " in the week to ",
+        word(date_label(atlas_date), "latest_date"),
+        ".",
+    ]
+
+
+def _rate_source(code: str, preset: Mapping[str, Any]) -> str:
+    """Where the rate is from, with the day the report was republished and the week it is for."""
+    source = preset["sources"]["freight_value"]["source"]
+    if "republished" in source:
+        return source
+    for report in cases.seed("anchors.json")["tanker_weekly"]["reports"]:
+        if report["week_ending"] == preset["date"] and any(e["route"] == code for e in report["entries"]):
+            return "%s; rate for the week to %s" % (report["source"], date_label(preset["date"]))
+    return source
+
+
+def _route_source(code: str, preset: Mapping[str, Any], f: Mapping[str, Any], headline: str) -> list[Any]:
+    """The route's source line, every family of input with its date."""
+    sources = preset["sources"]
+    parts = [
+        "Rate%s: %s. " % (" and TCE" if headline == "baltic_tce" else "", _rate_source(code, preset)),
+        "Bunkers: %s. " % sources["prices.vlsfo_usd_t"]["source"],
+    ]
+    if f["ets_usd"] > 0:
+        parts.append(
+            "EU allowances: %s; exchange rate: %s. "
+            % (sources["ets.eua_eur_t"]["source"], sources["ets.usd_per_eur"]["source"])
+        )
+    war = _war_source(code, f)
+    if war:
+        parts.append("Hull value: %s; war risk rates: %s. " % (sources["war_risk.hull_value_usd"]["source"], war))
+    parts += [
+        "Ship, speeds and port days: Baltic Exchange Guide to Market Benchmarks v%s. " % baltic.GMB["version"],
+        "Distances: searoute over Eurostat SeaRoute. Engine: this study.",
+    ]
+    return with_retrieval(parts)
 
 
 def _route_item(entry: Mapping[str, Any], st: Mapping[str, Any], atlas_date: str) -> dict[str, Any]:
@@ -2641,57 +2948,126 @@ def _route_item(entry: Mapping[str, Any], st: Mapping[str, Any], atlas_date: str
     label = _short(code)
     ports = "%s to %s" % (_port_name(route.load), _port_name(route.discharge))
     date = preset["date"]
-    trip = route.contract == "trip"
+    headline = f["headline"]
+    trip = headline == "baltic_hire"
     laden_passes, ballast_passes = entry["passes"]
-    rate_source = preset["sources"]["freight_value"]["source"]
+    bunkers = preset["sources"]["prices.vlsfo_usd_t"]["source"].split(" weekly")[0]
+    transits = atlas.transits(route, preset["legs"]["laden"]["routing"], preset["legs"]["ballast"]["routing"])
+    commission = f["commission_pct"]
+    engine_words = (
+        " The days, distances and costs below are the engine's: searoute distances, %s's bunker prices of the "
+        "week and no port charges." % bunkers
+    )
 
-    if f["tce_basis"] == "baltic" and f["engine_tce_usd_day"] is not None:
-        basis = "the Baltic's"
-        gap = (f["engine_tce_usd_day"] - f["published_tce_usd_day"]) / f["published_tce_usd_day"]
-        tce_note = [
-            "The Baltic's TCE for the week to ",
+    if headline == "baltic_tce":
+        tce_note: list[Any] = [
+            "The Baltic's round-trip TCE for the week to ",
             word(date_label(date), "date"),
-            ". The engine prices the same voyage at ",
-            usd(f["engine_tce_usd_day"], "engine_tce_usd_day", "usd_day"),
-            ", ",
-            fig(abs(gap) * 100.0, "error_percent", "engine_gap", suffix=" percent"),
-            " higher" if gap > 0 else " lower",
-            ", port charges left out of both.",
+            ", net of its %g percent commission: after the port and canal costs the Baltic deducts, at its own "
+            "bunker prices and distances (Guide to Market Benchmarks v%s, appendix 3), and before the additional "
+            "war risk premium, for the charterer's account." % (commission, baltic.GMB["version"]),
         ]
-    elif f["tce_basis"] == "baltic":
-        basis = "the Baltic's"
-        tce_note = [
-            "The Baltic's TCE for the week to ",
-            word(date_label(date), "date"),
-            ". The rate is in Worldscale points, which have no dollar value without the licensed flat rate, so "
-            "the engine prices this route's days and costs but not its TCE.",
-        ]
+        if f["engine_tce_usd_day"] is not None:
+            gap = f["engine_tce_usd_day"] - f["published_tce_usd_day"]
+            tolls = " and the Suez tolls" if "Suez Canal" in laden_passes + ballast_passes else ""
+            tce_note += [
+                " The engine prices the same voyage at ",
+                usd(f["engine_tce_usd_day"], "engine_tce_usd_day", "usd_day"),
+                ", ",
+                fig(abs(gap) / f["published_tce_usd_day"] * 100.0, "error_percent", "engine_gap", suffix=" percent"),
+                " higher" if gap > 0 else " lower",
+                ": ",
+                usd(abs(gap), "engine_gap_usd_day", "usd_day"),
+                " a day, ",
+                usd_m(abs(gap) * f["days"]["total"], "engine_gap_usd"),
+                " over its ",
+                fig(f["days"]["total"], "days", "days.total", suffix=" days"),
+                ", which takes in the port charges%s the Baltic deducts and the engine leaves out, and the two "
+                "calculations' bunker prices and distances." % tolls,
+            ]
+        else:
+            tce_note.append(
+                " The rate is in Worldscale points, which have no dollar value without the licensed flat rate, so "
+                "the engine prices this route's days and costs but not its TCE."
+            )
+        tce_note.append(engine_words)
+        tce_fact = {"id": "tce", "label": "TCE", "value": [_tce_figure(f, "tce_usd_day"), " a day"], "note": tce_note}
+        readout_basis: list[Any] = [" a day, the Baltic's round-trip TCE on ", word(date_label(date), "date"), ", net"]
     elif trip:
-        basis = "the engine's estimate"
-        tce_note = [
-            "The owner's TCE over the round trip, the ballast back to the US Gulf included: the trip pays ",
-            usd(f["trip_hire_usd_day"], "trip_hire_usd_day", "usd_day"),
-            " a day of hire for its ",
-            fig(f["trip_days"], "days", "trip_days", suffix=" days"),
-            " and nothing for the way back.",
-        ]
+        tce_fact = {
+            "id": "tce",
+            "label": "Trip hire",
+            "value": [usd(f["tce_usd_day"], "tce_usd_day", "usd_day"), " a day, gross"],
+            "note": [
+                "The Baltic's assessment for the week to ",
+                word(date_label(date), "date"),
+                ", gross of its %g percent total commission: " % commission,
+                usd(f["trip_hire_net_usd_day"], "trip_hire_net_usd_day", "usd_day"),
+                " a day net to the owner, for ",
+                fig(f["trip_days"], "days", "trip_days", suffix=" days"),
+                " on hire. The charterer pays the trip's bunkers, port charges and allowances.",
+            ],
+        }
+        readout_basis = [" a day, the Baltic's trip hire on ", word(date_label(date), "date"), ", gross"]
     else:
-        basis = "the engine's estimate"
-        tce_note = [
-            "The engine's estimate at the freight below, ",
-            word(date_label(date), "date"),
-            "; the Baltic publishes no TCE for this route.",
-        ]
+        tce_fact = {
+            "id": "tce",
+            "label": "TCE",
+            "value": [_tce_figure(f, "tce_usd_day"), " a day"],
+            "note": [
+                "The engine's estimate at the rate of ",
+                word(date_label(date), "date"),
+                ", net of the %g percent commission and before port charges" % commission,
+                " and canal tolls" if transits else "",
+                "; the Baltic publishes no TCE for this route.",
+                *(_older_week(route, preset, atlas_date) if date != atlas_date else []),
+            ],
+        }
+        readout_basis = [" a day, the engine's estimate at the rate of ", word(date_label(date), "date"), ", net"]
 
     same_way = ballast_passes == list(reversed(laden_passes)) and f["ballast_nm"] == f["laden_nm"]
-    facts: list[dict[str, Any]] = [
-        {"id": "tce", "label": "TCE", "value": [_tce_figure(f, "tce_usd_day"), " a day"], "note": tce_note},
-        {
-            "id": "days",
-            "label": "Round voyage",
-            "value": [fig(f["days"]["total"], "days", "days.total", suffix=" days")],
-            "note": [*_days_split(f["days"], "days"), "."],
-        },
+    facts: list[dict[str, Any]] = [tce_fact]
+    if trip:
+        facts.append(
+            {
+                "id": "round_trip",
+                "label": "If the ship ballasts back unpaid",
+                "value": [usd(f["engine_tce_usd_day"], "engine_tce_usd_day", "usd_day"), " a day net"],
+                "note": [
+                    "The owner's TCE over the round trip of ",
+                    fig(f["days"]["total"], "days", "days.total", suffix=" days"),
+                    ", the ballast leg back to the US Gulf at its own cost: ",
+                    usd(f["round_trip_gross_usd_day"], "round_trip_gross_usd_day", "usd_day"),
+                    " a day grossed up by the commission, to set beside the hire. The Baltic assesses that trip back "
+                    "on hire as S4B (Guide to Market Benchmarks v%s, page 81), so this is the owner's worst case, "
+                    "not the market's figure." % baltic.GMB["version"],
+                ],
+            }
+        )
+        facts.append(
+            {
+                "id": "days",
+                "label": "Days",
+                "value": [fig(f["trip_days"], "days", "trip_days", suffix=" days on hire")],
+                "note": [
+                    "The round trip with the ballast back is ",
+                    fig(f["days"]["total"], "days", "days.total", suffix=" days"),
+                    ": ",
+                    *_days_split(f["days"], "days"),
+                    ".",
+                ],
+            }
+        )
+    else:
+        facts.append(
+            {
+                "id": "days",
+                "label": "Round voyage",
+                "value": [fig(f["days"]["total"], "days", "days.total", suffix=" days")],
+                "note": [*_days_split(f["days"], "days"), "."],
+            }
+        )
+    facts.append(
         {
             "id": "distance",
             "label": "Distance",
@@ -2717,30 +3093,45 @@ def _route_item(entry: Mapping[str, Any], st: Mapping[str, Any], atlas_date: str
                     else ["; no mile inside an emission control area."]
                 ),
             ],
-        },
-        {
-            "id": "freight",
-            "label": "Freight",
-            "value": _rate_value(preset["rate"], "rate.value"),
-            "note": [_upper_first(rate_source) + "."],
-        },
-    ]
+        }
+    )
+    if not trip:
+        freight_note: list[Any] = []
+        if preset["rate"]["basis"] == "lump_sum":
+            freight_note = [
+                usd(f["freight_usd_t"], "freight_usd_t", "usd_t"),
+                " a tonne over the ",
+                fig(route.cargo_t, "t", "cargo_t", suffix=" tonnes"),
+                ". ",
+            ]
+        facts.append(
+            {
+                "id": "freight",
+                "label": "Freight",
+                "value": _rate_value(preset["rate"], "rate.value", _rate_qualifier(code, date)),
+                "note": [*freight_note, _upper_first(_rate_source(code, preset)) + "."],
+            }
+        )
     if trip:
         facts.append(
             {
                 "id": "breakeven",
                 "label": "Hire that covers the owner's costs",
                 "value": [usd(f["breakeven_hire_usd_day"], "breakeven_hire_usd_day", "usd_day"), " a day"],
-                "note": ["The hire that leaves the owner nothing over the round trip, against the hire above."],
+                "note": [
+                    "The hire that leaves the owner nothing over the round trip with the ballast back, against the ",
+                    usd(f["tce_usd_day"], "tce_usd_day", "usd_day"),
+                    " the Baltic assesses.",
+                ],
             }
         )
     else:
         note: list[Any] = []
-        if f["freight_at_published_usd_t"] is not None:
+        if f["freight_usd_t"] is not None and preset["rate"]["basis"] == "lump_sum":
             note = [
-                "At the engine's days and costs the freight that earns the Baltic's TCE is ",
-                usd(f["freight_at_published_usd_t"], "freight_at_published_usd_t", "usd_t"),
-                " a tonne: derived, not a quoted rate.",
+                "Against ",
+                usd(f["freight_usd_t"], "freight_usd_t", "usd_t"),
+                " a tonne, the lump sum over the cargo.",
             ]
         elif f["freight_usd_t"] is not None:
             note = ["Against ", usd(f["freight_usd_t"], "freight_usd_t", "usd_t"), " a tonne fixed."]
@@ -2778,12 +3169,31 @@ def _route_item(entry: Mapping[str, Any], st: Mapping[str, Any], atlas_date: str
     facts.append(
         {
             "id": "left_out",
-            "label": "Left out",
+            "label": "Left out" if headline == "engine_tce" else "Left out of the engine's figures",
             "value": [_upper_first(_plain_join(preset["excluded"])) + "."],
             "note": [],
         }
     )
-    alternatives = [_alternative(code, alt, preset["excluded"], geometry["label_at"].get(alt["id"])) for alt in alts]
+    alternatives = [
+        _alternative(code, alt, preset["excluded"], geometry["label_at"].get(alt["id"]), f, date) for alt in alts
+    ]
+    others = [alt for alt in alternatives if alt["kind"] != "base"]
+    qualifier = {
+        "baltic_tce": QUALIFIER_WORDS[f["published_qualifier"] or "exact"].strip(),
+        "baltic_hire": "trip hire, gross",
+        "engine_tce": "",
+    }[headline]
+    if trip:
+        row_note: list[Any] = [
+            "Days on hire. Ballasting back unpaid, the owner nets ",
+            usd(f["engine_tce_usd_day"], "engine_tce_usd_day", "usd_day"),
+            " a day over ",
+            fig(f["days"]["total"], "days", "days.total", suffix=" days"),
+        ]
+    elif date != atlas_date:
+        row_note = ["Rate of ", word(date_label(date), "date")]
+    else:
+        row_note = []
     return {
         "id": code,
         "label": label,
@@ -2794,34 +3204,30 @@ def _route_item(entry: Mapping[str, Any], st: Mapping[str, Any], atlas_date: str
         "ship": VESSEL_CLASS[route.vessel],
         "preset": preset["id"],
         "date": date,
+        "headline": headline,
         "tce_usd_day": f["tce_usd_day"],
         "tce_basis": f["tce_basis"],
         "days": f["days"]["total"],
-        "figure": [_tce_figure(f, "tce_usd_day")],
+        "figure": _map_figure(f, date, atlas_date),
         "row": {
             "tce": [fig(f["tce_usd_day"], "usd_day", "tce_usd_day")],
-            "qualifier": QUALIFIER_WORDS[f["published_qualifier"]].strip() if f["tce_basis"] == "baltic" else "",
-            "days": [fig(f["days"]["total"], "days", "days.total")],
-            "note": (
-                [
-                    "Trip charter: the owner's TCE with the ballast back; hire ",
-                    usd(f["trip_hire_usd_day"], "trip_hire_usd_day", "usd_day"),
-                    " a day",
-                ]
-                if trip
-                else ["Rate of ", word(date_label(date), "date")]
-                if date != atlas_date
-                else []
-            ),
+            "qualifier": qualifier,
+            "days": [fig(f["trip_days"], "days", "trip_days")]
+            if trip
+            else [fig(f["days"]["total"], "days", "days.total")],
+            "note": row_note,
             "also": ATLAS_ALSO.get(code, ""),
             "last": trip,
         },
         "readout": [
             word(label, "label"),
             ", %s, %s: " % (VESSEL_CLASS[route.vessel], ports),
-            _tce_figure(f, "tce_usd_day"),
-            " a day, %s; " % basis,
-            fig(f["days"]["total"], "days", "days.total", suffix=" days round"),
+            usd(f["tce_usd_day"], "tce_usd_day", "usd_day") if trip else _tce_figure(f, "tce_usd_day"),
+            *readout_basis,
+            "; ",
+            fig(f["trip_days"], "days", "trip_days", suffix=" days on hire")
+            if trip
+            else fig(f["days"]["total"], "days", "days.total", suffix=" days round"),
         ],
         "basis": f["tce_basis"],
         "same_water": list(entry["same_water"]),
@@ -2835,13 +3241,13 @@ def _route_item(entry: Mapping[str, Any], st: Mapping[str, Any], atlas_date: str
             label,
             ports,
             _passes_words(laden_passes),
-            ", and %s other way%s to sail it" % (_count_words(len(alternatives)), "" if len(alternatives) == 1 else "s")
-            if alternatives
+            ", and %s other way%s to sail it" % (_count_words(len(others)), "" if len(others) == 1 else "s")
+            if others
             else "",
         ),
         "map_desc": "The route picked is drawn in the accent colour, its laden leg solid and its ballast leg dashed "
         "beside it"
-        + (", its other routings dotted" if any(alt["legs"] for alt in alternatives) else "")
+        + (", its other routings dotted" if any(alt["legs"] for alt in others) else "")
         + "; every other route is a thin muted line. Every figure is in the column beside the map.",
         "subhead": [
             VESSEL_CLASS[route.vessel],
@@ -2857,12 +3263,16 @@ def _route_item(entry: Mapping[str, Any], st: Mapping[str, Any], atlas_date: str
         "facts": facts,
         "table": {
             "tce": [
-                _tce_figure(f, "tce_usd_day"),
-                ", the Baltic's" if f["tce_basis"] == "baltic" else ", the engine's",
+                usd(f["tce_usd_day"], "tce_usd_day", "usd_day") if trip else _tce_figure(f, "tce_usd_day"),
+                {
+                    "baltic_tce": ", the Baltic's, net",
+                    "baltic_hire": ", the Baltic's trip hire, gross",
+                    "engine_tce": ", the engine's, net",
+                }[headline],
             ],
             "days": [fig(f["days"]["total"], "days", "days.total")],
             "laden_nm": [fig(f["laden_nm"], "nm", "laden_nm")],
-            "freight": _rate_value(preset["rate"], "rate.value"),
+            "freight": _rate_value(preset["rate"], "rate.value", _rate_qualifier(code, date)),
             "breakeven": (
                 [usd(f["breakeven_hire_usd_day"], "breakeven_hire_usd_day", "usd_day"), " a day of hire"]
                 if trip
@@ -2875,13 +3285,7 @@ def _route_item(entry: Mapping[str, Any], st: Mapping[str, Any], atlas_date: str
             {"text": "Price %s in the calculator" % label, "view": "calculator", "params": {"preset": preset["id"]}},
             *ATLAS_LINKS.get(code, []),
         ],
-        "source": with_retrieval(
-            [
-                "Rate: %s. Bunkers: %s. " % (rate_source, preset["sources"]["prices.vlsfo_usd_t"]["source"]),
-                "Ship, speeds and port days: Baltic Exchange Guide to Market Benchmarks v%s. " % baltic.GMB["version"],
-                "Distances: searoute over Eurostat SeaRoute. Engine: this study.",
-            ]
-        ),
+        "source": _route_source(code, preset, f, headline),
     }
 
 
@@ -2892,43 +3296,89 @@ def _study_item(
     route = s["route"]
     base = s["base"]
     names = {"cape": ("Round the Cape", "Round the Cape of Good Hope"), "panama": ("By Panama", "By the Panama Canal")}
-    alternatives = []
+    rates = {r["id"]: r for r in cases.seed("market.json")["war_risk"]["rates_pct"]}
+    red_rate = rates[s["red_sea_source_id"]]
+    alternatives = [
+        {
+            "id": "base",
+            "kind": "base",
+            "short": "",
+            "name": BASE_NAMES["QD_RTM_PMX"],
+            "legs": [],
+            "label_at": None,
+            "text": [
+                usd(base["freight_needed_usd_t"], "alternatives.base.freight_needed_usd_t", "usd_t"),
+                " a tonne earns the P4 hire over ",
+                fig(base["days"], "days", "alternatives.base.days", suffix=" days"),
+                "; with the charterer's Red Sea premium, ",
+                usd(base["charterer_war_risk_usd_t"], "alternatives.base.charterer_war_risk_usd_t", "usd_t"),
+                " a tonne, the cargo costs ",
+                usd(base["carriage_usd_t"], "alternatives.base.carriage_usd_t", "usd_t"),
+                " a tonne to carry, before the Suez toll and time at the canal. At the Cape's freight, Suez can spend ",
+                usd(base["toll_and_waiting_budget_usd"], "alternatives.base.budget"),
+                " on its toll and waiting, ",
+                fig(base["waiting_days_budget"], "days", "alternatives.base.waiting_days", suffix=" days"),
+                " of the hire after commission, before waiting fuel; like the Detours view's, that budget is on the "
+                "freight alone and leaves the charterer's premium out.",
+            ],
+            "map_label": None,
+            "whole_label": None,
+        }
+    ]
     for alt in s["alternatives"]:
         field = "alternatives.%s" % alt["id"]
         text: list[Any] = [
-            fig(alt["days"], "days", field + ".days", suffix=" days"),
-            " (",
-            fig(alt["days_change"], "days", field + ".days_change", signed=True),
-            "); it needs ",
+            *_days_and_change(alt, field),
+            "; it needs ",
             usd(alt["freight_needed_usd_t"], field + ".freight_needed_usd_t", "usd_t"),
-            " a tonne (",
-            fig(alt["freight_change_usd_t"], "usd_t", field + ".freight_change_usd_t", signed=True),
-            ").",
+            " a tonne to earn the P4 hire, ",
+            usd(alt["freight_change_usd_t"], field + ".freight_change_usd_t", "usd_t"),
+            " more than by Suez, and pays no Red Sea premium: the cargo costs ",
+            usd(alt["carriage_usd_t"], field + ".carriage_usd_t", "usd_t"),
+            " a tonne to carry, ",
+            usd(alt["carriage_change_usd_t"], field + ".carriage_change_usd_t", "usd_t"),
+            " more than by Suez",
         ]
-        if alt["toll_and_waiting_budget_usd"]:
+        if alt["toll_and_waiting_budget_usd"] is not None:
             text += [
-                " At the Cape's freight it can spend ",
+                ", before the Panama toll and time at the canal. At the Cape's freight it can spend ",
                 usd(alt["toll_and_waiting_budget_usd"], field + ".budget"),
                 " on its toll and waiting, ",
                 fig(alt["waiting_days_budget"], "days", field + ".waiting_days", suffix=" days"),
-                " of the hire. %s." % _panama_wait(),
+                " of the hire. %s: on its own that wait makes the Cape the better voyage." % _panama_wait(),
             ]
+        else:
+            text.append(".")
         short, name = names[alt["id"]]
         alternatives.append(
             {
                 "id": alt["id"],
+                "kind": alt["kind"],
                 "short": short,
                 "name": name,
                 "legs": list(alt["legs"]),
                 "label_at": geometry["label_at"].get(alt["id"]),
                 "text": text,
-                "map_label": _alt_map_label(short, alt, field),
+                "map_label": [
+                    short + ": ",
+                    fig(alt["days_change"], "days", field + ".days_change", signed=True, suffix=" days"),
+                    ", ",
+                    fig(
+                        alt["carriage_change_usd_t"],
+                        "usd_t",
+                        field + ".carriage_change_usd_t",
+                        signed=True,
+                        prefix="USD ",
+                    ),
+                    " a tonne",
+                ],
                 "whole_label": "Asia to Europe by Panama" if alt["id"] == "panama" else None,
             }
         )
     label = "Asia to Europe, Panamax"
     way = _passes_words(passes)
     map_title = "A Panamax from Qingdao to Rotterdam %s, or round the Cape, or by Panama" % way
+    low_trip, high_trip = s["p4_trip_days"]
     return {
         "id": s["id"],
         "label": label,
@@ -2939,6 +3389,7 @@ def _study_item(
         "ship": VESSEL_CLASS[route.vessel],
         "preset": None,
         "date": s["date"],
+        "headline": "study",
         "tce_usd_day": None,
         "tce_basis": "study",
         "days": base["days"],
@@ -2947,7 +3398,7 @@ def _study_item(
             "tce": [fig(base["freight_needed_usd_t"], "usd_t", "freight_needed_usd_t", suffix=" a tonne")],
             "qualifier": "",
             "days": [fig(base["days"], "days", "days")],
-            "note": ["One way by Suez: the freight that earns the P4 trip hire"],
+            "note": ["One way by Suez, at sea only: the freight that earns the P4 trip hire"],
             "also": ATLAS_ALSO["QD_RTM_PMX"],
             "last": False,
         },
@@ -2955,8 +3406,10 @@ def _study_item(
             word(label, "label"),
             ", a Panamax one way from Qingdao to Rotterdam: ",
             usd(base["freight_needed_usd_t"], "freight_needed_usd_t", "usd_t"),
-            " a tonne by Suez to earn the P4 hire; ",
-            fig(base["days"], "days", "days", suffix=" days"),
+            " a tonne by Suez earns the P4 hire of ",
+            word(date_label(s["date"]), "date"),
+            "; ",
+            fig(base["days"], "days", "days", suffix=" days at sea"),
         ],
         "basis": "study",
         "same_water": list(same),
@@ -2982,9 +3435,9 @@ def _study_item(
                 "note": [
                     "The freight at which the trip earns what a Panamax earns on P4, ",
                     usd(s["p4_hire_usd_day"], "p4_hire_usd_day", "usd_day"),
-                    " a day, or ",
+                    " a day gross, or ",
                     usd(s["target_tce_usd_day"], "target_tce_usd_day", "usd_day"),
-                    " after its ",
+                    " net of its ",
                     fig(s["p4_commission_pct"], "percent_0", "p4_commission_pct", suffix=" percent"),
                     " commission, in the week to ",
                     word(date_label(s["date"]), "date"),
@@ -2994,8 +3447,14 @@ def _study_item(
             {
                 "id": "days",
                 "label": "Days",
-                "value": [fig(base["days"], "days", "days", suffix=" days by Suez")],
-                "note": ["One way, delivered at Qingdao and redelivered at Rotterdam, with no port time."],
+                "value": [fig(base["days"], "days", "days", suffix=" days at sea by Suez")],
+                "note": [
+                    "One way, delivered at Qingdao and redelivered at Rotterdam, with no port time; P4 itself is a ",
+                    fig(low_trip, "count", "p4_trip_days.low"),
+                    " to ",
+                    fig(high_trip, "count", "p4_trip_days.high"),
+                    " day trip.",
+                ],
             },
             {
                 "id": "distance",
@@ -3005,12 +3464,18 @@ def _study_item(
             },
             {
                 "id": "war",
-                "label": "War risk premium",
+                "label": "Additional war risk premium",
                 "value": [usd(base["charterer_war_risk_usd_t"], "charterer_war_risk_usd_t", "usd_t"), " a tonne"],
                 "note": [
-                    "The charterer's, for the Red Sea transit at %g percent of the hull value."
-                    % s["red_sea_premium_pct"]
+                    "For the charterer's account, for the Red Sea transit at %g percent of the hull value (%s; hull "
+                    "value %s)." % (s["red_sea_premium_pct"], _war_rate_words(red_rate), _hull_words())
                 ],
+            },
+            {
+                "id": "carriage",
+                "label": "Cost of carriage by Suez",
+                "value": [usd(base["carriage_usd_t"], "carriage_usd_t", "usd_t"), " a tonne"],
+                "note": ["The freight and the premium, before the Suez toll and time at the canal."],
             },
             {
                 "id": "left_out",
@@ -3026,6 +3491,7 @@ def _study_item(
                 "P4 hire: Banchero Costa, week to ",
                 word(date_label(s["date"]), "date"),
                 ". Ship: Baltic Exchange Guide to Market Benchmarks v%s. " % baltic.GMB["version"],
+                "Red Sea premium: %s. Hull value: %s. " % (_war_rate_words(red_rate), _hull_words()),
                 "Distances: searoute over Eurostat SeaRoute. Engine: this study, as on Detours.",
             ]
         ),
@@ -3042,30 +3508,57 @@ def atlas_page(
     clusters: Sequence[Mapping[str, Any]],
     view_box: Sequence[float],
     atlas_date: str,
+    before_war: Mapping[str, Any],
 ) -> dict[str, Any]:
-    """data/atlas.json: the Map view's words and every figure it shows, by route."""
+    """data/atlas.json: the Map view's words and every figure it shows, by route.
+
+    `before_war` is the Baltic's TD3C TCE in the week the Detours view calls
+    before the war, set beside the latest one in the takeaway.
+    """
     items = [_route_item(entry, st, atlas_date) for entry in entries]
     items.append(_study_item(study, study_geometry, study_passes, study_same))
-    baltic_items = [i for i in items if i["tce_basis"] == "baltic"]
-    top = max(baltic_items, key=lambda i: i["tce_usd_day"])
-    bottom = min(baltic_items, key=lambda i: i["tce_usd_day"])
-    longest = max((i for i in items if i["kind"] == "route"), key=lambda i: i["days"])
-    tc20 = next(i for i in entries if i["preset"]["route"] == "TC20")["alternatives"][0]
-    takeaway = [
-        "In the week to ",
+    chosen = atlas.picks(items, atlas_date)
+    top, bottom, longest = chosen["top"], chosen["bottom"], chosen["longest"]
+    tc20 = next(
+        a for a in next(e for e in entries if e["preset"]["route"] == "TC20")["alternatives"] if a["kind"] != "base"
+    )
+    routes = [i for i in items if i["kind"] == "route"]
+
+    def usd_day(item: Mapping[str, Any], field: str) -> dict[str, Any]:
+        qualifier = item["row"]["qualifier"]
+        return fig(item["tce_usd_day"], "usd_day", field, prefix=(qualifier + " " if qualifier else "") + "USD ")
+
+    takeaway: list[Any] = [
+        "On ",
         word(date_label(atlas_date), "date"),
-        " %s %s on %s earned " % (_article(top["ship"]), top["ship"], top["label"]),
-        top["figure"][0],
-        " a day by the Baltic's own figure, about ",
-        fig(top["tce_usd_day"] / bottom["tce_usd_day"], "count", "takeaway.ratio", suffix=" times"),
-        " %s %s on %s." % (_article(bottom["ship"]), bottom["ship"], bottom["label"]),
+        " the Baltic assessed %s %s on %s at a round-trip TCE of " % (_article(top["ship"]), top["ship"], top["label"]),
+        usd_day(top, "takeaway.top"),
+        " a day",
     ]
-    other_dates = sorted({i["date"] for i in items if i["kind"] == "route" and i["date"] != atlas_date})
-    late = [i["label"] for i in items if i["kind"] == "route" and i["date"] != atlas_date]
+    if top["id"] == "TD3C":
+        takeaway += [
+            ", ",
+            fig(
+                top["tce_usd_day"] / before_war["tce_usd_day"],
+                "count",
+                "takeaway.before_war_ratio",
+                prefix="about ",
+                suffix=" times",
+            ),
+            " its level before the war",
+        ]
+    takeaway += [
+        ", and %s %s on %s at " % (_article(bottom["ship"]), bottom["ship"], bottom["label"]),
+        usd_day(bottom, "takeaway.bottom"),
+        ".",
+    ]
+    other_dates = sorted({i["date"] for i in routes if i["date"] != atlas_date})
+    late = [i["label"] for i in routes if i["date"] != atlas_date]
     key = [
-        "Beside each loading port, each route and its TCE in USD a day, in the week to ",
+        "Beside each loading port, each route and its figure in USD a day, in the week to ",
         word(date_label(atlas_date), "date"),
-        ": the Baltic's for tankers, the engine's estimate, in grey, for dry bulk",
+        ": the Baltic's round-trip TCE for tankers, the engine's estimate for dry bulk, in grey, and the Baltic's "
+        "trip hire for S4A",
         *(
             ["; %s at its latest public rate, of " % _plain_join(late), word(date_label(other_dates[-1]), "late_date")]
             if late
@@ -3076,15 +3569,15 @@ def atlas_page(
     summary = [
         {
             "item": top["id"],
-            "label": "Highest TCE",
-            "value": [top["label"], ", ", top["figure"][0], " a day"],
-            "note": ["The Baltic's, %s." % top["ports"]],
+            "label": "Highest of the Baltic's",
+            "value": [top["label"], ", ", usd_day(top, "summary.top"), " a day"],
+            "note": ["Round-trip TCE, %s, %s." % (top["ship"], top["ports"])],
         },
         {
             "item": bottom["id"],
             "label": "Lowest of the Baltic's",
-            "value": [bottom["label"], ", ", bottom["figure"][0], " a day"],
-            "note": ["%s, %s." % (bottom["ship"], bottom["ports"])],
+            "value": [bottom["label"], ", ", usd_day(bottom, "summary.bottom"), " a day"],
+            "note": ["Round-trip TCE, %s, %s." % (bottom["ship"], bottom["ports"])],
         },
         {
             "item": longest["id"],
@@ -3106,6 +3599,14 @@ def atlas_page(
             ],
         },
     ]
+
+    def count_words(segment: str) -> list[Any]:
+        shown = [i for i in routes if segment == "all" or i["segment"] == segment]
+        out: list[Any] = [fig(len(shown), "count", "filters.%s.count" % segment, suffix=" routes")]
+        if segment in ("all", study["segment"]):
+            out.append(" and the detour study")
+        return out
+
     return {
         "as_of": atlas_date,
         "view_box": list(view_box),
@@ -3114,18 +3615,11 @@ def atlas_page(
             "takeaway": takeaway,
             "filters": [
                 {
-                    "id": key,
+                    "id": segment,
                     "label": name,
-                    "announce": [
-                        fig(
-                            sum(1 for i in items if key == "all" or i["segment"] == key),
-                            "count",
-                            "filters.%s.count" % key,
-                        ),
-                        " on the map and in the list: %s." % name.lower(),
-                    ],
+                    "announce": [*count_words(segment), " on the map and in the list: %s." % name.lower()],
                 }
-                for key, name in (
+                for segment, name in (
                     ("all", "Every route"),
                     ("dry", "Dry bulk"),
                     ("dirty", "Dirty tankers"),
@@ -3133,23 +3627,31 @@ def atlas_page(
                 )
             ],
             "filter_label": "Show",
-            "groups": [{"id": key, "name": name} for key, name in ATLAS_GROUPS.items()],
+            "groups": [{"id": key_id, "name": name} for key_id, name in ATLAS_GROUPS.items()],
             "list": {
                 "caption": [
                     "Each route at its latest dated rate: the week to ",
                     word(date_label(atlas_date), "date"),
-                    ", P7 at its latest public rate. Days are the round voyage.",
+                    ", P7 at its latest public rate. Tanker TCEs are the Baltic's, net of commission and after "
+                    "the port and canal costs it deducts; dry TCEs are the engine's estimates, net of commission and "
+                    "before port charges; S4A shows the Baltic's trip hire, gross. Days are the round voyage, S4A's "
+                    "the days on hire.",
                 ],
                 "heading": "The routes",
                 "unknown": "There is no route %s on this map; every route is listed below.",
                 "head": {"route": "Route", "tce": "TCE, USD a day", "days": "Days"},
+                "study_head": {
+                    "route": "Study",
+                    "tce": "Freight to earn the P4 hire, USD a tonne",
+                    "days": "Days one way, at sea",
+                },
                 "more_one": "other routing",
                 "more_many": "other routings",
             },
             "panel": {
                 "back": "Back to the list",
                 "same": "Its line runs with ",
-                "same_after": " for most of the way:",
+                "same_after": " for most of the way.",
                 "split": {"ballast": "Ballast", "laden": "Laden", "port": "Port and waiting"},
                 "alternatives": "Other ways to sail it",
                 "links": "More on this route",
@@ -3157,7 +3659,7 @@ def atlas_page(
             },
             "summary": {"heading": "At a glance", "items": summary},
             "map": {
-                "title": "Every route the study prices, from its loading port, with its TCE a day",
+                "title": "Every route the study prices, from its loading port, with its figure a day",
                 "desc": "An equirectangular map from 110 degrees west to 155 degrees east. Each route's laden leg is "
                 "a line from its loading port; the other routings the study prices are dotted. Every figure is in "
                 "the list beside the map.",
@@ -3190,7 +3692,8 @@ def atlas_page(
                         "Emission control areas: MARPOL Annex VI, in force on ",
                         word(date_label(atlas_date), "date"),
                         ". Land: Natural Earth 1:110m. TCEs: the Baltic Exchange weekly tanker report via Hellenic "
-                        "Shipping News for tankers; the engine at public rates for dry bulk.",
+                        "Shipping News for tankers; the engine at public rates for dry bulk; S4A's hire: Banchero "
+                        "Costa.",
                     ]
                 ),
             },
@@ -3203,28 +3706,37 @@ def atlas_page(
                 {
                     "id": "method",
                     "name": "How to read it",
-                    "summary": ["Which TCE each route shows, and what every figure leaves out."],
+                    "summary": ["Which figure each route shows, and what each leaves out."],
                 },
             ],
             "method": [
                 [
                     "Every route is priced on its latest dated rate, the preset the calculator opens for it, by the "
-                    "same engine and conventions as the rest of the study: the Baltic's round voyage, its ships, "
-                    "speeds and port days, bunkers at the hub with public prices nearest the loading port, and a 5 "
-                    "percent weather margin on steaming time."
+                    "same engine and conventions as the rest of the study: the Baltic's round voyage, laden and "
+                    "ballast, its ships, speeds and port days, bunkers at the hub with public prices nearest the "
+                    "loading port, and a 5 percent weather margin on steaming time. Each TCE covers the round voyage."
                 ],
                 [
                     "Tanker rates are quoted in Worldscale points, and a point has no dollar value without the "
                     "licensed flat rate, so for the tanker routes the TCE shown is the Baltic's own, printed beside "
-                    "the rate in its weekly report. Where the rate is a lump sum (TD22, TC20) the engine prices the "
-                    "same voyage, and both figures are shown. The Baltic publishes no TCE for the dry voyage routes: "
-                    "theirs is the engine's estimate at a public rate. S4A is a trip time charter, so its TCE is the "
-                    "owner's over the round trip, the ballast back to the US Gulf included."
+                    "the rate in its weekly report: net of commission, after the port and canal costs the Baltic "
+                    "deducts (from Cory Brothers' figures, Guide to Market Benchmarks v%s, appendix 3), at its own "
+                    "bunker prices and distances, and before the additional war risk premium, which is for the "
+                    "charterer's account. Where the rate is a lump sum (TD22, TC20) the engine prices the same "
+                    "voyage, and both figures are shown, with the gap between them." % baltic.GMB["version"]
                 ],
                 [
-                    "Port charges have no public per call figure and are left out of every TCE, as each panel says; "
-                    "so are canal tolls where a routing uses a canal. An alternative that earns more only because it "
-                    "leaves out a toll or a premium says so."
+                    "The Baltic publishes no TCE for the dry voyage routes: theirs is the engine's estimate at a "
+                    "public rate, net of commission and before port charges and canal tolls, which have no public per "
+                    "call figure. S4A is a trip time charter, shown at the Baltic's hire, gross of commission; the "
+                    "owner's TCE over the round trip with the ballast back unpaid is a what-if in its panel, not its "
+                    "figure."
+                ],
+                [
+                    "Each route's other routings are set against its own base on one basis: a war risk premium is "
+                    "priced for whoever pays it, a tanker's canal transit takes the day TC20's description gives one, "
+                    "and where a toll has no public figure the comparison is the toll at which the two routings earn "
+                    "the same, not a TCE before the toll."
                 ],
                 [
                     "The lines are the ones the distances are measured on. The map is equirectangular and not to "

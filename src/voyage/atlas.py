@@ -422,6 +422,9 @@ def td3c_alternatives(hz: Mapping[str, Any]) -> list[dict[str, Any]]:
     transit = next(s for s in chains["shuttle"] if s["unit"] == "USD a transit")
     td34, sts = chains["td34"], chains["sts"]
     export_t = sts["freight_at_td3c_tce_usd_t"]
+    carriage = [export_t + shuttle["low"] * barrels / cargo, export_t + shuttle["high"] * barrels / cargo]
+    # The shortest wait after which loading at Ras Tanura costs more than the transfer at its low end.
+    above = next((w for w in waits if w["carriage_usd_t"] > carriage[0]), None)
     return [
         {
             "id": "base",
@@ -460,7 +463,10 @@ def td3c_alternatives(hz: Mapping[str, Any]) -> list[dict[str, Any]]:
             "barrels": barrels,
             "barrels_reported": reports[VLCC_BARRELS_ID]["reported"],
             "shuttle_usd_t": [shuttle["low"] * barrels / cargo, shuttle["high"] * barrels / cargo],
-            "carriage_usd_t": [export_t + shuttle["low"] * barrels / cargo, export_t + shuttle["high"] * barrels / cargo],
+            "carriage_usd_t": carriage,
+            "wait_above_low": {"days": above["waiting_days"], "carriage_usd_t": above["carriage_usd_t"]}
+            if above
+            else None,
             "transit_usd": transit["low"],
             "transit_reported": transit["reported"],
             "transit_carriage_usd_t": export_t + transit["low"] / cargo,
@@ -528,6 +534,7 @@ def study(sd: Mapping[str, Any]) -> dict[str, Any]:
         "target_tce_usd_day": sd["target_tce_usd_day"],
         "p4_hire_usd_day": sd["p4_hire_usd_day"],
         "p4_commission_pct": sd["p4_commission_pct"],
+        "p4_trip_days": list(sd["p4_trip_days"]),
         "cargo_t": sd["cargo_t"],
         "base": option("Suez", "suez"),
         "alternatives": [option("Cape of Good Hope", "cape"), option("Panama", "panama")],

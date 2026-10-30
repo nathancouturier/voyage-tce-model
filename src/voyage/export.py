@@ -439,10 +439,9 @@ def atlas_artifact(
         preset = latest[code]
         figures = atlas.figures(preset)
         if code in atlas.ROUTING_ORDER:
-            found = {alt["id"]: alt for alt in atlas.routing_alternatives(preset, figures)}
-            alternatives = [found[alt_id] for alt_id in atlas.ROUTING_ORDER[code]]
+            alternatives = atlas.routing_alternatives(preset, figures)
         elif code == "TC20":
-            alternatives = atlas.tc20_alternatives(st)
+            alternatives = atlas.tc20_alternatives(st, figures)
         elif code == "TD3C":
             alternatives = atlas.td3c_alternatives(hz)
         else:
@@ -478,6 +477,7 @@ def atlas_artifact(
         atlas.clusters(loads, geo["ports"]),
         geo["view_box"],
         atlas_date,
+        next(level for level in hz["levels"] if level["label"] == "before the war"),
     )
     return header("atlas", **page)
 
