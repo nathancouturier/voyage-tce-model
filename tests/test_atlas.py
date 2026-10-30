@@ -444,7 +444,9 @@ def test_every_alternative_has_one_line_by_one_rule() -> None:
 def test_a_line_names_its_base_where_the_row_shows_another_figure() -> None:
     # TC20 and TD22: the Baltic's TCE heads the row, and the routing is set against the engine's.
     tc20, td22 = text(ITEMS["TC20"]["row"]["alts"][0]), text(ITEMS["TD22"]["row"]["alts"][0])
-    assert tc20 == "Round the Cape: +31.5 days, USD 132,196 a day lower than by Suez (342,369), before Suez tolls"
+    assert tc20 == (
+        "Round the Cape: +31.5 days, USD 132,196 a day lower than the engine's TCE by Suez (342,369), before Suez tolls"
+    )
     assert td22 == (
         "Back by Suez: " + MINUS + "3.4 days, USD 7,270 a day higher than the engine's TCE (463,639), before Suez tolls"
     )

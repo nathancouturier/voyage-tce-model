@@ -2770,7 +2770,8 @@ def _map_name(short: str, days: list[Any]) -> list[Any]:
 
 
 def _than(words: str, value: float, fmt: str, field: str) -> list[Any]:
-    """' than by Suez (342,369)': the base a change is taken against, where the row shows another figure."""
+    """' than the engine's TCE by Suez (342,369)': the base a change is taken against, where the row shows another
+    figure."""
     return [" than %s (" % words, fig(value, fmt, field), ")"]
 
 
@@ -3153,7 +3154,7 @@ def _alternative(
         short, name = ROUTING_NAMES[(code, "no_suez", "no_suez")]
         text = _tc20_cape(alt, base, field)
         days = _days_line(alt["days"], base["days"], field)
-        line = _alt_line(short, days, _tce_against(alt, base, f, "by Suez", field), qualifier)
+        line = _alt_line(short, days, _tce_against(alt, base, f, "the engine's TCE by Suez", field), qualifier)
     elif alt["id"] == "td34":
         # Another cargo, not a way to carry TD3C's: its line sets its TCE against TD3C's, the figure the row shows.
         short, name = "TD34", "TD34: another cargo for the same ship, loading at Mina Al Fahal outside the strait"
