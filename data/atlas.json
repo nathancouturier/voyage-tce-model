@@ -179,7 +179,7 @@
     },
     "panel": {
       "back": "Back to the list",
-      "same": "Its line runs for most of the way with these routes:",
+      "same": "Its line runs for most of the way with:",
       "split": {
         "ballast": "Ballast",
         "laden": "Laden",
@@ -1348,7 +1348,7 @@
               "prefix": "USD "
             },
             " a day lower",
-            ", before Panama tolls"
+            ", before Panama tolls and waiting"
           ],
           [
             "Laden round the Cape: ",
@@ -1367,7 +1367,7 @@
               "prefix": "USD "
             },
             " a day lower",
-            ", before Panama tolls"
+            ", before Panama tolls and waiting"
           ]
         ],
         "last": false
@@ -1827,7 +1827,7 @@
               "prefix": "USD "
             },
             " a day lower",
-            " than by Panama both ways, before Panama tolls. It keeps ",
+            " than by Panama both ways, before Panama tolls and waiting. It keeps ",
             "one",
             " of the ",
             "two",
@@ -1894,7 +1894,7 @@
               "prefix": "USD "
             },
             " a day lower",
-            " than by Panama both ways, before Panama tolls. It keeps ",
+            " than by Panama both ways, before Panama tolls and waiting. It keeps ",
             "one",
             " of the ",
             "two",
@@ -2428,14 +2428,15 @@
             },
             " a tonne more",
             " to carry",
-            " than at Ras Tanura (",
+            " than the ",
             {
               "value": 284.996127,
               "format": "usd_t",
-              "field": "alternatives.base.carriage_usd_t"
+              "field": "alternatives.base.carriage_usd_t",
+              "prefix": "USD "
             },
-            ")",
-            ", the export VLCC at TD3C's TCE"
+            " a tonne at Ras Tanura",
+            ", the export VLCC at TD3C's TCE, before the transfer's own cost and days"
           ],
           [
             "Waiting: ",
@@ -2480,13 +2481,14 @@
             },
             " a tonne more",
             " to carry",
-            " than with no wait (",
+            " than the ",
             {
               "value": 284.996127,
               "format": "usd_t",
-              "field": "alternatives.base.carriage_usd_t"
+              "field": "alternatives.base.carriage_usd_t",
+              "prefix": "USD "
             },
-            ")"
+            " a tonne with no wait"
           ]
         ],
         "last": false
@@ -3220,13 +3222,14 @@
               "prefix": "USD "
             },
             " a day higher",
-            " than the engine's TCE (",
+            " than the engine's TCE of ",
             {
               "value": 463638.730309,
               "format": "usd_day",
-              "field": "alternatives.base.tce_usd_day"
+              "field": "alternatives.base.tce_usd_day",
+              "prefix": "USD "
             },
-            ")",
+            " a day",
             ", before Suez tolls"
           ]
         ],
@@ -5803,13 +5806,14 @@
               "prefix": "USD "
             },
             " a day lower",
-            " than the engine's TCE by Suez (",
+            " than the owner's TCE of ",
             {
               "value": 342368.699119,
               "format": "usd_day",
-              "field": "alternatives.base.tce_usd_day"
+              "field": "alternatives.base.tce_usd_day",
+              "prefix": "USD "
             },
-            ")",
+            " a day by Suez",
             ", before Suez tolls"
           ]
         ],
@@ -6721,7 +6725,7 @@
             },
             " a tonne more",
             " freight",
-            ", before Suez tolls"
+            ", before Suez tolls and waiting"
           ],
           [
             "By Panama: ",

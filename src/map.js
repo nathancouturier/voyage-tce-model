@@ -300,7 +300,11 @@ export function voyageMap(frame, land, voyage, words) {
  * route picked is painted over every other route, its other routings between
  * it and the rest, and the routing its "Show on the map" toggle shows over
  * everything; a route pointed at while one is picked stays under it. When
- * the pick is cleared the list's order comes back.
+ * the pick is cleared the list's order comes back. Only the groups whose
+ * order changes are moved, and none while a pointer is pressed on the map: a
+ * node taken out of the page between a press and its release loses the
+ * click (Chromium fires none), so the order waits for the release and is
+ * painted at the next frame, after the click the release brings.
  *
  * THE POINTER. A route is found by its distance from the pointer, in map
  * units, not by what lies on top: corridors overlap (Ras Tanura to Hormuz
@@ -314,11 +318,19 @@ export function voyageMap(frame, land, voyage, words) {
  * caller (`on.alternative`), which presses the routing's toggle, so the
  * button and the map stay in step. A tap is told from a click by the type of
  * the pointer that went down, as some browsers send a click with no type of
- * its own. Below CODES_FROM px of map a tap does nothing: the lines are too
- * close for a finger, and the list beside the map does the work. What lies
- * under the pointer, with the routes that share its water, is told to the
- * caller (`on.hover`) whenever either changes, and the caller writes it in
- * the line under the map: no box floats over the lines it describes.
+ * its own. A click is measured where the pointer's own events last put it,
+ * to the fraction of a pixel, when that lies within the whole pixel the
+ * click gives, so it takes the line the pointer was found on and the line
+ * under the map names. Below CODES_FROM px of map a tap does nothing: the
+ * lines are too close for a finger, and the list beside the map does the
+ * work. What lies under the pointer, with the routes that share its water,
+ * is told to the caller (`on.hover`) whenever either changes, and so is a
+ * route the caller raises itself (`hover(id)`, a row of the list pointed at
+ * or focused), with which of the two it is; the caller decides where the
+ * line under the map names it (src/atlas.js): no box floats over the lines
+ * it describes. After each drawing the caller is also given the most a
+ * pointer can find beside each route (`waters`), for the room it keeps for
+ * that line.
  *
  * LABELS are placed here at the size they are drawn, each measured on the
  * page in its own face, weight and size (a hidden text in the svg; widths
@@ -333,7 +345,15 @@ export function voyageMap(frame, land, voyage, words) {
  * never reads as another place's. A routing's name names no place and minds
  * none of them: it may go further from its point and, with a route picked,
  * by any point of its own line, as its point is often where its legs meet,
- * at a cape. Among those places the first wins that shares no
+ * at a cape. It minds the lines it could be read as naming instead: its
+ * route's own line (with its ballast leg once picked) and other routings
+ * and, with nothing picked, every other route's line and routing shown;
+ * with a route picked those are muted and named nowhere. None may lie nearer
+ * the name than its own line by more than a quarter of HIT px, the margin by
+ * which a click tells two lines apart, so a name never reads as another
+ * line's, while one by water its line shares with them still finds a place;
+ * a name with no such place is left out, as the column beside the map names
+ * it. Among those places the first wins that shares no
  * baseline with a label beside it and that no line crosses; failing that, a
  * place on no shared baseline comes before one no line crosses, so two labels
  * run on as one line only where there is no other room, and a line through a
@@ -453,6 +473,53 @@ function traced(lines) {
   return { box, segments };
 }
 
+/** The distance from a point to the segment from a to b. */
+function segmentDistance(point, a, b) {
+  const dx = b.x - a.x;
+  const dy = b.y - a.y;
+  const span = dx * dx + dy * dy;
+  const t = span ? Math.max(0, Math.min(1, ((point.x - a.x) * dx + (point.y - a.y) * dy) / span)) : 0;
+  return Math.hypot(point.x - (a.x + t * dx), point.y - (a.y + t * dy));
+}
+
+/** Whether any of some traced lines comes within `far` of a point: a line or
+ *  a segment whose box lies further off is passed over unmeasured. */
+function within(point, lines, far) {
+  const off = (box) => point.x < box.left - far || point.x > box.right + far || point.y < box.top - far || point.y > box.bottom + far;
+  for (const { box, segments } of lines) {
+    if (off(box)) continue;
+    for (const [a, b] of segments) {
+      if (off({ left: Math.min(a.x, b.x), right: Math.max(a.x, b.x), top: Math.min(a.y, b.y), bottom: Math.max(a.y, b.y) })) continue;
+      if (segmentDistance(point, a, b) <= far) return true;
+    }
+  }
+  return false;
+}
+
+/** The distance from a box to the nearest of some traced lines, 0 where one
+ *  runs through it: a segment that misses the box comes nearest it at one of
+ *  its ends or at one of the box's corners. A segment whose own box lies no
+ *  nearer than the nearest found is passed over, and the search ends at the
+ *  first distance under `under`, where the caller needs to know no more. */
+function boxLinesDistance(box, lines, under = 0) {
+  const corners = [{ x: box.left, y: box.top }, { x: box.right, y: box.top }, { x: box.left, y: box.bottom }, { x: box.right, y: box.bottom }];
+  const fromBox = (point) => Math.hypot(Math.max(box.left - point.x, point.x - box.right, 0), Math.max(box.top - point.y, point.y - box.bottom, 0));
+  let best = Infinity;
+  for (const line of lines) {
+    if (boxDistance(box, line.box) >= best) continue;
+    for (const [p, q] of line.segments) {
+      const across = Math.max(Math.min(p.x, q.x) - box.right, box.left - Math.max(p.x, q.x), 0);
+      const down = Math.max(Math.min(p.y, q.y) - box.bottom, box.top - Math.max(p.y, q.y), 0);
+      if (across * across + down * down >= best * best) continue;
+      if (crosses(box, p, q)) return 0;
+      best = Math.min(best, fromBox(p), fromBox(q));
+      for (const corner of corners) best = Math.min(best, segmentDistance(corner, p, q));
+      if (best < under) return best;
+    }
+  }
+  return best;
+}
+
 /** How many lines run through a box, as a reader counts them: each line by
  *  the middle of its run through the box, from where it enters to where it
  *  leaves, and lines whose runs lie within `apart` of each other (a corridor
@@ -499,7 +566,12 @@ function alongFrom(point, lines, spacing) {
  *  round them) and, if it names a place, that lies nearer its own anchor than
  *  any named point it does not own by more than `slack` (a routing's name
  *  names no place, and so minds only what is taken: beside a port's dot it
- *  still reads as the routing's, and its line may run by a port). Among
+ *  still reads as the routing's, and its line may run by a port). A block
+ *  that carries lines (`lines`, a routing's name: { own, others }, each a
+ *  traced line) takes only a candidate that none of the others lies nearer
+ *  than the nearest of its own by more than `margin`, so it reads as its own
+ *  line's and not as the route's or another routing's, and a candidate by
+ *  water they share passes. Among
  *  those it takes the first place where no row of it lies on the baseline of
  *  a label placed within `reach` across (within `level`) and no line crosses
  *  it; else the place with the fewest rows on such a baseline, and of those
@@ -515,9 +587,16 @@ function alongFrom(point, lines, spacing) {
  *  own. A block with no place is left out (`box` null), since the column
  *  beside the map names and prices everything. Returns the blocks in their
  *  order; `taken`, `rows`, `named` and `names` grow with each block placed. */
-function placeBlocks(blocks, { taken, rows, named, names, view, step, steps, lines, apart, room, reach, level, slack }) {
+function placeBlocks(blocks, { taken, rows, named, names, view, step, steps, lines, apart, room, reach, level, slack, margin }) {
   const middle = view.left + (view.right - view.left) * GEOMETRY.HALF;
   const inside = (b) => b.left >= view.left && b.right <= view.right && b.top >= view.top && b.bottom <= view.bottom;
+  // Whether a place lies by the block's own line: no other line nearer it by more than the margin. One within the
+  // margin of its own line passes at once, as nothing can lie nearer than that by more.
+  const byOwnLine = (place, block) => {
+    if (!block.lines) return true;
+    const under = boxLinesDistance(place, block.lines.own) - margin;
+    return under <= 0 || boxLinesDistance(place, block.lines.others, under) >= under;
+  };
   const clear = (place) => !taken.some((t) => overlaps(place, t));
   const shared = (place, block) => block.baselines.filter((dy) => rows.some((row) => Math.abs(row.y - place.top - dy) < level && row.left - reach < place.right && place.left < row.right + reach)).length;
   // The named points a block must lie nearer its own point than, as they stand; one at the block's own place is
@@ -545,7 +624,7 @@ function placeBlocks(blocks, { taken, rows, named, names, view, step, steps, lin
       const others = rivals(block);
       let best = null;
       for (const place of entry.places) {
-        if (!clear(place) || !plain(place, block, others)) continue;
+        if (!clear(place) || !plain(place, block, others) || !byOwnLine(place, block)) continue;
         const cost = { rows: shared(place, block), lines: crossings(place, lines, apart) };
         if (!best || cost.rows < best.rows || (cost.rows === best.rows && cost.lines < best.lines)) {
           box = place;
@@ -569,17 +648,37 @@ function placeBlocks(blocks, { taken, rows, named, names, view, step, steps, lin
 function lineDistance(point, lines) {
   let best = Infinity;
   for (const points of lines) {
-    for (let i = 1; i < points.length; i += 1) {
-      const a = points[i - 1];
-      const b = points[i];
-      const dx = b.x - a.x;
-      const dy = b.y - a.y;
-      const span = dx * dx + dy * dy;
-      const t = span ? Math.max(0, Math.min(1, ((point.x - a.x) * dx + (point.y - a.y) * dy) / span)) : 0;
-      best = Math.min(best, Math.hypot(point.x - (a.x + t * dx), point.y - (a.y + t * dy)));
-    }
+    for (let i = 1; i < points.length; i += 1) best = Math.min(best, segmentDistance(point, points[i - 1], points[i]));
   }
   return best;
+}
+
+/** Puts `nodes` into `parent` in this order, moving only those out of order:
+ *  the longest run of them already in `parent` in this order (the longest
+ *  increasing run of their places there now) stays where it is, and each of
+ *  the rest goes in before the node that follows it. A node moved is taken
+ *  out of the page and put back, which costs a press on it its click. Other
+ *  children of `parent` stay where they are, for the caller to move. */
+function arrange(parent, nodes) {
+  const places = new Map([...parent.children].map((node, at) => [node, at]));
+  // For each node, the longest run in order that ends at it, and the node before it in that run.
+  const runs = nodes.map(() => ({ length: 0, before: -1 }));
+  let end = -1;
+  nodes.forEach((node, i) => {
+    if (!places.has(node)) return;
+    runs[i].length = 1;
+    for (let j = 0; j < i; j += 1) {
+      if (runs[j].length && places.get(nodes[j]) < places.get(node) && runs[j].length >= runs[i].length) runs[i] = { length: runs[j].length + 1, before: j };
+    }
+    if (end < 0 || runs[i].length > runs[end].length) end = i;
+  });
+  const kept = new Set();
+  for (let i = end; i >= 0; i = runs[i].before) kept.add(nodes[i]);
+  let next = null;
+  for (let i = nodes.length - 1; i >= 0; i -= 1) {
+    if (!kept.has(nodes[i])) parent.insertBefore(nodes[i], next);
+    next = nodes[i];
+  }
 }
 
 /** The atlas, drawn into `frame`, and the means to change what it shows.
@@ -592,9 +691,13 @@ function lineDistance(point, lines) {
  *    words    { title, desc, edge, name }: the image's words with nothing
  *             picked (name, its short name, where the artifact gives one)
  *    on       { select(id), alternative(id of a routing of the route
- *               picked), hover(id or null, ids sharing its water),
- *               labels(mode) after each layout: "figures", "codes" or
- *               "none" with nothing picked, "route" with a route picked }
+ *               picked), hover(id or null, ids sharing its water, true
+ *               where the caller raised it by hover(id) rather than the
+ *               pointer finding it), labels(mode, waters) after each
+ *               layout: mode "figures", "codes" or "none" with nothing
+ *               picked, "route" with a route picked; waters() the routes a
+ *               pointer can find beside each route in this view, as
+ *               [id, ids] pairs (see `waters` below) }
  *
  *  Returns { show({ filter, selected, focus }), hover(id), stop() }. */
 export function atlasMap(frame, land, geo, items, clusters, words, decimals, on) {
@@ -682,36 +785,57 @@ export function atlasMap(frame, land, geo, items, clusters, words, decimals, on)
 
   let state = { filter: "all", selected: null, focus: null };
   let hovered = null;
-  // What the caller was last told is under the pointer, with the routes sharing its water.
+  // What the caller was last told is under the pointer, with the routes sharing its water and whether it raised it.
   let told = "";
   // The type of the pointer that last went down on the map.
   let pointer = "";
+  // A press on the map not yet released, and whether the paint order waits for its release.
+  let pressed = false;
+  let unpainted = false;
   let k = ww / Math.max(frame.clientWidth, 1);
 
   const visible = (item) => state.filter === "all" || item.segment === state.filter;
   const picked = () => (state.selected ? drawn.find((d) => d.item.id === state.selected) || null : null);
 
   /* Paint order, as the comment above says: the list's order, the route
-   * pointed at raised in its layer, the route picked over all of them. */
+   * pointed at raised in its layer, the route picked over all of them, each
+   * group moved only where its order changes, and none during a press. */
   const paint = () => {
-    const current = picked();
-    for (const d of drawn) {
-      if (d === current) continue;
-      for (const a of d.alternatives) altLayer.appendChild(a.group);
-      routeLayer.appendChild(d.group);
+    if (pressed) {
+      unpainted = true;
+      return;
     }
-    const raised = drawn.find((d) => d.item.id === hovered && d !== current);
-    if (raised) routeLayer.appendChild(raised.group);
+    unpainted = false;
+    const current = picked();
+    const raised = drawn.find((d) => d.item.id === hovered && d !== current) || null;
+    const rest = drawn.filter((d) => d !== current);
+    arrange(altLayer, rest.flatMap((d) => d.alternatives.map((a) => a.group)));
+    arrange(routeLayer, [...rest.filter((d) => d !== raised), ...(raised ? [raised] : [])].map((d) => d.group));
     if (!current) return;
-    const focus = current.alternatives.find((a) => a.alt.id === state.focus);
-    for (const a of current.alternatives) if (a !== focus) pickedLayer.appendChild(a.group);
-    pickedLayer.appendChild(current.group);
-    if (focus) pickedLayer.appendChild(focus.group);
+    const focus = current.alternatives.find((a) => a.alt.id === state.focus) || null;
+    arrange(pickedLayer, [...current.alternatives.filter((a) => a !== focus), current, ...(focus ? [focus] : [])].map((part) => part.group));
+  };
+  /* A press on the map: from the pointer going down, or from the mouse
+   * events a tap brings after the touch's own pointer is up, to the
+   * release. A focus that leaves a row of the list as the press begins
+   * clears the route it raised, and the order it would paint then waits for
+   * the next frame, after the click the release brings in its own task. */
+  const press = () => {
+    pressed = true;
+  };
+  const release = () => {
+    if (!pressed) return;
+    pressed = false;
+    if (unpainted) {
+      requestAnimationFrame(() => {
+        if (unpainted) paint();
+      });
+    }
   };
 
-  const setHover = (id, sharing) => {
+  const setHover = (id, sharing, asked) => {
     const others = sharing || [];
-    const key = id ? [id, ...others].join(" ") : "";
+    const key = id ? (asked ? "asked " : "") + [id, ...others].join(" ") : "";
     if (key === told) return;
     told = key;
     if (id !== hovered) {
@@ -721,7 +845,7 @@ export function atlasMap(frame, land, geo, items, clusters, words, decimals, on)
       svg.classList.toggle("is-pointing", Boolean(id));
       paint();
     }
-    if (on.hover) on.hover(id, others);
+    if (on.hover) on.hover(id, others, Boolean(id && asked));
   };
 
   /* Every line within half a band of a pointer, nearest first: each route
@@ -762,14 +886,68 @@ export function atlasMap(frame, land, geo, items, clusters, words, decimals, on)
     return mine ? { id: mine.id, alt: routing ? routing.alt : null } : null;
   };
   const sharingOf = (found, id) => [...new Set(found.map((c) => c.id))].filter((other) => other !== id);
+  /* The lines a pointer finds a route by, as `near` takes them: its laden
+   * leg and, with the route picked, its ballast leg as drawn and its other
+   * routings. */
+  const pointable = (d) => [
+    trace(d.item.legs.laden),
+    ...(d.item.id === state.selected ? [...(d.ballastDrawn ? [traced(d.ballastDrawn)] : []), ...d.alternatives.flatMap((a) => a.legs.map(trace))] : []),
+  ];
+  /* What the line under the map can name in this view, for the room the
+   * caller keeps for it: each route shown, with the most routes a pointer
+   * can find beside it. A pointer that finds a route lies within half a band
+   * of a point of its lines, and the routes it finds beside it within half a
+   * band of the pointer: all of them lie within a band of that point. So at
+   * points half a band apart along each line in the view, every route
+   * within a band and a quarter (half the spacing more) is taken, a set
+   * that holds what any pointer near that point finds. Returns [id, ids]
+   * pairs, every route shown at least once (with no ids where no pointer
+   * finds another beside it), and no set that another of its own holds. */
+  const waters = () => {
+    const reach = g.HIT * GEOMETRY.HALF * k;
+    const far = reach + reach + reach * GEOMETRY.HALF;
+    const [vx, vy, vw, vh] = view();
+    // A point of a line further out than this takes no pointer in the view.
+    const out = reach + reach * GEOMETRY.HALF;
+    const shown = drawn.filter((d) => visible(d.item)).map((d) => ({ id: d.item.id, lines: pointable(d) }));
+    const pairs = [];
+    for (const route of shown) {
+      const sets = [[]];
+      for (const { segments } of route.lines) {
+        for (const [a, b] of segments) {
+          const steps = Math.max(1, Math.ceil(Math.hypot(b.x - a.x, b.y - a.y) / reach));
+          for (let i = 0; i <= steps; i += 1) {
+            const x = a.x + ((b.x - a.x) * i) / steps;
+            const y = a.y + ((b.y - a.y) * i) / steps;
+            if (x < vx - out || x > vx + vw + out || y < vy - out || y > vy + vh + out) continue;
+            const ids = shown.filter((other) => other !== route && within({ x, y }, other.lines, far)).map((other) => other.id);
+            if (!sets.some((set) => ids.every((id) => set.includes(id)))) sets.push(ids);
+          }
+        }
+      }
+      for (const set of sets) {
+        if (!sets.some((other) => other.length > set.length && set.every((id) => other.includes(id)))) pairs.push([route.id, set]);
+      }
+    }
+    return pairs;
+  };
   /* The route a label names, with the routing it names where it names one. */
   const labelled = (event) => {
     const node = event.target.closest ? event.target.closest("[data-item]") : null;
     return node && labelLayer.contains(node) ? { id: node.getAttribute("data-item"), alt: node.getAttribute("data-alt") } : null;
   };
   const tapsAllowed = () => frame.clientWidth >= g.CODES_FROM;
+  /* Where a pointer last was on the map, to the fraction of a pixel its
+   * events give. A click gives whole pixels only (Chromium), and in water
+   * routes share the fraction can decide between them: a click within a
+   * pixel of it aims there, so it opens what the line under the map names. */
+  let spot = null;
+  const track = (event) => {
+    spot = { clientX: event.clientX, clientY: event.clientY };
+  };
 
   svg.addEventListener("pointermove", (event) => {
+    track(event);
     if (event.pointerType === "touch") return;
     const label = labelled(event);
     if (label) {
@@ -783,11 +961,20 @@ export function atlasMap(frame, land, geo, items, clusters, words, decimals, on)
   svg.addEventListener("pointerleave", () => setHover(null, []));
   svg.addEventListener("pointerdown", (event) => {
     pointer = event.pointerType;
+    track(event);
+    press();
   });
+  svg.addEventListener("pointerup", track);
+  svg.addEventListener("mousedown", press);
+  // Released anywhere, as a press may end off the map or be taken by a scroll, a drag, a menu or another window.
+  const releases = ["pointerup", "pointercancel", "mouseup", "contextmenu"];
+  for (const type of releases) window.addEventListener(type, release, true);
+  window.addEventListener("blur", release);
   svg.addEventListener("click", (event) => {
     const touch = (event.pointerType || pointer) === "touch";
     if (touch && !tapsAllowed()) return;
-    const target = labelled(event) || aim(near(event), touch);
+    const within = spot && Math.abs(spot.clientX - event.clientX) < 1 && Math.abs(spot.clientY - event.clientY) < 1;
+    const target = labelled(event) || aim(near(within ? spot : event), touch);
     if (!target) return;
     if (target.alt) {
       if (on.alternative) on.alternative(target.alt);
@@ -930,6 +1117,21 @@ export function atlasMap(frame, land, geo, items, clusters, words, decimals, on)
     };
     // An anchor is a box: a loading area's ports, or a point.
     const at = (x, y) => ({ left: x, top: y, right: x, bottom: y });
+    // The lines a routing's name minds: its own, and the others it could be
+    // read as naming, its route's line (with its ballast leg as drawn, once
+    // the route is picked) and other routings and, with nothing picked,
+    // every other route's line and routing shown.
+    const routingLines = (d, a) => ({
+      own: a.legs.map(trace),
+      others: [
+        trace(d.item.legs.laden),
+        ...(d.item.id === state.selected && d.ballastDrawn ? [traced(d.ballastDrawn)] : []),
+        ...d.alternatives.filter((b) => b !== a).flatMap((b) => b.legs.map(trace)),
+        ...(state.selected
+          ? []
+          : drawn.filter((e) => e !== d && visible(e.item)).flatMap((e) => [trace(e.item.legs.laden), ...e.alternatives.flatMap((b) => b.legs.map(trace))])),
+      ],
+    });
     // Returns whether every block found a place; `dry` asks only that, and
     // leaves the page and what is taken as they were.
     const place = (blocks, dry, steps = mg.SHIFTS) => {
@@ -949,6 +1151,8 @@ export function atlasMap(frame, land, geo, items, clusters, words, decimals, on)
         reach: font * g.BASELINE_REACH,
         level: font * g.ROOM_DOWN,
         slack: k,
+        // A quarter of the pointer's band, by which a click tells two lines apart.
+        margin: g.HIT * GEOMETRY.HALF * GEOMETRY.HALF * k,
       });
       if (!dry) for (const block of placed) if (block.box) write(block, "atlas-block");
       return placed.every((block) => block.box);
@@ -988,10 +1192,12 @@ export function atlasMap(frame, land, geo, items, clusters, words, decimals, on)
         place(blocks(withFigures));
         mode = withFigures ? "figures" : "codes";
         // The alternatives each route's line carries, named where there is still room.
-        place(items
-          .filter((item) => shown.has(item.id))
-          .flatMap((item) => (item.alternatives || []).filter((alt) => alt.whole_label && alt.label_at && drawnAlt.has(alt)))
-          .map((alt) => blockOf(at(alt.label_at[0], alt.label_at[1]), null, [{ parts: [{ text: alt.whole_label, className: "atlas-label__alt" }] }], gap)), false, g.ROUTING_SHIFTS);
+        place(drawn
+          .filter((d) => shown.has(d.item.id))
+          .flatMap((d) => d.alternatives.filter((a) => a.alt.whole_label && a.alt.label_at).map((a) => ({
+            ...blockOf(at(a.alt.label_at[0], a.alt.label_at[1]), null, [{ parts: [{ text: a.alt.whole_label, className: "atlas-label__alt" }] }], gap),
+            lines: routingLines(d, a),
+          }))), false, g.ROUTING_SHIFTS);
       }
     } else {
       // The route picked: where its lines leave the map, its ports, its alternatives' names, its passages.
@@ -1024,6 +1230,7 @@ export function atlasMap(frame, land, geo, items, clusters, words, decimals, on)
         const block = blockOf(at(alt.label_at[0], alt.label_at[1]), null, [{ item: selected.id, alt: alt.id, parts: [{ text, className: "atlas-label__alt" }] }], gap);
         const own = current.alternatives.find((a) => a.alt === alt);
         block.along = own ? alongFrom({ x: alt.label_at[0], y: alt.label_at[1] }, own.lines, font * g.ALONG) : [];
+        block.lines = own ? routingLines(current, own) : null;
         return block;
       };
       // While a routing is shown from its toggle its name alone is written:
@@ -1045,7 +1252,7 @@ export function atlasMap(frame, land, geo, items, clusters, words, decimals, on)
     // The probe keeps no text or label class between drawings, so the svg holds only what it draws.
     probe.textContent = "";
     probe.removeAttribute("class");
-    if (on.labels) on.labels(mode);
+    if (on.labels) on.labels(mode, waters);
   };
 
   const show = (next) => {
@@ -1087,7 +1294,9 @@ export function atlasMap(frame, land, geo, items, clusters, words, decimals, on)
     unobserve();
     respace.disconnect();
     if (document.fonts) document.fonts.removeEventListener("loadingdone", forget);
+    for (const type of releases) window.removeEventListener(type, release, true);
+    window.removeEventListener("blur", release);
   }
   show({});
-  return { show, stop, hover: setHover };
+  return { show, stop, hover: (id) => setHover(id, [], true) };
 }

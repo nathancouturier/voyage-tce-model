@@ -4,6 +4,8 @@
 //     const browser = await launch();            // a fresh profile, a free port
 //     const page = await browser.page();
 //     await page.goto("http://localhost:8150/voyage-tce-model/#/overview");
+//     await page.mouseClick(x, y);               // the mouse's own events, at a point
+//     await page.tap(x, y);                      // a finger's, on a view opened as a touch screen
 //     ...
 //     await browser.close();                     // kills it, deletes the profile
 //
@@ -110,6 +112,29 @@ class Page {
 
   async viewport(width, height) {
     await this.send("Emulation.setDeviceMetricsOverride", { width, height, deviceScaleFactor: 1, mobile: width < 768 });
+  }
+
+  /** A tap of one finger at (x, y), in CSS px of the viewport, as a touch
+   *  screen sends it: a touch start and a touch end, from which the browser
+   *  makes the touch's own pointer events and then the mouse events and the
+   *  click a tap brings. The view is opened as a touch screen first
+   *  (openView's `touch`). */
+  async tap(x, y) {
+    await this.send("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: [{ x, y }] });
+    await this.send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] });
+  }
+
+  /** The mouse moved to (x, y), in CSS px of the viewport, no button down. */
+  async mouseMove(x, y) {
+    await this.send("Input.dispatchMouseEvent", { type: "mouseMoved", x, y });
+  }
+
+  /** A click of the left button at (x, y) with the mouse's own events: moved
+   *  there, pressed and released, as a hand on a mouse makes it. */
+  async mouseClick(x, y) {
+    await this.mouseMove(x, y);
+    await this.send("Input.dispatchMouseEvent", { type: "mousePressed", x, y, button: "left", buttons: 1, clickCount: 1 });
+    await this.send("Input.dispatchMouseEvent", { type: "mouseReleased", x, y, button: "left", buttons: 0, clickCount: 1 });
   }
 
   /** Load a URL and wait for the load event. */
@@ -280,9 +305,12 @@ export async function launch(argv = process.argv) {
  *  base and hash as a new document instead, for an address the page rewrites
  *  as it reads it (a route the study does not have): the page already shown
  *  hears the hash change first and may rewrite the address before the reload
- *  reads it. */
-export async function openView(page, base, { theme = "light", hash = "#/overview", width = 1440, height = 900, direct = false } = {}) {
+ *  reads it. `touch` opens it on a touch screen, as a phone shows it, for
+ *  page.tap; every other view is opened with none, so a view opened before
+ *  on one leaves nothing behind. */
+export async function openView(page, base, { theme = "light", hash = "#/overview", width = 1440, height = 900, direct = false, touch = false } = {}) {
   await page.viewport(width, height);
+  await page.send("Emulation.setTouchEmulationEnabled", { enabled: touch });
   await page.goto(base);
   await page.waitFor("location.href.startsWith(" + JSON.stringify(base) + ") && document.readyState !== 'loading'");
   await page.evaluate("localStorage.setItem('nc-theme', " + JSON.stringify(theme) + "), true");

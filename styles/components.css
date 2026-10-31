@@ -839,20 +839,31 @@ p.block,
 @media (min-width: 768px) {
   .atlas-map-heading { min-height: 2lh; }
 }
-/* The line under the map: what the pointer is on, or the route picked. Two
- * lines are kept for it, so the legend under it does not move as it changes. */
+/* The line under the map: what the pointer is on, or the route picked, and
+ * from 1100px a row of the list pointed at or focused (src/atlas.js). Where
+ * a pointer on the map can change it, it keeps the room of the tallest line
+ * a pointer can bring at this width, which src/atlas.js measures after each
+ * drawing of the map (--atlas-caption-room), and never less than two lines,
+ * so what is under it stays in place as the pointer moves: from 1100px the
+ * legend, below that the list. Below 1100px, where it sits above the list, a
+ * row never changes it, as a line growing there would move the row under the
+ * pointer or the finger. */
 .atlas-caption {
   margin-top: 8px;
-  min-height: 2.9em;
+  min-height: max(2.9em, var(--atlas-caption-room, 0px));
   font-size: var(--fs-body-s);
   line-height: 1.45;
   color: var(--text);
   font-variant-numeric: tabular-nums lining-nums;
 }
 .atlas-caption__same { color: var(--text-muted); }
-/* On a map too narrow for labels and taps the line changes only with a pick,
- * so no second line is kept, and the list on a phone starts higher. */
+/* On a map too narrow for labels and taps the line changes only with a pick
+ * (neither a pointer on the map nor a row changes it there), so no second
+ * line is kept, and the list on a phone starts higher. */
 .atlas-caption--still { min-height: 0; }
+/* The copy of the line where src/atlas.js measures each line a pointer can
+ * bring: out of the flow, unseen, and only as tall as its words. */
+.atlas-caption--copy { position: absolute; visibility: hidden; min-height: 0; }
 /* The legend shows the lines the map draws now: the list's, or the route
  * picked's, each sample only where a line of its kind is drawn (src/atlas.js
  * hides the others). */

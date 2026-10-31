@@ -5,12 +5,20 @@
 // route in one step, from a link to another route and after the browser's
 // Back and Forward) with the filter, the focus and the sections open kept
 // right, an address typed with its own sections taken as it is, its layout
-// on a phone, its list and a route's detail (a same-water route's name a
-// target of its own; the text spaced as WCAG 1.4.12 allows, nothing cut),
-// and its drawing (the route picked painted over the rest, each name by its
-// own place, the Pacific's by its ring, every routing named with nothing
-// picked, a click on a routing pressing its toggle where the page stands, a
-// routing drawn once and only where it leaves its route); and the
+// on a phone, the browser's own input on it (a finger's tap on a row of the
+// list on a phone's first screen opens that route; a row focused or pointed
+// at on a phone, or the mouse on a map too narrow for labels, moves nothing
+// under it, and nor does the mouse along every line where the line under
+// the map names what it is on; the first click on a line after Back to the
+// list opens that route, and a click on a half pixel of a screen of two
+// device pixels a CSS pixel opens the route the map points at), its list
+// and a route's detail (a same-water route's name a target of its own; the
+// text spaced as WCAG 1.4.12 allows, nothing cut), and its drawing (the
+// route picked painted over the rest, each name by its own place, the
+// Pacific's by its ring, every routing named with nothing picked and none
+// nearer another line than its own, a click on a routing pressing its
+// toggle where the page stands, a routing drawn once and only where it
+// leaves its route); and the
 // calculator's form,
 // what a visitor types and what the page must then show. tools/validate-engine.mjs holds src/engine.js to the Python
 // engine; this holds the pages that read it, which no other check reaches.
@@ -609,6 +617,320 @@ CHECKS.push(
   },
 );
 
+/* ------------------------------------ the Map under a finger and a mouse --- */
+
+/* These act through the browser's own input, a finger's touch or the mouse's
+ * events at a point, not element.click(), which no row's or line's own
+ * pointer and focus events precede. */
+const frame = "new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(() => r(true))))";
+const routeShown = "((document.querySelector('.atlas-panel') || { getAttribute: () => null }).getAttribute('data-item'))";
+const pointedAt = "((document.querySelector('.atlas-route.is-hover') || { getAttribute: () => null }).getAttribute('data-item'))";
+
+/** In the page: the points of a route's line on the screen, each on a whole
+ *  pixel and on the line as drawn (what a press there lands on), where no
+ *  other route's line comes within `clear` px, so the map can point at no
+ *  other route there. Serialised into the page. */
+function clearPoints(id, clear) {
+  const trace = (path) => {
+    const matrix = path.getScreenCTM();
+    const length = path.getTotalLength();
+    const out = [];
+    for (let at = 0; at <= length; at += length / 400) out.push(path.getPointAtLength(at).matrixTransform(matrix));
+    return out;
+  };
+  const lines = [...document.querySelectorAll(".atlas-route:not(.is-hidden) .atlas-route__line")];
+  const own = lines.find((path) => path.closest(".atlas-route").getAttribute("data-item") === id);
+  const others = lines.filter((path) => path !== own).map(trace);
+  return trace(own)
+    .map((point) => ({ x: Math.round(point.x), y: Math.round(point.y) }))
+    .filter((point) => point.x > 0 && point.y > 0 && point.x < innerWidth && point.y < innerHeight)
+    .filter((point) => {
+      const hit = document.elementFromPoint(point.x, point.y);
+      return Boolean(hit && hit.closest(".atlas-route") && hit.closest(".atlas-route").getAttribute("data-item") === id);
+    })
+    .filter((point) => others.every((line) => line.every((q) => Math.hypot(q.x - point.x, q.y - point.y) > clear)));
+}
+
+/** Moves the mouse to points of a route's line on the map clear of every
+ *  other route's (by the band a line takes a pointer in, 14 px, as
+ *  src/map.js ATLAS_GEOMETRY.HIT) until the map points at that route, and
+ *  returns that point on the screen, or null. */
+async function pointAtRoute(page, id) {
+  const points = await page.evaluate("(" + clearPoints.toString() + ")(" + JSON.stringify(id) + ", 14)");
+  // A few points spread along the line are enough.
+  const step = Math.max(1, Math.floor(points.length / 8));
+  for (const point of points.filter((p, i) => i % step === 0)) {
+    await page.mouseMove(point.x, point.y);
+    await page.evaluate(frame);
+    if (await page.evaluate(pointedAt) === id) return point;
+  }
+  return null;
+}
+
+/* In the page: each row on the first screen, at the middle of its code's
+ * line and at the middle of its part on the screen. */
+const firstScreenTaps = "[...document.querySelectorAll('.atlas-row[data-item]')].filter((row) => row.getBoundingClientRect().top < innerHeight).flatMap((row) => {" +
+  " const box = row.getBoundingClientRect(); const code = row.querySelector('.atlas-row__code').getBoundingClientRect(); const x = box.left + box.width / 2; const id = row.getAttribute('data-item');" +
+  " return [{ id, where: 'first line', x, y: (code.top + code.bottom) / 2 }, { id, where: 'middle', x, y: (box.top + Math.min(box.bottom, innerHeight)) / 2 }]; })" +
+  ".filter((tap) => tap.y < innerHeight - 1)";
+
+for (const [width, height] of [[390, 844], [414, 896]]) {
+  CHECKS.push({
+    name: "on a " + width + " by " + height + " px touch screen a tap on the first line or the middle of each row on the first screen opens that row's route",
+    hash: "#/map",
+    width,
+    height,
+    touch: true,
+    async run(page) {
+      const taps = await page.evaluate(firstScreenTaps);
+      const missed = [];
+      for (const [index, tap] of taps.entries()) {
+        // Each tap on the list as the page first shows it.
+        if (index) await openView(page, BASE, { hash: "#/map", width, height, touch: true });
+        await page.tap(tap.x, tap.y);
+        await page.waitFor(routeShown + " === " + JSON.stringify(tap.id), 3000).catch(() => {});
+        const opened = await page.evaluate(routeShown);
+        if (opened !== tap.id) missed.push("a tap on the " + tap.where + " of " + tap.id + " at " + Math.round(tap.y) + " px opened " + (opened || "nothing"));
+      }
+      return [
+        [taps.length > 0, "no row on the first screen"],
+        [missed.length === 0, missed.join("; ")],
+      ];
+    },
+  });
+}
+
+for (const width of [1440, 768]) {
+  CHECKS.push({
+    name: "at " + width + " px, with focus back on a row after Back to the list, the first click on that route's line on the map opens it again, and the first on another route's line opens that one",
+    hash: "#/map",
+    width,
+    async run(page) {
+      const results = [];
+      for (const id of ["C5", "TC20"]) {
+        if (await page.evaluate(routeShown)) {
+          await page.evaluate(click(".atlas-back"));
+          await page.waitFor(listShown);
+        }
+        await page.evaluate(click(".atlas-row[data-item=\"C5\"]"));
+        await page.waitFor(panelOf("C5"));
+        await page.evaluate(click(".atlas-back"));
+        await page.waitFor(listShown + " && document.activeElement && document.activeElement.getAttribute('data-item') === 'C5'");
+        await page.evaluate("document.querySelector('.atlas-frame').scrollIntoView({ block: 'nearest' }), true");
+        await page.evaluate(frame);
+        const at = await pointAtRoute(page, id);
+        if (!at) {
+          results.push([false, "no point on " + id + "'s line where the map points at it"]);
+          continue;
+        }
+        await page.mouseClick(at.x, at.y);
+        await page.waitFor(routeShown + " === " + JSON.stringify(id), 3000).catch(() => {});
+        const opened = await page.evaluate(routeShown);
+        results.push([opened === id, "the first click on " + id + "'s line opened " + (opened || "nothing")]);
+      }
+      return results;
+    },
+  });
+}
+
+CHECKS.push({
+  name: "at 390 px a row focused or pointed at raises its route on the map and moves neither the line under the map nor the list, and the mouse on a map too narrow for labels leaves them too",
+  hash: "#/map",
+  width: 390,
+  height: 844,
+  async run(page) {
+    // Where the list and the line under the map stand on the page, and the route the map raises over the others.
+    const where = "(() => ({ list: Math.round(document.querySelector('.atlas-row[data-item=\"P7\"]').getBoundingClientRect().top + scrollY), line: document.querySelector('.atlas-caption').textContent }))()";
+    const raised = "(() => { const last = document.querySelector('.atlas-routes').lastElementChild; return last && last.classList.contains('is-hover') ? last.getAttribute('data-item') : ''; })()";
+    const before = await page.evaluate(where);
+    await page.evaluate("document.querySelector('.atlas-row[data-item=\"C5\"]').focus(), true");
+    const focused = await page.evaluate(where);
+    const focusRaised = await page.evaluate(raised);
+    await page.evaluate("document.activeElement.blur(), true");
+    // Off every row first, so the mouse enters the row it moves to.
+    await page.mouseMove(1, 1);
+    const row = await page.evaluate("(() => { document.querySelector('.atlas-row[data-item=\"C5\"]').scrollIntoView({ block: 'center' }); const b = document.querySelector('.atlas-row[data-item=\"P7\"] .atlas-row__code').getBoundingClientRect(); return { x: b.left + b.width / 2, y: (b.top + b.bottom) / 2 }; })()");
+    await page.mouseMove(row.x, row.y);
+    await page.evaluate(frame);
+    const pointed = await page.evaluate(where);
+    const pointRaised = await page.evaluate(raised);
+    await page.evaluate("window.scrollTo(0, 0), true");
+    // The first of these routes with a stretch of line clear of the others on a map this narrow.
+    let line = null;
+    for (const id of ["C5", "C3", "TD20", "TC20"]) {
+      line = line || ((await pointAtRoute(page, id)) && id);
+    }
+    const onMap = await page.evaluate(where);
+    const same = (after) => after.list === before.list && after.line === before.line;
+    return [
+      [same(focused) && focusRaised === "C5", "with the C5 row focused the map raises " + (focusRaised || "nothing") + ", the list moved from " + before.list + " to " + focused.list + " px and the line reads \"" + focused.line + "\""],
+      [same(pointed) && pointRaised === "P7", "with the mouse on the P7 row the map raises " + (pointRaised || "nothing") + ", the list moved from " + before.list + " to " + pointed.list + " px and the line reads \"" + pointed.line + "\""],
+      [line !== null && same(onMap), line ? "with the mouse on " + line + "'s line the list moved from " + before.list + " to " + onMap.list + " px and the line reads \"" + onMap.line + "\"" : "no point on a route's line where the map points at it"],
+    ];
+  },
+});
+
+/** In the page: points along every route's line on the map, `along` to a
+ *  line, each on it and `off` px either side, within the map and the
+ *  screen. Serialised into the page. */
+function linePoints(along, off) {
+  const map = document.querySelector(".atlas-map").getBoundingClientRect();
+  return [...document.querySelectorAll(".atlas-route:not(.is-hidden) .atlas-route__line")].flatMap((path) => {
+    const matrix = path.getScreenCTM();
+    const length = path.getTotalLength();
+    const out = [];
+    for (let i = 0; i <= along; i += 1) {
+      const a = path.getPointAtLength((length * i) / along).matrixTransform(matrix);
+      const b = path.getPointAtLength(Math.min(length, (length * i) / along + 1)).matrixTransform(matrix);
+      const span = Math.hypot(b.x - a.x, b.y - a.y) || 1;
+      for (const side of [0, off, -off]) out.push({ x: a.x - ((b.y - a.y) / span) * side, y: a.y + ((b.x - a.x) / span) * side });
+    }
+    return out;
+  }).filter((p) => p.x > map.left + 1 && p.y > map.top + 1 && p.x < map.right - 1 && p.y < map.bottom - 1 && p.y > 0 && p.y < innerHeight);
+}
+
+for (const [width, height] of [[540, 900], [768, 1024], [1100, 800]]) {
+  CHECKS.push({
+    name: "at " + width + " px the mouse along every route's line on the map, on it and 3 px either side, moves neither the list nor the legend: the line under the map keeps the room of the longest it can bring",
+    hash: "#/map",
+    width,
+    height,
+    async run(page) {
+      await page.evaluate("document.querySelector('.atlas-frame').scrollIntoView({ block: 'nearest' }), true");
+      await page.evaluate(frame);
+      const where = "(() => ({ list: Math.round(document.querySelector('.atlas-row[data-item]').getBoundingClientRect().top + scrollY), legend: Math.round(document.querySelector('.atlas-legend').getBoundingClientRect().top + scrollY) }))()";
+      const before = await page.evaluate(where);
+      const points = await page.evaluate("(" + linePoints.toString() + ")(50, 3)");
+      const moved = [];
+      for (const point of points) {
+        await page.mouseMove(point.x, point.y);
+        const now = await page.evaluate(where);
+        if (now.list === before.list && now.legend === before.legend) continue;
+        moved.push("at (" + Math.round(point.x) + ", " + Math.round(point.y) + ") the list moved " + (now.list - before.list) + " px and the legend " + (now.legend - before.legend) + " px, the line reading \"" + (await page.evaluate(text(".atlas-caption"))) + "\"");
+        if (moved.length === 3) break;
+      }
+      return [
+        [points.length > 0, "no point on the map's lines"],
+        [moved.length === 0, moved.join("; ")],
+      ];
+    },
+  });
+}
+
+/** In the page: pointer positions across a route's line, from its start to
+ *  `to` of its length at `steps` + 1 places, each 4 px either side of it by
+ *  half pixels, as a screen of two device pixels a CSS pixel gives them.
+ *  Serialised into the page. */
+function halfPixels(id, to, steps) {
+  const path = document.querySelector(".atlas-route[data-item=\"" + id + "\"] .atlas-route__line");
+  const matrix = path.getScreenCTM();
+  const length = path.getTotalLength();
+  const seen = new Set();
+  const out = [];
+  for (let i = 0; i <= steps; i += 1) {
+    const a = path.getPointAtLength((length * to * i) / steps).matrixTransform(matrix);
+    const b = path.getPointAtLength(Math.min(length, (length * to * i) / steps + 0.5)).matrixTransform(matrix);
+    const span = Math.hypot(b.x - a.x, b.y - a.y) || 1;
+    for (let side = -4; side <= 4; side += 0.5) {
+      const x = Math.round((a.x - ((b.y - a.y) / span) * side) * 2) / 2;
+      const y = Math.round((a.y + ((b.x - a.x) / span) * side) * 2) / 2;
+      if (seen.has(x + "," + y)) continue;
+      seen.add(x + "," + y);
+      out.push({ x, y });
+    }
+  }
+  return out;
+}
+
+CHECKS.push({
+  name: "on a screen of two device pixels a CSS pixel, where TD3C and TC20 share water by Ras Tanura, a click opens the route the map points at wherever in its pixel the pointer stands",
+  hash: "#/map",
+  width: 1440,
+  height: 900,
+  async run(page) {
+    // A click gives whole pixels; the pointer's own events, half pixels on such a screen.
+    await page.send("Emulation.setDeviceMetricsOverride", { width: 1440, height: 900, deviceScaleFactor: 2, mobile: false });
+    await page.reload();
+    await page.waitFor("document.querySelector('.atlas-row[data-item]') && document.fonts.status === 'loaded'");
+    await page.evaluate(frame);
+    const points = await page.evaluate("(" + halfPixels.toString() + ")('TD3C', 0.06, 6)");
+    const missed = [];
+    let clicks = 0;
+    for (const point of points) {
+      await page.mouseMove(point.x, point.y);
+      const pointed = await page.evaluate(pointedAt);
+      if (!pointed) continue;
+      clicks += 1;
+      await page.mouseClick(point.x, point.y);
+      await page.waitFor(routeShown + " !== null", 3000).catch(() => {});
+      const opened = await page.evaluate(routeShown);
+      if (opened !== pointed) missed.push("at (" + point.x + ", " + point.y + ") the map points at " + pointed + " and a click opens " + (opened || "nothing"));
+      if (opened) {
+        await page.evaluate(click(".atlas-back"));
+        await page.waitFor(listShown);
+        // The list as it first stood, with no row focused and the map where it was.
+        await page.evaluate("document.activeElement && document.activeElement.blur(), window.scrollTo(0, 0), true");
+      }
+      // Off the map, so the next point starts with nothing pointed at.
+      await page.mouseMove(1439, 899);
+      await page.evaluate(frame);
+    }
+    return [
+      [clicks > 0, "no point by Ras Tanura where the map points at a route"],
+      [missed.length === 0, missed.length + " of " + clicks + " clicks: " + missed.slice(0, 3).join("; ")],
+    ];
+  },
+});
+
+/** In the page: each routing named on the map with nothing picked (`whole`,
+ *  the artifact's whole_label to its route and routing), the distance in px
+ *  from its name's box to its own routing's line as drawn and to the
+ *  nearest other line drawn, every route's and every other routing's, read
+ *  at points a pixel apart. Serialised into the page. */
+function routingNames(whole) {
+  const shown = (node) => !node.closest(".is-hidden");
+  const cache = new Map();
+  const points = (path) => {
+    if (!cache.has(path)) {
+      const matrix = path.getScreenCTM();
+      const length = path.getTotalLength();
+      const n = Math.max(1, Math.ceil(length * matrix.a));
+      const out = [];
+      for (let i = 0; i <= n; i += 1) out.push(path.getPointAtLength((length * i) / n).matrixTransform(matrix));
+      cache.set(path, out);
+    }
+    return cache.get(path);
+  };
+  const from = (box, paths) => Math.min(...paths.flatMap(points).map((p) => Math.hypot(Math.max(box.left - p.x, 0, p.x - box.right), Math.max(box.top - p.y, 0, p.y - box.bottom))));
+  const routes = [...document.querySelectorAll(".atlas-route .atlas-route__line")].filter(shown);
+  const routings = [...document.querySelectorAll(".atlas-alt")].filter(shown);
+  return [...document.querySelectorAll(".atlas-labels text.atlas-label__alt:not(.halo)")].filter((t) => whole[t.textContent]).map((t) => {
+    const [item, alt] = whole[t.textContent];
+    const box = t.getBoundingClientRect();
+    const own = routings.find((g) => g.getAttribute("data-item") === item && g.getAttribute("data-alt") === alt);
+    const others = [...routes, ...routings.filter((g) => g !== own).flatMap((g) => [...g.querySelectorAll("path")])];
+    return { name: t.textContent, own: from(box, [...own.querySelectorAll("path")]), other: from(box, others) };
+  });
+}
+const wholeNames = Object.fromEntries(atlas.items.flatMap((item) => item.alternatives.filter((alt) => alt.whole_label).map((alt) => [alt.whole_label, [item.id, alt.id]])));
+
+for (const width of [640, 960, 1140]) {
+  CHECKS.push({
+    name: "with nothing picked at " + width + " px no routing's name lies nearer another line drawn than its own by more than 3.5 px, the margin by which a click tells two lines apart",
+    hash: "#/map",
+    width,
+    async run(page) {
+      const names = await page.evaluate("(" + routingNames.toString() + ")(" + JSON.stringify(wholeNames) + ")");
+      // Read at points a pixel apart, so half a pixel more is the reading's own error.
+      const astray = names.filter((name) => name.other < name.own - 3.5 - 0.5);
+      return [
+        [names.length > 0, "no routing named"],
+        [astray.length === 0, astray.map((name) => "\"" + name.name + "\" is " + name.own.toFixed(1) + " px from its own line and " + name.other.toFixed(1) + " px from another").join("; ")],
+      ];
+    },
+  });
+}
+
 /* ------------------------------------------------- the Map's list and detail --- */
 
 /** The legend's samples the map draws for a route, in the legend's order, from
@@ -938,7 +1260,7 @@ try {
     page.errors.length = 0;
     let results;
     try {
-      await openView(page, BASE, { hash: check.hash, width: check.width || 1440, height: check.height, theme: "light", direct: check.direct });
+      await openView(page, BASE, { hash: check.hash, width: check.width || 1440, height: check.height, theme: "light", direct: check.direct, touch: check.touch });
       results = await check.run(page);
     } catch (error) {
       results = [[false, error.message]];

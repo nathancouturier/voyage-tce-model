@@ -1490,17 +1490,29 @@ def detours_page(st: Mapping[str, Any], sd: Mapping[str, Any], hz: Mapping[str, 
                     "chains.sts.saving_t",
                     "usd_t",
                 ),
-                " a tonne at TD3C's TCE. TD34 loads outside the strait: the Baltic assessed it at ",
-                usd(chains["td34"]["published_tce_usd_day"], "td34.tce", "usd_day"),
-                " a day against TD3C's ",
-                usd(hz["td34_vs_td3c_published"]["td3c_tce_usd_day"], "td3c.tce", "usd_day"),
-                " in the week to ",
-                word(date_label(hz["as_of"]), "hormuz.as_of"),
-                ", which puts its freight at ",
-                usd(chains["td34"]["freight_at_own_tce_usd_t"], "td34.freight_t", "usd_t"),
-                " a tonne against TD3C's ",
-                usd(chains["td3c_freight_at_own_tce_usd_t"], "td3c.freight_t", "usd_t"),
-                ", for a cargo already in the Gulf of Oman.",
+                *(
+                    [
+                        " a tonne at TD3C's TCE. TD34 loads outside the strait: the Baltic assessed it at ",
+                        usd(chains["td34"]["published_tce_usd_day"], "td34.tce", "usd_day"),
+                        " a day against TD3C's ",
+                        usd(hz["td34_vs_td3c_published"]["td3c_tce_usd_day"], "td3c.tce", "usd_day"),
+                        " in the week to ",
+                        word(date_label(hz["as_of"]), "hormuz.as_of"),
+                        ", which puts its freight at ",
+                        usd(chains["td34"]["freight_at_own_tce_usd_t"], "td34.freight_t", "usd_t"),
+                        " a tonne against TD3C's ",
+                        usd(chains["td3c_freight_at_own_tce_usd_t"], "td3c.freight_t", "usd_t"),
+                        ", for a cargo already in the Gulf of Oman.",
+                    ]
+                    if chains["td34"]["published_tce_usd_day"] is not None
+                    # A week whose report prints no TD34 TCE: no other week's is set against TD3C's.
+                    else [
+                        " a tonne at TD3C's TCE. TD34 loads outside the strait, a cargo already in the Gulf of Oman; "
+                        "the Baltic printed no TCE for it in the week to ",
+                        word(date_label(hz["as_of"]), "hormuz.as_of"),
+                        ".",
+                    ]
+                ),
             ],
             "shuttle_range": "%s to %s" % (f"{shuttle['bbl_low_t']:,.2f}", f"{shuttle['bbl_high_t']:,.2f}"),
             "table_caption": "TD3C, Ras Tanura to Ningbo, bunkers of the week to %s; the premium is the charterer's, "
@@ -2360,16 +2372,19 @@ BASE_NAMES = {
 #: line in the list and its entry in the panel both carry it.
 ALT_QUALIFIERS = {
     ("P7", "no_canals-no_canals"): "before Panama tolls and waiting",
-    ("P7", "direct-no_canals"): "before Panama tolls",
-    ("P7", "no_canals-direct"): "before Panama tolls",
+    # Each keeps one of the base's two transits, so a wait at the canal decides it as a toll does.
+    ("P7", "direct-no_canals"): "before Panama tolls and waiting",
+    ("P7", "no_canals-direct"): "before Panama tolls and waiting",
     ("TD22", "no_canals_no_sunda-no_panama"): "before Suez tolls",
     ("TC20", "no_suez-no_suez"): "before Suez tolls",
-    ("QD_RTM_PMX", "cape"): "before Suez tolls",
+    # Suez's freight is before its toll and its time at the canal, as both entries say.
+    ("QD_RTM_PMX", "cape"): "before Suez tolls and waiting",
     ("QD_RTM_PMX", "panama"): "before tolls and waiting",
     ("TD3C", "td34"): "another cargo, loading outside the strait",
     # The transfer costs more than loading at Ras Tanura only while its export VLCC earns TD3C's TCE: priced at
-    # TD34's, the TCE of a loading outside the strait, it costs less.
-    ("TD3C", "transfer"): "the export VLCC at TD3C's TCE",
+    # TD34's, the TCE of a loading outside the strait, it costs less. The transfer's own cost and days have no
+    # public figure, as its entry says.
+    ("TD3C", "transfer"): "the export VLCC at TD3C's TCE, before the transfer's own cost and days",
     ("TD3C", "waiting"): "",
 }
 #: What decides a routing beyond its figures, said wherever the routing is weighed: a Jubail loading is Saudi
@@ -2703,9 +2718,9 @@ def _war_fact(code: str, f: Mapping[str, Any], st: Mapping[str, Any]) -> dict[st
 # Every change an alternative shows is taken against the base its panel lists first, from the two figures as the
 # page shows them, and written as an unsigned figure with a word ("USD 2.46 a tonne more"). Its line in the list
 # sits beside the route's own figure, so where the base is not that figure (the engine's TCE beside the Baltic's,
-# a cost of carriage beside a TCE) the line names the base and gives its figure; the study's lines are freight, as
-# its row is. Its name on the map carries its days alone: a money change there would be read against the figure
-# under the map, which is the route's, not the base's.
+# a cost of carriage beside a TCE) the line names the base and gives its figure in its unit; the study's lines are
+# freight, as its row is. Its name on the map carries its days alone: a money change there would be read against
+# the figure under the map, which is the route's, not the base's.
 
 
 def _days_and_change(days: float, base_days: float, field: str) -> list[Any]:
@@ -2753,8 +2768,8 @@ def _money_changes(changes: Sequence[float], fmt: str, fields: Sequence[str], jo
 
 
 def _alt_line(short: str, days: list[Any], money: list[Any], qualifier: str) -> list[Any]:
-    """An alternative's line in the list: '<name>: <days> days, <change>[ than <base> (<its figure>)], <qualifier>',
-    the qualifier that decides the change always with it, as in the panel's text."""
+    """An alternative's line in the list: '<name>: <days> days, <change>[ than <base> of <its figure and unit>],
+    <qualifier>', the qualifier that decides the change always with it, as in the panel's text."""
     line: list[Any] = [short + ": ", *days]
     if money:
         line += [", ", *money]
@@ -2769,10 +2784,10 @@ def _map_name(short: str, days: list[Any]) -> list[Any]:
     return [short + ": ", *days]
 
 
-def _than(words: str, value: float, fmt: str, field: str) -> list[Any]:
-    """' than the engine's TCE by Suez (342,369)': the base a change is taken against, where the row shows another
-    figure."""
-    return [" than %s (" % words, fig(value, fmt, field), ")"]
+def _than(lead: str, value: float, fmt: str, field: str, where: str = "") -> list[Any]:
+    """' than the owner's TCE of USD 342,369 a day by Suez', ' than the USD 285.00 a tonne at Ras Tanura': the base
+    a change is taken against, where the row shows another figure, its figure in its unit as the panel writes it."""
+    return [" than " + lead, usd(value, field, fmt), CHANGE_WORDS[fmt][0] + where]
 
 
 def _left_out_added(alt: Mapping[str, Any], base_excluded: Sequence[str], base_war_area: bool) -> list[str]:
@@ -2968,17 +2983,16 @@ def _td34_tce_change(alt: Mapping[str, Any], f: Mapping[str, Any], field: str) -
     return _money_change(_change(alt["tce_usd_day"], f["tce_usd_day"], "usd_day"), "usd_day", field + ".tce_change")
 
 
-def _td34_option(
-    alt: Mapping[str, Any], base: Mapping[str, Any], f: Mapping[str, Any], date: str, field: str
-) -> list[Any]:
-    """TD34 beside TD3C: another cargo for the same ship, loading outside the strait, at the Baltic's TCE."""
+def _td34_option(alt: Mapping[str, Any], base: Mapping[str, Any], f: Mapping[str, Any], field: str) -> list[Any]:
+    """TD34 beside TD3C: another cargo for the same ship, loading outside the strait, at the Baltic's TCE of its own
+    week (atlas.td3c_alternatives holds it to TD3C's)."""
     against = _td34_tce_change(alt, f, field)
     return [
         *_days_and_change(alt["days"], base["days"], field),
         "; the Baltic's round-trip TCE ",
         usd(alt["tce_usd_day"], field + ".tce_usd_day", "usd_day"),
         " a day on ",
-        word(date_label(date), "date"),
+        word(date_label(alt["week_ending"]), "date"),
         *([", ", *against, " than TD3C's"] if against else []),
         ". At the engine's days and costs that is a freight of ",
         usd(alt["freight_needed_usd_t"], field + ".freight_needed_usd_t", "usd_t"),
@@ -3088,8 +3102,8 @@ def _waiting_text(alt: Mapping[str, Any], base: Mapping[str, Any], field: str) -
 
 
 def _waiting_line(alt: Mapping[str, Any], base: Mapping[str, Any], field: str) -> list[Any]:
-    """'Waiting: +5, +10 or +20 days, USD 68.57, 137.15 or 230.69 a tonne more to carry than with no wait
-    (285.00)', for the list."""
+    """'Waiting: +5, +10 or +20 days, USD 68.57, 137.15 or 230.69 a tonne more to carry than the USD 285.00 a tonne
+    with no wait', for the list."""
     waits = alt["waits"]
     changes = _money_changes(
         [_change(w["carriage_usd_t"], base["carriage_usd_t"], "usd_t") for w in waits],
@@ -3106,21 +3120,26 @@ def _waiting_line(alt: Mapping[str, Any], base: Mapping[str, Any], field: str) -
 
 
 def _tce_against(
-    alt: Mapping[str, Any], base: Mapping[str, Any], f: Mapping[str, Any], words: str, field: str
+    alt: Mapping[str, Any], base: Mapping[str, Any], f: Mapping[str, Any], lead: str, field: str, where: str = ""
 ) -> list[Any]:
     """A routing's TCE change against its base, and the base named with its figure where the route's row shows
-    another figure (the Baltic's TCE beside the engine's): 'USD 7,270 a day higher than the engine's TCE (463,639)'."""
+    another figure (the Baltic's TCE beside the engine's): 'USD 7,270 a day higher than the engine's TCE of
+    USD 463,639 a day'."""
     money = _money_change(_change(alt["tce_usd_day"], base["tce_usd_day"], "usd_day"), "usd_day", field + ".tce_change")
     shown = f["tce_usd_day"]
     if shown is None or _shown(shown, "usd_day") != _shown(base["tce_usd_day"], "usd_day"):
-        money += _than(words, base["tce_usd_day"], "usd_day", "alternatives.base.tce_usd_day")
+        money += _than(lead, base["tce_usd_day"], "usd_day", "alternatives.base.tce_usd_day", where)
     return money
 
 
-def _carriage_against(changes: list[Any], words: str, base: Mapping[str, Any]) -> list[Any]:
+def _carriage_against(changes: list[Any], where: str, base: Mapping[str, Any]) -> list[Any]:
     """A cost of carriage against loading at Ras Tanura, which TD3C's row, a TCE a day, does not show: 'USD 60.78 to
-    90.41 a tonne more to carry than at Ras Tanura (285.00)'."""
-    return [*changes, " to carry", *_than(words, base["carriage_usd_t"], "usd_t", "alternatives.base.carriage_usd_t")]
+    90.41 a tonne more to carry than the USD 285.00 a tonne at Ras Tanura'."""
+    return [
+        *changes,
+        " to carry",
+        *_than("the ", base["carriage_usd_t"], "usd_t", "alternatives.base.carriage_usd_t", " " + where),
+    ]
 
 
 def _alternative(
@@ -3149,16 +3168,18 @@ def _alternative(
         short, name = ROUTING_NAMES[(code, alt["routing"]["laden"], alt["routing"]["ballast"])]
         text = _routing_text(code, alt, base, base_excluded, base_war_area, field)
         days = _days_line(alt["days"], base["days"], field)
-        line = _alt_line(short, days, _tce_against(alt, base, f, "the engine's TCE", field), qualifier)
+        line = _alt_line(short, days, _tce_against(alt, base, f, "the engine's TCE of ", field), qualifier)
     elif code == "TC20":
+        # The base is the owner's TCE by Suez, as the panel's base entry, Detours and the note name it: the engine's
+        # figure less the owner's Red Sea premium for the ballast transit.
         short, name = ROUTING_NAMES[(code, "no_suez", "no_suez")]
         text = _tc20_cape(alt, base, field)
         days = _days_line(alt["days"], base["days"], field)
-        line = _alt_line(short, days, _tce_against(alt, base, f, "the engine's TCE by Suez", field), qualifier)
+        line = _alt_line(short, days, _tce_against(alt, base, f, "the owner's TCE of ", field, " by Suez"), qualifier)
     elif alt["id"] == "td34":
         # Another cargo, not a way to carry TD3C's: its line sets its TCE against TD3C's, the figure the row shows.
         short, name = "TD34", "TD34: another cargo for the same ship, loading at Mina Al Fahal outside the strait"
-        text = _td34_option(alt, base, f, date, field)
+        text = _td34_option(alt, base, f, field)
         days = _days_line(alt["days"], base["days"], field)
         line = _alt_line(short, days, _td34_tce_change(alt, f, field), qualifier)
     elif alt["id"] == "transfer":
@@ -4164,7 +4185,7 @@ def atlas_page(
             },
             "panel": {
                 "back": "Back to the list",
-                "same": "Its line runs for most of the way with these routes:",
+                "same": "Its line runs for most of the way with:",
                 "split": {"ballast": "Ballast", "laden": "Laden", "port": "Port and waiting"},
                 "alternatives": "Other ways to sail it",
                 "links": "More on this route",

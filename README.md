@@ -180,12 +180,12 @@ every route the study prices on one map of the world, each loading area
 labelled with its routes and their TCEs, the other routings the study prices
 dotted, and beside the map the list of routes with their TCE and round voyage
 days, each other routing a line under its route with what it changes against
-its base, the base named with its figure where the row shows another. A
-route picked on the map or in the list is framed on the map with its ballast
-leg, its emission control stretches and its other routings, each named with
-its days, while the column beside it gives its figures and what each other
-way would cost; the address keeps the choice, and Back closes the route in
-one step. **Overview**,
+its base, the base named with its figure and unit where the row shows
+another. A route picked on the map or in the list is framed on the map with
+its ballast leg, its emission control stretches and its other routings, each
+named with its days, while the column beside it gives its figures and what
+each other way would cost; the address keeps the choice, and Back closes the
+route in one step. **Overview**,
 the featured voyage at the latest anchor, its bridge from freight to TCE and
 its map; **Calculator**, every input in five steps; **Routes**; **Detours**;
 **Carbon**; **Paper**; and **Method**, every convention with the text it is
@@ -196,8 +196,8 @@ view at 1440, 768, 390 and 320 pixels in both themes.
 TC20 picked on the Map: its line by Suez in the accent colour, its ballast
 leg dashed beside it, and the routing round the Cape dotted and named with
 its 31.5 more days. Beside the map, its entry gives the Cape's TCE, USD
-132,196 a day lower than the engine's TCE by Suez, before Suez tolls: if war
-cover can be placed, Suez stays the better way until the tolls of its two
+132,196 a day lower than the owner's TCE by Suez, before Suez tolls; Suez
+stays the better way, if war cover can be placed, until the tolls of its two
 transits pass USD 7.00 million.
 
 ![The Map view with TC20 picked, desktop width, light theme](assets/map-route-desktop-light.png)
@@ -279,9 +279,10 @@ Makefile). The note is set in the Liberation fonts, read from
 
 Two more need a browser and the local server, so they sit beside the gate:
 `make browser` runs `tools/check-site.mjs`, which draws every view at 1440 and
-320 pixels, takes the Map through its picks, history, focus and drawing, and
-drives the calculator's form against the engine, and `make site`
-writes the README's screenshots into `assets/`. The build workflow runs the
+320 pixels, takes the Map through its picks, history, focus and drawing and
+through a finger's taps and the mouse's moves and clicks, and drives the calculator's
+form against the engine, and `make site` writes the README's screenshots into
+`assets/`. The build workflow runs the
 browser check on every push to `main` and every pull request, then every view
 at four widths in both themes,
 closed and with every section open. `make note` writes the research note again

@@ -447,7 +447,7 @@ def atlas_artifact(
         elif code == "TC20":
             alternatives = atlas.tc20_alternatives(st, figures)
         elif code == "TD3C":
-            alternatives = atlas.td3c_alternatives(hz)
+            alternatives = atlas.td3c_alternatives(hz, preset["date"], latest["TD34"]["date"])
         else:
             alternatives = []
         legs = [preset["legs"]["laden"]["key"], preset["legs"]["ballast"]["key"]]

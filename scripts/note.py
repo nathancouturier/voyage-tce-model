@@ -549,7 +549,7 @@ def build(out: Path) -> int:
     register_fonts()
     presets = export.presets()
     overview = export.overview(presets)
-    detours = export.detours_artifact()
+    detours = export.detours_artifact(analysis.suez_tanker(), analysis.suez_dry(), analysis.hormuz())
     paper = export.paper_artifact()
     method = export.method_artifact()
     featured = next(x for x in presets if x["id"] == overview["featured"])
@@ -1044,15 +1044,30 @@ def build(out: Path) -> int:
             )
         )
     )
+    if chains["td34"]["published_tce_usd_day"] is not None:
+        td34_words = (
+            "The Baltic assessed TD34, a cargo loading outside the strait, at %s a day against TD3C's %s in the week "
+            "to %s, which the engine turns into freight of %s a tonne against %s."
+            % (
+                usd(chains["td34"]["published_tce_usd_day"], "usd_day"),
+                usd(hz["td34_vs_td3c_published"]["td3c_tce_usd_day"], "usd_day"),
+                date_label(latest_level["week_ending"]),
+                usd(chains["td34"]["freight_at_own_tce_usd_t"], "usd_t"),
+                usd(chains["td3c_freight_at_own_tce_usd_t"], "usd_t"),
+            )
+        )
+    else:
+        # A week whose report prints no TD34 TCE: no other week's is set against TD3C's.
+        td34_words = "The Baltic printed no TCE for TD34, a cargo loading outside the strait, in the week to %s." % (
+            date_label(latest_level["week_ending"])
+        )
     story.append(
         p(
             "Hormuz. A TD3C voyage spends %s days inside the Gulf, one seven day period of premium; each further week "
             "of waiting adds a period for the charterer and the TCE it forgoes for the owner. Loading off Fujairah, "
             "the export VLCC sails %s fewer days, but the shuttle through the "
             "strait was reported at USD&nbsp;%s to %s a barrel (about %s to %s a tonne) and at %s a transit, and the "
-            "transfer's own cost has no public figure. The Baltic assessed TD34, a cargo loading outside the strait, "
-            "at %s a day against TD3C's %s in the week to %s, which the engine turns into freight of %s a tonne "
-            "against %s."
+            "transfer's own cost has no public figure. %s"
             % (
                 number(hz_scen["war_low"]["days_inside_gulf"], "days"),
                 number(abs(chains["sts"]["extra_days"]), "days"),
@@ -1061,11 +1076,7 @@ def build(out: Path) -> int:
                 usd(shuttle["bbl_low_t"], "usd_t"),
                 usd(shuttle["bbl_high_t"], "usd_t"),
                 usd_m(shuttle["transit_usd"], "usd_m_0"),
-                usd(chains["td34"]["published_tce_usd_day"], "usd_day"),
-                usd(hz["td34_vs_td3c_published"]["td3c_tce_usd_day"], "usd_day"),
-                date_label(latest_level["week_ending"]),
-                usd(chains["td34"]["freight_at_own_tce_usd_t"], "usd_t"),
-                usd(chains["td3c_freight_at_own_tce_usd_t"], "usd_t"),
+                td34_words,
             )
         )
     )

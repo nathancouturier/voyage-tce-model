@@ -316,7 +316,8 @@ def _stand_still(option: dict[str, Any], base: dict[str, Any], cargo_t: float) -
 
 
 def suez_tanker() -> dict[str, Any]:
-    """TC20 (Jubail to Rotterdam, LR2) at the latest week: Suez against the Cape, with the war risk premiums.
+    """TC20 (Jubail to Rotterdam, LR2) at the latest week that rates it: Suez against the Cape, with the war risk
+    premiums.
 
     Both routings load inside the Gulf, so both pay the Gulf premium; Suez also
     pays the Red Sea premium on each transit. On the usual spot terms the
@@ -324,8 +325,14 @@ def suez_tanker() -> dict[str, Any]:
     carriage, not the owner's TCE; the ballast transit, the approach to the
     next loading, is the owner's and comes off its TCE by Suez.
     """
-    report = cases.seed("anchors.json")["tanker_weekly"]["reports"][-1]
-    entry = next(e for e in report["entries"] if e["route"] == "TC20")
+    # The latest report with a TC20 rate, as the calculator's preset takes it (export._latest_rates): a newer report
+    # that leaves TC20 out does not move the study.
+    report, entry = next(
+        (r, e)
+        for r in reversed(cases.seed("anchors.json")["tanker_weekly"]["reports"])
+        for e in r["entries"]
+        if e["route"] == "TC20"
+    )
     market = cases.weekly_market(report["week_ending"], cases.route_hub(baltic.ROUTES["TC20"]))
     suez_case = cases.build("TC20", market, freight_value=entry["rate_value"], freight_basis="lump_sum")
     red_sea = _rate("bab_el_mandeb_2026_07")
@@ -525,8 +532,14 @@ def hormuz() -> dict[str, Any]:
     charterer further seven day periods of premium. Loading off Fujairah after
     a transfer, and TD34 from Mina Al Fahal, are a different cargo chain: the
     export ship's voyage is priced, the shuttle and the transfer are not.
+
+    The bunkers and the Baltic's TCEs of TD3C and TD34 the chains are priced
+    at are of one week, the latest level's: the study's as_of. A week whose
+    report prints no TD34 TCE leaves TD34's own figures, its TCE and the
+    freight that earns it, None: no other week's is set against TD3C's.
     """
-    market = cases.weekly_market("2026-10-23", "fujairah")
+    week = HORMUZ_LEVELS[-1][0]
+    market = cases.weekly_market(week, "fujairah")
     base_case = cases.build("TD3C", market, freight_value=0.0, freight_basis="usd_t")
     hull = base_case.inputs["war_risk"]["hull_value_usd"]
     marsh = _rate("hormuz_2026_07_22")
@@ -554,9 +567,13 @@ def hormuz() -> dict[str, Any]:
 
     report = {r["week_ending"]: r for r in cases.seed("anchors.json")["tanker_weekly"]["reports"]}
     levels = []
-    for week, label in HORMUZ_LEVELS:
-        entry = next(e for e in report[week]["entries"] if e["route"] == "TD3C")
-        levels.append({"week_ending": week, "label": label, "tce_usd_day": entry["tce_usd_day"]})
+    for level_week, label in HORMUZ_LEVELS:
+        # Each level keeps the Baltic's TD3C TCE of its week, so a report of that week must print one.
+        entries = report[level_week]["entries"] if level_week in report else []
+        tce = next((e["tce_usd_day"] for e in entries if e["route"] == "TD3C"), None)
+        if not tce:
+            raise ValueError("HORMUZ_LEVELS: no report of the week to %s prints a TD3C TCE for its level" % level_week)
+        levels.append({"week_ending": level_week, "label": label, "tce_usd_day": tce})
     cargo = baltic.ROUTES["TD3C"].cargo_t or 0.0
     base_option = _option("base", base_case)
     rows = []
@@ -601,7 +618,9 @@ def hormuz() -> dict[str, Any]:
     sts_route = replace(baltic.ROUTES["TD3C"], code="TD3C_STS", load="fujairah")
     sts_case = cases.build("TD3C", market, freight_value=0.0, freight_basis="usd_t", route=sts_route)
     td34 = cases.build("TD34", market, freight_value=0.0, freight_basis="usd_t")
-    published = {e["route"]: e["tce_usd_day"] for e in report["2026-10-23"]["entries"] if e["tce_usd_day"]}
+    published = {e["route"]: e["tce_usd_day"] for e in report[week]["entries"] if e["tce_usd_day"]}
+    # Not every week's report prints TD34: without its TCE of this week, TD34 is set against nothing.
+    td34_tce = published.get("TD34")
     base_latest = engine.freight_for_tce(base_case.inputs, latest)["usd_t"]
 
     def chain(label: str, case: cases.Case) -> dict[str, Any]:
@@ -632,8 +651,8 @@ def hormuz() -> dict[str, Any]:
         "sts": chain("Export VLCC from Fujairah after a transfer", sts_case),
         "td34": dict(
             chain("TD34, a cargo loading at Mina Al Fahal", td34),
-            freight_at_own_tce_usd_t=engine.freight_for_tce(td34.inputs, published["TD34"])["usd_t"],
-            published_tce_usd_day=published["TD34"],
+            freight_at_own_tce_usd_t=engine.freight_for_tce(td34.inputs, td34_tce)["usd_t"] if td34_tce else None,
+            published_tce_usd_day=td34_tce,
         ),
         "td3c_freight_at_own_tce_usd_t": base_latest,
         "shuttle": [
@@ -642,7 +661,7 @@ def hormuz() -> dict[str, Any]:
         ],
     }
     return {
-        "as_of": "2026-10-23",
+        "as_of": week,
         "hull_value_usd": hull,
         "war_risk_source": marsh["id"],
         "levels": levels,
@@ -651,7 +670,7 @@ def hormuz() -> dict[str, Any]:
         "days_inside_to_58e": _days_inside_to(base_case, GULF_OF_OMAN_EDGE_LON),
         "td34_vs_td3c_published": {
             "td3c_tce_usd_day": published["TD3C"],
-            "td34_tce_usd_day": published["TD34"],
+            "td34_tce_usd_day": td34_tce,
         },
     }
 

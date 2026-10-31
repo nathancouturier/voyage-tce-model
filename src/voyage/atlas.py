@@ -84,6 +84,10 @@ class TooFewTcesError(ValueError):
     """Fewer than two of the Baltic's TCEs share a date, so the map has no highest and lowest to name that week."""
 
 
+class MixedWeeksError(ValueError):
+    """TD3C's figure and the Hormuz study its options are priced at, TD34's TCE among them, are of different weeks."""
+
+
 def latest(preset_list: Sequence[Mapping[str, Any]]) -> dict[str, Mapping[str, Any]]:
     """The preset the calculator opens for each route: its latest date, a latest preset before an anchor of that day."""
     out: dict[str, Mapping[str, Any]] = {}
@@ -459,7 +463,7 @@ def tc20_alternatives(st: Mapping[str, Any], base: Mapping[str, Any]) -> list[di
     ]
 
 
-def td3c_alternatives(hz: Mapping[str, Any]) -> list[dict[str, Any]]:
+def td3c_alternatives(hz: Mapping[str, Any], week: str, td34_week: str) -> list[dict[str, Any]]:
     """TD3C's Hormuz options, as the Detours view prices them (analysis.hormuz) at the latest TCE level.
 
     Every option is a cost of carriage a tonne: the freight that earns the
@@ -472,7 +476,21 @@ def td3c_alternatives(hz: Mapping[str, Any]) -> list[dict[str, Any]]:
     the shuttle beside it at its reported cost; TD34, another cargo loading
     outside the strait, at its own. No dated premium was found for a loading in
     the Gulf of Oman, so neither carries one.
+
+    `week` and `td34_week` are the weeks of TD3C's and TD34's figures, their
+    latest presets' dates. Every option is priced at the study's week, so
+    TD3C's figure must be of it: a report newer than the study's, added by
+    hand, stops the build rather than mix them. TD34's TCE of that week is set
+    against TD3C's only where TD34's own row shows it: a week whose report
+    prints no TD34 TCE, or a TD34 row of another week, leaves TD34 out rather
+    than set two weeks against each other.
     """
+    if hz["as_of"] != week:
+        raise MixedWeeksError(
+            "TD3C's figure is of the week to %s, but the Hormuz study its options are priced at (analysis.hormuz) is "
+            "of the week to %s: move the last of HORMUZ_LEVELS to %s, a week whose report must print TD3C's TCE; "
+            "where that report prints no TD34 TCE, TD34 is left out of TD3C's options" % (week, hz["as_of"], week)
+        )
     chains = hz["chains"]
     latest_week = hz["levels"][-1]["week_ending"]
     scenarios = {s["id"]: s for s in hz["scenarios"]}
@@ -510,6 +528,8 @@ def td3c_alternatives(hz: Mapping[str, Any]) -> list[dict[str, Any]]:
     carriage = [export_t + shuttle["low"] * barrels / cargo, export_t + shuttle["high"] * barrels / cargo]
     # The shortest wait after which loading at Ras Tanura costs more than the transfer at its low end.
     above = next((w for w in waits if w["carriage_usd_t"] > carriage[0]), None)
+    # TD34's TCE of the study's week, where TD34's own row shows that week's: the figure its line is read against.
+    td34_shown = td34["published_tce_usd_day"] is not None and td34_week == hz["as_of"]
     return [
         {
             "id": "base",
@@ -522,22 +542,30 @@ def td3c_alternatives(hz: Mapping[str, Any]) -> list[dict[str, Any]]:
             "carriage_usd_t": base_carriage,
             "premium_pct": analysis._rate(hz["war_risk_source"])["low"],
         },
-        {
-            "id": "td34",
-            "kind": "option",
-            "legs": ["mina_al_fahal__ningbo__direct", "ningbo__mina_al_fahal__direct"],
-            "laden_nm": td34["laden_nm"],
-            "days": td34["days"],
-            "days_change": td34["extra_days"],
-            "tce_usd_day": td34["published_tce_usd_day"],
-            "tce_basis": "baltic",
-            "freight_needed_usd_t": td34["freight_at_own_tce_usd_t"],
-            "td3c_freight_usd_t": freight,
-            # No premium is priced off Mina Al Fahal, so its cost of carriage is its freight.
-            "carriage_usd_t": td34["freight_at_own_tce_usd_t"],
-            "change_usd_t": td34["freight_at_own_tce_usd_t"] - base_carriage,
-            "excluded": list(td34["excluded"]),
-        },
+        *(
+            [
+                {
+                    "id": "td34",
+                    "kind": "option",
+                    "legs": ["mina_al_fahal__ningbo__direct", "ningbo__mina_al_fahal__direct"],
+                    "laden_nm": td34["laden_nm"],
+                    "days": td34["days"],
+                    "days_change": td34["extra_days"],
+                    "tce_usd_day": td34["published_tce_usd_day"],
+                    # The week of TD34's TCE, which its entry is dated by.
+                    "week_ending": hz["as_of"],
+                    "tce_basis": "baltic",
+                    "freight_needed_usd_t": td34["freight_at_own_tce_usd_t"],
+                    "td3c_freight_usd_t": freight,
+                    # No premium is priced off Mina Al Fahal, so its cost of carriage is its freight.
+                    "carriage_usd_t": td34["freight_at_own_tce_usd_t"],
+                    "change_usd_t": td34["freight_at_own_tce_usd_t"] - base_carriage,
+                    "excluded": list(td34["excluded"]),
+                }
+            ]
+            if td34_shown
+            else []
+        ),
         {
             "id": "transfer",
             "kind": "option",

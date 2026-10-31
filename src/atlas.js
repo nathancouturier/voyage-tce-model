@@ -20,8 +20,18 @@
  *
  * The line under the map says what the pointer is on, or the route picked:
  * one line in the page, never a box over the lines it describes, and the same
- * line a phone shows. It is not a live region: a choice moves focus to the
- * route's heading instead.
+ * line a phone shows. Where a pointer on the map can change it, it keeps the
+ * room of the tallest line a pointer can bring at that width, so nothing
+ * under it moves as the pointer moves. A row of the list pointed at or
+ * focused raises its route on the map and, from 1100px, where the line is
+ * under the map in the map's own column, names it in the line too; below
+ * that the line sits above the list, where a line that grew would move the
+ * row under the pointer or the finger, so a row leaves it as it stands. On a
+ * map too narrow for labels a pointer on the map leaves it too, and it
+ * changes only with a pick. A touch on a row is not a pointer resting on it
+ * (the map ignores a touch's moves too); the focus a tap gives the row raises
+ * its route. It is not a live region: a choice moves focus to the route's
+ * heading instead.
  *
  * The address keeps the choice: #/map?route=TD3C&segment=dirty. Opening a
  * route from the list is a history entry, marked as opened over the list in
@@ -146,6 +156,8 @@ export function render(root, data, route) {
     state: { route: null, segment: "all" },
     // The longest bar is the highest TCE among the rows that carry one.
     top: Math.max(...atlas.items.filter(hasBar).map((item) => item.tce_usd_day)),
+    // Each route's place in the list with every segment shown, the order the line under the map names routes in.
+    order: new Map(page.groups.flatMap((group) => groupRows(atlas.items, group, "all")).map((item, i) => [item.id, i])),
   };
   view.map = atlasMap(frame, data.map.land, data.map.atlas, atlas.items, atlas.clusters, page.map, decimals, {
     select: (id) => pick(id),
@@ -155,8 +167,8 @@ export function render(root, data, route) {
       const press = view.toggles.get(id);
       if (press) press({ fromMap: true });
     },
-    hover: (id, sharing) => hover(id, sharing),
-    labels: (mode) => labelsDrawn(mode),
+    hover: (id, sharing, fromList) => hover(id, sharing, fromList),
+    labels: (mode, waters) => labelsDrawn(mode, waters),
   });
 
   // One listener for the page's life: it acts only while this view is on screen with a route open.
@@ -306,11 +318,18 @@ function focusRow(id) {
   if (target) target.focus({ preventScroll: false });
 }
 
+/* From 1100px the map, the line under it and the legend stay on screen in
+ * their own column beside the list (a sticky block in styles/components.css);
+ * below, they come first in one column, and the list follows. */
+function mapBeside() {
+  return getComputedStyle(view.sticky).position === "sticky";
+}
+
 /* Below 1100px the map does not stay on screen, so a routing shown from its
  * toggle down the column would change a map out of sight: the map is brought
  * into view, at once, and focus stays on the toggle. */
 function showMap(toggle) {
-  if (getComputedStyle(view.sticky).position === "sticky") return;
+  if (mapBeside()) return;
   const box = view.frame.getBoundingClientRect();
   // Within a pixel, as the page scrolls by whole pixels and the map may not sit on one.
   if (box.top > -1 && box.bottom < window.innerHeight + 1) return;
@@ -346,13 +365,15 @@ function intoRoute(link, id) {
 /* ---------------------------------------------------- the line under the map --- */
 
 /* What the map's labels carry decides the key to them, which shows only while
- * they carry figures, and the words over and under the map. */
-function labelsDrawn(mode) {
+ * they carry figures, and the words over and under the map; the room kept
+ * for the line under it follows each drawing. */
+function labelsDrawn(mode, waters) {
   view.labelsNote.hidden = mode !== "figures";
   // With a route picked the labels are its own; the list's mode is kept for when it closes.
   if (mode !== "route") view.labels = mode;
   writeHeading();
   writeCaption();
+  keepRoom(waters);
 }
 
 /* The heading over the map: the route picked, else what the map shows, with
@@ -363,30 +384,85 @@ function writeHeading() {
   mapHeading.textContent = item ? item.map_title : view.labels === "figures" ? page.map.title : page.map.title_narrow;
 }
 
-/* What the pointer is on, else the route picked, else how to start: on a map
- * too narrow for labels or a tap, from the list below it. */
-function hover(id, sharing) {
-  view.hovered = id ? { id, sharing: sharing || [] } : null;
+/* What the map points at, found by the pointer on it or raised by a row of
+ * the list (`fromList`): the row of its route marked, and the line under the
+ * map written again where it names what the map pointed at or points at
+ * now; elsewhere it is left as it stands. */
+function hover(id, sharing, fromList) {
+  const named = captioned();
+  view.hovered = id ? { id, sharing: sharing || [], fromList } : null;
   for (const row of view.body.querySelectorAll(".atlas-row[data-item]")) row.classList.toggle("is-hover", row.getAttribute("data-item") === id);
-  writeCaption();
+  if (named || captioned()) writeCaption();
 }
 
+/* A row left by the pointer or by focus clears what the map points at only
+ * while that is still the row's route, not a route the pointer has found on
+ * the map since. */
+function unhover(id) {
+  if (view.hovered && view.hovered.id === id) view.map.hover(null);
+}
+
+/* What the map points at, where the line under it names it: a route the
+ * pointer found on the map, except on a map too narrow for labels; a row's
+ * route only from 1100px, where the line is not above the list. */
+function captioned() {
+  const { hovered } = view;
+  if (!hovered) return null;
+  return (hovered.fromList ? mapBeside() : view.labels !== "none") ? hovered : null;
+}
+
+/* What the map points at where the line names it, else the route picked,
+ * else how to start: on a map too narrow for labels or a tap, from the list
+ * below it. */
 function writeCaption() {
-  const { caption, page, decimals, byId } = view;
+  const { caption, page, byId } = view;
   clear(caption);
-  // Two lines are kept for it where a pointer can change it; on a map too narrow for labels and taps it changes only with a pick.
+  // Room is kept for it where a pointer on the map can change it (keepRoom); on a map too narrow for labels and taps
+  // it changes only with a pick.
   caption.classList.toggle("atlas-caption--still", view.labels === "none");
-  const shown = view.hovered ? byId.get(view.hovered.id) : view.state.route ? byId.get(view.state.route) : null;
+  const named = captioned();
+  const shown = named ? byId.get(named.id) : view.state.route ? byId.get(view.state.route) : null;
   if (!shown) {
     caption.textContent = view.labels === "none" ? page.map.idle_narrow : page.map.idle;
     return;
   }
-  appendSegments(caption, shown.readout, decimals);
-  const sharing = view.hovered ? view.hovered.sharing.map((id) => byId.get(id)).filter(Boolean) : [];
-  if (sharing.length) {
-    caption.appendChild(document.createTextNode(" "));
-    caption.appendChild(el("span", { class: "atlas-caption__same", text: page.map.same + listWords(sharing.map((other) => other.label)) }));
+  readoutInto(caption, shown, named ? named.sharing : []);
+}
+
+/* A route's readout, then the routes sharing the water the pointer is on,
+ * named in the list's order: into the line under the map, or into the copy
+ * of it where keepRoom measures. */
+function readoutInto(node, item, sharing) {
+  const { page, decimals, byId, order } = view;
+  appendSegments(node, item.readout, decimals);
+  const others = sharing.filter((id) => byId.has(id)).sort((a, b) => order.get(a) - order.get(b));
+  if (others.length) {
+    node.appendChild(document.createTextNode(" "));
+    node.appendChild(el("span", { class: "atlas-caption__same", text: page.map.same + listWords(others.map((id) => byId.get(id).label)) }));
   }
+}
+
+/* Room for the line under the map where a pointer on the map can change it,
+ * so nothing under it moves as the pointer moves: the height of the tallest
+ * line a pointer can bring at this width, each route's readout with the
+ * most routes a pointer on its lines can find beside it (the map's
+ * `waters`), measured in a hidden copy of the line. A pointer names fewer of
+ * them, in the same order, and so never takes more lines. Two lines are the
+ * least kept (styles/components.css). */
+function keepRoom(waters) {
+  const { caption, page, byId } = view;
+  if (view.labels === "none") return;
+  const copy = el("p", { class: "atlas-caption atlas-caption--copy", text: page.map.idle, attrs: { "aria-hidden": "true" } });
+  caption.after(copy);
+  copy.style.width = caption.getBoundingClientRect().width + "px";
+  let tallest = copy.getBoundingClientRect().height;
+  for (const [id, sharing] of waters()) {
+    clear(copy);
+    readoutInto(copy, byId.get(id), sharing);
+    tallest = Math.max(tallest, copy.getBoundingClientRect().height);
+  }
+  copy.remove();
+  caption.style.setProperty("--atlas-caption-room", tallest + "px");
 }
 
 /* The legend names only the lines the map draws now. With a route picked:
@@ -426,6 +502,16 @@ function hasBar(item) {
   return item.kind === "route" && !item.row.last && Number.isFinite(item.tce_usd_day);
 }
 
+/* A group's rows in the list, of the segment shown: highest first; a row
+ * that is not a TCE like the others (S4A's trip) is pinned last, outside the
+ * order. */
+function groupRows(items, group, segment) {
+  return items
+    .filter((item) => (item.kind === "study" ? group.id === "study" : item.segment === group.id && item.kind !== "study"))
+    .filter((item) => segment === "all" || item.segment === segment)
+    .sort((a, b) => Number(a.row.last) - Number(b.row.last) || (b.tce_usd_day || 0) - (a.tce_usd_day || 0));
+}
+
 function showList(segment) {
   const { atlas, page, decimals, body } = view;
   clear(body);
@@ -434,11 +520,7 @@ function showList(segment) {
     sentence("p", page.list.caption, decimals, "source-line atlas-list__caption"),
   ]);
   for (const group of page.groups) {
-    const rows = atlas.items
-      .filter((item) => (item.kind === "study" ? group.id === "study" : item.segment === group.id && item.kind !== "study"))
-      .filter((item) => segment === "all" || item.segment === segment)
-      // Highest first; a row that is not a TCE like the others (S4A's trip) is pinned last, outside the order.
-      .sort((a, b) => Number(a.row.last) - Number(b.row.last) || (b.tce_usd_day || 0) - (a.tce_usd_day || 0));
+    const rows = groupRows(atlas.items, group, segment);
     if (!rows.length) continue;
     const head = group.id === "study" && page.list.study_head ? page.list.study_head : page.list.head;
     list.appendChild(el("h3", { class: "atlas-group", text: group.name }));
@@ -480,10 +562,15 @@ function listRow(item, head) {
     hasBar(item) ? tceBar(item) : null,
   ]);
   intoRoute(row, item.id);
-  row.addEventListener("pointerenter", () => view.map.hover(item.id));
-  row.addEventListener("pointerleave", () => view.map.hover(null));
+  // A finger on the row is no pointer resting there, as on the map; the focus a tap gives it raises its route.
+  row.addEventListener("pointerenter", (event) => {
+    if (event.pointerType !== "touch") view.map.hover(item.id);
+  });
+  row.addEventListener("pointerleave", (event) => {
+    if (event.pointerType !== "touch") unhover(item.id);
+  });
   row.addEventListener("focus", () => view.map.hover(item.id));
-  row.addEventListener("blur", () => view.map.hover(null));
+  row.addEventListener("blur", () => unhover(item.id));
   return row;
 }
 
